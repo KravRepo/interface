@@ -1,0 +1,1691 @@
+{
+  "address": "0xb532cf9e5958D4dF72565A1250513f0f5228E5Ed",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_currentOrderId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "contract StorageInterfaceV5",
+          "name": "_storageT",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "FeeAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "FeeUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        }
+      ],
+      "name": "GroupAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "GroupUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "to",
+          "type": "string"
+        }
+      ],
+      "name": "PairAdded",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "index",
+          "type": "uint256"
+        }
+      ],
+      "name": "PairUpdated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "openFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "closeFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "oracleFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nftLimitOrderFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "referralFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minLevPosDai",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Fee",
+          "name": "_fee",
+          "type": "tuple"
+        }
+      ],
+      "name": "addFee",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "job",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxCollateralP",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Group",
+          "name": "_group",
+          "type": "tuple"
+        }
+      ],
+      "name": "addGroup",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "from",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "to",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "feed1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feed2",
+                  "type": "address"
+                },
+                {
+                  "internalType": "enum GNSPairsStorageV6.FeedCalculation",
+                  "name": "feedCalculation",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "maxDeviationP",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct GNSPairsStorageV6.Feed",
+              "name": "feed",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "spreadP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "groupIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "int256",
+              "name": "proportionBTC",
+              "type": "int256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Pair",
+          "name": "_pair",
+          "type": "tuple"
+        }
+      ],
+      "name": "addPair",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "from",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "to",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "feed1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feed2",
+                  "type": "address"
+                },
+                {
+                  "internalType": "enum GNSPairsStorageV6.FeedCalculation",
+                  "name": "feedCalculation",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "maxDeviationP",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct GNSPairsStorageV6.Feed",
+              "name": "feed",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "spreadP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "groupIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "int256",
+              "name": "proportionBTC",
+              "type": "int256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Pair[]",
+          "name": "_pairs",
+          "type": "tuple[]"
+        }
+      ],
+      "name": "addPairs",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "currentOrderId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "fees",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "openFeeP",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "closeFeeP",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "oracleFeeP",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nftLimitOrderFeeP",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "referralFeeP",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minLevPosDai",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feesCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_long",
+          "type": "bool"
+        }
+      ],
+      "name": "groupCollateral",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "groupMaxCollateral",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "groups",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "job",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minLeverage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxLeverage",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maxCollateralP",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "groupsCollaterals",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "groupsCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "guaranteedSlEnabled",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "name": "isPairListed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairCloseFeeP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairFeed",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "feed1",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "feed2",
+              "type": "address"
+            },
+            {
+              "internalType": "enum GNSPairsStorageV6.FeedCalculation",
+              "name": "feedCalculation",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxDeviationP",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Feed",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairJob",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairMaxLeverage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairMinLevPosDai",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairMinLeverage",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairNftLimitOrderFeeP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairOpenFeeP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairOracleFeeP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairReferralFeeP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairSpreadP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairs",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "from",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "to",
+          "type": "string"
+        },
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "feed1",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "feed2",
+              "type": "address"
+            },
+            {
+              "internalType": "enum GNSPairsStorageV6.FeedCalculation",
+              "name": "feedCalculation",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxDeviationP",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Feed",
+          "name": "feed",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint256",
+          "name": "spreadP",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "groupIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "feeIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "int256",
+          "name": "proportionBTC",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_index",
+          "type": "uint256"
+        }
+      ],
+      "name": "pairsBackend",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "from",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "to",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "feed1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feed2",
+                  "type": "address"
+                },
+                {
+                  "internalType": "enum GNSPairsStorageV6.FeedCalculation",
+                  "name": "feedCalculation",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "maxDeviationP",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct GNSPairsStorageV6.Feed",
+              "name": "feed",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "spreadP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "groupIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "int256",
+              "name": "proportionBTC",
+              "type": "int256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Pair",
+          "name": "",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "job",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxCollateralP",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Group",
+          "name": "",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "openFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "closeFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "oracleFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nftLimitOrderFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "referralFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minLevPosDai",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Fee",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pairsCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "openFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "closeFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "oracleFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "nftLimitOrderFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "referralFeeP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minLevPosDai",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Fee",
+          "name": "_fee",
+          "type": "tuple"
+        }
+      ],
+      "name": "updateFee",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "job",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "minLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxLeverage",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maxCollateralP",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Group",
+          "name": "_group",
+          "type": "tuple"
+        }
+      ],
+      "name": "updateGroup",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "_long",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "_increase",
+          "type": "bool"
+        }
+      ],
+      "name": "updateGroupCollateral",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_pairIndex",
+          "type": "uint256"
+        },
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "from",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "to",
+              "type": "string"
+            },
+            {
+              "components": [
+                {
+                  "internalType": "address",
+                  "name": "feed1",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "feed2",
+                  "type": "address"
+                },
+                {
+                  "internalType": "enum GNSPairsStorageV6.FeedCalculation",
+                  "name": "feedCalculation",
+                  "type": "uint8"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "maxDeviationP",
+                  "type": "uint256"
+                }
+              ],
+              "internalType": "struct GNSPairsStorageV6.Feed",
+              "name": "feed",
+              "type": "tuple"
+            },
+            {
+              "internalType": "uint256",
+              "name": "spreadP",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "groupIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "feeIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "int256",
+              "name": "proportionBTC",
+              "type": "int256"
+            }
+          ],
+          "internalType": "struct GNSPairsStorageV6.Pair",
+          "name": "_pair",
+          "type": "tuple"
+        }
+      ],
+      "name": "updatePair",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x17f5955a5acf3c9d1448531e1a4e1fd54ca480ad76c683bdd79ae5b38ad0d7a2",
+  "receipt": {
+    "to": null,
+    "from": "0x284f1b4a9C4B9495F79de62a55337e0a07cCF3fF",
+    "contractAddress": "0xb532cf9e5958D4dF72565A1250513f0f5228E5Ed",
+    "transactionIndex": 19,
+    "gasUsed": "2836411",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x150363e8ffee27e5307065bcd8af6b09da05f1b31e4bd6d6b0331adea9dd07dd",
+    "transactionHash": "0x17f5955a5acf3c9d1448531e1a4e1fd54ca480ad76c683bdd79ae5b38ad0d7a2",
+    "logs": [],
+    "blockNumber": 30988666,
+    "cumulativeGasUsed": "7828255",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [1, "0x896875b453161e89660F89e6D9dDe935c793aDe8"],
+  "numDeployments": 1,
+  "solcInputHash": "d9e911b7c48c581ed924bf1d179fe035",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_currentOrderId\",\"type\":\"uint256\"},{\"internalType\":\"contract StorageInterfaceV5\",\"name\":\"_storageT\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"FeeAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"FeeUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"}],\"name\":\"GroupAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"GroupUpdated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"from\",\"type\":\"string\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"to\",\"type\":\"string\"}],\"name\":\"PairAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"PairUpdated\",\"type\":\"event\"},{\"inputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"openFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"closeFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"oracleFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nftLimitOrderFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referralFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minLevPosDai\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Fee\",\"name\":\"_fee\",\"type\":\"tuple\"}],\"name\":\"addFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"job\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"minLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxCollateralP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Group\",\"name\":\"_group\",\"type\":\"tuple\"}],\"name\":\"addGroup\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"from\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"to\",\"type\":\"string\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"feed1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feed2\",\"type\":\"address\"},{\"internalType\":\"enum GNSPairsStorageV6.FeedCalculation\",\"name\":\"feedCalculation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"maxDeviationP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Feed\",\"name\":\"feed\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"spreadP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"feeIndex\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"proportionBTC\",\"type\":\"int256\"}],\"internalType\":\"struct GNSPairsStorageV6.Pair\",\"name\":\"_pair\",\"type\":\"tuple\"}],\"name\":\"addPair\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"from\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"to\",\"type\":\"string\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"feed1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feed2\",\"type\":\"address\"},{\"internalType\":\"enum GNSPairsStorageV6.FeedCalculation\",\"name\":\"feedCalculation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"maxDeviationP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Feed\",\"name\":\"feed\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"spreadP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"feeIndex\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"proportionBTC\",\"type\":\"int256\"}],\"internalType\":\"struct GNSPairsStorageV6.Pair[]\",\"name\":\"_pairs\",\"type\":\"tuple[]\"}],\"name\":\"addPairs\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"currentOrderId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"fees\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"openFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"closeFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"oracleFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nftLimitOrderFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referralFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minLevPosDai\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feesCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_long\",\"type\":\"bool\"}],\"name\":\"groupCollateral\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"groupMaxCollateral\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"groups\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"job\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"minLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxCollateralP\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"groupsCollaterals\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"groupsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"guaranteedSlEnabled\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"name\":\"isPairListed\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairCloseFeeP\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairFeed\",\"outputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"feed1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feed2\",\"type\":\"address\"},{\"internalType\":\"enum GNSPairsStorageV6.FeedCalculation\",\"name\":\"feedCalculation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"maxDeviationP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Feed\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairJob\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairMaxLeverage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairMinLevPosDai\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairMinLeverage\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairNftLimitOrderFeeP\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairOpenFeeP\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairOracleFeeP\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairReferralFeeP\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"}],\"name\":\"pairSpreadP\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pairs\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"from\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"to\",\"type\":\"string\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"feed1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feed2\",\"type\":\"address\"},{\"internalType\":\"enum GNSPairsStorageV6.FeedCalculation\",\"name\":\"feedCalculation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"maxDeviationP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Feed\",\"name\":\"feed\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"spreadP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"feeIndex\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"proportionBTC\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_index\",\"type\":\"uint256\"}],\"name\":\"pairsBackend\",\"outputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"from\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"to\",\"type\":\"string\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"feed1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feed2\",\"type\":\"address\"},{\"internalType\":\"enum GNSPairsStorageV6.FeedCalculation\",\"name\":\"feedCalculation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"maxDeviationP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Feed\",\"name\":\"feed\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"spreadP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"feeIndex\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"proportionBTC\",\"type\":\"int256\"}],\"internalType\":\"struct GNSPairsStorageV6.Pair\",\"name\":\"\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"job\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"minLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxCollateralP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Group\",\"name\":\"\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"openFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"closeFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"oracleFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nftLimitOrderFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referralFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minLevPosDai\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Fee\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pairsCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"openFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"closeFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"oracleFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nftLimitOrderFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"referralFeeP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minLevPosDai\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Fee\",\"name\":\"_fee\",\"type\":\"tuple\"}],\"name\":\"updateFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"bytes32\",\"name\":\"job\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"minLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxLeverage\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"maxCollateralP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Group\",\"name\":\"_group\",\"type\":\"tuple\"}],\"name\":\"updateGroup\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"_long\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"_increase\",\"type\":\"bool\"}],\"name\":\"updateGroupCollateral\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_pairIndex\",\"type\":\"uint256\"},{\"components\":[{\"internalType\":\"string\",\"name\":\"from\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"to\",\"type\":\"string\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"feed1\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"feed2\",\"type\":\"address\"},{\"internalType\":\"enum GNSPairsStorageV6.FeedCalculation\",\"name\":\"feedCalculation\",\"type\":\"uint8\"},{\"internalType\":\"uint256\",\"name\":\"maxDeviationP\",\"type\":\"uint256\"}],\"internalType\":\"struct GNSPairsStorageV6.Feed\",\"name\":\"feed\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"spreadP\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"groupIndex\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"feeIndex\",\"type\":\"uint256\"},{\"internalType\":\"int256\",\"name\":\"proportionBTC\",\"type\":\"int256\"}],\"internalType\":\"struct GNSPairsStorageV6.Pair\",\"name\":\"_pair\",\"type\":\"tuple\"}],\"name\":\"updatePair\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/GNSPairStorageV6.sol\":\"GNSPairsStorageV6\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":800},\"remappings\":[]},\"sources\":{\"contracts/GNSPairStorageV6.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\nimport './interfaces/StorageInterfaceV5.sol';\\npragma solidity 0.8.14;\\n\\ncontract GNSPairsStorageV6 {\\n\\n    // Contracts (constant)\\n    StorageInterfaceV5 immutable storageT;// = StorageInterfaceV5(0xaee4d11a16B2bc65EDD6416Fb626EB404a6D65BD);\\n\\n    // Params (constant)\\n    uint constant MIN_LEVERAGE = 2;\\n    uint constant MAX_LEVERAGE = 1000;\\n\\n    // Custom data types\\n    enum FeedCalculation { DEFAULT, INVERT, COMBINE }\\n    struct Feed{ address feed1; address feed2; FeedCalculation feedCalculation; uint maxDeviationP; } // PRECISION (%)\\n\\n    struct Pair{\\n        string from;\\n        string to;\\n        Feed feed;\\n        uint spreadP;               // PRECISION\\n        uint groupIndex;\\n        uint feeIndex;\\n        int proportionBTC;          // 1000 -> ALT:BTC = 1000:1 ; -1000 -> ALT:BTC = 1:1000\\n    }\\n    struct Group{\\n        string name;\\n        bytes32 job;\\n        uint minLeverage;\\n        uint maxLeverage;\\n        uint maxCollateralP;        // % (of DAI vault current balance)\\n    }\\n    struct Fee{\\n        string name;\\n        uint openFeeP;              // PRECISION (% of leveraged pos)\\n        uint closeFeeP;             // PRECISION (% of leveraged pos)\\n        uint oracleFeeP;            // PRECISION (% of leveraged pos)\\n        uint nftLimitOrderFeeP;     // PRECISION (% of leveraged pos)\\n        uint referralFeeP;          // PRECISION (% of leveraged pos)\\n        uint minLevPosDai;          // 1e18 (collateral x leverage, useful for min fee)\\n    }\\n\\n    // State\\n    uint public currentOrderId;\\n\\n    uint public pairsCount;\\n    uint public groupsCount;\\n    uint public feesCount;\\n\\n    mapping(uint => Pair) public pairs;\\n    mapping(uint => Group) public groups;\\n    mapping(uint => Fee) public fees;\\n\\n    mapping(string => mapping(string => bool)) public isPairListed;\\n\\n    mapping(uint => uint[2]) public groupsCollaterals; // (long, short)\\n\\n    // Events\\n    event PairAdded(uint index, string from, string to);\\n    event PairUpdated(uint index);\\n\\n    event GroupAdded(uint index, string name);\\n    event GroupUpdated(uint index);\\n    \\n    event FeeAdded(uint index, string name);\\n    event FeeUpdated(uint index);\\n\\n    constructor(uint _currentOrderId, StorageInterfaceV5 _storageT) {\\n        require(_currentOrderId > 0, \\\"ORDER_ID_0\\\");\\n        currentOrderId = _currentOrderId;\\n        storageT = _storageT;\\n    }\\n\\n    // Modifiers\\n    modifier onlyGov(){ require(msg.sender == storageT.gov(), \\\"GOV_ONLY\\\"); _; }\\n    \\n    modifier groupListed(uint _groupIndex){\\n        require(groups[_groupIndex].minLeverage > 0, \\\"GROUP_NOT_LISTED\\\");\\n        _;\\n    }\\n    modifier feeListed(uint _feeIndex){\\n        require(fees[_feeIndex].openFeeP > 0, \\\"FEE_NOT_LISTED\\\");\\n        _;\\n    }\\n\\n    modifier feedOk(Feed calldata _feed){\\n        require(_feed.maxDeviationP > 0 && _feed.feed1 != address(0), \\\"WRONG_FEED\\\");\\n        require(_feed.feedCalculation != FeedCalculation.COMBINE || _feed.feed2 != address(0), \\\"FEED_2_MISSING\\\");\\n        _;\\n    }\\n    modifier groupOk(Group calldata _group){\\n        require(_group.job != bytes32(0), \\\"JOB_EMPTY\\\");\\n        require(_group.minLeverage >= MIN_LEVERAGE && _group.maxLeverage <= MAX_LEVERAGE\\n            && _group.minLeverage < _group.maxLeverage, \\\"WRONG_LEVERAGES\\\");\\n        _;\\n    }\\n    modifier feeOk(Fee calldata _fee){\\n        require(_fee.openFeeP > 0 && _fee.closeFeeP > 0 && _fee.oracleFeeP > 0\\n            && _fee.nftLimitOrderFeeP > 0 && _fee.referralFeeP > 0 && _fee.minLevPosDai > 0, \\\"WRONG_FEES\\\");\\n        _;\\n    }\\n\\n    // Manage pairs\\n    function addPair(Pair calldata _pair) public feedOk(_pair.feed) groupListed(_pair.groupIndex) feeListed(_pair.feeIndex){\\n        require(!isPairListed[_pair.from][_pair.to], \\\"PAIR_ALREADY_LISTED\\\");\\n        \\n        pairs[pairsCount] = _pair;\\n        isPairListed[_pair.from][_pair.to] = true;\\n        \\n        emit PairAdded(pairsCount++, _pair.from, _pair.to);\\n    }\\n    function addPairs(Pair[] calldata _pairs) external{\\n        for(uint i = 0; i < _pairs.length; i++){\\n            addPair(_pairs[i]);\\n        }\\n    }\\n    function updatePair(uint _pairIndex, Pair calldata _pair) external feedOk(_pair.feed) feeListed(_pair.feeIndex){\\n        Pair storage p = pairs[_pairIndex];\\n        require(isPairListed[p.from][p.to], \\\"PAIR_NOT_LISTED\\\");\\n\\n        p.feed = _pair.feed;\\n        p.spreadP = _pair.spreadP;\\n        p.feeIndex = _pair.feeIndex;\\n        \\n        emit PairUpdated(_pairIndex);\\n    }\\n\\n    // Manage groups\\n    function addGroup(Group calldata _group) external onlyGov groupOk(_group){\\n        groups[groupsCount] = _group;\\n        emit GroupAdded(groupsCount++, _group.name);\\n    }\\n    function updateGroup(uint _id, Group calldata _group) external onlyGov groupListed(_id) groupOk(_group){\\n        groups[_id] = _group;\\n        emit GroupUpdated(_id);\\n    }\\n\\n    // Manage fees\\n    function addFee(Fee calldata _fee) external onlyGov feeOk(_fee){\\n        fees[feesCount] = _fee;\\n        emit FeeAdded(feesCount++, _fee.name);\\n    }\\n    function updateFee(uint _id, Fee calldata _fee) external onlyGov feeListed(_id) feeOk(_fee){\\n        fees[_id] = _fee;\\n        emit FeeUpdated(_id);\\n    }\\n\\n    // Update collateral open exposure for a group (callbacks)\\n    function updateGroupCollateral(uint _pairIndex, uint _amount, bool _long, bool _increase) external{\\n        require(msg.sender == storageT.callbacks(), \\\"CALLBACKS_ONLY\\\");\\n\\n        uint[2] storage collateralOpen = groupsCollaterals[pairs[_pairIndex].groupIndex];\\n        uint index = _long ? 0 : 1;\\n\\n        if(_increase){\\n            collateralOpen[index] += _amount;\\n        }else{\\n            collateralOpen[index] = collateralOpen[index] > _amount ? collateralOpen[index] - _amount : 0;\\n        }\\n    }\\n\\n    // Fetch relevant info for order (aggregator)\\n    function pairJob(uint _pairIndex) external returns(string memory, string memory, bytes32, uint){\\n        require(msg.sender == address(storageT.priceAggregator()), \\\"AGGREGATOR_ONLY\\\");\\n        \\n        Pair memory p = pairs[_pairIndex];\\n        require(isPairListed[p.from][p.to], \\\"PAIR_NOT_LISTED\\\");\\n        \\n        return (p.from, p.to, groups[p.groupIndex].job, currentOrderId++);\\n    }\\n\\n    // Getters (pairs & groups)\\n    function pairFeed(uint _pairIndex) external view returns(Feed memory){\\n        return pairs[_pairIndex].feed;\\n    }\\n    function pairSpreadP(uint _pairIndex) external view returns(uint){\\n        return pairs[_pairIndex].spreadP;\\n    }\\n    function pairMinLeverage(uint _pairIndex) external view returns(uint){\\n        return groups[pairs[_pairIndex].groupIndex].minLeverage;\\n    }\\n    function pairMaxLeverage(uint _pairIndex) external view returns(uint){\\n        return groups[pairs[_pairIndex].groupIndex].maxLeverage;\\n    }\\n    function groupMaxCollateral(uint _pairIndex) external view returns(uint){\\n        return groups[pairs[_pairIndex].groupIndex].maxCollateralP*storageT.vault().currentBalanceDai()/100;\\n    }\\n    function groupCollateral(uint _pairIndex, bool _long) external view returns(uint){\\n        return groupsCollaterals[pairs[_pairIndex].groupIndex][_long ? 0 : 1];\\n    }\\n    function guaranteedSlEnabled(uint _pairIndex) external view returns(bool){\\n        return pairs[_pairIndex].groupIndex == 0; // crypto only\\n    }\\n\\n    // Getters (fees)\\n    function pairOpenFeeP(uint _pairIndex) external view returns(uint){ \\n        return fees[pairs[_pairIndex].feeIndex].openFeeP;\\n    }\\n    function pairCloseFeeP(uint _pairIndex) external view returns(uint){ \\n        return fees[pairs[_pairIndex].feeIndex].closeFeeP; \\n    }\\n    function pairOracleFeeP(uint _pairIndex) external view returns(uint){ \\n        return fees[pairs[_pairIndex].feeIndex].oracleFeeP; \\n    }\\n    function pairNftLimitOrderFeeP(uint _pairIndex) external view returns(uint){ \\n        return fees[pairs[_pairIndex].feeIndex].nftLimitOrderFeeP; \\n    }\\n    function pairReferralFeeP(uint _pairIndex) external view returns(uint){ \\n        return fees[pairs[_pairIndex].feeIndex].referralFeeP; \\n    }\\n    function pairMinLevPosDai(uint _pairIndex) external view returns(uint){\\n        return fees[pairs[_pairIndex].feeIndex].minLevPosDai;\\n    }\\n\\n    // Getters (backend)\\n    function pairsBackend(uint _index) external view returns(Pair memory, Group memory, Fee memory){\\n        Pair memory p = pairs[_index];\\n        return (p, groups[p.groupIndex], fees[p.feeIndex]);\\n    }\\n}\",\"keccak256\":\"0x2d08103b93bb2604d883d27f92c85bf4fa7eaca2c848fe8324db3273028b9c0a\",\"license\":\"MIT\"},\"contracts/interfaces/NftInterfaceV5.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.14;\\n\\ninterface NftInterfaceV5{\\n    function balanceOf(address) external view returns (uint);\\n    function ownerOf(uint) external view returns (address);\\n    function transferFrom(address, address, uint) external;\\n    function tokenOfOwnerByIndex(address, uint) external view returns(uint);\\n}\",\"keccak256\":\"0xc15a2883e44dce70305e896f2492f485c77f1a01595a9bb42d2662a22cfa5274\",\"license\":\"MIT\"},\"contracts/interfaces/PairsStorageInterfaceV6.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.14;\\n\\ninterface PairsStorageInterfaceV6{\\n    enum FeedCalculation { DEFAULT, INVERT, COMBINE }    // FEED 1, 1 / (FEED 1), (FEED 1)/(FEED 2)\\n    struct Feed{ address feed1; address feed2; FeedCalculation feedCalculation; uint maxDeviationP; } // PRECISION (%)\\n    function incrementCurrentOrderId() external returns(uint);\\n    function updateGroupCollateral(uint, uint, bool, bool) external;\\n    function pairJob(uint) external returns(string memory, string memory, bytes32, uint);\\n    function pairFeed(uint) external view returns(Feed memory);\\n    function pairSpreadP(uint) external view returns(uint);\\n    function pairMinLeverage(uint) external view returns(uint);\\n    function pairMaxLeverage(uint) external view returns(uint);\\n    function groupMaxCollateral(uint) external view returns(uint);\\n    function groupCollateral(uint, bool) external view returns(uint);\\n    function guaranteedSlEnabled(uint) external view returns(bool);\\n    function pairOpenFeeP(uint) external view returns(uint);\\n    function pairCloseFeeP(uint) external view returns(uint);\\n    function pairOracleFeeP(uint) external view returns(uint);\\n    function pairNftLimitOrderFeeP(uint) external view returns(uint);\\n    function pairReferralFeeP(uint) external view returns(uint);\\n    function pairMinLevPosDai(uint) external view returns(uint);\\n}\",\"keccak256\":\"0x74f54cf7593d734351ff34e0f86065cc89bb5a5b10b8618a9438d0ea2e4918a1\",\"license\":\"MIT\"},\"contracts/interfaces/StorageInterfaceV5.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\nimport './UniswapRouterInterfaceV5.sol';\\nimport './TokenInterfaceV5.sol';\\nimport './NftInterfaceV5.sol';\\nimport './VaultInterfaceV5.sol';\\nimport './PairsStorageInterfaceV6.sol';\\npragma solidity 0.8.14;\\n\\ninterface StorageInterfaceV5{\\n    enum LimitOrder { TP, SL, LIQ, OPEN }\\n    struct Trader{\\n        uint leverageUnlocked;\\n        address referral;\\n        uint referralRewardsTotal;  // 1e18\\n    }\\n    struct Trade{\\n        address trader;\\n        uint pairIndex;\\n        uint index;\\n        uint initialPosToken;       // 1e18\\n        uint positionSizeDai;       // 1e18\\n        uint openPrice;             // PRECISION\\n        bool buy;\\n        uint leverage;\\n        uint tp;                    // PRECISION\\n        uint sl;                    // PRECISION\\n    }\\n    struct TradeInfo{\\n        uint tokenId;\\n        uint tokenPriceDai;         // PRECISION\\n        uint openInterestDai;       // 1e18\\n        uint tpLastUpdated;\\n        uint slLastUpdated;\\n        bool beingMarketClosed;\\n    }\\n    struct OpenLimitOrder{\\n        address trader;\\n        uint pairIndex;\\n        uint index;\\n        uint positionSize;          // 1e18 (DAI or GFARM2)\\n        uint spreadReductionP;\\n        bool buy;\\n        uint leverage;\\n        uint tp;                    // PRECISION (%)\\n        uint sl;                    // PRECISION (%)\\n        uint minPrice;              // PRECISION\\n        uint maxPrice;              // PRECISION\\n        uint block;\\n        uint tokenId;               // index in supportedTokens\\n    }\\n    struct PendingMarketOrder{\\n        Trade trade;\\n        uint block;\\n        uint wantedPrice;           // PRECISION\\n        uint slippageP;             // PRECISION (%)\\n        uint spreadReductionP;\\n        uint tokenId;               // index in supportedTokens\\n    }\\n    struct PendingNftOrder{\\n        address nftHolder;\\n        uint nftId;\\n        address trader;\\n        uint pairIndex;\\n        uint index;\\n        LimitOrder orderType;\\n    }\\n    function PRECISION() external pure returns(uint);\\n    function gov() external view returns(address);\\n    function dev() external view returns(address);\\n    function dai() external view returns(TokenInterfaceV5);\\n    // function token() external view returns(TokenInterfaceV5);\\n    function linkErc677() external view returns(TokenInterfaceV5);\\n    function tokenDaiRouter() external view returns(UniswapRouterInterfaceV5);\\n    function priceAggregator() external view returns(AggregatorInterfaceV6);\\n    function vault() external view returns(VaultInterfaceV5);\\n    function trading() external view returns(address);\\n    function callbacks() external view returns(address);\\n    function handleTokens(address,uint,bool) external;\\n    function transferDai(address, address, uint) external;\\n    function transferLinkToAggregator(address, uint, uint) external;\\n    function unregisterTrade(address, uint, uint) external;\\n    function unregisterPendingMarketOrder(uint, bool) external;\\n    function unregisterOpenLimitOrder(address, uint, uint) external;\\n    function hasOpenLimitOrder(address, uint, uint) external view returns(bool);\\n    function storePendingMarketOrder(PendingMarketOrder memory, uint, bool) external;\\n    function storeReferral(address, address) external;\\n    function openTrades(address, uint, uint) external view returns(Trade memory);\\n    function openTradesInfo(address, uint, uint) external view returns(TradeInfo memory);\\n    function updateSl(address, uint, uint, uint) external;\\n    function updateTp(address, uint, uint, uint) external;\\n    function getOpenLimitOrder(address, uint, uint) external view returns(OpenLimitOrder memory);\\n    function spreadReductionsP(uint) external view returns(uint);\\n    function positionSizeTokenDynamic(uint,uint) external view returns(uint);\\n    function maxSlP() external view returns(uint);\\n    function storeOpenLimitOrder(OpenLimitOrder memory) external;\\n    function reqID_pendingMarketOrder(uint) external view returns(PendingMarketOrder memory);\\n    function storePendingNftOrder(PendingNftOrder memory, uint) external;\\n    function updateOpenLimitOrder(OpenLimitOrder calldata) external;\\n    function firstEmptyTradeIndex(address, uint) external view returns(uint);\\n    function firstEmptyOpenLimitIndex(address, uint) external view returns(uint);\\n    function increaseNftRewards(uint, uint) external;\\n    function nftSuccessTimelock() external view returns(uint);\\n    function currentPercentProfit(uint,uint,bool,uint) external view returns(int);\\n    function reqID_pendingNftOrder(uint) external view returns(PendingNftOrder memory);\\n    function setNftLastSuccess(uint) external;\\n    function updateTrade(Trade memory) external;\\n    function nftLastSuccess(uint) external view returns(uint);\\n    function unregisterPendingNftOrder(uint) external;\\n    function handleDevGovFees(uint, uint, bool, bool) external returns(uint);\\n    function distributeLpRewards(uint) external;\\n    function getReferral(address) external view returns(address);\\n    function increaseReferralRewards(address, uint) external;\\n    function storeTrade(Trade memory, TradeInfo memory) external;\\n    function setLeverageUnlocked(address, uint) external;\\n    function getLeverageUnlocked(address) external view returns(uint);\\n    function openLimitOrdersCount(address, uint) external view returns(uint);\\n    function maxOpenLimitOrdersPerPair() external view returns(uint);\\n    function openTradesCount(address, uint) external view returns(uint);\\n    function pendingMarketOpenCount(address, uint) external view returns(uint);\\n    function pendingMarketCloseCount(address, uint) external view returns(uint);\\n    function maxTradesPerPair() external view returns(uint);\\n    function maxTradesPerBlock() external view returns(uint);\\n    function tradesPerBlock(uint) external view returns(uint);\\n    function pendingOrderIdsCount(address) external view returns(uint);\\n    function maxPendingMarketOrders() external view returns(uint);\\n    function maxGainP() external view returns(uint);\\n    function defaultLeverageUnlocked() external view returns(uint);\\n    function openInterestDai(uint, uint) external view returns(uint);\\n    function getPendingOrderIds(address) external view returns(uint[] memory);\\n    function traders(address) external view returns(Trader memory);\\n    function nfts(uint) external view returns(NftInterfaceV5);\\n}\\n\\ninterface AggregatorInterfaceV6{\\n    enum OrderType { MARKET_OPEN, MARKET_CLOSE, LIMIT_OPEN, LIMIT_CLOSE, UPDATE_SL }\\n    function pairsStorage() external view returns(PairsStorageInterfaceV6);\\n    function nftRewards() external view returns(NftRewardsInterfaceV6);\\n    function getPrice(uint,OrderType,uint) external returns(uint);\\n    function tokenPriceDai() external view returns(uint);\\n    function linkFee(uint,uint) external view returns(uint);\\n    function tokenDaiReservesLp() external view returns(uint, uint);\\n    function pendingSlOrders(uint) external view returns(PendingSl memory);\\n    function storePendingSlOrder(uint orderId, PendingSl calldata p) external;\\n    function unregisterPendingSlOrder(uint orderId) external;\\n    struct PendingSl{address trader; uint pairIndex; uint index; uint openPrice; bool buy; uint newSl; }\\n}\\n\\ninterface NftRewardsInterfaceV6{\\n    struct TriggeredLimitId{ address trader; uint pairIndex; uint index; StorageInterfaceV5.LimitOrder order; }\\n    enum OpenLimitOrderType{ LEGACY, REVERSAL, MOMENTUM }\\n    function storeFirstToTrigger(TriggeredLimitId calldata, address) external;\\n    function storeTriggerSameBlock(TriggeredLimitId calldata, address) external;\\n    function unregisterTrigger(TriggeredLimitId calldata) external;\\n    function distributeNftReward(TriggeredLimitId calldata, uint) external;\\n    function openLimitOrderTypes(address, uint, uint) external view returns(OpenLimitOrderType);\\n    function setOpenLimitOrderType(address, uint, uint, OpenLimitOrderType) external;\\n    function triggered(TriggeredLimitId calldata) external view returns(bool);\\n    function timedOut(TriggeredLimitId calldata) external view returns(bool);\\n}\",\"keccak256\":\"0x02c06cbb3f187939133f2c989e77a5e0b0d371444071f9a8d3ae1a3ed61fe865\",\"license\":\"MIT\"},\"contracts/interfaces/TokenInterfaceV5.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.14;\\n\\ninterface TokenInterfaceV5{\\n    function burn(address, uint256) external;\\n    function mint(address, uint256) external;\\n    function transfer(address, uint256) external returns (bool);\\n    function transferFrom(address, address, uint256) external returns(bool);\\n    function balanceOf(address) external view returns(uint256);\\n    function hasRole(bytes32, address) external view returns (bool);\\n    function approve(address, uint256) external returns (bool);\\n    function allowance(address, address) external view returns (uint256);\\n}\",\"keccak256\":\"0x839cb0952ddb74fd2cc563cbc511a7f4cec56599cb7cc3502f97c32327f2fe58\",\"license\":\"MIT\"},\"contracts/interfaces/UniswapRouterInterfaceV5.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.14;\\n\\ninterface UniswapRouterInterfaceV5{\\n\\tfunction swapExactTokensForTokens(\\n\\t\\tuint amountIn,\\n\\t\\tuint amountOutMin,\\n\\t\\taddress[] calldata path,\\n\\t\\taddress to,\\n\\t\\tuint deadline\\n\\t) external returns (uint[] memory amounts);\\n\\n\\tfunction swapTokensForExactTokens(\\n\\t\\tuint amountOut,\\n\\t\\tuint amountInMax,\\n\\t\\taddress[] calldata path,\\n\\t\\taddress to,\\n\\t\\tuint deadline\\n\\t) external returns (uint[] memory amounts);\\n}\",\"keccak256\":\"0x366be084acb30ed686cc7f4999f30568ebdb11e6cc5909c6b24f95092b4dbddf\",\"license\":\"MIT\"},\"contracts/interfaces/VaultInterfaceV5.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.14;\\n\\ninterface VaultInterfaceV5{\\n\\tfunction sendDaiToTrader(address, uint) external;\\n\\tfunction receiveDaiFromTrader(address, uint, uint) external;\\n\\tfunction currentBalanceDai() external view returns(uint);\\n\\tfunction distributeRewardDai(uint) external;\\n}\",\"keccak256\":\"0xbbd6a93a058b4da7c2b5114ece35d743ef6099d928020835664169a0b5895825\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60a06040523480156200001157600080fd5b50604051620033093803806200330983398101604081905262000034916200008e565b60008211620000765760405162461bcd60e51b815260206004820152600a60248201526904f524445525f49445f360b41b604482015260640160405180910390fd5b6000919091556001600160a01b0316608052620000cd565b60008060408385031215620000a257600080fd5b825160208401519092506001600160a01b0381168114620000c257600080fd5b809150509250929050565b6080516131f662000113600039600081816106db0152818161088b01528181610c1301528181610e03015281816113f201528181611510015261172601526131f66000f3fe608060405234801561001057600080fd5b50600436106101f05760003560e01c80638251135b1161010f5780639848a68d116100a2578063b81b2b7111610071578063b81b2b7114610598578063b91ac788146105a1578063c749ec10146105c7578063f7acbabd146105da57600080fd5b80639848a68d146104fd5780639c8dd2fa14610530578063a1d54e9b14610562578063b474e82e1461058557600080fd5b8063925931fc116100de578063925931fc1461049b5780639521753e146104a45780639567dccf146104b757806396324bd4146104d957600080fd5b80638251135b14610419578063836a341a1461044c578063885e27501461047f5780638c23f81c1461048857600080fd5b8063472ff8bb116101875780635c25f4c5116101565780635c25f4c5146103d757806362614661146103ea578063658de48a146103fd5780637981aa831461040657600080fd5b8063472ff8bb1461035857806349dde63f1461036b5780634acc79ed1461037e57806359a992d0146103a457600080fd5b806320f0fc5e116101c357806320f0fc5e146102c957806324abd3fb146102de578063281b693c14610302578063302f81fc1461033557600080fd5b80630cd8b022146101f557806315406fe51461023b5780631628bfeb1461024e5780631eaa005c146102a9575b600080fd5b6102286102033660046122a3565b6000908152600460209081526040808320600701548352600691829052909120015490565b6040519081526020015b60405180910390f35b6102286102493660046122bc565b61060d565b61029961025c366004612381565b8151602081840181018051600782529282019482019490942091909352815180830184018051928152908401929093019190912091525460ff1681565b6040519015158152602001610232565b6102bc6102b73660046122a3565b610632565b6040516102329190612449565b6102dc6102d736600461246c565b6106d9565b005b6102996102ec3660046122a3565b6000908152600460205260409020600601541590565b6102286103103660046122a3565b6000908152600460209081526040808320600601548352600590915290206003015490565b6103486103433660046122a3565b610883565b604051610232949392919061250e565b6102dc61036636600461255f565b610c11565b6102dc6103793660046125ae565b610e01565b61039161038c3660046122a3565b611007565b60405161023297969594939291906125eb565b6102286103b23660046122a3565b6000908152600460209081526040808320600601548352600590915290206002015490565b6102dc6103e5366004612642565b6110c9565b6102286103f83660046122a3565b6113ec565b61022860035481565b6102dc610414366004612677565b61150e565b6102286104273660046122a3565b6000908152600460209081526040808320600701548352600690915290206001015490565b61022861045a3660046122a3565b6000908152600460209081526040808320600701548352600690915290206002015490565b61022860025481565b6102dc6104963660046126b4565b611724565b61022860005481565b6102286104b23660046126e9565b6118d3565b6104ca6104c53660046122a3565b61191c565b604051610232939291906127bb565b6104ec6104e73660046122a3565b611d57565b604051610232959493929190612867565b61022861050b3660046122a3565b6000908152600460209081526040808320600701548352600690915290206005015490565b61022861053e3660046122a3565b60009081526004602081815260408084206007015484526006909152909120015490565b6102286105703660046122a3565b60009081526004602052604090206005015490565b6102dc61059336600461289e565b611e0d565b61022860015481565b6105b46105af3660046122a3565b611e56565b6040516102329796959493929190612913565b6102dc6105d5366004612971565b612008565b6102286105e83660046122a3565b6000908152600460209081526040808320600701548352600690915290206003015490565b6008602052816000526040600020816002811061062957600080fd5b01549150829050565b6040805160808101825260008082526020820181905291810182905260608101919091526000828152600460209081526040918290208251608081018452600280830180546001600160a01b039081168452600390940154938416948301949094529093840191600160a01b900460ff16908111156106b3576106b36123e5565b60028111156106c4576106c46123e5565b81526020016002820154815250509050919050565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031662b127836040518163ffffffff1660e01b8152600401602060405180830381865afa158015610736573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061075a91906129c6565b6001600160a01b0316336001600160a01b0316146107bf5760405162461bcd60e51b815260206004820152600e60248201527f43414c4c4241434b535f4f4e4c5900000000000000000000000000000000000060448201526064015b60405180910390fd5b60008481526004602090815260408083206006015483526008909152812090836107ea5760016107ed565b60005b60ff1690508215610826578482826002811061080b5761080b6129ea565b01600082825461081b9190612a16565b9091555061087b9050565b84828260028110610839576108396129ea565b015411610847576000610866565b8482826002811061085a5761085a6129ea565b01546108669190612a2e565b828260028110610878576108786129ea565b01555b505050505050565b6060806000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316633078fff56040518163ffffffff1660e01b8152600401602060405180830381865afa1580156108e7573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061090b91906129c6565b6001600160a01b0316336001600160a01b03161461096b5760405162461bcd60e51b815260206004820152600f60248201527f41474752454741544f525f4f4e4c59000000000000000000000000000000000060448201526064016107b6565b600085815260046020526040808220815160e0810190925280548290829061099290612a45565b80601f01602080910402602001604051908101604052809291908181526020018280546109be90612a45565b8015610a0b5780601f106109e057610100808354040283529160200191610a0b565b820191906000526020600020905b8154815290600101906020018083116109ee57829003601f168201915b50505050508152602001600182018054610a2490612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054610a5090612a45565b8015610a9d5780601f10610a7257610100808354040283529160200191610a9d565b820191906000526020600020905b815481529060010190602001808311610a8057829003601f168201915b505050918352505060408051608081018252600284810180546001600160a01b0390811684526003870154908116602080860191909152909501949293909290840191600160a01b90910460ff1690811115610afb57610afb6123e5565b6002811115610b0c57610b0c6123e5565b81526020016002820154815250508152602001600582015481526020016006820154815260200160078201548152602001600882015481525050905060078160000151604051610b5c9190612a79565b90815260200160405180910390208160200151604051610b7c9190612a79565b9081526040519081900360200190205460ff16610bcd5760405162461bcd60e51b815260206004820152600f60248201526e1410525497d393d517d31254d51151608a1b60448201526064016107b6565b805160208083015160808401516000908152600590925260408220600101548254919290919080610bfd83612a95565b919050559450945094509450509193509193565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa158015610c6f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c9391906129c6565b6001600160a01b0316336001600160a01b031614610cde5760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b806020810135610d1c5760405162461bcd60e51b81526020600482015260096024820152684a4f425f454d50545960b81b60448201526064016107b6565b6002816040013510158015610d3757506103e8816060013511155b8015610d4a575080606001358160400135105b610d885760405162461bcd60e51b815260206004820152600f60248201526e57524f4e475f4c455645524147455360881b60448201526064016107b6565b60025460009081526005602052604090208290610da58282612c03565b5050600280547faf17de8e82beccc440012117a600dc37e26925225d0f1ee192fc107eb3dcbca4916000610dd883612a95565b90915550610de68480612aae565b604051610df593929190612d20565b60405180910390a15050565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa158015610e5f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e8391906129c6565b6001600160a01b0316336001600160a01b031614610ece5760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b6000828152600660205260409020600101548290610f1f5760405162461bcd60e51b815260206004820152600e60248201526d11915157d393d517d31254d5115160921b60448201526064016107b6565b8160008160200135118015610f38575060008160400135115b8015610f48575060008160600135115b8015610f58575060008160800135115b8015610f68575060008160a00135115b8015610f78575060008160c00135115b610fb15760405162461bcd60e51b815260206004820152600a60248201526957524f4e475f4645455360b01b60448201526064016107b6565b60008481526006602052604090208390610fcb8282612d43565b50506040518481527f8c4d35e54a3f2ef1134138fd8ea3daee6a3c89e10d2665996babdf70261e2c76906020015b60405180910390a150505050565b60066020526000908152604090208054819061102290612a45565b80601f016020809104026020016040519081016040528092919081815260200182805461104e90612a45565b801561109b5780601f106110705761010080835404028352916020019161109b565b820191906000526020600020905b81548152906001019060200180831161107e57829003601f168201915b5050505050908060010154908060020154908060030154908060040154908060050154908060060154905087565b80604001600081606001351180156110f7575060006110eb6020830183612e45565b6001600160a01b031614155b6111305760405162461bcd60e51b815260206004820152600a60248201526915d493d391d7d191515160b21b60448201526064016107b6565b60026111426060830160408401612e6f565b6002811115611153576111536123e5565b1415806111795750600061116d6040830160208401612e45565b6001600160a01b031614155b6111b65760405162461bcd60e51b815260206004820152600e60248201526d464545445f325f4d495353494e4760901b60448201526064016107b6565b60e082013560008181526005602052604090206002015461120c5760405162461bcd60e51b815260206004820152601060248201526f11d493d55417d393d517d31254d5115160821b60448201526064016107b6565b6101008301356000818152600660205260409020600101546112615760405162461bcd60e51b815260206004820152600e60248201526d11915157d393d517d31254d5115160921b60448201526064016107b6565b600761126d8580612aae565b60405161127b929190612e8c565b90815260200160405180910390208480602001906112999190612aae565b6040516112a7929190612e8c565b9081526040519081900360200190205460ff16156113075760405162461bcd60e51b815260206004820152601360248201527f504149525f414c52454144595f4c49535445440000000000000000000000000060448201526064016107b6565b600154600090815260046020526040902084906113248282612f87565b506001905060076113358680612aae565b604051611343929190612e8c565b90815260200160405180910390208580602001906113619190612aae565b60405161136f929190612e8c565b908152604051908190036020019020805491151560ff19909216919091179055600180547f3adfd40f2b74073df2a84238acdb7f460565a557b3cc13bddc8833289bf38e099160006113c083612a95565b909155506113ce8680612aae565b6113db6020890189612aae565b604051610ff99594939291906130a4565b600060647f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663fbfa77cf6040518163ffffffff1660e01b8152600401602060405180830381865afa15801561144e573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061147291906129c6565b6001600160a01b0316630851a2026040518163ffffffff1660e01b8152600401602060405180830381865afa1580156114af573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906114d391906130dd565b6000848152600460208181526040808420600601548452600590915290912001546114fe91906130f6565b6115089190613115565b92915050565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa15801561156c573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061159091906129c6565b6001600160a01b0316336001600160a01b0316146115db5760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b600082815260056020526040902060020154829061162e5760405162461bcd60e51b815260206004820152601060248201526f11d493d55417d393d517d31254d5115160821b60448201526064016107b6565b81602081013561166c5760405162461bcd60e51b81526020600482015260096024820152684a4f425f454d50545960b81b60448201526064016107b6565b600281604001351015801561168757506103e8816060013511155b801561169a575080606001358160400135105b6116d85760405162461bcd60e51b815260206004820152600f60248201526e57524f4e475f4c455645524147455360881b60448201526064016107b6565b600084815260056020526040902083906116f28282612c03565b50506040518481527fcfde8f228364c70f12cbbac5a88fc91ceca76dd750ac93364991a333b34afb8e90602001610ff9565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa158015611782573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906117a691906129c6565b6001600160a01b0316336001600160a01b0316146117f15760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b806000816020013511801561180a575060008160400135115b801561181a575060008160600135115b801561182a575060008160800135115b801561183a575060008160a00135115b801561184a575060008160c00135115b6118835760405162461bcd60e51b815260206004820152600a60248201526957524f4e475f4645455360b01b60448201526064016107b6565b600354600090815260066020526040902082906118a08282612d43565b5050600380547f482049823c85e038e099fe4f2b901487c4800def71c9a3f5bae2de8381ec54f6916000610dd883612a95565b600082815260046020908152604080832060060154835260089091528120826118fd576001611900565b60005b60ff1660028110611913576119136129ea565b01549392505050565b61192461223d565b6119596040518060a0016040528060608152602001600080191681526020016000815260200160008152602001600081525090565b6119996040518060e00160405280606081526020016000815260200160008152602001600081526020016000815260200160008152602001600081525090565b600084815260046020526040808220815160e081019092528054829082906119c090612a45565b80601f01602080910402602001604051908101604052809291908181526020018280546119ec90612a45565b8015611a395780601f10611a0e57610100808354040283529160200191611a39565b820191906000526020600020905b815481529060010190602001808311611a1c57829003601f168201915b50505050508152602001600182018054611a5290612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611a7e90612a45565b8015611acb5780601f10611aa057610100808354040283529160200191611acb565b820191906000526020600020905b815481529060010190602001808311611aae57829003601f168201915b505050918352505060408051608081018252600284810180546001600160a01b0390811684526003870154908116602080860191909152909501949293909290840191600160a01b90910460ff1690811115611b2957611b296123e5565b6002811115611b3a57611b3a6123e5565b815260200160028201548152505081526020016005820154815260200160068201548152602001600782015481526020016008820154815250509050806005600083608001518152602001908152602001600020600660008460a001518152602001908152602001600020816040518060a0016040529081600082018054611bc190612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611bed90612a45565b8015611c3a5780601f10611c0f57610100808354040283529160200191611c3a565b820191906000526020600020905b815481529060010190602001808311611c1d57829003601f168201915b505050505081526020016001820154815260200160028201548152602001600382015481526020016004820154815250509150806040518060e0016040529081600082018054611c8990612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611cb590612a45565b8015611d025780601f10611cd757610100808354040283529160200191611d02565b820191906000526020600020905b815481529060010190602001808311611ce557829003601f168201915b5050505050815260200160018201548152602001600282015481526020016003820154815260200160048201548152602001600582015481526020016006820154815250509050935093509350509193909250565b600560205260009081526040902080548190611d7290612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611d9e90612a45565b8015611deb5780601f10611dc057610100808354040283529160200191611deb565b820191906000526020600020905b815481529060010190602001808311611dce57829003601f168201915b5050505050908060010154908060020154908060030154908060040154905085565b60005b81811015611e5157611e3f838383818110611e2d57611e2d6129ea565b90506020028101906103e59190613137565b80611e4981612a95565b915050611e10565b505050565b600460205260009081526040902080548190611e7190612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611e9d90612a45565b8015611eea5780601f10611ebf57610100808354040283529160200191611eea565b820191906000526020600020905b815481529060010190602001808311611ecd57829003601f168201915b505050505090806001018054611eff90612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611f2b90612a45565b8015611f785780601f10611f4d57610100808354040283529160200191611f78565b820191906000526020600020905b815481529060010190602001808311611f5b57829003601f168201915b505060408051608081018252600287810180546001600160a01b03908116845260038a0154908116602085015297989792965094509185019250600160a01b900460ff1690811115611fcc57611fcc6123e5565b6002811115611fdd57611fdd6123e5565b8152602001600282015481525050908060050154908060060154908060070154908060080154905087565b80604001600081606001351180156120365750600061202a6020830183612e45565b6001600160a01b031614155b61206f5760405162461bcd60e51b815260206004820152600a60248201526915d493d391d7d191515160b21b60448201526064016107b6565b60026120816060830160408401612e6f565b6002811115612092576120926123e5565b1415806120b8575060006120ac6040830160208401612e45565b6001600160a01b031614155b6120f55760405162461bcd60e51b815260206004820152600e60248201526d464545445f325f4d495353494e4760901b60448201526064016107b6565b61010082013560008181526006602052604090206001015461214a5760405162461bcd60e51b815260206004820152600e60248201526d11915157d393d517d31254d5115160921b60448201526064016107b6565b60008481526004602052604090819020905160079061216a90839061314e565b908152602001604051809103902081600101604051612189919061314e565b9081526040519081900360200190205460ff166121da5760405162461bcd60e51b815260206004820152600f60248201526e1410525497d393d517d31254d51151608a1b60448201526064016107b6565b60408401600282016121ec8282612e9c565b505060c0840135600582015561010084013560078201556040518581527f123a1b961ae93e7acda9790b318237b175b45ac09277cd3614305d8baa3f19539060200160405180910390a15050505050565b6040518060e0016040528060608152602001606081526020016122816040805160808101825260008082526020820181905290918201908152602001600081525090565b8152602001600081526020016000815260200160008152602001600081525090565b6000602082840312156122b557600080fd5b5035919050565b600080604083850312156122cf57600080fd5b50508035926020909101359150565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261230557600080fd5b813567ffffffffffffffff80821115612320576123206122de565b604051601f8301601f19908116603f01168101908282118183101715612348576123486122de565b8160405283815286602085880101111561236157600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000806040838503121561239457600080fd5b823567ffffffffffffffff808211156123ac57600080fd5b6123b8868387016122f4565b935060208501359150808211156123ce57600080fd5b506123db858286016122f4565b9150509250929050565b634e487b7160e01b600052602160045260246000fd5b6001600160a01b038082511683528060208301511660208401525060408101516003811061243957634e487b7160e01b600052602160045260246000fd5b6040830152606090810151910152565b6080810161150882846123fb565b8035801515811461246757600080fd5b919050565b6000806000806080858703121561248257600080fd5b843593506020850135925061249960408601612457565b91506124a760608601612457565b905092959194509250565b60005b838110156124cd5781810151838201526020016124b5565b838111156124dc576000848401525b50505050565b600081518084526124fa8160208601602086016124b2565b601f01601f19169290920160200192915050565b60808152600061252160808301876124e2565b828103602084015261253381876124e2565b604084019590955250506060015292915050565b600060a0828403121561255957600080fd5b50919050565b60006020828403121561257157600080fd5b813567ffffffffffffffff81111561258857600080fd5b61259484828501612547565b949350505050565b600060e0828403121561255957600080fd5b600080604083850312156125c157600080fd5b82359150602083013567ffffffffffffffff8111156125df57600080fd5b6123db8582860161259c565b60e0815260006125fe60e083018a6124e2565b60208301989098525060408101959095526060850193909352608084019190915260a083015260c090910152919050565b6000610140828403121561255957600080fd5b60006020828403121561265457600080fd5b813567ffffffffffffffff81111561266b57600080fd5b6125948482850161262f565b6000806040838503121561268a57600080fd5b82359150602083013567ffffffffffffffff8111156126a857600080fd5b6123db85828601612547565b6000602082840312156126c657600080fd5b813567ffffffffffffffff8111156126dd57600080fd5b6125948482850161259c565b600080604083850312156126fc57600080fd5b8235915061270c60208401612457565b90509250929050565b6000815160a0845261272a60a08501826124e2565b9050602083015160208501526040830151604085015260608301516060850152608083015160808501528091505092915050565b6000815160e0845261277360e08501826124e2565b90506020830151602085015260408301516040850152606083015160608501526080830151608085015260a083015160a085015260c083015160c08501528091505092915050565b60608152600084516101408060608501526127da6101a08501836124e2565b91506020870151605f198584030160808601526127f783826124e2565b925050604087015161280c60a08601826123fb565b50606087015161012085015260808701519084015260a086015161016084015260c086015161018084015282810360208401526128498186612715565b9050828103604084015261285d818561275e565b9695505050505050565b60a08152600061287a60a08301886124e2565b90508560208301528460408301528360608301528260808301529695505050505050565b600080602083850312156128b157600080fd5b823567ffffffffffffffff808211156128c957600080fd5b818501915085601f8301126128dd57600080fd5b8135818111156128ec57600080fd5b8660208260051b850101111561290157600080fd5b60209290920196919550909350505050565b60006101408083526129278184018b6124e2565b9050828103602084015261293b818a6124e2565b91505061294b60408301886123fb565b8560c08301528460e0830152836101008301528261012083015298975050505050505050565b6000806040838503121561298457600080fd5b82359150602083013567ffffffffffffffff8111156129a257600080fd5b6123db8582860161262f565b6001600160a01b03811681146129c357600080fd5b50565b6000602082840312156129d857600080fd5b81516129e3816129ae565b9392505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b60008219821115612a2957612a29612a00565b500190565b600082821015612a4057612a40612a00565b500390565b600181811c90821680612a5957607f821691505b60208210810361255957634e487b7160e01b600052602260045260246000fd5b60008251612a8b8184602087016124b2565b9190910192915050565b600060018201612aa757612aa7612a00565b5060010190565b6000808335601e19843603018112612ac557600080fd5b83018035915067ffffffffffffffff821115612ae057600080fd5b602001915036819003821315612af557600080fd5b9250929050565b601f821115611e5157600081815260208120601f850160051c81016020861015612b235750805b601f850160051c820191505b8181101561087b57828155600101612b2f565b67ffffffffffffffff831115612b5a57612b5a6122de565b612b6e83612b688354612a45565b83612afc565b6000601f841160018114612ba25760008515612b8a5750838201355b600019600387901b1c1916600186901b178355612bfc565b600083815260209020601f19861690835b82811015612bd35786850135825560209485019460019092019101612bb3565b5086821015612bf05760001960f88860031b161c19848701351681555b505060018560011b0183555b5050505050565b612c0d8283612aae565b67ffffffffffffffff811115612c2557612c256122de565b612c3981612c338554612a45565b85612afc565b6000601f821160018114612c6d5760008315612c555750838201355b600019600385901b1c1916600184901b178555612cc7565b600085815260209020601f19841690835b82811015612c9e5786850135825560209485019460019092019101612c7e565b5084821015612cbb5760001960f88660031b161c19848701351681555b505060018360011b0185555b50505050602082013560018201556040820135600282015560608201356003820155608082013560048201555050565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b838152604060208201526000612d3a604083018486612cf7565b95945050505050565b612d4d8283612aae565b67ffffffffffffffff811115612d6557612d656122de565b612d7381612c338554612a45565b6000601f821160018114612da75760008315612d8f5750838201355b600019600385901b1c1916600184901b178555612e01565b600085815260209020601f19841690835b82811015612dd85786850135825560209485019460019092019101612db8565b5084821015612df55760001960f88660031b161c19848701351681555b505060018360011b0185555b505050506020820135600182015560408201356002820155606082013560038201556080820135600482015560a0820135600582015560c082013560068201555050565b600060208284031215612e5757600080fd5b81356129e3816129ae565b600381106129c357600080fd5b600060208284031215612e8157600080fd5b81356129e381612e62565b8183823760009101908152919050565b8135612ea7816129ae565b815473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b03821617825550600181016020830135612ee0816129ae565b815473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b038216178255506040830135612f1581612e62565b60038110612f3357634e487b7160e01b600052602160045260246000fd5b815474ff00000000000000000000000000000000000000008260a01b167fffffffffffffffffffffff00ffffffffffffffffffffffffffffffffffffffff8216178355505050606082013560028201555050565b612f918283612aae565b67ffffffffffffffff811115612fa957612fa96122de565b612fb781612c338554612a45565b6000601f821160018114612feb5760008315612fd35750838201355b600019600385901b1c1916600184901b178555613045565b600085815260209020601f19841690835b8281101561301c5786850135825560209485019460019092019101612ffc565b50848210156130395760001960f88660031b161c19848701351681555b505060018360011b0185555b505050506130566020830183612aae565b613064818360018601612b42565b50506130766040830160028301612e9c565b60c0820135600582015560e08201356006820155610100820135600782015561012082013560088201555050565b8581526060602082015260006130be606083018688612cf7565b82810360408401526130d1818587612cf7565b98975050505050505050565b6000602082840312156130ef57600080fd5b5051919050565b600081600019048311821515161561311057613110612a00565b500290565b60008261313257634e487b7160e01b600052601260045260246000fd5b500490565b6000823561013e19833603018112612a8b57600080fd5b600080835461315c81612a45565b600182811680156131745760018114613185576131b4565b60ff198416875282870194506131b4565b8760005260208060002060005b858110156131ab5781548a820152908401908201613192565b50505082870194505b5092969550505050505056fea2646970667358221220efeefb9824cadc887314ad81c9a293fd1aa83315a623767d4eb101603dae3a9864736f6c634300080e0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106101f05760003560e01c80638251135b1161010f5780639848a68d116100a2578063b81b2b7111610071578063b81b2b7114610598578063b91ac788146105a1578063c749ec10146105c7578063f7acbabd146105da57600080fd5b80639848a68d146104fd5780639c8dd2fa14610530578063a1d54e9b14610562578063b474e82e1461058557600080fd5b8063925931fc116100de578063925931fc1461049b5780639521753e146104a45780639567dccf146104b757806396324bd4146104d957600080fd5b80638251135b14610419578063836a341a1461044c578063885e27501461047f5780638c23f81c1461048857600080fd5b8063472ff8bb116101875780635c25f4c5116101565780635c25f4c5146103d757806362614661146103ea578063658de48a146103fd5780637981aa831461040657600080fd5b8063472ff8bb1461035857806349dde63f1461036b5780634acc79ed1461037e57806359a992d0146103a457600080fd5b806320f0fc5e116101c357806320f0fc5e146102c957806324abd3fb146102de578063281b693c14610302578063302f81fc1461033557600080fd5b80630cd8b022146101f557806315406fe51461023b5780631628bfeb1461024e5780631eaa005c146102a9575b600080fd5b6102286102033660046122a3565b6000908152600460209081526040808320600701548352600691829052909120015490565b6040519081526020015b60405180910390f35b6102286102493660046122bc565b61060d565b61029961025c366004612381565b8151602081840181018051600782529282019482019490942091909352815180830184018051928152908401929093019190912091525460ff1681565b6040519015158152602001610232565b6102bc6102b73660046122a3565b610632565b6040516102329190612449565b6102dc6102d736600461246c565b6106d9565b005b6102996102ec3660046122a3565b6000908152600460205260409020600601541590565b6102286103103660046122a3565b6000908152600460209081526040808320600601548352600590915290206003015490565b6103486103433660046122a3565b610883565b604051610232949392919061250e565b6102dc61036636600461255f565b610c11565b6102dc6103793660046125ae565b610e01565b61039161038c3660046122a3565b611007565b60405161023297969594939291906125eb565b6102286103b23660046122a3565b6000908152600460209081526040808320600601548352600590915290206002015490565b6102dc6103e5366004612642565b6110c9565b6102286103f83660046122a3565b6113ec565b61022860035481565b6102dc610414366004612677565b61150e565b6102286104273660046122a3565b6000908152600460209081526040808320600701548352600690915290206001015490565b61022861045a3660046122a3565b6000908152600460209081526040808320600701548352600690915290206002015490565b61022860025481565b6102dc6104963660046126b4565b611724565b61022860005481565b6102286104b23660046126e9565b6118d3565b6104ca6104c53660046122a3565b61191c565b604051610232939291906127bb565b6104ec6104e73660046122a3565b611d57565b604051610232959493929190612867565b61022861050b3660046122a3565b6000908152600460209081526040808320600701548352600690915290206005015490565b61022861053e3660046122a3565b60009081526004602081815260408084206007015484526006909152909120015490565b6102286105703660046122a3565b60009081526004602052604090206005015490565b6102dc61059336600461289e565b611e0d565b61022860015481565b6105b46105af3660046122a3565b611e56565b6040516102329796959493929190612913565b6102dc6105d5366004612971565b612008565b6102286105e83660046122a3565b6000908152600460209081526040808320600701548352600690915290206003015490565b6008602052816000526040600020816002811061062957600080fd5b01549150829050565b6040805160808101825260008082526020820181905291810182905260608101919091526000828152600460209081526040918290208251608081018452600280830180546001600160a01b039081168452600390940154938416948301949094529093840191600160a01b900460ff16908111156106b3576106b36123e5565b60028111156106c4576106c46123e5565b81526020016002820154815250509050919050565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031662b127836040518163ffffffff1660e01b8152600401602060405180830381865afa158015610736573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061075a91906129c6565b6001600160a01b0316336001600160a01b0316146107bf5760405162461bcd60e51b815260206004820152600e60248201527f43414c4c4241434b535f4f4e4c5900000000000000000000000000000000000060448201526064015b60405180910390fd5b60008481526004602090815260408083206006015483526008909152812090836107ea5760016107ed565b60005b60ff1690508215610826578482826002811061080b5761080b6129ea565b01600082825461081b9190612a16565b9091555061087b9050565b84828260028110610839576108396129ea565b015411610847576000610866565b8482826002811061085a5761085a6129ea565b01546108669190612a2e565b828260028110610878576108786129ea565b01555b505050505050565b6060806000807f00000000000000000000000000000000000000000000000000000000000000006001600160a01b0316633078fff56040518163ffffffff1660e01b8152600401602060405180830381865afa1580156108e7573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061090b91906129c6565b6001600160a01b0316336001600160a01b03161461096b5760405162461bcd60e51b815260206004820152600f60248201527f41474752454741544f525f4f4e4c59000000000000000000000000000000000060448201526064016107b6565b600085815260046020526040808220815160e0810190925280548290829061099290612a45565b80601f01602080910402602001604051908101604052809291908181526020018280546109be90612a45565b8015610a0b5780601f106109e057610100808354040283529160200191610a0b565b820191906000526020600020905b8154815290600101906020018083116109ee57829003601f168201915b50505050508152602001600182018054610a2490612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054610a5090612a45565b8015610a9d5780601f10610a7257610100808354040283529160200191610a9d565b820191906000526020600020905b815481529060010190602001808311610a8057829003601f168201915b505050918352505060408051608081018252600284810180546001600160a01b0390811684526003870154908116602080860191909152909501949293909290840191600160a01b90910460ff1690811115610afb57610afb6123e5565b6002811115610b0c57610b0c6123e5565b81526020016002820154815250508152602001600582015481526020016006820154815260200160078201548152602001600882015481525050905060078160000151604051610b5c9190612a79565b90815260200160405180910390208160200151604051610b7c9190612a79565b9081526040519081900360200190205460ff16610bcd5760405162461bcd60e51b815260206004820152600f60248201526e1410525497d393d517d31254d51151608a1b60448201526064016107b6565b805160208083015160808401516000908152600590925260408220600101548254919290919080610bfd83612a95565b919050559450945094509450509193509193565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa158015610c6f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610c9391906129c6565b6001600160a01b0316336001600160a01b031614610cde5760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b806020810135610d1c5760405162461bcd60e51b81526020600482015260096024820152684a4f425f454d50545960b81b60448201526064016107b6565b6002816040013510158015610d3757506103e8816060013511155b8015610d4a575080606001358160400135105b610d885760405162461bcd60e51b815260206004820152600f60248201526e57524f4e475f4c455645524147455360881b60448201526064016107b6565b60025460009081526005602052604090208290610da58282612c03565b5050600280547faf17de8e82beccc440012117a600dc37e26925225d0f1ee192fc107eb3dcbca4916000610dd883612a95565b90915550610de68480612aae565b604051610df593929190612d20565b60405180910390a15050565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa158015610e5f573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610e8391906129c6565b6001600160a01b0316336001600160a01b031614610ece5760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b6000828152600660205260409020600101548290610f1f5760405162461bcd60e51b815260206004820152600e60248201526d11915157d393d517d31254d5115160921b60448201526064016107b6565b8160008160200135118015610f38575060008160400135115b8015610f48575060008160600135115b8015610f58575060008160800135115b8015610f68575060008160a00135115b8015610f78575060008160c00135115b610fb15760405162461bcd60e51b815260206004820152600a60248201526957524f4e475f4645455360b01b60448201526064016107b6565b60008481526006602052604090208390610fcb8282612d43565b50506040518481527f8c4d35e54a3f2ef1134138fd8ea3daee6a3c89e10d2665996babdf70261e2c76906020015b60405180910390a150505050565b60066020526000908152604090208054819061102290612a45565b80601f016020809104026020016040519081016040528092919081815260200182805461104e90612a45565b801561109b5780601f106110705761010080835404028352916020019161109b565b820191906000526020600020905b81548152906001019060200180831161107e57829003601f168201915b5050505050908060010154908060020154908060030154908060040154908060050154908060060154905087565b80604001600081606001351180156110f7575060006110eb6020830183612e45565b6001600160a01b031614155b6111305760405162461bcd60e51b815260206004820152600a60248201526915d493d391d7d191515160b21b60448201526064016107b6565b60026111426060830160408401612e6f565b6002811115611153576111536123e5565b1415806111795750600061116d6040830160208401612e45565b6001600160a01b031614155b6111b65760405162461bcd60e51b815260206004820152600e60248201526d464545445f325f4d495353494e4760901b60448201526064016107b6565b60e082013560008181526005602052604090206002015461120c5760405162461bcd60e51b815260206004820152601060248201526f11d493d55417d393d517d31254d5115160821b60448201526064016107b6565b6101008301356000818152600660205260409020600101546112615760405162461bcd60e51b815260206004820152600e60248201526d11915157d393d517d31254d5115160921b60448201526064016107b6565b600761126d8580612aae565b60405161127b929190612e8c565b90815260200160405180910390208480602001906112999190612aae565b6040516112a7929190612e8c565b9081526040519081900360200190205460ff16156113075760405162461bcd60e51b815260206004820152601360248201527f504149525f414c52454144595f4c49535445440000000000000000000000000060448201526064016107b6565b600154600090815260046020526040902084906113248282612f87565b506001905060076113358680612aae565b604051611343929190612e8c565b90815260200160405180910390208580602001906113619190612aae565b60405161136f929190612e8c565b908152604051908190036020019020805491151560ff19909216919091179055600180547f3adfd40f2b74073df2a84238acdb7f460565a557b3cc13bddc8833289bf38e099160006113c083612a95565b909155506113ce8680612aae565b6113db6020890189612aae565b604051610ff99594939291906130a4565b600060647f00000000000000000000000000000000000000000000000000000000000000006001600160a01b031663fbfa77cf6040518163ffffffff1660e01b8152600401602060405180830381865afa15801561144e573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061147291906129c6565b6001600160a01b0316630851a2026040518163ffffffff1660e01b8152600401602060405180830381865afa1580156114af573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906114d391906130dd565b6000848152600460208181526040808420600601548452600590915290912001546114fe91906130f6565b6115089190613115565b92915050565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa15801561156c573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061159091906129c6565b6001600160a01b0316336001600160a01b0316146115db5760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b600082815260056020526040902060020154829061162e5760405162461bcd60e51b815260206004820152601060248201526f11d493d55417d393d517d31254d5115160821b60448201526064016107b6565b81602081013561166c5760405162461bcd60e51b81526020600482015260096024820152684a4f425f454d50545960b81b60448201526064016107b6565b600281604001351015801561168757506103e8816060013511155b801561169a575080606001358160400135105b6116d85760405162461bcd60e51b815260206004820152600f60248201526e57524f4e475f4c455645524147455360881b60448201526064016107b6565b600084815260056020526040902083906116f28282612c03565b50506040518481527fcfde8f228364c70f12cbbac5a88fc91ceca76dd750ac93364991a333b34afb8e90602001610ff9565b7f00000000000000000000000000000000000000000000000000000000000000006001600160a01b03166312d43a516040518163ffffffff1660e01b8152600401602060405180830381865afa158015611782573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906117a691906129c6565b6001600160a01b0316336001600160a01b0316146117f15760405162461bcd60e51b8152602060048201526008602482015267474f565f4f4e4c5960c01b60448201526064016107b6565b806000816020013511801561180a575060008160400135115b801561181a575060008160600135115b801561182a575060008160800135115b801561183a575060008160a00135115b801561184a575060008160c00135115b6118835760405162461bcd60e51b815260206004820152600a60248201526957524f4e475f4645455360b01b60448201526064016107b6565b600354600090815260066020526040902082906118a08282612d43565b5050600380547f482049823c85e038e099fe4f2b901487c4800def71c9a3f5bae2de8381ec54f6916000610dd883612a95565b600082815260046020908152604080832060060154835260089091528120826118fd576001611900565b60005b60ff1660028110611913576119136129ea565b01549392505050565b61192461223d565b6119596040518060a0016040528060608152602001600080191681526020016000815260200160008152602001600081525090565b6119996040518060e00160405280606081526020016000815260200160008152602001600081526020016000815260200160008152602001600081525090565b600084815260046020526040808220815160e081019092528054829082906119c090612a45565b80601f01602080910402602001604051908101604052809291908181526020018280546119ec90612a45565b8015611a395780601f10611a0e57610100808354040283529160200191611a39565b820191906000526020600020905b815481529060010190602001808311611a1c57829003601f168201915b50505050508152602001600182018054611a5290612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611a7e90612a45565b8015611acb5780601f10611aa057610100808354040283529160200191611acb565b820191906000526020600020905b815481529060010190602001808311611aae57829003601f168201915b505050918352505060408051608081018252600284810180546001600160a01b0390811684526003870154908116602080860191909152909501949293909290840191600160a01b90910460ff1690811115611b2957611b296123e5565b6002811115611b3a57611b3a6123e5565b815260200160028201548152505081526020016005820154815260200160068201548152602001600782015481526020016008820154815250509050806005600083608001518152602001908152602001600020600660008460a001518152602001908152602001600020816040518060a0016040529081600082018054611bc190612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611bed90612a45565b8015611c3a5780601f10611c0f57610100808354040283529160200191611c3a565b820191906000526020600020905b815481529060010190602001808311611c1d57829003601f168201915b505050505081526020016001820154815260200160028201548152602001600382015481526020016004820154815250509150806040518060e0016040529081600082018054611c8990612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611cb590612a45565b8015611d025780601f10611cd757610100808354040283529160200191611d02565b820191906000526020600020905b815481529060010190602001808311611ce557829003601f168201915b5050505050815260200160018201548152602001600282015481526020016003820154815260200160048201548152602001600582015481526020016006820154815250509050935093509350509193909250565b600560205260009081526040902080548190611d7290612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611d9e90612a45565b8015611deb5780601f10611dc057610100808354040283529160200191611deb565b820191906000526020600020905b815481529060010190602001808311611dce57829003601f168201915b5050505050908060010154908060020154908060030154908060040154905085565b60005b81811015611e5157611e3f838383818110611e2d57611e2d6129ea565b90506020028101906103e59190613137565b80611e4981612a95565b915050611e10565b505050565b600460205260009081526040902080548190611e7190612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611e9d90612a45565b8015611eea5780601f10611ebf57610100808354040283529160200191611eea565b820191906000526020600020905b815481529060010190602001808311611ecd57829003601f168201915b505050505090806001018054611eff90612a45565b80601f0160208091040260200160405190810160405280929190818152602001828054611f2b90612a45565b8015611f785780601f10611f4d57610100808354040283529160200191611f78565b820191906000526020600020905b815481529060010190602001808311611f5b57829003601f168201915b505060408051608081018252600287810180546001600160a01b03908116845260038a0154908116602085015297989792965094509185019250600160a01b900460ff1690811115611fcc57611fcc6123e5565b6002811115611fdd57611fdd6123e5565b8152602001600282015481525050908060050154908060060154908060070154908060080154905087565b80604001600081606001351180156120365750600061202a6020830183612e45565b6001600160a01b031614155b61206f5760405162461bcd60e51b815260206004820152600a60248201526915d493d391d7d191515160b21b60448201526064016107b6565b60026120816060830160408401612e6f565b6002811115612092576120926123e5565b1415806120b8575060006120ac6040830160208401612e45565b6001600160a01b031614155b6120f55760405162461bcd60e51b815260206004820152600e60248201526d464545445f325f4d495353494e4760901b60448201526064016107b6565b61010082013560008181526006602052604090206001015461214a5760405162461bcd60e51b815260206004820152600e60248201526d11915157d393d517d31254d5115160921b60448201526064016107b6565b60008481526004602052604090819020905160079061216a90839061314e565b908152602001604051809103902081600101604051612189919061314e565b9081526040519081900360200190205460ff166121da5760405162461bcd60e51b815260206004820152600f60248201526e1410525497d393d517d31254d51151608a1b60448201526064016107b6565b60408401600282016121ec8282612e9c565b505060c0840135600582015561010084013560078201556040518581527f123a1b961ae93e7acda9790b318237b175b45ac09277cd3614305d8baa3f19539060200160405180910390a15050505050565b6040518060e0016040528060608152602001606081526020016122816040805160808101825260008082526020820181905290918201908152602001600081525090565b8152602001600081526020016000815260200160008152602001600081525090565b6000602082840312156122b557600080fd5b5035919050565b600080604083850312156122cf57600080fd5b50508035926020909101359150565b634e487b7160e01b600052604160045260246000fd5b600082601f83011261230557600080fd5b813567ffffffffffffffff80821115612320576123206122de565b604051601f8301601f19908116603f01168101908282118183101715612348576123486122de565b8160405283815286602085880101111561236157600080fd5b836020870160208301376000602085830101528094505050505092915050565b6000806040838503121561239457600080fd5b823567ffffffffffffffff808211156123ac57600080fd5b6123b8868387016122f4565b935060208501359150808211156123ce57600080fd5b506123db858286016122f4565b9150509250929050565b634e487b7160e01b600052602160045260246000fd5b6001600160a01b038082511683528060208301511660208401525060408101516003811061243957634e487b7160e01b600052602160045260246000fd5b6040830152606090810151910152565b6080810161150882846123fb565b8035801515811461246757600080fd5b919050565b6000806000806080858703121561248257600080fd5b843593506020850135925061249960408601612457565b91506124a760608601612457565b905092959194509250565b60005b838110156124cd5781810151838201526020016124b5565b838111156124dc576000848401525b50505050565b600081518084526124fa8160208601602086016124b2565b601f01601f19169290920160200192915050565b60808152600061252160808301876124e2565b828103602084015261253381876124e2565b604084019590955250506060015292915050565b600060a0828403121561255957600080fd5b50919050565b60006020828403121561257157600080fd5b813567ffffffffffffffff81111561258857600080fd5b61259484828501612547565b949350505050565b600060e0828403121561255957600080fd5b600080604083850312156125c157600080fd5b82359150602083013567ffffffffffffffff8111156125df57600080fd5b6123db8582860161259c565b60e0815260006125fe60e083018a6124e2565b60208301989098525060408101959095526060850193909352608084019190915260a083015260c090910152919050565b6000610140828403121561255957600080fd5b60006020828403121561265457600080fd5b813567ffffffffffffffff81111561266b57600080fd5b6125948482850161262f565b6000806040838503121561268a57600080fd5b82359150602083013567ffffffffffffffff8111156126a857600080fd5b6123db85828601612547565b6000602082840312156126c657600080fd5b813567ffffffffffffffff8111156126dd57600080fd5b6125948482850161259c565b600080604083850312156126fc57600080fd5b8235915061270c60208401612457565b90509250929050565b6000815160a0845261272a60a08501826124e2565b9050602083015160208501526040830151604085015260608301516060850152608083015160808501528091505092915050565b6000815160e0845261277360e08501826124e2565b90506020830151602085015260408301516040850152606083015160608501526080830151608085015260a083015160a085015260c083015160c08501528091505092915050565b60608152600084516101408060608501526127da6101a08501836124e2565b91506020870151605f198584030160808601526127f783826124e2565b925050604087015161280c60a08601826123fb565b50606087015161012085015260808701519084015260a086015161016084015260c086015161018084015282810360208401526128498186612715565b9050828103604084015261285d818561275e565b9695505050505050565b60a08152600061287a60a08301886124e2565b90508560208301528460408301528360608301528260808301529695505050505050565b600080602083850312156128b157600080fd5b823567ffffffffffffffff808211156128c957600080fd5b818501915085601f8301126128dd57600080fd5b8135818111156128ec57600080fd5b8660208260051b850101111561290157600080fd5b60209290920196919550909350505050565b60006101408083526129278184018b6124e2565b9050828103602084015261293b818a6124e2565b91505061294b60408301886123fb565b8560c08301528460e0830152836101008301528261012083015298975050505050505050565b6000806040838503121561298457600080fd5b82359150602083013567ffffffffffffffff8111156129a257600080fd5b6123db8582860161262f565b6001600160a01b03811681146129c357600080fd5b50565b6000602082840312156129d857600080fd5b81516129e3816129ae565b9392505050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b60008219821115612a2957612a29612a00565b500190565b600082821015612a4057612a40612a00565b500390565b600181811c90821680612a5957607f821691505b60208210810361255957634e487b7160e01b600052602260045260246000fd5b60008251612a8b8184602087016124b2565b9190910192915050565b600060018201612aa757612aa7612a00565b5060010190565b6000808335601e19843603018112612ac557600080fd5b83018035915067ffffffffffffffff821115612ae057600080fd5b602001915036819003821315612af557600080fd5b9250929050565b601f821115611e5157600081815260208120601f850160051c81016020861015612b235750805b601f850160051c820191505b8181101561087b57828155600101612b2f565b67ffffffffffffffff831115612b5a57612b5a6122de565b612b6e83612b688354612a45565b83612afc565b6000601f841160018114612ba25760008515612b8a5750838201355b600019600387901b1c1916600186901b178355612bfc565b600083815260209020601f19861690835b82811015612bd35786850135825560209485019460019092019101612bb3565b5086821015612bf05760001960f88860031b161c19848701351681555b505060018560011b0183555b5050505050565b612c0d8283612aae565b67ffffffffffffffff811115612c2557612c256122de565b612c3981612c338554612a45565b85612afc565b6000601f821160018114612c6d5760008315612c555750838201355b600019600385901b1c1916600184901b178555612cc7565b600085815260209020601f19841690835b82811015612c9e5786850135825560209485019460019092019101612c7e565b5084821015612cbb5760001960f88660031b161c19848701351681555b505060018360011b0185555b50505050602082013560018201556040820135600282015560608201356003820155608082013560048201555050565b81835281816020850137506000828201602090810191909152601f909101601f19169091010190565b838152604060208201526000612d3a604083018486612cf7565b95945050505050565b612d4d8283612aae565b67ffffffffffffffff811115612d6557612d656122de565b612d7381612c338554612a45565b6000601f821160018114612da75760008315612d8f5750838201355b600019600385901b1c1916600184901b178555612e01565b600085815260209020601f19841690835b82811015612dd85786850135825560209485019460019092019101612db8565b5084821015612df55760001960f88660031b161c19848701351681555b505060018360011b0185555b505050506020820135600182015560408201356002820155606082013560038201556080820135600482015560a0820135600582015560c082013560068201555050565b600060208284031215612e5757600080fd5b81356129e3816129ae565b600381106129c357600080fd5b600060208284031215612e8157600080fd5b81356129e381612e62565b8183823760009101908152919050565b8135612ea7816129ae565b815473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b03821617825550600181016020830135612ee0816129ae565b815473ffffffffffffffffffffffffffffffffffffffff19166001600160a01b038216178255506040830135612f1581612e62565b60038110612f3357634e487b7160e01b600052602160045260246000fd5b815474ff00000000000000000000000000000000000000008260a01b167fffffffffffffffffffffff00ffffffffffffffffffffffffffffffffffffffff8216178355505050606082013560028201555050565b612f918283612aae565b67ffffffffffffffff811115612fa957612fa96122de565b612fb781612c338554612a45565b6000601f821160018114612feb5760008315612fd35750838201355b600019600385901b1c1916600184901b178555613045565b600085815260209020601f19841690835b8281101561301c5786850135825560209485019460019092019101612ffc565b50848210156130395760001960f88660031b161c19848701351681555b505060018360011b0185555b505050506130566020830183612aae565b613064818360018601612b42565b50506130766040830160028301612e9c565b60c0820135600582015560e08201356006820155610100820135600782015561012082013560088201555050565b8581526060602082015260006130be606083018688612cf7565b82810360408401526130d1818587612cf7565b98975050505050505050565b6000602082840312156130ef57600080fd5b5051919050565b600081600019048311821515161561311057613110612a00565b500290565b60008261313257634e487b7160e01b600052601260045260246000fd5b500490565b6000823561013e19833603018112612a8b57600080fd5b600080835461315c81612a45565b600182811680156131745760018114613185576131b4565b60ff198416875282870194506131b4565b8760005260208060002060005b858110156131ab5781548a820152908401908201613192565b50505082870194505b5092969550505050505056fea2646970667358221220efeefb9824cadc887314ad81c9a293fd1aa83315a623767d4eb101603dae3a9864736f6c634300080e0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4723,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "currentOrderId",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4725,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "pairsCount",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4727,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "groupsCount",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4729,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "feesCount",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 4734,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "pairs",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_uint256,t_struct(Pair)4695_storage)"
+      },
+      {
+        "astId": 4739,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "groups",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_mapping(t_uint256,t_struct(Group)4706_storage)"
+      },
+      {
+        "astId": 4744,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "fees",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_uint256,t_struct(Fee)4721_storage)"
+      },
+      {
+        "astId": 4750,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "isPairListed",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_bool))"
+      },
+      {
+        "astId": 4756,
+        "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+        "label": "groupsCollaterals",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_mapping(t_uint256,t_array(t_uint256)2_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)2_storage": {
+        "base": "t_uint256",
+        "encoding": "inplace",
+        "label": "uint256[2]",
+        "numberOfBytes": "64"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_enum(FeedCalculation)4669": {
+        "encoding": "inplace",
+        "label": "enum GNSPairsStorageV6.FeedCalculation",
+        "numberOfBytes": "1"
+      },
+      "t_int256": {
+        "encoding": "inplace",
+        "label": "int256",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_string_memory_ptr,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_bool))": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => mapping(string => bool))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_string_memory_ptr,t_bool)"
+      },
+      "t_mapping(t_uint256,t_array(t_uint256)2_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256[2])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)2_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Fee)4721_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct GNSPairsStorageV6.Fee)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Fee)4721_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Group)4706_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct GNSPairsStorageV6.Group)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Group)4706_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Pair)4695_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct GNSPairsStorageV6.Pair)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Pair)4695_storage"
+      },
+      "t_string_memory_ptr": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Fee)4721_storage": {
+        "encoding": "inplace",
+        "label": "struct GNSPairsStorageV6.Fee",
+        "members": [
+          {
+            "astId": 4708,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 4710,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "openFeeP",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4712,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "closeFeeP",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4714,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "oracleFeeP",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4716,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "nftLimitOrderFeeP",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4718,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "referralFeeP",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4720,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "minLevPosDai",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_struct(Feed)4679_storage": {
+        "encoding": "inplace",
+        "label": "struct GNSPairsStorageV6.Feed",
+        "members": [
+          {
+            "astId": 4671,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "feed1",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 4673,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "feed2",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 4676,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "feedCalculation",
+            "offset": 20,
+            "slot": "1",
+            "type": "t_enum(FeedCalculation)4669"
+          },
+          {
+            "astId": 4678,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "maxDeviationP",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(Group)4706_storage": {
+        "encoding": "inplace",
+        "label": "struct GNSPairsStorageV6.Group",
+        "members": [
+          {
+            "astId": 4697,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 4699,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "job",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_bytes32"
+          },
+          {
+            "astId": 4701,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "minLeverage",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4703,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "maxLeverage",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4705,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "maxCollateralP",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_struct(Pair)4695_storage": {
+        "encoding": "inplace",
+        "label": "struct GNSPairsStorageV6.Pair",
+        "members": [
+          {
+            "astId": 4681,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "from",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 4683,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "to",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 4686,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "feed",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_struct(Feed)4679_storage"
+          },
+          {
+            "astId": 4688,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "spreadP",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4690,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "groupIndex",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4692,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "feeIndex",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 4694,
+            "contract": "contracts/GNSPairStorageV6.sol:GNSPairsStorageV6",
+            "label": "proportionBTC",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_int256"
+          }
+        ],
+        "numberOfBytes": "288"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

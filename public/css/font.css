@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../font/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'GT-Flexa-Bold-Trial';
+    src: url('../font/GT-Flexa-Bold-Trial.woff2') format('woff2');
+    font-style: normal;
+}

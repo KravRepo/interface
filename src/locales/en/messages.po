@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2023-05-26 15:02+0800\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/Header/Header.tsx
+msgid "Statistics"
+msgstr "Statistics"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "This conversion ratio is a fixed value and is not affected by the price of X token. The transaction profit and loss will be settled in BTC, and finally settled with X token according to the conversion ratio."
+msgstr "This conversion ratio is a fixed value and is not affected by the price of X token. The transaction profit and loss will be settled in BTC, and finally settled with X token according to the conversion ratio."
+
+#: src/components/Header/Header.tsx
+msgid "Liquidity"
+msgstr "Liquidity"
+
+#: src/components/Header/Header.tsx
+msgid "BNB chain testnet"
+msgstr "BNB chain testnet"
+
+#: src/components/Trades/PairInfo.tsx
+msgid "Market Price"
+msgstr "Market Price"
+
+#: src/components/Header/Header.tsx
+msgid "DashBoard"
+msgstr "DashBoard"
+
+#: src/components/Header/Header.tsx
+msgid "Connect Wallet"
+msgstr "Connect Wallet"
+
+#: src/components/Header/Header.tsx
+msgid "Trade"
+msgstr "Trade"
+
+#: src/components/Trades/PairInfo.tsx
+msgid "24H Low"
+msgstr "24H Low"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+msgstr "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Step 4 Initial LP Provision"
+msgstr "Step 4 Initial LP Provision"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
+msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
+
+#: src/components/Trades/PairInfo.tsx
+msgid "24H High"
+msgstr "24H High"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Step 2 Select Token Collateral"
+msgstr "Step 2 Select Token Collateral"
+
+#: src/components/Header/SelectNetwork.tsx
+msgid "Select a network"
+msgstr "Select a network"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Step 1 Choose Target Market"
+msgstr "Step 1 Choose Target Market"
+
+#: src/components/Trades/PairInfo.tsx
+msgid "24h Change"
+msgstr "24h Change"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Step 3 Set Ticket Size"
+msgstr "Step 3 Set Ticket Size"
+
+#: src/components/Trades/TradeRight/OrderParamsCard.tsx
+msgid "{buttonState}"
+msgstr "{buttonState}"
