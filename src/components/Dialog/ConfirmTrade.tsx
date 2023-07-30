@@ -20,9 +20,21 @@ export type ConfirmTradeDialogProp = {
   tuple: Tuple
   tradeType: number
   openBTCSize: BigNumber
+  setPositionSizeDai: Dispatch<React.SetStateAction<BigNumber>>
+  setOpenBTCSize: Dispatch<React.SetStateAction<BigNumber>>
+  setLeverage: Dispatch<React.SetStateAction<number>>
 }
 
-export const ConfirmTrade = ({ isOpen, setIsOpen, tuple, tradeType, openBTCSize }: ConfirmTradeDialogProp) => {
+export const ConfirmTrade = ({
+  isOpen,
+  setIsOpen,
+  tuple,
+  tradeType,
+  openBTCSize,
+  setPositionSizeDai,
+  setOpenBTCSize,
+  setLeverage,
+}: ConfirmTradeDialogProp) => {
   const tradePool = useRootStore((store) => store.tradePool)
   const [checked, setChecked] = useState(false)
   const [referralAddress, setReferralAddress] = useState('0x0000000000000000000000000000000000000000')
@@ -45,7 +57,7 @@ export const ConfirmTrade = ({ isOpen, setIsOpen, tuple, tradeType, openBTCSize 
     if (referral) {
       setReferralAddress(decodeReferral(referral))
     }
-  }, [])
+  }, [tuple])
 
   return (
     <Dialog
@@ -183,6 +195,9 @@ export const ConfirmTrade = ({ isOpen, setIsOpen, tuple, tradeType, openBTCSize 
               onClick={async () => {
                 setIsOpen(false)
                 await openTrade()
+                setPositionSizeDai(new BigNumber(0))
+                setOpenBTCSize(new BigNumber(0))
+                setLeverage(2)
               }}
               sx={{ marginTop: '20px' }}
             >

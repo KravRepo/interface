@@ -4,6 +4,7 @@ import { Contract } from 'ethers'
 import test_erc20 from '../../abi/test_erc20.json'
 import { useUpdateError } from './useUpdateError'
 import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
+import { TransactionAction } from '../../store/TransactionSlice'
 
 export const useCheckAddressValidity = () => {
   const { provider } = useWeb3React()
@@ -12,7 +13,7 @@ export const useCheckAddressValidity = () => {
     async (tokenAddress: string) => {
       try {
         if (tokenAddress?.length !== VALIDITY_ADDRESS_LENGTH) {
-          updateError('inValidity address!')
+          updateError(TransactionAction.ADDRESS_CHECK)
           return false
         }
         if (provider && tokenAddress?.length === VALIDITY_ADDRESS_LENGTH) {
@@ -21,7 +22,7 @@ export const useCheckAddressValidity = () => {
           return true
         } else return false
       } catch (e) {
-        updateError('inValidity address!')
+        updateError(TransactionAction.ADDRESS_CHECK)
         return false
       }
     },

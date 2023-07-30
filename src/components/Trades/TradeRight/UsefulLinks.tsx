@@ -13,13 +13,9 @@ export const UsefulLinks = () => {
         `}
       >
         <p className="card-details">
-          <Link color="#000">Trading guide</Link>
-        </p>
-        <p className="card-details">
-          <Link color="#000">Leaderboard</Link>
-        </p>
-        <p className="card-details">
-          <Link color="#000">Speed up page loading</Link>
+          <Link href="https://docs.krav.trade/" color="#000">
+            Trading guide
+          </Link>
         </p>
       </div>
     </div>

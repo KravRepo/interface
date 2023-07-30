@@ -7,6 +7,7 @@ export type DepositDAIParams = {}
 export type YourPositionProps = {
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
+  isLoadingUserPosition: boolean
 }
 
 export type TargetMarketProps = {
@@ -22,6 +23,10 @@ export type ConfirmCreatPoolProps = {
   LPProvision: number | string
   tokenSymbol: string
   tokenDecimals: number
+  setCreateLiquidityPool: Dispatch<SetStateAction<boolean>>
+  setLPProvision: Dispatch<SetStateAction<string | number>>
+  setTicketSize: Dispatch<SetStateAction<string | number>>
+  setTokenAddress: Dispatch<SetStateAction<string>>
 }
 
 export type CreateLiquidityProps = {

@@ -28,8 +28,10 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
   }, [poolParams, userPositionDatas])
 
   useEffect(() => {
-    getLpReward(setLpReward).then()
-  }, [])
+    if (poolSupply.isGreaterThan(0)) {
+      getLpReward(setLpReward).then()
+    }
+  }, [poolSupply])
 
   return (
     <div className="liquidity-table">
@@ -46,12 +48,12 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
       </div>
       <div>1 BTC={poolParams.proportionBTC}</div>
       <div>12.32%</div>
-      <div>{poolParams.utilization.toFixed(2)}%</div>
+      <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>
         <p>
           {poolParams.poolTotalSupply?.toFixed(2)} {poolParams.symbol}
         </p>
-        <p className="small grey">($236,123.00)</p>
+        <p className="small grey">({poolParams.poolTotalSupply?.div(poolParams.proportionBTC).toFixed(2)}&nbsp;BTC) </p>
       </div>
       <div>
         {getBigNumberStr(poolSupply, 2)} {poolParams.symbol}

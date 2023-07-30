@@ -25,11 +25,7 @@ msgstr ""
 msgid "Liquidity"
 msgstr ""
 
-#: src/components/Header/Header.tsx
-msgid "BNB chain testnet"
-msgstr "BNB chain testnet"
-
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "Market Price"
 msgstr ""
 
@@ -45,7 +41,11 @@ msgstr ""
 msgid "Trade"
 msgstr ""
 
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Header/Header.tsx
+msgid "Sepolia"
+msgstr "Sepolia"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24H Low"
 msgstr ""
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr ""
 
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24H High"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Step 1 Choose Target Market"
 msgstr ""
 
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24h Change"
 msgstr ""
 

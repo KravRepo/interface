@@ -30,7 +30,7 @@ export const dialogContent = css`
     border-bottom: 1px solid #dadada;
     padding: 16px 0;
     max-height: 368px;
-    overflow: hidden;
+    overflow: scroll;
     > div {
       cursor: pointer;
       :hover {
@@ -41,14 +41,6 @@ export const dialogContent = css`
       align-items: center;
       justify-content: space-between;
     }
-    &::-webkit-scrollbar {
-      display: none
-    },
-  }
-  .error-dialog {
-    margin: 40px 24px;
-    max-height: 368px;
-    overflow: scroll;
     &::-webkit-scrollbar {
       display: none
     },
@@ -160,6 +152,81 @@ export const dialogContent = css`
     }
     100% {
       height: 75%;
+    }
+  }
+`
+
+export const snackbar = css`
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  font-family: 'Inter';
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.28px;
+  .snackbar-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 48px;
+    > div {
+      display: flex;
+      align-items: center;
+      > span {
+        font-size: 20px;
+        font-weight: 500;
+        margin-left: 16px;
+      }
+    }
+  }
+  .snackbar-time {
+    color: #757575;
+    font-size: 12px;
+    letter-spacing: 0.24px;
+    padding-top: 24px;
+  }
+`
+
+export const errorDialog = css`
+  padding: 24px;
+  width: 440px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  text-align: center;
+  .error-dialog-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    padding-bottom: 48px;
+    padding-left: 40px;
+    > span {
+      padding-left: 15px;
+      padding-right: 45px;
+    }
+  }
+  .error-dialog-content {
+    font-size: 14px;
+    > svg {
+      margin: 24px 0;
+    }
+    .flash {
+      -webkit-animation: flash 6s ease alternate infinite;
+      animation: flash 6s ease alternate infinite;
+    }
+  }
+  @keyframes flash {
+    0%,
+    50%,
+    100% {
+      opacity: 1;
+    }
+
+    25%,
+    75% {
+      opacity: 0;
     }
   }
 `

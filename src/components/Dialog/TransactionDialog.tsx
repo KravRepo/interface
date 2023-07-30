@@ -1,9 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { Dialog, DialogContent } from '@mui/material'
-import { dialogContent } from './sytle'
+import { errorDialog } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../store/root'
 import { css } from '@emotion/react'
+import { TransactionState } from '../../store/TransactionSlice'
+import { ReactComponent as PendingIcon } from '../../assets/imgs/pending_icon.svg'
+import { ReactComponent as ApproveIcon } from '../../assets/imgs/approve_icon.svg'
+import { ReactComponent as InteractionIcon } from '../../assets/imgs/interaction_logo.svg'
+import KRAVButton from '../KravUIKit/KravButton'
 
 export const TransactionDialog = () => {
   const transactionState = useRootStore((state) => state.transactionState)
@@ -21,33 +26,97 @@ export const TransactionDialog = () => {
       }}
       open={transactionDialogVisibility}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
-        <div css={dialogContent}>
-          <div className="dialog-header">
-            <span>Pending</span>
-            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
-          </div>
-          <div
-            css={css`
-              text-align: center;
-            `}
-          >
-            <div className="loader loader-7">
-              <div className="line line1" />
-              <div className="line line2" />
-              <div className="line line3" />
+      {transactionState === TransactionState.APPROVE && (
+        <DialogContent sx={{ padding: 0, color: '#000' }}>
+          <div css={errorDialog}>
+            <div className="error-dialog-title">
+              <span
+                css={css`
+                  padding: 0;
+                `}
+              >
+                Krav requests wallet approval
+              </span>
+              <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
             </div>
-            <p
+            <div
+              className="error-dialog-content"
               css={css`
-                padding-bottom: 36px;
-                font-size: 20px;
+                text-align: center;
               `}
             >
-              {transactionState}
-            </p>
+              <p
+                css={css`
+                  font-size: 14px;
+                `}
+              >
+                Please manually interact with your wallet. Ease enable Krav to access your tokens.
+              </p>
+              <ApproveIcon className="flash" />
+              <KRAVButton disabled={true}>Awaiting...</KRAVButton>
+            </div>
           </div>
-        </div>
-      </DialogContent>
+        </DialogContent>
+      )}
+      {transactionState === TransactionState.INTERACTION && (
+        <DialogContent sx={{ padding: 0, color: '#000' }}>
+          <div css={errorDialog}>
+            <div className="error-dialog-title">
+              <span
+                css={css`
+                  padding: 0;
+                `}
+              >
+                Krav requests wallet interaction
+              </span>
+              <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
+            </div>
+            <div
+              className="error-dialog-content"
+              css={css`
+                text-align: center;
+              `}
+            >
+              <p
+                css={css`
+                  font-size: 14px;
+                `}
+              >
+                Please open your wallet and confirm in the transaction activity to proceed your order.
+              </p>
+              <InteractionIcon className="flash" />
+              <KRAVButton disabled={true}>Awaiting...</KRAVButton>
+            </div>
+          </div>
+        </DialogContent>
+      )}
+      {transactionState !== TransactionState.APPROVE && transactionState !== TransactionState.INTERACTION && (
+        <DialogContent sx={{ padding: 0, color: '#000' }}>
+          <div css={errorDialog}>
+            <div className="error-dialog-title">
+              <span>Krav waiting for transaction settlement</span>
+              <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
+            </div>
+            <div
+              className="error-dialog-content"
+              css={css`
+                text-align: center;
+              `}
+            >
+              <p
+                css={css`
+                  font-size: 14px;
+                  padding: 0 12px;
+                `}
+              >
+                Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement.
+              </p>
+              <PendingIcon className="flash" />
+              <KRAVButton disabled={true}>Awaiting...</KRAVButton>
+            </div>
+          </div>
+        </DialogContent>
+      )}
     </Dialog>
   )
 }

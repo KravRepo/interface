@@ -29,10 +29,13 @@ export const pairInfo = css`
     }
   }
   .symbol {
-    font-weight: 900;
+    font-family: 'GT-Flexa-Bold-Trial';
     font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 130%;
     margin-right: 12px;
-    font-family: 'GT Flexa Trial';
+    padding-top: 2px;
   }
   .rise {
     color: #db4c40;
@@ -71,11 +74,13 @@ export const bottomCard = css`
     font-size: 16px;
     padding-left: 24px;
     border-bottom: 1px solid #dadada;
+    font-style: normal;
+    font-weight: 500;
   }
   .card-details {
     display: flex;
     justify-content: space-between;
-    padding: 0 24px;
+    padding: 0 24px 8px;
   }
 `
 

@@ -25,11 +25,7 @@ msgstr "This conversion ratio is a fixed value and is not affected by the price 
 msgid "Liquidity"
 msgstr "Liquidity"
 
-#: src/components/Header/Header.tsx
-msgid "BNB chain testnet"
-msgstr "BNB chain testnet"
-
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "Market Price"
 msgstr "Market Price"
 
@@ -45,7 +41,11 @@ msgstr "Connect Wallet"
 msgid "Trade"
 msgstr "Trade"
 
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Header/Header.tsx
+msgid "Sepolia"
+msgstr "Sepolia"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24H Low"
 msgstr "24H Low"
 
@@ -62,7 +62,7 @@ msgstr "Step 4 Initial LP Provision"
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24H High"
 msgstr "24H High"
 
@@ -78,7 +78,7 @@ msgstr "Select a network"
 msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
-#: src/components/Trades/PairInfo.tsx
+#: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24h Change"
 msgstr "24h Change"
 

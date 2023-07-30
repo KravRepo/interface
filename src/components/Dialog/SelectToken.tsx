@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Dialog, DialogContent } from '@mui/material'
+import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
 import React, { Dispatch } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import KARVSearchTextField from '../KravUIKit/KarvSearchTextField'
 import { useRootStore } from '../../store/root'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
-import { ReactComponent as EtherIcon } from '../../assets/imgs/tokens/Ehter.svg'
-import { ReactComponent as USDCoinIcon } from '../../assets/imgs/tokens/USDCoin.svg'
-import { ReactComponent as TetherIcon } from '../../assets/imgs/tokens/Tehter.svg'
+// import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
+// import { ReactComponent as EtherIcon } from '../../assets/imgs/tokens/Ehter.svg'
+// import { ReactComponent as USDCoinIcon } from '../../assets/imgs/tokens/USDCoin.svg'
+// import { ReactComponent as TetherIcon } from '../../assets/imgs/tokens/Tehter.svg'
 import { css } from '@emotion/react'
 import { NavLink } from 'react-router-dom'
 import { SelectTokenItem } from './SelectTokenItem'
@@ -44,97 +44,97 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
               adornment={'start'}
               sx={{ height: '40px', width: '100%' }}
             />
-            <div
-              css={css`
-                padding-top: 16px;
-                display: flex;
-              `}
-            >
-              <Button
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  border: '1px solid #DADADA',
-                  borderRadius: '100px',
-                  padding: '4px 10px 4px 6px',
-                  mr: '12px',
-                }}
-              >
-                <EtherIcon height="24" width="24" />
-                <span
-                  css={css`
-                    color: #000;
-                    margin-left: 6px;
-                  `}
-                >
-                  ETH
-                </span>
-              </Button>
-              <Button
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  border: '1px solid #DADADA',
-                  borderRadius: '100px',
-                  padding: '4px 10px 4px 6px',
-                  mr: '12px',
-                }}
-              >
-                <DAIIcon height="24" width="24" />{' '}
-                <span
-                  css={css`
-                    color: #000;
-                    margin-left: 6px;
-                  `}
-                >
-                  DAI
-                </span>
-              </Button>
-              <Button
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  border: '1px solid #DADADA',
-                  borderRadius: '100px',
-                  padding: '4px 10px 4px 6px',
-                  mr: '12px',
-                }}
-              >
-                <USDCoinIcon height="24" width="24" />{' '}
-                <span
-                  css={css`
-                    color: #000;
-                    margin-left: 6px;
-                  `}
-                >
-                  USDC
-                </span>
-              </Button>
-              <Button
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  border: '1px solid #DADADA',
-                  borderRadius: '100px',
-                  padding: '4px 10px 4px 6px',
-                }}
-              >
-                <TetherIcon height="24" width="24" />{' '}
-                <span
-                  css={css`
-                    color: #000;
-                    margin-left: 6px;
-                  `}
-                >
-                  USDT
-                </span>
-              </Button>
-            </div>
+            {/*<div*/}
+            {/*  css={css`*/}
+            {/*    padding-top: 16px;*/}
+            {/*    display: flex;*/}
+            {/*  `}*/}
+            {/*>*/}
+            {/*  <Button*/}
+            {/*    sx={{*/}
+            {/*      display: 'flex',*/}
+            {/*      alignItems: 'center',*/}
+            {/*      border: '1px solid #DADADA',*/}
+            {/*      borderRadius: '100px',*/}
+            {/*      padding: '4px 10px 4px 6px',*/}
+            {/*      mr: '12px',*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <EtherIcon height="24" width="24" />*/}
+            {/*    <span*/}
+            {/*      css={css`*/}
+            {/*        color: #000;*/}
+            {/*        margin-left: 6px;*/}
+            {/*      `}*/}
+            {/*    >*/}
+            {/*      ETH*/}
+            {/*    </span>*/}
+            {/*  </Button>*/}
+            {/*  <Button*/}
+            {/*    sx={{*/}
+            {/*      display: 'flex',*/}
+            {/*      alignItems: 'center',*/}
+            {/*      border: '1px solid #DADADA',*/}
+            {/*      borderRadius: '100px',*/}
+            {/*      padding: '4px 10px 4px 6px',*/}
+            {/*      mr: '12px',*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <DAIIcon height="24" width="24" />{' '}*/}
+            {/*    <span*/}
+            {/*      css={css`*/}
+            {/*        color: #000;*/}
+            {/*        margin-left: 6px;*/}
+            {/*      `}*/}
+            {/*    >*/}
+            {/*      DAI*/}
+            {/*    </span>*/}
+            {/*  </Button>*/}
+            {/*  <Button*/}
+            {/*    sx={{*/}
+            {/*      display: 'flex',*/}
+            {/*      alignItems: 'center',*/}
+            {/*      border: '1px solid #DADADA',*/}
+            {/*      borderRadius: '100px',*/}
+            {/*      padding: '4px 10px 4px 6px',*/}
+            {/*      mr: '12px',*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <USDCoinIcon height="24" width="24" />{' '}*/}
+            {/*    <span*/}
+            {/*      css={css`*/}
+            {/*        color: #000;*/}
+            {/*        margin-left: 6px;*/}
+            {/*      `}*/}
+            {/*    >*/}
+            {/*      USDC*/}
+            {/*    </span>*/}
+            {/*  </Button>*/}
+            {/*  <Button*/}
+            {/*    sx={{*/}
+            {/*      display: 'flex',*/}
+            {/*      alignItems: 'center',*/}
+            {/*      border: '1px solid #DADADA',*/}
+            {/*      borderRadius: '100px',*/}
+            {/*      padding: '4px 10px 4px 6px',*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <TetherIcon height="24" width="24" />{' '}*/}
+            {/*    <span*/}
+            {/*      css={css`*/}
+            {/*        color: #000;*/}
+            {/*        margin-left: 6px;*/}
+            {/*      `}*/}
+            {/*    >*/}
+            {/*      USDT*/}
+            {/*    </span>*/}
+            {/*  </Button>*/}
+            {/*</div>*/}
           </div>
           <div className="select-token-list">
             {allPoolParams.length > 0 &&
               allPoolParams.map((pool) => {
-                return <SelectTokenItem pool={pool} setIsOpen={setIsOpen} key={pool.tokenT} />
+                return <SelectTokenItem pool={pool} setIsOpen={setIsOpen} key={pool.tradingT} />
               })}
           </div>
 

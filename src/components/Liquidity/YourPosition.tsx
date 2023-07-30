@@ -5,8 +5,9 @@ import { PositionItem } from './PositionItem'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useMemo } from 'react'
+import { MarketSkeleton } from './MarketSkeleton'
 
-export const YourPosition = ({ setAddLiquidity, setRemoveLiquidity }: YourPositionProps) => {
+export const YourPosition = ({ setAddLiquidity, setRemoveLiquidity, isLoadingUserPosition }: YourPositionProps) => {
   const { account } = useWeb3React()
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
 
@@ -36,12 +37,15 @@ export const YourPosition = ({ setAddLiquidity, setRemoveLiquidity }: YourPositi
           <div>PER TICKET PRICE</div>
           <div>APR</div>
           <div>UTILIZATION</div>
-          <div>TOTAL LIQUIDITY SUPPLY</div>
-          <div>MARKET PRICE</div>
-          <div>LIQ.PRICE</div>
+          <div>YOUR LIQUIDITY SUPPLY</div>
+          <div>LOCKED</div>
+          <div>WITHDRAW_BLOCK</div>
         </div>
         {!account && <div className="no-data">Connect Wallet</div>}
-        {account && positionDatas.length === 0 && <div className="no-data">No Position yet</div>}
+        {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
+        {account && !isLoadingUserPosition && positionDatas.length === 0 && (
+          <div className="no-data">No Position yet</div>
+        )}
         {account &&
           positionDatas.length > 0 &&
           positionDatas.map((position, index) => {

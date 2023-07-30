@@ -98,6 +98,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             <span
               css={css`
                 color: ${isBTCRise ? '#009b72' : '#db4c40'};
+                font-size: 20px;
+                line-height: 1.4;
               `}
             >
               {BTCPrice.toFixed(2)}
@@ -177,15 +179,26 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
           </div>
         </div>
       </div>
-      <div>
-        <p
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <span
           css={css`
-            font-size: 12px;
             margin: 0;
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 900;
+            line-height: 130%;
+            padding-right: 12px;
+            color: #2832f5;
           `}
         >
-          {isProModel ? 'PRO' : 'BASIC'}
-        </p>
+          {isProModel ? 'Pro' : 'Basic'}
+        </span>
         <KravSwitch checked={isProModel} onChange={handleModelChange} />
       </div>
     </div>

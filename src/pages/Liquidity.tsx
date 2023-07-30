@@ -9,17 +9,20 @@ import { AddLiquidity } from '../components/Dialog/AddLiquidity'
 import { useRootStore } from 'store/root'
 import { useUserPosition } from '../hook/hookV8/useUserPosition'
 import { useWeb3React } from '@web3-react/core'
+import { css } from '@emotion/react'
 
 export const Liquidity = () => {
-  const { account, provider } = useWeb3React()
+  const { account, provider, chainId } = useWeb3React()
   const [createLiquidityPool, setCreateLiquidityPool] = useState(false)
   const [addLiquidity, setAddLiquidity] = useState(false)
   const [removeLiquidity, setRemoveLiquidity] = useState(false)
+  const [isLoadingUserPosition, setIsLoadingUserPosition] = useState(true)
   const userBackend = useUserPosition()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   useEffect(() => {
     let backInterval: NodeJS.Timer
-    if (allPoolParams.length > 0 && account && provider) {
+    if (allPoolParams.length >= 0 && account && provider) {
+      userBackend().then(() => setIsLoadingUserPosition(false))
       backInterval = setInterval(() => {
         userBackend().then()
       }, 10000)
@@ -27,19 +30,34 @@ export const Liquidity = () => {
     return () => {
       if (backInterval) clearInterval(backInterval)
     }
-  }, [account, allPoolParams, provider])
+  }, [account, allPoolParams, provider, chainId])
 
   return (
     <>
-      {!createLiquidityPool && (
-        <div css={liquidity}>
-          <AddLiquidity isOpen={addLiquidity} setIsOpen={setAddLiquidity} />
-          <RemoveLiquidity isOpen={removeLiquidity} setIsOpen={setRemoveLiquidity} />
-          <YourPosition setAddLiquidity={setAddLiquidity} setRemoveLiquidity={setRemoveLiquidity} />
-          <TargetMarket setCreateLiquidityPool={setCreateLiquidityPool} setAddLiquidity={setAddLiquidity} />
-        </div>
-      )}
-      {createLiquidityPool && <CreateLiquidity setCreateLiquidityPool={setCreateLiquidityPool} />}
+      <div
+        css={[
+          liquidity,
+          css`
+            display: ${createLiquidityPool ? 'none' : ''};
+          `,
+        ]}
+      >
+        <AddLiquidity isOpen={addLiquidity} setIsOpen={setAddLiquidity} />
+        <RemoveLiquidity isOpen={removeLiquidity} setIsOpen={setRemoveLiquidity} />
+        <YourPosition
+          setAddLiquidity={setAddLiquidity}
+          setRemoveLiquidity={setRemoveLiquidity}
+          isLoadingUserPosition={isLoadingUserPosition}
+        />
+        <TargetMarket setCreateLiquidityPool={setCreateLiquidityPool} setAddLiquidity={setAddLiquidity} />
+      </div>
+      <div
+        css={css`
+          display: ${!createLiquidityPool ? 'none' : ''};
+        `}
+      >
+        <CreateLiquidity setCreateLiquidityPool={setCreateLiquidityPool} />
+      </div>
     </>
   )
 }

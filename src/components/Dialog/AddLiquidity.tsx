@@ -48,7 +48,13 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
         <div css={dialogContent}>
           <div className="dialog-header ">
             <span>Add Liquidity</span>
-            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
+            <CloseSharpIcon
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                setAmount('')
+                setIsOpen(false)
+              }}
+            />
           </div>
           <div
             css={css`
@@ -83,7 +89,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                   variant="standard"
                   type="number"
                   value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value))}
+                  onChange={(e) => setAmount(e.target.value)}
                   InputProps={{
                     disableUnderline: true,
                   }}
@@ -125,10 +131,19 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
               </div>
             </div>
             <KRAVButton
-              disabled={new BigNumber(amount.toString()).isGreaterThan(PoolWalletBalance)}
+              disabled={
+                new BigNumber(amount.toString()).isGreaterThan(PoolWalletBalance) ||
+                !new BigNumber(amount).isGreaterThan(0)
+              }
               onClick={async () => {
                 setIsOpen(false)
-                await addLiquidity(addDecimals(amount.toString(), liquidityInfo.decimals), liquidityInfo.vaultT)
+                setAmount('')
+                await addLiquidity(
+                  addDecimals(amount.toString(), liquidityInfo.decimals),
+                  liquidityInfo.vaultT,
+                  liquidityInfo.symbol,
+                  liquidityInfo.decimals
+                )
                 await Promise.all([getFactory(), getUserPosition()])
               }}
               sx={{ mt: '24px' }}

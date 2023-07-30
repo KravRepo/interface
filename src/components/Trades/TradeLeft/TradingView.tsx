@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { createChart } from 'lightweight-charts'
+import { createChart, ISeriesApi } from 'lightweight-charts'
 import { useEffect, useState } from 'react'
 import { useRef } from 'react'
 import moment from 'moment'
@@ -25,6 +25,7 @@ export type ChartData = {
 export const TradingView = () => {
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState([] as ChartData[])
+  const [tradeChart, setTradeChart] = useState<ISeriesApi<'Candlestick'> | null>(null)
   const [isLoadingChartData, setIsLoadingChartData] = useState(true)
   const getData = useGetKLineData(setChartData, setIsLoadingChartData)
 
@@ -36,8 +37,17 @@ export const TradingView = () => {
         localization: {
           locale: 'en',
         },
+        grid: {
+          vertLines: {
+            visible: false,
+          },
+          horzLines: {
+            visible: false,
+          },
+        },
       })
       const candlestickSeries = chart.addCandlestickSeries()
+      setTradeChart(candlestickSeries)
       const formatterData = chartData.map((item) => {
         const timeStr = moment(item.OpenTime).format('YYYY-MM-DD')
         return {
@@ -59,6 +69,33 @@ export const TradingView = () => {
   useEffect(() => {
     getData().then()
   }, [])
+
+  useEffect(() => {
+    const ws1D = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1d')
+    ws1D.onmessage = function (msg) {
+      if (msg.data && tradeChart) {
+        const data = JSON.parse(msg.data)
+        const lastDayData = chartData[chartData.length - 1]
+        lastDayData.OpenPrice = data.k.o
+        lastDayData.ClosePrice = data.k.c
+        lastDayData.HighPrice = data.k.h
+        lastDayData.LowPrice = data.k.l
+        const newData = chartData.slice(0, chartData.length - 1)
+        newData.push(lastDayData)
+        const formatterData = newData.map((item) => {
+          const timeStr = moment(item.OpenTime).format('YYYY-MM-DD')
+          return {
+            time: timeStr,
+            open: Number(item.OpenPrice),
+            high: Number(item.HighPrice),
+            low: Number(item.LowPrice),
+            close: Number(item.ClosePrice),
+          }
+        })
+        tradeChart.setData(formatterData)
+      }
+    }
+  }, [tradeChart])
 
   return (
     <>

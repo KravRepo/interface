@@ -13,7 +13,7 @@ import { useWeb3React } from '@web3-react/core'
 export const MyTrade = () => {
   const [infoType, setInfoType] = useState(0)
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const tradePool = useRootStore((store) => store.tradePool)
@@ -34,7 +34,7 @@ export const MyTrade = () => {
     return () => {
       if (tradeInterval) clearInterval(tradeInterval)
     }
-  }, [tradePool, account])
+  }, [tradePool, account, chainId])
 
   return (
     <div css={myTrade}>
@@ -59,6 +59,7 @@ export const MyTrade = () => {
           <Tab
             sx={{
               minWidth: 0,
+              fontFamily: 'Inter',
               padding: '20px 0 8px 0',
               mr: '16px',
               '& .MuiTab-root': {
@@ -71,6 +72,7 @@ export const MyTrade = () => {
             sx={{
               minWidth: 0,
               mr: '16px',
+              fontFamily: 'Inter',
               padding: '20px 0 8px 0',
               '& .MuiTab-root': {
                 color: '#757575',
@@ -81,6 +83,7 @@ export const MyTrade = () => {
           <Tab
             sx={{
               minWidth: 0,
+              fontFamily: 'Inter',
               padding: '20px 0 8px 0',
               '& .MuiTab-root': {
                 color: '#757575',

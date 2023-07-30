@@ -20,6 +20,11 @@ import { Home } from './pages/Home'
 import { HomeStake } from 'pages/home/HomeStake'
 import { HomeReferral } from './pages/home/HomeReferral'
 import { HomeFarm } from 'pages/home/HomeFarm'
+import { css } from '@emotion/react'
+import DashboardBg from 'assets/imgs/dashboard_bg.png'
+import { HomeRewardCenter } from './pages/home/HomeRewardCenter'
+import { SuccessSnackbar } from 'components/Dialog/SuccessSnackbar'
+import { SuccessDialog } from './components/Dialog/SuccessDialog'
 
 i18n.load({
   en: enMessages,
@@ -45,6 +50,8 @@ const FullApp = () => {
           <Web3Provider>
             <I18nProvider i18n={i18n}>
               <ErrorDialog />
+              <SuccessDialog />
+              <SuccessSnackbar />
               <TransactionDialog />
               <Header />
               <Routes>
@@ -55,6 +62,7 @@ const FullApp = () => {
                 <Route path={'/dashboard/stake'} element={<HomeStake />} />
                 <Route path={'/dashboard/farm'} element={<HomeFarm />} />
                 <Route path={'/dashboard/referral'} element={<HomeReferral />} />
+                <Route path={'/dashboard/reward'} element={<HomeRewardCenter />} />
               </Routes>
               <Footer />
             </I18nProvider>
@@ -68,7 +76,12 @@ const FullApp = () => {
 function App() {
   return (
     <>
-      <div className="App">
+      <div
+        className="App"
+        css={css`
+          background: url(${DashboardBg});
+        `}
+      >
         <FullApp />
       </div>
     </>

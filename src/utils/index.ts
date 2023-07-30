@@ -4,6 +4,7 @@ import type { JsonRpcProvider, JsonRpcSigner } from '@ethersproject/providers'
 import { Contract } from 'ethers'
 import BigNumber from 'bignumber.js'
 import { base64 } from 'ethers/lib/utils'
+import numeral from 'numeral'
 
 export function isAddress(value: any): string | false {
   try {
@@ -81,4 +82,19 @@ export const getBigNumberStr = (bigNumber: BigNumber, fixed: number, factor = 1)
     return '0'
   }
   return bigNumber?.times(factor)?.toFixed(fixed) || '0'
+}
+
+export const shareToTelegram = (url: string, content: string) => {
+  window.open(`https://t.me/share?url=${url}&text=${content}`)
+}
+
+export const shareToTwitter = (url: string, content: string) => {
+  const encodeUrl = encodeURIComponent(url)
+  const encodeContent = encodeURIComponent(content)
+  window.open(`https://twitter.com/intent/tweet?text=${encodeContent}&url=${encodeUrl}`)
+}
+
+export const formatNumber = (val: string | number, decimals: number, isDollar = true) => {
+  const forMatterStr = isDollar ? '$0,0.00' : '0,0.00'
+  return numeral(Number(val).toFixed(decimals)).format(forMatterStr)
 }

@@ -15,10 +15,13 @@ import { base64 } from 'ethers/lib/utils'
 import { utils } from 'ethers'
 import { Tooltip } from '@mui/material'
 import { useRootStore } from '../../store/root'
+import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 
 export const Referral = () => {
   const { account } = useWeb3React()
   const [openTooltip, setOpenTooltip] = useState(false)
+  const [numReferral, setNumReferral] = useState(0)
+  useNumReferral(setNumReferral)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const useCopyLink = useCallback(async () => {
     if (account) {
@@ -124,7 +127,7 @@ export const Referral = () => {
       <div className="referral-link">
         <div>
           <p>Invite Chain</p>
-          <p>Binance Test</p>
+          <p>Sepolia</p>
         </div>
         <div>
           <div>
@@ -159,7 +162,7 @@ export const Referral = () => {
         </div>
         <div>
           <p>Share On Social Media</p>
-          <div>
+          <div className="social">
             <TWIcon />
             <TGIcon
               css={css`
@@ -174,34 +177,34 @@ export const Referral = () => {
         <p>Your Referral stats</p>
         <div>
           <div className="referral-stats-item">
-            <p>1200</p>
+            <p>{numReferral}</p>
             <p css={align}>
               FRIENDS INVITED&nbsp; <Notify />{' '}
             </p>
           </div>
           <div className="referral-stats-item line">
-            <p>1,923 Point</p>
+            <p>-- </p>
             <p>You Have Earned</p>
           </div>
           <div className="referral-stats-item line">
-            <p>0</p>
+            <p>--</p>
             <p css={align}>
-              SUCCESSFUL REFERRALS&nbsp; <Notify />{' '}
+              REFERRALS POINTS&nbsp; <Notify />{' '}
             </p>
           </div>
         </div>
       </div>
-      <div className="referral-leaderboard">
-        <div>Invite Friends Leaderboard</div>
-        <div>
-          <span>ADDRESS</span>
-          <span>INVITE NUMBERS</span>
-        </div>
-        <div className="friends-item">
-          <span>0x813ce1ad36...4eb65a7d722A61</span>
-          <span>566</span>
-        </div>
-      </div>
+      {/*<div className="referral-leaderboard">*/}
+      {/*  <div>Invite Friends Leaderboard</div>*/}
+      {/*  <div>*/}
+      {/*    <span>ADDRESS</span>*/}
+      {/*    <span>INVITE NUMBERS</span>*/}
+      {/*  </div>*/}
+      {/*  <div className="friends-item">*/}
+      {/*    <span>0x813ce1ad36...4eb65a7d722A61</span>*/}
+      {/*    <span>566</span>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
     </div>
   )
 }

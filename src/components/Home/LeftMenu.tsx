@@ -4,6 +4,7 @@ import { ReactComponent as DashboardIcon } from '../../assets/imgs/dashboardIcon
 import { ReactComponent as StakingIcon } from '../../assets/imgs/kravStakeIcon.svg'
 import { ReactComponent as FarmIcon } from '../../assets/imgs/farm.svg'
 import { ReactComponent as ReferralIcon } from '../../assets/imgs/referral.svg'
+import { ReactComponent as RewardIcon } from '../../assets/imgs/rewardCenter.svg'
 import KRAVMenuButton from 'components/KravUIKit/KravMenuButton'
 import { css } from '@emotion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -58,16 +59,21 @@ export const LeftMenu = () => {
           Farm
         </span>
       </KRAVMenuButton>
-      {/*<KRAVMenuButton>*/}
-      {/*  <RewardIcon />*/}
-      {/*  <span*/}
-      {/*    css={css`*/}
-      {/*      line-height: 24px;*/}
-      {/*    `}*/}
-      {/*  >*/}
-      {/*    Reward Center*/}
-      {/*  </span>*/}
-      {/*</KRAVMenuButton>*/}
+      <KRAVMenuButton
+        onClick={() => {
+          navigate('/dashboard/reward')
+        }}
+        css={pathname === '/dashboard/reward' ? menuActive : ''}
+      >
+        <RewardIcon />
+        <span
+          css={css`
+            line-height: 24px;
+          `}
+        >
+          Reward Center
+        </span>
+      </KRAVMenuButton>
       <KRAVMenuButton
         onClick={() => {
           navigate('/dashboard/referral')

@@ -16,7 +16,9 @@ export type PoolParams = {
   symbol: string
   proportionBTC: number
   decimals: number
+  blockNumber: number
   utilization: BigNumber
+  maxWithdrawP: BigNumber
   poolTotalSupply?: BigNumber
   poolCurrentBalance?: BigNumber
 }

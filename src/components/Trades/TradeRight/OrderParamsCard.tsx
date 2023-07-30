@@ -14,9 +14,10 @@ import { useWeb3React } from '@web3-react/core'
 import { addDecimals, getFees, getLiqPrice, getLongOrShortUSD, getReachPrice, getTakeProfit } from 'utils/math'
 import { ReactComponent as DAIIcon } from 'assets/imgs/tokens/dai.svg'
 import { ReactComponent as ArrowDownIcon } from 'assets/imgs/arrowDown.svg'
-import { TransactionState } from '../../../store/TransactionSlice'
+import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
 import { MINI_POSITION_SIZE, POSITION_LIMITS } from 'constant/math'
+import { getBigNumberStr } from '../../../utils'
 
 const marks = [
   {
@@ -112,7 +113,6 @@ export const OrderParamsCard = ({
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
   const [tabIndex, setTabIndex] = useState(0)
-  const [step, setStep] = useState(1)
   const [slSetting, setSlSetting] = useState(0)
   const [slUsePercentage, setUseSlPercentage] = useState(true)
   const [tpSetting, setTpSetting] = useState(25)
@@ -149,7 +149,9 @@ export const OrderParamsCard = ({
 
   const targetSl = useMemo(() => {
     return slUsePercentage
-      ? getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+      ? slSetting === 0
+        ? new BigNumber(0)
+        : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
       : new BigNumber(slPrice)
   }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
 
@@ -180,7 +182,7 @@ export const OrderParamsCard = ({
       initialPosToken: 0,
       index: 0,
       buy: isBuy,
-      positionSizeDai: addDecimals(positionSizeDai, 18).toString(),
+      positionSizeDai: addDecimals(positionSizeDai, tradePool.decimals).toString(),
     }
   }, [
     account,
@@ -189,7 +191,6 @@ export const OrderParamsCard = ({
     limitPrice,
     leverage,
     positionSizeDai,
-    slSetting,
     slSetting,
     slUsePercentage,
     tpSetting,
@@ -201,38 +202,32 @@ export const OrderParamsCard = ({
   const maxPositionCheck = useMaxPositionCheck()
 
   const handleButtonClick = async () => {
-    if (step === 1) {
-      try {
-        const passCheck = await maxPositionCheck(positionSizeDai, leverage)
-        if (!passCheck.state) {
-          setStep(1)
-          setErrorContent({
-            dialogVisibility: true,
-            error: 'Maximum position limit exceeded! max amount : ' + passCheck.maxAmount?.toFixed(2),
-          })
-          return
-        }
-        await approve()
-        setStep(2)
-      } catch (e) {
+    try {
+      const passCheck = await maxPositionCheck(positionSizeDai, leverage)
+      if (!passCheck.state) {
         setErrorContent({
           dialogVisibility: true,
-          error: JSON.stringify(e),
+          action: TransactionAction.OPEN_TRADE,
+          reason: 'Maximum position limit exceeded! max amount : ' + passCheck.maxAmount?.toFixed(2),
         })
-        setStep(1)
+        return
       }
-    } else {
-      setStep(1)
-      setOpenConfirmDialog(true)
+      await approve(setOpenConfirmDialog, addDecimals(positionSizeDai, tradePool.decimals))
+    } catch (e) {
+      setErrorContent({
+        dialogVisibility: true,
+        action: TransactionAction.OPEN_TRADE,
+      })
     }
   }
 
   const handleLeverageChange = (event: Event, value: number | number[], activeThumb: number) => {
+    const newLeverage = value as number
     setLeverage(value as number)
     const outputAmount = getLongOrShortUSD(
-      leverage,
+      newLeverage,
       positionSizeDai,
-      getFees(positionSizeDai, leverage),
+      getFees(positionSizeDai, newLeverage),
       BTCPrice,
       tradePool?.proportionBTC
     )
@@ -261,11 +256,6 @@ export const OrderParamsCard = ({
       tradePool?.proportionBTC
     )
     setOpenBTCSize(outputAmount)
-    if (newValue.isGreaterThan(PoolWalletBalance)) {
-      setButtonState(buttonStyle.INSUFFICIENT_BALANCE)
-    } else {
-      setButtonState(isBuy ? buttonStyle.LONG : buttonStyle.SHORT)
-    }
   }
 
   const handleMaxInput = () => {
@@ -296,7 +286,9 @@ export const OrderParamsCard = ({
     if (loadingData) setButtonState(buttonStyle.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
       setButtonState(buttonStyle.REACHED_LIMIT)
-    else if (positionSizeDai.times(leverage).isLessThan(MINI_POSITION_SIZE)) setButtonState(buttonStyle.MIN_SIZE)
+    else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(buttonStyle.INSUFFICIENT_BALANCE)
+    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(MINI_POSITION_SIZE))
+      setButtonState(buttonStyle.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(buttonStyle.ENTER_AMOUNT)
     else if (isBuy) setButtonState(buttonStyle.LONG)
     else if (!isBuy) setButtonState(buttonStyle.SHORT)
@@ -319,6 +311,12 @@ export const OrderParamsCard = ({
     }
   }, [isProModel])
 
+  useEffect(() => {
+    setPositionSizeDai(new BigNumber(0))
+    setOpenBTCSize(new BigNumber(0))
+    setLeverage(2)
+  }, [isBuy])
+
   return (
     <>
       <ConfirmTrade
@@ -327,6 +325,9 @@ export const OrderParamsCard = ({
         tuple={testTuple}
         tradeType={tradeType}
         openBTCSize={openBTCSize}
+        setPositionSizeDai={setPositionSizeDai}
+        setOpenBTCSize={setOpenBTCSize}
+        setLeverage={setLeverage}
       />
       <div
         css={css`
@@ -367,6 +368,20 @@ export const OrderParamsCard = ({
             Limit
           </span>
         </div>
+        <div
+          css={css`
+            margin-bottom: 12px;
+          `}
+        >
+          <span
+            css={css`
+              color: #757575;
+            `}
+          >
+            Available:
+          </span>{' '}
+          {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
+        </div>
         <>
           <div>
             <div css={input}>
@@ -378,9 +393,12 @@ export const OrderParamsCard = ({
                   justify-content: space-between;
                 `}
               >
-                <span>Pay</span>
-                <span>
-                  Available: {PoolWalletBalance.toFixed(6) || '0'} {tradePool?.symbol}
+                <span
+                  css={css`
+                    color: #757575;
+                  `}
+                >
+                  Pay
                 </span>
               </div>
               <div
@@ -453,7 +471,13 @@ export const OrderParamsCard = ({
                   width: 100%;
                 `}
               >
-                <span>Long</span>
+                <span
+                  css={css`
+                    color: #757575;
+                  `}
+                >
+                  {isBuy ? 'Long' : 'Short'}
+                </span>
                 <div>
                   <span>Leverage: </span>
                   <span>{leverage}x</span>
@@ -500,7 +524,13 @@ export const OrderParamsCard = ({
                     width: 100%;
                   `}
                 >
-                  <span>Price</span>
+                  <span
+                    css={css`
+                      color: #757575;
+                    `}
+                  >
+                    Price
+                  </span>
                   <div>
                     <span>Leverage: </span>
                     <span>{leverage}x</span>
@@ -585,14 +615,37 @@ export const OrderParamsCard = ({
               }}
             />
             {BTCPrice.isGreaterThan(0) ? (
-              <p>
-                Per Ticket Size: {tradePool?.proportionBTC} {tradePool?.symbol} = 1 BTC
+              <p
+                css={css`
+                  padding-bottom: 8px;
+                `}
+              >
+                <span
+                  css={css`
+                    color: #757575;
+                  `}
+                >
+                  Per Ticket Size
+                </span>
+                : {tradePool?.proportionBTC} {tradePool?.symbol} = 1 BTC
               </p>
             ) : (
-              <p>-</p>
+              <p
+                css={css`
+                  padding-bottom: 8px;
+                `}
+              >
+                -
+              </p>
             )}
           </div>
-          <div>
+          <div
+            css={css`
+              > p {
+                padding-bottom: 8px;
+              }
+            `}
+          >
             <p
               css={[
                 align,
@@ -603,7 +656,7 @@ export const OrderParamsCard = ({
             >
               <span>Collateral in</span>
               <span>
-                {positionSizeDai.toFixed(6)} {tradePool?.symbol}
+                {getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
               </span>
             </p>
             <p
@@ -626,7 +679,7 @@ export const OrderParamsCard = ({
               ]}
             >
               <span>Entry Price</span>
-              <span>{BTCPrice.toFixed(2)}</span>
+              <span>${BTCPrice.toFixed(2)}</span>
             </p>
             <p
               css={[
@@ -637,7 +690,7 @@ export const OrderParamsCard = ({
               ]}
             >
               <span>Liq. Price</span>
-              <span>{getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage).toFixed(4)}</span>
+              <span>${getBigNumberStr(getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage), 4)}</span>
             </p>
             <p
               css={[
@@ -648,7 +701,7 @@ export const OrderParamsCard = ({
               ]}
             >
               <span>Fees</span>
-              <span>${getFees(positionSizeDai, leverage).toFixed(2)}</span>
+              <span>{getBigNumberStr(getFees(positionSizeDai, leverage), 2)}</span>
             </p>
           </div>
           {isProModel && (
@@ -663,7 +716,7 @@ export const OrderParamsCard = ({
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding-bottom: 8px;
+                    padding: 8px 0;
                   `}
                 >
                   <div>
@@ -673,11 +726,11 @@ export const OrderParamsCard = ({
                         color: #db4c40;
                       `}
                     >
-                      ({slUsePercentage ? '$' + targetSl.toFixed(2) : slPercentage.toFixed(2) + '%'})
+                      ({slUsePercentage ? '$' + getBigNumberStr(targetSl, 2) : getBigNumberStr(slPercentage, 2) + '%'})
                     </span>
                   </div>
                   <span>
-                    {slPercentage.times(positionSizeDai.div(100)).toFixed(2)} {tradePool.symbol}
+                    {getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)} {tradePool.symbol}
                   </span>
                 </div>
                 <div
@@ -755,7 +808,7 @@ export const OrderParamsCard = ({
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 8px 0;
+                    padding: 16px 0 8px;
                   `}
                 >
                   <div>
@@ -765,10 +818,10 @@ export const OrderParamsCard = ({
                         color: #009b72;
                       `}
                     >
-                      ({tpUsePercentage ? '$' + targetTp.toFixed(2) : tpPercentage.toFixed(2) + '%'})
+                      ({tpUsePercentage ? '$' + getBigNumberStr(targetTp, 2) : getBigNumberStr(tpPercentage, 2) + '%'})
                     </span>
                   </div>
-                  {tpPercentage.times(positionSizeDai.div(100)).toFixed(2)} {tradePool.symbol}
+                  {getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)} {tradePool.symbol}
                 </div>
                 <div
                   css={css`
@@ -842,7 +895,12 @@ export const OrderParamsCard = ({
             </div>
           )}
           <KRAVButton
-            disabled={buttonState === buttonStyle.INSUFFICIENT_BALANCE || buttonState === buttonStyle.REACHED_LIMIT}
+            disabled={
+              buttonState === buttonStyle.INSUFFICIENT_BALANCE ||
+              buttonState === buttonStyle.REACHED_LIMIT ||
+              buttonState === buttonStyle.MIN_SIZE ||
+              buttonState === buttonStyle.ENTER_AMOUNT
+            }
             onClick={async () => {
               if (buttonState === 'Connect Wallet') {
                 setWalletDialogVisibility(true)

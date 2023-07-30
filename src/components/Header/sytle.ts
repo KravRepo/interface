@@ -7,6 +7,21 @@ export const header = css`
   justify-content: space-between;
   margin: 0 auto;
   padding: 0 32px 0 25px;
+  background: transparent;
+`
+
+export const UnSupport = css`
+  height: 72px;
+  width: 100%;
+  background: #db4c40;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > span {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `
 
 export const routerActive = css`

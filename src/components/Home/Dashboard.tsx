@@ -6,8 +6,48 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { dashboard } from './style'
 import { DashboardCard } from './DashboardCard'
+import { useCallback, useEffect, useState } from 'react'
+import { DASHBOARD_OVERVIEW_API } from '../../constant/chain'
+import { formatNumber } from '../../utils'
+import { useNumReferral } from '../../hook/hookV8/useNumReferral'
+
+type OverviewData = {
+  liquiditySupply: number
+  orderPlacement: number
+  tradingVolume: number
+  tradingFrequency: number
+}
 
 export const Dashboard = () => {
+  const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
+  const [numReferral, setNumReferral] = useState(0)
+  useNumReferral(setNumReferral)
+  const getOverView = useCallback(async () => {
+    try {
+      const req = await fetch(DASHBOARD_OVERVIEW_API)
+      const overview = await req.json()
+      setOverViewData({
+        liquiditySupply: Number(overview.data.liquiditySupply) / 100,
+        orderPlacement: Number(overview.data.orderPlacement) / 100,
+        tradingFrequency: overview.data.tradingFrequency,
+        tradingVolume: Number(overview.data.tradingVolume) / 100,
+      })
+    } catch (e) {
+      console.error('get overview failed!', e)
+    }
+  }, [])
+
+  useEffect(() => {
+    getOverView().then()
+    const interval = setInterval(async () => {
+      await getOverView()
+    }, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
   return (
     <div css={dashboard}>
       <div
@@ -27,11 +67,11 @@ export const Dashboard = () => {
           </div>
           <div className="rate">
             <span>Open</span>
-            <span>0.300%</span>
+            <span>0.0600%</span>
           </div>
           <div className="rate">
             <span>Close</span>
-            <span>0.600%</span>
+            <span>0.0600%</span>
           </div>
         </div>
       </div>
@@ -50,12 +90,12 @@ export const Dashboard = () => {
         <PointsLogo />
       </div>
       <div className="data">
-        <DashboardCard title={'Order Placement'} content={'$606,2121'} />
-        <DashboardCard title={'Liquidity Supply'} content={'$606,2121'} />
-        <DashboardCard title={'Trading Volume'} content={'$898,2121,211'} />
-        <DashboardCard title={'Continuous Participation'} content={'200 days'} />
-        <DashboardCard title={'Trading Frequency'} content={'200 times'} />
-        <DashboardCard title={'Referral'} content={'2 friends'} />
+        <DashboardCard title={'Order Placement'} content={`${formatNumber(overviewData.orderPlacement, 2)}`} />
+        <DashboardCard title={'Liquidity Supply'} content={`${formatNumber(overviewData.liquiditySupply, 2)}`} />
+        <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
+        <DashboardCard title={'Continuous Participation'} content={'0 days'} />
+        <DashboardCard title={'Trading Frequency'} content={`${overviewData.tradingFrequency} times`} />
+        <DashboardCard title={'Referral'} content={`${numReferral} friends`} />
       </div>
     </div>
   )

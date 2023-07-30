@@ -42,7 +42,7 @@ export const getLiqPrice = (
 }
 
 export const getFees = (positionDAI: BigNumber, leverage: number) => {
-  return positionDAI.times(OPEN_FEES)
+  return positionDAI.times(leverage).times(OPEN_FEES).times(2)
 }
 
 //    function currentPercentProfit(uint openPrice, uint currentPrice, bool buy, uint leverage) private pure returns(int p){
@@ -77,7 +77,7 @@ export const getTakeProfit = (
     return new BigNumber(MAX_GAIN_P)
   } else {
     if (isSl) {
-      if (p.isGreaterThan(100)) return new BigNumber(100)
+      if (p.isLessThan(-100)) return new BigNumber(-100)
       else return p
     } else return p
   }

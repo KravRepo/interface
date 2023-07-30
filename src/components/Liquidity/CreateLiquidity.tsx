@@ -15,6 +15,7 @@ import { useRootStore } from '../../store/root'
 import { useCheckAddressValidity } from '../../hook/hookV8/useCheckAddressValidity'
 import { useContract } from '../../hook/hookV8/useContract'
 import erc_20 from 'abi/erc20.json'
+import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
 
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
   const [confirm, setConfirm] = useState(false)
@@ -49,10 +50,14 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
         ticketSize={ticketSize}
         tokenAddress={tokenAddress}
         LPProvision={LPProvision}
+        setLPProvision={setLPProvision}
+        setTicketSize={setTicketSize}
+        setTokenAddress={setTokenAddress}
         isOpen={confirm}
         setIsOpen={setConfirm}
         tokenSymbol={tokenSymbol}
         tokenDecimals={tokenDecimals}
+        setCreateLiquidityPool={setCreateLiquidityPool}
       />
       <div css={creatPool}>
         <div className="creat-pool-content">
@@ -105,9 +110,9 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 <div>Select Token Collateral</div>
                 <KRAVTextField
                   label="Enter Asset contract or select Asset"
-                  InputProps={{
-                    endAdornment: <KRAVButton sx={{ width: '92px' }}>My asset</KRAVButton>,
-                  }}
+                  // InputProps={{
+                  //   endAdornment: <KRAVButton sx={{ width: '92px' }}>My asset</KRAVButton>,
+                  // }}
                   value={tokenAddress}
                   onChange={(event) => setTokenAddress(event.target.value)}
                   sx={{ width: '100%' }}
@@ -164,6 +169,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                     setConfirm(true)
                   }
                 }}
+                disabled={tokenAddress.length !== VALIDITY_ADDRESS_LENGTH || !ticketSize || !LPProvision}
                 sx={{ position: 'absolute', bottom: 0 }}
               >
                 Deposit and create

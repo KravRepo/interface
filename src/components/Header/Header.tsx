@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { Button, Link } from '@mui/material'
 import { Trans } from '@lingui/macro'
-import { header, headerBtn, notifyBtn, router, routerActive } from './sytle'
+import { header, headerBtn, notifyBtn, router, routerActive, UnSupport } from './sytle'
 import { align } from 'globalStyle'
-import { ReactComponent as Binance } from 'assets/imgs/tokens/asset_BNB.svg'
+import { ReactComponent as Ether } from 'assets/imgs/tokens/Ehter.svg'
 import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
 import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
 import { ConnectWalletDialog } from 'components/Dialog/ConnectWallet'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
 import WaterDropIcon from '@mui/icons-material/WaterDrop'
@@ -18,6 +18,9 @@ import { getConnection } from '../../connectors'
 import { ConnectionType } from '../../connectors/type'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
+import { getAddChainParameters } from 'connectors/chain'
+import KRAVButton from '../KravUIKit/KravButton'
+import { TEST_CHAIN_ID } from '../../constant/chain'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -26,7 +29,6 @@ export const Header = () => {
   const { account, chainId, connector } = useWeb3React()
   const [dataInterval, setDataInterval] = useState<null | NodeJS.Timer>(null)
 
-  // const match = useMatch("/messages");
   const setAccount = useRootStore((store) => store.setAccount)
   const DAIBalance = useRootStore((store) => store.DAIBalance)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
@@ -37,10 +39,10 @@ export const Header = () => {
   const getFactory = useFactory()
   const connection = useMemo(() => {
     return getConnection(ConnectionType.INJECTED)
-  }, [])
+  }, [chainId])
 
   const isHomePath = useMemo(() => {
-    const pathList = ['/', '/dashboard/stake', '/dashboard/farm', '/dashboard/referral']
+    const pathList = ['/', '/dashboard/stake', '/dashboard/farm', '/dashboard/referral', '/dashboard/reward']
     return pathList.includes(pathname)
   }, [pathname])
 
@@ -48,19 +50,29 @@ export const Header = () => {
     return pathname.includes('/trade')
   }, [pathname])
 
+  const getUserData = useCallback(async () => {
+    await getFactory()
+    setLoadingData(false)
+    setAccount(account)
+  }, [])
+
   useEffect(() => {
     setTimeout(async () => {
-      if (connection) {
+      if (connection && !account) {
         try {
-          await connection.connector.activate(chainId !== 97 ? 97 : undefined)
+          await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
           await connector.activate()
-          await getFactory()
-          setLoadingData(false)
-          setAccount(account)
-        } catch (e) {}
+          await getUserData()
+        } catch (e) {
+          try {
+            await connection.connector.activate(getAddChainParameters(TEST_CHAIN_ID))
+            await connector.activate()
+            await getUserData()
+          } catch (e) {}
+        }
       }
     }, 200)
-  }, [connection, account])
+  }, [connection, account, chainId])
 
   useEffect(() => {
     if (account && allPoolParams.length > 0) {
@@ -84,7 +96,14 @@ export const Header = () => {
   return (
     <>
       <FaucetDialog isOpen={openFaucet} setIsOpen={setOpenFaucet} />
-      <header css={header}>
+      <header
+        css={[
+          header,
+          css`
+            background: ${isHomePath ? '#fff' : ''};
+          `,
+        ]}
+      >
         <div css={align}>
           <div
             css={[
@@ -138,22 +157,30 @@ export const Header = () => {
               borderRadius: '4px',
               border: '1px solid #DADADA',
               textTransform: 'none',
+              minWidth: '172px',
             }}
           >
-            <Binance height="14" width="14" style={{ marginRight: 5 }} />
-            <Trans>BNB chain testnet</Trans>
+            <Ether height="14" width="14" style={{ marginRight: 5 }} />
+            <Trans>Sepolia</Trans>
           </Button>
           {account ? (
-            <Button
-              sx={{ color: '#fff', background: '#000000', mx: '9px', borderRadius: '4px', textTransform: 'none' }}
+            <KRAVButton
+              sx={{
+                width: 'auto',
+                color: '#fff',
+                background: '#000000',
+                mx: '9px',
+                borderRadius: '4px',
+                textTransform: 'none',
+              }}
               css={headerBtn}
             >
               {account.substr(0, 4)}
               ...
               {account.substr(account.length - 2, 2)}
-            </Button>
+            </KRAVButton>
           ) : (
-            <Button
+            <KRAVButton
               sx={{
                 color: '#fff',
                 background: '#000000',
@@ -168,7 +195,7 @@ export const Header = () => {
               onClick={() => setWalletDialogVisibility(true)}
             >
               <Trans>Connect Wallet</Trans>
-            </Button>
+            </KRAVButton>
           )}
 
           <div css={notifyBtn}>
@@ -180,6 +207,27 @@ export const Header = () => {
           setWalletDialogVisibility={setWalletDialogVisibility}
         />
       </header>
+      {chainId !== TEST_CHAIN_ID && account && (
+        <div css={UnSupport}>
+          UnSupport network ! &nbsp;
+          <span
+            onClick={async () => {
+              if (connection) {
+                try {
+                  await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
+                  await connector.activate()
+                } catch (e) {
+                  try {
+                    await connector.activate(getAddChainParameters(TEST_CHAIN_ID))
+                  } catch (e) {}
+                }
+              }
+            }}
+          >
+            please change network
+          </span>
+        </div>
+      )}
     </>
   )
 }

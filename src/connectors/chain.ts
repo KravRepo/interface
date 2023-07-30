@@ -12,6 +12,12 @@ const MATIC: AddEthereumChainParameter['nativeCurrency'] = {
   decimals: 18,
 }
 
+const BSC: AddEthereumChainParameter['nativeCurrency'] = {
+  name: 'BNB',
+  symbol: 'BNB',
+  decimals: 18,
+}
+
 const CELO: AddEthereumChainParameter['nativeCurrency'] = {
   name: 'Celo',
   symbol: 'CELO',
@@ -41,6 +47,12 @@ export const MAINNET_CHAINS: ChainConfig = {
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://optimistic.etherscan.io'],
   },
+  56: {
+    urls: [''],
+    name: 'Binance',
+    nativeCurrency: BSC,
+    blockExplorerUrls: ['https://bscscan.com'],
+  },
   42161: {
     urls: [''],
     name: 'Arbitrum One',
@@ -66,6 +78,12 @@ export const TESTNET_CHAINS: ChainConfig = {
     urls: [''],
     name: 'Görli',
   },
+  97: {
+    urls: ['https://endpoints.omniatech.io/v1/bsc/testnet/public'],
+    name: 'Binance Smart Chain Testnet ',
+    nativeCurrency: BSC,
+    blockExplorerUrls: ['https://testnet.bscscan.com'],
+  },
   420: {
     urls: [''],
     name: 'Optimism Goerli',
@@ -90,11 +108,38 @@ export const TESTNET_CHAINS: ChainConfig = {
     nativeCurrency: CELO,
     blockExplorerUrls: ['https://alfajores-blockscout.celo-testnet.org'],
   },
+  11155111: {
+    urls: ['https://eth-sepolia.g.alchemy.com/v2/demo'],
+    name: 'Sepolia',
+    nativeCurrency: ETH,
+    blockExplorerUrls: [' https://sepolia.etherscan.io'],
+  },
 }
 
 const CHAINS: ChainConfig = {
   ...MAINNET_CHAINS,
   ...TESTNET_CHAINS,
+}
+
+function isExtendedChainInformation(
+  chainInformation: BasicChainInformation | ExtendedChainInformation
+): chainInformation is ExtendedChainInformation {
+  return !!(chainInformation as ExtendedChainInformation).nativeCurrency
+}
+
+export function getAddChainParameters(chainId: number): AddEthereumChainParameter | number {
+  const chainInformation = CHAINS[chainId]
+  if (isExtendedChainInformation(chainInformation)) {
+    return {
+      chainId,
+      chainName: chainInformation.name,
+      nativeCurrency: chainInformation.nativeCurrency,
+      rpcUrls: chainInformation.urls,
+      blockExplorerUrls: chainInformation.blockExplorerUrls,
+    }
+  } else {
+    return chainId
+  }
 }
 
 export const URLS: { [chainId: number]: string[] } = Object.keys(CHAINS).reduce<{ [chainId: number]: string[] }>(

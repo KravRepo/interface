@@ -6,6 +6,13 @@ export const leftMenu = css`
   width: 300px;
   border-right: 1px solid #dadada;
   padding: 40px 24px 0;
+  > button > span {
+    font-family: 'Inter';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+  }
 `
 
 export const menuActive = css`
@@ -20,6 +27,55 @@ export const home = css`
     width: 100%;
     display: flex;
     justify-content: center;
+  }
+`
+
+export const comingSoon = css`
+  width: 100%;
+  padding: 40px 0;
+  font-family: 'Inter';
+  font-weight: 500;
+  min-height: calc(100vh - 284px);
+  font-size: 16px;
+  position: relative;
+  overflow: hidden;
+  .title {
+    font-family: 'GT-Flexa-Bold-Trial';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 110%; /* 30.8px */
+    letter-spacing: 0.56px;
+    margin-left: 40px;
+    color: #000;
+    margin-bottom: 98px;
+  }
+  > p:last-of-type {
+    text-align: center;
+  }
+  > div {
+    overflow: hidden;
+    display: flex;
+    position: absolute;
+    height: 212px;
+    margin-top: 65px;
+    > svg {
+      margin-left: -55px;
+    }
+  }
+  .coming {
+    animation: animate-coming 10s infinite linear;
+    top: 0;
+  }
+  @keyframes animate-coming {
+    0% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+    100% {
+      -webkit-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
   }
 `
 
@@ -142,13 +198,19 @@ export const stake = css`
     border-bottom: 1px solid #dadada;
     padding: 8px 32px 12px;
     > div {
-      > span:last-of-type {
-        font-size: 16px;
-        color: #2832f5;
-      }
-      > span:first-of-type {
-        font-size: 20px;
-        margin-right: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      > div {
+        > span:last-of-type {
+          font-size: 16px;
+          color: #2832f5;
+        }
+        > span:first-of-type {
+          font-size: 20px;
+          margin-right: 16px;
+        }
       }
     }
   }
@@ -350,6 +412,11 @@ export const referral = css`
       border-left: 1px solid #dadada;
       > p {
         padding-bottom: 16px;
+      }
+    }
+    .social {
+      > svg {
+        cursor: pointer;
       }
     }
   }

@@ -37,6 +37,7 @@ export const Trade = () => {
         display: flex;
         padding: 16px 32px 0;
         width: 100%;
+        font-family: 'Inter';
       `}
     >
       <TradeLeft

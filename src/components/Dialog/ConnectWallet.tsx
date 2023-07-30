@@ -14,6 +14,10 @@ import { useGetUserOpenTrade } from 'hook/hookV8/useGetUserOpenTrade'
 import { useGetUserOpenLimitOrders } from '../../hook/hookV8/useGetUserOpenLimitOrders'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useFactory } from '../../hook/hookV8/useFactory'
+import { getAddChainParameters } from '../../connectors/chain'
+import { useUpdateError } from '../../hook/hookV8/useUpdateError'
+import { TransactionAction } from '../../store/TransactionSlice'
+import { TEST_CHAIN_ID } from '../../constant/chain'
 // import { ReactComponent as CoinbaseWalletIcon } from 'assets/imgs/wallet/wallet_coinbase.svg'
 // import { ReactComponent as WalletConnectIcon } from 'assets/imgs/wallet/wallet-connect.svg'
 
@@ -31,6 +35,7 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
   const getUserOpenLimitOrders = useGetUserOpenLimitOrders(tradePool.storageT)
   const getUserPositionData = useUserPosition()
   const getFactory = useFactory()
+  const updateError = useUpdateError()
 
   const initUserToken = useEvent(async () => {
     if (account && provider) {
@@ -42,9 +47,21 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
   const activeConnection = useCallback(
     async (walletName: string) => {
       const connection = getConnection(ConnectionType.INJECTED)!
-      if (walletName === 'metamask') {
-        await connection.connector.activate(chainId !== 97 ? 97 : undefined)
-        await connector.activate(chainId !== 97 ? 97 : undefined)
+      try {
+        if (walletName === 'metamask') {
+          try {
+            await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
+            await connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
+          } catch (e) {
+            try {
+              await connection.connector.activate(getAddChainParameters(TEST_CHAIN_ID))
+            } catch (e) {
+              updateError(TransactionAction.WALLET)
+            }
+          }
+        }
+      } catch (e) {
+        console.error('connect wallet error', e)
       }
     },
     [account]

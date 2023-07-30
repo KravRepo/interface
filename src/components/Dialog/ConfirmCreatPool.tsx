@@ -11,7 +11,6 @@ import { ConfirmCreatPoolProps } from '../Liquidity/type'
 import { useCreatePool } from '../../hook/hookV8/useCreatePool'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { useCallback } from 'react'
-import { useAddLiquidity } from 'hook/hookV8/useAddLiquidity'
 import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { addDecimals } from '../../utils/math'
@@ -24,24 +23,25 @@ export const ConfirmCreatPool = ({
   LPProvision,
   tokenSymbol,
   tokenDecimals,
+  setCreateLiquidityPool,
+  setLPProvision,
+  setTicketSize,
+  setTokenAddress,
 }: ConfirmCreatPoolProps) => {
   const creatPool = useCreatePool()
   const updateFactory = useFactory()
-  const addLiquidity = useAddLiquidity(tokenAddress)
   const getUserPosition = useUserPosition()
 
   const sendTransaction = useCallback(async () => {
     setIsOpen(false)
-    await creatPool(tokenAddress, ticketSize)
-    console.log('updateFactory')
-    const allPoolParams = await updateFactory()
-    console.log('allPoolParams', allPoolParams)
-    const targetVaultT = allPoolParams?.find((item) => item.tokenT === tokenAddress)?.vaultT
-    console.log('targetVaultT', targetVaultT)
-    if (targetVaultT) {
-      await addLiquidity(addDecimals(new BigNumber(LPProvision), tokenDecimals), targetVaultT)
+    try {
+      await creatPool(tokenAddress, ticketSize, addDecimals(new BigNumber(LPProvision), tokenDecimals))
       await Promise.all([updateFactory(), getUserPosition()])
-    }
+      setLPProvision('')
+      setTicketSize('')
+      setTokenAddress('')
+      setCreateLiquidityPool(false)
+    } catch (e) {}
   }, [creatPool, updateFactory, tokenAddress])
 
   return (

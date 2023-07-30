@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles'
 import { TextField } from '@mui/material'
 
 const KRAVTextField = styled(TextField)(({ theme }) => ({
+  fontFamily: 'Inter',
   '& .MuiOutlinedInput-notchedOutline': {
     // borderColor: `${theme['inputBox'].borderColor} !important`,
   },

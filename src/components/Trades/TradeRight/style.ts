@@ -18,6 +18,7 @@ export const input = css`
 export const orderParamsTab = css`
   margin: 12px 16px 12px 0;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
   color: #757575;
   :hover {

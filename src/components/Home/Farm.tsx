@@ -49,12 +49,12 @@ export const Farm = () => {
       </div>
       {positionDatas.length > 0 && (
         <div>
-          <div className="overview">
-            <div>
-              <span>Total Claimable Rewards</span>
-              <span>≈ $246,556,893.30</span>
-            </div>
-          </div>
+          {/*<div className="overview">*/}
+          {/*  <div>*/}
+          {/*    <span>Total Claimable Rewards</span>*/}
+          {/*    <span>≈ $246,556,893.30</span>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div>
             <div
               css={css`

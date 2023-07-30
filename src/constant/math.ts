@@ -3,8 +3,8 @@ import BigNumber from 'bignumber.js'
 export const MAX_UNIT_256 = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const LIQ_THRESHOLD_P = 90
-export const OPEN_FEES = 0.003
-export const CLOSE_FEES = 0.006
+export const OPEN_FEES = 0.0003
+export const CLOSE_FEES = 0.0006
 export const DAI_TO_BTC = 1000
 export const MAX_GAIN_P = 900
 export const PRECISION = new BigNumber(10).pow(10)

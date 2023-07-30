@@ -3,6 +3,7 @@ import { Button } from '@mui/material'
 
 const KRAVMenuButton = styled(Button)(({ theme }) => ({
   whiteSpace: 'nowrap',
+  fontFamily: 'Inter',
   justifyContent: 'start',
   fontWeight: 500,
   color: '#000',

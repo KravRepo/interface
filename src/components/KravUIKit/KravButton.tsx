@@ -5,6 +5,7 @@ const KRAVButton = styled(Button)(({ theme }) => ({
   whiteSpace: 'nowrap',
   textTransform: 'none',
   width: '100%',
+  fontFamily: 'Inter',
   color: '#fff',
   background: '#000000',
   borderRadius: '4px',
@@ -20,6 +21,8 @@ const KRAVButton = styled(Button)(({ theme }) => ({
   '&.Mui-disabled': {
     background: theme['button'].disableBg,
     color: theme['button'].disableText,
+    cursor: 'not-allowed',
+    pointerEvents: 'auto',
   },
   '& .MuiTouchRipple-root': {
     color: 'white',

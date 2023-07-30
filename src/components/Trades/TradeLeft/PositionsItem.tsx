@@ -50,7 +50,8 @@ export const PositionsItem = ({ openTrade }: PositionsItemProps) => {
             text-decoration: underline;
           `}
         >
-          ${new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)}
+          {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).div(tradePool.proportionBTC).toFixed(6)}
+          &nbsp;BTC
         </p>
         <p
           css={css`
@@ -58,12 +59,14 @@ export const PositionsItem = ({ openTrade }: PositionsItemProps) => {
             text-decoration: underline;
           `}
         >
-          <span>$ {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}</span>
+          <span>
+            {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)} {tradePool.symbol}
+          </span>
           <span>({positionTp.toFixed(2)} %)</span>
         </p>
       </div>
-      <div>${new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)}</div>
-      <div>${new BigNumber(openTrade.initialPosToken).toFixed(2)}</div>
+      <div>{new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)}</div>
+      <div>{new BigNumber(openTrade.initialPosToken).toFixed(2)}</div>
       <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
       <div>${BTCPrice.toFixed(2)}</div>
       <div>${liqPrice.toFixed(2)}</div>

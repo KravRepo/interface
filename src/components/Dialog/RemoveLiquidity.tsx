@@ -11,8 +11,7 @@ import { useRemoveLiquidity } from 'hook/hookV8/useRemoveLiquidity'
 import { useRootStore } from '../../store/root'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { useTradingVaultContract } from '../../hook/hookV8/useContract'
-import { addDecimals } from '../../utils/math'
+import { addDecimals, eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useFactory } from '../../hook/hookV8/useFactory'
@@ -24,26 +23,26 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const getUserPosition = useUserPosition()
-  const vaultContract = useTradingVaultContract(liquidityInfo.vaultT)
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   const updateFactory = useFactory()
-  const PoolWalletBalance = useMemo(() => {
-    return (
-      userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)?.walletBalance ??
-      new BigNumber(0)
-    )
+  const targetPool = useMemo(() => {
+    return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
   }, [liquidityInfo, userPositionDatas])
-  const getPoolBalance = useCallback(async () => {
-    if (vaultContract) {
-      const maxWithdrawP = await vaultContract.maxWithdrawP()
-      const res = PoolWalletBalance.times(new BigNumber(maxWithdrawP._hex).div(100)).toNumber()
-      setMaxWithdrawAmount(res)
+  const getPoolBalance = useCallback(() => {
+    if (Object.keys(liquidityInfo).length > 0 && targetPool) {
+      const res = targetPool.maxDaiDeposited.times(liquidityInfo.maxWithdrawP.div(100) ?? 0)
+      const lockedAmount = targetPool.daiDeposited.minus(res)
+      const maxAmount = eXDecimals(
+        lockedAmount.isGreaterThan(0) ? res : targetPool.daiDeposited,
+        targetPool.pool.decimals
+      ).toNumber()
+      setMaxWithdrawAmount(maxAmount)
     }
-  }, [provider, vaultContract])
+  }, [provider, liquidityInfo])
 
   useEffect(() => {
-    getPoolBalance().then()
-  }, [provider, vaultContract])
+    getPoolBalance()
+  }, [provider, liquidityInfo])
 
   const handleMaxInput = () => {
     setWithdrawAmount(maxWithdrawAmount)
@@ -64,7 +63,13 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
         <div css={dialogContent}>
           <div className="dialog-header ">
             <span>Remove Liquidity</span>
-            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
+            <CloseSharpIcon
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                setWithdrawAmount('')
+                setIsOpen(false)
+              }}
+            />
           </div>
           <div
             css={css`
@@ -84,7 +89,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               >
                 <span>Amount</span>
                 <span>
-                  Available: {liquidityInfo.poolCurrentBalance?.toFixed(2)} {liquidityInfo.symbol}
+                  Available: {maxWithdrawAmount.toFixed(2)} {liquidityInfo.symbol}
                 </span>
               </div>
               <div
@@ -99,7 +104,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   variant="standard"
                   type="number"
                   value={withdrawAmount}
-                  onChange={(e) => setWithdrawAmount(Number(e.target.value))}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
                   InputProps={{
                     disableUnderline: true,
                   }}
@@ -141,14 +146,20 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               </div>
             </div>
             <KRAVButton
-              disabled={addDecimals(withdrawAmount.toString(), liquidityInfo.decimals).isGreaterThan(
-                addDecimals(maxWithdrawAmount.toString(), liquidityInfo.decimals)
-              )}
+              disabled={
+                addDecimals(withdrawAmount.toString(), liquidityInfo.decimals).isGreaterThan(
+                  addDecimals(maxWithdrawAmount.toString(), liquidityInfo.decimals)
+                ) || !new BigNumber(withdrawAmount).isGreaterThan(0)
+              }
               onClick={async () => {
                 setIsOpen(false)
-                await removeLiquidity(addDecimals(withdrawAmount.toString(), liquidityInfo.decimals))
+                await removeLiquidity(
+                  addDecimals(withdrawAmount.toString(), liquidityInfo.decimals),
+                  liquidityInfo.symbol,
+                  liquidityInfo.decimals
+                )
                 await Promise.all([updateFactory(), getUserPosition()])
-                setIsOpen(false)
+                setWithdrawAmount('')
               }}
               sx={{ mt: '24px' }}
             >
