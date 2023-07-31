@@ -11,12 +11,15 @@ import { DASHBOARD_OVERVIEW_API } from '../../constant/chain'
 import { formatNumber } from '../../utils'
 import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { Link } from '@mui/material'
+import BigNumber from 'bignumber.js'
+import { ONE_DAY_TIMESTAMP } from '../../constant/math'
 
 type OverviewData = {
   liquiditySupply: number
   orderPlacement: number
   tradingVolume: number
   tradingFrequency: number
+  participation: string
 }
 
 export const Dashboard = () => {
@@ -27,11 +30,14 @@ export const Dashboard = () => {
     try {
       const req = await fetch(DASHBOARD_OVERVIEW_API)
       const overview = await req.json()
+      const currentTime = new Date().valueOf()
+      const circulationTime = new BigNumber((currentTime - Number(overview.data.createAt) * 1000) / ONE_DAY_TIMESTAMP)
       setOverViewData({
         liquiditySupply: Number(overview.data.liquiditySupply) / 100,
         orderPlacement: Number(overview.data.orderPlacement) / 100,
         tradingFrequency: overview.data.tradingFrequency,
         tradingVolume: Number(overview.data.tradingVolume) / 100,
+        participation: circulationTime.toFixed(0, 0),
       })
     } catch (e) {
       console.error('get overview failed!', e)
@@ -97,7 +103,7 @@ export const Dashboard = () => {
         <DashboardCard title={'Order Placement'} content={`${formatNumber(overviewData.orderPlacement, 2)}`} />
         <DashboardCard title={'Liquidity Supply'} content={`${formatNumber(overviewData.liquiditySupply, 2)}`} />
         <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
-        <DashboardCard title={'Continuous Participation'} content={'0 days'} />
+        <DashboardCard title={'Continuous Participation'} content={`${overviewData.participation} days`} />
         <DashboardCard title={'Trading Frequency'} content={`${overviewData.tradingFrequency} times`} />
         <DashboardCard title={'Referral'} content={`${numReferral} friends`} />
       </div>
