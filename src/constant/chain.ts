@@ -17,13 +17,13 @@ export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
 
 export const NODE_ADDRESS = ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56']
 
-export const K_LINE_API = 'https://test-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
+export const K_LINE_API = 'https://base-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
-export const QUANTO_API = 'https://test-api.krav.trade/krav/v1/list/quanto'
+export const QUANTO_API = 'https://base-api.krav.trade/krav/v1/list/quanto'
 
-export const TRADE_HISTORY_API = 'https://test-api.krav.trade/krav/v1/list/market'
+export const TRADE_HISTORY_API = 'https://base-api.krav.trade/krav/v1/list/market'
 
-export const DASHBOARD_OVERVIEW_API = 'https://test-api.krav.trade/krav/v1/overview'
+export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 
 export const MARKET_CHANGE_API = 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT'
 
