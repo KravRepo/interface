@@ -2,9 +2,9 @@
 import { footer, doc } from './style'
 import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
 import { ReactComponent as Twitter } from 'assets/imgs/twitter.svg'
-import { ReactComponent as Medium } from 'assets/imgs/medium.svg'
-import { ReactComponent as Github } from 'assets/imgs/github.svg'
-import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
+// import { ReactComponent as Medium } from 'assets/imgs/medium.svg'
+// import { ReactComponent as Github } from 'assets/imgs/github.svg'
+// import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
 import { css } from '@emotion/react'
 import { Link } from '@mui/material'
 
@@ -28,30 +28,32 @@ export const Footer = () => {
             `}
           />
           <div className="social">
-            <Discord
-              height="24"
-              width="24"
-              css={css`
-                padding: 2px;
-                margin-right: 16px;
-              `}
-            />
-            <Twitter
-              height="24"
-              width="24"
-              css={css`
-                padding: 2px;
-                margin-right: 16px;
-              `}
-            />
-            <Medium
-              height="24"
-              width="24"
-              css={css`
-                margin-right: 16px;
-              `}
-            />
-            <Github height="24" width="24" />
+            {/*<Discord*/}
+            {/*  height="24"*/}
+            {/*  width="24"*/}
+            {/*  css={css`*/}
+            {/*    padding: 2px;*/}
+            {/*    margin-right: 16px;*/}
+            {/*  `}*/}
+            {/*/>*/}
+            <Link underline="none" sx={{ color: '#000' }} href="https://twitter.com/kravtrade">
+              <Twitter
+                height="24"
+                width="24"
+                css={css`
+                  padding: 2px;
+                  margin-right: 16px;
+                `}
+              />
+            </Link>
+            {/*<Medium*/}
+            {/*  height="24"*/}
+            {/*  width="24"*/}
+            {/*  css={css`*/}
+            {/*    margin-right: 16px;*/}
+            {/*  `}*/}
+            {/*/>*/}
+            {/*<Github height="24" width="24" />*/}
             <div>Copyright © 2023 KRAV. All rights reserved</div>
           </div>
         </div>
