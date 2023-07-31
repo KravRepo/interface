@@ -135,7 +135,7 @@ export const Referral = () => {
           </div>
           <div css={align}>
             <div className="link-text">
-              <span>https://base.Krav.trade/trade/</span>
+              <span>https://base.krav.trade/trade/</span>
               <div>
                 <span>Hash</span>
                 <span>Referral Code</span>
