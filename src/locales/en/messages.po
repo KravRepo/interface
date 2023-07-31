@@ -41,10 +41,6 @@ msgstr "Connect Wallet"
 msgid "Trade"
 msgstr "Trade"
 
-#: src/components/Header/Header.tsx
-msgid "Sepolia"
-msgstr "Sepolia"
-
 #: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24H Low"
 msgstr "24H Low"
@@ -52,6 +48,10 @@ msgstr "24H Low"
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 msgstr "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+
+#: src/components/Header/Header.tsx
+msgid "Base"
+msgstr "Base"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 4 Initial LP Provision"

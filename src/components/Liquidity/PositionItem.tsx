@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
+import { ReactComponent as BALDIcon } from '../../assets/imgs/tokens/Bald.svg'
 import { css } from '@emotion/react'
 import { Button, Tooltip } from '@mui/material'
 import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
@@ -26,7 +26,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity }: 
   return (
     <div className="liquidity-table">
       <div css={align}>
-        <DAIIcon height="40" width="40" />
+        <BALDIcon height="40" width="40" />
         <div
           css={css`
             margin-left: 8px;

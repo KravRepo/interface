@@ -41,10 +41,6 @@ msgstr ""
 msgid "Trade"
 msgstr ""
 
-#: src/components/Header/Header.tsx
-msgid "Sepolia"
-msgstr "Sepolia"
-
 #: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24H Low"
 msgstr ""
@@ -52,6 +48,10 @@ msgstr ""
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 msgstr ""
+
+#: src/components/Header/Header.tsx
+msgid "Base"
+msgstr "Base"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 4 Initial LP Provision"

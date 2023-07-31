@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as DogeIcon } from '../../assets/imgs/tokens/doge.svg'
+import { ReactComponent as BALDIcon } from '../../assets/imgs/tokens/Bald.svg'
 import { css } from '@emotion/react'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
@@ -28,7 +28,11 @@ export const FarmItem = ({ position }: FarmItemProps) => {
   return (
     <div className="liquidity">
       <div css={align}>
-        <DogeIcon />
+        <BALDIcon
+          css={css`
+            border-radius: 50%;
+          `}
+        />
         <div
           css={css`
             margin-left: 12px;

@@ -4,7 +4,7 @@ import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
+import { ReactComponent as BALDIcon } from '../../assets/imgs/tokens/Bald.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { RemoveLiquidityProps } from '../Liquidity/type'
 import { useRemoveLiquidity } from 'hook/hookV8/useRemoveLiquidity'
@@ -140,7 +140,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                     >
                       DAI
                     </span>
-                    <DAIIcon height="16" width="16" />
+                    <BALDIcon height="16" width="16" />
                   </div>
                 </div>
               </div>

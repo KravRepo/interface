@@ -2,6 +2,7 @@ export enum ChainId {
   MAINNET = 1,
   BSC_TEST = 97,
   SEPOLIA = 11155111,
+  BASE = 8453,
 }
 
 // export const TEST_RPC_NODE =
@@ -10,8 +11,7 @@ export enum ChainId {
 //
 // export const TEST_RPC_NODE = 'https://rpc.ankr.com/bsc_testnet_chapel'
 //
-export const TEST_RPC_NODE =
-  'https://rpc.ankr.com/eth_sepolia/10cb3cef955b49d3f7b668bd18022ec795aa0b97edcdc0490ee39336f2c8af58'
+export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
 
 export const LINK_ADDRESS = '0x779877A7B0D9E8603169DdbD7836e478b4624789'
 
@@ -27,7 +27,7 @@ export const DASHBOARD_OVERVIEW_API = 'https://test-api.krav.trade/krav/v1/overv
 
 export const MARKET_CHANGE_API = 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT'
 
-export const TEST_CHAIN_ID = ChainId.SEPOLIA
+export const TEST_CHAIN_ID = ChainId.BASE
 
 export const BTC_CONTRACT = '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
 
