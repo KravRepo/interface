@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { Button } from '@mui/material'
 import { Trans } from '@lingui/macro'
-import { header, headerBtn, notifyBtn, router, routerActive, UnSupport } from './sytle'
+import { header, headerBtn, router, routerActive, UnSupport } from './sytle'
 import { align } from 'globalStyle'
 import { ReactComponent as Base } from 'assets/imgs/chain_base.svg'
-import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
+// import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
 import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
 import { ConnectWalletDialog } from 'components/Dialog/ConnectWallet'
@@ -173,10 +173,9 @@ export const Header = () => {
               <Trans>Connect Wallet</Trans>
             </KRAVButton>
           )}
-
-          <div css={notifyBtn}>
-            <Notify />
-          </div>
+          {/*<div css={notifyBtn}>*/}
+          {/*  <Notify />*/}
+          {/*</div>*/}
         </div>
         <ConnectWalletDialog
           walletDialogVisibility={walletDialogVisibility}
