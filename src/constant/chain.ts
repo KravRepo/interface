@@ -15,7 +15,7 @@ export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
 
 export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
 
-export const NODE_ADDRESS = ['0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A']
+export const NODE_ADDRESS = ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56']
 
 export const K_LINE_API = 'https://test-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
