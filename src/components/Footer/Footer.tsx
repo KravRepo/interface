@@ -6,6 +6,9 @@ import { ReactComponent as Medium } from 'assets/imgs/medium.svg'
 import { ReactComponent as Github } from 'assets/imgs/github.svg'
 import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
 import { css } from '@emotion/react'
+import { Link } from '@mui/material'
+
+import { NavLink } from 'react-router-dom'
 
 export const Footer = () => {
   return (
@@ -54,22 +57,35 @@ export const Footer = () => {
         </div>
         <div css={doc}>
           <p>Functions</p>
-          <p>Trade</p>
-          <p>Earn</p>
-          <p>Buy</p>
-          <p>Referrals</p>
+          <NavLink to={'/trade'}>
+            <p>Trade</p>
+          </NavLink>
+          <NavLink to={'/liquidity'}>
+            <p>Earn</p>
+          </NavLink>
+          <NavLink to={'/dashboard/referral'}>
+            <p>Referrals</p>
+          </NavLink>
+          {/*<p>Buy</p>*/}
         </div>
         <div css={doc}>
           <p>Developers</p>
-          <p>Documentation</p>
-          <p>Github</p>
-          <p>Blog</p>
+          <Link underline="none" sx={{ color: '#000' }} href="https://docs.krav.trade/">
+            <p>Documentation</p>
+          </Link>
+
+          {/*<p>Github</p>*/}
+          {/*<p>Blog</p>*/}
         </div>
         <div css={doc}>
           <p>Support</p>
-          <p>Telegram</p>
-          <p>Discord</p>
-          <p>Twitter</p>
+          <Link underline="none" sx={{ color: '#000' }} href="https://t.me/+tlNZPGwYlu9lOWIx">
+            <p>Telegram</p>
+          </Link>
+          <Link underline="none" sx={{ color: '#000' }} href="https://twitter.com/kravtrade">
+            <p>Twitter</p>
+          </Link>
+          {/*<p>Discord</p>*/}
         </div>
       </div>
     </div>

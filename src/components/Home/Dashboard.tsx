@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { DASHBOARD_OVERVIEW_API } from '../../constant/chain'
 import { formatNumber } from '../../utils'
 import { useNumReferral } from '../../hook/hookV8/useNumReferral'
+import { Link } from '@mui/material'
 
 type OverviewData = {
   liquiditySupply: number
@@ -59,7 +60,10 @@ export const Dashboard = () => {
         <div className="learn-more-left">
           <p>Put your money to work</p>
           <p>You can earn liquidity providing rewards by depositing</p>
-          <KRAVButton sx={{ width: '105px' }}>Learn more</KRAVButton>
+          {/**/}
+          <Link href="https://docs.krav.trade/">
+            <KRAVButton sx={{ width: '105px' }}>Learn more</KRAVButton>
+          </Link>
         </div>
         <div className="learn-more-right">
           <div>

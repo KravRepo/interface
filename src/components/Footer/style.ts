@@ -12,7 +12,6 @@ export const footer = css`
     max-width: 1440px;
     display: grid;
     grid-template-columns: 2.7fr 1fr 1fr 1.1fr;
-    color: #757575;
     font-size: 14px;
     .social {
       margin-top: 83px;
@@ -34,6 +33,14 @@ export const doc = css`
     padding-top: 32px;
     padding-bottom: 20px;
     color: black;
+  }
+  > a {
+    text-decoration: none;
+    > p {
+      color: #757575;
+      margin: 0;
+      padding-bottom: 10px;
+    }
   }
   > p {
     margin: 0;
