@@ -3,7 +3,6 @@ import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
-import { ReactComponent as BALDIcon } from 'assets/imgs/tokens/Bald.svg'
 import { ReactComponent as BTCIcon } from 'assets/imgs/tokens/bitcoin.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { align } from '../../globalStyle'
@@ -88,7 +87,14 @@ export const ConfirmCreatPool = ({
             <div className="confirm-content-input2">
               <p>Token Collateral</p>
               <div css={align}>
-                <BALDIcon height="40" width="40" />
+                <img
+                  css={css`
+                    border-radius: 50%;
+                  `}
+                  src={require('../../assets/imgs/tokens/default_token.svg')}
+                  height="40"
+                  width="40"
+                />
                 <div
                   css={css`
                     margin-left: 12px;

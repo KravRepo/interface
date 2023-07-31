@@ -77,7 +77,7 @@ export const Dashboard = () => {
       </div>
       <div className="points">
         <div>
-          <p>1200</p>
+          <p>--</p>
           <p>
             <span>POINTS EARNDED</span>
             <ArrowLeft

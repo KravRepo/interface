@@ -13,7 +13,7 @@ export enum ChainId {
 //
 export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
 
-export const LINK_ADDRESS = '0x779877A7B0D9E8603169DdbD7836e478b4624789'
+export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
 
 export const NODE_ADDRESS = ['0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A']
 
@@ -30,6 +30,8 @@ export const MARKET_CHANGE_API = 'https://api.binance.com/api/v3/ticker/24hr?sym
 export const TEST_CHAIN_ID = ChainId.BASE
 
 export const BTC_CONTRACT = '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
+
+export const BTC_PRICE_API = 'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 

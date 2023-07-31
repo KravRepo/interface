@@ -4,7 +4,6 @@ import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { ReactComponent as BALDIcon } from '../../assets/imgs/tokens/Bald.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { AddLiquidityProps } from '../Liquidity/type'
 import { useRootStore } from '../../store/root'
@@ -125,7 +124,14 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                     >
                       {liquidityInfo.symbol}
                     </span>
-                    <BALDIcon height="16" width="16" style={{ borderRadius: '50%' }} />
+                    <img
+                      css={css`
+                        border-radius: 50%;
+                      `}
+                      src={liquidityInfo.logoSource}
+                      height="16"
+                      width="16"
+                    />
                   </div>
                 </div>
               </div>

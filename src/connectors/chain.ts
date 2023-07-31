@@ -65,6 +65,12 @@ export const MAINNET_CHAINS: ChainConfig = {
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://polygonscan.com'],
   },
+  8453: {
+    urls: ['https://developer-access-mainnet.base.org'],
+    name: 'Base',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://basescan.org'],
+  },
   42220: {
     urls: ['https://forno.celo.org'],
     name: 'Celo',

@@ -17,6 +17,7 @@ export type PoolParams = {
   proportionBTC: number
   decimals: number
   blockNumber: number
+  logoSource: any
   utilization: BigNumber
   maxWithdrawP: BigNumber
   poolTotalSupply?: BigNumber

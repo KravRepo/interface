@@ -12,7 +12,6 @@ import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, getFees, getLiqPrice, getLongOrShortUSD, getReachPrice, getTakeProfit } from 'utils/math'
-import { ReactComponent as BALDIcon } from '../../../assets/imgs/tokens/Bald.svg'
 import { ReactComponent as ArrowDownIcon } from 'assets/imgs/arrowDown.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
@@ -448,7 +447,14 @@ export const OrderParamsCard = ({
                   >
                     {tradePool?.symbol}
                   </span>
-                  <BALDIcon height="16" width="16" />
+                  <img
+                    css={css`
+                      border-radius: 50%;
+                    `}
+                    src={tradePool.logoSource}
+                    height="16"
+                    width="16"
+                  />
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as BALDIcon } from '../../assets/imgs/tokens/Bald.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { MarketItemProps } from './type'
 import { useRootStore } from '../../store/root'
@@ -36,7 +35,14 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
   return (
     <div className="liquidity-table">
       <div css={align}>
-        <BALDIcon height="40" width="40" />
+        <img
+          css={css`
+            border-radius: 50%;
+          `}
+          src={poolParams.logoSource}
+          height="40"
+          width="40"
+        />
         <div
           css={css`
             margin-left: 8px;

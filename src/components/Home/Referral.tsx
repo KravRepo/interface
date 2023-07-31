@@ -127,7 +127,7 @@ export const Referral = () => {
       <div className="referral-link">
         <div>
           <p>Invite Chain</p>
-          <p>Sepolia</p>
+          <p>Base</p>
         </div>
         <div>
           <div>
@@ -135,7 +135,7 @@ export const Referral = () => {
           </div>
           <div css={align}>
             <div className="link-text">
-              <span>https://krav-test.vercel.app/trade/</span>
+              <span>https://base.Krav.trade/trade/</span>
               <div>
                 <span>Hash</span>
                 <span>Referral Code</span>
