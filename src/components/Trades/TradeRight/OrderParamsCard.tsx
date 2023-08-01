@@ -664,7 +664,7 @@ export const OrderParamsCard = ({
             >
               <span>Collateral in</span>
               <span>
-                {getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
+                {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
               </span>
             </p>
             <p
@@ -709,7 +709,11 @@ export const OrderParamsCard = ({
               ]}
             >
               <span>Fees</span>
-              <span>{getBigNumberStr(getFees(positionSizeDai, leverage), 2)}</span>
+              <span>
+                {isNaN(getFees(positionSizeDai, leverage).toNumber())
+                  ? '--'
+                  : getBigNumberStr(getFees(positionSizeDai, leverage), 2)}
+              </span>
             </p>
           </div>
           {isProModel && (
