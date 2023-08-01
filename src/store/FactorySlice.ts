@@ -20,6 +20,7 @@ export type PoolParams = {
   logoSource: any
   utilization: BigNumber
   maxWithdrawP: BigNumber
+  fundingFeePerBlockP: BigNumber
   poolTotalSupply?: BigNumber
   poolCurrentBalance?: BigNumber
 }

@@ -3,6 +3,7 @@
 import { css } from '@emotion/react'
 import { bottomCard } from '../style'
 import { useRootStore } from '../../../store/root'
+import { getBorrowFees } from '../../../utils/math'
 
 export const PositionOverView = () => {
   const BTCPrice = useRootStore((state) => state.BTCPrice)
@@ -25,7 +26,7 @@ export const PositionOverView = () => {
         </p>
         <p className="card-details">
           <span>Borrow Fee</span>
-          <span>0.0053%/1h</span>
+          <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
         </p>
         <p className="card-details">
           <span>Available Liquidity</span>

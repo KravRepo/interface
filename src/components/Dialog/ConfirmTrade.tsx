@@ -7,7 +7,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { Tuple } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
-import { eXDecimals, getLiqPrice } from '../../utils/math'
+import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
 import { OPEN_FEES } from '../../constant/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
@@ -155,7 +155,7 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Borrow Fee</span>
-                <span>0.0053%/1h</span>
+                <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
               </p>
               {/*<p>*/}
               {/*  <span>Execution Fee</span>*/}

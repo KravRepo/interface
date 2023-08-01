@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
-import { LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from 'constant/math'
+import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from 'constant/math'
+import { getBigNumberStr } from './index'
 
 export const eXDecimals = (value: BigNumber | string, decimals: number) => {
   return new BigNumber(value).div(new BigNumber(10).pow(decimals))
@@ -81,4 +82,10 @@ export const getTakeProfit = (
       else return p
     } else return p
   }
+}
+
+export const getBorrowFees = (fundingFeePerBlockP?: BigNumber) => {
+  if (fundingFeePerBlockP) {
+    return getBigNumberStr(eXDecimals(fundingFeePerBlockP, 10).div(100).times(BASE_ONE_HOUR_BLOCK), 6)
+  } else return 0
 }

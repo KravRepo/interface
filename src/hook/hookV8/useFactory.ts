@@ -7,6 +7,7 @@ import { useRootStore } from '../../store/root'
 import { PoolParams } from '../../store/FactorySlice'
 import test_erc20 from '../../abi/test_erc20.json'
 import pair_storage from '../../abi/pair_storage_v6.json'
+import pair_info from '../../abi/pair_info_v6_1.json'
 import trading_vault from '../../abi/trading_vault_v5.json'
 import { eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
@@ -20,6 +21,7 @@ enum Task {
   groupCollateralLong = 5,
   groupCollateralShort = 6,
   maxWithdrawPTask = 7,
+  pairParams = 8,
 }
 export const useFactory = () => {
   const setAllPoolParams = useRootStore((store) => store.setAllPoolParams)
@@ -47,6 +49,7 @@ export const useFactory = () => {
       const groupCollateralLong: any[] = []
       const groupCollateralShort: any[] = []
       const maxWithdrawPTask: any[] = []
+      const pairParams: any[] = []
       res.forEach((item) => {
         //TODO check pairs tokenT is ERC20
         forMatter.push({
@@ -66,11 +69,13 @@ export const useFactory = () => {
           utilization: new BigNumber(0),
           maxWithdrawP: new BigNumber(0),
           logoSource: null,
+          fundingFeePerBlockP: new BigNumber(0),
         })
       })
 
       forMatter.forEach((item) => {
         const pairStorageContract = new Contract(item.pairStorageT, pair_storage.abi, provider)
+        const pairInfoContract = new Contract(item.pairInfoT, pair_info.abi, provider)
         const tokenContract = new Contract(item.tokenT, test_erc20.abi, provider)
         const vaultContract = new Contract(item.vaultT, trading_vault.abi, provider)
         tokenTask.push(tokenContract.symbol())
@@ -81,6 +86,7 @@ export const useFactory = () => {
         groupCollateralLong.push(pairStorageContract.groupCollateral(0, true))
         groupCollateralShort.push(pairStorageContract.groupCollateral(0, false))
         maxWithdrawPTask.push(vaultContract.maxWithdrawP())
+        pairParams.push(pairInfoContract.pairParams(0))
       })
 
       const factoryCall = await Promise.all([
@@ -92,12 +98,16 @@ export const useFactory = () => {
         ...groupCollateralLong,
         ...groupCollateralShort,
         ...maxWithdrawPTask,
+        ...pairParams,
       ])
 
       forMatter.forEach((item, index) => {
         item.symbol = factoryCall[index]
         item.decimals = factoryCall[Task.decimalsTask * totalPools + index]
         item.proportionBTC = Number(factoryCall[Task.pairStorageTask * totalPools + index].proportionBTC._hex)
+        item.fundingFeePerBlockP = new BigNumber(
+          factoryCall[Task.pairParams * totalPools + index].fundingFeePerBlockP._hex
+        )
         const totalSupply = new BigNumber(factoryCall[Task.vaultSupplyTask * totalPools + index]._hex)
         item.poolTotalSupply = eXDecimals(totalSupply, factoryCall[Task.decimalsTask * totalPools + index])
         item.poolCurrentBalance = eXDecimals(
@@ -117,6 +127,7 @@ export const useFactory = () => {
         }
       })
       setAllPoolParams(forMatter)
+      console.log('forMatter', forMatter)
       setIsLoadingFactory(false)
       return forMatter
     } catch (e) {
