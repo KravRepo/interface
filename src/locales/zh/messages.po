@@ -17,10 +17,6 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-msgid "This conversion ratio is a fixed value and is not affected by the price of X token. The transaction profit and loss will be settled in BTC, and finally settled with X token according to the conversion ratio."
-msgstr ""
-
 #: src/components/Header/Header.tsx
 msgid "Liquidity"
 msgstr ""
@@ -58,7 +54,6 @@ msgid "Step 4 Initial LP Provision"
 msgstr ""
 
 #: src/components/Liquidity/CreateLiquidity.tsx
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr ""
 
@@ -80,6 +75,10 @@ msgstr ""
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
 msgid "24h Change"
+msgstr ""
+
+#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
 msgstr ""
 
 #: src/components/Liquidity/CreateLiquidity.tsx

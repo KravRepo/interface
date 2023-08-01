@@ -8,7 +8,7 @@ import KRAVTextField from '../KravUIKit/KravTextField'
 import KRAVButton from '../KravUIKit/KravButton'
 import { Trans } from '@lingui/macro'
 import { ConfirmCreatPool } from 'components/Dialog/ConfirmCreatPool'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { CreateLiquidityProps } from './type'
 
 import { useRootStore } from '../../store/root'
@@ -28,7 +28,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
   const isBTCRise = useRootStore((state) => state.isBTCRise)
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const checkAddressValidity = useCheckAddressValidity()
-  const tokenContract = useContract(tokenAddress, erc_20)
+  const tokenContract = useContract(tokenAddress.length === VALIDITY_ADDRESS_LENGTH ? tokenAddress : '', erc_20)
   const getTokenSymbol = useCallback(
     async (isAddressValidity: boolean) => {
       if (tokenAddress && isAddressValidity && tokenContract) {
@@ -43,6 +43,20 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
     },
     [tokenAddress, tokenContract]
   )
+
+  useEffect(() => {
+    if (tokenContract && tokenAddress?.length === VALIDITY_ADDRESS_LENGTH) {
+      let isValidity = false
+      try {
+        checkAddressValidity(tokenAddress).then((res) => {
+          isValidity = res
+          if (isValidity) {
+            getTokenSymbol(isValidity).then()
+          }
+        })
+      } catch (e) {}
+    }
+  }, [tokenContract, tokenAddress])
 
   return (
     <>
@@ -114,7 +128,10 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                   //   endAdornment: <KRAVButton sx={{ width: '92px' }}>My asset</KRAVButton>,
                   // }}
                   value={tokenAddress}
-                  onChange={(event) => setTokenAddress(event.target.value)}
+                  onChange={(event) => {
+                    setTokenAddress(event.target.value)
+                    setTokenSymbol('')
+                  }}
                   sx={{ width: '100%' }}
                 >
                   <span>My Asset</span>
@@ -200,9 +217,8 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 </p>
                 <p>
                   <Trans>
-                    With BTC as the underlying asset, different assets are used as investment products for perpetual
-                    option transactions. The asset selected by the pool you created now will be used as the transaction
-                    asset.
+                    Select the token you want to use as the actual settlement, and the transaction settlement will use
+                    the token for transaction settlement according to the set conversion ratio with BTC/ETH.
                   </Trans>
                 </p>
               </div>
@@ -211,11 +227,23 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                   <Trans>Step 3 Set Ticket Size</Trans>
                 </p>
                 <p>
-                  <Trans>
-                    This conversion ratio is a fixed value and is not affected by the price of X token. The transaction
-                    profit and loss will be settled in BTC, and finally settled with X token according to the conversion
-                    ratio.
-                  </Trans>
+                  This conversion ratio is a fixed value and is not affected by the price of{' '}
+                  <span
+                    css={css`
+                      color: #009b72;
+                    `}
+                  >
+                    {tokenSymbol === '' ? 'X' : tokenSymbol}
+                  </span>{' '}
+                  token. The transaction profit and loss will be settled in BTC, and finally settled with{' '}
+                  <span
+                    css={css`
+                      color: #009b72;
+                    `}
+                  >
+                    {tokenSymbol === '' ? 'X' : tokenSymbol}
+                  </span>{' '}
+                  token according to the conversion ratio.
                 </p>
               </div>
               <div className="step">
