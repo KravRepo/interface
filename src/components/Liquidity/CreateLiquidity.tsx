@@ -165,7 +165,6 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
               <div className="input-params">
                 <div>Initial LP Provision</div>
                 <KRAVTextField
-                  label="The value of the input amount must be greater than $2000"
                   value={LPProvision}
                   type="number"
                   onChange={(event) => setLPProvision(Number(event.target.value))}
