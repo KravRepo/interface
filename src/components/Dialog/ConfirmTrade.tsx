@@ -90,7 +90,7 @@ export const ConfirmTrade = ({
                     margin-bottom: 36px;
                   `}
                 >
-                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} DAI ($
+                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol} ($
                   {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)})
                 </p>
                 <p>
