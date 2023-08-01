@@ -129,7 +129,7 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Fees</span>
-                <span>{eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)}DAI</span>
+                <span>{eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)} {tradePool.symbol}</span>
               </p>
               <p>
                 <span>Collateral</span>
@@ -155,10 +155,10 @@ export const ConfirmTrade = ({
                 <span>Borrow Fee</span>
                 <span>0.0053%/1h</span>
               </p>
-              <p>
-                <span>Execution Fee</span>
-                <span>-{tradePool.symbol}</span>
-              </p>
+              {/*<p>*/}
+              {/*  <span>Execution Fee</span>*/}
+              {/*  <span>-{tradePool.symbol}</span>*/}
+              {/*</p>*/}
               <p>
                 <span>Allowed Slippage</span>
                 <span>0.30%</span>
