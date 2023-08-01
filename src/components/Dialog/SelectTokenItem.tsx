@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import { css } from '@emotion/react'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
 import React, { Dispatch, useCallback, useMemo } from 'react'
@@ -35,7 +34,7 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
       }}
     >
       <div css={align}>
-        <DAIIcon height="40" width="40" />
+        <img src={pool.logoSource} height="40" width="40" />
         <div
           css={css`
             margin-left: 12px;

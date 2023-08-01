@@ -5,7 +5,7 @@ import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
+import { ReactComponent as KRAVIcon } from '../../assets/imgs/tokens/KRAV.svg'
 import { align } from '../../globalStyle'
 import { useFaucet } from '../../hook/hookV8/useFaucet'
 
@@ -44,7 +44,7 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
               }}
             >
               <div css={align}>
-                <DAIIcon height="40" width="40" />
+                <KRAVIcon height="40" width="40" />
                 <div
                   css={css`
                     margin-left: 12px;
@@ -66,7 +66,7 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
                     }}
                   >
                     <div css={align}>
-                      <DAIIcon height="40" width="40" />
+                      <img src={pool.logoSource} height="40" width="40" />
                       <div
                         css={css`
                           margin-left: 12px;

@@ -65,6 +65,7 @@ export const useFactory = () => {
           blockNumber: blockNumber,
           utilization: new BigNumber(0),
           maxWithdrawP: new BigNumber(0),
+          logoSource: null,
         })
       })
 
@@ -109,6 +110,11 @@ export const useFactory = () => {
           .div(totalSupply)
         item.utilization = utilization.times(100)
         item.maxWithdrawP = new BigNumber(factoryCall[Task.maxWithdrawPTask * totalPools + index]._hex)
+        try {
+          item.logoSource = require(`../../assets/imgs/tokens/${factoryCall[index]}.svg`)
+        } catch (e) {
+          item.logoSource = require('../../assets/imgs/tokens/default_token.svg')
+        }
       })
       setAllPoolParams(forMatter)
       setIsLoadingFactory(false)

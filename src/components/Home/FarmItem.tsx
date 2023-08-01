@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as DogeIcon } from '../../assets/imgs/tokens/DOGE.svg'
 import { css } from '@emotion/react'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
@@ -28,7 +27,7 @@ export const FarmItem = ({ position }: FarmItemProps) => {
   return (
     <div className="liquidity">
       <div css={align}>
-        <DogeIcon />
+        <img src={position.pool.logoSource} height="40" width="40" />
         <div
           css={css`
             margin-left: 12px;

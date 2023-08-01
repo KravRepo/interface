@@ -19,6 +19,7 @@ export type PoolParams = {
   blockNumber: number
   utilization: BigNumber
   maxWithdrawP: BigNumber
+  logoSource: any
   poolTotalSupply?: BigNumber
   poolCurrentBalance?: BigNumber
 }

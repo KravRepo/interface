@@ -4,7 +4,6 @@ import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { AddLiquidityProps } from '../Liquidity/type'
 import { useRootStore } from '../../store/root'
@@ -125,7 +124,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                     >
                       {liquidityInfo.symbol}
                     </span>
-                    <DAIIcon height="16" width="16" />
+                    <img src={liquidityInfo.logoSource} height="16" width="16" />
                   </div>
                 </div>
               </div>
