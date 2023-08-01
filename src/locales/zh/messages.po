@@ -17,10 +17,6 @@ msgstr ""
 msgid "Statistics"
 msgstr ""
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-msgid "This conversion ratio is a fixed value and is not affected by the price of X token. The transaction profit and loss will be settled in BTC, and finally settled with X token according to the conversion ratio."
-msgstr ""
-
 #: src/components/Header/Header.tsx
 msgid "Liquidity"
 msgstr ""
