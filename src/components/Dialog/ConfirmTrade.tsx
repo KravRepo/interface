@@ -105,7 +105,7 @@ export const ConfirmTrade = ({
             <div className="confirm-content-info">
               <p>
                 <span>Collateral in</span>
-                <span>DAI</span>
+                <span>{tradePool.symbol}</span>
               </p>
               <p>
                 <span>Leverage</span>
@@ -157,7 +157,7 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Execution Fee</span>
-                <span>-DAI</span>
+                <span>-{tradePool.symbol}</span>
               </p>
               <p>
                 <span>Allowed Slippage</span>
