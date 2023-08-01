@@ -114,7 +114,7 @@ export const OrderParamsCard = ({
   const [tabIndex, setTabIndex] = useState(0)
   const [slSetting, setSlSetting] = useState(0)
   const [slUsePercentage, setUseSlPercentage] = useState(true)
-  const [tpSetting, setTpSetting] = useState(25)
+  const [tpSetting, setTpSetting] = useState(0)
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const {
     BTCPrice,
@@ -156,7 +156,9 @@ export const OrderParamsCard = ({
 
   const targetTp = useMemo(() => {
     return tpUsePercentage
-      ? getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+      ? tpSetting === 0
+        ? new BigNumber(0)
+        : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
 
