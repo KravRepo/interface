@@ -9,7 +9,7 @@ import { align } from '../../globalStyle'
 import { ConfirmCreatPoolProps } from '../Liquidity/type'
 import { useCreatePool } from '../../hook/hookV8/useCreatePool'
 import { useFactory } from '../../hook/hookV8/useFactory'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { addDecimals } from '../../utils/math'
@@ -42,6 +42,14 @@ export const ConfirmCreatPool = ({
       setCreateLiquidityPool(false)
     } catch (e) {}
   }, [creatPool, updateFactory, tokenAddress])
+
+  const tokenLogoSource = useMemo(() => {
+    try {
+      return require(`../../assets/imgs/tokens/${tokenSymbol}.svg`)
+    } catch (e) {
+      return require('../../assets/imgs/tokens/default_token.svg')
+    }
+  }, [tokenSymbol])
 
   return (
     <Dialog
@@ -91,7 +99,7 @@ export const ConfirmCreatPool = ({
                   css={css`
                     border-radius: 50%;
                   `}
-                  src={require('../../assets/imgs/tokens/default_token.svg')}
+                  src={tokenLogoSource}
                   height="40"
                   width="40"
                 />

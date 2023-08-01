@@ -29,11 +29,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   }, [liquidityInfo, userPositionDatas])
   const getPoolBalance = useCallback(() => {
     if (Object.keys(liquidityInfo).length > 0 && targetPool) {
-      const res = targetPool.maxDaiDeposited.times(liquidityInfo.maxWithdrawP.div(100) ?? 0)
-      const lockedAmount = targetPool.daiDeposited.minus(res)
+      const res = targetPool?.maxDaiDeposited?.times(liquidityInfo?.maxWithdrawP.div(100) ?? 0)
+      const lockedAmount = targetPool?.daiDeposited?.minus(res)
       const maxAmount = eXDecimals(
-        lockedAmount.isGreaterThan(0) ? res : targetPool.daiDeposited,
-        targetPool.pool.decimals
+        lockedAmount?.isGreaterThan(0) ? res : targetPool?.daiDeposited,
+        targetPool?.pool?.decimals
       ).toNumber()
       setMaxWithdrawAmount(maxAmount)
     }
