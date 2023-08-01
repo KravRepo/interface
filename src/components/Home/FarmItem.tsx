@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as DogeIcon } from '../../assets/imgs/tokens/doge.svg'
+import { ReactComponent as DogeIcon } from '../../assets/imgs/tokens/DOGE.svg'
 import { css } from '@emotion/react'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'

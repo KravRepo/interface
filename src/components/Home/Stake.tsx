@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import { useEffect, useState } from 'react'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
-import { ReactComponent as DogeIcon } from 'assets/imgs/tokens/doge.svg'
+import { ReactComponent as DogeIcon } from 'assets/imgs/tokens/DOGE.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { stake } from './style'
 import { align } from '../../globalStyle'
