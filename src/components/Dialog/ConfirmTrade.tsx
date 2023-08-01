@@ -129,7 +129,9 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Fees</span>
-                <span>{eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)} {tradePool.symbol}</span>
+                <span>
+                  {eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)} {tradePool.symbol}
+                </span>
               </p>
               <p>
                 <span>Collateral</span>
