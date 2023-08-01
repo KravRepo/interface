@@ -22,7 +22,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
   const [oneDayChangePrice, setOneDayChangePrice] = useState(0)
   const [oneDayHeight, setOneDayHeight] = useState(0)
   const [oneDayLow, setOneDayLow] = useState(0)
-  const { BTCPrice, isBTCRise, allPoolParams, tradePool, setTradePool, isLoadingFactory } = useRootStore((state) => ({
+  const { BTCPrice, isBTCRise, allPoolParams, setTradePool, isLoadingFactory } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     isBTCRise: state.isBTCRise,
     tradePool: state.tradePool,
@@ -94,7 +94,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
               `,
             ]}
           >
-            <span className="symbol">{tradePool?.symbol} / BTC</span>
+            <span className="symbol">BTC / USDT</span>
             <span
               css={css`
                 color: ${isBTCRise ? '#009b72' : '#db4c40'};

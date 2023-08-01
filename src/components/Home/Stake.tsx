@@ -114,7 +114,7 @@ export const Stake = () => {
                   {/*<p className="grey">($236,123.00)</p>*/}
                 </div>
                 <div>{getBigNumberStr(userStake, 2)} KRAV</div>
-                <div>12.32%</div>
+                <div>--</div>
                 <div>{getBigNumberStr(userReward, 2)} KRAV</div>
                 <div
                   css={css`

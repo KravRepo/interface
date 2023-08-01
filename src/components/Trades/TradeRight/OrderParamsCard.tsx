@@ -738,7 +738,10 @@ export const OrderParamsCard = ({
                     </span>
                   </div>
                   <span>
-                    {getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)} {tradePool.symbol}
+                    {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())
+                      ? '--'
+                      : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}
+                    {tradePool.symbol}
                   </span>
                 </div>
                 <div
@@ -829,7 +832,10 @@ export const OrderParamsCard = ({
                       ({tpUsePercentage ? '$' + getBigNumberStr(targetTp, 2) : getBigNumberStr(tpPercentage, 2) + '%'})
                     </span>
                   </div>
-                  {getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)} {tradePool.symbol}
+                  {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())
+                    ? '--'
+                    : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}
+                  {tradePool.symbol}
                 </div>
                 <div
                   css={css`
