@@ -25,7 +25,9 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   const updateFactory = useFactory()
   const targetPool = useMemo(() => {
-    return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
+    return userPositionDatas
+      .filter((item) => item.hasPosition)
+      .find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
   }, [liquidityInfo, userPositionDatas])
   const getPoolBalance = useCallback(() => {
     if (Object.keys(liquidityInfo).length > 0 && targetPool) {
