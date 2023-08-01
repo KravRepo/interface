@@ -115,7 +115,6 @@ export const useFactory = () => {
         } catch (e) {
           item.logoSource = require('../../assets/imgs/tokens/default_token.svg')
         }
-        console.log('logo source', item.logoSource)
       })
       setAllPoolParams(forMatter)
       setIsLoadingFactory(false)
