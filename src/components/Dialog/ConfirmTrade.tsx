@@ -90,7 +90,7 @@ export const ConfirmTrade = ({
                     margin-bottom: 36px;
                   `}
                 >
-                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} DAI ($
+                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol} ($
                   {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)})
                 </p>
                 <p>
@@ -105,7 +105,7 @@ export const ConfirmTrade = ({
             <div className="confirm-content-info">
               <p>
                 <span>Collateral in</span>
-                <span>DAI</span>
+                <span>{tradePool.symbol}</span>
               </p>
               <p>
                 <span>Leverage</span>
@@ -129,7 +129,9 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Fees</span>
-                <span>{eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)}DAI</span>
+                <span>
+                  {eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)} {tradePool.symbol}
+                </span>
               </p>
               <p>
                 <span>Collateral</span>
@@ -155,10 +157,10 @@ export const ConfirmTrade = ({
                 <span>Borrow Fee</span>
                 <span>0.0053%/1h</span>
               </p>
-              <p>
-                <span>Execution Fee</span>
-                <span>-DAI</span>
-              </p>
+              {/*<p>*/}
+              {/*  <span>Execution Fee</span>*/}
+              {/*  <span>-{tradePool.symbol}</span>*/}
+              {/*</p>*/}
               <p>
                 <span>Allowed Slippage</span>
                 <span>0.30%</span>
