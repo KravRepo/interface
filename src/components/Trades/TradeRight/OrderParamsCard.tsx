@@ -723,31 +723,62 @@ export const OrderParamsCard = ({
               `}
             >
               <div>
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: 8px 0;
-                  `}
-                >
-                  <div>
-                    StopLoss{' '}
+                {(slSetting !== 0 || !slUsePercentage) && (
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 8px 0;
+                    `}
+                  >
+                    <div>
+                      StopLoss{' '}
+                      <span
+                        css={css`
+                          color: #db4c40;
+                        `}
+                      >
+                        ({slUsePercentage ? '$' + getBigNumberStr(targetSl, 2) : getBigNumberStr(slPercentage, 2) + '%'}
+                        )
+                      </span>
+                    </div>
+                    <span>
+                      {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())
+                        ? '--'
+                        : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}
+                      {tradePool.symbol}
+                    </span>
+                  </div>
+                )}
+                {slSetting === 0 && slUsePercentage && (
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 8px 0;
+                    `}
+                  >
+                    <div>
+                      StopLoss{' '}
+                      <span
+                        css={css`
+                          color: #db4c40;
+                        `}
+                      >
+                        (None)
+                      </span>
+                    </div>
                     <span
                       css={css`
                         color: #db4c40;
                       `}
                     >
-                      ({slUsePercentage ? '$' + getBigNumberStr(targetSl, 2) : getBigNumberStr(slPercentage, 2) + '%'})
+                      None
                     </span>
                   </div>
-                  <span>
-                    {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())
-                      ? '--'
-                      : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}
-                    {tradePool.symbol}
-                  </span>
-                </div>
+                )}
                 <div
                   css={css`
                     display: flex;
@@ -818,29 +849,60 @@ export const OrderParamsCard = ({
                 </div>
               </div>
               <div>
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: 16px 0 8px;
-                  `}
-                >
-                  <div>
-                    Take Profit{' '}
+                {(tpSetting !== 0 || !tpUsePercentage) && (
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 16px 0 8px;
+                    `}
+                  >
+                    <div>
+                      Take Profit{' '}
+                      <span
+                        css={css`
+                          color: #009b72;
+                        `}
+                      >
+                        ({tpUsePercentage ? '$' + getBigNumberStr(targetTp, 2) : getBigNumberStr(tpPercentage, 2) + '%'}
+                        )
+                      </span>
+                    </div>
+                    {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())
+                      ? '--'
+                      : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}
+                    {tradePool.symbol}
+                  </div>
+                )}
+                {tpSetting === 0 && tpUsePercentage && (
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 16px 0 8px;
+                    `}
+                  >
+                    <div>
+                      Take Profit{' '}
+                      <span
+                        css={css`
+                          color: #009b72;
+                        `}
+                      >
+                        (None)
+                      </span>
+                    </div>
                     <span
                       css={css`
                         color: #009b72;
                       `}
                     >
-                      ({tpUsePercentage ? '$' + getBigNumberStr(targetTp, 2) : getBigNumberStr(tpPercentage, 2) + '%'})
+                      None
                     </span>
                   </div>
-                  {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())
-                    ? '--'
-                    : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}
-                  {tradePool.symbol}
-                </div>
+                )}
                 <div
                   css={css`
                     display: flex;
