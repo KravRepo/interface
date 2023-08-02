@@ -25,7 +25,7 @@ export const TRADE_HISTORY_API = 'https://base-api.krav.trade/krav/v1/list/marke
 
 export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 
-export const MARKET_CHANGE_API = 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT'
+export const MARKET_CHANGE_API = 'https://base-api.krav.trade/krav/v1/price/24hr?symbol=BTCUSDT'
 
 export const TEST_CHAIN_ID = ChainId.BASE
 

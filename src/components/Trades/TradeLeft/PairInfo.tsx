@@ -48,10 +48,10 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     try {
       const response = await fetch(MARKET_CHANGE_API)
       const data = await response.json()
-      setOneDayHeight(Number(data.highPrice))
-      setOneDayLow(Number(data.lowPrice))
-      setOneDayChange(Number(data.priceChangePercent))
-      setOneDayChangePrice(Number(data.priceChange))
+      setOneDayHeight(Number(data.data.highPrice))
+      setOneDayLow(Number(data.data.lowPrice))
+      setOneDayChange(Number(data.data.priceChangePercent))
+      setOneDayChangePrice(Number(data.data.priceChange))
     } catch (e) {
       console.error('get 24hr price data failed!', e)
     }
