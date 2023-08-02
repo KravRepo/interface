@@ -10,6 +10,7 @@ import { useRootStore } from 'store/root'
 import { useUserPosition } from '../hook/hookV8/useUserPosition'
 import { useWeb3React } from '@web3-react/core'
 import { css } from '@emotion/react'
+import { useGetApr } from '../hook/hookV8/useGetApr'
 
 export const Liquidity = () => {
   const { account, provider, chainId } = useWeb3React()
@@ -18,6 +19,7 @@ export const Liquidity = () => {
   const [removeLiquidity, setRemoveLiquidity] = useState(false)
   const [isLoadingUserPosition, setIsLoadingUserPosition] = useState(true)
   const userBackend = useUserPosition()
+  const { aprList } = useGetApr()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   useEffect(() => {
     let backInterval: NodeJS.Timer
@@ -48,8 +50,13 @@ export const Liquidity = () => {
           setAddLiquidity={setAddLiquidity}
           setRemoveLiquidity={setRemoveLiquidity}
           isLoadingUserPosition={isLoadingUserPosition}
+          aprList={aprList}
         />
-        <TargetMarket setCreateLiquidityPool={setCreateLiquidityPool} setAddLiquidity={setAddLiquidity} />
+        <TargetMarket
+          setCreateLiquidityPool={setCreateLiquidityPool}
+          setAddLiquidity={setAddLiquidity}
+          aprList={aprList}
+        />
       </div>
       <div
         css={css`

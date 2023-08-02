@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import { PoolParams } from 'store/FactorySlice'
 import { UserData } from '../../hook/hookV8/useUserPosition'
+import { AprList } from '../../hook/hookV8/useGetApr'
 
 export type DepositDAIParams = {}
 
@@ -8,11 +9,13 @@ export type YourPositionProps = {
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   isLoadingUserPosition: boolean
+  aprList: AprList[]
 }
 
 export type TargetMarketProps = {
   setCreateLiquidityPool: Dispatch<SetStateAction<boolean>>
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
+  aprList: AprList[]
 }
 
 export type ConfirmCreatPoolProps = {
@@ -47,9 +50,11 @@ export type PositionItemProps = {
   position: UserData
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
+  aprList: AprList[]
 }
 
 export type MarketItemProps = {
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
   poolParams: PoolParams
+  aprList: AprList[]
 }

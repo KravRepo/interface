@@ -7,7 +7,12 @@ import { useWeb3React } from '@web3-react/core'
 import { useMemo } from 'react'
 import { MarketSkeleton } from './MarketSkeleton'
 
-export const YourPosition = ({ setAddLiquidity, setRemoveLiquidity, isLoadingUserPosition }: YourPositionProps) => {
+export const YourPosition = ({
+  setAddLiquidity,
+  setRemoveLiquidity,
+  isLoadingUserPosition,
+  aprList,
+}: YourPositionProps) => {
   const { account } = useWeb3React()
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
 
@@ -55,6 +60,7 @@ export const YourPosition = ({ setAddLiquidity, setRemoveLiquidity, isLoadingUse
                 position={position}
                 setAddLiquidity={setAddLiquidity}
                 setRemoveLiquidity={setRemoveLiquidity}
+                aprList={aprList}
               />
             )
           })}

@@ -7,7 +7,7 @@ import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { HistoryItem } from './HistoryItem'
 
-type Quanto = {
+export type Quanto = {
   id: number
   createTime: string
   updateTime: string
@@ -21,6 +21,7 @@ type Quanto = {
   rewardT: string
   vaultT: string
   priceAggregatorT: string
+  timestamp: number
 }
 
 export type HistoryData = {

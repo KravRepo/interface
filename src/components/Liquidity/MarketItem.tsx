@@ -11,7 +11,7 @@ import { css } from '@emotion/react'
 import { getBigNumberStr } from '../../utils'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 
-export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => {
+export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
   const { account } = useWeb3React()
   const getLpReward = useGetLpReward(poolParams.vaultT, poolParams.decimals)
   const [lpReward, setLpReward] = useState(new BigNumber(0))
@@ -25,6 +25,12 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
       userPositionDatas.find((item) => item.pool?.tradingT === poolParams?.tradingT)?.daiDeposited ?? new BigNumber(0)
     return eXDecimals(supply, poolParams.decimals)
   }, [poolParams, userPositionDatas])
+
+  const apr = useMemo(() => {
+    const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
+    if (res) return res.apr
+    else return new BigNumber(0)
+  }, [aprList])
 
   useEffect(() => {
     if (poolSupply.isGreaterThan(0)) {
@@ -55,7 +61,7 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
       <div>
         1 BTC={poolParams.proportionBTC} {poolParams.symbol}
       </div>
-      <div>--</div>
+      <div>{apr.toFixed(2)}%</div>
       <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>
         <p>

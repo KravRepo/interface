@@ -7,10 +7,11 @@ import { MarketItem } from './MarketItem'
 import { useWeb3React } from '@web3-react/core'
 import { MarketSkeleton } from './MarketSkeleton'
 
-export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity }: TargetMarketProps) => {
+export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList }: TargetMarketProps) => {
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
+
   return (
     <div className="liquidity-content">
       <div className="liquidity-tabs">
@@ -42,7 +43,14 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity }: Target
         {!isLoadingFactory &&
           allPoolParams.length > 0 &&
           allPoolParams.map((pool, index) => {
-            return <MarketItem setAddLiquidity={setAddLiquidity} poolParams={pool} key={pool.tokenT + index} />
+            return (
+              <MarketItem
+                setAddLiquidity={setAddLiquidity}
+                poolParams={pool}
+                aprList={aprList}
+                key={pool.tokenT + index}
+              />
+            )
           })}
       </div>
     </div>

@@ -22,6 +22,7 @@ enum Task {
   groupCollateralShort = 6,
   maxWithdrawPTask = 7,
   pairParams = 8,
+  accDaiPerDaiTask = 9,
 }
 export const useFactory = () => {
   const setAllPoolParams = useRootStore((store) => store.setAllPoolParams)
@@ -50,6 +51,7 @@ export const useFactory = () => {
       const groupCollateralShort: any[] = []
       const maxWithdrawPTask: any[] = []
       const pairParams: any[] = []
+      const accDaiPerDaiTask: any[] = []
       res.forEach((item) => {
         //TODO check pairs tokenT is ERC20
         forMatter.push({
@@ -70,6 +72,7 @@ export const useFactory = () => {
           maxWithdrawP: new BigNumber(0),
           logoSource: null,
           fundingFeePerBlockP: new BigNumber(0),
+          accDaiPerDai: new BigNumber(0),
         })
       })
 
@@ -87,6 +90,7 @@ export const useFactory = () => {
         groupCollateralShort.push(pairStorageContract.groupCollateral(0, false))
         maxWithdrawPTask.push(vaultContract.maxWithdrawP())
         pairParams.push(pairInfoContract.pairParams(0))
+        accDaiPerDaiTask.push(vaultContract.accDaiPerDai())
       })
 
       const factoryCall = await Promise.all([
@@ -99,6 +103,7 @@ export const useFactory = () => {
         ...groupCollateralShort,
         ...maxWithdrawPTask,
         ...pairParams,
+        ...accDaiPerDaiTask,
       ])
 
       forMatter.forEach((item, index) => {
@@ -120,6 +125,7 @@ export const useFactory = () => {
           .div(totalSupply)
         item.utilization = utilization.times(100)
         item.maxWithdrawP = new BigNumber(factoryCall[Task.maxWithdrawPTask * totalPools + index]._hex)
+        item.accDaiPerDai = new BigNumber(factoryCall[Task.accDaiPerDaiTask * totalPools + index]._hex)
         try {
           item.logoSource = require(`../../assets/imgs/tokens/${factoryCall[index]}.svg`)
         } catch (e) {

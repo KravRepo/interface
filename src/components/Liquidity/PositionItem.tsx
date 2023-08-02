@@ -10,7 +10,7 @@ import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 
-export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity }: PositionItemProps) => {
+export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
   const lockAmount = useMemo(() => {
     if (position) {
@@ -22,6 +22,13 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity }: 
       return new BigNumber(0)
     }
   }, [position])
+
+  const apr = useMemo(() => {
+    const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
+    if (res) return res.apr
+    else return new BigNumber(0)
+  }, [aprList])
+
   return (
     <div className="liquidity-table">
       <div css={align}>
@@ -45,7 +52,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity }: 
       <div>
         1 BTC={position.pool.proportionBTC} {position.pool.symbol}
       </div>
-      <div>--</div>
+      <div>{apr.toFixed(2)}%</div>
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>
         <p>
