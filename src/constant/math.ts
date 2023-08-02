@@ -12,5 +12,5 @@ export const VALIDITY_ADDRESS_LENGTH = 42
 export const POSITION_LIMITS = 3
 export const MINI_POSITION_SIZE = 1500
 export const ONE_DAY_TIMESTAMP = 3600000 * 24
-export const BASE_ONE_HOUR_BLOCK = (30 * 60) / 2
+export const BASE_ONE_HOUR_BLOCK = (60 * 60) / 2
 export const ONE_YEAR_TIMESTAMP = 1000 * 60 * 60 * 24 * 365
