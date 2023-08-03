@@ -30,7 +30,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
 
   return (
     <div className="position-layout">
-      <div>06/02</div>
+      <div>{history.createTime.split(' ')[0]}</div>
       <div css={align}>
         <BTCIcon height="20" width="20" />
         <span
