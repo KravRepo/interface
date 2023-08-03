@@ -26,6 +26,8 @@ export interface WalletSlice {
   setLoadingData: (loadingData: boolean) => void
   walletDialogVisibility: boolean
   setWalletDialogVisibility: (walletDialogVisibility: boolean) => void
+  disconnectWallet: boolean
+  setDisconnectWallet: (disconnectWallet: boolean) => void
 }
 
 // const getWalletPreferences = () => {
@@ -51,6 +53,7 @@ export const createWalletSlice: StateCreator<
   userOpenLimitList: [],
   loadingData: true,
   walletDialogVisibility: false,
+  disconnectWallet: false,
   setAccount(account) {
     set({ account: account || '' })
   },
@@ -74,5 +77,8 @@ export const createWalletSlice: StateCreator<
   },
   setWalletDialogVisibility(walletDialogVisibility) {
     set({ walletDialogVisibility: walletDialogVisibility })
+  },
+  setDisconnectWallet(disconnectWallet) {
+    set({ disconnectWallet: disconnectWallet })
   },
 })

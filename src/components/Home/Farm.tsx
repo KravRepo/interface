@@ -19,6 +19,7 @@ export const Farm = () => {
   const navigate = useNavigate()
 
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
+  const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
 
   const positionDatas = useMemo(() => {
     let flag = false
@@ -83,24 +84,38 @@ export const Farm = () => {
             background: url(${DashboardBg}), no-repeat, #f1f1f1;
           `}
         >
-          <p>You have no liquidity</p>
-          <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
-            Add Liquidity
-          </KRAVButton>
-          <p>
-            <span
-              css={css`
-                font-family: 'Inter';
-                font-size: 16px;
-                font-weight: 500;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              `}
-            >
-              Learn more about Liquidity Pool&nbsp; <ArrowRight />
-            </span>
-          </p>
+          {!account && (
+            <>
+              <KRAVButton
+                sx={{ width: '160px', mt: '32px', mb: '25px' }}
+                onClick={() => setWalletDialogVisibility(true)}
+              >
+                Connect wallet
+              </KRAVButton>
+            </>
+          )}
+          {account && (
+            <>
+              <p>You have no liquidity</p>
+              <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
+                Add Liquidity
+              </KRAVButton>
+              <p>
+                <span
+                  css={css`
+                    font-family: 'Inter';
+                    font-size: 16px;
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  `}
+                >
+                  Learn more about Liquidity Pool&nbsp; <ArrowRight />
+                </span>
+              </p>
+            </>
+          )}
         </div>
       )}
     </div>

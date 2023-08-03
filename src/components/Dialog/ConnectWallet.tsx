@@ -90,10 +90,10 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
               onClick={async () => {
                 await activeConnection('metamask')
                 await initUserToken()
+                setWalletDialogVisibility(false)
                 setInterval(async () => {
                   await Promise.all([getBalance(), getUserOpenTrade(), getUserOpenLimitOrders(), getUserPositionData()])
                 }, 90000)
-                setWalletDialogVisibility(false)
               }}
             >
               <img src={MetamaskIcon} height="25" width="25" alt="" />

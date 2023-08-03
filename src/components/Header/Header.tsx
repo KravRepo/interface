@@ -1,14 +1,20 @@
 /** @jsxImportSource @emotion/react */
-import { Button } from '@mui/material'
+import { Button, Menu, MenuItem } from '@mui/material'
 import { Trans } from '@lingui/macro'
-import { header, headerBtn, router, routerActive, UnSupport } from './sytle'
+import { header, headerBtn, router, routerActive, setting, UnSupport } from './sytle'
 import { align } from 'globalStyle'
 import { ReactComponent as Base } from 'assets/imgs/chain_base.svg'
+import { ReactComponent as AccountIcon } from 'assets/imgs/account_logo.svg'
+import { ReactComponent as KarvIcon } from 'assets/imgs/tokens/karv_icon.svg'
+import { ReactComponent as CopyIcon } from 'assets/imgs/copy_icon.svg'
+import { ReactComponent as OpenIcon } from 'assets/imgs/open_browser.svg'
+import { ReactComponent as DisconnectIcon1 } from 'assets/imgs/disconnect_icon_1.svg'
+import { ReactComponent as DisconnectIcon2 } from 'assets/imgs/disconnect_icon_2.svg'
 // import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
 import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
 import { ConnectWalletDialog } from 'components/Dialog/ConnectWallet'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
 import { NavLink, useLocation } from 'react-router-dom'
@@ -19,6 +25,9 @@ import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { getAddChainParameters } from 'connectors/chain'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TEST_CHAIN_ID } from '../../constant/chain'
+import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -29,6 +38,8 @@ export const Header = () => {
   const setAccount = useRootStore((store) => store.setAccount)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const setLoadingData = useRootStore((store) => store.setLoadingData)
+  const disconnectWallet = useRootStore((store) => store.disconnectWallet)
+  const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
   const { pathname } = useLocation()
 
   const getUserPosition = useUserPosition()
@@ -52,12 +63,44 @@ export const Header = () => {
     setAccount(account)
   }, [])
 
+  const [netWorkAnchorEl, setNetWorkAnchorEl] = useState<null | HTMLElement>(null)
+  const networkOpen = useMemo(() => {
+    return Boolean(netWorkAnchorEl)
+  }, [netWorkAnchorEl])
+  const handleNetWorkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setNetWorkAnchorEl(event.currentTarget)
+  }
+  const handleNetWorkClose = () => {
+    setNetWorkAnchorEl(null)
+  }
+
+  const [settingAnchorEl, setSettingAnchorEl] = useState<null | HTMLElement>(null)
+  const settingOpen = useMemo(() => {
+    return Boolean(settingAnchorEl)
+  }, [settingAnchorEl])
+  const handleSettingClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setSettingAnchorEl(event.currentTarget)
+  }
+  const handleSettingClose = () => {
+    setSettingAnchorEl(null)
+  }
+
+  const disconnect = useCallback(async () => {
+    if (connection && connector) {
+      await connector.resetState()
+      await connection.connector.resetState()
+      console.log('setDisconnect')
+      setDisconnectWallet(true)
+    }
+  }, [connector])
+
   useEffect(() => {
     setTimeout(async () => {
-      if (connection && !account) {
+      if (connection && !account && !disconnectWallet) {
         try {
           await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
           await connector.activate()
+          setDisconnectWallet(true)
           await getUserData()
         } catch (e) {
           try {
@@ -68,7 +111,7 @@ export const Header = () => {
         }
       }
     }, 200)
-  }, [connection, account, chainId])
+  }, [connection, account, chainId, disconnectWallet])
 
   useEffect(() => {
     if (account && allPoolParams.length > 0) {
@@ -126,6 +169,19 @@ export const Header = () => {
           </div>
         </div>
         <div css={align}>
+          {/*<Button*/}
+          {/*  css={headerBtn}*/}
+          {/*  sx={{*/}
+          {/*    color: '#000',*/}
+          {/*    borderRadius: '4px',*/}
+          {/*    border: '1px solid #DADADA',*/}
+          {/*    textTransform: 'none',*/}
+          {/*    minWidth: '172px',*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  <Base height="14" width="14" style={{ marginRight: 5, borderRadius: '50%' }} />*/}
+          {/*  <Trans>Base</Trans>*/}
+          {/*</Button>*/}
           <Button
             css={headerBtn}
             sx={{
@@ -133,28 +189,139 @@ export const Header = () => {
               borderRadius: '4px',
               border: '1px solid #DADADA',
               textTransform: 'none',
-              minWidth: '172px',
+              minWidth: '60px',
+            }}
+            endIcon={networkOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            id="network-button"
+            aria-controls={networkOpen ? 'network-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={networkOpen ? 'true' : undefined}
+            onClick={handleNetWorkClick}
+          >
+            <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+          </Button>
+          <Menu
+            sx={{
+              '& .MuiPaper-root': {
+                minWidth: 220,
+              },
+            }}
+            id="network-menu"
+            anchorEl={netWorkAnchorEl}
+            open={networkOpen}
+            onClose={handleNetWorkClose}
+            MenuListProps={{
+              'aria-labelledby': 'network-button',
             }}
           >
-            <Base height="14" width="14" style={{ marginRight: 5, borderRadius: '50%' }} />
-            <Trans>Base</Trans>
-          </Button>
+            <MenuItem sx={{ width: '100%' }} onClick={handleNetWorkClose}>
+              <div
+                css={css`
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  width: 100%;
+                `}
+              >
+                <div css={align}>
+                  <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+                  <span>Base</span>
+                </div>
+                <DoneOutlinedIcon />
+              </div>
+            </MenuItem>
+          </Menu>
           {account ? (
-            <KRAVButton
-              sx={{
-                width: 'auto',
-                color: '#fff',
-                background: '#000000',
-                mx: '9px',
-                borderRadius: '4px',
-                textTransform: 'none',
-              }}
-              css={headerBtn}
-            >
-              {account.substr(0, 4)}
-              ...
-              {account.substr(account.length - 2, 2)}
-            </KRAVButton>
+            <>
+              <KRAVButton
+                sx={{
+                  width: 'auto',
+                  color: '#fff',
+                  background: '#000000',
+                  mx: '9px',
+                  borderRadius: '4px',
+                  textTransform: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+                css={headerBtn}
+                id="setting-button"
+                aria-controls={settingOpen ? 'setting-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={settingOpen ? 'true' : undefined}
+                onClick={handleSettingClick}
+              >
+                <div
+                  css={css`
+                    border-radius: 50%;
+                    background: white;
+                    height: 24px;
+                    width: 24px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 8px;
+                  `}
+                >
+                  <AccountIcon />
+                </div>
+                {account.substr(0, 4)}
+                ...
+                {account.substr(account.length - 2, 2)}
+              </KRAVButton>
+              <Menu
+                css={setting}
+                sx={{
+                  '& .MuiPaper-root': {
+                    minWidth: 440,
+                  },
+                }}
+                id="setting-menu"
+                anchorEl={settingAnchorEl}
+                open={settingOpen}
+                onClose={handleNetWorkClose}
+                MenuListProps={{
+                  'aria-labelledby': 'setting-button',
+                }}
+              >
+                <div
+                  css={css`
+                    width: 100%;
+                  `}
+                >
+                  <div className="userInfo">
+                    <div>
+                      <div css={align}>
+                        <KarvIcon
+                          css={css`
+                            border-radius: 50%;
+                            margin-right: 11px;
+                          `}
+                        />
+                        {account.substr(0, 4)}
+                        ...
+                        {account.substr(account.length - 2, 2)}
+                      </div>
+                      <div>
+                        <CopyIcon />
+                        <DisconnectIcon1 onClick={handleSettingClose} />
+                        <OpenIcon onClick={handleSettingClose} />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="action"
+                    onClick={async () => {
+                      handleSettingClose()
+                      await disconnect()
+                    }}
+                  >
+                    <DisconnectIcon2 />
+                    Disconnect
+                  </div>
+                </div>
+              </Menu>
+            </>
           ) : (
             <KRAVButton
               sx={{

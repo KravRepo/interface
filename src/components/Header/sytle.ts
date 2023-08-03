@@ -10,6 +10,31 @@ export const header = css`
   background: transparent;
 `
 
+export const setting = css`
+  .userInfo {
+    padding: 24px;
+    border-bottom: 1px solid #dadada;
+    > div:first-of-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      > div:last-of-type > svg {
+        margin-left: 16px;
+        cursor: pointer;
+      }
+    }
+  }
+  .action {
+    padding: 16px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    > svg {
+      margin-right: 12px;
+    }
+  }
+`
+
 export const UnSupport = css`
   height: 72px;
   width: 100%;

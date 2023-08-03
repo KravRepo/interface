@@ -9,6 +9,8 @@ import { useRootStore } from '../../../store/root'
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
 import KravSwitch from '../../KravUIKit/KravSwitch'
 import { MARKET_CHANGE_API } from 'constant/chain'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 type PairInfoProps = {
   setIsOpenSelectToken: Dispatch<React.SetStateAction<boolean>>
@@ -120,8 +122,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             <p
               css={css`
                 color: ${oneDayChange > 0 ? '#009b72' : '#db4c40'};
+                display: flex;
+                align-items: center;
               `}
             >
+              {oneDayChange > 0 && (
+                <ArrowDropUpIcon sx={{ color: '#009b72', height: '18px', width: '18px', marginLeft: '-5px' }} />
+              )}
+              {oneDayChange < 0 && (
+                <ArrowDropDownIcon sx={{ color: '#db4c40', height: '18px', width: '18px', marginLeft: '-5px' }} />
+              )}
               <span>{oneDayChangePrice.toFixed(2)}</span>
               <span>({oneDayChange})%</span>
             </p>

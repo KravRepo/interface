@@ -81,7 +81,7 @@ type OrderParamsCardProps = {
   setTradeType: React.Dispatch<React.SetStateAction<number>>
 }
 
-enum buttonStyle {
+enum ButtonText {
   CONNECT_WALLET = 'Connect Wallet',
   ENTER_AMOUNT = 'Enter an amount',
   APPROVE = 'Approve ...',
@@ -171,7 +171,7 @@ export const OrderParamsCard = ({
   }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
 
   const { account } = useWeb3React()
-  const [buttonState, setButtonState] = useState<buttonStyle>(buttonStyle.CONNECT_WALLET)
+  const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
   const testTuple = useMemo(() => {
     return {
       trader: account!,
@@ -284,22 +284,22 @@ export const OrderParamsCard = ({
   }
 
   useEffect(() => {
-    if (loadingData) setButtonState(buttonStyle.CONNECT_WALLET)
+    if (loadingData || !account) setButtonState(ButtonText.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
-      setButtonState(buttonStyle.REACHED_LIMIT)
-    else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(buttonStyle.INSUFFICIENT_BALANCE)
+      setButtonState(ButtonText.REACHED_LIMIT)
+    else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
     else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(MINI_POSITION_SIZE))
-      setButtonState(buttonStyle.MIN_SIZE)
-    else if (!positionSizeDai.isGreaterThan(0)) setButtonState(buttonStyle.ENTER_AMOUNT)
-    else if (isBuy) setButtonState(buttonStyle.LONG)
-    else if (!isBuy) setButtonState(buttonStyle.SHORT)
+      setButtonState(ButtonText.MIN_SIZE)
+    else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
+    else if (isBuy) setButtonState(ButtonText.LONG)
+    else if (!isBuy) setButtonState(ButtonText.SHORT)
   }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai])
 
   useEffect(() => {
-    if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(buttonStyle.CHECK_APPROVE)
-    if (transactionState === TransactionState.APPROVE) setButtonState(buttonStyle.APPROVE)
+    if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
+    if (transactionState === TransactionState.APPROVE) setButtonState(ButtonText.APPROVE)
     if (transactionState === TransactionState.APPROVE_SUCCESS) {
-      isBuy ? setButtonState(buttonStyle.LONG) : setButtonState(buttonStyle.SHORT)
+      isBuy ? setButtonState(ButtonText.LONG) : setButtonState(ButtonText.SHORT)
     }
   }, [transactionState])
 
@@ -976,10 +976,10 @@ export const OrderParamsCard = ({
           )}
           <KRAVButton
             disabled={
-              buttonState === buttonStyle.INSUFFICIENT_BALANCE ||
-              buttonState === buttonStyle.REACHED_LIMIT ||
-              buttonState === buttonStyle.MIN_SIZE ||
-              buttonState === buttonStyle.ENTER_AMOUNT
+              buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+              buttonState === ButtonText.REACHED_LIMIT ||
+              buttonState === ButtonText.MIN_SIZE ||
+              buttonState === ButtonText.ENTER_AMOUNT
             }
             onClick={async () => {
               if (buttonState === 'Connect Wallet') {
