@@ -28,13 +28,17 @@ import { TEST_CHAIN_ID } from '../../constant/chain'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import { getBigNumberStr } from '../../utils'
+import BigNumber from 'bignumber.js'
+import { eXDecimals } from '../../utils/math'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const walletDialogVisibility = useRootStore((store) => store.walletDialogVisibility)
-  const { account, chainId, connector } = useWeb3React()
+  const { account, chainId, connector, provider } = useWeb3React()
   const [dataInterval, setDataInterval] = useState<null | NodeJS.Timer>(null)
   const [openTooltip, setOpenTooltip] = useState(false)
+  const [ethBalance, setEthBalance] = useState(new BigNumber(0))
 
   const setAccount = useRootStore((store) => store.setAccount)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
@@ -58,7 +62,7 @@ export const Header = () => {
     return pathname.includes('/trade')
   }, [pathname])
 
-  const getUserData = useCallback(async () => {
+  const updateFactory = useCallback(async () => {
     await getFactory()
     setLoadingData(false)
     setAccount(account)
@@ -114,12 +118,12 @@ export const Header = () => {
           await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
           await connector.activate()
           setDisconnectWallet(true)
-          await getUserData()
+          await updateFactory()
         } catch (e) {
           try {
             await connection.connector.activate(getAddChainParameters(TEST_CHAIN_ID))
             await connector.activate()
-            await getUserData()
+            await updateFactory()
           } catch (e) {}
         }
       }
@@ -144,6 +148,19 @@ export const Header = () => {
       setDataInterval(null)
     }
   }, [account, allPoolParams])
+
+  useEffect(() => {
+    if (account && provider) {
+      provider.getBalance(account).then((res) => {
+        setEthBalance(eXDecimals(res._hex, 18))
+      })
+      setInterval(() => {
+        provider.getBalance(account).then((res) => {
+          setEthBalance(eXDecimals(res._hex, 18))
+        })
+      }, 15000)
+    }
+  }, [account, provider])
 
   return (
     <>
@@ -292,7 +309,7 @@ export const Header = () => {
                 id="setting-menu"
                 anchorEl={settingAnchorEl}
                 open={settingOpen}
-                onClose={handleNetWorkClose}
+                onClose={handleSettingClose}
                 MenuListProps={{
                   'aria-labelledby': 'setting-button',
                 }}
@@ -316,15 +333,13 @@ export const Header = () => {
                         {account.substr(account.length - 2, 2)}
                       </div>
                       <div>
-                        <Tooltip placement="top" title="copy address">
-                          <Tooltip
-                            placement="top"
-                            sx={{ color: '#009B72' }}
-                            open={openTooltip}
-                            title="copied to clipboard !"
-                          >
-                            <CopyIcon onClick={useCopyAddress} />
-                          </Tooltip>
+                        <Tooltip
+                          placement="top"
+                          sx={{ color: '#009B72' }}
+                          open={openTooltip}
+                          title="copied to clipboard !"
+                        >
+                          <CopyIcon onClick={useCopyAddress} />
                         </Tooltip>
                         <Tooltip placement="top" title="disconnect">
                           <DisconnectIcon1
@@ -343,6 +358,22 @@ export const Header = () => {
                           </Link>
                         </Tooltip>
                       </div>
+                    </div>
+                    <div>
+                      <p
+                        css={css`
+                          color: #757575;
+                        `}
+                      >
+                        Total assets
+                      </p>
+                      <p
+                        css={css`
+                          color: #2832f5;
+                        `}
+                      >
+                        {getBigNumberStr(ethBalance, 4)} ETH
+                      </p>
                     </div>
                   </div>
                   <div

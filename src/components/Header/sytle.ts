@@ -23,6 +23,26 @@ export const setting = css`
         cursor: pointer;
       }
     }
+    > div:last-of-type {
+      text-align: center;
+      > p:first-of-type {
+        font-family: 'Inter';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+        padding-top: 24px;
+        padding-bottom: 14px;
+      }
+      > p:last-of-type {
+        font-family: 'GT-Flexa-Bold-Trial';
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 900;
+        line-height: 110%; /* 30.8px */
+        letter-spacing: 0.56px;
+      }
+    }
   }
   .action {
     padding: 16px;
