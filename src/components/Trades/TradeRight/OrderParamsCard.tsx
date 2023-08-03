@@ -316,7 +316,12 @@ export const OrderParamsCard = ({
     setPositionSizeDai(new BigNumber(0))
     setOpenBTCSize(new BigNumber(0))
     setLeverage(2)
+    setLimitPrice('')
   }, [isBuy])
+
+  useEffect(() => {
+    setLimitPrice('')
+  }, [tradeType])
 
   return (
     <>
@@ -687,7 +692,7 @@ export const OrderParamsCard = ({
               ]}
             >
               <span>Entry Price</span>
-              <span>${BTCPrice.toFixed(2)}</span>
+              <span>${tradeType === 0 ? BTCPrice.toFixed(2) : getBigNumberStr(new BigNumber(limitPrice), 2)}</span>
             </p>
             <p
               css={[
@@ -698,7 +703,13 @@ export const OrderParamsCard = ({
               ]}
             >
               <span>Liq. Price</span>
-              <span>${getBigNumberStr(getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage), 4)}</span>
+              <span>
+                $
+                {getBigNumberStr(
+                  getLiqPrice(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), positionSizeDai, isBuy, leverage),
+                  4
+                )}
+              </span>
             </p>
             <p
               css={[
