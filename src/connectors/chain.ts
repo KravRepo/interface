@@ -27,6 +27,7 @@ const CELO: AddEthereumChainParameter['nativeCurrency'] = {
 interface BasicChainInformation {
   urls: string[]
   name: string
+  blockExplorerUrls?: string[]
 }
 
 interface ExtendedChainInformation extends BasicChainInformation {
@@ -122,7 +123,7 @@ export const TESTNET_CHAINS: ChainConfig = {
   },
 }
 
-const CHAINS: ChainConfig = {
+export const CHAINS: ChainConfig = {
   ...MAINNET_CHAINS,
   ...TESTNET_CHAINS,
 }

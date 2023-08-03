@@ -89,8 +89,8 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
             <div
               onClick={async () => {
                 await activeConnection('metamask')
-                await initUserToken()
                 setWalletDialogVisibility(false)
+                await initUserToken()
                 setInterval(async () => {
                   await Promise.all([getBalance(), getUserOpenTrade(), getUserOpenLimitOrders(), getUserPositionData()])
                 }, 90000)

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Menu, MenuItem } from '@mui/material'
+import { Button, Link, Menu, MenuItem, Tooltip } from '@mui/material'
 import { Trans } from '@lingui/macro'
 import { header, headerBtn, router, routerActive, setting, UnSupport } from './sytle'
 import { align } from 'globalStyle'
@@ -22,7 +22,7 @@ import { getConnection } from '../../connectors'
 import { ConnectionType } from '../../connectors/type'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
-import { getAddChainParameters } from 'connectors/chain'
+import { CHAINS, getAddChainParameters } from 'connectors/chain'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TEST_CHAIN_ID } from '../../constant/chain'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
@@ -34,6 +34,7 @@ export const Header = () => {
   const walletDialogVisibility = useRootStore((store) => store.walletDialogVisibility)
   const { account, chainId, connector } = useWeb3React()
   const [dataInterval, setDataInterval] = useState<null | NodeJS.Timer>(null)
+  const [openTooltip, setOpenTooltip] = useState(false)
 
   const setAccount = useRootStore((store) => store.setAccount)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
@@ -84,6 +85,18 @@ export const Header = () => {
   const handleSettingClose = () => {
     setSettingAnchorEl(null)
   }
+  const useCopyAddress = useCallback(async () => {
+    try {
+      if (account) {
+        await navigator.clipboard.writeText(account)
+        setOpenTooltip(true)
+        setTimeout(() => {
+          setOpenTooltip(false)
+          setSettingAnchorEl(null)
+        }, 3000)
+      }
+    } catch (e) {}
+  }, [account])
 
   const disconnect = useCallback(async () => {
     if (connection && connector) {
@@ -303,9 +316,32 @@ export const Header = () => {
                         {account.substr(account.length - 2, 2)}
                       </div>
                       <div>
-                        <CopyIcon />
-                        <DisconnectIcon1 onClick={handleSettingClose} />
-                        <OpenIcon onClick={handleSettingClose} />
+                        <Tooltip placement="top" title="copy address">
+                          <Tooltip
+                            placement="top"
+                            sx={{ color: '#009B72' }}
+                            open={openTooltip}
+                            title="copied to clipboard !"
+                          >
+                            <CopyIcon onClick={useCopyAddress} />
+                          </Tooltip>
+                        </Tooltip>
+                        <Tooltip placement="top" title="disconnect">
+                          <DisconnectIcon1
+                            onClick={async () => {
+                              handleSettingClose()
+                              await disconnect()
+                            }}
+                          />
+                        </Tooltip>
+                        <Tooltip placement="top" title="view on browser">
+                          <Link
+                            sx={{ marginLeft: '16px' }}
+                            href={chainId ? CHAINS[chainId].blockExplorerUrls?.[0] : ''}
+                          >
+                            <OpenIcon onClick={handleSettingClose} />
+                          </Link>
+                        </Tooltip>
                       </div>
                     </div>
                   </div>
