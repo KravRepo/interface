@@ -13,7 +13,6 @@ import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { Link } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { ONE_DAY_TIMESTAMP } from '../../constant/math'
-import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
 
 type OverviewData = {
   liquiditySupply: number
@@ -27,7 +26,6 @@ export const Dashboard = () => {
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
   const [numReferral, setNumReferral] = useState(0)
   useNumReferral(setNumReferral)
-  useGetUserAllOpenTrades()
   const getOverView = useCallback(async () => {
     try {
       const req = await fetch(DASHBOARD_OVERVIEW_API)
