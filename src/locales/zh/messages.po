@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/components/Header/Header.tsx
-msgid "Statistics"
-msgstr ""
+#~ msgid "Statistics"
+#~ msgstr ""
 
 #: src/components/Header/Header.tsx
 msgid "Liquidity"
@@ -26,8 +26,8 @@ msgid "Market Price"
 msgstr ""
 
 #: src/components/Header/Header.tsx
-msgid "DashBoard"
-msgstr ""
+#~ msgid "DashBoard"
+#~ msgstr ""
 
 #: src/components/Header/Header.tsx
 msgid "Connect Wallet"
@@ -46,8 +46,12 @@ msgid "The assets you deposit will be part of the liquidity pool and receive fee
 msgstr ""
 
 #: src/components/Header/Header.tsx
-msgid "Base"
-msgstr "Base"
+msgid "Portfolio"
+msgstr ""
+
+#: src/components/Header/Header.tsx
+#~ msgid "Base"
+#~ msgstr "Base"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 4 Initial LP Provision"
