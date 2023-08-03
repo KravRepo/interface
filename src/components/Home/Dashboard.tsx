@@ -2,18 +2,17 @@
 import { ReactComponent as PointsLogo } from '../../assets/imgs/dashboard_logo.svg'
 import { ReactComponent as ArrowLeft } from '../../assets/imgs/arrowLeft.svg'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
-import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { dashboard } from './style'
 import { DashboardCard } from './DashboardCard'
 import { useCallback, useEffect, useState } from 'react'
 import { DASHBOARD_OVERVIEW_API } from '../../constant/chain'
 import { formatNumber } from '../../utils'
-import { useNumReferral } from '../../hook/hookV8/useNumReferral'
-import { Link } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { ONE_DAY_TIMESTAMP } from '../../constant/math'
 import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
+import { align } from '../../globalStyle'
+import { MyOrder } from './MyOrder'
 
 type OverviewData = {
   liquiditySupply: number
@@ -25,8 +24,6 @@ type OverviewData = {
 
 export const Dashboard = () => {
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
-  const [numReferral, setNumReferral] = useState(0)
-  useNumReferral(setNumReferral)
   useGetUserAllOpenTrades()
   const getOverView = useCallback(async () => {
     try {
@@ -63,52 +60,85 @@ export const Dashboard = () => {
         css={css`
           background: url(${DashboardBg}), no-repeat, #f1f1f1;
         `}
-        className="learn-more"
+        className="income"
       >
-        <div className="learn-more-left">
-          <p>Put your money to work</p>
-          <p>You can earn liquidity providing rewards by depositing</p>
-          {/**/}
-          <Link href="https://docs.krav.trade/">
-            <KRAVButton sx={{ width: '105px' }}>Learn more</KRAVButton>
-          </Link>
-        </div>
-        <div className="learn-more-right">
-          <div>
-            <span className="tabs">Fee Rate</span>
-          </div>
-          <div className="rate">
-            <span>Open</span>
-            <span>0.0600%</span>
-          </div>
-          <div className="rate">
-            <span>Close</span>
-            <span>0.0600%</span>
-          </div>
-        </div>
+        <p>Earned Income</p>
+        <p css={align}>
+          <span>$606,2121</span>
+          <ArrowLeft
+            css={css`
+              margin-left: 16px;
+            `}
+          />
+        </p>
       </div>
-      <div className="points">
+      <div className="earning">
+        <p className="title">Earning Information</p>
         <div>
-          <p>--</p>
-          <p>
-            <span>POINTS EARNDED</span>
-            <ArrowLeft
-              css={css`
-                margin-left: 8px;
-              `}
-            />
-          </p>
+          <div>
+            <div className="provided card">
+              <p
+                className="tabs"
+                css={css`
+                  width: 180px;
+                `}
+              >
+                Liquidity being provided
+              </p>
+              <div className="details">
+                <div className="total">
+                  <div>Total Value</div>
+                  <div>$606,2121</div>
+                </div>
+                <div
+                  css={css`
+                    border-right: 1px solid;
+                    margin-top: 30px;
+                  `}
+                />
+                <div className="my-pool">
+                  <div>
+                    <p>My Pool</p>
+                    <p>
+                      <span>6</span>
+                      <span>View Details</span>
+                      <ArrowLeft
+                        css={css`
+                          margin-left: 16px;
+                        `}
+                      />
+                    </p>
+                  </div>
+                  <PointsLogo />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="card krav">
+            <p className="tabs">Krav Staking</p>
+            <p>
+              255,256<span>KRAV</span>
+            </p>
+            <p>
+              View Details
+              <ArrowLeft
+                css={css`
+                  margin-left: 16px;
+                `}
+              />
+            </p>
+          </div>
         </div>
-        <PointsLogo />
       </div>
-      <div className="data">
-        <DashboardCard title={'Order Placement'} content={`${formatNumber(overviewData.orderPlacement, 2)}`} />
-        <DashboardCard title={'Liquidity Supply'} content={`${formatNumber(overviewData.liquiditySupply, 2)}`} />
-        <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
-        <DashboardCard title={'Continuous Participation'} content={`${overviewData.participation} days`} />
-        <DashboardCard title={'Trading Frequency'} content={`${overviewData.tradingFrequency} times`} />
-        <DashboardCard title={'Referral'} content={`${numReferral} friends`} />
+      <div>
+        <p className="title">Trading Information</p>
+        <div className="data">
+          <DashboardCard title={'Order Placement'} content={`${formatNumber(overviewData.orderPlacement, 2)}`} />
+          <DashboardCard title={'Liquidity Supply'} content={`${formatNumber(overviewData.liquiditySupply, 2)}`} />
+          <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
+        </div>
       </div>
+      <MyOrder />
     </div>
   )
 }
