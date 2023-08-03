@@ -7,19 +7,24 @@ import { eXDecimals } from '../../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
+import { PoolParams } from '../../../store/FactorySlice'
 
 type HistoryItemProps = {
   history: HistoryData
+  pool?: PoolParams
 }
 
-export const HistoryItem = ({ history }: HistoryItemProps) => {
+export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   const tradePool = useRootStore((state) => state.tradePool)
 
   const pnlValue = useMemo(() => {
     if (history) {
       return new BigNumber(history.percentProfit).isEqualTo(0)
         ? new BigNumber(0)
-        : eXDecimals(new BigNumber(history.daiSentToTrader).minus(history.tradeInitialPosToken), tradePool.decimals)
+        : eXDecimals(
+          new BigNumber(history.daiSentToTrader).minus(history.tradeInitialPosToken),
+          pool ? pool.decimals : tradePool.decimals
+        )
     } else return new BigNumber(0)
   }, [history])
 
@@ -33,7 +38,7 @@ export const HistoryItem = ({ history }: HistoryItemProps) => {
             margin-left: 8px;
           `}
         >
-          {tradePool.symbol} / BTC
+          {pool ? pool.symbol : tradePool.symbol} / BTC
         </span>
       </div>
       <div
@@ -45,7 +50,7 @@ export const HistoryItem = ({ history }: HistoryItemProps) => {
       </div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>
-      <div>{eXDecimals(history.positionSizeDai, tradePool.decimals).toFixed(2)}</div>
+      <div>{eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals).toFixed(2)}</div>
       <div
         css={css`
           color: ${pnlValue.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
@@ -60,7 +65,10 @@ export const HistoryItem = ({ history }: HistoryItemProps) => {
       >
         {pnlValue.isEqualTo(0)
           ? '-'
-          : pnlValue.div(eXDecimals(history.tradeInitialPosToken, tradePool.decimals)).times(100).toFixed(2) + '%'}
+          : pnlValue
+          .div(eXDecimals(history.tradeInitialPosToken, pool ? pool.decimals : tradePool.decimals))
+          .times(100)
+          .toFixed(2) + '%'}
       </div>
     </div>
   )
