@@ -21,7 +21,7 @@ export const useOpenTrade = ({
   storageAddress,
 }: OpenTradeParams) => {
   const contract = useTradingV6Contract(tradingAddress)!
-  const getUserOpenTrade = useGetUserOpenTrade(storageAddress)
+  const { getUserOpenTrade } = useGetUserOpenTrade()
   const getUserOpenLimit = useGetUserOpenLimitOrders(storageAddress)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
@@ -43,7 +43,7 @@ export const useOpenTrade = ({
       setTransactionDialogVisibility(false)
       setTransactionState(TransactionState.START)
       if (tradeType === 0) {
-        await getUserOpenTrade()
+        await getUserOpenTrade(storageAddress, true)
       } else {
         await getUserOpenLimit()
       }

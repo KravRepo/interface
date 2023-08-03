@@ -10,7 +10,7 @@ import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 
 export const useCloseTradeMarket = (tradingAddress: string, storageAddress: string) => {
   const contract = useTradingV6Contract(tradingAddress)!
-  const getUserOpenTrade = useGetUserOpenTrade(storageAddress)
+  const { getUserOpenTrade } = useGetUserOpenTrade()
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -30,7 +30,7 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
         console.log('tx', closeTradeMarketTX)
         setTransactionDialogVisibility(false)
         setTransactionState(TransactionState.START)
-        const close = await getUserOpenTrade()
+        const close = await getUserOpenTrade(storageAddress, true)
         updateSuccessDialog(TransactionAction.CANCEL_MARKET_ORDER)
         setSuccessSnackbarInfo({
           snackbarVisibility: true,

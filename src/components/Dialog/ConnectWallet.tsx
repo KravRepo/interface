@@ -31,7 +31,7 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
   const getBalance = useGetUserAllBalance()
   const tradePool = useRootStore((store) => store.tradePool)
   const setLoadingData = useRootStore((store) => store.setLoadingData)
-  const getUserOpenTrade = useGetUserOpenTrade(tradePool.storageT)
+  const { getUserOpenTrade } = useGetUserOpenTrade()
   const getUserOpenLimitOrders = useGetUserOpenLimitOrders(tradePool.storageT)
   const getUserPositionData = useUserPosition()
   const getFactory = useFactory()
@@ -39,7 +39,12 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
 
   const initUserToken = useEvent(async () => {
     if (account && provider) {
-      await Promise.all([getFactory(), getBalance(), getUserOpenTrade(), getUserOpenLimitOrders()])
+      await Promise.all([
+        getFactory(),
+        getBalance(),
+        getUserOpenTrade(tradePool.storageT, true),
+        getUserOpenLimitOrders(),
+      ])
       setLoadingData(false)
     }
   })
@@ -92,7 +97,12 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
                 setWalletDialogVisibility(false)
                 await initUserToken()
                 setInterval(async () => {
-                  await Promise.all([getBalance(), getUserOpenTrade(), getUserOpenLimitOrders(), getUserPositionData()])
+                  await Promise.all([
+                    getBalance(),
+                    getUserOpenTrade(tradePool.storageT, true),
+                    getUserOpenLimitOrders(),
+                    getUserPositionData(),
+                  ])
                 }, 90000)
               }}
             >
