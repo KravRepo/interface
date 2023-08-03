@@ -15,9 +15,9 @@ export const LeftMenu = () => {
     <div css={leftMenu}>
       <KRAVMenuButton
         onClick={() => {
-          navigate('/')
+          navigate('/portfolio')
         }}
-        css={pathname === '/' ? menuActive : ''}
+        css={pathname === '/portfolio' ? menuActive : ''}
       >
         <DashboardIcon />
         <span
@@ -30,9 +30,9 @@ export const LeftMenu = () => {
       </KRAVMenuButton>
       <KRAVMenuButton
         onClick={() => {
-          navigate('/dashboard/stake')
+          navigate('/portfolio/stake')
         }}
-        css={pathname === '/dashboard/stake' ? menuActive : ''}
+        css={pathname === '/portfolio/stake' ? menuActive : ''}
       >
         <StakingIcon />
         <span
@@ -45,9 +45,9 @@ export const LeftMenu = () => {
       </KRAVMenuButton>
       <KRAVMenuButton
         onClick={() => {
-          navigate('/dashboard/farm')
+          navigate('/portfolio/farm')
         }}
-        css={pathname === '/dashboard/farm' ? menuActive : ''}
+        css={pathname === '/portfolio/farm' ? menuActive : ''}
       >
         <FarmIcon />
         <span
@@ -60,9 +60,9 @@ export const LeftMenu = () => {
       </KRAVMenuButton>
       <KRAVMenuButton
         onClick={() => {
-          navigate('/dashboard/referral')
+          navigate('/portfolio/referral')
         }}
-        css={pathname === '/dashboard/referral' ? menuActive : ''}
+        css={pathname === '/portfolio/referral' ? menuActive : ''}
       >
         <ReferralIcon />
         <span

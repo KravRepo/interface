@@ -14,7 +14,7 @@ import { useEffect } from 'react'
 import { useFactory } from './hook/hookV8/useFactory'
 import { useBTCPrice } from './hook/hookV8/useBTCPrice'
 import { ErrorDialog } from 'components/Dialog/ErrorDialog'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
 import { TransactionDialog } from 'components/Dialog/TransactionDialog'
 import { Home } from './pages/Home'
 import { HomeStake } from 'pages/home/HomeStake'
@@ -54,13 +54,14 @@ const FullApp = () => {
               <TransactionDialog />
               <Header />
               <Routes>
+                <Route path="/" element={<Navigate to={'/trade'} replace />} />
                 <Route path={'/trade'} element={<Trade />} />
                 <Route path={'/trade/:referral'} element={<Trade />} />
                 <Route path={'/liquidity'} element={<Liquidity />} />
-                <Route path={'/'} element={<Home />} />
-                <Route path={'/dashboard/stake'} element={<HomeStake />} />
-                <Route path={'/dashboard/farm'} element={<HomeFarm />} />
-                <Route path={'/dashboard/referral'} element={<HomeReferral />} />
+                <Route path={'/portfolio'} element={<Home />} />
+                <Route path={'/portfolio/stake'} element={<HomeStake />} />
+                <Route path={'/portfolio/farm'} element={<HomeFarm />} />
+                <Route path={'/portfolio/referral'} element={<HomeReferral />} />
                 {/*<Route path={'/dashboard/reward'} element={<HomeRewardCenter />} />*/}
               </Routes>
               <Footer />

@@ -54,7 +54,7 @@ export const Header = () => {
   }, [chainId])
 
   const isHomePath = useMemo(() => {
-    const pathList = ['/', '/dashboard/stake', '/dashboard/farm', '/dashboard/referral', '/dashboard/reward']
+    const pathList = ['/portfolio', '/portfolio/stake', '/portfolio/farm', '/portfolio/referral', '/portfolio/reward']
     return pathList.includes(pathname)
   }, [pathname])
 
@@ -181,17 +181,19 @@ export const Header = () => {
               `,
             ]}
           >
-            <KravLogo height="22" width="91" />
+            <NavLink to={'/trade'}>
+              <KravLogo height="22" width="91" />
+            </NavLink>
           </div>
           <div>
-            <NavLink to={'/'} css={[router, isHomePath ? routerActive : '']}>
-              <Trans>DashBoard</Trans>
-            </NavLink>
             <NavLink to={'/trade'} css={[router, isTradePath ? routerActive : '']}>
               <Trans>Trade</Trans>
             </NavLink>
             <NavLink to={'/liquidity'} css={[router, pathname === '/liquidity' ? routerActive : '']}>
               <Trans>Liquidity</Trans>
+            </NavLink>
+            <NavLink to={'/portfolio'} css={[router, isHomePath ? routerActive : '']}>
+              <Trans>Portfolio</Trans>
             </NavLink>
             {/*<Link underline={'none'} css={router}>*/}
             {/*  <Trans>Statistics</Trans>*/}
