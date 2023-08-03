@@ -13,6 +13,7 @@ import { ONE_DAY_TIMESTAMP } from '../../constant/math'
 import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
 import { align } from '../../globalStyle'
 import { MyOrder } from './MyOrder'
+import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
 
 type OverviewData = {
   liquiditySupply: number
@@ -24,7 +25,8 @@ type OverviewData = {
 
 export const Dashboard = () => {
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
-  useGetUserAllOpenTrades()
+  const { useAllOpenTrades } = useGetUserAllOpenTrades()
+  const { useAllLimitOrders } = useGetUserAllLimitOrders()
   const getOverView = useCallback(async () => {
     try {
       const req = await fetch(DASHBOARD_OVERVIEW_API)
@@ -138,7 +140,7 @@ export const Dashboard = () => {
           <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
         </div>
       </div>
-      <MyOrder />
+      <MyOrder useAllOpenTrades={useAllOpenTrades} useAllLimitOrders={useAllLimitOrders} />
     </div>
   )
 }

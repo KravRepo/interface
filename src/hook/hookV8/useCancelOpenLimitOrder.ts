@@ -10,7 +10,7 @@ import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 
 export const useCancelOpenLimitOrder = (tradingAddress: string, storageAddress: string) => {
   const contract = useTradingV6Contract(tradingAddress)!
-  const getUserOpenLimitOrders = useGetUserOpenLimitOrders(storageAddress)
+  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -29,7 +29,7 @@ export const useCancelOpenLimitOrder = (tradingAddress: string, storageAddress: 
         console.log('tx', await tx.wait())
         setTransactionDialogVisibility(false)
         setTransactionState(TransactionState.START)
-        const close = await getUserOpenLimitOrders()
+        const close = await getUserOpenLimitOrders(storageAddress, true)
         updateSuccessDialog(TransactionAction.CANCEL_LIMIT_ORDER)
         setSuccessSnackbarInfo({
           snackbarVisibility: true,

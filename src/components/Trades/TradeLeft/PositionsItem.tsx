@@ -7,14 +7,20 @@ import { useRootStore } from '../../../store/root'
 import { useCloseTradeMarket } from '../../../hook/hookV8/useCloseTradeMarket'
 import { useMemo } from 'react'
 import { css } from '@emotion/react'
+import { PoolParams } from '../../../store/FactorySlice'
 
 type PositionsItemProps = {
   openTrade: Tuple
+  pool?: PoolParams
 }
-export const PositionsItem = ({ openTrade }: PositionsItemProps) => {
+
+export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
-  const closeTradeMarket = useCloseTradeMarket(tradePool.tradingT, tradePool.storageT)
+  const closeTradeMarket = useCloseTradeMarket(
+    pool ? pool.tradingT : tradePool.tradingT,
+    pool ? pool.storageT : tradePool.storageT
+  )
   const positionTp = useMemo(() => {
     const tp = getTakeProfit(new BigNumber(openTrade.openPrice), BTCPrice, openTrade.buy, openTrade.leverage, false)
     if (isNaN(tp.toNumber())) return new BigNumber(0)
@@ -50,7 +56,10 @@ export const PositionsItem = ({ openTrade }: PositionsItemProps) => {
             text-decoration: underline;
           `}
         >
-          {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).div(tradePool.proportionBTC).toFixed(6)}
+          {new BigNumber(openTrade.initialPosToken)
+            .times(openTrade.leverage)
+            .div(pool ? pool.proportionBTC : tradePool.proportionBTC)
+            .toFixed(6)}
           &nbsp;BTC
         </p>
         <p
@@ -60,7 +69,8 @@ export const PositionsItem = ({ openTrade }: PositionsItemProps) => {
           `}
         >
           <span>
-            {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)} {tradePool.symbol}
+            {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
+            {pool ? pool.symbol : tradePool.symbol}
           </span>
           <span>({positionTp.toFixed(2)} %)</span>
         </p>

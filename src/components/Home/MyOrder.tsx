@@ -2,11 +2,16 @@
 import KRAVButton from '../KravUIKit/KravButton'
 import { css, Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
-// import { useRootStore } from '../../store/root'
-
-export const MyOrder = () => {
+import { UseAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
+import { MarketOrder } from './MarketOrder'
+import { UseAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
+import { LimitOrder } from './LimitOrder'
+type MyOrderProps = {
+  useAllOpenTrades: UseAllOpenTrades[]
+  useAllLimitOrders: UseAllLimitOrders[]
+}
+export const MyOrder = ({ useAllOpenTrades, useAllLimitOrders }: MyOrderProps) => {
   const [infoType, setInfoType] = useState(0)
-  // const allPoolParams = useRootStore((state) => state.allPoolParams)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setInfoType(newValue)
   }
@@ -79,6 +84,9 @@ export const MyOrder = () => {
             />
           </Tabs>
         </div>
+        {infoType === 0 && <MarketOrder useAllOpenTrades={useAllOpenTrades} />}
+        {infoType === 1 && <LimitOrder useAllLimitOrders={useAllLimitOrders} />}
+        {/*   return */}
       </div>
     </div>
   )

@@ -22,7 +22,7 @@ export const useOpenTrade = ({
 }: OpenTradeParams) => {
   const contract = useTradingV6Contract(tradingAddress)!
   const { getUserOpenTrade } = useGetUserOpenTrade()
-  const getUserOpenLimit = useGetUserOpenLimitOrders(storageAddress)
+  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -45,7 +45,7 @@ export const useOpenTrade = ({
       if (tradeType === 0) {
         await getUserOpenTrade(storageAddress, true)
       } else {
-        await getUserOpenLimit()
+        await getUserOpenLimitOrders(storageAddress, true)
       }
       updateSuccessDialog(TransactionAction.OPEN_TRADE)
       setSuccessSnackbarInfo({

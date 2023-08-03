@@ -32,7 +32,7 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
   const tradePool = useRootStore((store) => store.tradePool)
   const setLoadingData = useRootStore((store) => store.setLoadingData)
   const { getUserOpenTrade } = useGetUserOpenTrade()
-  const getUserOpenLimitOrders = useGetUserOpenLimitOrders(tradePool.storageT)
+  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   const getUserPositionData = useUserPosition()
   const getFactory = useFactory()
   const updateError = useUpdateError()
@@ -43,7 +43,7 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
         getFactory(),
         getBalance(),
         getUserOpenTrade(tradePool.storageT, true),
-        getUserOpenLimitOrders(),
+        getUserOpenLimitOrders(tradePool.storageT, true),
       ])
       setLoadingData(false)
     }
@@ -100,7 +100,7 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
                   await Promise.all([
                     getBalance(),
                     getUserOpenTrade(tradePool.storageT, true),
-                    getUserOpenLimitOrders(),
+                    getUserOpenLimitOrders(tradePool.storageT, true),
                     getUserPositionData(),
                   ])
                 }, 90000)
