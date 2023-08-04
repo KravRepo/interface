@@ -16,7 +16,7 @@ type FarmProps = {
   isDashboard: boolean
 }
 
-export const Farm = ({isDashboard}: FarmProps) => {
+export const Farm = ({ isDashboard }: FarmProps) => {
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()

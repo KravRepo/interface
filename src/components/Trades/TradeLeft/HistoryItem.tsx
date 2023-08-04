@@ -22,9 +22,9 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
       return new BigNumber(history.percentProfit).isEqualTo(0)
         ? new BigNumber(0)
         : eXDecimals(
-          new BigNumber(history.daiSentToTrader).minus(history.tradeInitialPosToken),
-          pool ? pool.decimals : tradePool.decimals
-        )
+            new BigNumber(history.daiSentToTrader).minus(history.tradeInitialPosToken),
+            pool ? pool.decimals : tradePool.decimals
+          )
     } else return new BigNumber(0)
   }, [history])
 
@@ -66,9 +66,9 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
         {pnlValue.isEqualTo(0)
           ? '-'
           : pnlValue
-          .div(eXDecimals(history.tradeInitialPosToken, pool ? pool.decimals : tradePool.decimals))
-          .times(100)
-          .toFixed(2) + '%'}
+              .div(eXDecimals(history.tradeInitialPosToken, pool ? pool.decimals : tradePool.decimals))
+              .times(100)
+              .toFixed(2) + '%'}
       </div>
     </div>
   )

@@ -622,30 +622,6 @@ export const OrderParamsCard = ({
                 },
               }}
             />
-            {BTCPrice.isGreaterThan(0) ? (
-              <p
-                css={css`
-                  padding-bottom: 8px;
-                `}
-              >
-                <span
-                  css={css`
-                    color: #757575;
-                  `}
-                >
-                  Per Ticket Size
-                </span>
-                : {tradePool?.proportionBTC} {tradePool?.symbol} = 1 BTC
-              </p>
-            ) : (
-              <p
-                css={css`
-                  padding-bottom: 8px;
-                `}
-              >
-                -
-              </p>
-            )}
           </div>
           <div
             css={css`

@@ -143,23 +143,6 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             `}
           >
             <p>
-              <Trans>Market Price</Trans>
-            </p>
-            <p
-              css={css`
-                color: #000000;
-              `}
-            >
-              <span>{BTCPrice.toFixed(2)}</span>
-            </p>
-          </div>
-          <div
-            className="info-card"
-            css={css`
-              border-left: ${theme.card.splitLine};
-            `}
-          >
-            <p>
               <Trans>24H High</Trans>
             </p>
             <p

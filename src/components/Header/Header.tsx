@@ -339,7 +339,7 @@ export const Header = () => {
                           placement="top"
                           sx={{ color: '#009B72' }}
                           open={openTooltip}
-                          title="copied to clipboard !"
+                          title="Copied to clipboard!"
                         >
                           <CopyIcon onClick={useCopyAddress} />
                         </Tooltip>
@@ -420,7 +420,7 @@ export const Header = () => {
       </header>
       {chainId !== TEST_CHAIN_ID && account && (
         <div css={UnSupport}>
-          UnSupport network ! &nbsp;
+          UnSupported network! &nbsp;
           <span
             onClick={async () => {
               if (connection) {
@@ -435,7 +435,7 @@ export const Header = () => {
               }
             }}
           >
-            please change network
+            Please change network.
           </span>
         </div>
       )}
