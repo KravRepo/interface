@@ -338,13 +338,18 @@ export const OrderParamsCard = ({
         <div
           css={css`
             display: flex;
+            padding: 6px;
+            margin: 16px 0;
+            background: #f6f6f6;
           `}
         >
           <span
             css={[
               orderParamsTab,
               css`
-                color: ${tabIndex === 0 ? 'black' : ''};
+                color: ${tabIndex === 0 ? 'white' : ''};
+                background: ${tabIndex === 0 ? 'black' : ''};
+                margin-right: 13px;
               `,
             ]}
             onClick={() => {
@@ -358,7 +363,8 @@ export const OrderParamsCard = ({
             css={[
               orderParamsTab,
               css`
-                color: ${tabIndex === 1 ? 'black' : ''};
+                color: ${tabIndex === 1 ? 'white' : ''};
+                background: ${tabIndex === 1 ? 'black' : ''};
               `,
             ]}
             onClick={() => {

@@ -16,13 +16,15 @@ export const input = css`
   margin-bottom: 8px;
 `
 export const orderParamsTab = css`
-  margin: 12px 16px 12px 0;
+  padding: 4px 12px;
+  border-radius: 4px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   color: #757575;
   :hover {
-    color: #000;
+    color: #fff;
+    background: black;
   }
 `
 export const orderParamsTabActive = css`
