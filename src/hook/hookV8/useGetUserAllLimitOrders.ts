@@ -30,8 +30,8 @@ export const useGetUserAllLimitOrders = () => {
           tuple: userLimitOrders,
         })
         console.log('all limit orders', res)
-        setUserAllLimitOrders(res)
       })
+      setUserAllLimitOrders(res)
     }
   }, [allPoolParams, account, provider])
 

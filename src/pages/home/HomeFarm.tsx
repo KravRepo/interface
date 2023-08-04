@@ -5,7 +5,7 @@ import { HomeLayout } from './HomeLayout'
 export const HomeFarm = () => {
   return (
     <HomeLayout>
-      <Farm />
+      <Farm isDashboard={false} />
     </HomeLayout>
   )
 }

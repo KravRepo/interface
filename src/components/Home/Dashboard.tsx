@@ -14,6 +14,7 @@ import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrad
 import { align } from '../../globalStyle'
 import { MyOrder } from './MyOrder'
 import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
+import { Farm } from './Farm'
 
 type OverviewData = {
   liquiditySupply: number
@@ -141,6 +142,7 @@ export const Dashboard = () => {
         </div>
       </div>
       <MyOrder useAllOpenTrades={useAllOpenTrades} useAllLimitOrders={useAllLimitOrders} />
+      <Farm isDashboard={true} />
     </div>
   )
 }

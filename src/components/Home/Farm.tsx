@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { stake } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
@@ -12,8 +12,11 @@ import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 
 /** @jsxImportSource @emotion/react */
-export const Farm = () => {
-  const [hasLiquidity, setHasLiquidity] = useState(true)
+type FarmProps = {
+  isDashboard: boolean
+}
+
+export const Farm = ({isDashboard}: FarmProps) => {
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
@@ -44,10 +47,32 @@ export const Farm = () => {
   }, [account, allPoolParams, provider])
 
   return (
-    <div css={stake}>
-      <div onClick={() => setHasLiquidity(!hasLiquidity)} className="title">
-        My Liquidity Pools
-      </div>
+    <div
+      css={[
+        stake,
+        css`
+          margin: ${isDashboard ? '0!important' : ''};
+          min-height: ${isDashboard ? '0!important' : ''};
+        `,
+      ]}
+    >
+      {!isDashboard && <div className="title">My Liquidity Pools</div>}
+      {isDashboard && (
+        <div
+          className="title"
+          css={css`
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          `}
+        >
+          <span>My Liquidity Pools</span>
+          <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
+            + provider liquidity
+          </KRAVButton>
+        </div>
+      )}
+
       {positionDatas.length > 0 && (
         <div>
           {/*<div className="overview">*/}
