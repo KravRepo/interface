@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { stake } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
@@ -11,8 +11,11 @@ import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
+type DashboardFarmProps = {
+  setUserPoolLength: React.Dispatch<React.SetStateAction<number>>
+}
 
-export const Farm = () => {
+export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
@@ -20,7 +23,6 @@ export const Farm = () => {
 
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
-
   const positionDatas = useMemo(() => {
     let flag = false
     userPositionDatas.find((positionData) => {
@@ -44,9 +46,33 @@ export const Farm = () => {
     }
   }, [account, allPoolParams, provider])
 
+  useEffect(() => {
+    setUserPoolLength(positionDatas.length)
+  }, [positionDatas])
+
   return (
-    <div css={stake}>
-      <div className="title">My Liquidity Pools</div>
+    <div
+      css={[
+        stake,
+        css`
+          margin: 0 !important;
+          min-height: 0 !important;
+        `,
+      ]}
+    >
+      <div
+        className="title"
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        `}
+      >
+        <span>My Liquidity Pools</span>
+        <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
+          + provider liquidity
+        </KRAVButton>
+      </div>
       {positionDatas.length > 0 && (
         <div>
           {/*<div className="overview">*/}

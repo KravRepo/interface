@@ -7,39 +7,48 @@ import { dashboard } from './style'
 import { DashboardCard } from './DashboardCard'
 import { useCallback, useEffect, useState } from 'react'
 import { DASHBOARD_OVERVIEW_API } from '../../constant/chain'
-import { formatNumber } from '../../utils'
-import BigNumber from 'bignumber.js'
-import { ONE_DAY_TIMESTAMP } from '../../constant/math'
+import { formatNumber, getBigNumberStr } from '../../utils'
 import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
-import { align } from '../../globalStyle'
 import { MyOrder } from './MyOrder'
+import { align } from '../../globalStyle'
+import { useRootStore } from '../../store/root'
+import { useWeb3React } from '@web3-react/core'
+// import BigNumber from 'bignumber.js'
+// import { useGetKravStake } from '../../hook/hookV8/useGetKravStake'
+// import { eXDecimals } from '../../utils/math'
+import { useGetUserAssetOverview } from '../../hook/hookV8/useGetUserAssetOverview'
+import BigNumber from 'bignumber.js'
 import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
-import { Farm } from './Farm'
+import { DashboardFarm } from './DashboardFarm'
+import { useNavigate } from 'react-router-dom'
 
 type OverviewData = {
   liquiditySupply: number
   orderPlacement: number
   tradingVolume: number
   tradingFrequency: number
-  participation: string
 }
 
 export const Dashboard = () => {
+  const { account, provider } = useWeb3React()
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
-  const { useAllOpenTrades } = useGetUserAllOpenTrades()
-  const { useAllLimitOrders } = useGetUserAllLimitOrders()
+  // const [userStake, setUserStake] = useState(new BigNumber(0))
+  const [userPoolLength, setUserPoolLength] = useState(0)
+  const navigate = useNavigate()
+  const { getUserAllOpenTrades } = useGetUserAllOpenTrades()
+  const getUserAllLimitOrders = useGetUserAllLimitOrders()
+  // const { getUserStake } = useGetKravStake()
+  const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
+  const allPoolParams = useRootStore((store) => store.allPoolParams)
   const getOverView = useCallback(async () => {
     try {
       const req = await fetch(DASHBOARD_OVERVIEW_API)
       const overview = await req.json()
-      const currentTime = new Date().valueOf()
-      const circulationTime = new BigNumber((currentTime - Number(overview.data.createAt) * 1000) / ONE_DAY_TIMESTAMP)
       setOverViewData({
         liquiditySupply: Number(overview.data.liquiditySupply) / 100,
         orderPlacement: Number(overview.data.orderPlacement) / 100,
         tradingFrequency: overview.data.tradingFrequency,
         tradingVolume: Number(overview.data.tradingVolume) / 100,
-        participation: circulationTime.toFixed(0, 0),
       })
     } catch (e) {
       console.error('get overview failed!', e)
@@ -47,15 +56,38 @@ export const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-    getOverView().then()
+    Promise.all([
+      // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
+      getOverView().then(),
+      getUserAssetOverview(),
+      getUserAllLimitOrders(),
+    ]).then()
     const interval = setInterval(async () => {
-      await getOverView()
-    }, 5000)
+      await Promise.all([
+        getOverView(),
+        // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
+        getUserAssetOverview(),
+        getUserAllLimitOrders(),
+      ])
+    }, 15000)
 
     return () => {
       clearInterval(interval)
     }
   }, [])
+
+  useEffect(() => {
+    let interval: NodeJS.Timer
+    if (allPoolParams.length > 0 && account && provider) {
+      getUserAllOpenTrades().then()
+      interval = setInterval(async () => {
+        getUserAllOpenTrades().then(() => console.log())
+      }, 10000)
+    }
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [allPoolParams, account, provider])
 
   return (
     <div css={dashboard}>
@@ -67,7 +99,7 @@ export const Dashboard = () => {
       >
         <p>Earned Income</p>
         <p css={align}>
-          <span>$606,2121</span>
+          <span>{formatNumber(Number(userAssetOverview.lpRewardBalance) / 100, 2)}</span>
           <ArrowLeft
             css={css`
               margin-left: 16px;
@@ -91,7 +123,7 @@ export const Dashboard = () => {
               <div className="details">
                 <div className="total">
                   <div>Total Value</div>
-                  <div>$606,2121</div>
+                  <div>{formatNumber(Number(userAssetOverview.balance) / 100, 2)}</div>
                 </div>
                 <div
                   css={css`
@@ -103,11 +135,16 @@ export const Dashboard = () => {
                   <div>
                     <p>My Pool</p>
                     <p>
-                      <span>6</span>
+                      <span>{userPoolLength}</span>
                       <span>View Details</span>
                       <ArrowLeft
+                        onClick={() => navigate('/liquidity')}
                         css={css`
+                          cursor: pointer;
                           margin-left: 16px;
+                          :hover {
+                            transform: scale(1.1);
+                          }
                         `}
                       />
                     </p>
@@ -120,13 +157,19 @@ export const Dashboard = () => {
           <div className="card krav">
             <p className="tabs">Krav Staking</p>
             <p>
-              255,256<span>KRAV</span>
+              {getBigNumberStr(new BigNumber(0), 2)}
+              <span>KRAV</span>
             </p>
             <p>
               View Details
               <ArrowLeft
+                onClick={() => navigate('/portfolio/stake')}
                 css={css`
                   margin-left: 16px;
+                  cursor: pointer;
+                  :hover {
+                    transform: scale(1.1);
+                  }
                 `}
               />
             </p>
@@ -141,8 +184,8 @@ export const Dashboard = () => {
           <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
         </div>
       </div>
-      <MyOrder useAllOpenTrades={useAllOpenTrades} useAllLimitOrders={useAllLimitOrders} />
-      <Farm isDashboard={true} />
+      <MyOrder />
+      <DashboardFarm setUserPoolLength={setUserPoolLength} />
     </div>
   )
 }

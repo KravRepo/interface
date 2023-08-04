@@ -13,14 +13,14 @@ const KRAVButton = styled(Button)(({ theme }) => ({
   height: '40px',
   fontSize: '14px',
   '&:hover': {
-    background: '#000000',
+    background: '#757575',
   },
   '&:active': {
     background: '#000000',
   },
   '&.Mui-disabled': {
-    background: theme['button'].disableBg,
-    color: theme['button'].disableText,
+    background: '#dadada',
+    color: '#fff',
     cursor: 'not-allowed',
     pointerEvents: 'auto',
   },

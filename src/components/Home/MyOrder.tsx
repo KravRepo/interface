@@ -1,20 +1,36 @@
 /** @jsxImportSource @emotion/react */
 import KRAVButton from '../KravUIKit/KravButton'
 import { css, Tab, Tabs } from '@mui/material'
-import React, { useState } from 'react'
-import { UseAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
+import React, { useMemo, useState } from 'react'
 import { MarketOrder } from './MarketOrder'
-import { UseAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
+import { TradeHistory } from './TradeHistory'
+import { useNavigate } from 'react-router-dom'
 import { LimitOrder } from './LimitOrder'
-type MyOrderProps = {
-  useAllOpenTrades: UseAllOpenTrades[]
-  useAllLimitOrders: UseAllLimitOrders[]
-}
-export const MyOrder = ({ useAllOpenTrades, useAllLimitOrders }: MyOrderProps) => {
+import { useRootStore } from '../../store/root'
+
+export const MyOrder = () => {
   const [infoType, setInfoType] = useState(0)
+  const navigate = useNavigate()
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setInfoType(newValue)
   }
+  const useAllOpenTrades = useRootStore((state) => state.userAllOpenTradeList)
+  const userAllOpenLimitList = useRootStore((state) => state.userAllOpenLimitList)
+  const useAllOpenTradesCount = useMemo(() => {
+    let count = 0
+    useAllOpenTrades.forEach((trades) => {
+      count += trades.tuple.length
+    })
+    return count
+  }, [useAllOpenTrades])
+
+  const userAllOpenLimitCount = useMemo(() => {
+    let count = 0
+    userAllOpenLimitList.forEach((trades) => {
+      count += trades.tuple.length
+    })
+    return count
+  }, [userAllOpenLimitList])
   return (
     <div className="my-order">
       <p
@@ -26,7 +42,9 @@ export const MyOrder = ({ useAllOpenTrades, useAllLimitOrders }: MyOrderProps) =
         `}
       >
         <span>My Order</span>
-        <KRAVButton sx={{ width: '83px' }}>to trade</KRAVButton>
+        <KRAVButton onClick={() => navigate('/trade')} sx={{ width: '83px' }}>
+          to trade
+        </KRAVButton>
       </p>
       <div>
         <div
@@ -57,7 +75,7 @@ export const MyOrder = ({ useAllOpenTrades, useAllLimitOrders }: MyOrderProps) =
                   color: '#757575',
                 },
               }}
-              label={`Positions`}
+              label={`Positions ${useAllOpenTradesCount > 0 ? '(' + useAllOpenTradesCount + ')' : ''}`}
             />
             <Tab
               sx={{
@@ -69,7 +87,7 @@ export const MyOrder = ({ useAllOpenTrades, useAllLimitOrders }: MyOrderProps) =
                   color: '#757575',
                 },
               }}
-              label={`Orders`}
+              label={`Orders ${userAllOpenLimitCount > 0 ? '(' + userAllOpenLimitCount + ')' : ''}`}
             />
             <Tab
               sx={{
@@ -84,9 +102,9 @@ export const MyOrder = ({ useAllOpenTrades, useAllLimitOrders }: MyOrderProps) =
             />
           </Tabs>
         </div>
-        {infoType === 0 && <MarketOrder useAllOpenTrades={useAllOpenTrades} />}
-        {infoType === 1 && <LimitOrder useAllLimitOrders={useAllLimitOrders} />}
-        {/*   return */}
+        {infoType === 0 && <MarketOrder />}
+        {infoType === 1 && <LimitOrder />}
+        {infoType === 2 && <TradeHistory />}
       </div>
     </div>
   )

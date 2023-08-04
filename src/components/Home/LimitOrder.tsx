@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { UseAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
 import { LimitOrderItem } from './LimitOrderItem'
+import { useRootStore } from '../../store/root'
 
-type LimitOrderProps = {
-  useAllLimitOrders: UseAllLimitOrders[]
-}
+export const LimitOrder = () => {
+  const userAllOpenLimitList = useRootStore((store) => store.userAllOpenLimitList)
 
-export const LimitOrder = ({ useAllLimitOrders }: LimitOrderProps) => {
   return (
     <div>
       <div
@@ -24,9 +22,9 @@ export const LimitOrder = ({ useAllLimitOrders }: LimitOrderProps) => {
         <span>Collateral</span>
         <div>Action</div>
       </div>
-      {useAllLimitOrders.length === 0 && <div className="no-data">No open position</div>}
-      {useAllLimitOrders.length > 0 &&
-        useAllLimitOrders.map((limitOrder, index) => {
+      {userAllOpenLimitList.length === 0 && <div className="no-data">No open position</div>}
+      {userAllOpenLimitList.length > 0 &&
+        userAllOpenLimitList.map((limitOrder, index) => {
           return limitOrder.tuple.map((limit, limitIndex) => {
             return (
               <LimitOrderItem

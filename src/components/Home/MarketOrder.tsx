@@ -1,13 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@mui/material'
-import { PositionsItem } from '../Trades/TradeLeft/PositionsItem'
-import { UseAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
+import { PositionsItem } from './OrderItem'
+import { useRootStore } from '../../store/root'
 
-type MarketOrderProps = {
-  useAllOpenTrades: UseAllOpenTrades[]
-}
-
-export const MarketOrder = ({ useAllOpenTrades }: MarketOrderProps) => {
+export const MarketOrder = () => {
+  const useAllOpenTrades = useRootStore((state) => state.userAllOpenTradeList)
   return (
     <div>
       <div
