@@ -1,4 +1,4 @@
-import { ChartData } from 'components/Trades/TradeLeft/TradingView'
+import { ChartData } from '../../components/Trades/TradeLeft/TradingView'
 import React, { Dispatch, useCallback } from 'react'
 import { K_LINE_API } from '../../constant/chain'
 

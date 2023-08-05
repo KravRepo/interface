@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { forMatterOpenTrades } from './utils/utils'
 import { Contract } from 'ethers'
-import trading_storage from 'abi/trading_storage_v5.json'
+import trading_storage from '../../abi/trading_storage_v5.json'
 import { Tuple } from '../../components/Trades/type'
 
 export const useGetUserOpenTrade = () => {

@@ -4,7 +4,7 @@ import { ReactComponent as DashboardIcon } from '../../assets/imgs/dashboardIcon
 import { ReactComponent as StakingIcon } from '../../assets/imgs/kravStakeIcon.svg'
 import { ReactComponent as FarmIcon } from '../../assets/imgs/farm.svg'
 import { ReactComponent as ReferralIcon } from '../../assets/imgs/referral.svg'
-import KRAVMenuButton from 'components/KravUIKit/KravMenuButton'
+import KRAVMenuButton from '../../components/KravUIKit/KravMenuButton'
 import { css } from '@emotion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 

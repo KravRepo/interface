@@ -136,6 +136,10 @@ export const dashboard = css`
       line-height: 110%; /* 70.4px */
       text-transform: uppercase;
     }
+    svg:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
   }
   .title {
     font-family: 'GT-Flexa-Bold-Trial';
@@ -183,6 +187,10 @@ export const dashboard = css`
         font-weight: 400;
         line-height: 140%; /* 19.6px */
         letter-spacing: -0.28px;
+      }
+      svg:hover {
+        cursor: pointer;
+        transform: scale(1.1);
       }
     }
     .provided {
@@ -238,6 +246,10 @@ export const dashboard = css`
                 padding-right: 16px;
               }
             }
+          }
+          .poolArrow:hover {
+            cursor: pointer;
+            transform: scale(1.1);
           }
         }
         > div:first-of-type {
@@ -523,6 +535,12 @@ export const referral = css`
     .social {
       > svg {
         cursor: pointer;
+      }
+      > svg:hover path:last-child {
+        fill: #757575;
+      }
+      > svg:last-child:hover path {
+        fill: #757575;
       }
     }
   }

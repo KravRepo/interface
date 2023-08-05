@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import { bottomCard } from '../style'
 import { useRootStore } from '../../../store/root'
 import { getBorrowFees } from '../../../utils/math'
-import { ReactComponent as ExchangeIcon } from 'assets/imgs/exchange.svg'
+import { ReactComponent as ExchangeIcon } from '../../../assets/imgs/exchange.svg'
 import { useState } from 'react'
 import BigNumber from 'bignumber.js'
 

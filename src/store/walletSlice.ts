@@ -1,10 +1,9 @@
 import { StateCreator } from 'zustand'
-
 import { RootStore } from './root'
 import BigNumber from 'bignumber.js'
-import { Tuple, TupleLimitOrder } from 'components/Trades/type'
 import { UseAllLimitOrders } from '../hook/hookV8/useGetUserAllLimitOrders'
 import { UseAllOpenTrades } from '../hook/hookV8/useGetUserAllOpenTrades'
+import { Tuple, TupleLimitOrder } from '../components/Trades/type'
 
 export enum ApprovalMethod {
   APPROVE = 'Transaction',

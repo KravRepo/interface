@@ -1,4 +1,4 @@
-import { UserData } from 'hook/hookV8/useUserPosition'
+import { UserData } from '../hook/hookV8/useUserPosition'
 import { StateCreator } from 'zustand'
 import { RootStore } from './root'
 import BigNumber from 'bignumber.js'

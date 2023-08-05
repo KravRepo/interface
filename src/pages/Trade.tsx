@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { TradeLeft } from 'components/Trades/TradeLeft'
+import { TradeLeft } from '../components/Trades/TradeLeft'
 import { TradeRight } from '../components/Trades/TradeRight'
 import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'

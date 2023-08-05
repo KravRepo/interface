@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { footer, doc } from './style'
-import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
-import { ReactComponent as Twitter } from 'assets/imgs/twitter.svg'
+import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
+import { ReactComponent as Twitter } from '../../assets/imgs/twitter.svg'
 // import { ReactComponent as Medium } from 'assets/imgs/medium.svg'
 // import { ReactComponent as Github } from 'assets/imgs/github.svg'
 // import { ReactComponent as Discord } from 'assets/imgs/discord.svg'

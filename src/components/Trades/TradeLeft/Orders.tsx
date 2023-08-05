@@ -3,7 +3,7 @@
 import { css } from '@emotion/react'
 import { useRootStore } from '../../../store/root'
 import BigNumber from 'bignumber.js'
-import { useCancelOpenLimitOrder } from 'hook/hookV8/useCancelOpenLimitOrder'
+import { useCancelOpenLimitOrder } from '../../../hook/hookV8/useCancelOpenLimitOrder'
 
 export const Orders = () => {
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)

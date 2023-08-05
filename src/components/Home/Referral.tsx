@@ -143,7 +143,19 @@ export const Referral = () => {
             </div>
             {account && (
               <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
-                <KRAVButton onClick={useCopyLink} sx={{ width: '140px', ml: '8px' }}>
+                <KRAVButton
+                  onClick={useCopyLink}
+                  sx={{
+                    width: '140px',
+                    ml: '8px',
+                    '&:hover': {
+                      backgroundColor: '#757575',
+                    },
+                    '&:active': {
+                      backgroundColor: '#2e2e2e',
+                    },
+                  }}
+                >
                   Copy referral link
                 </KRAVButton>
               </Tooltip>

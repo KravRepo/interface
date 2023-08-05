@@ -139,6 +139,7 @@ export const Dashboard = () => {
                       <span>View Details</span>
                       <ArrowLeft
                         onClick={() => navigate('/liquidity')}
+                        className="poolArrow"
                         css={css`
                           cursor: pointer;
                           margin-left: 16px;

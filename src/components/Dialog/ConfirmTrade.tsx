@@ -11,7 +11,7 @@ import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
 import { OPEN_FEES } from '../../constant/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { ReactComponent as ArrowDownIcon } from 'assets/imgs/arrowDown.svg'
+import { ReactComponent as ArrowDownIcon } from '../../assets/imgs/arrowDown.svg'
 import { decodeReferral } from '../../utils'
 
 export type ConfirmTradeDialogProp = {

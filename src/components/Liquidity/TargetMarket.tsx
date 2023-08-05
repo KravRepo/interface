@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import KARVSearchTextField from 'components/KravUIKit/KarvSearchTextField'
+import KARVSearchTextField from '../../components/KravUIKit/KarvSearchTextField'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TargetMarketProps } from './type'
 import { useRootStore } from '../../store/root'

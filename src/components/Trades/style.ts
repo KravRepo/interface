@@ -79,7 +79,8 @@ export const bottomCard = css`
   }
   .card-details {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     padding: 0 24px 8px;
   }
 `

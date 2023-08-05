@@ -16,6 +16,9 @@ export const footer = css`
     .social {
       margin-top: 83px;
       margin-bottom: 12px;
+      svg path:hover {
+        fill: #000;
+      }
     }
     > div {
       border-right: 1px solid #dadada;
@@ -41,6 +44,9 @@ export const doc = css`
       margin: 0;
       padding-bottom: 10px;
     }
+  }
+  p:hover {
+    color: #000;
   }
   > p {
     margin: 0;

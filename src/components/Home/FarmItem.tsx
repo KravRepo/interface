@@ -7,7 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../KravUIKit/KravButton'
-import { getBigNumberStr } from 'utils'
+import { getBigNumberStr } from '../../utils'
 import { useWeb3React } from '@web3-react/core'
 import { AprList } from '../../hook/hookV8/useGetApr'
 

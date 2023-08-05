@@ -8,7 +8,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
 import React, { Dispatch, useCallback, useEffect, useState } from 'react'
 import KravSwitch from '../../KravUIKit/KravSwitch'
-import { MARKET_CHANGE_API } from 'constant/chain'
+import { MARKET_CHANGE_API } from '../../../constant/chain'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 

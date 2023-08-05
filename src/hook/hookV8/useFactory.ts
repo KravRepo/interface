@@ -1,4 +1,4 @@
-import { TEST_RPC_NODE } from 'constant/chain'
+import { TEST_RPC_NODE } from '../../constant/chain'
 import { Contract, ethers } from 'ethers'
 import { useFactoryContract } from './useContract'
 import type { JsonRpcProvider } from '@ethersproject/providers'

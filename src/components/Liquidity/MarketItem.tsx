@@ -78,6 +78,15 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
       <div>
         {account && (
           <KRAVButton
+            sx={{
+              backgroundColor: '#fff',
+              border: '1px solid #2e2e2e',
+              color: '#2e2e2e',
+              '&:hover': {
+                backgroundColor: '#000',
+                color: '#fff',
+              },
+            }}
             onClick={() => {
               setAddLiquidity(true)
               setLiquidityInfo(poolParams)

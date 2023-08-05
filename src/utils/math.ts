@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from 'constant/math'
+import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from '../constant/math'
 import { getBigNumberStr } from './index'
 
 export const eXDecimals = (value: BigNumber | string, decimals: number) => {
