@@ -10,13 +10,15 @@ import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 
 export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
+  const maxWithdrawAmount = useMemo(() => {
+    return position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
+  }, [position])
   const lockAmount = useMemo(() => {
     if (position) {
-      const maxWithdrawAmount =
-        position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
       const lockedAmount = position.daiDeposited.minus(maxWithdrawAmount)
       return eXDecimals(lockedAmount.isGreaterThan(0) ? lockedAmount : position.daiDeposited, position.pool.decimals)
     } else {
@@ -65,9 +67,18 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         </p>
       </div>
       <div>
-        {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
-          ? eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)
-          : lockAmount.toFixed(2)}
+        <Tooltip
+          title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
+                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
+                a stable and fair trading environment on our platform.`}
+        >
+          <span css={align}>
+            {lockAmount.isGreaterThan(0)
+              ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFixed(2)
+              : eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)}
+            <HelpOutlineOutlinedIcon sx={{ height: '12px', width: '12px', ml: '4px' }} />
+          </span>
+        </Tooltip>
       </div>
 
       <div>

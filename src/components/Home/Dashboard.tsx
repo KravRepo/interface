@@ -21,6 +21,7 @@ import BigNumber from 'bignumber.js'
 import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
 import { DashboardFarm } from './DashboardFarm'
 import { useNavigate } from 'react-router-dom'
+import { API_DECIMALS } from '../../constant/math'
 
 type OverviewData = {
   liquiditySupply: number
@@ -45,10 +46,10 @@ export const Dashboard = () => {
       const req = await fetch(DASHBOARD_OVERVIEW_API)
       const overview = await req.json()
       setOverViewData({
-        liquiditySupply: Number(overview.data.liquiditySupply) / 100,
-        orderPlacement: Number(overview.data.orderPlacement) / 100,
+        liquiditySupply: Number(overview.data.liquiditySupply) / API_DECIMALS,
+        orderPlacement: Number(overview.data.orderPlacement) / API_DECIMALS,
         tradingFrequency: overview.data.tradingFrequency,
-        tradingVolume: Number(overview.data.tradingVolume) / 100,
+        tradingVolume: Number(overview.data.tradingVolume) / API_DECIMALS,
       })
     } catch (e) {
       console.error('get overview failed!', e)
@@ -99,12 +100,12 @@ export const Dashboard = () => {
       >
         <p>Earned Income</p>
         <p css={align}>
-          <span>{formatNumber(Number(userAssetOverview?.lpRewardBalance) / 100, 2)}</span>
-          <ArrowLeft
-            css={css`
-              margin-left: 16px;
-            `}
-          />
+          <span>{formatNumber(Number(userAssetOverview?.lpRewardBalance) / API_DECIMALS, 2)}</span>
+          {/*<ArrowLeft*/}
+          {/*  css={css`*/}
+          {/*    margin-left: 16px;*/}
+          {/*  `}*/}
+          {/*/>*/}
         </p>
       </div>
       <div className="earning">
@@ -123,7 +124,7 @@ export const Dashboard = () => {
               <div className="details">
                 <div className="total">
                   <div>Total Value</div>
-                  <div>{formatNumber(Number(userAssetOverview?.balance) / 100, 2)}</div>
+                  <div>{formatNumber(Number(userAssetOverview?.balance) / API_DECIMALS, 2)}</div>
                 </div>
                 <div
                   css={css`
