@@ -47,11 +47,12 @@ export const Orders = () => {
               <div>${BTCPrice.toFixed(2)}</div>
               <div>{limit.leverage}</div>
               <div>
-                ${new BigNumber(limit.positionSize).toFixed(2)} {tradePool.symbol}
+                {new BigNumber(limit.positionSize).toFixed(2)} {tradePool.symbol}
               </div>
               <div
                 css={css`
                   cursor: pointer;
+                  text-decoration: underline;
                 `}
                 onClick={() => cancelOpenLimitOrder(limit.index)}
               >

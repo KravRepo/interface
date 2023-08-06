@@ -40,10 +40,11 @@ export const LimitOrderItem = ({ limit, pool }: LimitOrderItemProps) => {
       <div>${limit.minPrice.toFixed(2)}</div>
       <div>${BTCPrice.toFixed(2)}</div>
       <div>{limit.leverage}</div>
-      <div>${new BigNumber(limit.positionSize).toFixed(2)}</div>
+      <div>{new BigNumber(limit.positionSize).toFixed(2)}</div>
       <div
         css={css`
           cursor: pointer;
+          text-decoration: underline;
         `}
         onClick={() => cancelOpenLimitOrder(limit.index)}
       >
