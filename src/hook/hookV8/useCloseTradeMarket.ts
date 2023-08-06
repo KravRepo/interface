@@ -34,8 +34,8 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
         updateSuccessDialog(TransactionAction.CANCEL_MARKET_ORDER)
         setSuccessSnackbarInfo({
           snackbarVisibility: true,
-          title: 'Cancel Market Order',
-          content: `Market order canceled successfully`,
+          title: 'Close Market Order',
+          content: `Market order closed successfully`,
         })
         console.log('close tx ', close)
       } catch (e) {

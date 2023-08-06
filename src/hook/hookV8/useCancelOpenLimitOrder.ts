@@ -33,8 +33,8 @@ export const useCancelOpenLimitOrder = (tradingAddress: string, storageAddress: 
         updateSuccessDialog(TransactionAction.CANCEL_LIMIT_ORDER)
         setSuccessSnackbarInfo({
           snackbarVisibility: true,
-          title: 'Cancel Limit Order',
-          content: `Cancel limit order successfully`,
+          title: 'Cancel Limit order',
+          content: `Limit order canceled successfully`,
         })
         console.log('close tx', close)
       } catch (e) {
