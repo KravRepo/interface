@@ -14,8 +14,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/components/Header/Header.tsx
-#~ msgid "Statistics"
-#~ msgstr "Statistics"
+msgid "Statistics"
+msgstr "Statistics"
 
 #: src/components/Header/Header.tsx
 msgid "Liquidity"
@@ -38,8 +38,8 @@ msgid "Trade"
 msgstr "Trade"
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24H Low"
-msgstr "24H Low"
+#~ msgid "24H Low"
+#~ msgstr "24H Low"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
@@ -53,6 +53,14 @@ msgstr "Portfolio"
 #~ msgid "Base"
 #~ msgstr "Base"
 
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Borrowing(S)"
+msgstr "Borrowing(S)"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Borrowing(L)"
+msgstr "Borrowing(L)"
+
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 4 Initial LP Provision"
 msgstr "Step 4 Initial LP Provision"
@@ -63,8 +71,8 @@ msgid "With BTC as the underlying asset, different assets are used as investment
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24H High"
-msgstr "24H High"
+#~ msgid "24H High"
+#~ msgstr "24H High"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 2 Select Token Collateral"
@@ -79,13 +87,22 @@ msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24h Change"
-msgstr "24h Change"
+msgid "Open Interest(L)"
+msgstr "Open Interest(L)"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+#~ msgid "24h Change"
+#~ msgstr "24h Change"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 3 Set Ticket Size"
 msgstr "Step 3 Set Ticket Size"
 
 #: src/components/Trades/TradeRight/OrderParamsCard.tsx
+#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "{buttonState}"
 msgstr "{buttonState}"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Open Interest(S)"
+msgstr "Open Interest(S)"
