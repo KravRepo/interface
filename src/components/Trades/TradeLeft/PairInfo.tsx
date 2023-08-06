@@ -40,6 +40,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     tradePool?.decimals || 18,
     tradePool.pairInfoT || ''
   )
+  console.log(openDaiLong?.toString(), openDaiShort?.toString(), borrowLongVal?.toString(), borrowShortVal?.toString())
 
   const handleModelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsProModel(event.target.checked)
@@ -121,6 +122,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
           <div
             className="info-card"
             css={css`
+              padding: 0 16px !important;
               border-left: ${theme.card.splitLine};
             `}
           >
@@ -140,6 +142,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
           <div
             className="info-card"
             css={css`
+              padding: 0 16px !important;
               border-left: ${theme.card.splitLine};
             `}
           >
@@ -167,12 +170,20 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             </p>
             <p
               css={css`
-                color: ${openDaiShort && openDaiLong?.gt(openDaiShort) ? '#009b72' : '#db4c40'};
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? '#009b72'
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? '#000'
+                  : '#db4c40'};
               `}
             >
               <span>
-                {openDaiShort && openDaiLong?.gt(openDaiShort) ? '' : '-'}
-                {borrowLongVal?.toFixed(4)}%
+                {openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? ''
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? ''
+                  : '-'}
+                {borrowLongVal?.abs()?.toFixed(4)}%
               </span>
             </p>
           </div>
@@ -187,12 +198,20 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             </p>
             <p
               css={css`
-                color: ${openDaiShort && openDaiLong?.gt(openDaiShort) ? '#db4c40' : '#009b72'};
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? '#db4c40'
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? '#000'
+                  : '#009b72'};
               `}
             >
               <span>
-                {openDaiShort && openDaiLong?.gt(openDaiShort) ? '-' : ''}
-                {borrowShortVal?.toFixed(4)}%
+                {openDaiShort && openDaiLong?.lt(openDaiShort)
+                  ? ''
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? ''
+                  : '-'}
+                {borrowShortVal?.abs()?.toFixed(4)}%
               </span>
             </p>
           </div>
