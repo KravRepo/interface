@@ -3,6 +3,7 @@ import { footer, doc } from './style'
 import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { ReactComponent as Twitter } from '../../assets/imgs/twitter.svg'
 import { ReactComponent as Medium } from '../../assets/imgs/medium.svg'
+import TelegramIcon from '@mui/icons-material/Telegram'
 // import { ReactComponent as Github } from 'assets/imgs/github.svg'
 // import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
 import { css } from '@emotion/react'
@@ -56,6 +57,18 @@ export const Footer = () => {
                 `}
               />
             </Link>
+            <Link underline="none" sx={{ color: '#000' }} href="https://t.me/kravtrade">
+              <TelegramIcon
+                className="medium"
+                height="24"
+                width="24"
+                sx={{ color: '#757575' }}
+                css={css`
+                  margin-right: 16px;
+                `}
+              />
+            </Link>
+
             {/*<Github height="24" width="24" />*/}
             <div>Copyright © 2023 KRAV. All rights reserved</div>
           </div>
