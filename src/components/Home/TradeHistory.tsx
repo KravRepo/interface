@@ -27,7 +27,7 @@ export const TradeHistory = () => {
       const res: any[] = []
       quantos.data.map(async (quanto: Quanto) => {
         const historyRequest = await fetch(
-          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${quanto.id}&offset=0&limit=100`
+          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${quanto.indexId}&offset=0&limit=100`
         )
         const history = await historyRequest.json()
         if (history.code === 200) {

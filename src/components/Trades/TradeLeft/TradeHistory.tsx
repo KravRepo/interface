@@ -72,7 +72,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
       if (quantos.code == 200) {
         const target = quantos.data.find((quanto: Quanto) => quanto?.tradingT === tradePool?.tradingT)
         const historyRequest = await fetch(
-          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${target.id}&offset=0&limit=100`
+          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
         )
         const history = await historyRequest.json()
         if (history.code === 200) {
