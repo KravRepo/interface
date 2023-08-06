@@ -68,7 +68,7 @@ export const Footer = () => {
           <NavLink to={'/liquidity'}>
             <p>Earn</p>
           </NavLink>
-          <NavLink to={'/dashboard/referral'}>
+          <NavLink to={'/portfolio/referral'}>
             <p>Referrals</p>
           </NavLink>
           {/*<p>Buy</p>*/}
