@@ -15,8 +15,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
-  const [aprAsc, setAprAsc] = useState(false)
-  const [totalAsc, setTotalAsc] = useState(false)
+  const [aprAsc, setAprAsc] = useState<boolean>(false)
+  const [totalAsc, setTotalAsc] = useState<boolean>(false)
 
   const tableData = useMemo(() => {
     if (!aprList || !allPoolParams) return []
@@ -27,7 +27,9 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
       }
     })
     return res
-  }, [])
+  }, [allPoolParams, aprList])
+
+  console.log('tableData', aprList, allPoolParams, tableData)
 
   const reorderClick = useCallback((sort: 'asc' | 'desc', way: string) => {
     if (way === 'apr') {
@@ -144,7 +146,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 }}
                 onClick={() => {
                   setTotalAsc(true)
-                  reorderClick('asc', 'apr')
+                  reorderClick('asc', 'total')
                 }}
               />
               <ArrowDropDownIcon
@@ -155,7 +157,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 }}
                 onClick={() => {
                   setTotalAsc(false)
-                  reorderClick('desc', 'apr')
+                  reorderClick('desc', 'total')
                 }}
               />
             </Stack>

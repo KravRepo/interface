@@ -26,6 +26,7 @@ import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
 import ReportImg from './assets/imgs/report.png'
+import { Statistics } from './pages/Statistics'
 
 i18n.load({
   en: enMessages,
