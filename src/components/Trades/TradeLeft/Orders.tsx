@@ -12,7 +12,7 @@ export const Orders = () => {
   const cancelOpenLimitOrder = useCancelOpenLimitOrder(tradePool.tradingT, tradePool.storageT)
 
   const getOrderContent = (isBuy: boolean, limitPrice: BigNumber, positionSize: BigNumber, leverage: number) => {
-    return 'Increase BTC' + (isBuy ? 'Long' : 'Short') + ' by $' + positionSize.times(leverage).toFixed(2)
+    return positionSize.times(leverage).toFixed(2) + tradePool.symbol
   }
   return (
     <div>
