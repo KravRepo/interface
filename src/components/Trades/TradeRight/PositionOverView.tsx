@@ -8,16 +8,16 @@ import { useState } from 'react'
 import BigNumber from 'bignumber.js'
 
 type PositionOverViewProps = {
-  tradeType: number
+  isBuy: boolean
 }
 
-export const PositionOverView = ({ tradeType }: PositionOverViewProps) => {
+export const PositionOverView = ({ isBuy }: PositionOverViewProps) => {
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
   const [isExchange, setIsExchange] = useState(false)
   return (
     <div css={bottomCard}>
-      <div> {tradeType === 0 ? 'long' : 'short'} btc</div>
+      <div> {isBuy ? 'long' : 'short'} btc</div>
       <div
         css={css`
           padding-top: 12px;
