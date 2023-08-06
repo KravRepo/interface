@@ -81,8 +81,13 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
               <span>({positionTp.toFixed(2)} %)</span>
             </p>
           </div>
-          <div>{new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)}</div>
-          <div>{new BigNumber(openTrade.initialPosToken).toFixed(2)}</div>
+          <div>
+            {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)}{' '}
+            {pool ? pool.symbol : tradePool.symbol}
+          </div>
+          <div>
+            {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
+          </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
           <div>${BTCPrice.toFixed(2)}</div>
           <div>${liqPrice.toFixed(2)}</div>
