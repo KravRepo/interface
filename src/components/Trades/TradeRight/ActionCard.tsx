@@ -53,7 +53,7 @@ export const ActionsCard = ({
             color: '#000000',
             minHeight: '30px',
             '& .MuiTabs-indicator': { display: 'none' },
-            '& .Mui-selected': { color: '#000000!important' },
+            '& .Mui-selected': { color: '#fff !important' },
           }}
         >
           <Tab
@@ -62,7 +62,7 @@ export const ActionsCard = ({
               borderRadius: '4px',
               minHeight: '30px',
               padding: 0,
-              background: orderType === 0 ? '#fff' : '',
+              background: orderType === 0 ? '#DB4C40 !important' : '',
             }}
             label="Long"
           />
@@ -72,7 +72,7 @@ export const ActionsCard = ({
               borderRadius: '4px',
               minHeight: '30px',
               padding: 0,
-              background: orderType === 1 ? '#fff' : '',
+              background: orderType === 1 ? '#009B72 !important' : '',
             }}
             label="Short"
           />
