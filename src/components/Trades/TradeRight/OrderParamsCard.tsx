@@ -3,7 +3,7 @@ import { Button, Input, Slider, styled, TextField } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
-import { activeTab, input, normalTab, orderParamsTab } from './style'
+import { activeTab, attention, input, normalTab, orderParamsTab } from './style'
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
@@ -13,6 +13,7 @@ import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, getFees, getLiqPrice, getLongOrShortUSD, getReachPrice, getTakeProfit } from '../../../utils/math'
 import { ReactComponent as ArrowDownIcon } from '../../../assets/imgs/arrowDown.svg'
+import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
 import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
@@ -172,6 +173,7 @@ export const OrderParamsCard = ({
   const [slUsePercentage, setUseSlPercentage] = useState(true)
   const [tpSetting, setTpSetting] = useState(0)
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
+  const [showConfirmTip, setShowConfirmTip] = useState(false)
   const {
     BTCPrice,
     transactionState,
@@ -374,6 +376,14 @@ export const OrderParamsCard = ({
     setLeverage(2)
   }, [isBuy])
 
+  useEffect(() => {
+    const firstOpenTrade = localStorage?.getItem('krav-first-open-trade')
+    if (!firstOpenTrade) {
+      setShowConfirmTip(true)
+      localStorage?.setItem('krav-first-open-trade', 'false')
+    }
+  }, [])
+
   return (
     <>
       <ConfirmTrade
@@ -386,205 +396,153 @@ export const OrderParamsCard = ({
         setOpenBTCSize={setOpenBTCSize}
         setLeverage={setLeverage}
       />
-      <div
-        css={css`
-          font-size: 14px;
-        `}
-      >
+      {!showConfirmTip && (
         <div
           css={css`
-            display: flex;
-            padding: 6px;
-            margin: 16px 0;
-            background: #f6f6f6;
+            font-size: 14px;
           `}
         >
-          <span
-            css={[
-              orderParamsTab,
-              css`
-                color: ${tabIndex === 0 ? 'white' : ''};
-                background: ${tabIndex === 0 ? 'black' : ''};
-                margin-right: 13px;
-              `,
-            ]}
-            onClick={() => {
-              setTabIndex(0)
-              setTradeType(0)
-            }}
-          >
-            Market
-          </span>
-          <span
-            css={[
-              orderParamsTab,
-              css`
-                color: ${tabIndex === 1 ? 'white' : ''};
-                background: ${tabIndex === 1 ? 'black' : ''};
-              `,
-            ]}
-            onClick={() => {
-              setTabIndex(1)
-              setTradeType(1)
-            }}
-          >
-            Limit
-          </span>
-        </div>
-        <div
-          css={css`
-            margin-bottom: 12px;
-          `}
-        >
-          <span
+          <div
             css={css`
-              color: #757575;
+              display: flex;
+              padding: 6px;
+              margin: 16px 0;
+              background: #f6f6f6;
             `}
           >
-            Available:
-          </span>{' '}
-          {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
-        </div>
-        <>
-          <div>
-            <div css={input}>
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  width: 100%;
-                  justify-content: space-between;
-                `}
-              >
-                <span
-                  css={css`
-                    color: #757575;
-                  `}
-                >
-                  Pay
-                </span>
-              </div>
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  width: 100%;
-                  justify-content: space-between;
-                `}
-              >
-                <TextField
-                  variant="standard"
-                  type="number"
-                  value={positionSizeDai}
-                  onChange={handlePositionDAIInput}
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  sx={{
-                    height: '28px',
-                    fontSize: '20px',
-                    minHeight: '28px',
-                    '& .MuiOutlinedInput-root': {
-                      height: '28px',
-                      minHeight: '28px',
-                      padding: 0,
-                    },
-                  }}
-                />
-                <div
-                  css={css`
-                    border-radius: 2px;
-                    background: #a4a8fe;
-                    padding: 2px 6px;
-                    font-size: 12px;
-                    cursor: pointer;
-                  `}
-                  onClick={handleMaxInput}
-                >
-                  MAX
-                </div>
-                <div css={align}>
-                  <span
-                    css={css`
-                      margin: 0 4px;
-                    `}
-                  >
-                    {tradePool?.symbol}
-                  </span>
-                  <img
-                    css={css`
-                      border-radius: 50%;
-                    `}
-                    src={tradePool.logoSource}
-                    height="16"
-                    width="16"
-                  />
-                </div>
-              </div>
-            </div>
-            <div
+            <span
+              css={[
+                orderParamsTab,
+                css`
+                  color: ${tabIndex === 0 ? 'white' : ''};
+                  background: ${tabIndex === 0 ? 'black' : ''};
+                  margin-right: 13px;
+                `,
+              ]}
+              onClick={() => {
+                setTabIndex(0)
+                setTradeType(0)
+              }}
+            >
+              Market
+            </span>
+            <span
+              css={[
+                orderParamsTab,
+                css`
+                  color: ${tabIndex === 1 ? 'white' : ''};
+                  background: ${tabIndex === 1 ? 'black' : ''};
+                `,
+              ]}
+              onClick={() => {
+                setTabIndex(1)
+                setTradeType(1)
+              }}
+            >
+              Limit
+            </span>
+          </div>
+          <div
+            css={css`
+              margin-bottom: 12px;
+            `}
+          >
+            <span
               css={css`
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: -13px 0 -10px;
+                color: #757575;
               `}
             >
-              <ArrowDownIcon />
-            </div>
-            <div css={input}>
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  width: 100%;
-                `}
-              >
-                <span
+              Available:
+            </span>{' '}
+            {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
+          </div>
+          <>
+            <div>
+              <div css={input}>
+                <div
                   css={css`
-                    color: #757575;
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    justify-content: space-between;
                   `}
                 >
-                  {isBuy ? 'Long' : 'Short'}
-                </span>
-                <div>
-                  <span>Leverage: </span>
-                  <span>{leverage}x</span>
+                  <span
+                    css={css`
+                      color: #757575;
+                    `}
+                  >
+                    Pay
+                  </span>
+                </div>
+                <div
+                  css={css`
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    justify-content: space-between;
+                  `}
+                >
+                  <TextField
+                    variant="standard"
+                    type="number"
+                    value={positionSizeDai}
+                    onChange={handlePositionDAIInput}
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    sx={{
+                      height: '28px',
+                      fontSize: '20px',
+                      minHeight: '28px',
+                      '& .MuiOutlinedInput-root': {
+                        height: '28px',
+                        minHeight: '28px',
+                        padding: 0,
+                      },
+                    }}
+                  />
+                  <div
+                    css={css`
+                      border-radius: 2px;
+                      background: #a4a8fe;
+                      padding: 2px 6px;
+                      font-size: 12px;
+                      cursor: pointer;
+                    `}
+                    onClick={handleMaxInput}
+                  >
+                    MAX
+                  </div>
+                  <div css={align}>
+                    <span
+                      css={css`
+                        margin: 0 4px;
+                      `}
+                    >
+                      {tradePool?.symbol}
+                    </span>
+                    <img
+                      css={css`
+                        border-radius: 50%;
+                      `}
+                      src={tradePool.logoSource}
+                      height="16"
+                      width="16"
+                    />
+                  </div>
                 </div>
               </div>
               <div
                 css={css`
                   display: flex;
                   align-items: center;
-                  justify-content: space-between;
-                  width: 100%;
+                  justify-content: center;
+                  margin: -13px 0 -10px;
                 `}
               >
-                <TextField
-                  variant="standard"
-                  type="number"
-                  value={openBTCSize}
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  sx={{
-                    height: '28px',
-                    fontSize: '20px',
-                    minHeight: '28px',
-                    '& .MuiOutlinedInput-root': {
-                      height: '28px',
-                      minHeight: '28px',
-                      padding: 0,
-                    },
-                  }}
-                />
-                <div>
-                  <span>BTC</span>
-                </div>
+                <ArrowDownIcon />
               </div>
-            </div>
-            {tabIndex === 1 && (
               <div css={input}>
                 <div
                   css={css`
@@ -599,7 +557,7 @@ export const OrderParamsCard = ({
                       color: #757575;
                     `}
                   >
-                    Price
+                    {isBuy ? 'Long' : 'Short'}
                   </span>
                   <div>
                     <span>Leverage: </span>
@@ -617,10 +575,7 @@ export const OrderParamsCard = ({
                   <TextField
                     variant="standard"
                     type="number"
-                    value={limitPrice}
-                    onChange={(event) => {
-                      setLimitPrice(event.target.value)
-                    }}
+                    value={openBTCSize}
                     InputProps={{
                       disableUnderline: true,
                     }}
@@ -635,426 +590,516 @@ export const OrderParamsCard = ({
                       },
                     }}
                   />
+                  <div>
+                    <span>BTC</span>
+                  </div>
+                </div>
+              </div>
+              {tabIndex === 1 && (
+                <div css={input}>
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      width: 100%;
+                    `}
+                  >
+                    <span
+                      css={css`
+                        color: #757575;
+                      `}
+                    >
+                      Price
+                    </span>
+                    <div>
+                      <span>Leverage: </span>
+                      <span>{leverage}x</span>
+                    </div>
+                  </div>
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      width: 100%;
+                    `}
+                  >
+                    <TextField
+                      variant="standard"
+                      type="number"
+                      value={limitPrice}
+                      onChange={(event) => {
+                        setLimitPrice(event.target.value)
+                      }}
+                      InputProps={{
+                        disableUnderline: true,
+                      }}
+                      sx={{
+                        height: '28px',
+                        fontSize: '20px',
+                        minHeight: '28px',
+                        '& .MuiOutlinedInput-root': {
+                          height: '28px',
+                          minHeight: '28px',
+                          padding: 0,
+                        },
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              <p>Leverage slider</p>
+              <Slider
+                defaultValue={2}
+                step={1}
+                marks={marks}
+                min={2}
+                max={50}
+                value={leverage}
+                disabled={loadingData}
+                onClick={handleSliderClick}
+                onChange={handleLeverageChange}
+                // color="#2832F5"
+                valueLabelDisplay="auto"
+                sx={{
+                  height: '2px',
+                  '& .MuiSlider-root': {
+                    color: '#DADADA',
+                  },
+                  '& .MuiSlider-rail': {
+                    opacity: 1,
+                    backgroundColor: '#DADADA',
+                  },
+                  '& .MuiSlider-track': {
+                    border: 'unset',
+                    color: '#000000',
+                  },
+                  '& .MuiSlider-mark': {
+                    height: '6px',
+                    background: '#DADADA',
+                  },
+                  '& .MuiSlider-thumb': {
+                    height: '10px',
+                    width: '10px',
+                    background: '#000000',
+                  },
+                  '& .MuiSlider-markActive': {
+                    background: '#000000',
+                  },
+                  '& .MuiSlider-markLabel': {
+                    fontSize: '12px',
+                    color: '#757575',
+                  },
+                }}
+              />
+            </div>
+            <div
+              css={css`
+                > p {
+                  padding-bottom: 8px;
+                }
+              `}
+            >
+              <p
+                css={[
+                  align,
+                  css`
+                    justify-content: space-between;
+                  `,
+                ]}
+              >
+                <span>Collateral in</span>
+                <span>
+                  {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
+                </span>
+              </p>
+              <p
+                css={[
+                  align,
+                  css`
+                    justify-content: space-between;
+                  `,
+                ]}
+              >
+                <span>Leverage</span>
+                <span>{leverage}</span>
+              </p>
+              <p
+                css={[
+                  align,
+                  css`
+                    justify-content: space-between;
+                  `,
+                ]}
+              >
+                <span>Entry Price</span>
+                <span>${BTCPrice.toFixed(2)}</span>
+              </p>
+              <p
+                css={[
+                  align,
+                  css`
+                    justify-content: space-between;
+                  `,
+                ]}
+              >
+                <span>Liq. Price</span>
+                <span>${getBigNumberStr(getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage), 4)}</span>
+              </p>
+              <p
+                css={[
+                  align,
+                  css`
+                    justify-content: space-between;
+                  `,
+                ]}
+              >
+                <span>Fees</span>
+                <span>
+                  {isNaN(getFees(positionSizeDai, leverage).toNumber())
+                    ? '--'
+                    : getBigNumberStr(getFees(positionSizeDai, leverage), 2)}
+                </span>
+              </p>
+            </div>
+            {isProModel && (
+              <div
+                css={css`
+                  margin-bottom: 16px;
+                `}
+              >
+                <div>
+                  {(slSetting !== 0 || !slUsePercentage) && (
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 8px 0;
+                      `}
+                    >
+                      <div>
+                        StopLoss{' '}
+                        <span
+                          css={css`
+                            color: #db4c40;
+                          `}
+                        >
+                          (
+                          {slUsePercentage
+                            ? '$' + getBigNumberStr(targetSl, 2)
+                            : getBigNumberStr(slPercentage, 2) + '%'}
+                          )
+                        </span>
+                      </div>
+                      <span>
+                        {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())
+                          ? '--'
+                          : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}
+                        {tradePool.symbol}
+                      </span>
+                    </div>
+                  )}
+                  {slSetting === 0 && slUsePercentage && (
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 8px 0;
+                      `}
+                    >
+                      <div>
+                        StopLoss{' '}
+                        <span
+                          css={css`
+                            color: #db4c40;
+                          `}
+                        >
+                          (None)
+                        </span>
+                      </div>
+                      <span
+                        css={css`
+                          color: #db4c40;
+                        `}
+                      >
+                        None
+                      </span>
+                    </div>
+                  )}
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      background: #f7f7f7;
+                      > span {
+                        cursor: pointer;
+                      }
+                    `}
+                  >
+                    <span
+                      css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(true, 0)}
+                    >
+                      None
+                    </span>
+                    <span
+                      css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(true, -10)}
+                    >
+                      -10%
+                    </span>
+                    <span
+                      css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(true, -25)}
+                    >
+                      -25%
+                    </span>
+                    <span
+                      css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(true, -50)}
+                    >
+                      -50%
+                    </span>
+                    <span
+                      css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(true, -75)}
+                    >
+                      -75%
+                    </span>
+                    <Input
+                      type="number"
+                      placeholder="Price |"
+                      disableUnderline={true}
+                      value={slPrice}
+                      onChange={(event) => {
+                        setSlPrice(new BigNumber(event.target.value))
+                      }}
+                      onClick={() => setUseSlPercentage(false)}
+                      sx={{
+                        height: '28px',
+                        fontSize: '14px',
+                        minHeight: '28px',
+                        width: '73px',
+                        '& .MuiOutlinedInput-root': {
+                          height: '28px',
+                          minHeight: '28px',
+                          padding: 0,
+                        },
+                        '& .MuiInputBase-input': {
+                          background: '#fff!important',
+                          padding: '0px 0px 0px 4px',
+                          margin: '4px 4px 5px 0',
+                        },
+                      }}
+                    />
+                  </div>
+                </div>
+                <div>
+                  {(tpSetting !== 0 || !tpUsePercentage) && (
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 16px 0 8px;
+                      `}
+                    >
+                      <div>
+                        Take Profit{' '}
+                        <span
+                          css={css`
+                            color: #009b72;
+                          `}
+                        >
+                          (
+                          {tpUsePercentage
+                            ? '$' + getBigNumberStr(targetTp, 2)
+                            : getBigNumberStr(tpPercentage, 2) + '%'}
+                          )
+                        </span>
+                      </div>
+                      {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())
+                        ? '--'
+                        : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}
+                      {tradePool.symbol}
+                    </div>
+                  )}
+                  {tpSetting === 0 && tpUsePercentage && (
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 16px 0 8px;
+                      `}
+                    >
+                      <div>
+                        Take Profit{' '}
+                        <span
+                          css={css`
+                            color: #009b72;
+                          `}
+                        >
+                          (None)
+                        </span>
+                      </div>
+                      <span
+                        css={css`
+                          color: #009b72;
+                        `}
+                      >
+                        None
+                      </span>
+                    </div>
+                  )}
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      background: #f7f7f7;
+                      justify-content: space-between;
+                      > span {
+                        cursor: pointer;
+                      }
+                    `}
+                  >
+                    <span
+                      css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(false, 25)}
+                    >
+                      25%
+                    </span>
+                    <span
+                      css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(false, 50)}
+                    >
+                      50%
+                    </span>
+                    <span
+                      css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(false, 100)}
+                    >
+                      100%
+                    </span>
+                    <span
+                      css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(false, 300)}
+                    >
+                      300%
+                    </span>
+                    <span
+                      css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}
+                      onClick={() => handleTpSLSetting(false, 900)}
+                    >
+                      900%
+                    </span>
+                    <Input
+                      type="number"
+                      placeholder="Price |"
+                      disableUnderline={true}
+                      value={tpPrice}
+                      onChange={(event) => {
+                        setTpPrice(new BigNumber(event.target.value))
+                      }}
+                      onClick={() => setTpUsePercentage(false)}
+                      sx={{
+                        height: '28px',
+                        fontSize: '14px',
+                        minHeight: '28px',
+                        width: '73px',
+                        '& .MuiOutlinedInput-root': {
+                          height: '28px',
+                          minHeight: '28px',
+                          padding: 0,
+                        },
+                        '& .MuiInputBase-input': {
+                          background: '#fff!important',
+                          padding: '0px 0px 0px 4px',
+                          margin: '4px 4px 5px 0',
+                        },
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             )}
-          </div>
-          <div>
-            <p>Leverage slider</p>
-            <Slider
-              defaultValue={2}
-              step={1}
-              marks={marks}
-              min={2}
-              max={50}
-              value={leverage}
-              disabled={loadingData}
-              onClick={handleSliderClick}
-              onChange={handleLeverageChange}
-              // color="#2832F5"
-              valueLabelDisplay="auto"
-              sx={{
-                height: '2px',
-                '& .MuiSlider-root': {
-                  color: '#DADADA',
-                },
-                '& .MuiSlider-rail': {
-                  opacity: 1,
-                  backgroundColor: '#DADADA',
-                },
-                '& .MuiSlider-track': {
-                  border: 'unset',
-                  color: '#000000',
-                },
-                '& .MuiSlider-mark': {
-                  height: '6px',
-                  background: '#DADADA',
-                },
-                '& .MuiSlider-thumb': {
-                  height: '10px',
-                  width: '10px',
-                  background: '#000000',
-                },
-                '& .MuiSlider-markActive': {
-                  background: '#000000',
-                },
-                '& .MuiSlider-markLabel': {
-                  fontSize: '12px',
-                  color: '#757575',
-                },
-              }}
-            />
-          </div>
-          <div
-            css={css`
-              > p {
-                padding-bottom: 8px;
-              }
-            `}
-          >
-            <p
-              css={[
-                align,
-                css`
-                  justify-content: space-between;
-                `,
-              ]}
-            >
-              <span>Collateral in</span>
-              <span>
-                {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
-              </span>
-            </p>
-            <p
-              css={[
-                align,
-                css`
-                  justify-content: space-between;
-                `,
-              ]}
-            >
-              <span>Leverage</span>
-              <span>{leverage}</span>
-            </p>
-            <p
-              css={[
-                align,
-                css`
-                  justify-content: space-between;
-                `,
-              ]}
-            >
-              <span>Entry Price</span>
-              <span>${BTCPrice.toFixed(2)}</span>
-            </p>
-            <p
-              css={[
-                align,
-                css`
-                  justify-content: space-between;
-                `,
-              ]}
-            >
-              <span>Liq. Price</span>
-              <span>${getBigNumberStr(getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage), 4)}</span>
-            </p>
-            <p
-              css={[
-                align,
-                css`
-                  justify-content: space-between;
-                `,
-              ]}
-            >
-              <span>Fees</span>
-              <span>
-                {isNaN(getFees(positionSizeDai, leverage).toNumber())
-                  ? '--'
-                  : getBigNumberStr(getFees(positionSizeDai, leverage), 2)}
-              </span>
-            </p>
-          </div>
-          {isProModel && (
-            <div
-              css={css`
-                margin-bottom: 16px;
-              `}
-            >
-              <div>
-                {(slSetting !== 0 || !slUsePercentage) && (
-                  <div
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                      justify-content: space-between;
-                      padding: 8px 0;
-                    `}
-                  >
-                    <div>
-                      StopLoss{' '}
-                      <span
-                        css={css`
-                          color: #db4c40;
-                        `}
-                      >
-                        ({slUsePercentage ? '$' + getBigNumberStr(targetSl, 2) : getBigNumberStr(slPercentage, 2) + '%'}
-                        )
-                      </span>
-                    </div>
-                    <span>
-                      {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())
-                        ? '--'
-                        : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}
-                      {tradePool.symbol}
-                    </span>
-                  </div>
-                )}
-                {slSetting === 0 && slUsePercentage && (
-                  <div
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                      justify-content: space-between;
-                      padding: 8px 0;
-                    `}
-                  >
-                    <div>
-                      StopLoss{' '}
-                      <span
-                        css={css`
-                          color: #db4c40;
-                        `}
-                      >
-                        (None)
-                      </span>
-                    </div>
-                    <span
-                      css={css`
-                        color: #db4c40;
-                      `}
-                    >
-                      None
-                    </span>
-                  </div>
-                )}
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    background: #f7f7f7;
-                    > span {
-                      cursor: pointer;
-                    }
-                  `}
-                >
-                  <span
-                    css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(true, 0)}
-                  >
-                    None
-                  </span>
-                  <span
-                    css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(true, -10)}
-                  >
-                    -10%
-                  </span>
-                  <span
-                    css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(true, -25)}
-                  >
-                    -25%
-                  </span>
-                  <span
-                    css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(true, -50)}
-                  >
-                    -50%
-                  </span>
-                  <span
-                    css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(true, -75)}
-                  >
-                    -75%
-                  </span>
-                  <Input
-                    type="number"
-                    placeholder="Price |"
-                    disableUnderline={true}
-                    value={slPrice}
-                    onChange={(event) => {
-                      setSlPrice(new BigNumber(event.target.value))
-                    }}
-                    onClick={() => setUseSlPercentage(false)}
-                    sx={{
-                      height: '28px',
-                      fontSize: '14px',
-                      minHeight: '28px',
-                      width: '73px',
-                      '& .MuiOutlinedInput-root': {
-                        height: '28px',
-                        minHeight: '28px',
-                        padding: 0,
-                      },
-                      '& .MuiInputBase-input': {
-                        background: '#fff!important',
-                        padding: '0px 0px 0px 4px',
-                        margin: '4px 4px 5px 0',
-                      },
-                    }}
-                  />
-                </div>
-              </div>
-              <div>
-                {(tpSetting !== 0 || !tpUsePercentage) && (
-                  <div
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                      justify-content: space-between;
-                      padding: 16px 0 8px;
-                    `}
-                  >
-                    <div>
-                      Take Profit{' '}
-                      <span
-                        css={css`
-                          color: #009b72;
-                        `}
-                      >
-                        ({tpUsePercentage ? '$' + getBigNumberStr(targetTp, 2) : getBigNumberStr(tpPercentage, 2) + '%'}
-                        )
-                      </span>
-                    </div>
-                    {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())
-                      ? '--'
-                      : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}
-                    {tradePool.symbol}
-                  </div>
-                )}
-                {tpSetting === 0 && tpUsePercentage && (
-                  <div
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                      justify-content: space-between;
-                      padding: 16px 0 8px;
-                    `}
-                  >
-                    <div>
-                      Take Profit{' '}
-                      <span
-                        css={css`
-                          color: #009b72;
-                        `}
-                      >
-                        (None)
-                      </span>
-                    </div>
-                    <span
-                      css={css`
-                        color: #009b72;
-                      `}
-                    >
-                      None
-                    </span>
-                  </div>
-                )}
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    background: #f7f7f7;
-                    justify-content: space-between;
-                    > span {
-                      cursor: pointer;
-                    }
-                  `}
-                >
-                  <span
-                    css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(false, 25)}
-                  >
-                    25%
-                  </span>
-                  <span
-                    css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(false, 50)}
-                  >
-                    50%
-                  </span>
-                  <span
-                    css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(false, 100)}
-                  >
-                    100%
-                  </span>
-                  <span
-                    css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(false, 300)}
-                  >
-                    300%
-                  </span>
-                  <span
-                    css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}
-                    onClick={() => handleTpSLSetting(false, 900)}
-                  >
-                    900%
-                  </span>
-                  <Input
-                    type="number"
-                    placeholder="Price |"
-                    disableUnderline={true}
-                    value={tpPrice}
-                    onChange={(event) => {
-                      setTpPrice(new BigNumber(event.target.value))
-                    }}
-                    onClick={() => setTpUsePercentage(false)}
-                    sx={{
-                      height: '28px',
-                      fontSize: '14px',
-                      minHeight: '28px',
-                      width: '73px',
-                      '& .MuiOutlinedInput-root': {
-                        height: '28px',
-                        minHeight: '28px',
-                        padding: 0,
-                      },
-                      '& .MuiInputBase-input': {
-                        background: '#fff!important',
-                        padding: '0px 0px 0px 4px',
-                        margin: '4px 4px 5px 0',
-                      },
-                    }}
-                  />
-                </div>
-              </div>
+            {!account && (
+              <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
+            )}
+            {account && isBuy && (
+              <LongButton
+                disabled={
+                  buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+                  buttonState === ButtonText.REACHED_LIMIT ||
+                  buttonState === ButtonText.MIN_SIZE ||
+                  buttonState === ButtonText.ENTER_AMOUNT
+                }
+                onClick={async () => {
+                  if (buttonState === 'Connect Wallet') {
+                    setWalletDialogVisibility(true)
+                  } else {
+                    await handleButtonClick()
+                  }
+                }}
+              >
+                <Trans>{buttonState}</Trans>
+              </LongButton>
+            )}
+            {account && !isBuy && (
+              <ShortButton
+                disabled={
+                  buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+                  buttonState === ButtonText.REACHED_LIMIT ||
+                  buttonState === ButtonText.MIN_SIZE ||
+                  buttonState === ButtonText.ENTER_AMOUNT
+                }
+                onClick={async () => {
+                  if (buttonState === 'Connect Wallet') {
+                    setWalletDialogVisibility(true)
+                  } else {
+                    await handleButtonClick()
+                  }
+                }}
+              >
+                <Trans>{buttonState}</Trans>
+              </ShortButton>
+            )}
+          </>
+        </div>
+      )}
+      {showConfirmTip && (
+        <>
+          <div css={attention}>
+            <div className="title">
+              <AttentionIcon />
+              <span>Attention</span>
             </div>
-          )}
-          {!account && (
-            <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
-          )}
-          {account && isBuy && (
-            <LongButton
-              disabled={
-                buttonState === ButtonText.INSUFFICIENT_BALANCE ||
-                buttonState === ButtonText.REACHED_LIMIT ||
-                buttonState === ButtonText.MIN_SIZE ||
-                buttonState === ButtonText.ENTER_AMOUNT
-              }
-              onClick={async () => {
-                if (buttonState === 'Connect Wallet') {
-                  setWalletDialogVisibility(true)
-                } else {
-                  await handleButtonClick()
-                }
-              }}
-            >
-              <Trans>{buttonState}</Trans>
-            </LongButton>
-          )}
-          {account && !isBuy && (
-            <ShortButton
-              disabled={
-                buttonState === ButtonText.INSUFFICIENT_BALANCE ||
-                buttonState === ButtonText.REACHED_LIMIT ||
-                buttonState === ButtonText.MIN_SIZE ||
-                buttonState === ButtonText.ENTER_AMOUNT
-              }
-              onClick={async () => {
-                if (buttonState === 'Connect Wallet') {
-                  setWalletDialogVisibility(true)
-                } else {
-                  await handleButtonClick()
-                }
-              }}
-            >
-              <Trans>{buttonState}</Trans>
-            </ShortButton>
-          )}
+            <div className="content order-limit">
+              <p>1. Order Limit</p>
+              <p>
+                When placing orders, be aware that the total quantity of your position, inclusive of leverage, should
+                not exceed 20% of the total market liquidity. Please review the available liquidity before placing your
+                orders to maintain seamless trading operations.
+              </p>
+            </div>
+            <div className="content">
+              <p>2. Position Reduction</p>
+              <p>
+                When placing orders, be aware that the total quantity of your position, inclusive of leverage, should
+                not exceed 20% of the total market liquidity. Please review the available liquidity before placing your
+                orders to maintain seamless trading operations.
+              </p>
+            </div>
+          </div>
+          <KRAVButton onClick={() => setShowConfirmTip(false)}>OK</KRAVButton>
         </>
-      </div>
+      )}
     </>
   )
 }
