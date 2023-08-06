@@ -15,6 +15,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
+  const [aprSortBy, setAprSortBy] = useState<'asc' | 'desc'>('asc')
+  const [totalSortBy, setTotalSortBy] = useState<'asc' | 'desc'>('asc')
   const [aprAsc, setAprAsc] = useState<boolean>(false)
   const [totalAsc, setTotalAsc] = useState<boolean>(false)
 
@@ -31,6 +33,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
 
   const reorderClick = useCallback(
     (sort: 'asc' | 'desc', way: string) => {
+      console.log(sort, way)
+
       if (way === 'apr') {
         tableData.sort((a, b) => {
           if (sort === 'asc') {
@@ -74,6 +78,11 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
               APR
             </Typography>
             <Stack
+              onClick={() => {
+                setAprSortBy(aprSortBy === 'asc' ? 'desc' : 'asc')
+                setAprAsc(!aprAsc)
+                reorderClick(aprSortBy !== 'asc' ? 'desc' : 'asc', 'apr')
+              }}
               sx={{
                 width: 16,
                 height: 16,
@@ -99,20 +108,12 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                     fill: aprAsc ? '#000' : '#757575',
                   },
                 }}
-                onClick={() => {
-                  setAprAsc(true)
-                  reorderClick('desc', 'apr')
-                }}
               />
               <ArrowDropDownIcon
                 sx={{
                   '& path': {
                     fill: aprAsc ? '#757575' : '#000',
                   },
-                }}
-                onClick={() => {
-                  setAprAsc(false)
-                  reorderClick('asc', 'apr')
                 }}
               />
             </Stack>
@@ -123,6 +124,11 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
               TOTAL LIQUIDITY SUPPLY
             </Typography>
             <Stack
+              onClick={() => {
+                setTotalSortBy(totalSortBy === 'asc' ? 'desc' : 'asc')
+                setTotalAsc(!totalAsc)
+                reorderClick(totalSortBy === 'asc' ? 'desc' : 'asc', 'total')
+              }}
               sx={{
                 width: 16,
                 height: 16,
@@ -148,20 +154,12 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                     fill: totalAsc ? '#000' : '#757575',
                   },
                 }}
-                onClick={() => {
-                  setTotalAsc(true)
-                  reorderClick('desc', 'total')
-                }}
               />
               <ArrowDropDownIcon
                 sx={{
                   '& path': {
                     fill: totalAsc ? '#757575' : '#000',
                   },
-                }}
-                onClick={() => {
-                  setTotalAsc(false)
-                  reorderClick('asc', 'total')
                 }}
               />
             </Stack>
