@@ -38,7 +38,7 @@ export enum TransactionAction {
   CREATE = 'Create pool',
   REMOVE_LIQUIDITY = 'Removed liquidity',
   CANCEL_LIMIT_ORDER = 'Cancel limit order',
-  CANCEL_MARKET_ORDER = 'Cancel market order',
+  CANCEL_MARKET_ORDER = 'Closed market order',
   APPROVE = 'Approve',
   ADDRESS_CHECK = 'Token address check',
   CLAIM_LP_REWARD = 'Claim lp reward',
