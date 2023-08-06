@@ -6,17 +6,48 @@ import { useRootStore } from '../../store/root'
 import { MarketItem } from './MarketItem'
 import { useWeb3React } from '@web3-react/core'
 import { MarketSkeleton } from './MarketSkeleton'
+import { Stack, Typography } from '@mui/material'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { useCallback, useMemo } from 'react'
 
 export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList }: TargetMarketProps) => {
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
 
+  const tableData = useMemo(() => {
+    if (!aprList || !allPoolParams) return []
+    const res = allPoolParams.map((item: any, index: number) => {
+      return {
+        ...item,
+        apr: aprList[index].apr.toFixed(2),
+      }
+    })
+    return res
+  }, [])
+
+  const reorderClick = useCallback((sort: 'asc' | 'desc', way: string) => {
+    if (way === 'apr') {
+      tableData.sort((a, b) => {
+        if (sort === 'asc') {
+          return a.apr - b.apr
+        } else return b.apr - a.apr
+      })
+    } else {
+      tableData.sort((a, b) => {
+        if (sort === 'asc') {
+          return a.poolTotalSupply - b.poolTotalSupply
+        } else return b.poolTotalSupply - a.poolTotalSupply
+      })
+    }
+  }, [])
+
   return (
     <div className="liquidity-content">
       <div className="liquidity-tabs">
         <span>Target Market</span>
-        <span>{allPoolParams.length > 0 ? ` (${allPoolParams.length})` : ''}</span>
+        <span>{tableData.length > 0 ? ` (${tableData.length})` : ''}</span>
       </div>
       <div className="liquidity-search">
         <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} />
@@ -30,9 +61,75 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         <div className="liquidity-table grey nowrap">
           <div>ASSET</div>
           <div>CONVERSION RATIO</div>
-          <div>APR</div>
+          <Stack direction={'row'} alignItems={'center'}>
+            <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>
+              APR
+            </Typography>
+            <Stack
+              sx={{
+                width: 16,
+                height: 16,
+                borderRadius: '4px',
+                marginLeft: '0 !important',
+                padding: '0 3px',
+                justifyContent: 'center',
+                backgroundColor: '#f6f6f6',
+                '& svg': {
+                  cursor: 'pointer',
+                  width: 10,
+                  height: 9,
+                  transform: 'scale(1.8)',
+                  '& path': {
+                    fill: '#757575',
+                  },
+                },
+                '& svg:hover path': {
+                  fill: '#000',
+                },
+                '& svg:visited path': {
+                  fill: '#000',
+                },
+              }}
+            >
+              <ArrowDropUpIcon onClick={() => reorderClick('asc', 'apr')} />
+              <ArrowDropDownIcon onClick={() => reorderClick('desc', 'apr')} />
+            </Stack>
+          </Stack>
           <div>UTILIZATION</div>
-          <div>TOTAL LIQUIDITY SUPPLY</div>
+          <Stack direction={'row'} alignItems={'center'}>
+            <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>
+              TOTAL LIQUIDITY SUPPLY
+            </Typography>
+            <Stack
+              sx={{
+                width: 16,
+                height: 16,
+                borderRadius: '4px',
+                marginLeft: '0 !important',
+                padding: '0 3px',
+                justifyContent: 'center',
+                backgroundColor: '#f6f6f6',
+                '& svg': {
+                  cursor: 'pointer',
+                  width: 10,
+                  height: 9,
+                  transform: 'scale(1.8)',
+                  '& path': {
+                    fill: '#757575',
+                  },
+                },
+                '& svg:hover path': {
+                  fill: '#000',
+                },
+                '& svg:visited path': {
+                  fill: '#000',
+                },
+              }}
+            >
+              <ArrowDropUpIcon onClick={() => reorderClick('asc', 'apr')} />
+              <ArrowDropDownIcon onClick={() => reorderClick('desc', 'apr')} />
+            </Stack>
+          </Stack>
           <div>YOUR LIQUIDITY SUPPLY</div>
           <div>LP REWARD</div>
         </div>
@@ -41,8 +138,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
             return <MarketSkeleton key={'Skeleton_' + String(i)} />
           })}
         {!isLoadingFactory &&
-          allPoolParams.length > 0 &&
-          allPoolParams.map((pool, index) => {
+          tableData.length > 0 &&
+          tableData.map((pool, index) => {
             return (
               <MarketItem
                 setAddLiquidity={setAddLiquidity}

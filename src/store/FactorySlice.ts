@@ -8,6 +8,7 @@ export type PoolParams = {
   storageT: string
   pairInfoT: string
   pairStorageT: string
+  apr?: BigNumber
   tradingT: string
   callbackT: string
   rewardT: string

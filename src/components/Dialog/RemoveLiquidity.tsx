@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, TextField } from '@mui/material'
+import { Box, Dialog, DialogContent, Stack, TextField, Typography } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -13,6 +13,7 @@ import { useWeb3React } from '@web3-react/core'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
+import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 import { useFactory } from '../../hook/hookV8/useFactory'
 
 export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => {
@@ -70,6 +71,41 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               }}
             />
           </div>
+          <Box
+            padding={'24px 0'}
+            width={392}
+            margin={'auto'}
+            sx={{
+              borderBottom: '1px solid #DADADA',
+            }}
+          >
+            <Stack direction={'row'}>
+              <WarningIcon />
+              <Typography
+                fontFamily={'Inter'}
+                fontSize={16}
+                fontWeight={500}
+                lineHeight={'150%'}
+                sx={{ marginLeft: '8px !important' }}
+              >
+                Liquidity Remove Limit
+              </Typography>
+            </Stack>
+            <Typography
+              fontFamily={'Inter'}
+              fontSize={14}
+              fontWeight={400}
+              lineHeight={'150%'}
+              sx={{ marginTop: '16px !important' }}
+            >
+              <span style={{ fontWeight: 600 }}>Reminder: </span>
+              <span>
+                When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
+                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
+                a stable and fair trading environment on our platform.
+              </span>
+            </Typography>
+          </Box>
           <div
             css={css`
               padding: 24px;
