@@ -12,6 +12,7 @@ import KravSwitch from '../../KravUIKit/KravSwitch'
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 // import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
+import { formatNumber } from '../../../utils'
 
 type PairInfoProps = {
   setIsOpenSelectToken: Dispatch<React.SetStateAction<boolean>>
@@ -133,7 +134,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
                 align-items: center;
               `}
             >
-              <span>{openDaiLong || '-'}</span>
+              <span>{formatNumber(openDaiLong?.toString() || '', 2, false) || '-'}</span>
             </p>
           </div>
           <div
@@ -152,7 +153,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
                 align-items: center;
               `}
             >
-              <span>{openDaiShort || '-'}</span>
+              <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
             </p>
           </div>
           <div
@@ -166,10 +167,13 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             </p>
             <p
               css={css`
-                color: #db4c40;
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort) ? '#009b72' : '#db4c40'};
               `}
             >
-              <span>{borrowLongVal?.toFixed(4)}%</span>
+              <span>
+                {openDaiShort && openDaiLong?.gt(openDaiShort) ? '' : '-'}
+                {borrowLongVal?.toFixed(4)}%
+              </span>
             </p>
           </div>
           <div
@@ -183,10 +187,13 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             </p>
             <p
               css={css`
-                color: #db4c40;
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort) ? '#db4c40' : '#009b72'};
               `}
             >
-              <span>{borrowShortVal?.toFixed(4)}%</span>
+              <span>
+                {openDaiShort && openDaiLong?.gt(openDaiShort) ? '-' : ''}
+                {borrowShortVal?.toFixed(4)}%
+              </span>
             </p>
           </div>
         </div>
