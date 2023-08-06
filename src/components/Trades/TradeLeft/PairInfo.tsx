@@ -166,7 +166,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             </p>
             <p
               css={css`
-                color: #db4c40;
+                color: ${borrowLongVal?.gt(0) ? '#009b72' : '#db4c40'};
               `}
             >
               <span>{borrowLongVal?.toFixed(4)}%</span>
@@ -183,7 +183,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             </p>
             <p
               css={css`
-                color: #db4c40;
+                color: ${borrowShortVal?.gt(0) ? '#009b72' : '#db4c40'};
               `}
             >
               <span>{borrowShortVal?.toFixed(4)}%</span>
