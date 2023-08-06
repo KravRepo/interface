@@ -5,13 +5,12 @@ import { Contract } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import pair_info from '../../abi/pair_info_v6_1.json'
 import BigNumber from 'bignumber.js'
-import { formatNumber } from '../../utils'
 // import { eXDecimals } from '../../utils/math'
 
 export const useGetMarketStats = (address: string, decimals: number, pairInfoAddress: string) => {
   const { account, provider } = useWeb3React()
-  const [openDaiLong, setOpenDaiLong] = useState<string | number | undefined>()
-  const [openDaiShort, setOpenDaiShort] = useState<string | number | undefined>()
+  const [openDaiLong, setOpenDaiLong] = useState<BigNumber | undefined>()
+  const [openDaiShort, setOpenDaiShort] = useState<BigNumber | undefined>()
   const [borrowLongVal, setBorrowLongVal] = useState<BigNumber | undefined>()
   const [borrowShortVal, setBorrowShortVal] = useState<BigNumber | undefined>()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
@@ -28,9 +27,9 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
             pairInfoContract.getFundingFeePerBlockP(0),
           ])
           const long = new BigNumber(longRes._hex).div(Number(`1e${decimals}`))
-          setOpenDaiLong(formatNumber(long.toString(), 2, false))
+          setOpenDaiLong(long)
           const short = new BigNumber(shortRes._hex).div(Number(`1e${decimals}`))
-          setOpenDaiShort(formatNumber(short.toString(), 2, false))
+          setOpenDaiShort(short)
           const feePer = new BigNumber(infoRes._hex)
           const longVal =
             long.toString() !== '0'
