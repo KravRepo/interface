@@ -6,11 +6,12 @@ import { css } from '@emotion/react'
 import { useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
-import React, { Dispatch, useCallback, useEffect, useState } from 'react'
+import React, { Dispatch, useEffect } from 'react'
 import KravSwitch from '../../KravUIKit/KravSwitch'
-import { MARKET_CHANGE_API } from '../../../constant/chain'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+// import { MARKET_CHANGE_API } from '../../../constant/chain'
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+// import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 
 type PairInfoProps = {
   setIsOpenSelectToken: Dispatch<React.SetStateAction<boolean>>
@@ -20,11 +21,11 @@ type PairInfoProps = {
 
 export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: PairInfoProps) => {
   const theme = useTheme()
-  const [oneDayChange, setOneDayChange] = useState(0)
-  const [oneDayChangePrice, setOneDayChangePrice] = useState(0)
-  const [oneDayHeight, setOneDayHeight] = useState(0)
-  const [oneDayLow, setOneDayLow] = useState(0)
-  const { BTCPrice, isBTCRise, allPoolParams, setTradePool, isLoadingFactory } = useRootStore((state) => ({
+  // const [oneDayChange, setOneDayChange] = useState(0)
+  // const [oneDayChangePrice, setOneDayChangePrice] = useState(0)
+  // const [oneDayHeight, setOneDayHeight] = useState(0)
+  // const [oneDayLow, setOneDayLow] = useState(0)
+  const { BTCPrice, isBTCRise, allPoolParams, tradePool, setTradePool, isLoadingFactory } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     isBTCRise: state.isBTCRise,
     tradePool: state.tradePool,
@@ -32,6 +33,12 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     allPoolParams: state.allPoolParams,
     isLoadingFactory: state.isLoadingFactory,
   }))
+
+  const { openDaiLong, openDaiShort, borrowLongVal, borrowShortVal } = useGetMarketStats(
+    tradePool?.storageT || '',
+    tradePool?.decimals || 18,
+    tradePool.pairInfoT || ''
+  )
 
   const handleModelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsProModel(event.target.checked)
@@ -46,28 +53,28 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     }
   }, [isLoadingFactory])
 
-  const getData = useCallback(async () => {
-    try {
-      const response = await fetch(MARKET_CHANGE_API)
-      const data = await response.json()
-      setOneDayHeight(Number(data.data.highPrice))
-      setOneDayLow(Number(data.data.lowPrice))
-      setOneDayChange(Number(data.data.priceChangePercent))
-      setOneDayChangePrice(Number(data.data.priceChange))
-    } catch (e) {
-      console.error('get 24hr price data failed!', e)
-    }
-  }, [])
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const response = await fetch(MARKET_CHANGE_API)
+  //     const data = await response.json()
+  //     setOneDayHeight(Number(data.data.highPrice))
+  //     setOneDayLow(Number(data.data.lowPrice))
+  //     setOneDayChange(Number(data.data.priceChangePercent))
+  //     setOneDayChangePrice(Number(data.data.priceChange))
+  //   } catch (e) {
+  //     console.error('get 24hr price data failed!', e)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    getData().then()
-    const interval = setInterval(async () => {
-      await getData()
-    }, 7000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
+  // useEffect(() => {
+  //   getData().then()
+  //   const interval = setInterval(async () => {
+  //     await getData()
+  //   }, 7000)
+  //   return () => {
+  //     clearInterval(interval)
+  //   }
+  // }, [])
 
   return (
     <div css={[pairInfo, card]}>
@@ -117,23 +124,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             `}
           >
             <p>
-              <Trans>24h Change</Trans>
+              <Trans>Open Interest(L)</Trans>
             </p>
             <p
               css={css`
-                color: ${oneDayChange > 0 ? '#009b72' : '#db4c40'};
+                color: #000;
                 display: flex;
                 align-items: center;
               `}
             >
-              {oneDayChange > 0 && (
-                <ArrowDropUpIcon sx={{ color: '#009b72', height: '18px', width: '18px', marginLeft: '-5px' }} />
-              )}
-              {oneDayChange < 0 && (
-                <ArrowDropDownIcon sx={{ color: '#db4c40', height: '18px', width: '18px', marginLeft: '-5px' }} />
-              )}
-              <span>{oneDayChangePrice.toFixed(2)}</span>
-              <span>({oneDayChange})%</span>
+              <span>{openDaiLong || '-'}</span>
             </p>
           </div>
           <div
@@ -143,14 +143,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             `}
           >
             <p>
-              <Trans>24H High</Trans>
+              <Trans>Open Interest(S)</Trans>
             </p>
             <p
               css={css`
-                color: #000000;
+                color: #000;
+                display: flex;
+                align-items: center;
               `}
             >
-              <span>{oneDayHeight.toFixed(2)}</span>
+              <span>{openDaiShort || '-'}</span>
             </p>
           </div>
           <div
@@ -160,14 +162,31 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
             `}
           >
             <p>
-              <Trans>24H Low</Trans>
+              <Trans>Borrowing(L)</Trans>
             </p>
             <p
               css={css`
-                color: #000000;
+                color: #db4c40;
               `}
             >
-              <span>{oneDayLow.toFixed(2)}</span>
+              <span>{borrowLongVal?.toFixed(4)}%</span>
+            </p>
+          </div>
+          <div
+            className="info-card"
+            css={css`
+              border-left: ${theme.card.splitLine};
+            `}
+          >
+            <p>
+              <Trans>Borrowing(S)</Trans>
+            </p>
+            <p
+              css={css`
+                color: #db4c40;
+              `}
+            >
+              <span>{borrowShortVal?.toFixed(4)}%</span>
             </p>
           </div>
         </div>
