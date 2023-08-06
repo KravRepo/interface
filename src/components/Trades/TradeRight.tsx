@@ -57,7 +57,7 @@ export const TradeRight = ({
         tradeType={tradeType}
         setTradeType={setTradeType}
       />
-      <PositionOverView tradeType={tradeType} />
+      <PositionOverView isBuy={isBuy} />
       <UsefulLinks />
     </div>
   )
