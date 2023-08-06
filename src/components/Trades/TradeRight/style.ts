@@ -47,3 +47,40 @@ export const activeTab = css`
   color: #000;
   font-weight: 700;
 `
+
+export const attention = css`
+  margin: 16px 0 24px;
+  background: #f1f1f1;
+  border-radius: 4px;
+  padding: 24px 16px;
+  .title {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #dadada;
+    display: flex;
+    align-items: center;
+    > span {
+      margin-left: 10px;
+      font-family: 'Inter';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 140%;
+    }
+  }
+  .order-limit {
+    margin-bottom: 16px;
+  }
+  .content {
+    font-family: 'Inter';
+    font-weight: 500;
+    line-height: 140%;
+    > p:first-of-type {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    > p:last-of-type {
+      font-size: 14px;
+    }
+  }
+`
