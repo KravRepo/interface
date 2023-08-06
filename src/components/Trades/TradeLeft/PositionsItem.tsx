@@ -95,10 +95,12 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
           <div>${BTCPrice.toFixed(2)}</div>
-          <div onClick={() => setIsOpen(true)}>
+          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             {openTrade.sl.toString() === '0' ? `$${liqPrice.toFixed(2)}` : `$${BigNumber(openTrade.sl).toFixed(2)}`}
           </div>
-          <div onClick={() => setIsOpen(true)}>${BigNumber(openTrade.tp).toFixed(2)}</div>
+          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
+            ${BigNumber(openTrade.tp).toFixed(2)}
+          </div>
           <div>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
           </div>
