@@ -76,6 +76,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
             {lockAmount.isGreaterThan(0)
               ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFixed(2)
               : eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)}
+            {position.pool.symbol}
             <HelpOutlineOutlinedIcon sx={{ height: '12px', width: '12px', ml: '4px' }} />
           </span>
         </Tooltip>
@@ -86,7 +87,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
           <span>
             {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
               ? position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).minus(position.pool.blockNumber).toFixed(0)
-              : '--'}
+              : '0'}
           </span>
         </Tooltip>
       </div>

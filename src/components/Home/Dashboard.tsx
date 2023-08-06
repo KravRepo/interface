@@ -61,21 +61,18 @@ export const Dashboard = () => {
       // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
       getOverView().then(),
       getUserAssetOverview(),
-      getUserAllLimitOrders(),
     ]).then()
-    const interval = setInterval(async () => {
+    getUserAllLimitOrders().then()
+    setInterval(async () => {
+      console.log('get user asset data ')
       await Promise.all([
         getOverView(),
         // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
         getUserAssetOverview(),
-        getUserAllLimitOrders(),
       ])
+      await getUserAllLimitOrders()
     }, 15000)
-
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
+  }, [account])
 
   useEffect(() => {
     let interval: NodeJS.Timer
