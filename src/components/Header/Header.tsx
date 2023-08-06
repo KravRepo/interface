@@ -208,9 +208,9 @@ export const Header = () => {
             <NavLink to={'/portfolio'} css={[router, isHomePath ? routerActive : '']}>
               <Trans>Portfolio</Trans>
             </NavLink>
-            {/*<Link underline={'none'} css={router}>*/}
-            {/*  <Trans>Statistics</Trans>*/}
-            {/*</Link>*/}
+            <NavLink to={'/statistics'} css={[router, pathname === '/statistics' ? routerActive : '']}>
+              <Trans>Statistics</Trans>
+            </NavLink>
           </Box>
         </div>
         <div css={align}>
