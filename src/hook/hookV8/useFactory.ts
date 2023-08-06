@@ -133,7 +133,6 @@ export const useFactory = () => {
         }
       })
       setAllPoolParams(forMatter)
-      console.log('forMatter', forMatter)
       setIsLoadingFactory(false)
       return forMatter
     } catch (e) {

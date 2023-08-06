@@ -14,3 +14,4 @@ export const MINI_POSITION_SIZE = 1500
 export const ONE_DAY_TIMESTAMP = 3600000 * 24
 export const BASE_ONE_HOUR_BLOCK = (60 * 60) / 2
 export const ONE_YEAR_TIMESTAMP = 1000 * 60 * 60 * 24 * 365
+export const WITHDRAW_BLOCK_DIFF = 43200

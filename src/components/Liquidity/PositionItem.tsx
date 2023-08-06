@@ -9,6 +9,7 @@ import { useRootStore } from '../../store/root'
 import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
+import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
 
 export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
@@ -64,7 +65,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         </p>
       </div>
       <div>
-        {position.withdrawBlock.plus(43200).isGreaterThan(position.pool.blockNumber)
+        {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
           ? eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)
           : lockAmount.toFixed(2)}
       </div>
@@ -72,8 +73,8 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
       <div>
         <Tooltip title={`Current block: ${position.pool.blockNumber}`}>
           <span>
-            {position.withdrawBlock.plus(43200).isGreaterThan(position.pool.blockNumber)
-              ? position.withdrawBlock.plus(43200).toFixed(0)
+            {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
+              ? position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).toFixed(0)
               : '--'}
           </span>
         </Tooltip>
@@ -101,7 +102,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
           <AddIcon height="17" width="17" />
         </Button>
         <Button
-          disabled={position.withdrawBlock.plus(43200).isGreaterThan(position.pool.blockNumber)}
+          disabled={position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)}
           onClick={() => {
             setLiquidityInfo(position.pool)
             setRemoveLiquidity(true)
