@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import KARVSearchTextField from '../../components/KravUIKit/KarvSearchTextField'
+// import KARVSearchTextField from '../../components/KravUIKit/KarvSearchTextField'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TargetMarketProps } from './type'
 import { useRootStore } from '../../store/root'
@@ -52,9 +52,10 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         <span>{tableData.length > 0 ? ` (${tableData.length})` : ''}</span>
       </div>
       <div className="liquidity-search">
-        <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} />
+        {/* <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} /> */}
+        <></>
         {account && (
-          <KRAVButton sx={{ width: '132px' }} onClick={() => setCreateLiquidityPool(true)}>
+          <KRAVButton sx={{ width: '132px', marginLeft: 'auto' }} onClick={() => setCreateLiquidityPool(true)}>
             Create Liquidity
           </KRAVButton>
         )}
