@@ -5,7 +5,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
-import { Tuple } from '../Trades/type'
+import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
 import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
 import { OPEN_FEES } from '../../constant/math'
@@ -17,7 +17,7 @@ import { decodeReferral } from '../../utils'
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  tuple: Tuple
+  tuple: TupleWithTrade
   tradeType: number
   openBTCSize: BigNumber
   setPositionSizeDai: Dispatch<React.SetStateAction<BigNumber>>

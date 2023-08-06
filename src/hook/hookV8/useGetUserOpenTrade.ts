@@ -26,9 +26,24 @@ export const useGetUserOpenTrade = () => {
             }
           }
           const res = await Promise.all(task)
-          const openTrades = forMatterOpenTrades(res, trades, account)
+          const openTrades = forMatterOpenTrades(res, trades, account, false)
+          const userMarketOrder: Tuple[] = []
+          const blockNumber = await provider.getBlockNumber()
+          const userPendingOrder = await contract.getPendingOrderIds(account)
+          const userPendingOrderTask: any[] = []
+          userPendingOrder.forEach((orderId: BigNumber) => {
+            userPendingOrderTask.push(contract.reqID_pendingMarketOrder(orderId.toString()))
+          })
+          const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
+          // console.log('userPendingOrderDetails', userPendingOrderDetails)
+          userPendingOrderDetails.forEach((details, index) => {
+            if (new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))) {
+              const res = forMatterOpenTrades(details, 1, account, true, new BigNumber(userPendingOrder[index]._hex))
+              userMarketOrder.push(res[0])
+            }
+          })
           console.log('userOpenTrades', openTrades)
-          if (setStore) setUserOpenTradeList(openTrades)
+          if (setStore) setUserOpenTradeList(openTrades.concat(userMarketOrder))
           else setUserOpenTrades(openTrades)
         }
       } catch (e) {
