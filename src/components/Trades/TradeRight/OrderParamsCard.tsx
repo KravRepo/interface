@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Input, Slider, TextField } from '@mui/material'
+import { Button, Input, Slider, styled, TextField } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
@@ -92,6 +92,62 @@ enum ButtonText {
   REACHED_LIMIT = 'Reached max positions limit',
   MIN_SIZE = 'Min position size is 1500',
 }
+
+const LongButton = styled(Button)({
+  whiteSpace: 'nowrap',
+  textTransform: 'none',
+  width: '100%',
+  fontFamily: 'Inter',
+  color: '#fff',
+  background: '#DB4C40',
+  borderRadius: '4px',
+  padding: '10px 16px',
+  height: '40px',
+  fontSize: '14px',
+  '&:hover': {
+    backgroundColor: '#C3352A',
+  },
+  '&:active': {
+    background: 'red',
+  },
+  '&.Mui-disabled': {
+    background: '#dadada',
+    color: '#fff',
+    cursor: 'not-allowed',
+    pointerEvents: 'auto',
+  },
+  '& .MuiTouchRipple-root': {
+    color: 'white',
+  },
+})
+
+const ShortButton = styled(Button)({
+  whiteSpace: 'nowrap',
+  textTransform: 'none',
+  width: '100%',
+  fontFamily: 'Inter',
+  color: '#fff',
+  background: '#009B72',
+  borderRadius: '4px',
+  padding: '10px 16px',
+  height: '40px',
+  fontSize: '14px',
+  '&:hover': {
+    backgroundColor: '#077054',
+  },
+  '&:active': {
+    background: 'red',
+  },
+  '&.Mui-disabled': {
+    background: '#dadada',
+    color: '#fff',
+    cursor: 'not-allowed',
+    pointerEvents: 'auto',
+  },
+  '& .MuiTouchRipple-root': {
+    color: 'white',
+  },
+})
 
 //TODO Add sl and tp setting
 export const OrderParamsCard = ({
@@ -956,23 +1012,47 @@ export const OrderParamsCard = ({
               </div>
             </div>
           )}
-          <KRAVButton
-            disabled={
-              buttonState === ButtonText.INSUFFICIENT_BALANCE ||
-              buttonState === ButtonText.REACHED_LIMIT ||
-              buttonState === ButtonText.MIN_SIZE ||
-              buttonState === ButtonText.ENTER_AMOUNT
-            }
-            onClick={async () => {
-              if (buttonState === 'Connect Wallet') {
-                setWalletDialogVisibility(true)
-              } else {
-                await handleButtonClick()
+          {!account && (
+            <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
+          )}
+          {account && isBuy && (
+            <LongButton
+              disabled={
+                buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+                buttonState === ButtonText.REACHED_LIMIT ||
+                buttonState === ButtonText.MIN_SIZE ||
+                buttonState === ButtonText.ENTER_AMOUNT
               }
-            }}
-          >
-            <Trans>{buttonState}</Trans>
-          </KRAVButton>
+              onClick={async () => {
+                if (buttonState === 'Connect Wallet') {
+                  setWalletDialogVisibility(true)
+                } else {
+                  await handleButtonClick()
+                }
+              }}
+            >
+              <Trans>{buttonState}</Trans>
+            </LongButton>
+          )}
+          {account && !isBuy && (
+            <ShortButton
+              disabled={
+                buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+                buttonState === ButtonText.REACHED_LIMIT ||
+                buttonState === ButtonText.MIN_SIZE ||
+                buttonState === ButtonText.ENTER_AMOUNT
+              }
+              onClick={async () => {
+                if (buttonState === 'Connect Wallet') {
+                  setWalletDialogVisibility(true)
+                } else {
+                  await handleButtonClick()
+                }
+              }}
+            >
+              <Trans>{buttonState}</Trans>
+            </ShortButton>
+          )}
         </>
       </div>
     </>
