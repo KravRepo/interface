@@ -65,11 +65,11 @@ export const PositionOverView = ({ tradeType }: PositionOverViewProps) => {
           </p>
         )}
         <p className="card-details">
-          <span>Borrow Fee</span>
+          <span>Borrow Fee:&nbsp;</span>
           <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
         </p>
         <p className="card-details">
-          <span>Available Liquidity</span>
+          <span>Available Liquidity:&nbsp;</span>
           <span>
             {tradePool?.poolCurrentBalance?.toFixed(2)} {tradePool?.symbol}
           </span>
