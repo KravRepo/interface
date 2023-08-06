@@ -46,7 +46,9 @@ export const Orders = () => {
               <div>${limit.minPrice.toFixed(2)}</div>
               <div>${BTCPrice.toFixed(2)}</div>
               <div>{limit.leverage}</div>
-              <div>${new BigNumber(limit.positionSize).toFixed(2)}</div>
+              <div>
+                ${new BigNumber(limit.positionSize).toFixed(2)} {tradePool.symbol}
+              </div>
               <div
                 css={css`
                   cursor: pointer;

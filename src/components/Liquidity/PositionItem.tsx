@@ -74,7 +74,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         <Tooltip title={`Current block: ${position.pool.blockNumber}`}>
           <span>
             {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
-              ? position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).toFixed(0)
+              ? position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).minus(position.pool.blockNumber).toFixed(0)
               : '--'}
           </span>
         </Tooltip>

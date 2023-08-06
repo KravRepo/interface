@@ -43,7 +43,7 @@ export const YourPosition = ({
           <div>APR</div>
           <div>UTILIZATION</div>
           <div>YOUR LIQUIDITY SUPPLY</div>
-          <div>LOCKED</div>
+          <div>REMOVE LIMIT</div>
           <div>WITHDRAW_BLOCK</div>
         </div>
         {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
