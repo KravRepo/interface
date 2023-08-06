@@ -37,8 +37,17 @@ export const useCancelOpenLimitOrder = (tradingAddress: string, storageAddress: 
           content: `Limit order canceled successfully`,
         })
         console.log('close tx', close)
-      } catch (e) {
-        updateError(TransactionAction.CANCEL_LIMIT_ORDER)
+      } catch (e: any) {
+        if (e.reason.includes('LIMIT_TIMELOCK')) {
+          updateError(
+            TransactionAction.CANCEL_LIMIT_ORDER,
+            'Newly created orders cannot be canceled immediately, you need to wait for 30 blocks before canceling.'
+          )
+        } else {
+          updateError(TransactionAction.CANCEL_LIMIT_ORDER)
+        }
+
+        console.error(JSON.stringify(e))
       }
     },
     [contract, tradingAddress, storageAddress]
