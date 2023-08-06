@@ -342,7 +342,7 @@ export const OrderParamsCard = ({
   }
 
   useEffect(() => {
-    if (loadingData || !account) setButtonState(ButtonText.CONNECT_WALLET)
+    if (!account) setButtonState(ButtonText.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
       setButtonState(ButtonText.REACHED_LIMIT)
     else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
