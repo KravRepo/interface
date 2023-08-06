@@ -383,6 +383,12 @@ export const stake = css`
       border: 1px solid #2e2e2e;
       cursor: pointer;
     }
+    .grey {
+      color: #757575;
+    }
+    .small {
+      font-size: 12px;
+    }
   }
 `
 

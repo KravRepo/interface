@@ -66,7 +66,7 @@ export const Farm = () => {
               <span>PER TICKET SIZE</span>
               <span>APR</span>
               <span>UTILIZATION</span>
-              <span>TOTAL LIQUIDITY SUPPLY</span>
+              <span>YOUR LIQUIDITY SUPPLY</span>
               <span>LP REWARD</span>
               <span />
             </div>

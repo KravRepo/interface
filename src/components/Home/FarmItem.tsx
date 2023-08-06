@@ -10,6 +10,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { getBigNumberStr } from '../../utils'
 import { useWeb3React } from '@web3-react/core'
 import { AprList } from '../../hook/hookV8/useGetApr'
+import { eXDecimals } from '../../utils/math'
 
 type FarmItemProps = {
   position: UserData
@@ -60,8 +61,13 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
       <div>{apr.toFixed(2)}%</div>
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>
-        {' '}
-        {position.pool.poolTotalSupply?.toFixed(2)} {position.pool.symbol}
+        <p>
+          {eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)} {position.pool.symbol}
+        </p>
+        <p className="small grey">
+          ({eXDecimals(position.daiDeposited, position.pool.decimals).div(position.pool.proportionBTC).toFixed(2)}
+          &nbsp;BTC)
+        </p>
       </div>
       <div>
         {getBigNumberStr(lpReward, 2)} {position.pool.symbol}
