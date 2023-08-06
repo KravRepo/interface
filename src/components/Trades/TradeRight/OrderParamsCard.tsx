@@ -18,6 +18,7 @@ import { TransactionAction, TransactionState } from '../../../store/TransactionS
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
 import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
 import { getBigNumberStr } from '../../../utils'
+import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 
 const marks = [
   {
@@ -166,6 +167,7 @@ export const OrderParamsCard = ({
   tradeType,
   setTradeType,
 }: OrderParamsCardProps) => {
+  const { provider } = useWeb3React()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
   const [tabIndex, setTabIndex] = useState(0)
@@ -174,6 +176,8 @@ export const OrderParamsCard = ({
   const [tpSetting, setTpSetting] = useState(0)
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
+  const [orderLimit, setOrderLimit] = useState(new BigNumber(0))
+  const getOrderLimit = useGetOrderLimit()
   const {
     BTCPrice,
     transactionState,
@@ -384,6 +388,23 @@ export const OrderParamsCard = ({
     }
   }, [])
 
+  useEffect(() => {
+    let interval: NodeJS.Timer
+    if (tradePool && provider) {
+      getOrderLimit().then((res) => {
+        if (res) setOrderLimit(res)
+      })
+      interval = setInterval(async () => {
+        getOrderLimit().then((res) => {
+          if (res) setOrderLimit(res)
+        })
+      }, 15000)
+    }
+    return () => {
+      if (interval) clearInterval(interval)
+    }
+  }, [tradePool, provider])
+
   return (
     <>
       <ConfirmTrade
@@ -444,7 +465,7 @@ export const OrderParamsCard = ({
           </div>
           <div
             css={css`
-              margin-bottom: 12px;
+              margin-bottom: 8px;
             `}
           >
             <span
@@ -455,6 +476,26 @@ export const OrderParamsCard = ({
               Available:
             </span>{' '}
             {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
+          </div>
+          <div
+            css={css`
+              margin-bottom: 12px;
+            `}
+          >
+            <span
+              css={css`
+                color: #757575;
+              `}
+            >
+              Order limit:
+            </span>{' '}
+            <span
+              css={css`
+                color: #2832f5;
+              `}
+            >
+              {getBigNumberStr(orderLimit, 6) || '0'} {tradePool?.symbol}
+            </span>
           </div>
           <>
             <div>
