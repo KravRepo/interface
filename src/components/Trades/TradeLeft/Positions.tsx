@@ -16,11 +16,12 @@ export const Positions = () => {
       >
         <span>Position</span>
         <span>Net value</span>
-        <span>Size</span>
+        {/* <span>Size</span> */}
         <span>Collateral</span>
         <span>Entry price</span>
         <span>Mark price</span>
         <span>Liq.price</span>
+        <span>Take profit</span>
         <span>Close</span>
       </div>
       {userOpenTradeList.length === 0 && <div className="no-data">No open position</div>}

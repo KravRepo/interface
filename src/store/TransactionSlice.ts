@@ -22,6 +22,8 @@ export enum TransactionState {
   STAKE_KRAV = 'stake krav',
   WITHDRAW_KRAV = 'withdraw krav',
   CLAIM_KRAV_REWARD = 'claim krav reward',
+  UPDATE_SL_ORDER = 'Update stop loss...',
+  UPDATE_TP_ORDER = 'Update take profit...',
 }
 
 export enum CreatPoolState {
@@ -40,6 +42,8 @@ export enum TransactionAction {
   REMOVE_LIQUIDITY = 'Removed liquidity',
   CANCEL_LIMIT_ORDER = 'Limit order canceled',
   CANCEL_MARKET_ORDER = 'Market order closed ',
+  UPDATE_SL_ORDER = 'Updated stop loss',
+  UPDATE_TP_ORDER = 'Updated take profit',
   CLAIM_ORDER = 'Claim position',
   APPROVE = 'Approve',
   ADDRESS_CHECK = 'Token address check',

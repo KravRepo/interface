@@ -45,3 +45,44 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
     [contract, tradingAddress, storageAddress]
   )
 }
+
+export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: string) => {
+  const contract = useTradingV6Contract(tradingAddress)!
+  const { getUserOpenTrade } = useGetUserOpenTrade()
+  const updateError = useUpdateError()
+  const updateSuccessDialog = useUpdateSuccessDialog()
+  const setTransactionState = useRootStore((store) => store.setTransactionState)
+  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
+  const setSuccessSnackbarInfo = useRootStore((store) => store.setSuccessSnackbarInfo)
+  return useCallback(
+    async (isSL: boolean, price: BigNumber, orderIndex: number, pairIndex = 0) => {
+      try {
+        const func = isSL ? 'updateSl' : 'updateTp'
+        const params = [pairIndex, orderIndex, price.times(Number(1e10)).toString()] as any
+        let gasLimit = await getGasLimit(contract, func, params)
+        gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+        setTransactionState(TransactionState.INTERACTION)
+        setTransactionDialogVisibility(true)
+        const tx = await contract[func](...params, { gasLimit: gasLimit.toFixed(0) })
+        setTransactionState(isSL ? TransactionState.UPDATE_SL_ORDER : TransactionState.UPDATE_TP_ORDER)
+        const closeTradeMarketTX = await tx.wait()
+        console.log('tx', closeTradeMarketTX)
+        setTransactionDialogVisibility(false)
+        setTransactionState(TransactionState.START)
+        const close = await getUserOpenTrade(storageAddress, true)
+        updateSuccessDialog(isSL ? TransactionAction.UPDATE_SL_ORDER : TransactionAction.UPDATE_TP_ORDER)
+        setSuccessSnackbarInfo({
+          snackbarVisibility: true,
+          title: isSL ? 'Stop loss trade updated' : 'Take profit trade updated',
+          content: `${isSL ? 'Stop loss trade updated' : 'Take profit trade updated'} successfully`,
+        })
+        console.log('close tx ', close)
+      } catch (e) {
+        console.error(e)
+
+        updateError(isSL ? TransactionAction.UPDATE_SL_ORDER : TransactionAction.UPDATE_TP_ORDER)
+      }
+    },
+    [contract, tradingAddress, storageAddress]
+  )
+}

@@ -5,11 +5,12 @@ import { getLiqPrice, getTakeProfit } from '../../../utils/math'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../../store/root'
 import { useCloseTradeMarket } from '../../../hook/hookV8/useCloseTradeMarket'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { css } from '@emotion/react'
 import { PoolParams } from '../../../store/FactorySlice'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
+import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -38,6 +39,10 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
       openTrade.leverage
     )
   }, [openTrade])
+
+  console.log('openTrade', openTrade.sl.toString(), openTrade.tp.toString())
+
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
@@ -81,16 +86,19 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
               <span>({positionTp.toFixed(2)} %)</span>
             </p>
           </div>
-          <div>
+          {/* <div>
             {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)}{' '}
             {pool ? pool.symbol : tradePool.symbol}
-          </div>
+          </div> */}
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
           <div>${BTCPrice.toFixed(2)}</div>
-          <div>${liqPrice.toFixed(2)}</div>
+          <div onClick={() => setIsOpen(true)}>
+            {openTrade.sl.toString() === '0' ? `$${liqPrice.toFixed(2)}` : `$${BigNumber(openTrade.sl).toFixed(2)}`}
+          </div>
+          <div onClick={() => setIsOpen(true)}>${BigNumber(openTrade.tp).toFixed(2)}</div>
           <div>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
           </div>
@@ -136,15 +144,18 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
               <span>({positionTp.toFixed(2)} %)</span>
             </p>
           </div>
-          <div>
+          {/* <div>
             {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).toFixed(2)} {tradePool.symbol}
-          </div>
+          </div> */}
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool.symbol}
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
           <div>${BTCPrice.toFixed(2)}</div>
-          <div>${liqPrice.toFixed(2)}</div>
+          <div>
+            {openTrade.sl.toString() === '0' ? `$${liqPrice.toFixed(2)}` : `$${BigNumber(openTrade.sl).toFixed(2)}`}
+          </div>
+          <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
           <div>
             <KRAVButton onClick={() => claimPosition(openTrade.orderId!, false)}>Claim</KRAVButton>
           </div>
@@ -184,6 +195,14 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
         </div>
       )}
+      <ProfitConfirmTrade
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        lqPrice={liqPrice}
+        btcPrice={BTCPrice}
+        openTrade={openTrade}
+        pool={pool}
+      />
     </>
   )
 }
