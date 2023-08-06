@@ -24,7 +24,7 @@ export const Orders = () => {
       >
         <span>Type</span>
         <span>Order</span>
-        <span>Price</span>
+        <span>Ask Price</span>
         <span>Market Price</span>
         <span>Leverage</span>
         <span>Collateral</span>
