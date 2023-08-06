@@ -34,19 +34,21 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
       if (way === 'apr') {
         tableData.sort((a, b) => {
           if (sort === 'asc') {
-            return a.apr - b.apr
-          } else return b.apr - a.apr
+            return Number(a.apr) - Number(b.apr)
+          } else return Number(b.apr) - Number(a.apr)
         })
       } else {
         tableData.sort((a, b) => {
           if (sort === 'asc') {
-            return a.poolTotalSupply - b.poolTotalSupply
-          } else return b.poolTotalSupply - a.poolTotalSupply
+            return Number(a.poolTotalSupply) - Number(b.poolTotalSupply)
+          } else return Number(b.poolTotalSupply) - Number(a.poolTotalSupply)
         })
       }
     },
-    [allPoolParams, aprList]
+    [tableData]
   )
+
+  console.log('tableData', tableData)
 
   return (
     <div className="liquidity-content">
@@ -99,7 +101,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 }}
                 onClick={() => {
                   setAprAsc(true)
-                  reorderClick('asc', 'apr')
+                  reorderClick('desc', 'apr')
                 }}
               />
               <ArrowDropDownIcon
@@ -110,7 +112,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 }}
                 onClick={() => {
                   setAprAsc(false)
-                  reorderClick('desc', 'apr')
+                  reorderClick('asc', 'apr')
                 }}
               />
             </Stack>
@@ -148,7 +150,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 }}
                 onClick={() => {
                   setTotalAsc(true)
-                  reorderClick('asc', 'total')
+                  reorderClick('desc', 'total')
                 }}
               />
               <ArrowDropDownIcon
@@ -159,7 +161,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 }}
                 onClick={() => {
                   setTotalAsc(false)
-                  reorderClick('desc', 'total')
+                  reorderClick('asc', 'total')
                 }}
               />
             </Stack>
