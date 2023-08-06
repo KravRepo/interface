@@ -539,9 +539,6 @@ export const referral = css`
       > svg:hover path:last-child {
         fill: #757575;
       }
-      > svg:last-child:hover path {
-        fill: #757575;
-      }
     }
   }
   .referral-stats {
