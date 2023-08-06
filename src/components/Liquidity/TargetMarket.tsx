@@ -9,19 +9,21 @@ import { MarketSkeleton } from './MarketSkeleton'
 import { Stack, Typography } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList }: TargetMarketProps) => {
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
+  const [aprAsc, setAprAsc] = useState(false)
+  const [totalAsc, setTotalAsc] = useState(false)
 
   const tableData = useMemo(() => {
     if (!aprList || !allPoolParams) return []
     const res = allPoolParams.map((item: any, index: number) => {
       return {
         ...item,
-        apr: aprList[index].apr.toFixed(2),
+        apr: aprList[index]?.apr.toFixed(2),
       }
     })
     return res
@@ -79,20 +81,34 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                   width: 10,
                   height: 9,
                   transform: 'scale(1.8)',
-                  '& path': {
-                    fill: '#757575',
-                  },
                 },
                 '& svg:hover path': {
                   fill: '#000',
                 },
-                '& svg:visited path': {
-                  fill: '#000',
-                },
               }}
             >
-              <ArrowDropUpIcon onClick={() => reorderClick('asc', 'apr')} />
-              <ArrowDropDownIcon onClick={() => reorderClick('desc', 'apr')} />
+              <ArrowDropUpIcon
+                sx={{
+                  '& path': {
+                    fill: aprAsc ? '#000' : '#757575',
+                  },
+                }}
+                onClick={() => {
+                  setAprAsc(true)
+                  reorderClick('asc', 'apr')
+                }}
+              />
+              <ArrowDropDownIcon
+                sx={{
+                  '& path': {
+                    fill: aprAsc ? '#757575' : '#000',
+                  },
+                }}
+                onClick={() => {
+                  setAprAsc(false)
+                  reorderClick('desc', 'apr')
+                }}
+              />
             </Stack>
           </Stack>
           <div>UTILIZATION</div>
@@ -114,20 +130,34 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                   width: 10,
                   height: 9,
                   transform: 'scale(1.8)',
-                  '& path': {
-                    fill: '#757575',
-                  },
                 },
                 '& svg:hover path': {
                   fill: '#000',
                 },
-                '& svg:visited path': {
-                  fill: '#000',
-                },
               }}
             >
-              <ArrowDropUpIcon onClick={() => reorderClick('asc', 'apr')} />
-              <ArrowDropDownIcon onClick={() => reorderClick('desc', 'apr')} />
+              <ArrowDropUpIcon
+                sx={{
+                  '& path': {
+                    fill: totalAsc ? '#000' : '#757575',
+                  },
+                }}
+                onClick={() => {
+                  setTotalAsc(true)
+                  reorderClick('asc', 'apr')
+                }}
+              />
+              <ArrowDropDownIcon
+                sx={{
+                  '& path': {
+                    fill: totalAsc ? '#757575' : '#000',
+                  },
+                }}
+                onClick={() => {
+                  setTotalAsc(false)
+                  reorderClick('desc', 'apr')
+                }}
+              />
             </Stack>
           </Stack>
           <div>YOUR LIQUIDITY SUPPLY</div>
