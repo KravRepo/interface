@@ -29,21 +29,24 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
     return res
   }, [allPoolParams, aprList])
 
-  const reorderClick = useCallback((sort: 'asc' | 'desc', way: string) => {
-    if (way === 'apr') {
-      tableData.sort((a, b) => {
-        if (sort === 'asc') {
-          return a.apr - b.apr
-        } else return b.apr - a.apr
-      })
-    } else {
-      tableData.sort((a, b) => {
-        if (sort === 'asc') {
-          return a.poolTotalSupply - b.poolTotalSupply
-        } else return b.poolTotalSupply - a.poolTotalSupply
-      })
-    }
-  }, [])
+  const reorderClick = useCallback(
+    (sort: 'asc' | 'desc', way: string) => {
+      if (way === 'apr') {
+        tableData.sort((a, b) => {
+          if (sort === 'asc') {
+            return a.apr - b.apr
+          } else return b.apr - a.apr
+        })
+      } else {
+        tableData.sort((a, b) => {
+          if (sort === 'asc') {
+            return a.poolTotalSupply - b.poolTotalSupply
+          } else return b.poolTotalSupply - a.poolTotalSupply
+        })
+      }
+    },
+    [allPoolParams, aprList]
+  )
 
   return (
     <div className="liquidity-content">

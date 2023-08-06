@@ -2,7 +2,6 @@
 import { css } from '@emotion/react'
 import { bottomCard } from '../style'
 import { useRootStore } from '../../../store/root'
-import { getBorrowFees } from '../../../utils/math'
 import { ReactComponent as ExchangeIcon } from '../../../assets/imgs/exchange.svg'
 import { useState } from 'react'
 import BigNumber from 'bignumber.js'
@@ -64,10 +63,6 @@ export const PositionOverView = ({ isBuy }: PositionOverViewProps) => {
             -
           </p>
         )}
-        <p className="card-details">
-          <span>Borrow Fee:&nbsp;</span>
-          <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
-        </p>
         <p className="card-details">
           <span>Available Liquidity:&nbsp;</span>
           <span>
