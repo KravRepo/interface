@@ -14,6 +14,14 @@ type HistoryItemProps = {
   pool?: PoolParams
 }
 
+// enum LimitOrder {
+//   MARKET,
+//   TP,
+//   SL,
+//   LIQ,
+//   OPEN,
+// }
+
 export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   const tradePool = useRootStore((state) => state.tradePool)
 
@@ -26,6 +34,23 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
             pool ? pool.decimals : tradePool.decimals
           )
     } else return new BigNumber(0)
+  }, [history])
+
+  const tradeType = useMemo(() => {
+    switch (history.limitOrderType.toString()) {
+      case '-1':
+        return 'MARKET'
+      case '0':
+        return 'Take Profit'
+      case '1':
+        return 'StopLoss'
+      case '2':
+        return 'Liquidate'
+      case '3':
+        return 'OPEN'
+      default:
+        return 'MARKET'
+    }
   }, [history])
 
   return (
@@ -46,7 +71,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
           color: ${history.tradeBuy ? '#009B72' : '#DB4C40'};
         `}
       >
-        MARKET
+        {tradeType}
       </div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>
