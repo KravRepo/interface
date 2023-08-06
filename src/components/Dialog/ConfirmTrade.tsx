@@ -90,15 +90,13 @@ export const ConfirmTrade = ({
                     margin-bottom: 36px;
                   `}
                 >
-                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol} ($
-                  {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)})
+                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
                 </p>
                 <p>
                   <ArrowDownIcon />
                 </p>
                 <p>
-                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC($
-                  {openBTCSize.times(eXDecimals(tuple.openPrice, 18)).toFixed(2)})
+                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC
                 </p>
               </div>
             </div>

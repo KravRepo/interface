@@ -89,7 +89,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
         >
           <div>
             <span>Market</span>
-            <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
+            {/*<KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />*/}
           </div>
           <div
             onClick={() => {
