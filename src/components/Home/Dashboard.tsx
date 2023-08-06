@@ -99,7 +99,7 @@ export const Dashboard = () => {
       >
         <p>Earned Income</p>
         <p css={align}>
-          <span>{formatNumber(Number(userAssetOverview.lpRewardBalance) / 100, 2)}</span>
+          <span>{formatNumber(Number(userAssetOverview?.lpRewardBalance) / 100, 2)}</span>
           <ArrowLeft
             css={css`
               margin-left: 16px;
@@ -123,7 +123,7 @@ export const Dashboard = () => {
               <div className="details">
                 <div className="total">
                   <div>Total Value</div>
-                  <div>{formatNumber(Number(userAssetOverview.balance) / 100, 2)}</div>
+                  <div>{formatNumber(Number(userAssetOverview?.balance) / 100, 2)}</div>
                 </div>
                 <div
                   css={css`

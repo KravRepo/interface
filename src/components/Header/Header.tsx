@@ -436,7 +436,7 @@ export const Header = () => {
       </header>
       {chainId !== TEST_CHAIN_ID && account && (
         <div css={UnSupport}>
-          UnSupported network! &nbsp;
+          Unsupported network! &nbsp;
           <span
             onClick={async () => {
               if (connection) {

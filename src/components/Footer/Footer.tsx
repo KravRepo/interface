@@ -2,7 +2,7 @@
 import { footer, doc } from './style'
 import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { ReactComponent as Twitter } from '../../assets/imgs/twitter.svg'
-// import { ReactComponent as Medium } from 'assets/imgs/medium.svg'
+import { ReactComponent as Medium } from '../../assets/imgs/medium.svg'
 // import { ReactComponent as Github } from 'assets/imgs/github.svg'
 // import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
 import { css } from '@emotion/react'
@@ -46,13 +46,16 @@ export const Footer = () => {
                 `}
               />
             </Link>
-            {/*<Medium*/}
-            {/*  height="24"*/}
-            {/*  width="24"*/}
-            {/*  css={css`*/}
-            {/*    margin-right: 16px;*/}
-            {/*  `}*/}
-            {/*/>*/}
+            <Link underline="none" sx={{ color: '#000' }} href="https://medium.com/kravtrade">
+              <Medium
+                className="medium"
+                height="24"
+                width="24"
+                css={css`
+                  margin-right: 16px;
+                `}
+              />
+            </Link>
             {/*<Github height="24" width="24" />*/}
             <div>Copyright © 2023 KRAV. All rights reserved</div>
           </div>
@@ -81,7 +84,7 @@ export const Footer = () => {
         </div>
         <div css={doc}>
           <p>Support</p>
-          <Link underline="none" sx={{ color: '#000' }} href="https://t.me/+tlNZPGwYlu9lOWIx">
+          <Link underline="none" sx={{ color: '#000' }} href="https://t.me/kravtrade">
             <p>Telegram</p>
           </Link>
           <Link underline="none" sx={{ color: '#000' }} href="https://twitter.com/kravtrade">

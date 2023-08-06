@@ -25,6 +25,7 @@ import DashboardBg from './assets/imgs/dashboard_bg.png'
 import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
+import ReportImg from './assets/imgs/report.png'
 
 i18n.load({
   en: enMessages,
@@ -81,10 +82,18 @@ function App() {
       <div
         className="App"
         css={css`
+          position: relative;
           background: url(${DashboardBg});
         `}
       >
         <FullApp />
+        <img
+          src={ReportImg}
+          width={64}
+          style={{ position: 'fixed', right: '20px', bottom: '100px', cursor: 'pointer' }}
+          onClick={() => window.open('https://forms.gle/yASELgYTzR1KTGbU8', '_blank')}
+          alt="report bugs"
+        />
       </div>
     </>
   )

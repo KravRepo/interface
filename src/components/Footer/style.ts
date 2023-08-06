@@ -19,6 +19,9 @@ export const footer = css`
       svg path:hover {
         fill: #000;
       }
+      .medium:hover path {
+        fill: #000;
+      }
     }
     > div {
       border-right: 1px solid #dadada;
