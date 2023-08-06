@@ -29,7 +29,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
           ])
           const long = new BigNumber(longRes._hex).div(Number(`1e${decimals}`))
           setOpenDaiLong(formatNumber(long.toString(), 2, false))
-          const short = new BigNumber(shortRes._hex)
+          const short = new BigNumber(shortRes._hex).div(Number(`1e${decimals}`))
           setOpenDaiShort(formatNumber(short.toString(), 2, false))
           const feePer = new BigNumber(infoRes._hex)
           const longVal =

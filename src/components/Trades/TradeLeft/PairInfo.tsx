@@ -39,6 +39,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     tradePool?.decimals || 18,
     tradePool.pairInfoT || ''
   )
+  console.log('openDaiShort', openDaiShort)
 
   const handleModelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsProModel(event.target.checked)
