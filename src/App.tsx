@@ -25,6 +25,7 @@ import DashboardBg from './assets/imgs/dashboard_bg.png'
 import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import ReportImg from './assets/imgs/report.png'
+import { Statistics } from './pages/Statistics'
 
 i18n.load({
   en: enMessages,
@@ -63,6 +64,7 @@ const FullApp = () => {
                 <Route path={'/portfolio/stake'} element={<HomeStake />} />
                 <Route path={'/portfolio/farm'} element={<HomeFarm />} />
                 <Route path={'/portfolio/referral'} element={<HomeReferral />} />
+                <Route path={'/statistics'} element={<Statistics />} />
                 {/*<Route path={'/dashboard/reward'} element={<HomeRewardCenter />} />*/}
               </Routes>
               <Footer />
