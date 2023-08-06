@@ -8,7 +8,7 @@ export const Statistics = () => {
     <div css={comingSoon}>
       <p
         css={css`
-          margin-bottom: 16px;
+          margin-bottom: 16px !important;
         `}
         className="title"
       >
@@ -16,7 +16,8 @@ export const Statistics = () => {
       </p>
       <p
         css={css`
-          margin-left: 40px;
+          margin-left: 40px !important;
+          text-align: start !important;
         `}
       >
         Stay tuned! This feature will be launched soon.

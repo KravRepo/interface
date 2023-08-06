@@ -90,7 +90,7 @@ function App() {
         <img
           src={ReportImg}
           width={64}
-          style={{ position: 'fixed', right: '20px', bottom: '100px', cursor: 'pointer' }}
+          style={{ position: 'fixed', right: '20px', bottom: '21px', cursor: 'pointer' }}
           onClick={() => window.open('https://forms.gle/yASELgYTzR1KTGbU8', '_blank')}
           alt="report bugs"
         />
