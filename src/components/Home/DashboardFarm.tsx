@@ -70,7 +70,7 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
       >
         <span>My Liquidity Pools</span>
         <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
-          + provider liquidity
+          + Provider liquidity
         </KRAVButton>
       </div>
       {positionDatas.length > 0 && (

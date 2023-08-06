@@ -43,7 +43,7 @@ export const MyOrder = () => {
       >
         <span>My Order</span>
         <KRAVButton onClick={() => navigate('/trade')} sx={{ width: '83px' }}>
-          to trade
+          To trade
         </KRAVButton>
       </p>
       <div>
