@@ -129,7 +129,7 @@ export const useFactory = () => {
         try {
           item.logoSource = require(`../../assets/imgs/tokens/${factoryCall[index]}.svg`)
         } catch (e) {
-          item.logoSource = require('../../assets/imgs/tokens/default_token.svg')
+          item.logoSource = require('../../assets/imgs/tokens/default_token.svg').default
         }
       })
       setAllPoolParams(forMatter)
