@@ -6,7 +6,7 @@ import { css } from '@emotion/react'
 import { useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
-import React, { Dispatch, useEffect } from 'react'
+import { useEffect } from 'react'
 import KravSwitch from '../../KravUIKit/KravSwitch'
 // import { MARKET_CHANGE_API } from '../../../constant/chain'
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
@@ -15,7 +15,7 @@ import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
 
 type PairInfoProps = {
-  setIsOpenSelectToken: Dispatch<React.SetStateAction<boolean>>
+  setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
   isProModel: boolean
   setIsProModel: (isProModel: boolean) => void
 }

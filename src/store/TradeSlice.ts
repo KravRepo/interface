@@ -16,6 +16,8 @@ export interface TradeSlice {
   setTradePool: (tradePool: PoolParams) => void
   isProModel: boolean
   setIsProModel: (isProModel: boolean) => void
+  isOpenSelectToken: boolean
+  setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
 }
 
 export const createTradeSlice: StateCreator<
@@ -26,11 +28,15 @@ export const createTradeSlice: StateCreator<
 > = (set) => ({
   tradePool: {} as PoolParams,
   isProModel: true,
+  isOpenSelectToken: false,
 
   setTradePool(tradePool) {
     set({ tradePool: tradePool })
   },
   setIsProModel(isProModel: boolean) {
     set({ isProModel: isProModel })
+  },
+  setIsOpenSelectToken(isOpenSelectToken: boolean) {
+    set({ isOpenSelectToken: isOpenSelectToken })
   },
 })

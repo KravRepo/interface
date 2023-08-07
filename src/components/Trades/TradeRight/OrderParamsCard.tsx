@@ -188,6 +188,7 @@ export const OrderParamsCard = ({
     userOpenTradeList,
     isProModel,
     userPositionDatas,
+    setIsOpenSelectToken,
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     transactionState: state.transactionState,
@@ -199,6 +200,7 @@ export const OrderParamsCard = ({
     userOpenTradeList: state.userOpenTradeList,
     isProModel: state.isProModel,
     userPositionDatas: state.userPositionDatas,
+    setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
 
   const PoolWalletBalance = useMemo(() => {
@@ -556,7 +558,15 @@ export const OrderParamsCard = ({
                   >
                     MAX
                   </div>
-                  <div css={align}>
+                  <div
+                    onClick={() => setIsOpenSelectToken(true)}
+                    css={[
+                      align,
+                      css`
+                        cursor: pointer;
+                      `,
+                    ]}
+                  >
                     <span
                       css={css`
                         margin: 0 4px;

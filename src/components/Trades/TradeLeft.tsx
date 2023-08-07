@@ -4,7 +4,6 @@ import { chart, tradeLeft } from './style'
 import { MyTrade } from './TradeLeft/MyTrade'
 import { TradingView } from './TradeLeft/TradingView'
 import { SelectToken } from '../Dialog/SelectToken'
-import { useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
@@ -18,10 +17,11 @@ type TradeLeftProps = {
 }
 
 export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeType }: TradeLeftProps) => {
-  const [isOpenSelectToken, setIsOpenSelectToken] = useState(false)
-  const { isProModel, setIsProModel } = useRootStore((state) => ({
+  const { isProModel, setIsProModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
     isProModel: state.isProModel,
     setIsProModel: state.setIsProModel,
+    isOpenSelectToken: state.isOpenSelectToken,
+    setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
 
   return (

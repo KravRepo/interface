@@ -2,14 +2,14 @@
 import { align } from '../../globalStyle'
 import { css } from '@emotion/react'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
-import React, { Dispatch, useCallback, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { PoolParams } from '../../store/FactorySlice'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
 
 type SelectTokenItemProps = {
   pool: PoolParams
-  setIsOpen: Dispatch<React.SetStateAction<boolean>>
+  setIsOpen: (isOpenSelectToken: boolean) => void
 }
 
 export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {

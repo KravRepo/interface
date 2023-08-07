@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
-import React, { Dispatch } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 // import KARVSearchTextField from '../KravUIKit/KarvSearchTextField'
 import { useRootStore } from '../../store/root'
@@ -15,7 +14,7 @@ import { SelectTokenItem } from './SelectTokenItem'
 
 type SelectTokenProps = {
   isOpen: boolean
-  setIsOpen: Dispatch<React.SetStateAction<boolean>>
+  setIsOpen: (isOpenSelectToken: boolean) => void
 }
 
 export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
