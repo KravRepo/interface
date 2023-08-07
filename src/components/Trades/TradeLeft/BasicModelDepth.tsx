@@ -53,11 +53,11 @@ export const BasicModelDepth = ({
         },
         formatter: function (params: any) {
           const takeProfit = params[0].data
-          setTakeProfitPercentage(new BigNumber(takeProfit))
           if (takeProfit > 0) {
             const takeProfitPre = getTakeProfit(BTCPrice, new BigNumber(params[0].data), isBuy, leverage, false)
             const takeProfitAmount = positionSize.times(takeProfitPre.div(100))
             setPriceReaches(new BigNumber(params[0].data))
+            setTakeProfitPercentage(new BigNumber(takeProfitPre))
             setTakeProfit(takeProfitAmount)
             return `
               <div style='padding-left: 14px; font-weight: 500; color: black'>
