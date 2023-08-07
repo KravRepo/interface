@@ -79,7 +79,6 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
       <div>
         <div className="liquidity-table grey nowrap">
           <div>ASSET</div>
-          <div>CONVERSION RATIO</div>
           <Stack direction={'row'} alignItems={'center'}>
             <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>
               APR

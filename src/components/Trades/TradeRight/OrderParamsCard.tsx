@@ -12,7 +12,6 @@ import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
-import { ReactComponent as ArrowDownIcon } from '../../../assets/imgs/arrowDown.svg'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
@@ -576,68 +575,68 @@ export const OrderParamsCard = ({
                   </div>
                 </div>
               </div>
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  margin: -13px 0 -10px;
-                `}
-              >
-                <ArrowDownIcon />
-              </div>
-              <div css={input}>
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                  `}
-                >
-                  <span
-                    css={css`
-                      color: #757575;
-                    `}
-                  >
-                    {isBuy ? 'Long' : 'Short'}
-                  </span>
-                  <div>
-                    <span>Leverage: </span>
-                    <span>{leverage}x</span>
-                  </div>
-                </div>
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 100%;
-                  `}
-                >
-                  <TextField
-                    variant="standard"
-                    type="number"
-                    value={openBTCSize}
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
-                    sx={{
-                      height: '28px',
-                      fontSize: '20px',
-                      minHeight: '28px',
-                      '& .MuiOutlinedInput-root': {
-                        height: '28px',
-                        minHeight: '28px',
-                        padding: 0,
-                      },
-                    }}
-                  />
-                  <div>
-                    <span>BTC</span>
-                  </div>
-                </div>
-              </div>
+              {/*<div*/}
+              {/*  css={css`*/}
+              {/*    display: flex;*/}
+              {/*    align-items: center;*/}
+              {/*    justify-content: center;*/}
+              {/*    margin: -13px 0 -10px;*/}
+              {/*  `}*/}
+              {/*>*/}
+              {/*  /!*<ArrowDownIcon />*!/*/}
+              {/*</div>*/}
+              {/*<div css={input}>*/}
+              {/*  <div*/}
+              {/*    css={css`*/}
+              {/*      display: flex;*/}
+              {/*      align-items: center;*/}
+              {/*      justify-content: space-between;*/}
+              {/*      width: 100%;*/}
+              {/*    `}*/}
+              {/*  >*/}
+              {/*    <span*/}
+              {/*      css={css`*/}
+              {/*        color: #757575;*/}
+              {/*      `}*/}
+              {/*    >*/}
+              {/*      {isBuy ? 'Long' : 'Short'}*/}
+              {/*    </span>*/}
+              {/*    <div>*/}
+              {/*      <span>Leverage: </span>*/}
+              {/*      <span>{leverage}x</span>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div*/}
+              {/*    css={css`*/}
+              {/*      display: flex;*/}
+              {/*      align-items: center;*/}
+              {/*      justify-content: space-between;*/}
+              {/*      width: 100%;*/}
+              {/*    `}*/}
+              {/*  >*/}
+              {/*    <TextField*/}
+              {/*      variant="standard"*/}
+              {/*      type="number"*/}
+              {/*      value={openBTCSize}*/}
+              {/*      InputProps={{*/}
+              {/*        disableUnderline: true,*/}
+              {/*      }}*/}
+              {/*      sx={{*/}
+              {/*        height: '28px',*/}
+              {/*        fontSize: '20px',*/}
+              {/*        minHeight: '28px',*/}
+              {/*        '& .MuiOutlinedInput-root': {*/}
+              {/*          height: '28px',*/}
+              {/*          minHeight: '28px',*/}
+              {/*          padding: 0,*/}
+              {/*        },*/}
+              {/*      }}*/}
+              {/*    />*/}
+              {/*    <div>*/}
+              {/*      <span>BTC</span>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               {tabIndex === 1 && (
                 <div css={input}>
                   <div
