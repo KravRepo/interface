@@ -38,3 +38,5 @@ export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 export const KRAV_ADDRESS = '0x8b99c4DE6f3D396a9d4BBcAF9fA138F5393299FE'
 
 export const DashBoard_USER_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/user/asset/amount?account='
+
+export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D94b1'

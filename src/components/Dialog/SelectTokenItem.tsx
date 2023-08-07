@@ -22,7 +22,6 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
 
   const handleSelectPool = useCallback((pool: PoolParams) => {
     setTradePool(pool)
-    localStorage.setItem('trade-pool', pool.tradingT)
     setIsOpen(false)
   }, [])
 

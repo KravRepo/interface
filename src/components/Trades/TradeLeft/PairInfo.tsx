@@ -13,6 +13,7 @@ import KravSwitch from '../../KravUIKit/KravSwitch'
 // import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
+import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
@@ -47,9 +48,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
 
   useEffect(() => {
     if (allPoolParams.length > 0) {
-      const history = localStorage.getItem('trade-pool')
-      const target = allPoolParams.find((pool) => pool.tradingT === history)
-      if (history && target) setTradePool(target)
+      const target = allPoolParams.find((pool) => pool.tradingT === BASE_KRAV_TRADING_ADDRESS)
+      if (target) setTradePool(target)
       else setTradePool(allPoolParams[0])
     }
   }, [isLoadingFactory])
