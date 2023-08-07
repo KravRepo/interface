@@ -24,11 +24,13 @@ export const pairInfo = css`
   }
   .info-card {
     white-space: nowrap;
+    min-width: 96px;
     height: 40px;
     padding: 0 12px;
     color: #757575;
     font-size: 12px;
     > p {
+      white-space: nowrap;
       margin: 0 0 5px 0;
     }
   }

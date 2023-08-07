@@ -26,7 +26,7 @@ export const liquidity = css`
   .liquidity-search {
     padding: 24px 48px 24px 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   .grey {
     color: #757575;

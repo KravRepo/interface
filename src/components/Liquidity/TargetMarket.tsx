@@ -62,9 +62,16 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
       </div>
       <div className="liquidity-search">
         {/* <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} /> */}
-        <></>
         {account && (
-          <KRAVButton sx={{ width: '132px', marginLeft: 'auto' }} onClick={() => setCreateLiquidityPool(true)}>
+          <KRAVButton
+            sx={{ width: '132px', marginLeft: 'auto' }}
+            onClick={() => window.open('https://forms.gle/wiqvg5AES6Lwzgpq9', '_blank')}
+          >
+            Listing Apply
+          </KRAVButton>
+        )}
+        {account && (
+          <KRAVButton sx={{ width: '132px', marginLeft: '20px' }} onClick={() => setCreateLiquidityPool(true)}>
             Create Liquidity
           </KRAVButton>
         )}
