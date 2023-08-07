@@ -64,10 +64,10 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
         <p>
           {eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)} {position.pool.symbol}
         </p>
-        <p className="small grey">
-          ({eXDecimals(position.daiDeposited, position.pool.decimals).div(position.pool.proportionBTC).toFixed(2)}
-          &nbsp;BTC)
-        </p>
+        {/*<p className="small grey">*/}
+        {/*  ({eXDecimals(position.daiDeposited, position.pool.decimals).div(position.pool.proportionBTC).toFixed(2)}*/}
+        {/*  &nbsp;BTC)*/}
+        {/*</p>*/}
       </div>
       <div>
         {getBigNumberStr(lpReward, 2)} {position.pool.symbol}

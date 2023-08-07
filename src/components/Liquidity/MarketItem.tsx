@@ -67,7 +67,7 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
         <p>
           {poolParams.poolTotalSupply?.toFixed(2)} {poolParams.symbol}
         </p>
-        <p className="small grey">({poolParams.poolTotalSupply?.div(poolParams.proportionBTC).toFixed(2)}&nbsp;BTC) </p>
+        {/*<p className="small grey">({poolParams.poolTotalSupply?.div(poolParams.proportionBTC).toFixed(2)}&nbsp;BTC) </p>*/}
       </div>
       <div>
         {getBigNumberStr(poolSupply, 2)} {poolParams.symbol}
