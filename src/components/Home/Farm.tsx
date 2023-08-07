@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { stake } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
@@ -10,13 +10,13 @@ import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
+import { useGetApr } from '../../hook/hookV8/useGetApr'
 
-/** @jsxImportSource @emotion/react */
 export const Farm = () => {
-  const [hasLiquidity, setHasLiquidity] = useState(true)
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
+  const { aprList } = useGetApr()
 
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -26,8 +26,9 @@ export const Farm = () => {
     userPositionDatas.find((positionData) => {
       if (positionData?.hasPosition) flag = true
     })
-    if (flag) return userPositionDatas.filter((position) => position.hasPosition)
-    else return []
+    if (flag) {
+      return userPositionDatas.filter((position) => position.hasPosition)
+    } else return []
   }, [userPositionDatas])
 
   const allPoolParams = useRootStore((store) => store.allPoolParams)
@@ -45,9 +46,7 @@ export const Farm = () => {
 
   return (
     <div css={stake}>
-      <div onClick={() => setHasLiquidity(!hasLiquidity)} className="title">
-        My Liquidity Pools
-      </div>
+      <div className="title">My Liquidity Pools</div>
       {positionDatas.length > 0 && (
         <div>
           {/*<div className="overview">*/}
@@ -67,12 +66,12 @@ export const Farm = () => {
               <span>PER TICKET SIZE</span>
               <span>APR</span>
               <span>UTILIZATION</span>
-              <span>TOTAL LIQUIDITY SUPPLY</span>
+              <span>YOUR LIQUIDITY SUPPLY</span>
               <span>LP REWARD</span>
               <span />
             </div>
             {positionDatas.map((position) => {
-              return <FarmItem key={position.pool.tradingT} position={position} />
+              return <FarmItem key={position.pool.tradingT} position={position} aprList={aprList} />
             })}
           </div>
         </div>

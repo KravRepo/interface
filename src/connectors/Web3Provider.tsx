@@ -6,7 +6,7 @@ import { coinbaseWallet, hooks as coinbaseWalletHooks } from './coinbaseWallet'
 import { hooks as metaMaskHooks, metaMask } from './metaMask'
 import { hooks as walletConnectHooks, walletConnect } from './walletConnect'
 import React from 'react'
-import useEagerlyConnect from 'hook/hookV8/useEagerlyConnect'
+import useEagerlyConnect from '../hook/hookV8/useEagerlyConnect'
 
 const connectors: [MetaMask | WalletConnect | CoinbaseWallet, Web3ReactHooks][] = [
   [metaMask, metaMaskHooks],

@@ -1,19 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Link, Menu, MenuItem, Tooltip } from '@mui/material'
+import { Box, Button, Link, Menu, MenuItem, Tooltip } from '@mui/material'
 import { Trans } from '@lingui/macro'
 import { header, headerBtn, router, routerActive, setting, UnSupport } from './sytle'
-import { align } from 'globalStyle'
-import { ReactComponent as Base } from 'assets/imgs/chain_base.svg'
-import { ReactComponent as AccountIcon } from 'assets/imgs/account_logo.svg'
-import { ReactComponent as KarvIcon } from 'assets/imgs/tokens/karv_icon.svg'
-import { ReactComponent as CopyIcon } from 'assets/imgs/copy_icon.svg'
-import { ReactComponent as OpenIcon } from 'assets/imgs/open_browser.svg'
-import { ReactComponent as DisconnectIcon1 } from 'assets/imgs/disconnect_icon_1.svg'
-import { ReactComponent as DisconnectIcon2 } from 'assets/imgs/disconnect_icon_2.svg'
+import { align } from '../../globalStyle'
+import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
+import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
+import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/karv_icon.svg'
+import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
+import { ReactComponent as OpenIcon } from '../../assets/imgs/open_browser.svg'
+import { ReactComponent as DisconnectIcon1 } from '../../assets/imgs/disconnect_icon_1.svg'
+import { ReactComponent as DisconnectIcon2 } from '../../assets/imgs/disconnect_icon_2.svg'
 // import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
-import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
+import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
-import { ConnectWalletDialog } from 'components/Dialog/ConnectWallet'
+import { ConnectWalletDialog } from '../../components/Dialog/ConnectWallet'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
@@ -22,7 +22,7 @@ import { getConnection } from '../../connectors'
 import { ConnectionType } from '../../connectors/type'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
-import { CHAINS, getAddChainParameters } from 'connectors/chain'
+import { CHAINS, getAddChainParameters } from '../../connectors/chain'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TEST_CHAIN_ID } from '../../constant/chain'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
@@ -185,7 +185,20 @@ export const Header = () => {
               <KravLogo height="22" width="91" />
             </NavLink>
           </div>
-          <div>
+          <Box
+            sx={{
+              '& a:hover': {
+                background: 'none',
+                boxShadow: 'none',
+                color: '#757575',
+              },
+              '& a.active:hover': {
+                background: '#000000',
+                color: '#fff',
+                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+              },
+            }}
+          >
             <NavLink to={'/trade'} css={[router, isTradePath ? routerActive : '']}>
               <Trans>Trade</Trans>
             </NavLink>
@@ -195,10 +208,10 @@ export const Header = () => {
             <NavLink to={'/portfolio'} css={[router, isHomePath ? routerActive : '']}>
               <Trans>Portfolio</Trans>
             </NavLink>
-            {/*<Link underline={'none'} css={router}>*/}
-            {/*  <Trans>Statistics</Trans>*/}
-            {/*</Link>*/}
-          </div>
+            <NavLink to={'/statistics'} css={[router, pathname === '/statistics' ? routerActive : '']}>
+              <Trans>Statistics</Trans>
+            </NavLink>
+          </Box>
         </div>
         <div css={align}>
           {/*<Button*/}
@@ -222,6 +235,9 @@ export const Header = () => {
               border: '1px solid #DADADA',
               textTransform: 'none',
               minWidth: '60px',
+              '&:hover': {
+                backgroundColor: '#DADADA',
+              },
             }}
             endIcon={networkOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             id="network-button"
@@ -339,7 +355,7 @@ export const Header = () => {
                           placement="top"
                           sx={{ color: '#009B72' }}
                           open={openTooltip}
-                          title="copied to clipboard !"
+                          title="Copied to clipboard!"
                         >
                           <CopyIcon onClick={useCopyAddress} />
                         </Tooltip>
@@ -400,7 +416,7 @@ export const Header = () => {
                 borderRadius: '4px',
                 textTransform: 'none',
                 '&:hover': {
-                  background: '#000000',
+                  background: '#757575',
                 },
               }}
               css={headerBtn}
@@ -420,7 +436,7 @@ export const Header = () => {
       </header>
       {chainId !== TEST_CHAIN_ID && account && (
         <div css={UnSupport}>
-          UnSupport network ! &nbsp;
+          Unsupported network! &nbsp;
           <span
             onClick={async () => {
               if (connection) {
@@ -435,7 +451,7 @@ export const Header = () => {
               }
             }}
           >
-            please change network
+            Please change network.
           </span>
         </div>
       )}

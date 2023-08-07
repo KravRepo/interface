@@ -1,4 +1,4 @@
-import { TEST_RPC_NODE } from 'constant/chain'
+import { TEST_RPC_NODE } from '../../constant/chain'
 import { Contract, ethers } from 'ethers'
 import { useFactoryContract } from './useContract'
 import type { JsonRpcProvider } from '@ethersproject/providers'
@@ -129,11 +129,10 @@ export const useFactory = () => {
         try {
           item.logoSource = require(`../../assets/imgs/tokens/${factoryCall[index]}.svg`)
         } catch (e) {
-          item.logoSource = require('../../assets/imgs/tokens/default_token.svg')
+          item.logoSource = require('../../assets/imgs/tokens/default_token.svg').default
         }
       })
       setAllPoolParams(forMatter)
-      console.log('forMatter', forMatter)
       setIsLoadingFactory(false)
       return forMatter
     } catch (e) {

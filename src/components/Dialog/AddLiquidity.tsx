@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, TextField } from '@mui/material'
+import { Box, Dialog, DialogContent, Stack, TextField, Typography } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -8,11 +8,12 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { AddLiquidityProps } from '../Liquidity/type'
 import { useRootStore } from '../../store/root'
 import { useMemo, useState } from 'react'
-import { useAddLiquidity } from 'hook/hookV8/useAddLiquidity'
+import { useAddLiquidity } from '../../hook/hookV8/useAddLiquidity'
 import { addDecimals } from '../../utils/math'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import BigNumber from 'bignumber.js'
 import { useFactory } from '../../hook/hookV8/useFactory'
+import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 
 export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
@@ -55,6 +56,34 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
               }}
             />
           </div>
+          <Box padding={'24px'} pb={0}>
+            <Stack direction={'row'}>
+              <WarningIcon />
+              <Typography
+                fontFamily={'Inter'}
+                fontSize={16}
+                fontWeight={500}
+                lineHeight={'150%'}
+                sx={{ marginLeft: '8px !important' }}
+              >
+                Liquidity Remove Limit
+              </Typography>
+            </Stack>
+            <Typography
+              fontFamily={'Inter'}
+              fontSize={14}
+              fontWeight={400}
+              lineHeight={'150%'}
+              sx={{ marginTop: '16px !important' }}
+            >
+              <span style={{ fontWeight: 600 }}>Reminder: </span>
+              <span>
+                When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
+                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
+                a stable and fair trading environment on our platform.
+              </span>
+            </Typography>
+          </Box>
           <div
             css={css`
               padding: 24px;
@@ -88,6 +117,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                   variant="standard"
                   type="number"
                   value={amount}
+                  placeholder="0"
                   onChange={(e) => setAmount(e.target.value)}
                   InputProps={{
                     disableUnderline: true,

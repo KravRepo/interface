@@ -43,10 +43,10 @@ export const YourPosition = ({
           <div>APR</div>
           <div>UTILIZATION</div>
           <div>YOUR LIQUIDITY SUPPLY</div>
-          <div>LOCKED</div>
+          <div>REMOVE LIMIT</div>
           <div>WITHDRAW_BLOCK</div>
         </div>
-        {!account && <div className="no-data">Connect Wallet</div>}
+        {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
         {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
         {account && !isLoadingUserPosition && positionDatas.length === 0 && (
           <div className="no-data">No Position yet</div>

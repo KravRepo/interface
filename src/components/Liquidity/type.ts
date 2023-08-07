@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
-import { PoolParams } from 'store/FactorySlice'
+import { PoolParams } from '../../store/FactorySlice'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { AprList } from '../../hook/hookV8/useGetApr'
 

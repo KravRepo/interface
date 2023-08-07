@@ -7,25 +7,55 @@ import { eXDecimals } from '../../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
+import { PoolParams } from '../../../store/FactorySlice'
 
 type HistoryItemProps = {
   history: HistoryData
+  pool?: PoolParams
 }
 
-export const HistoryItem = ({ history }: HistoryItemProps) => {
+// enum LimitOrder {
+//   MARKET,
+//   TP,
+//   SL,
+//   LIQ,
+//   OPEN,
+// }
+
+export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   const tradePool = useRootStore((state) => state.tradePool)
 
   const pnlValue = useMemo(() => {
     if (history) {
       return new BigNumber(history.percentProfit).isEqualTo(0)
         ? new BigNumber(0)
-        : eXDecimals(new BigNumber(history.daiSentToTrader).minus(history.tradeInitialPosToken), tradePool.decimals)
+        : eXDecimals(
+            new BigNumber(history.daiSentToTrader).minus(history.tradeInitialPosToken),
+            pool ? pool.decimals : tradePool.decimals
+          )
     } else return new BigNumber(0)
+  }, [history])
+
+  const tradeType = useMemo(() => {
+    switch (history.limitOrderType.toString()) {
+      case '-1':
+        return 'MARKET'
+      case '0':
+        return 'Take Profit'
+      case '1':
+        return 'StopLoss'
+      case '2':
+        return 'Liquidate'
+      case '3':
+        return 'OPEN'
+      default:
+        return 'MARKET'
+    }
   }, [history])
 
   return (
     <div className="position-layout">
-      <div>06/02</div>
+      <div>{history.createTime.split(' ')[0]}</div>
       <div css={align}>
         <BTCIcon height="20" width="20" />
         <span
@@ -33,7 +63,7 @@ export const HistoryItem = ({ history }: HistoryItemProps) => {
             margin-left: 8px;
           `}
         >
-          {tradePool.symbol} / BTC
+          {pool ? pool.symbol : tradePool.symbol} / BTC
         </span>
       </div>
       <div
@@ -41,11 +71,11 @@ export const HistoryItem = ({ history }: HistoryItemProps) => {
           color: ${history.tradeBuy ? '#009B72' : '#DB4C40'};
         `}
       >
-        MARKET
+        {tradeType}
       </div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>
-      <div>{eXDecimals(history.positionSizeDai, tradePool.decimals).toFixed(2)}</div>
+      <div>{eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals).toFixed(2)}</div>
       <div
         css={css`
           color: ${pnlValue.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
@@ -60,7 +90,10 @@ export const HistoryItem = ({ history }: HistoryItemProps) => {
       >
         {pnlValue.isEqualTo(0)
           ? '-'
-          : pnlValue.div(eXDecimals(history.tradeInitialPosToken, tradePool.decimals)).times(100).toFixed(2) + '%'}
+          : pnlValue
+              .div(eXDecimals(history.tradeInitialPosToken, pool ? pool.decimals : tradePool.decimals))
+              .times(100)
+              .toFixed(2) + '%'}
       </div>
     </div>
   )

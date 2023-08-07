@@ -7,10 +7,10 @@ import { dialogContent } from './sytle'
 import { getConnection } from '../../connectors'
 import { ConnectionType } from '../../connectors/type'
 import { useWeb3React } from '@web3-react/core'
-import { useRootStore } from 'store/root'
-import useEvent from 'hook/hookV8/useEvent'
+import { useRootStore } from '../../store/root'
+import useEvent from '../../hook/hookV8/useEvent'
 import { useGetUserAllBalance } from '../../hook/hookV8/useGetBalance'
-import { useGetUserOpenTrade } from 'hook/hookV8/useGetUserOpenTrade'
+import { useGetUserOpenTrade } from '../../hook/hookV8/useGetUserOpenTrade'
 import { useGetUserOpenLimitOrders } from '../../hook/hookV8/useGetUserOpenLimitOrders'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useFactory } from '../../hook/hookV8/useFactory'
@@ -31,15 +31,20 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
   const getBalance = useGetUserAllBalance()
   const tradePool = useRootStore((store) => store.tradePool)
   const setLoadingData = useRootStore((store) => store.setLoadingData)
-  const getUserOpenTrade = useGetUserOpenTrade(tradePool.storageT)
-  const getUserOpenLimitOrders = useGetUserOpenLimitOrders(tradePool.storageT)
+  const { getUserOpenTrade } = useGetUserOpenTrade()
+  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   const getUserPositionData = useUserPosition()
   const getFactory = useFactory()
   const updateError = useUpdateError()
 
   const initUserToken = useEvent(async () => {
     if (account && provider) {
-      await Promise.all([getFactory(), getBalance(), getUserOpenTrade(), getUserOpenLimitOrders()])
+      await Promise.all([
+        getFactory(),
+        getBalance(),
+        getUserOpenTrade(tradePool.storageT, true),
+        getUserOpenLimitOrders(tradePool.storageT, true),
+      ])
       setLoadingData(false)
     }
   })
@@ -92,7 +97,12 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
                 setWalletDialogVisibility(false)
                 await initUserToken()
                 setInterval(async () => {
-                  await Promise.all([getBalance(), getUserOpenTrade(), getUserOpenLimitOrders(), getUserPositionData()])
+                  await Promise.all([
+                    getBalance(),
+                    getUserOpenTrade(tradePool.storageT, true),
+                    getUserOpenLimitOrders(tradePool.storageT, true),
+                    getUserPositionData(),
+                  ])
                 }, 90000)
               }}
             >

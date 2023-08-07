@@ -21,7 +21,7 @@ export const pairInfo = css`
   }
   .info-card {
     height: 40px;
-    padding: 0 24px;
+    padding: 0 12px;
     color: #757575;
     font-size: 12px;
     > p {
@@ -79,7 +79,8 @@ export const bottomCard = css`
   }
   .card-details {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     padding: 0 24px 8px;
   }
 `

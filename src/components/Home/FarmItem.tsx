@@ -3,22 +3,31 @@ import { align } from '../../globalStyle'
 import { css } from '@emotion/react'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../KravUIKit/KravButton'
-import { getBigNumberStr } from 'utils'
+import { getBigNumberStr } from '../../utils'
 import { useWeb3React } from '@web3-react/core'
+import { AprList } from '../../hook/hookV8/useGetApr'
+import { eXDecimals } from '../../utils/math'
 
 type FarmItemProps = {
   position: UserData
+  aprList: AprList[]
 }
 
-export const FarmItem = ({ position }: FarmItemProps) => {
+export const FarmItem = ({ position, aprList }: FarmItemProps) => {
   const { account } = useWeb3React()
   const getLpReward = useGetLpReward(position.pool.vaultT, position.pool.decimals)
   const claimLp = useHarvestLpReward(position.pool.vaultT)
   const [lpReward, setLpReward] = useState(new BigNumber(0))
+
+  const apr = useMemo(() => {
+    const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
+    if (res) return res.apr
+    else return new BigNumber(0)
+  }, [aprList])
 
   useEffect(() => {
     getLpReward(setLpReward).then()
@@ -49,11 +58,16 @@ export const FarmItem = ({ position }: FarmItemProps) => {
           1 BTC={position.pool.proportionBTC} {position.pool.symbol}
         </p>
       </div>
-      <div>--</div>
+      <div>{apr.toFixed(2)}%</div>
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>
-        {' '}
-        {position.pool.poolTotalSupply?.toFixed(2)} {position.pool.symbol}
+        <p>
+          {eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)} {position.pool.symbol}
+        </p>
+        <p className="small grey">
+          ({eXDecimals(position.daiDeposited, position.pool.decimals).div(position.pool.proportionBTC).toFixed(2)}
+          &nbsp;BTC)
+        </p>
       </div>
       <div>
         {getBigNumberStr(lpReward, 2)} {position.pool.symbol}

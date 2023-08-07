@@ -5,19 +5,19 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
-import { Tuple } from '../Trades/type'
+import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
 import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
 import { OPEN_FEES } from '../../constant/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { ReactComponent as ArrowDownIcon } from 'assets/imgs/arrowDown.svg'
+import { ReactComponent as ArrowDownIcon } from '../../assets/imgs/arrowDown.svg'
 import { decodeReferral } from '../../utils'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  tuple: Tuple
+  tuple: TupleWithTrade
   tradeType: number
   openBTCSize: BigNumber
   setPositionSizeDai: Dispatch<React.SetStateAction<BigNumber>>
@@ -90,15 +90,13 @@ export const ConfirmTrade = ({
                     margin-bottom: 36px;
                   `}
                 >
-                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol} ($
-                  {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)})
+                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
                 </p>
                 <p>
                   <ArrowDownIcon />
                 </p>
                 <p>
-                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC($
-                  {openBTCSize.times(eXDecimals(tuple.openPrice, 18)).toFixed(2)})
+                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC
                 </p>
               </div>
             </div>

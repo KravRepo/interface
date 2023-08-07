@@ -1,5 +1,5 @@
 import { useContract } from './useContract'
-import trading_vault from 'abi/trading_vault_v5.json'
+import trading_vault from '../../abi/trading_vault_v5.json'
 import { useWeb3React } from '@web3-react/core'
 import React, { Dispatch, useCallback } from 'react'
 import BigNumber from 'bignumber.js'

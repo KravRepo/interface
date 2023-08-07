@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js'
-import { OpenTradeParams } from 'components/Trades/type'
-import { ZERO_ADDRESS } from 'constant/math'
+import { OpenTradeParams } from '../../components/Trades/type'
+import { ZERO_ADDRESS } from '../../constant/math'
 import { useCallback } from 'react'
-import { getGasLimit } from 'utils'
+import { getGasLimit } from '../../utils'
 import { useTradingV6Contract } from './useContract'
 import { useGetUserOpenLimitOrders } from './useGetUserOpenLimitOrders'
 import { useGetUserOpenTrade } from './useGetUserOpenTrade'
@@ -21,8 +21,8 @@ export const useOpenTrade = ({
   storageAddress,
 }: OpenTradeParams) => {
   const contract = useTradingV6Contract(tradingAddress)!
-  const getUserOpenTrade = useGetUserOpenTrade(storageAddress)
-  const getUserOpenLimit = useGetUserOpenLimitOrders(storageAddress)
+  const { getUserOpenTrade } = useGetUserOpenTrade()
+  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -43,9 +43,9 @@ export const useOpenTrade = ({
       setTransactionDialogVisibility(false)
       setTransactionState(TransactionState.START)
       if (tradeType === 0) {
-        await getUserOpenTrade()
+        await getUserOpenTrade(storageAddress, true)
       } else {
-        await getUserOpenLimit()
+        await getUserOpenLimitOrders(storageAddress, true)
       }
       updateSuccessDialog(TransactionAction.OPEN_TRADE)
       setSuccessSnackbarInfo({

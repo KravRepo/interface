@@ -3,7 +3,7 @@ import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
 import React, { Dispatch } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import KARVSearchTextField from '../KravUIKit/KarvSearchTextField'
+// import KARVSearchTextField from '../KravUIKit/KarvSearchTextField'
 import { useRootStore } from '../../store/root'
 // import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 // import { ReactComponent as EtherIcon } from '../../assets/imgs/tokens/Ehter.svg'
@@ -39,11 +39,11 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
               <span>Select a token</span>
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
             </div>
-            <KARVSearchTextField
+            {/* <KARVSearchTextField
               placeholder="Search name or paste address"
               adornment={'start'}
               sx={{ height: '40px', width: '100%' }}
-            />
+            /> */}
             {/*<div*/}
             {/*  css={css`*/}
             {/*    padding-top: 16px;*/}

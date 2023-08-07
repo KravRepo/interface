@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles'
 import InputAdornment from '@mui/material/InputAdornment'
-import { ReactComponent as SearchIcon } from 'assets/imgs/searchIcon.svg'
+import { ReactComponent as SearchIcon } from '../../assets/imgs/searchIcon.svg'
 import { StandardTextFieldProps } from '@mui/material/TextField/TextField'
 import KRAVTextField from './KravTextField'
 

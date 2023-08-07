@@ -1,20 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import { creatPool } from './style'
 import { ReactComponent as BackIcon } from '../../assets/imgs/backIcon.svg'
+import { ReactComponent as RightHook } from '../../assets/imgs/rightHook.svg'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
 import { MenuItem, Select } from '@mui/material'
 import KRAVTextField from '../KravUIKit/KravTextField'
 import KRAVButton from '../KravUIKit/KravButton'
 import { Trans } from '@lingui/macro'
-import { ConfirmCreatPool } from 'components/Dialog/ConfirmCreatPool'
+import { ConfirmCreatPool } from '../../components/Dialog/ConfirmCreatPool'
 import { useCallback, useEffect, useState } from 'react'
 import { CreateLiquidityProps } from './type'
-
 import { useRootStore } from '../../store/root'
 import { useCheckAddressValidity } from '../../hook/hookV8/useCheckAddressValidity'
 import { useContract } from '../../hook/hookV8/useContract'
-import erc_20 from 'abi/erc20.json'
+import erc_20 from '../../abi/erc20.json'
 import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
 
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
@@ -24,7 +24,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
   const [tokenAddress, setTokenAddress] = useState('')
   const [tokenSymbol, setTokenSymbol] = useState('')
   const [tokenDecimals, setTokenDecimals] = useState(1)
-  const [market, setMarket] = useState('')
+  const [market, setMarket] = useState('BTC')
   const isBTCRise = useRootStore((state) => state.isBTCRise)
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const checkAddressValidity = useCheckAddressValidity()
@@ -104,8 +104,25 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
             <div className="table-left">
               <div className="input-params">
                 <div>Choose Target Market</div>
-                <Select sx={{ width: '320px' }} value={market} onChange={(e) => setMarket(e.target.value)}>
-                  <MenuItem value={'BTC'}>
+                <Select
+                  sx={{
+                    width: '320px',
+                    '& .MuiSelect-select>svg': {
+                      display: 'none',
+                    },
+                  }}
+                  value={market}
+                  onChange={(e) => setMarket(e.target.value)}
+                >
+                  <MenuItem
+                    value={'BTC'}
+                    selected={'BTC'.includes(market)}
+                    sx={{
+                      '& svg': {
+                        marginLeft: 'auto',
+                      },
+                    }}
+                  >
                     <span>BTC</span>
                     <span
                       css={css`
@@ -115,6 +132,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                     >
                       {BTCPrice.toFixed(2)}
                     </span>
+                    <RightHook />
                   </MenuItem>
                 </Select>
               </div>

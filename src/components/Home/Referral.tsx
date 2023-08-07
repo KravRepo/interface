@@ -2,7 +2,8 @@
 import { ReactComponent as HandIcon } from '../../assets/imgs/referral_hand.svg'
 import { ReactComponent as TWIcon } from '../../assets/imgs/referral_tw.svg'
 import { ReactComponent as TGIcon } from '../../assets/imgs/referral_tg.svg'
-import { ReactComponent as DiscordIcon } from '../../assets/imgs/referral_discord.svg'
+// import { ReactComponent as Medium } from '../../assets/imgs/medium.svg'
+// import { ReactComponent as DiscordIcon } from '../../assets/imgs/referral_discord.svg'
 import { ReactComponent as KravLogo } from '../../assets/imgs/referral_logo.svg'
 import { ReactComponent as Notify } from '../../assets/imgs/referral_notify.svg'
 import KRAVButton from '../KravUIKit/KravButton'
@@ -142,8 +143,20 @@ export const Referral = () => {
               </div>
             </div>
             {account && (
-              <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="copied to clipboard !">
-                <KRAVButton onClick={useCopyLink} sx={{ width: '140px', ml: '8px' }}>
+              <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
+                <KRAVButton
+                  onClick={useCopyLink}
+                  sx={{
+                    width: '140px',
+                    ml: '8px',
+                    '&:hover': {
+                      backgroundColor: '#757575',
+                    },
+                    '&:active': {
+                      backgroundColor: '#2e2e2e',
+                    },
+                  }}
+                >
                   Copy referral link
                 </KRAVButton>
               </Tooltip>
@@ -163,13 +176,14 @@ export const Referral = () => {
         <div>
           <p>Share On Social Media</p>
           <div className="social">
-            <TWIcon />
+            <TWIcon onClick={() => window.open('https://twitter.com/kravtrade')} />
             <TGIcon
+              onClick={() => window.open('https://t.me/kravtrade')}
               css={css`
                 margin: 0 12px;
               `}
             />
-            <DiscordIcon />
+            {/* <Medium onClick={() => window.open('https://medium.com/kravtrade')} /> */}
           </div>
         </div>
       </div>

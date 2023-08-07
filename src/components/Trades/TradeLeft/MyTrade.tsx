@@ -20,16 +20,16 @@ export const MyTrade = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setInfoType(newValue)
   }
-  const getUserOpenTrade = useGetUserOpenTrade(tradePool.storageT)
-  const getUserOpenLimitOrders = useGetUserOpenLimitOrders(tradePool.storageT)
+  const { getUserOpenTrade } = useGetUserOpenTrade()
+  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
 
   useEffect(() => {
     let tradeInterval: NodeJS.Timer | null = null
-    Promise.all([getUserOpenLimitOrders(), getUserOpenTrade()]).then()
+    Promise.all([getUserOpenLimitOrders(tradePool.storageT, true), getUserOpenTrade(tradePool.storageT, true)]).then()
 
     tradeInterval = setInterval(async () => {
       console.log('---------------------update user orders------------------')
-      await Promise.all([getUserOpenLimitOrders(), getUserOpenTrade()])
+      await Promise.all([getUserOpenLimitOrders(tradePool.storageT, true), getUserOpenTrade(tradePool.storageT, true)])
     }, 15000)
     return () => {
       if (tradeInterval) clearInterval(tradeInterval)

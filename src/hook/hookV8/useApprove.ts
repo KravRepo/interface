@@ -4,7 +4,7 @@ import React, { Dispatch, useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import test_erc20 from '../../abi/test_erc20.json'
-import { MAX_UNIT_256 } from 'constant/math'
+import { MAX_UNIT_256 } from '../../constant/math'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { useUpdateError } from './useUpdateError'
 

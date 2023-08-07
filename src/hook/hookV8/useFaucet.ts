@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useGetUserAllBalance } from './useGetBalance'
 import { Contract } from 'ethers'
-import test_erc20 from 'abi/test_erc20.json'
+import test_erc20 from '../../abi/test_erc20.json'
 import { useWeb3React } from '@web3-react/core'
 import { getProviderOrSigner } from '../../utils'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
