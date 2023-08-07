@@ -21,7 +21,7 @@ export const pairInfo = css`
   }
   .info-card {
     height: 40px;
-    padding: 0 24px;
+    padding: 0 12px;
     color: #757575;
     font-size: 12px;
     > p {

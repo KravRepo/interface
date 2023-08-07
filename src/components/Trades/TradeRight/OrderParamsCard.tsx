@@ -101,13 +101,13 @@ const LongButton = styled(Button)({
   width: '100%',
   fontFamily: 'Inter',
   color: '#fff',
-  background: '#DB4C40',
+  background: '#009B72',
   borderRadius: '4px',
   padding: '10px 16px',
   height: '40px',
   fontSize: '14px',
   '&:hover': {
-    backgroundColor: '#C3352A',
+    backgroundColor: '#077054',
   },
   '&:active': {
     background: 'red',
@@ -129,13 +129,13 @@ const ShortButton = styled(Button)({
   width: '100%',
   fontFamily: 'Inter',
   color: '#fff',
-  background: '#009B72',
+  background: '#DB4C40',
   borderRadius: '4px',
   padding: '10px 16px',
   height: '40px',
   fontSize: '14px',
   '&:hover': {
-    backgroundColor: '#077054',
+    backgroundColor: '#C3352A',
   },
   '&:active': {
     background: 'red',

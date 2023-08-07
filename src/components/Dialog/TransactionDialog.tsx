@@ -50,7 +50,7 @@ export const TransactionDialog = () => {
                   font-size: 14px;
                 `}
               >
-                Please manually interact with your wallet. Ease enable Krav to access your tokens.
+                Please manually interact with your wallet. Please enable Krav to access your tokens.
               </p>
               <ApproveIcon className="flash" />
               <KRAVButton disabled={true}>Awaiting...</KRAVButton>

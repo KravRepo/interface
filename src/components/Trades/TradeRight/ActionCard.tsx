@@ -62,7 +62,7 @@ export const ActionsCard = ({
               borderRadius: '4px',
               minHeight: '30px',
               padding: 0,
-              background: orderType === 0 ? '#DB4C40 !important' : '',
+              background: orderType === 0 ? '#009B72 !important' : '',
             }}
             label="Long"
           />
@@ -72,7 +72,7 @@ export const ActionsCard = ({
               borderRadius: '4px',
               minHeight: '30px',
               padding: 0,
-              background: orderType === 1 ? '#009B72 !important' : '',
+              background: orderType === 1 ? '#DB4C40 !important' : '',
             }}
             label="Short"
           />

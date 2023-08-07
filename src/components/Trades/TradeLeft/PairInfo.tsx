@@ -121,7 +121,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
           <div
             className="info-card"
             css={css`
-              padding: 0 16px !important;
+              padding: 0 12px !important;
               border-left: ${theme.card.splitLine};
             `}
           >
@@ -141,7 +141,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
           <div
             className="info-card"
             css={css`
-              padding: 0 16px !important;
+              padding: 0 12px !important;
               border-left: ${theme.card.splitLine};
             `}
           >
