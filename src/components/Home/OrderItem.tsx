@@ -48,14 +48,14 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
         </p>
       </div>
       <div>
-        <p
-          css={css`
-            text-decoration: underline;
-          `}
-        >
-          {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).div(pool.proportionBTC).toFixed(6)}
-          &nbsp;BTC
-        </p>
+        {/*<p*/}
+        {/*  css={css`*/}
+        {/*    text-decoration: underline;*/}
+        {/*  `}*/}
+        {/*>*/}
+        {/*  {new BigNumber(openTrade.initialPosToken).times(openTrade.leverage).div(pool.proportionBTC).toFixed(6)}*/}
+        {/*  &nbsp;BTC*/}
+        {/*</p>*/}
         <p
           css={css`
             color: ${positionTp.isGreaterThan(0) ? '#009B72' : '#DB4C40'};

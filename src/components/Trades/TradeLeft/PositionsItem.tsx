@@ -40,8 +40,6 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
     )
   }, [openTrade])
 
-  console.log('openTrade', openTrade.sl.toString(), openTrade.tp.toString())
-
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -62,17 +60,17 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
             </p>
           </div>
           <div>
-            <p
-              css={css`
-                text-decoration: underline;
-              `}
-            >
-              {new BigNumber(openTrade.initialPosToken)
-                .times(openTrade.leverage)
-                .div(pool ? pool.proportionBTC : tradePool.proportionBTC)
-                .toFixed(6)}
-              &nbsp;BTC
-            </p>
+            {/*<p*/}
+            {/*  css={css`*/}
+            {/*    text-decoration: underline;*/}
+            {/*  `}*/}
+            {/*>*/}
+            {/*  {new BigNumber(openTrade.initialPosToken)*/}
+            {/*    .times(openTrade.leverage)*/}
+            {/*    .div(pool ? pool.proportionBTC : tradePool.proportionBTC)*/}
+            {/*    .toFixed(6)}*/}
+            {/*  &nbsp;BTC*/}
+            {/*</p>*/}
             <p
               css={css`
                 color: ${positionTp.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
@@ -122,17 +120,17 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
             </p>
           </div>
           <div>
-            <p
-              css={css`
-                text-decoration: underline;
-              `}
-            >
-              {new BigNumber(openTrade.initialPosToken)
-                .times(openTrade.leverage)
-                .div(pool ? pool.proportionBTC : tradePool.proportionBTC)
-                .toFixed(6)}
-              &nbsp;BTC
-            </p>
+            {/*<p*/}
+            {/*  css={css`*/}
+            {/*    text-decoration: underline;*/}
+            {/*  `}*/}
+            {/*>*/}
+            {/*  {new BigNumber(openTrade.initialPosToken)*/}
+            {/*    .times(openTrade.leverage)*/}
+            {/*    .div(pool ? pool.proportionBTC : tradePool.proportionBTC)*/}
+            {/*    .toFixed(6)}*/}
+            {/*  &nbsp;BTC*/}
+            {/*</p>*/}
             <p
               css={css`
                 color: ${positionTp.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
@@ -197,14 +195,16 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
         </div>
       )}
-      <ProfitConfirmTrade
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        lqPrice={liqPrice}
-        btcPrice={BTCPrice}
-        openTrade={openTrade}
-        pool={pool}
-      />
+      {!openTrade.isPendingOrder && (
+        <ProfitConfirmTrade
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          lqPrice={liqPrice}
+          btcPrice={BTCPrice}
+          openTrade={openTrade}
+          pool={pool}
+        />
+      )}
     </>
   )
 }

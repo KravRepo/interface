@@ -63,7 +63,7 @@ export const Farm = () => {
               className="liquidity grey nowrap"
             >
               <span>ASSET</span>
-              <span>PER TICKET SIZE</span>
+              {/*<span>PER TICKET SIZE</span>*/}
               <span>APR</span>
               <span>UTILIZATION</span>
               <span>YOUR LIQUIDITY SUPPLY</span>

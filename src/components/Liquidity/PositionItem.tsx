@@ -52,9 +52,9 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
           <p className="small grey">{position.pool.symbol}</p>
         </div>
       </div>
-      <div>
-        1 BTC={position.pool.proportionBTC} {position.pool.symbol}
-      </div>
+      {/*<div>*/}
+      {/*  1 BTC={position.pool.proportionBTC} {position.pool.symbol}*/}
+      {/*</div>*/}
       <div>{apr.toFixed(2)}%</div>
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>

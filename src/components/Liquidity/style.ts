@@ -19,7 +19,7 @@ export const liquidity = css`
     align-items: center;
     display: grid;
     grid-template-columns:
-      2fr minmax(100px, 1.8fr) minmax(60px, 1fr) minmax(60px, 1.3fr) minmax(120px, 2.2fr) minmax(120px, 2.2fr)
+      2fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.2fr) minmax(120px, 2.2fr)
       1.6fr 117px;
     font-size: 14px;
   }

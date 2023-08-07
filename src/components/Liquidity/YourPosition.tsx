@@ -39,7 +39,7 @@ export const YourPosition = ({
           `}
         >
           <div>ASSET</div>
-          <div>PER TICKET PRICE</div>
+          {/*<div>PER TICKET PRICE</div>*/}
           <div>APR</div>
           <div>UTILIZATION</div>
           <div>YOUR LIQUIDITY SUPPLY</div>

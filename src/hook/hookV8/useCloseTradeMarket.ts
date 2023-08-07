@@ -48,7 +48,6 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
 
 export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: string) => {
   const contract = useTradingV6Contract(tradingAddress)!
-  const { getUserOpenTrade } = useGetUserOpenTrade()
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -69,14 +68,12 @@ export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: str
         console.log('tx', closeTradeMarketTX)
         setTransactionDialogVisibility(false)
         setTransactionState(TransactionState.START)
-        const close = await getUserOpenTrade(storageAddress, true)
         updateSuccessDialog(isSL ? TransactionAction.UPDATE_SL_ORDER : TransactionAction.UPDATE_TP_ORDER)
         setSuccessSnackbarInfo({
           snackbarVisibility: true,
           title: isSL ? 'Stop loss trade updated' : 'Take profit trade updated',
           content: `${isSL ? 'Stop loss trade updated' : 'Take profit trade updated'} successfully`,
         })
-        console.log('close tx ', close)
       } catch (e) {
         console.error(e)
 

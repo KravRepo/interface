@@ -53,11 +53,11 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
           <p className="grey">{position.pool.symbol}</p>
         </div>
       </div>
-      <div>
-        <p>
-          1 BTC={position.pool.proportionBTC} {position.pool.symbol}
-        </p>
-      </div>
+      {/*<div>*/}
+      {/*  <p>*/}
+      {/*    1 BTC={position.pool.proportionBTC} {position.pool.symbol}*/}
+      {/*  </p>*/}
+      {/*</div>*/}
       <div>{apr.toFixed(2)}%</div>
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>

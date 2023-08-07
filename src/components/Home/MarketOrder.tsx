@@ -14,7 +14,7 @@ export const MarketOrder = () => {
         `}
       >
         <span>Position</span>
-        <span>Net value</span>
+        <span>PnL</span>
         <span>Size</span>
         <span>Collateral</span>
         <span>Entry price</span>

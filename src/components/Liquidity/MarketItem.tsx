@@ -58,9 +58,9 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
           <p className="small grey">{poolParams.symbol}</p>
         </div>
       </div>
-      <div>
-        1 BTC={poolParams.proportionBTC} {poolParams.symbol}
-      </div>
+      {/*<div>*/}
+      {/*  1 BTC={poolParams.proportionBTC} {poolParams.symbol}*/}
+      {/*</div>*/}
       <div>{apr.toFixed(2)}%</div>
       <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>

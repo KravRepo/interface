@@ -369,7 +369,7 @@ export const stake = css`
     align-items: center;
     display: grid;
     grid-template-columns:
-      1.7fr minmax(100px, 1.8fr) minmax(60px, 1fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
+      1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
       80px;
     font-size: 14px;
     line-height: 1.4;
