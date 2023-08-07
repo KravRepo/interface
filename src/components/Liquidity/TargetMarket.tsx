@@ -67,7 +67,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
             sx={{ width: '132px', marginLeft: 'auto' }}
             onClick={() => window.open('https://forms.gle/wiqvg5AES6Lwzgpq9', '_blank')}
           >
-            Listing Apply
+            Listing
           </KRAVButton>
         )}
         {account && (
