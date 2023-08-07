@@ -14,6 +14,9 @@ export const input = css`
   background: #f7f7f7;
   border-radius: 4px;
   margin-bottom: 8px;
+  @media screen and (max-width: 1330px) {
+    width: 262px;
+  }
 `
 export const orderParamsTab = css`
   padding: 4px 12px;

@@ -10,6 +10,9 @@ export const tradeLeft = css`
 
 export const tradeRight = css`
   width: 358px;
+  @media screen and (max-width: 1330px) {
+    width: 310px;
+  }
 `
 
 export const pairInfo = css`
@@ -20,6 +23,7 @@ export const pairInfo = css`
     align-items: center;
   }
   .info-card {
+    white-space: nowrap;
     height: 40px;
     padding: 0 12px;
     color: #757575;
@@ -52,7 +56,6 @@ export const card = css`
   flex-direction: row;
   align-items: center;
   padding: 12px 24px;
-  gap: 32px;
 `
 
 export const actionCard = css`

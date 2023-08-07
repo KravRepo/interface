@@ -104,7 +104,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
               `,
             ]}
           >
-            <span className="symbol">BTC / USDT</span>
+            <div className="symbol">
+              <span
+                css={css`
+                  white-space: nowrap;
+                `}
+              >
+                BTC /
+              </span>
+              <span>&nbsp;USDT</span>
+            </div>
             <span
               css={css`
                 color: ${isBTCRise ? '#009b72' : '#db4c40'};
