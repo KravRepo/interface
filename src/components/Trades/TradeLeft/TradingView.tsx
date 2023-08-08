@@ -37,6 +37,12 @@ export const TradingView = () => {
         localization: {
           locale: 'en',
         },
+        layout: {
+          textColor: '#777E90',
+          background: {
+            color: '#23262f',
+          },
+        },
         grid: {
           vertLines: {
             visible: false,
@@ -46,7 +52,14 @@ export const TradingView = () => {
           },
         },
       })
-      const candlestickSeries = chart.addCandlestickSeries()
+      const candlestickSeries = chart.addCandlestickSeries({
+        upColor: '#FF6838',
+        downColor: '#00C076',
+        borderDownColor: '#00C076',
+        borderUpColor: '#FF6838',
+        wickDownColor: '#00C076',
+        wickUpColor: '#FF6838',
+      })
       setTradeChart(candlestickSeries)
       const formatterData = chartData.map((item) => {
         const timeStr = moment(item.OpenTime).format('YYYY-MM-DD')
