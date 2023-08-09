@@ -115,16 +115,14 @@ export const Header = () => {
     `
   }, [theme])
 
-  // const routerColor = useMemo(() => {
-  //   return css`
-  //     color: ${theme.text.primary};
-  //     :hover {
-  //       background: #000000;
-  //       color: white;
-  //       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  //     },
-  //   `
-  // }, [theme])
+  const routerColor = useMemo(() => {
+    return css`
+      color: ${theme.text.primary};
+      :hover {
+        color: rgb(117, 117, 117);
+      },
+    `
+  }, [theme])
 
   const isHomePath = useMemo(() => {
     const pathList = ['/portfolio', '/portfolio/stake', '/portfolio/farm', '/portfolio/referral', '/portfolio/reward']
@@ -276,16 +274,16 @@ export const Header = () => {
               },
             }}
           >
-            <NavLink to={'/trade'} css={[router, isTradePath ? routerActive : '']}>
+            <NavLink to={'/trade'} css={[router, routerColor, isTradePath ? routerActive : '']}>
               <Trans>Trade</Trans>
             </NavLink>
-            <NavLink to={'/liquidity'} css={[router, pathname === '/liquidity' ? routerActive : '']}>
+            <NavLink to={'/liquidity'} css={[router, routerColor, pathname === '/liquidity' ? routerActive : '']}>
               <Trans>Liquidity</Trans>
             </NavLink>
-            <NavLink to={'/portfolio'} css={[router, isHomePath ? routerActive : '']}>
+            <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
               <Trans>Portfolio</Trans>
             </NavLink>
-            <NavLink to={'/statistics'} css={[router, pathname === '/statistics' ? routerActive : '']}>
+            <NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>
               <Trans>Statistics</Trans>
             </NavLink>
           </Box>
@@ -309,14 +307,20 @@ export const Header = () => {
             sx={{
               color: '#000',
               borderRadius: '4px',
-              border: '1px solid #DADADA',
+              border: theme.palette.mode === 'dark' ? '1px solid #4B4B4B' : '1px solid #DADADA',
               textTransform: 'none',
               minWidth: '60px',
               '&:hover': {
-                backgroundColor: '#DADADA',
+                backgroundColor: theme.palette.mode === 'dark' ? '#4B4B4B' : '#DADADA',
               },
             }}
-            endIcon={networkOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            endIcon={
+              networkOpen ? (
+                <KeyboardArrowUpIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+              ) : (
+                <KeyboardArrowDownIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+              )
+            }
             id="network-button"
             aria-controls={networkOpen ? 'network-menu' : undefined}
             aria-haspopup="true"
@@ -352,7 +356,7 @@ export const Header = () => {
                   <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
                   <span>Base</span>
                 </div>
-                <DoneOutlinedIcon />
+                <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
               </div>
             </MenuItem>
           </Menu>
