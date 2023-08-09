@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState } from 'react'
-import { Box, Tab, Tabs } from '@mui/material'
+import { Box, Tab, Tabs, useTheme } from '@mui/material'
 import { actionCard } from '../style'
 import { OrderParamsCard } from './OrderParamsCard'
 import BigNumber from 'bignumber.js'
+import { css } from '@emotion/react'
 
 export type ActionCardProp = {
   leverage: number
@@ -39,13 +40,27 @@ export const ActionsCard = ({
   setTradeType,
 }: ActionCardProp) => {
   const [orderType, setOrderType] = useState(0)
+  const theme = useTheme()
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setOrderType(newValue)
     setIsBuy(newValue === 0)
   }
   return (
-    <div css={actionCard}>
-      <Box sx={{ padding: '4px', background: '#F7F7F7', borderRadius: '4px' }}>
+    <div
+      css={[
+        actionCard,
+        css`
+          background: ${theme.background.primary};
+        `,
+      ]}
+    >
+      <Box
+        sx={{
+          padding: '4px',
+          background: theme.palette.mode === 'dark' ? theme.background.second : '#F7F7F7',
+          borderRadius: '4px',
+        }}
+      >
         <Tabs
           value={orderType}
           onChange={handleChange}

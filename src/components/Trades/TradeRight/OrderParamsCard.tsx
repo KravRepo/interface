@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Slider, styled, TextField } from '@mui/material'
+import { Button, Slider, styled, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
@@ -94,62 +94,6 @@ enum ButtonText {
   MIN_SIZE = 'Min position size is 1500',
 }
 
-const LongButton = styled(Button)({
-  whiteSpace: 'nowrap',
-  textTransform: 'none',
-  width: '100%',
-  fontFamily: 'Inter',
-  color: '#fff',
-  background: '#009B72',
-  borderRadius: '4px',
-  padding: '10px 16px',
-  height: '40px',
-  fontSize: '14px',
-  '&:hover': {
-    backgroundColor: '#077054',
-  },
-  '&:active': {
-    background: 'red',
-  },
-  '&.Mui-disabled': {
-    background: '#dadada',
-    color: '#fff',
-    cursor: 'not-allowed',
-    pointerEvents: 'auto',
-  },
-  '& .MuiTouchRipple-root': {
-    color: 'white',
-  },
-})
-
-const ShortButton = styled(Button)({
-  whiteSpace: 'nowrap',
-  textTransform: 'none',
-  width: '100%',
-  fontFamily: 'Inter',
-  color: '#fff',
-  background: '#DB4C40',
-  borderRadius: '4px',
-  padding: '10px 16px',
-  height: '40px',
-  fontSize: '14px',
-  '&:hover': {
-    backgroundColor: '#C3352A',
-  },
-  '&:active': {
-    background: 'red',
-  },
-  '&.Mui-disabled': {
-    background: '#dadada',
-    color: '#fff',
-    cursor: 'not-allowed',
-    pointerEvents: 'auto',
-  },
-  '& .MuiTouchRipple-root': {
-    color: 'white',
-  },
-})
-
 //TODO Add sl and tp setting
 export const OrderParamsCard = ({
   leverage,
@@ -166,6 +110,7 @@ export const OrderParamsCard = ({
   tradeType,
   setTradeType,
 }: OrderParamsCardProps) => {
+  const theme = useTheme()
   const { provider } = useWeb3React()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
@@ -202,6 +147,66 @@ export const OrderParamsCard = ({
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
+
+  const LongButton = useMemo(() => {
+    return styled(Button)({
+      whiteSpace: 'nowrap',
+      textTransform: 'none',
+      width: '100%',
+      fontFamily: 'Inter',
+      color: '#fff',
+      background: '#009B72',
+      borderRadius: '4px',
+      padding: '10px 16px',
+      height: '40px',
+      fontSize: '14px',
+      '&:hover': {
+        backgroundColor: '#077054',
+      },
+      '&:active': {
+        background: 'red',
+      },
+      '&.Mui-disabled': {
+        background: theme.longButton.disableBg,
+        color: theme.longButton.disableText,
+        cursor: 'not-allowed',
+        pointerEvents: 'auto',
+      },
+      '& .MuiTouchRipple-root': {
+        color: 'white',
+      },
+    })
+  }, [theme])
+
+  const ShortButton = useMemo(() => {
+    return styled(Button)({
+      whiteSpace: 'nowrap',
+      textTransform: 'none',
+      width: '100%',
+      fontFamily: 'Inter',
+      color: '#fff',
+      background: '#DB4C40',
+      borderRadius: '4px',
+      padding: '10px 16px',
+      height: '40px',
+      fontSize: '14px',
+      '&:hover': {
+        backgroundColor: '#C3352A',
+      },
+      '&:active': {
+        background: 'red',
+      },
+      '&.Mui-disabled': {
+        background: theme.shortButton.disableBg,
+        color: theme.shortButton.disableText,
+        cursor: 'not-allowed',
+        pointerEvents: 'auto',
+      },
+      '& .MuiTouchRipple-root': {
+        color: 'white',
+      },
+    })
+  }, [theme])
 
   const PoolWalletBalance = useMemo(() => {
     return (
@@ -431,7 +436,7 @@ export const OrderParamsCard = ({
               display: flex;
               padding: 6px;
               margin: 16px 0;
-              background: #f6f6f6;
+              background: ${theme.background.second};
             `}
           >
             <span
@@ -439,7 +444,7 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 0 ? 'white' : ''};
-                  background: ${tabIndex === 0 ? 'black' : ''};
+                  background: ${tabIndex === 0 ? theme.background.third : ''};
                   margin-right: 13px;
                 `,
               ]}
@@ -455,7 +460,7 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 1 ? 'white' : ''};
-                  background: ${tabIndex === 1 ? 'black' : ''};
+                  background: ${tabIndex === 1 ? theme.background.third : ''};
                 `,
               ]}
               onClick={() => {
@@ -469,6 +474,7 @@ export const OrderParamsCard = ({
           <div
             css={css`
               margin-bottom: 8px;
+              color: ${theme.text.primary};
             `}
           >
             <span
@@ -502,7 +508,14 @@ export const OrderParamsCard = ({
           </div>
           <>
             <div>
-              <div css={input}>
+              <div
+                css={[
+                  input,
+                  css`
+                    background: ${theme.background.second};
+                  `,
+                ]}
+              >
                 <div
                   css={css`
                     display: flex;
@@ -570,6 +583,7 @@ export const OrderParamsCard = ({
                     <span
                       css={css`
                         margin: 0 4px;
+                        color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
                       `}
                     >
                       {tradePool?.symbol}
@@ -703,7 +717,13 @@ export const OrderParamsCard = ({
               )}
             </div>
             <div>
-              <p>Leverage slider</p>
+              <p
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                Leverage slider
+              </p>
               <Slider
                 defaultValue={2}
                 step={1}
@@ -719,27 +739,27 @@ export const OrderParamsCard = ({
                 sx={{
                   height: '2px',
                   '& .MuiSlider-root': {
-                    color: '#DADADA',
+                    color: '#757575',
                   },
                   '& .MuiSlider-rail': {
                     opacity: 1,
-                    backgroundColor: '#DADADA',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
                   },
                   '& .MuiSlider-track': {
                     border: 'unset',
-                    color: '#000000',
+                    color: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
                   },
                   '& .MuiSlider-mark': {
                     height: '6px',
-                    background: '#DADADA',
+                    background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
                   },
                   '& .MuiSlider-thumb': {
                     height: '10px',
                     width: '10px',
-                    background: '#000000',
+                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
                   },
                   '& .MuiSlider-markActive': {
-                    background: '#000000',
+                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
                   },
                   '& .MuiSlider-markLabel': {
                     fontSize: '12px',
@@ -760,6 +780,7 @@ export const OrderParamsCard = ({
                   align,
                   css`
                     justify-content: space-between;
+                    color: ${theme.text.primary};
                   `,
                 ]}
               >
@@ -773,6 +794,7 @@ export const OrderParamsCard = ({
                   align,
                   css`
                     justify-content: space-between;
+                    color: ${theme.text.primary};
                   `,
                 ]}
               >

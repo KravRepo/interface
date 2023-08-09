@@ -69,7 +69,6 @@ export const actionCard = css`
 
 export const bottomCard = css`
   margin-top: 18px;
-  background: #fff;
   border-radius: 8px;
   font-size: 14px;
   padding-bottom: 24px;
@@ -78,7 +77,6 @@ export const bottomCard = css`
     line-height: 46px;
     font-size: 16px;
     padding-left: 24px;
-    border-bottom: 1px solid #dadada;
     font-style: normal;
     font-weight: 500;
   }

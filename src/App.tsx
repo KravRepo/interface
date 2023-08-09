@@ -22,10 +22,12 @@ import { HomeReferral } from './pages/home/HomeReferral'
 import { HomeFarm } from './pages/home/HomeFarm'
 import { css } from '@emotion/react'
 import DashboardBg from './assets/imgs/dashboard_bg.png'
+import DashboardDarkBg from './assets/imgs/darkModel/dashboard_bg_dark.png'
 import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
 import ReportImg from './assets/imgs/report.png'
+import { useTheme } from '@mui/material'
 
 i18n.load({
   en: enMessages,
@@ -36,6 +38,8 @@ i18n.activate('en')
 const FullApp = () => {
   const factory = useFactory()
   const getBTCPrice = useBTCPrice()
+  const theme = useTheme()
+  console.log('theme', theme)
   useEffect(() => {
     Promise.all([factory(), getBTCPrice()]).then()
     setInterval(async () => {
@@ -46,8 +50,14 @@ const FullApp = () => {
 
   return (
     <Router>
-      <div className="fullApp">
-        <AppTheme>
+      <div
+        className="App"
+        css={css`
+          position: relative;
+          background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg});
+        `}
+      >
+        <div className="fullApp">
           <Web3Provider>
             <I18nProvider i18n={i18n}>
               <ErrorDialog />
@@ -70,23 +80,7 @@ const FullApp = () => {
               <Footer />
             </I18nProvider>
           </Web3Provider>
-        </AppTheme>
-      </div>
-    </Router>
-  )
-}
-
-function App() {
-  return (
-    <>
-      <div
-        className="App"
-        css={css`
-          position: relative;
-          background: url(${DashboardBg});
-        `}
-      >
-        <FullApp />
+        </div>
         <img
           src={ReportImg}
           width={64}
@@ -95,7 +89,15 @@ function App() {
           alt="report bugs"
         />
       </div>
-    </>
+    </Router>
+  )
+}
+
+function App() {
+  return (
+    <AppTheme>
+      <FullApp />
+    </AppTheme>
   )
 }
 

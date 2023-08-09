@@ -11,7 +11,6 @@ export const input = css`
   padding: 8px 12px;
   gap: 8px;
   width: 310px;
-  background: #f7f7f7;
   border-radius: 4px;
   margin-bottom: 8px;
   @media screen and (max-width: 1330px) {

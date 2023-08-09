@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, Tab, Tabs } from '@mui/material'
+import { css, Tab, Tabs, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Positions } from './Positions'
 import { Orders } from './Orders'
@@ -11,6 +11,7 @@ import { useGetUserOpenLimitOrders } from '../../../hook/hookV8/useGetUserOpenLi
 import { useWeb3React } from '@web3-react/core'
 
 export const MyTrade = () => {
+  const theme = useTheme()
   const [infoType, setInfoType] = useState(0)
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
   const { account, chainId } = useWeb3React()
@@ -37,10 +38,17 @@ export const MyTrade = () => {
   }, [tradePool, account, chainId])
 
   return (
-    <div css={myTrade}>
+    <div
+      css={[
+        myTrade,
+        css`
+          background: ${theme.background.primary};
+        `,
+      ]}
+    >
       <div
         css={css`
-          border-bottom: 1px solid #dadada;
+          border-bottom: ${theme.splitLine.primary};
           padding-left: 24px;
         `}
       >
@@ -52,7 +60,7 @@ export const MyTrade = () => {
               backgroundColor: '#000',
             },
             '& .Mui-selected': {
-              color: '#000!important',
+              color: theme.text.primary + '!important',
             },
           }}
         >
@@ -61,6 +69,7 @@ export const MyTrade = () => {
               minWidth: 0,
               fontFamily: 'Inter',
               padding: '20px 0 8px 0',
+              color: '#757575',
               mr: '16px',
               '& .MuiTab-root': {
                 color: '#757575',
@@ -74,6 +83,7 @@ export const MyTrade = () => {
               mr: '16px',
               fontFamily: 'Inter',
               padding: '20px 0 8px 0',
+              color: '#757575',
               '& .MuiTab-root': {
                 color: '#757575',
               },
@@ -85,6 +95,7 @@ export const MyTrade = () => {
               minWidth: 0,
               fontFamily: 'Inter',
               padding: '20px 0 8px 0',
+              color: '#757575',
               '& .MuiTab-root': {
                 color: '#757575',
               },

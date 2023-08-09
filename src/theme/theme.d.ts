@@ -55,6 +55,7 @@ declare module '@mui/material/styles' {
     background: {
       primary: string,
       second: string,
+      third: string,
     }
   }
 
@@ -103,6 +104,7 @@ declare module '@mui/material/styles' {
     background: {
       primary: string,
       second: string,
+      third: string
     }
   }
 }

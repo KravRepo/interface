@@ -43,7 +43,7 @@ export const lightTheme = createTheme({
     hoverText: '#ffffff',
   },
   splitLine: {
-    primary: '#dadada',
+    primary: '1px solid #dadada',
   },
   text: {
     primary: '#000000',
@@ -53,6 +53,7 @@ export const lightTheme = createTheme({
   background: {
     primary: '#ffffff',
     second: '#f6f6f6',
+    third: '#000000',
   },
 })
 
@@ -99,7 +100,7 @@ export const darkTheme = createTheme({
     hoverText: '#ffffff',
   },
   splitLine: {
-    primary: '#4b4b4b',
+    primary: '1px solid #727272',
   },
   text: {
     primary: '#dedede',
@@ -107,7 +108,8 @@ export const darkTheme = createTheme({
     third: '#727272',
   },
   background: {
-    primary: '#0f1114',
+    primary: '#1c1e23',
     second: '#0f1114',
+    third: '#4B4B4B',
   },
 })
