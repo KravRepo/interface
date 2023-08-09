@@ -67,7 +67,7 @@ export const dialogContent = css`
     border-radius: 8px;
     font-size: 16px;
     margin-bottom: 20px;
-    padding: 12px 0;
+    padding: 20px 0;
   }
   .confirm-content-input2 {
     background: #f6f6f6;

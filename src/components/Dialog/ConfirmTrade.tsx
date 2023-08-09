@@ -11,7 +11,6 @@ import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
 import { OPEN_FEES } from '../../constant/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { ReactComponent as ArrowDownIcon } from '../../assets/imgs/arrowDown.svg'
 import { decodeReferral } from '../../utils'
 
 export type ConfirmTradeDialogProp = {
@@ -88,15 +87,11 @@ export const ConfirmTrade = ({
                 <p
                   css={css`
                     margin-bottom: 36px;
+                    font-weight: 500;
+                    font-size: 32px;
                   `}
                 >
                   Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
-                </p>
-                <p>
-                  <ArrowDownIcon />
-                </p>
-                <p>
-                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC
                 </p>
               </div>
             </div>
