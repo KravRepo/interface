@@ -157,7 +157,6 @@ export const dialogContent = css`
 `
 
 export const snackbar = css`
-  background: white;
   border-radius: 8px;
   padding: 24px;
   font-family: 'Inter';
@@ -188,7 +187,7 @@ export const snackbar = css`
 `
 
 export const errorDialog = css`
-  padding: 24px;
+  padding: 24px 0;
   width: 440px;
   font-family: 'Inter';
   font-style: normal;
@@ -200,14 +199,14 @@ export const errorDialog = css`
     justify-content: space-between;
     align-items: center;
     font-size: 20px;
-    padding-bottom: 48px;
-    padding-left: 40px;
+    padding: 0 24px 24px 64px;
     > span {
       padding-left: 15px;
       padding-right: 45px;
     }
   }
   .error-dialog-content {
+    padding: 24px 24px 0;
     font-size: 14px;
     > svg {
       margin: 24px 0;

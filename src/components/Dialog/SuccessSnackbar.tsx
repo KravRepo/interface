@@ -1,12 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { Snackbar } from '@mui/material'
+import { Snackbar, useTheme } from '@mui/material'
 import { useRootStore } from '../../store/root'
 import { ReactComponent as Success } from '../../assets/imgs/success_icon.svg'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useMemo } from 'react'
 import { snackbar } from './sytle'
+import { css } from '@emotion/react'
 
 export const SuccessSnackbar = () => {
+  const theme = useTheme()
   const successSnackbarInfo = useRootStore((state) => state.successSnackbarInfo)
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const handleClose = () => {
@@ -28,7 +30,15 @@ export const SuccessSnackbar = () => {
       autoHideDuration={3000}
       onClose={handleClose}
     >
-      <div css={snackbar}>
+      <div
+        css={[
+          snackbar,
+          css`
+            background: ${theme.background.primary};
+            color: ${theme.text.primary};
+          `,
+        ]}
+      >
         <div className="snackbar-title">
           <div>
             <Success />
