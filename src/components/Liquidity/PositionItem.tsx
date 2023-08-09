@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
 import { css } from '@emotion/react'
-import { Button, Tooltip } from '@mui/material'
+import { Button, Tooltip, useTheme } from '@mui/material'
 import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
 import { ReactComponent as SubIcon } from '../../assets/imgs/subIcon.svg'
 import { PositionItemProps } from './type'
@@ -13,6 +13,7 @@ import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 
 export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
+  const theme = useTheme()
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
   const maxWithdrawAmount = useMemo(() => {
     return position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
@@ -107,8 +108,11 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
             height: '32px',
             width: '32px',
             minWidth: '32px',
-            border: '1px solid #2E2E2E',
+            border: theme.palette.mode === 'dark' ? '1px solid #dedede' : '1px solid #2E2E2E',
             margin: '12px',
+            '> svg > path': {
+              fill: theme.palette.mode === 'dark' ? '#dedede' : '',
+            },
           }}
         >
           <AddIcon height="17" width="17" />
@@ -123,7 +127,10 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
             height: '32px',
             width: '32px',
             minWidth: '32px',
-            border: '1px solid #2E2E2E',
+            border: theme.palette.mode === 'dark' ? '1px solid #dedede' : '1px solid #2E2E2E',
+            '> svg > path': {
+              fill: theme.palette.mode === 'dark' ? '#dedede' : '',
+            },
             '&.Mui-disabled': {
               cursor: 'not-allowed',
               pointerEvents: 'auto',

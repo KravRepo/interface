@@ -4,7 +4,6 @@ export const liquidity = css`
   max-width: 1376px;
   margin: 16px auto 0;
   .liquidity-content {
-    background: #ffffff;
     border-radius: 8px;
     margin-bottom: 18px;
   }
@@ -12,7 +11,6 @@ export const liquidity = css`
     font-size: 20px;
     font-weight: 500;
     padding: 16px 0 12px 32px;
-    border-bottom: 1px solid #dadada;
   }
   .liquidity-table {
     padding: 0 48px 16px 32px;

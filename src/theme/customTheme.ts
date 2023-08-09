@@ -76,7 +76,7 @@ export const darkTheme = createTheme({
   },
   hollowButton: {
     border: '1px solid #727272',
-    background: '#ffffff',
+    background: 'transparent',
     text: '#dedede',
     hoverBg: '#4b4b4b',
     disableBg: '#1c1e23',
