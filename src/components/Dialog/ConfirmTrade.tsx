@@ -7,8 +7,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
-import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
-import { OPEN_FEES } from '../../constant/math'
+import { eXDecimals, getBorrowFees, getFees, getLiqPrice } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { decodeReferral } from '../../utils'
@@ -123,7 +122,8 @@ export const ConfirmTrade = ({
               <p>
                 <span>Fees</span>
                 <span>
-                  {eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)} {tradePool.symbol}
+                  {eXDecimals(getFees(new BigNumber(tuple.positionSizeDai), tuple.leverage), 18).toFixed(2)}{' '}
+                  {tradePool.symbol}
                 </span>
               </p>
               <p>
