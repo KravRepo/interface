@@ -414,9 +414,16 @@ export const Header = () => {
                 <div
                   css={css`
                     width: 100%;
+                    color: ${theme.text.primary};
+                    background: ${theme.background.primary};
                   `}
                 >
-                  <div className="userInfo">
+                  <div
+                    className="userInfo"
+                    css={css`
+                      border-bottom: ${theme.splitLine.primary};
+                    `}
+                  >
                     <div>
                       <div css={align}>
                         <KarvIcon
@@ -475,6 +482,9 @@ export const Header = () => {
                   </div>
                   <div
                     className="action"
+                    css={css`
+                      border-bottom: ${theme.splitLine.primary};
+                    `}
                     onClick={async () => {
                       handleSettingClose()
                       await disconnect()

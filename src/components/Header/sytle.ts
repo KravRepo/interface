@@ -13,7 +13,6 @@ export const header = css`
 export const setting = css`
   .userInfo {
     padding: 24px;
-    border-bottom: 1px solid #dadada;
     > div:first-of-type {
       display: flex;
       align-items: center;
