@@ -45,11 +45,6 @@ export const normalTab = css`
   font-weight: 400;
 `
 
-export const activeTab = css`
-  color: #000;
-  font-weight: 700;
-`
-
 export const attention = css`
   margin: 16px 0 24px;
   background: #f1f1f1;

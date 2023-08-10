@@ -12,10 +12,8 @@ export const dialogContent = css`
     height: 76px;
     font-size: 20px;
     font-weight: 500;
-    border-bottom: 1px solid #dadada;
   }
   .select-token-header {
-    border-bottom: 1px solid #dadada;
     padding: 0 24px 24px;
     > div:first-of-type {
       display: flex;
@@ -27,15 +25,11 @@ export const dialogContent = css`
     }
   }
   .select-token-list {
-    border-bottom: 1px solid #dadada;
     padding: 16px 0;
     max-height: 368px;
     overflow: scroll;
     > div {
       cursor: pointer;
-      :hover {
-        background: #f6f6f6;
-      }
       padding: 8px 24px;
       display: flex;
       align-items: center;
@@ -50,7 +44,6 @@ export const dialogContent = css`
     > div {
       display: flex;
       align-items: center;
-      border: 1px solid #dadada;
       border-radius: 4px;
       font-size: 20px;
       padding: 4px 10px;
@@ -62,7 +55,6 @@ export const dialogContent = css`
     }
   }
   .confirm-content-input {
-    background: #f6f6f6;
     text-align: center;
     border-radius: 8px;
     font-size: 16px;
@@ -83,7 +75,6 @@ export const dialogContent = css`
     align-items: flex-start;
     padding: 8px 12px;
     width: 100%;
-    background: #f7f7f7;
     border-radius: 4px;
     margin-bottom: 8px;
   }

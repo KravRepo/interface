@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Dialog, DialogContent, Stack, TextField, Typography } from '@mui/material'
+import { Box, Dialog, DialogContent, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -17,6 +17,7 @@ import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg
 import { useFactory } from '../../hook/hookV8/useFactory'
 
 export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => {
+  const theme = useTheme()
   const { provider } = useWeb3React()
   const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
   const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0)
@@ -54,14 +55,19 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>Remove Liquidity</span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
@@ -76,7 +82,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
             width={392}
             margin={'auto'}
             sx={{
-              borderBottom: '1px solid #DADADA',
+              borderBottom: theme.splitLine.primary,
             }}
           >
             <Stack direction={'row'}>
@@ -109,10 +115,15 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
             `}
           >
-            <div className="confirm-content-input3">
+            <div
+              className="confirm-content-input3"
+              css={css`
+                background: ${theme.background.second};
+                color: ${theme.text.primary};
+              `}
+            >
               <div
                 css={css`
                   display: flex;
@@ -144,6 +155,8 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                     disableUnderline: true,
                   }}
                   sx={{
+                    background: theme.background.second,
+                    color: theme.text.primary,
                     height: '28px',
                     fontSize: '20px',
                     minHeight: '28px',
@@ -158,7 +171,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: #a4a8fe;
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;

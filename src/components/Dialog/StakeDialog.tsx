@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, TextField } from '@mui/material'
+import { Dialog, DialogContent, TextField, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -33,6 +33,7 @@ export const StakeDialog = ({
   setUserStake,
   setUserKravBalance,
 }: StakeDialogProps) => {
+  const theme = useTheme()
   const [amount, setAmount] = useState<string | number>('')
   const { getTotalStake, getUserStake, stakeKrav, withdrawKrav, getUserKRAVBalance } = useGetKravStake()
   const buttonStr = useMemo(() => {
@@ -55,13 +56,13 @@ export const StakeDialog = ({
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         {!isStake && (
           <div css={dialogContent}>
             <div className="dialog-header ">
@@ -77,7 +78,7 @@ export const StakeDialog = ({
             <div
               css={css`
                 padding: 24px;
-                border-bottom: 1px solid #f6f6f6;
+                border-bottom: ${theme.splitLine.primary};
               `}
             >
               <div className="confirm-content-input3">
@@ -183,7 +184,7 @@ export const StakeDialog = ({
             <div
               css={css`
                 padding: 24px;
-                border-bottom: 1px solid #f6f6f6;
+                border-bottom: ${theme.splitLine.primary};
               `}
             >
               <div className="confirm-content-input3">

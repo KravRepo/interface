@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Slider, styled, TextField, useTheme } from '@mui/material'
+import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
@@ -18,6 +18,8 @@ import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
 import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
 import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
+import KravLongButton from '../../KravUIKit/KravLongButton'
+import KravShortButton from '../../KravUIKit/KravShortButton'
 
 const marks = [
   {
@@ -147,66 +149,6 @@ export const OrderParamsCard = ({
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
-
-  const LongButton = useMemo(() => {
-    return styled(Button)({
-      whiteSpace: 'nowrap',
-      textTransform: 'none',
-      width: '100%',
-      fontFamily: 'Inter',
-      color: '#fff',
-      background: '#009B72',
-      borderRadius: '4px',
-      padding: '10px 16px',
-      height: '40px',
-      fontSize: '14px',
-      '&:hover': {
-        backgroundColor: '#077054',
-      },
-      '&:active': {
-        background: 'red',
-      },
-      '&.Mui-disabled': {
-        background: theme.longButton.disableBg,
-        color: theme.longButton.disableText,
-        cursor: 'not-allowed',
-        pointerEvents: 'auto',
-      },
-      '& .MuiTouchRipple-root': {
-        color: 'white',
-      },
-    })
-  }, [theme])
-
-  const ShortButton = useMemo(() => {
-    return styled(Button)({
-      whiteSpace: 'nowrap',
-      textTransform: 'none',
-      width: '100%',
-      fontFamily: 'Inter',
-      color: '#fff',
-      background: '#DB4C40',
-      borderRadius: '4px',
-      padding: '10px 16px',
-      height: '40px',
-      fontSize: '14px',
-      '&:hover': {
-        backgroundColor: '#C3352A',
-      },
-      '&:active': {
-        background: 'red',
-      },
-      '&.Mui-disabled': {
-        background: theme.shortButton.disableBg,
-        color: theme.shortButton.disableText,
-        cursor: 'not-allowed',
-        pointerEvents: 'auto',
-      },
-      '& .MuiTouchRipple-root': {
-        color: 'white',
-      },
-    })
-  }, [theme])
 
   const PoolWalletBalance = useMemo(() => {
     return (
@@ -562,7 +504,8 @@ export const OrderParamsCard = ({
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: #a4a8fe;
+                      color: ${theme.text.primary};
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;
@@ -1107,7 +1050,7 @@ export const OrderParamsCard = ({
               <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
             )}
             {account && isBuy && (
-              <LongButton
+              <KravLongButton
                 disabled={
                   buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                   buttonState === ButtonText.REACHED_LIMIT ||
@@ -1123,10 +1066,10 @@ export const OrderParamsCard = ({
                 }}
               >
                 <Trans>{buttonState}</Trans>
-              </LongButton>
+              </KravLongButton>
             )}
             {account && !isBuy && (
-              <ShortButton
+              <KravShortButton
                 disabled={
                   buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                   buttonState === ButtonText.REACHED_LIMIT ||
@@ -1142,7 +1085,7 @@ export const OrderParamsCard = ({
                 }}
               >
                 <Trans>{buttonState}</Trans>
-              </ShortButton>
+              </KravShortButton>
             )}
           </>
         </div>

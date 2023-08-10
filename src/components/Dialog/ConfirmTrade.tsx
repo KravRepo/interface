@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Checkbox, Dialog, DialogContent } from '@mui/material'
+import { Checkbox, Dialog, DialogContent, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
@@ -11,8 +10,9 @@ import { eXDecimals, getBorrowFees, getLiqPrice } from '../../utils/math'
 import { OPEN_FEES } from '../../constant/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { ReactComponent as ArrowDownIcon } from '../../assets/imgs/arrowDown.svg'
 import { decodeReferral } from '../../utils'
+import KRAVLongButton from '../KravUIKit/KravLongButton'
+import KRAVShortButton from '../KravUIKit/KravShortButton'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -35,6 +35,7 @@ export const ConfirmTrade = ({
   setOpenBTCSize,
   setLeverage,
 }: ConfirmTradeDialogProp) => {
+  const theme = useTheme()
   const tradePool = useRootStore((store) => store.tradePool)
   const [checked, setChecked] = useState(false)
   const [referralAddress, setReferralAddress] = useState('0x0000000000000000000000000000000000000000')
@@ -65,13 +66,13 @@ export const ConfirmTrade = ({
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
           <div className="dialog-header ">
             <span>{tradeType === 0 ? (tuple.buy ? 'Confirm Long' : 'Confirm Short') : 'Confirm Limit Order'}</span>
@@ -80,10 +81,15 @@ export const ConfirmTrade = ({
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
+              border-bottom: ${theme.splitLine.primary};
             `}
           >
-            <div className="confirm-content-input">
+            <div
+              className="confirm-content-input"
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
               <div>
                 <p
                   css={css`
@@ -91,12 +97,6 @@ export const ConfirmTrade = ({
                   `}
                 >
                   Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
-                </p>
-                <p>
-                  <ArrowDownIcon />
-                </p>
-                <p>
-                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC
                 </p>
               </div>
             </div>
@@ -171,7 +171,7 @@ export const ConfirmTrade = ({
                   sx={{
                     padding: 0,
                     '&.Mui-checked': {
-                      color: '#000',
+                      color: theme.palette.mode === 'dark' ? '#2832f5' : '#000',
                     },
                   }}
                 />
@@ -191,18 +191,33 @@ export const ConfirmTrade = ({
             {/*{transactionState === TransactionState.START_OPEN_TRADE && (*/}
             {/*  <KRAVButton sx={{ marginTop: '20px' }}>{tuple.buy ? 'Long...' : 'Short...'}</KRAVButton>*/}
             {/*)}*/}
-            <KRAVButton
-              onClick={async () => {
-                setIsOpen(false)
-                await openTrade()
-                setPositionSizeDai(new BigNumber(0))
-                setOpenBTCSize(new BigNumber(0))
-                setLeverage(2)
-              }}
-              sx={{ marginTop: '20px' }}
-            >
-              {tuple.buy ? 'Long' : 'Short'}
-            </KRAVButton>
+            {tuple.buy ? (
+              <KRAVLongButton
+                onClick={async () => {
+                  setIsOpen(false)
+                  await openTrade()
+                  setPositionSizeDai(new BigNumber(0))
+                  setOpenBTCSize(new BigNumber(0))
+                  setLeverage(2)
+                }}
+                sx={{ marginTop: '20px' }}
+              >
+                Long
+              </KRAVLongButton>
+            ) : (
+              <KRAVShortButton
+                onClick={async () => {
+                  setIsOpen(false)
+                  await openTrade()
+                  setPositionSizeDai(new BigNumber(0))
+                  setOpenBTCSize(new BigNumber(0))
+                  setLeverage(2)
+                }}
+                sx={{ marginTop: '20px' }}
+              >
+                Short
+              </KRAVShortButton>
+            )}
           </div>
         </div>
       </DialogContent>

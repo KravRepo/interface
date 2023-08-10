@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, Input } from '@mui/material'
+import { Dialog, DialogContent, Input, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
@@ -9,7 +9,7 @@ import { useRootStore } from '../../store/root'
 import { getBigNumberStr } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { getReachPrice, getTakeProfit } from '../../utils/math'
-import { activeTab, normalTab } from '../Trades/TradeRight/style'
+import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
@@ -63,6 +63,7 @@ export const ProfitConfirmTrade = ({
   openTrade,
   pool,
 }: ConfirmTradeDialogProp) => {
+  const theme = useTheme()
   const tradePool = useRootStore((store) => store.tradePool)
   const [slUsePercentage, setUseSlPercentage] = useState(BigNumber(openTrade.tp).gt(0) ? false : true)
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
@@ -71,7 +72,13 @@ export const ProfitConfirmTrade = ({
   const [slPrice, setSlPrice] = useState<BigNumber | string>(openTrade.sl)
   const [tpPrice, setTpPrice] = useState<BigNumber | string>(openTrade.tp)
 
-  console.log('openTrade', openTrade)
+  const activeTab = useMemo(() => {
+    return css`
+      color: ${theme.text.primary};
+      font-weight: 700;
+    `
+  }, [theme])
+
   const targetSl = useMemo(() => {
     return slUsePercentage
       ? slSetting === 0
@@ -155,13 +162,13 @@ export const ProfitConfirmTrade = ({
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
           <div className="dialog-header ">
             <span>BTC/USDT(Update SL/TP)</span>
@@ -170,7 +177,7 @@ export const ProfitConfirmTrade = ({
           <div
             css={css`
               padding: 24px 0 0;
-              border-bottom: 1px solid #f6f6f6;
+              border-bottom: ${theme.splitLine.primary};
             `}
           >
             <div className="confirm-content-input">
@@ -245,7 +252,7 @@ export const ProfitConfirmTrade = ({
                       display: flex;
                       align-items: center;
                       justify-content: space-between;
-                      background: #f7f7f7;
+                      background: ${theme.background.second};
                       > span {
                         cursor: pointer;
                       }
@@ -301,7 +308,8 @@ export const ProfitConfirmTrade = ({
                           padding: 0,
                         },
                         '& .MuiInputBase-input': {
-                          background: '#fff!important',
+                          background: theme.background.second,
+                          color: theme.text.primary,
                           padding: '0px 0px 0px 4px',
                           margin: '4px 4px 5px 0',
                         },
@@ -383,7 +391,7 @@ export const ProfitConfirmTrade = ({
                     css={css`
                       display: flex;
                       align-items: center;
-                      background: #f7f7f7;
+                      background: ${theme.background.second};
                       justify-content: space-between;
                       > span {
                         cursor: pointer;
@@ -440,7 +448,8 @@ export const ProfitConfirmTrade = ({
                           padding: 0,
                         },
                         '& .MuiInputBase-input': {
-                          background: '#fff!important',
+                          background: theme.background.second,
+                          color: theme.text.primary,
                           padding: '0px 0px 0px 4px',
                           margin: '4px 4px 5px 0',
                         },

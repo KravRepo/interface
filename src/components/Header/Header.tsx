@@ -517,14 +517,9 @@ export const Header = () => {
           ) : (
             <KRAVButton
               sx={{
-                color: '#fff',
-                background: '#000000',
                 mx: '9px',
                 borderRadius: '4px',
                 textTransform: 'none',
-                '&:hover': {
-                  background: '#757575',
-                },
               }}
               css={headerBtn}
               onClick={() => setWalletDialogVisibility(true)}
