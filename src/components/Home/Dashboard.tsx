@@ -135,6 +135,7 @@ export const Dashboard = () => {
                 className="tabs"
                 css={css`
                   width: 180px;
+                  color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
                   background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                 `}
               >
@@ -200,6 +201,7 @@ export const Dashboard = () => {
             <p
               css={css`
                 background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
               `}
               className="tabs"
             >
