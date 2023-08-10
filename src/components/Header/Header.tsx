@@ -239,7 +239,7 @@ export const Header = () => {
         css={[
           header,
           css`
-            background: ${isHomePath ? '#fff' : ''};
+            background: ${isHomePath ? theme.background.fourth : ''};
           `,
         ]}
       >

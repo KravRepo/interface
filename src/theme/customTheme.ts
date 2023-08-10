@@ -54,6 +54,7 @@ export const lightTheme = createTheme({
     primary: '#ffffff',
     second: '#f6f6f6',
     third: '#000000',
+    fourth: '#ffffff',
   },
 })
 
@@ -111,5 +112,6 @@ export const darkTheme = createTheme({
     primary: '#1c1e23',
     second: '#0f1114',
     third: '#4B4B4B',
+    fourth: '#0f1114',
   },
 })
