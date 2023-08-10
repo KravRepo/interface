@@ -1093,8 +1093,21 @@ export const OrderParamsCard = ({
       )}
       {showConfirmTip && (
         <>
-          <div css={attention}>
-            <div className="title">
+          <div
+            css={[
+              attention,
+              css`
+                background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : '#f1f1f1'};
+                color: ${theme.text.primary};
+              `,
+            ]}
+          >
+            <div
+              className="title"
+              css={css`
+                border-bottom: ${theme.splitLine.primary};
+              `}
+            >
               <AttentionIcon />
               <span>Attention</span>
             </div>

@@ -47,13 +47,11 @@ export const normalTab = css`
 
 export const attention = css`
   margin: 16px 0 24px;
-  background: #f1f1f1;
   border-radius: 4px;
   padding: 24px 16px;
   .title {
     padding-bottom: 16px;
     margin-bottom: 16px;
-    border-bottom: 1px solid #dadada;
     display: flex;
     align-items: center;
     > span {

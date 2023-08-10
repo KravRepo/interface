@@ -23,6 +23,7 @@ export type ChartData = {
 }
 
 export const TradingView = () => {
+  // const theme = useTheme()
   const chartRef = useRef(null)
   const [chartData, setChartData] = useState([] as ChartData[])
   const [tradeChart, setTradeChart] = useState<ISeriesApi<'Candlestick'> | null>(null)
@@ -40,7 +41,7 @@ export const TradingView = () => {
         layout: {
           textColor: '#777E90',
           background: {
-            color: '#23262f',
+            color: 'transparent',
           },
         },
         grid: {
@@ -52,14 +53,7 @@ export const TradingView = () => {
           },
         },
       })
-      const candlestickSeries = chart.addCandlestickSeries({
-        upColor: '#FF6838',
-        downColor: '#00C076',
-        borderDownColor: '#00C076',
-        borderUpColor: '#FF6838',
-        wickDownColor: '#00C076',
-        wickUpColor: '#FF6838',
-      })
+      const candlestickSeries = chart.addCandlestickSeries()
       setTradeChart(candlestickSeries)
       const formatterData = chartData.map((item) => {
         const timeStr = moment(item.OpenTime).format('YYYY-MM-DD')
@@ -78,6 +72,23 @@ export const TradingView = () => {
       window.addEventListener('resize', handleResize)
     }
   }, [chartRef.current, chartData])
+
+  // useEffect(() => {
+  //   if (tradeChart !== null) {
+  //     if (theme.palette.mode === 'dark') {
+  //       tradeChart.applyOptions({
+  //         upColor: '#FF6838',
+  //         downColor: '#00C076',
+  //         borderDownColor: '#00C076',
+  //         borderUpColor: '#FF6838',
+  //         wickDownColor: '#00C076',
+  //         wickUpColor: '#FF6838',
+  //       })
+  //     } else {
+  //       tradeChart.applyOptions({})
+  //     }
+  //   }
+  // }, [theme])
 
   useEffect(() => {
     getData().then()
