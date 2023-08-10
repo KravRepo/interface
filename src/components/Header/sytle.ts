@@ -13,7 +13,6 @@ export const header = css`
 export const setting = css`
   .userInfo {
     padding: 24px;
-    border-bottom: 1px solid #dadada;
     > div:first-of-type {
       display: flex;
       align-items: center;
@@ -83,15 +82,9 @@ export const router = css`
   font-size: 14px;
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: black;
   cursor: pointer;
   font-family: 'Inter';
   text-decoration: none;
-  :hover {
-    background: #000000;
-    color: white;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  },
 `
 
 export const headerBtn = css`

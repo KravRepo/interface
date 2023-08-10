@@ -7,6 +7,7 @@ import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
+import { css, useTheme } from '@mui/material'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -23,6 +24,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
     isOpenSelectToken: state.isOpenSelectToken,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
+  const theme = useTheme()
 
   return (
     <>
@@ -30,7 +32,14 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
       <div css={tradeLeft}>
         <PairInfo isProModel={isProModel} setIsOpenSelectToken={setIsOpenSelectToken} setIsProModel={setIsProModel} />
         {isProModel && (
-          <div css={chart}>
+          <div
+            css={[
+              chart,
+              css`
+                background: ${theme.background.primary};
+              `,
+            ]}
+          >
             <TradingView />
           </div>
         )}

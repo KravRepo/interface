@@ -5,17 +5,20 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { FarmItem } from './FarmItem'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
+import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { ReactComponent as ArrowRight } from '../../assets/imgs/arrowRight.svg'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
+import { useTheme } from '@mui/material'
 type DashboardFarmProps = {
   setUserPoolLength: React.Dispatch<React.SetStateAction<number>>
 }
 
 export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
+  const theme = useTheme()
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
@@ -66,6 +69,7 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          color: ${theme.text.primary};
         `}
       >
         <span>My Liquidity Pools</span>
@@ -89,7 +93,6 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
               className="liquidity grey nowrap"
             >
               <span>ASSET</span>
-              <span>PER TICKET SIZE</span>
               <span>APR</span>
               <span>UTILIZATION</span>
               <span>TOTAL LIQUIDITY SUPPLY</span>
@@ -106,7 +109,8 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
         <div
           className="no-stake"
           css={css`
-            background: url(${DashboardBg}), no-repeat, #f1f1f1;
+            background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg}), no-repeat,
+              ${theme.palette.mode === 'dark' ? '#0f1114' : '#f1f1f1'};
           `}
         >
           {!account && (

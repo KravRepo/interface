@@ -11,7 +11,6 @@ export const input = css`
   padding: 8px 12px;
   gap: 8px;
   width: 310px;
-  background: #f7f7f7;
   border-radius: 4px;
   margin-bottom: 8px;
   @media screen and (max-width: 1330px) {
@@ -46,20 +45,13 @@ export const normalTab = css`
   font-weight: 400;
 `
 
-export const activeTab = css`
-  color: #000;
-  font-weight: 700;
-`
-
 export const attention = css`
   margin: 16px 0 24px;
-  background: #f1f1f1;
   border-radius: 4px;
   padding: 24px 16px;
   .title {
     padding-bottom: 16px;
     margin-bottom: 16px;
-    border-bottom: 1px solid #dadada;
     display: flex;
     align-items: center;
     > span {

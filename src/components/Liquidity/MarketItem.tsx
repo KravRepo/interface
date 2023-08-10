@@ -10,8 +10,10 @@ import { eXDecimals } from '../../utils/math'
 import { css } from '@emotion/react'
 import { getBigNumberStr } from '../../utils'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
+import { useTheme } from '@mui/material'
 
 export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
+  const theme = useTheme()
   const { account } = useWeb3React()
   const getLpReward = useGetLpReward(poolParams.vaultT, poolParams.decimals)
   const [lpReward, setLpReward] = useState(new BigNumber(0))
@@ -44,6 +46,7 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
         <img
           css={css`
             border-radius: 50%;
+            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
           `}
           src={poolParams.logoSource}
           height="40"
@@ -79,12 +82,12 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
         {account && (
           <KRAVButton
             sx={{
-              backgroundColor: '#fff',
-              border: '1px solid #2e2e2e',
-              color: '#2e2e2e',
+              backgroundColor: theme.hollowButton.background,
+              border: theme.hollowButton.border,
+              color: theme.hollowButton.text,
               '&:hover': {
-                backgroundColor: '#000',
-                color: '#fff',
+                backgroundColor: theme.hollowButton.hoverBg,
+                color: theme.hollowButton.hoverText,
               },
             }}
             onClick={() => {

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Dialog, DialogContent, Stack, TextField, Typography } from '@mui/material'
+import { Box, Dialog, DialogContent, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -16,6 +16,7 @@ import { useFactory } from '../../hook/hookV8/useFactory'
 import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 
 export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
+  const theme = useTheme()
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const addLiquidity = useAddLiquidity(liquidityInfo.tokenT)
@@ -38,15 +39,20 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header "
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>Add Liquidity</span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
@@ -87,10 +93,15 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
             `}
           >
-            <div className="confirm-content-input3">
+            <div
+              className="confirm-content-input3"
+              css={css`
+                background: ${theme.background.second};
+                color: ${theme.text.primary};
+              `}
+            >
               <div
                 css={css`
                   display: flex;
@@ -123,6 +134,8 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                     disableUnderline: true,
                   }}
                   sx={{
+                    background: theme.background.second,
+                    color: theme.text.primary,
                     height: '28px',
                     fontSize: '20px',
                     minHeight: '28px',
@@ -137,7 +150,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: #a4a8fe;
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;
@@ -157,6 +170,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                     <img
                       css={css`
                         border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                       `}
                       src={liquidityInfo.logoSource}
                       height="16"
