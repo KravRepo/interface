@@ -127,7 +127,7 @@ export const ProfitConfirmTrade = ({
     if (new BigNumber(targetSl).isLessThanOrEqualTo(openTrade.openPrice) && !openTrade.buy && !targetSl.isEqualTo(0))
       return SlLimitState.SL_LT_OPEN_PRICE
     if (isNaN(targetSl.toNumber()) || targetSl.isLessThan(0)) return SlLimitState.INVALID
-    if (percentage.isLessThan(-75)) return SlLimitState.MAX_SL_LIMIT
+    if (percentage.isLessThan(-75) && !targetSl.isEqualTo(0)) return SlLimitState.MAX_SL_LIMIT
     return SlLimitState.UPDATE
   }, [slPercentage, targetSl, slPrice, slUsePercentage, btcPrice, openTrade.buy, openTrade.leverage])
 

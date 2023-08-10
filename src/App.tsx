@@ -40,7 +40,6 @@ const FullApp = () => {
   const factory = useFactory()
   const getBTCPrice = useBTCPrice()
   const theme = useTheme()
-  console.log('theme', theme)
   useEffect(() => {
     Promise.all([factory(), getBTCPrice()]).then()
     setInterval(async () => {
