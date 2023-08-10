@@ -16,7 +16,7 @@ const KRAVShortButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#C3352A',
   },
   '&:active': {
-    background: 'red',
+    background: '#C3352A',
   },
   '&.Mui-disabled': {
     background: theme.shortButton.disableBg,

@@ -16,7 +16,7 @@ const KRAVLongButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#077054',
   },
   '&:active': {
-    background: 'red',
+    background: '#077054',
   },
   '&.Mui-disabled': {
     background: theme.longButton.disableBg,
