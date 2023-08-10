@@ -534,6 +534,7 @@ export const OrderParamsCard = ({
                     <img
                       css={css`
                         border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                       `}
                       src={tradePool.logoSource}
                       height="16"

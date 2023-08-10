@@ -38,6 +38,7 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
         <img
           css={css`
             border-radius: 50%;
+            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
           `}
           src={pool.logoSource}
           height="40"

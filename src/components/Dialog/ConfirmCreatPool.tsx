@@ -66,17 +66,26 @@ export const ConfirmCreatPool = ({
     >
       <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>Confirm</span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
           <div
             css={css`
               padding: 24px;
-              border-bottom: ${theme.splitLine.primary};
             `}
           >
-            <div className="confirm-content-input2">
+            <div
+              className="confirm-content-input2"
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
               <p>Target Market</p>
               <div css={align}>
                 <BTCIcon height="40" width="40" />
@@ -93,12 +102,18 @@ export const ConfirmCreatPool = ({
                 </div>
               </div>
             </div>
-            <div className="confirm-content-input2">
+            <div
+              className="confirm-content-input2"
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
               <p>Token Collateral</p>
               <div css={align}>
                 <img
                   css={css`
                     border-radius: 50%;
+                    background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                   `}
                   src={tokenLogoSource}
                   height="40"

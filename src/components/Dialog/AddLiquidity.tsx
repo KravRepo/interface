@@ -170,6 +170,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                     <img
                       css={css`
                         border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                       `}
                       src={liquidityInfo.logoSource}
                       height="16"

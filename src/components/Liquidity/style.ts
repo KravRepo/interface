@@ -54,7 +54,6 @@ export const creatPool = css`
   //min-height: calc(100vh - 300px);
   min-height: calc(100vh - 284px);
   margin-bottom: -40px;
-  background: white;
   .creat-pool-content {
     max-width: 1248px;
     margin: 0 auto;
@@ -89,7 +88,6 @@ export const creatPool = css`
       margin-left: 80px;
       margin-bottom: 40px;
       padding: 40px 40px 16px 40px;
-      background: #f6f6f6;
       .step {
         > p:first-of-type {
           font-size: 16px;

@@ -191,6 +191,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                     <img
                       css={css`
                         border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                       `}
                       src={liquidityInfo.logoSource}
                       height="16"

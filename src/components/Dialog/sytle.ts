@@ -62,7 +62,6 @@ export const dialogContent = css`
     padding: 12px 0;
   }
   .confirm-content-input2 {
-    background: #f6f6f6;
     text-align: start;
     border-radius: 8px;
     font-size: 14px;

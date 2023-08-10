@@ -46,6 +46,7 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
         <img
           css={css`
             border-radius: 50%;
+            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
           `}
           src={poolParams.logoSource}
           height="40"

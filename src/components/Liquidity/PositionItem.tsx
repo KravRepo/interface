@@ -39,6 +39,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         <img
           css={css`
             border-radius: 50%;
+            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
           `}
           src={position.pool.logoSource}
           height="40"
