@@ -319,7 +319,7 @@ export const stake = css`
     }
   }
   .action {
-    padding: 40px 32px;
+    padding: 40px 32px 64px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 76px;

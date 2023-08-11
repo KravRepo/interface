@@ -6,6 +6,7 @@ import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { align } from '../../../globalStyle'
+import { useState } from 'react'
 
 const marks = [
   {
@@ -28,6 +29,7 @@ const marks = [
 
 export const LockAction = () => {
   const theme = useTheme()
+  const [showTip, setShowTip] = useState(false)
   return (
     <div>
       <div
@@ -225,7 +227,26 @@ export const LockAction = () => {
         <span>Locked until</span>
         <span>Sep 21, 2021 08:30 AM UTC </span>
       </div>
-      <KRAVButton sx={{ mt: '20px' }}>Lock & Mint</KRAVButton>
+      <KRAVButton onClick={() => setShowTip(!showTip)} sx={{ mt: '20px' }}>
+        Lock & Mint
+      </KRAVButton>
+      <div
+        css={css`
+          position: relative;
+        `}
+      >
+        {showTip && (
+          <div
+            css={css`
+              color: #db4c40;
+              position: absolute;
+              top: 10px;
+            `}
+          >
+            You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates.
+          </div>
+        )}
+      </div>
     </div>
   )
 }
