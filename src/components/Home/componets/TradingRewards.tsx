@@ -46,7 +46,7 @@ export const TradingRewards = () => {
           `}
         >
           <div css={[align]}>
-            <KRAVTab>24h Trading Volume</KRAVTab>
+            <KRAVTab>Your 24h Trading Volume</KRAVTab>
             &nbsp;&nbsp;
             <AlertIcon />
           </div>
