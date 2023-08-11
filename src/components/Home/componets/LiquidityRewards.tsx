@@ -25,7 +25,12 @@ export const LiquidityRewards = () => {
         >
           Liquidity Provider Rewards
         </div>
-        <div className="overview-card">
+        <div
+          className="overview-card"
+          css={css`
+            background: ${theme.background.primary};
+          `}
+        >
           <div>
             <KRAVTab>total Liquidity Provider</KRAVTab>
             <p className="data gt">{formatNumber('23102.23', 2, false)}%</p>
@@ -78,8 +83,14 @@ export const LiquidityRewards = () => {
               >
                 {formatNumber('12345.00', 2, false)} KRAV
               </span>
-              <KRAVHollowButton sx={{ borderRadius: '100px', width: '90px', height: '30px', minHeight: '30px' }}>
-                <span>Boost</span>
+              <KRAVHollowButton sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}>
+                <span
+                  css={css`
+                    min-width: 24px;
+                  `}
+                >
+                  Boost&nbsp;
+                </span>
                 <BoostIcon />
               </KRAVHollowButton>
             </p>

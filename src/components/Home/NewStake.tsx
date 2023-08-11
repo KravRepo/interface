@@ -32,7 +32,12 @@ export const NewStake = () => {
           Lock in to obtain krav income and veKRAV rights and interests, up to Boost your yield up to 2.5x
         </p>
       </div>
-      <div className="card">
+      <div
+        className="card"
+        css={css`
+          background: ${theme.background.primary};
+        `}
+      >
         <div
           css={[
             align,
@@ -78,7 +83,12 @@ export const NewStake = () => {
           <p className="data gt">{formatNumber('12,345.00', 2, false)} KRAV</p>
         </div>
       </div>
-      <div className="card">
+      <div
+        className="card"
+        css={css`
+          background: ${theme.background.primary};
+        `}
+      >
         <div
           css={[
             align,

@@ -27,7 +27,12 @@ export const TradingRewards = () => {
           Earn trading rewards when you trade on KRAV. Rewards are calculated and distributed once daily.
         </p>
       </div>
-      <div className="overview-card">
+      <div
+        className="overview-card"
+        css={css`
+          background: ${theme.background.primary};
+        `}
+      >
         <div>
           <KRAVTab>Total Trading Volume</KRAVTab>
           <p className="data gt">{formatNumber('23102.23', 2, false)}%</p>
@@ -79,9 +84,13 @@ export const TradingRewards = () => {
             >
               {formatNumber('12345.00', 2, false)} KRAV
             </span>
-            <KRAVHollowButton sx={{ borderRadius: '100px', width: '90px', height: '30px', minHeight: '30px' }}>
-              <span>Boost&nbsp;&nbsp;</span>
-              <BoostIcon />
+            <KRAVHollowButton sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}>
+              <span>Boost&nbsp;</span>
+              <BoostIcon
+                css={css`
+                  min-width: 24px;
+                `}
+              />
             </KRAVHollowButton>
           </p>
         </div>
