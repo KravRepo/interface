@@ -410,12 +410,12 @@ export const stake = css`
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     padding: 24px 32px;
     margin-bottom: 24px;
-    .data {
-      padding-top: 10px;
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 130%;
-    }
+  }
+  .data {
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 130%;
   }
   .action {
     padding: 40px 32px 64px;
@@ -444,6 +444,71 @@ export const stake = css`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 12px;
+  }
+  .liquidity-reward-action {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .fees-rewards {
+    border-radius: 8px;
+    padding: 24px 32px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .reward-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+  }
+  .krav-reward-card {
+    border-radius: 8px;
+    padding: 24px 32px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    > div:first-of-type,
+    > div:nth-of-type(2) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    > div:last-of-type {
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 16px;
+      font-weight: 500;
+      > p:first-of-type {
+        padding-bottom: 25px;
+      }
+      > p:last-of-type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > span:first-of-type {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .overview-card {
+    border-radius: 8px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 24px 32px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-bottom: 40px;
+    > div:first-of-type {
+      padding-left: 0 !important;
+    }
+    > div {
+      padding-left: 32px;
+    }
   }
   .grey {
     color: #757575;
