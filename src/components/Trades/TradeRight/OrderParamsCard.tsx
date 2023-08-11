@@ -703,7 +703,7 @@ export const OrderParamsCard = ({
               )}
             </div>
             <div>
-              <p>Leverage slider</p>
+              <p>Leverage Slider</p>
               <Slider
                 defaultValue={2}
                 step={1}
@@ -763,7 +763,7 @@ export const OrderParamsCard = ({
                   `,
                 ]}
               >
-                <span>Collateral in</span>
+                <span>Collateral In</span>
                 <span>
                   {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
                 </span>

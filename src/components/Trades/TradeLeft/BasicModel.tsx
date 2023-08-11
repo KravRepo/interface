@@ -36,7 +36,7 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
         `}
       >
         <div>
-          <span>User {isBuy ? 'Long' : 'Short'} Amount</span>
+          <span>{isBuy ? 'Long' : 'Short'} Amount</span>
           <span
             css={css`
               padding: 0 15px;
@@ -63,7 +63,7 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
           </span>
         </div>
         <div>
-          <span> the profit will be </span>
+          <span> The profit will be </span>
           <span
             css={css`
               color: #00c076;

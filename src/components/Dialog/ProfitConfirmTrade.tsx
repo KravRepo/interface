@@ -283,7 +283,7 @@ export const ProfitConfirmTrade = ({
                     </span>
                     <Input
                       type="number"
-                      placeholder="Price |"
+                      placeholder="Price"
                       disableUnderline={true}
                       value={slPrice}
                       onChange={(event) => {
@@ -422,7 +422,7 @@ export const ProfitConfirmTrade = ({
                     </span>
                     <Input
                       type="number"
-                      placeholder="Price |"
+                      placeholder="Price"
                       disableUnderline={true}
                       value={tpPrice}
                       onChange={(event) => {
