@@ -1,11 +1,30 @@
 /** @jsxImportSource @emotion/react */
 import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
-import { ReactComponent as BoostIcon } from '../../../assets/imgs/krav_token.svg'
+import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { align } from '../../../globalStyle'
+
+const marks = [
+  {
+    value: 1,
+    label: '6m',
+  },
+  {
+    value: 2,
+    label: '1y',
+  },
+  {
+    value: 3,
+    label: '2y',
+  },
+  {
+    value: 4,
+    label: '4y',
+  },
+]
 
 export const LockAction = () => {
   const theme = useTheme()
@@ -30,6 +49,7 @@ export const LockAction = () => {
           justify-content: space-between;
           padding: 8px 12px;
           background: ${theme.background.second};
+          margin-bottom: 24px;
         `}
       >
         <div css={align}>
@@ -83,13 +103,32 @@ export const LockAction = () => {
           </div>
         </div>
       </div>
-      <div>
-        <span>Lock Period</span>
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        `}
+      >
+        <span
+          css={css`
+            font-weight: 500;
+            font-size: 20px;
+            padding-bottom: 15px;
+          `}
+        >
+          Lock Period
+        </span>
         <span>1 year</span>
       </div>
       <Slider
+        defaultValue={1}
+        step={1}
+        min={1}
+        max={4}
+        marks={marks}
         sx={{
-          height: '2px',
+          height: '3px',
           '& .MuiSlider-root': {
             color: '#757575',
           },
@@ -99,19 +138,23 @@ export const LockAction = () => {
           },
           '& .MuiSlider-track': {
             border: 'unset',
-            color: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+            color: '#2832F5',
           },
           '& .MuiSlider-mark': {
-            height: '6px',
+            height: '16px',
+            width: '16px',
+            borderRadius: '50%',
             background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+            transform: 'translate(-7px, -50%)',
           },
           '& .MuiSlider-thumb': {
-            height: '10px',
-            width: '10px',
-            background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+            height: '24px',
+            width: '24px',
+            border: '6px solid #2832F5',
+            background: '#ffffff',
           },
           '& .MuiSlider-markActive': {
-            background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+            background: '#2832F5',
           },
           '& .MuiSlider-markLabel': {
             fontSize: '12px',
@@ -119,36 +162,70 @@ export const LockAction = () => {
           },
         }}
       />
-      <div>
+      <div
+        css={css`
+          padding-top: 31px;
+          padding-bottom: 39px;
+        `}
+      >
         The longer you lock your KRAV, the more veKRAV you will receive. You can also get additional veKRAV by locking
         more KRAV or extending the lock period.{' '}
       </div>
-      <div>
-        <div>
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 24px;
+        `}
+      >
+        <div css={align}>
           <BoostIcon />
-          <span>My boost :</span>
+          <span
+            css={css`
+              font-size: 20px;
+              font-weight: 500;
+            `}
+          >
+            &nbsp;My boost :&nbsp;
+          </span>
           <QuestionIcon />
         </div>
-        <div>1.5579→2.5</div>
+        <div
+          className="gt"
+          css={css`
+            font-weight: 900;
+            font-size: 20px;
+          `}
+        >
+          1.5579 → 2.5
+        </div>
       </div>
-      <div>
+      <div className="overview">
         <span>Expected earnings</span>
         <span>=201 veKRAV</span>
       </div>
-      <div>≈201,256 KRAV (APR:2563.25%)</div>
-      <div>
+      <div
+        css={css`
+          text-align: end;
+          margin-bottom: 12px;
+        `}
+      >
+        ≈201,256 KRAV (APR:2563.25%)
+      </div>
+      <div className="overview">
         <span>Your voting power will be</span>
         <span>≈201 veKRAV (Share:25.25%)</span>
       </div>
-      <div>
+      <div className="overview">
         <span>Locked amount</span>
         <span>235 KRAV</span>
       </div>
-      <div>
+      <div className="overview">
         <span>Locked until</span>
         <span>Sep 21, 2021 08:30 AM UTC </span>
       </div>
-      <KRAVButton>Lock & Mint</KRAVButton>
+      <KRAVButton sx={{ mt: '20px' }}>Lock & Mint</KRAVButton>
     </div>
   )
 }

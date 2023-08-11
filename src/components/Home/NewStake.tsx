@@ -124,7 +124,12 @@ export const NewStake = () => {
           <p className="data gt">1.86</p>
         </div>
       </div>
-      <div className="action">
+      <div
+        className="action"
+        css={css`
+          background: ${theme.background.primary};
+        `}
+      >
         <LockAction />
         <MyLocked />
       </div>

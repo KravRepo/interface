@@ -319,10 +319,32 @@ export const stake = css`
     }
   }
   .action {
+    padding: 40px 32px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 76px;
     align-items: center;
+    border-radius: 8px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    .my-reward {
+      margin: 20px 0;
+      display: grid;
+      align-items: center;
+      gap: 8px;
+      grid-template-columns: 1fr 1fr;
+      > div {
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        padding: 20px 16px;
+      }
+    }
+  }
+  .overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
   }
   .grey {
     color: #757575;
