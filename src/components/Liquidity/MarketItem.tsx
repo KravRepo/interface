@@ -11,6 +11,7 @@ import { css } from '@emotion/react'
 import { getBigNumberStr } from '../../utils'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 import { useTheme } from '@mui/material'
+import KRAVHollowButton from '../KravUIKit/KravHollowButton'
 
 export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
@@ -80,23 +81,14 @@ export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemP
       </div>
       <div>
         {account && (
-          <KRAVButton
-            sx={{
-              backgroundColor: theme.hollowButton.background,
-              border: theme.hollowButton.border,
-              color: theme.hollowButton.text,
-              '&:hover': {
-                backgroundColor: theme.hollowButton.hoverBg,
-                color: theme.hollowButton.hoverText,
-              },
-            }}
+          <KRAVHollowButton
             onClick={() => {
               setAddLiquidity(true)
               setLiquidityInfo(poolParams)
             }}
           >
             Add Liquidity
-          </KRAVButton>
+          </KRAVHollowButton>
         )}
         {!account && (
           <KRAVButton

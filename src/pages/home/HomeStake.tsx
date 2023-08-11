@@ -1,13 +1,11 @@
 /** @jsxImportSource @emotion/react */
-// import { Stake } from 'components/Home/Stake'
 import { HomeLayout } from './HomeLayout'
-import { ComingSoon } from '../../components/Home/ComingSoon'
+import { NewStake } from '../../components/Home/NewStake'
 
 export const HomeStake = () => {
   return (
     <HomeLayout>
-      <ComingSoon title={'My Stake'} />
-      {/*<Stake />*/}
+      <NewStake />
     </HomeLayout>
   )
 }
