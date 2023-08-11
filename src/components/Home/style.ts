@@ -284,6 +284,105 @@ export const dashboard = css`
   }
 `
 
+export const farm = css`
+  width: 100%;
+  padding: 40px 0;
+  margin: 0 40px;
+  max-width: 1060px;
+  min-height: calc(100vh - 284px);
+  .title {
+    font-family: 'GT-Flexa-Bold-Trial';
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 110%; /* 30.8px */
+    letter-spacing: 0.56px;
+    color: #000;
+    margin-bottom: 32px;
+  }
+  .overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dadada;
+    padding: 8px 32px 12px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      > div {
+        > span:last-of-type {
+          font-size: 16px;
+          color: #2832f5;
+        }
+        > span:first-of-type {
+          font-size: 20px;
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+  .grid-layout {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 2fr minmax(180px, 2.2fr) 1.7fr 1fr 2.2fr 0.96fr;
+    padding: 0 32px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .nowrap {
+    > span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .no-stake {
+    text-align: center;
+    padding: 32px 24px;
+    border-radius: 8px;
+    width: 100%;
+    > p:first-of-type {
+      font-family: 'GT-Flexa-Bold-Trial';
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 110%; /* 30.8px */
+      letter-spacing: 0.56px;
+    }
+  }
+  .grey {
+    color: #757575;
+  }
+  .liquidity {
+    padding: 0 32px 16px 32px;
+    align-items: center;
+    display: grid;
+    grid-template-columns:
+      1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
+      80px;
+    font-size: 14px;
+    line-height: 1.4;
+    .more {
+      width: 78px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      border: 1px solid #2e2e2e;
+      cursor: pointer;
+    }
+    .grey {
+      color: #757575;
+    }
+    .small {
+      font-size: 12px;
+    }
+  }
+`
+
 export const stake = css`
   width: 100%;
   padding: 40px 0;
