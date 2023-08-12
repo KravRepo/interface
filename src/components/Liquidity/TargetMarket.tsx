@@ -6,12 +6,14 @@ import { useRootStore } from '../../store/root'
 import { MarketItem } from './MarketItem'
 import { useWeb3React } from '@web3-react/core'
 import { MarketSkeleton } from './MarketSkeleton'
-import { Stack, Typography } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useCallback, useMemo, useState } from 'react'
+import { css } from '@emotion/react'
 
 export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList }: TargetMarketProps) => {
+  const theme = useTheme()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
@@ -52,11 +54,20 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
     [tableData]
   )
 
-  console.log('tableData', tableData)
-
   return (
-    <div className="liquidity-content">
-      <div className="liquidity-tabs">
+    <div
+      className="liquidity-content"
+      css={css`
+        background: ${theme.background.primary};
+        color: ${theme.text.primary};
+      `}
+    >
+      <div
+        className="liquidity-tabs"
+        css={css`
+          border-bottom: ${theme.splitLine.primary};
+        `}
+      >
         <span>Target Market</span>
         <span>{tableData.length > 0 ? ` (${tableData.length})` : ''}</span>
       </div>
@@ -94,9 +105,10 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 height: 16,
                 borderRadius: '4px',
                 marginLeft: '0 !important',
-                padding: '0 3px',
+                padding: theme.palette.mode === 'dark' ? '0 3px 0 2px' : '0 3px',
                 justifyContent: 'center',
-                backgroundColor: '#f6f6f6',
+                border: theme.palette.mode === 'dark' ? '1px solid #4B4B4B' : '',
+                backgroundColor: theme.palette.mode === 'dark' ? '#1c1e23' : '#f6f6f6',
                 '& svg': {
                   cursor: 'pointer',
                   width: 10,
@@ -104,21 +116,33 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                   transform: 'scale(1.8)',
                 },
                 '& svg:hover path': {
-                  fill: '#000',
+                  fill: theme.palette.mode === 'dark' ? '#fff' : '#000',
                 },
               }}
             >
               <ArrowDropUpIcon
                 sx={{
                   '& path': {
-                    fill: aprAsc ? '#000' : '#757575',
+                    fill: totalAsc
+                      ? theme.palette.mode === 'dark'
+                        ? '#fff'
+                        : '#000'
+                      : theme.palette.mode === 'dark'
+                      ? '#4B4B4B'
+                      : '#757575',
                   },
                 }}
               />
               <ArrowDropDownIcon
                 sx={{
                   '& path': {
-                    fill: aprAsc ? '#757575' : '#000',
+                    fill: totalAsc
+                      ? theme.palette.mode === 'dark'
+                        ? '#4B4B4B'
+                        : '#757575'
+                      : theme.palette.mode === 'dark'
+                      ? '#fff'
+                      : '#000',
                   },
                 }}
               />
@@ -140,9 +164,10 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                 height: 16,
                 borderRadius: '4px',
                 marginLeft: '0 !important',
-                padding: '0 3px',
+                padding: theme.palette.mode === 'dark' ? '0 3px 0 2px' : '0 3px',
                 justifyContent: 'center',
-                backgroundColor: '#f6f6f6',
+                border: theme.palette.mode === 'dark' ? '1px solid #4B4B4B' : '',
+                backgroundColor: theme.palette.mode === 'dark' ? '#1c1e23' : '#f6f6f6',
                 '& svg': {
                   cursor: 'pointer',
                   width: 10,
@@ -150,21 +175,33 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
                   transform: 'scale(1.8)',
                 },
                 '& svg:hover path': {
-                  fill: '#000',
+                  fill: theme.palette.mode === 'dark' ? '#fff' : '#000',
                 },
               }}
             >
               <ArrowDropUpIcon
                 sx={{
                   '& path': {
-                    fill: totalAsc ? '#000' : '#757575',
+                    fill: totalAsc
+                      ? theme.palette.mode === 'dark'
+                        ? '#fff'
+                        : '#000'
+                      : theme.palette.mode === 'dark'
+                      ? '#4B4B4B'
+                      : '#757575',
                   },
                 }}
               />
               <ArrowDropDownIcon
                 sx={{
                   '& path': {
-                    fill: totalAsc ? '#757575' : '#000',
+                    fill: totalAsc
+                      ? theme.palette.mode === 'dark'
+                        ? '#4B4B4B'
+                        : '#757575'
+                      : theme.palette.mode === 'dark'
+                      ? '#fff'
+                      : '#000',
                   },
                 }}
               />

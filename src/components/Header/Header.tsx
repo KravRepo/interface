@@ -1,16 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Button, Link, Menu, MenuItem, Tooltip } from '@mui/material'
+import { Box, Button, Link, Menu, MenuItem, Switch, Tooltip, useTheme } from '@mui/material'
 import { Trans } from '@lingui/macro'
-import { header, headerBtn, router, routerActive, setting, UnSupport } from './sytle'
+import { header, headerBtn, router, setting, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
 import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
 import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/karv_icon.svg'
 import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
 import { ReactComponent as OpenIcon } from '../../assets/imgs/open_browser.svg'
+import { ReactComponent as CopyDarkIcon } from '../../assets/imgs/darkModel/copy_icon_dark.svg'
+import { ReactComponent as OpenDarkIcon } from '../../assets/imgs/darkModel/open_browser_dark.svg'
+import { ReactComponent as DisconnectIconDark1 } from '../../assets/imgs/darkModel/disconnect_icon_1_dark.svg'
 import { ReactComponent as DisconnectIcon1 } from '../../assets/imgs/disconnect_icon_1.svg'
 import { ReactComponent as DisconnectIcon2 } from '../../assets/imgs/disconnect_icon_2.svg'
-// import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
+import { ReactComponent as DisconnectDarkIcon2 } from '../../assets/imgs/darkModel/disconnect_icon_2_dark.svg'
+import { ReactComponent as ThemeIconLight } from '../../assets/imgs/model_icon.svg'
+import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/model_icon_dark.svg'
+import { ReactComponent as KravDarkLogo } from '../../assets/imgs/darkModel/krav_logo_dark.svg'
+import SwitchDarkIcon from '../../assets/imgs/darkModel/theme_Switch_dark_icon.svg'
+import SwitchIcon from '../../assets/imgs/theme_icon_light.svg'
 import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
 import { ConnectWalletDialog } from '../../components/Dialog/ConnectWallet'
@@ -31,6 +39,51 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { getBigNumberStr } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
+import { styled } from '@mui/material/styles'
+import { useSetThemeContext } from '../../theme/appTheme'
+
+const ModeSwitch = styled(Switch)(({ theme }) => ({
+  width: 50,
+  height: 28,
+  padding: 0,
+  borderRadius: '18px',
+  '& .MuiSwitch-switchBase': {
+    margin: '2px 0 0 0',
+    padding: 0,
+    transform: 'translateX(6px)',
+    '&.Mui-checked': {
+      color: '#fff',
+      transform: 'translateX(22px)',
+      '& .MuiSwitch-thumb:before': {
+        backgroundImage: `url(${theme.palette.mode === 'dark' ? SwitchDarkIcon : SwitchIcon})`,
+      },
+      '& + .MuiSwitch-track': {
+        opacity: 1,
+        backgroundColor: theme.palette.mode === 'dark' ? '#0F1114' : '#aab4be',
+      },
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#ffffff',
+    width: 24,
+    height: 24,
+    '&:before': {
+      content: "''",
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      left: 0,
+      top: 0,
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+    },
+  },
+  '& .MuiSwitch-track': {
+    opacity: 1,
+    backgroundColor: theme.palette.mode === 'dark' ? '#0F1114' : '#aab4be',
+    borderRadius: 20 / 2,
+  },
+}))
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -46,12 +99,30 @@ export const Header = () => {
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
   const { pathname } = useLocation()
-
+  const theme = useTheme()
   const getUserPosition = useUserPosition()
   const getFactory = useFactory()
+  const toggleTheme = useSetThemeContext()
   const connection = useMemo(() => {
     return getConnection(ConnectionType.INJECTED)
   }, [chainId])
+
+  const routerActive = useMemo(() => {
+    return css`
+      background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : 'black'};
+      color: white;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    `
+  }, [theme])
+
+  const routerColor = useMemo(() => {
+    return css`
+      color: ${theme.text.primary};
+      :hover {
+        color: rgb(117, 117, 117);
+      },
+    `
+  }, [theme])
 
   const isHomePath = useMemo(() => {
     const pathList = ['/portfolio', '/portfolio/stake', '/portfolio/farm', '/portfolio/referral', '/portfolio/reward']
@@ -168,7 +239,7 @@ export const Header = () => {
         css={[
           header,
           css`
-            background: ${isHomePath ? '#fff' : ''};
+            background: ${isHomePath ? theme.background.fourth : ''};
           `,
         ]}
       >
@@ -181,8 +252,12 @@ export const Header = () => {
               `,
             ]}
           >
-            <NavLink to={'/trade'}>
-              <KravLogo height="22" width="91" />
+            <NavLink style={{ height: '22px' }} to={'/trade'}>
+              {theme.palette.mode === 'dark' ? (
+                <KravDarkLogo height="22" width="91" />
+              ) : (
+                <KravLogo height="22" width="91" />
+              )}
             </NavLink>
           </div>
           <Box
@@ -199,16 +274,16 @@ export const Header = () => {
               },
             }}
           >
-            <NavLink to={'/trade'} css={[router, isTradePath ? routerActive : '']}>
+            <NavLink to={'/trade'} css={[router, routerColor, isTradePath ? routerActive : '']}>
               <Trans>Trade</Trans>
             </NavLink>
-            <NavLink to={'/liquidity'} css={[router, pathname === '/liquidity' ? routerActive : '']}>
+            <NavLink to={'/liquidity'} css={[router, routerColor, pathname === '/liquidity' ? routerActive : '']}>
               <Trans>Liquidity</Trans>
             </NavLink>
-            <NavLink to={'/portfolio'} css={[router, isHomePath ? routerActive : '']}>
+            <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
               <Trans>Portfolio</Trans>
             </NavLink>
-            <NavLink to={'/statistics'} css={[router, pathname === '/statistics' ? routerActive : '']}>
+            <NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>
               <Trans>Statistics</Trans>
             </NavLink>
           </Box>
@@ -232,14 +307,20 @@ export const Header = () => {
             sx={{
               color: '#000',
               borderRadius: '4px',
-              border: '1px solid #DADADA',
+              border: theme.palette.mode === 'dark' ? '1px solid #4B4B4B' : '1px solid #DADADA',
               textTransform: 'none',
               minWidth: '60px',
               '&:hover': {
-                backgroundColor: '#DADADA',
+                backgroundColor: theme.palette.mode === 'dark' ? '#4B4B4B' : '#DADADA',
               },
             }}
-            endIcon={networkOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            endIcon={
+              networkOpen ? (
+                <KeyboardArrowUpIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+              ) : (
+                <KeyboardArrowDownIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+              )
+            }
             id="network-button"
             aria-controls={networkOpen ? 'network-menu' : undefined}
             aria-haspopup="true"
@@ -275,7 +356,7 @@ export const Header = () => {
                   <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
                   <span>Base</span>
                 </div>
-                <DoneOutlinedIcon />
+                <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
               </div>
             </MenuItem>
           </Menu>
@@ -284,8 +365,6 @@ export const Header = () => {
               <KRAVButton
                 sx={{
                   width: 'auto',
-                  color: '#fff',
-                  background: '#000000',
                   mx: '9px',
                   borderRadius: '4px',
                   textTransform: 'none',
@@ -323,6 +402,9 @@ export const Header = () => {
                   '& .MuiPaper-root': {
                     minWidth: 440,
                   },
+                  '& .MuiMenu-list': {
+                    padding: 0,
+                  },
                 }}
                 id="setting-menu"
                 anchorEl={settingAnchorEl}
@@ -335,14 +417,22 @@ export const Header = () => {
                 <div
                   css={css`
                     width: 100%;
+                    color: ${theme.text.primary};
+                    background: ${theme.background.primary};
                   `}
                 >
-                  <div className="userInfo">
+                  <div
+                    className="userInfo"
+                    css={css`
+                      border-bottom: ${theme.splitLine.primary};
+                    `}
+                  >
                     <div>
                       <div css={align}>
                         <KarvIcon
                           css={css`
                             border-radius: 50%;
+                            background: white;
                             margin-right: 11px;
                           `}
                         />
@@ -357,22 +447,39 @@ export const Header = () => {
                           open={openTooltip}
                           title="Copied to clipboard!"
                         >
-                          <CopyIcon onClick={useCopyAddress} />
+                          {theme.palette.mode === 'dark' ? (
+                            <CopyDarkIcon onClick={useCopyAddress} />
+                          ) : (
+                            <CopyIcon onClick={useCopyAddress} />
+                          )}
                         </Tooltip>
                         <Tooltip placement="top" title="disconnect">
-                          <DisconnectIcon1
-                            onClick={async () => {
-                              handleSettingClose()
-                              await disconnect()
-                            }}
-                          />
+                          {theme.palette.mode === 'dark' ? (
+                            <DisconnectIconDark1
+                              onClick={async () => {
+                                handleSettingClose()
+                                await disconnect()
+                              }}
+                            />
+                          ) : (
+                            <DisconnectIcon1
+                              onClick={async () => {
+                                handleSettingClose()
+                                await disconnect()
+                              }}
+                            />
+                          )}
                         </Tooltip>
                         <Tooltip placement="top" title="view on browser">
                           <Link
                             sx={{ marginLeft: '16px' }}
                             href={chainId ? CHAINS[chainId].blockExplorerUrls?.[0] : ''}
                           >
-                            <OpenIcon onClick={handleSettingClose} />
+                            {theme.palette.mode === 'dark' ? (
+                              <OpenDarkIcon onClick={handleSettingClose} />
+                            ) : (
+                              <OpenIcon onClick={handleSettingClose} />
+                            )}
                           </Link>
                         </Tooltip>
                       </div>
@@ -396,13 +503,34 @@ export const Header = () => {
                   </div>
                   <div
                     className="action"
+                    css={css`
+                      border-bottom: ${theme.splitLine.primary};
+                    `}
                     onClick={async () => {
                       handleSettingClose()
                       await disconnect()
                     }}
                   >
-                    <DisconnectIcon2 />
+                    {theme.palette.mode === 'dark' ? <DisconnectDarkIcon2 /> : <DisconnectIcon2 />}
                     Disconnect
+                  </div>
+                  <div
+                    className="action"
+                    css={css`
+                      justify-content: space-between;
+                    `}
+                  >
+                    <div css={align}>
+                      {theme.palette.mode === 'light' ? <ThemeIconLight /> : <ThemeIconDark />}
+                      <span
+                        css={css`
+                          margin-left: 12px;
+                        `}
+                      >
+                        {theme.palette.mode === 'light' ? 'Light Mode' : 'Dark Mode'}
+                      </span>
+                    </div>
+                    <ModeSwitch checked={true} onClick={toggleTheme} />
                   </div>
                 </div>
               </Menu>
@@ -410,14 +538,9 @@ export const Header = () => {
           ) : (
             <KRAVButton
               sx={{
-                color: '#fff',
-                background: '#000000',
                 mx: '9px',
                 borderRadius: '4px',
                 textTransform: 'none',
-                '&:hover': {
-                  background: '#757575',
-                },
               }}
               css={headerBtn}
               onClick={() => setWalletDialogVisibility(true)}

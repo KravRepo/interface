@@ -11,6 +11,7 @@ import { getBigNumberStr } from '../../utils'
 import { useWeb3React } from '@web3-react/core'
 import { AprList } from '../../hook/hookV8/useGetApr'
 import { eXDecimals } from '../../utils/math'
+import { useTheme } from '@mui/material'
 
 type FarmItemProps = {
   position: UserData
@@ -18,6 +19,7 @@ type FarmItemProps = {
 }
 
 export const FarmItem = ({ position, aprList }: FarmItemProps) => {
+  const theme = useTheme()
   const { account } = useWeb3React()
   const getLpReward = useGetLpReward(position.pool.vaultT, position.pool.decimals)
   const claimLp = useHarvestLpReward(position.pool.vaultT)
@@ -39,6 +41,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
         <img
           css={css`
             border-radius: 50%;
+            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
           `}
           src={position.pool.logoSource}
           height="40"

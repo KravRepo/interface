@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import KRAVButton from '../KravUIKit/KravButton'
-import { css, Tab, Tabs } from '@mui/material'
+import { css, Tab, Tabs, useTheme } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import { MarketOrder } from './MarketOrder'
 import { TradeHistory } from './TradeHistory'
@@ -9,6 +9,7 @@ import { LimitOrder } from './LimitOrder'
 import { useRootStore } from '../../store/root'
 
 export const MyOrder = () => {
+  const theme = useTheme()
   const [infoType, setInfoType] = useState(0)
   const navigate = useNavigate()
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -50,7 +51,7 @@ export const MyOrder = () => {
         <div
           css={css`
             padding-left: 24px;
-            background: #f1f1f1;
+            background: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#f1f1f1'};
           `}
         >
           <Tabs
@@ -58,10 +59,10 @@ export const MyOrder = () => {
             onChange={handleChange}
             sx={{
               '& .MuiTabs-indicator': {
-                backgroundColor: '#000',
+                backgroundColor: theme.palette.mode === 'dark' ? '#dedede' : '#000',
               },
               '& .Mui-selected': {
-                color: '#000!important',
+                color: theme.text.primary + '!important',
               },
             }}
           >
@@ -71,9 +72,7 @@ export const MyOrder = () => {
                 fontFamily: 'Inter',
                 padding: '12px 0',
                 mr: '16px',
-                '& .MuiTab-root': {
-                  color: '#757575',
-                },
+                color: '#757575',
               }}
               label={`Positions ${useAllOpenTradesCount > 0 ? '(' + useAllOpenTradesCount + ')' : ''}`}
             />
@@ -83,9 +82,7 @@ export const MyOrder = () => {
                 mr: '16px',
                 fontFamily: 'Inter',
                 padding: '12px 0',
-                '& .MuiTab-root': {
-                  color: '#757575',
-                },
+                color: '#757575',
               }}
               label={`Orders ${userAllOpenLimitCount > 0 ? '(' + userAllOpenLimitCount + ')' : ''}`}
             />
@@ -94,9 +91,7 @@ export const MyOrder = () => {
                 minWidth: 0,
                 fontFamily: 'Inter',
                 padding: '12px 0',
-                '& .MuiTab-root': {
-                  color: '#757575',
-                },
+                color: '#757575',
               }}
               label="Trades"
             />

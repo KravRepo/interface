@@ -22,10 +22,13 @@ import { HomeReferral } from './pages/home/HomeReferral'
 import { HomeFarm } from './pages/home/HomeFarm'
 import { css } from '@emotion/react'
 import DashboardBg from './assets/imgs/dashboard_bg.png'
+import DashboardDarkBg from './assets/imgs/darkModel/dashboard_bg_dark.png'
 import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
 import ReportImg from './assets/imgs/report.png'
+import ReportDark from './assets/imgs/darkModel/report_dark.png'
+import { useTheme } from '@mui/material'
 
 i18n.load({
   en: enMessages,
@@ -36,6 +39,7 @@ i18n.activate('en')
 const FullApp = () => {
   const factory = useFactory()
   const getBTCPrice = useBTCPrice()
+  const theme = useTheme()
   useEffect(() => {
     Promise.all([factory(), getBTCPrice()]).then()
     setInterval(async () => {
@@ -46,8 +50,14 @@ const FullApp = () => {
 
   return (
     <Router>
-      <div className="fullApp">
-        <AppTheme>
+      <div
+        className="App"
+        css={css`
+          position: relative;
+          background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg});
+        `}
+      >
+        <div className="fullApp">
           <Web3Provider>
             <I18nProvider i18n={i18n}>
               <ErrorDialog />
@@ -70,7 +80,14 @@ const FullApp = () => {
               <Footer />
             </I18nProvider>
           </Web3Provider>
-        </AppTheme>
+        </div>
+        <img
+          src={theme.palette.mode === 'dark' ? ReportDark : ReportImg}
+          width={64}
+          style={{ position: 'fixed', right: '20px', bottom: '21px', cursor: 'pointer' }}
+          onClick={() => window.open('https://forms.gle/yASELgYTzR1KTGbU8', '_blank')}
+          alt="report bugs"
+        />
       </div>
     </Router>
   )
@@ -78,24 +95,9 @@ const FullApp = () => {
 
 function App() {
   return (
-    <>
-      <div
-        className="App"
-        css={css`
-          position: relative;
-          background: url(${DashboardBg});
-        `}
-      >
-        <FullApp />
-        <img
-          src={ReportImg}
-          width={64}
-          style={{ position: 'fixed', right: '20px', bottom: '21px', cursor: 'pointer' }}
-          onClick={() => window.open('https://forms.gle/yASELgYTzR1KTGbU8', '_blank')}
-          alt="report bugs"
-        />
-      </div>
-    </>
+    <AppTheme>
+      <FullApp />
+    </AppTheme>
   )
 }
 

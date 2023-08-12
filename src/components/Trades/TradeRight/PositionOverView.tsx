@@ -2,17 +2,33 @@
 import { css } from '@emotion/react'
 import { bottomCard } from '../style'
 import { useRootStore } from '../../../store/root'
+import { useTheme } from '@mui/material'
 // import { ReactComponent as ExchangeIcon } from '../../../assets/imgs/exchange.svg'
 // import { useState } from 'react'
 // import BigNumber from 'bignumber.js'
 
 export const PositionOverView = () => {
+  const theme = useTheme()
   // const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
   // const [isExchange, setIsExchange] = useState(false)
   return (
-    <div css={bottomCard}>
-      <div>Contract Specifications</div>
+    <div
+      css={[
+        bottomCard,
+        css`
+          background: ${theme.background.primary};
+          color: ${theme.text.primary};
+        `,
+      ]}
+    >
+      <div
+        css={css`
+          border-bottom: ${theme.splitLine.primary};
+        `}
+      >
+        Contract Specifications
+      </div>
       <div
         css={css`
           padding-top: 12px;

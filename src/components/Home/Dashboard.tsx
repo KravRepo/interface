@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { ReactComponent as PointsLogo } from '../../assets/imgs/dashboard_logo.svg'
+import { ReactComponent as PointsDarkLogo } from '../../assets/imgs/darkModel/dashboard_logo_dark.svg'
 import { ReactComponent as ArrowLeft } from '../../assets/imgs/arrowLeft.svg'
+import { ReactComponent as ArrowLeftDark } from '../../assets/imgs/darkModel/arrow_left_dark.svg'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
+import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { css } from '@emotion/react'
 import { dashboard } from './style'
 import { DashboardCard } from './DashboardCard'
@@ -22,6 +25,7 @@ import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOr
 import { DashboardFarm } from './DashboardFarm'
 import { useNavigate } from 'react-router-dom'
 import { API_DECIMALS } from '../../constant/math'
+import { useTheme } from '@mui/material'
 
 type OverviewData = {
   liquiditySupply: number
@@ -31,6 +35,7 @@ type OverviewData = {
 }
 
 export const Dashboard = () => {
+  const theme = useTheme()
   const { account, provider } = useWeb3React()
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
   // const [userStake, setUserStake] = useState(new BigNumber(0))
@@ -91,11 +96,18 @@ export const Dashboard = () => {
     <div css={dashboard}>
       <div
         css={css`
-          background: url(${DashboardBg}), no-repeat, #f1f1f1;
+          background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg}), no-repeat,
+            ${theme.palette.mode === 'dark' ? '#0f1114' : '#f1f1f1'};
         `}
         className="income"
       >
-        <p>Earned Income</p>
+        <p
+          css={css`
+            color: ${theme.text.primary};
+          `}
+        >
+          Earned Income
+        </p>
         <p css={align}>
           <span>{formatNumber(Number(userAssetOverview?.lpRewardBalance) / API_DECIMALS, 2)}</span>
           {/*<ArrowLeft*/}
@@ -105,15 +117,26 @@ export const Dashboard = () => {
           {/*/>*/}
         </p>
       </div>
-      <div className="earning">
+      <div
+        css={css`
+          color: ${theme.text.primary};
+        `}
+        className="earning"
+      >
         <p className="title">Earning Information</p>
         <div>
-          <div>
+          <div
+            css={css`
+              background: ${theme.background.primary};
+            `}
+          >
             <div className="provided card">
               <p
                 className="tabs"
                 css={css`
                   width: 180px;
+                  color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
+                  background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                 `}
               >
                 Liquidity being provided
@@ -125,7 +148,7 @@ export const Dashboard = () => {
                 </div>
                 <div
                   css={css`
-                    border-right: 1px solid;
+                    border-right: ${theme.splitLine.primary};
                     margin-top: 30px;
                   `}
                 />
@@ -135,49 +158,96 @@ export const Dashboard = () => {
                     <p>
                       <span>{userPoolLength}</span>
                       <span>View Details</span>
-                      <ArrowLeft
-                        onClick={() => navigate('/liquidity')}
-                        className="poolArrow"
-                        css={css`
-                          cursor: pointer;
-                          margin-left: 16px;
-                          :hover {
-                            transform: scale(1.1);
-                          }
-                        `}
-                      />
+                      {/*ArrowLeftDark*/}
+                      {theme.palette.mode === 'dark' ? (
+                        <ArrowLeftDark
+                          onClick={() => navigate('/liquidity')}
+                          className="poolArrow"
+                          css={css`
+                            cursor: pointer;
+                            margin-left: 16px;
+                            :hover {
+                              transform: scale(1.1);
+                            }
+                          `}
+                        />
+                      ) : (
+                        <ArrowLeft
+                          onClick={() => navigate('/liquidity')}
+                          className="poolArrow"
+                          css={css`
+                            cursor: pointer;
+                            margin-left: 16px;
+                            :hover {
+                              transform: scale(1.1);
+                            }
+                          `}
+                        />
+                      )}
                     </p>
                   </div>
-                  <PointsLogo />
+                  {theme.palette.mode === 'dark' ? <PointsDarkLogo /> : <PointsLogo />}
                 </div>
               </div>
             </div>
           </div>
-          <div className="card krav">
-            <p className="tabs">Krav Staking</p>
+          <div
+            css={css`
+              background: ${theme.background.primary};
+              border-radius: 8px;
+            `}
+            className="card krav"
+          >
+            <p
+              css={css`
+                background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
+              `}
+              className="tabs"
+            >
+              Krav Staking
+            </p>
             <p>
               {getBigNumberStr(new BigNumber(0), 2)}
               <span>KRAV</span>
             </p>
             <p>
               View Details
-              <ArrowLeft
-                onClick={() => navigate('/portfolio/stake')}
-                css={css`
-                  margin-left: 16px;
-                  cursor: pointer;
-                  :hover {
-                    transform: scale(1.1);
-                  }
-                `}
-              />
+              {theme.palette.mode === 'dark' ? (
+                <ArrowLeftDark
+                  onClick={() => navigate('/portfolio/stake')}
+                  css={css`
+                    margin-left: 16px;
+                    cursor: pointer;
+                    :hover {
+                      transform: scale(1.1);
+                    }
+                  `}
+                />
+              ) : (
+                <ArrowLeft
+                  onClick={() => navigate('/portfolio/stake')}
+                  css={css`
+                    margin-left: 16px;
+                    cursor: pointer;
+                    :hover {
+                      transform: scale(1.1);
+                    }
+                  `}
+                />
+              )}
             </p>
           </div>
         </div>
       </div>
       <div>
         <p className="title">Trading Information</p>
-        <div className="data">
+        <div
+          className="data"
+          css={css`
+            border-bottom: ${theme.splitLine.primary};
+          `}
+        >
           <DashboardCard title={'Order Placement'} content={`${formatNumber(overviewData.orderPlacement, 2)}`} />
           <DashboardCard title={'Liquidity Supply'} content={`${formatNumber(overviewData.liquiditySupply, 2)}`} />
           <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />

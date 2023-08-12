@@ -1,44 +1,11 @@
 import { css } from '@emotion/react'
 
-export const footer = css`
-  width: 100%;
-  height: 212px;
-  background: white;
-  border-top: 1px solid #dadada;
-  margin-top: 40px;
-  .footer-content {
-    margin: 0 auto;
-    height: 100%;
-    max-width: 1440px;
-    display: grid;
-    grid-template-columns: 2.7fr 1fr 1fr 1.1fr;
-    font-size: 14px;
-    .social {
-      margin-top: 83px;
-      margin-bottom: 12px;
-      svg path:hover {
-        fill: #000;
-      }
-      .medium:hover path {
-        fill: #000;
-      }
-    }
-    > div {
-      border-right: 1px solid #dadada;
-    }
-    > div:last-of-type {
-      border-right: unset;
-    }
-  }
-`
-
 export const doc = css`
   padding-left: 72px;
   > p:first-of-type {
     font-size: 16px;
     padding-top: 32px;
     padding-bottom: 20px;
-    color: black;
   }
   > a {
     text-decoration: none;
@@ -47,9 +14,6 @@ export const doc = css`
       margin: 0;
       padding-bottom: 10px;
     }
-  }
-  p:hover {
-    color: #000;
   }
   > p {
     margin: 0;

@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { creatPool } from './style'
 import { ReactComponent as BackIcon } from '../../assets/imgs/backIcon.svg'
+import { ReactComponent as BackDarkIcon } from '../../assets/imgs/darkModel/back_icon_dark.svg'
 import { ReactComponent as RightHook } from '../../assets/imgs/rightHook.svg'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { MenuItem, Select } from '@mui/material'
+import { MenuItem, Select, useTheme } from '@mui/material'
 import KRAVTextField from '../KravUIKit/KravTextField'
 import KRAVButton from '../KravUIKit/KravButton'
 import { Trans } from '@lingui/macro'
@@ -18,6 +19,7 @@ import erc_20 from '../../abi/erc20.json'
 import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
 
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
+  const theme = useTheme()
   const [confirm, setConfirm] = useState(false)
   const [ticketSize, setTicketSize] = useState<string | number>('')
   const [LPProvision, setLPProvision] = useState<string | number>('')
@@ -71,18 +73,37 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
         tokenDecimals={tokenDecimals}
         setCreateLiquidityPool={setCreateLiquidityPool}
       />
-      <div css={creatPool}>
+      <div
+        css={[
+          creatPool,
+          css`
+            background: ${theme.background.primary};
+            color: ${theme.text.primary};
+          `,
+        ]}
+      >
         <div className="creat-pool-content">
           <div className="creat-pool-title">
             <div css={align}>
-              <BackIcon
-                css={css`
-                  cursor: pointer;
-                `}
-                onClick={() => setCreateLiquidityPool(false)}
-                height="32"
-                width="32"
-              />
+              {theme.palette.mode === 'dark' ? (
+                <BackDarkIcon
+                  css={css`
+                    cursor: pointer;
+                  `}
+                  onClick={() => setCreateLiquidityPool(false)}
+                  height="32"
+                  width="32"
+                />
+              ) : (
+                <BackIcon
+                  css={css`
+                    cursor: pointer;
+                  `}
+                  onClick={() => setCreateLiquidityPool(false)}
+                  height="32"
+                  width="32"
+                />
+              )}
               <span
                 css={css`
                   padding-left: 12px;
@@ -207,10 +228,16 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
             <div
               css={css`
                 width: 1px;
-                background: #dadada;
+                background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : '#dadada'};
               `}
             />
-            <div className="table-right">
+            <div
+              className="table-right"
+              css={css`
+                background: ${theme.background.second};
+                color: ${theme.text.primary};
+              `}
+            >
               <div className="step">
                 <p>
                   <Trans>Step 1 Choose Target Market</Trans>

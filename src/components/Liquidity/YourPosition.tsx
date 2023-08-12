@@ -6,6 +6,7 @@ import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useMemo } from 'react'
 import { MarketSkeleton } from './MarketSkeleton'
+import { useTheme } from '@mui/material'
 
 export const YourPosition = ({
   setAddLiquidity,
@@ -14,6 +15,7 @@ export const YourPosition = ({
   aprList,
 }: YourPositionProps) => {
   const { account } = useWeb3React()
+  const theme = useTheme()
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
 
   const positionDatas = useMemo(() => {
@@ -26,8 +28,19 @@ export const YourPosition = ({
   }, [userPositionDatas])
 
   return (
-    <div className="liquidity-content">
-      <div className="liquidity-tabs">
+    <div
+      className="liquidity-content"
+      css={css`
+        background: ${theme.background.primary};
+        color: ${theme.text.primary};
+      `}
+    >
+      <div
+        className="liquidity-tabs"
+        css={css`
+          border-bottom: ${theme.splitLine.primary};
+        `}
+      >
         <span>Your positions</span>
         <span>{positionDatas.length > 0 ? ` (${positionDatas.length})` : ''}</span>
       </div>

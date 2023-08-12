@@ -5,14 +5,17 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { FarmItem } from './FarmItem'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
+import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { ReactComponent as ArrowRight } from '../../assets/imgs/arrowRight.svg'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
+import { useTheme } from '@mui/material'
 
 export const Farm = () => {
+  const theme = useTheme()
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
@@ -46,7 +49,14 @@ export const Farm = () => {
 
   return (
     <div css={stake}>
-      <div className="title">My Liquidity Pools</div>
+      <div
+        className="title"
+        css={css`
+          color: ${theme.text.primary};
+        `}
+      >
+        My Liquidity Pools
+      </div>
       {positionDatas.length > 0 && (
         <div>
           {/*<div className="overview">*/}
@@ -80,7 +90,8 @@ export const Farm = () => {
         <div
           className="no-stake"
           css={css`
-            background: url(${DashboardBg}), no-repeat, #f1f1f1;
+            background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg}), no-repeat,
+              ${theme.palette.mode === 'dark' ? '#0f1114' : '#f1f1f1'};
           `}
         >
           {!account && (
@@ -94,7 +105,11 @@ export const Farm = () => {
             </>
           )}
           {account && (
-            <>
+            <div
+              css={css`
+                color: ${theme.text.primary};
+              `}
+            >
               <p>You have no liquidity</p>
               <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
                 Add Liquidity
@@ -108,12 +123,15 @@ export const Farm = () => {
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    > svg > path {
+                      fill: ${theme.text.primary};
+                    }
                   `}
                 >
                   Learn more about Liquidity Pools&nbsp; <ArrowRight />
                 </span>
               </p>
-            </>
+            </div>
           )}
         </div>
       )}

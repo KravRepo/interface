@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Slider, styled, TextField } from '@mui/material'
+import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
@@ -18,6 +18,8 @@ import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
 import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
 import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
+import KravLongButton from '../../KravUIKit/KravLongButton'
+import KravShortButton from '../../KravUIKit/KravShortButton'
 
 const marks = [
   {
@@ -94,62 +96,6 @@ enum ButtonText {
   MIN_SIZE = 'Min position size is 1500',
 }
 
-const LongButton = styled(Button)({
-  whiteSpace: 'nowrap',
-  textTransform: 'none',
-  width: '100%',
-  fontFamily: 'Inter',
-  color: '#fff',
-  background: '#009B72',
-  borderRadius: '4px',
-  padding: '10px 16px',
-  height: '40px',
-  fontSize: '14px',
-  '&:hover': {
-    backgroundColor: '#077054',
-  },
-  '&:active': {
-    background: 'red',
-  },
-  '&.Mui-disabled': {
-    background: '#dadada',
-    color: '#fff',
-    cursor: 'not-allowed',
-    pointerEvents: 'auto',
-  },
-  '& .MuiTouchRipple-root': {
-    color: 'white',
-  },
-})
-
-const ShortButton = styled(Button)({
-  whiteSpace: 'nowrap',
-  textTransform: 'none',
-  width: '100%',
-  fontFamily: 'Inter',
-  color: '#fff',
-  background: '#DB4C40',
-  borderRadius: '4px',
-  padding: '10px 16px',
-  height: '40px',
-  fontSize: '14px',
-  '&:hover': {
-    backgroundColor: '#C3352A',
-  },
-  '&:active': {
-    background: 'red',
-  },
-  '&.Mui-disabled': {
-    background: '#dadada',
-    color: '#fff',
-    cursor: 'not-allowed',
-    pointerEvents: 'auto',
-  },
-  '& .MuiTouchRipple-root': {
-    color: 'white',
-  },
-})
-
 //TODO Add sl and tp setting
 export const OrderParamsCard = ({
   leverage,
@@ -166,6 +112,7 @@ export const OrderParamsCard = ({
   tradeType,
   setTradeType,
 }: OrderParamsCardProps) => {
+  const theme = useTheme()
   const { provider } = useWeb3React()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
@@ -431,7 +378,7 @@ export const OrderParamsCard = ({
               display: flex;
               padding: 6px;
               margin: 16px 0;
-              background: #f6f6f6;
+              background: ${theme.background.second};
             `}
           >
             <span
@@ -439,7 +386,7 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 0 ? 'white' : ''};
-                  background: ${tabIndex === 0 ? 'black' : ''};
+                  background: ${tabIndex === 0 ? theme.background.third : ''};
                   margin-right: 13px;
                 `,
               ]}
@@ -455,7 +402,7 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 1 ? 'white' : ''};
-                  background: ${tabIndex === 1 ? 'black' : ''};
+                  background: ${tabIndex === 1 ? theme.background.third : ''};
                 `,
               ]}
               onClick={() => {
@@ -469,6 +416,7 @@ export const OrderParamsCard = ({
           <div
             css={css`
               margin-bottom: 8px;
+              color: ${theme.text.primary};
             `}
           >
             <span
@@ -502,7 +450,14 @@ export const OrderParamsCard = ({
           </div>
           <>
             <div>
-              <div css={input}>
+              <div
+                css={[
+                  input,
+                  css`
+                    background: ${theme.background.second};
+                  `,
+                ]}
+              >
                 <div
                   css={css`
                     display: flex;
@@ -549,7 +504,8 @@ export const OrderParamsCard = ({
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: #a4a8fe;
+                      color: ${theme.text.primary};
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;
@@ -570,6 +526,7 @@ export const OrderParamsCard = ({
                     <span
                       css={css`
                         margin: 0 4px;
+                        color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
                       `}
                     >
                       {tradePool?.symbol}
@@ -577,6 +534,7 @@ export const OrderParamsCard = ({
                     <img
                       css={css`
                         border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                       `}
                       src={tradePool.logoSource}
                       height="16"
@@ -648,7 +606,15 @@ export const OrderParamsCard = ({
               {/*  </div>*/}
               {/*</div>*/}
               {tabIndex === 1 && (
-                <div css={input}>
+                <div
+                  css={[
+                    input,
+                    css`
+                      background: ${theme.background.second};
+                      color: ${theme.text.primary};
+                    `,
+                  ]}
+                >
                   <div
                     css={css`
                       display: flex;
@@ -665,7 +631,13 @@ export const OrderParamsCard = ({
                       Price
                     </span>
                     <div>
-                      <span>Leverage: </span>
+                      <span
+                        css={css`
+                          color: #757575;
+                        `}
+                      >
+                        Leverage:
+                      </span>
                       <span>{leverage}x</span>
                     </div>
                   </div>
@@ -703,7 +675,13 @@ export const OrderParamsCard = ({
               )}
             </div>
             <div>
-              <p>Leverage Slider</p>
+              <p
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                Leverage Slider
+              </p>
               <Slider
                 defaultValue={2}
                 step={1}
@@ -719,27 +697,27 @@ export const OrderParamsCard = ({
                 sx={{
                   height: '2px',
                   '& .MuiSlider-root': {
-                    color: '#DADADA',
+                    color: '#757575',
                   },
                   '& .MuiSlider-rail': {
                     opacity: 1,
-                    backgroundColor: '#DADADA',
+                    backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
                   },
                   '& .MuiSlider-track': {
                     border: 'unset',
-                    color: '#000000',
+                    color: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
                   },
                   '& .MuiSlider-mark': {
                     height: '6px',
-                    background: '#DADADA',
+                    background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
                   },
                   '& .MuiSlider-thumb': {
                     height: '10px',
                     width: '10px',
-                    background: '#000000',
+                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
                   },
                   '& .MuiSlider-markActive': {
-                    background: '#000000',
+                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
                   },
                   '& .MuiSlider-markLabel': {
                     fontSize: '12px',
@@ -760,6 +738,7 @@ export const OrderParamsCard = ({
                   align,
                   css`
                     justify-content: space-between;
+                    color: ${theme.text.primary};
                   `,
                 ]}
               >
@@ -773,6 +752,7 @@ export const OrderParamsCard = ({
                   align,
                   css`
                     justify-content: space-between;
+                    color: ${theme.text.primary};
                   `,
                 ]}
               >
@@ -1085,7 +1065,7 @@ export const OrderParamsCard = ({
               <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
             )}
             {account && isBuy && (
-              <LongButton
+              <KravLongButton
                 disabled={
                   buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                   buttonState === ButtonText.REACHED_LIMIT ||
@@ -1101,10 +1081,10 @@ export const OrderParamsCard = ({
                 }}
               >
                 <Trans>{buttonState}</Trans>
-              </LongButton>
+              </KravLongButton>
             )}
             {account && !isBuy && (
-              <ShortButton
+              <KravShortButton
                 disabled={
                   buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                   buttonState === ButtonText.REACHED_LIMIT ||
@@ -1120,15 +1100,28 @@ export const OrderParamsCard = ({
                 }}
               >
                 <Trans>{buttonState}</Trans>
-              </ShortButton>
+              </KravShortButton>
             )}
           </>
         </div>
       )}
       {showConfirmTip && (
         <>
-          <div css={attention}>
-            <div className="title">
+          <div
+            css={[
+              attention,
+              css`
+                background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : '#f1f1f1'};
+                color: ${theme.text.primary};
+              `,
+            ]}
+          >
+            <div
+              className="title"
+              css={css`
+                border-bottom: ${theme.splitLine.primary};
+              `}
+            >
               <AttentionIcon />
               <span>Attention</span>
             </div>

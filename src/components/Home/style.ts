@@ -4,7 +4,6 @@ export const leftMenu = css`
   display: flex;
   flex-direction: column;
   width: 300px;
-  border-right: 1px solid #dadada;
   padding: 40px 24px 0;
   > button > span {
     font-family: 'Inter';
@@ -15,12 +14,11 @@ export const leftMenu = css`
   }
 `
 
-export const menuActive = css`
-  background: #f6f6f6;
-`
+// export const menuActive = css`
+//   background: #f6f6f6;
+// `
 
 export const home = css`
-  background: white;
   display: flex;
   margin-bottom: -40px;
   .home-content {
@@ -47,7 +45,6 @@ export const comingSoon = css`
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
     margin-left: 40px;
-    color: #000;
     margin-bottom: 98px;
   }
   > p:last-of-type {
@@ -86,11 +83,10 @@ export const dashboard = css`
   max-width: 1060px;
   font-family: 'Inter';
   .tabs {
-    background: #a4a8fe;
+    //background: #a4a8fe;
     padding: 2px 8px;
     border-radius: 100px;
     font-size: 14px;
-    color: #fff;
   }
   .my-order {
     .position-layout {
@@ -157,8 +153,6 @@ export const dashboard = css`
       grid-template-columns: 2.06fr 1fr;
     }
     .card {
-      background: #fff;
-      /* card-shadow(light) */
       box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     }
     .krav {
@@ -270,12 +264,9 @@ export const dashboard = css`
     gap: 20px;
     font-size: 12px;
     padding-bottom: 48px;
-    border-bottom: 1px solid #dadada;
     .data-card {
       padding: 24px;
       border-radius: 8px;
-      background: #fff;
-      color: #000;
       box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
       > p {
         padding-top: 18px;
@@ -306,7 +297,6 @@ export const stake = css`
     font-weight: 900;
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
-    color: #000;
     margin-bottom: 32px;
   }
   .overview {
