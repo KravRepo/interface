@@ -35,7 +35,6 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
 
   const reorderClick = useCallback(
     (sort: 'asc' | 'desc', way: string) => {
-      console.log(sort, way)
 
       if (way === 'apr') {
         tableData.sort((a, b) => {
