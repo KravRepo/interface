@@ -21,7 +21,7 @@ export const useBTCPrice = () => {
     try {
       const req = await fetch(BTC_PRICE_API)
       const price = await req.json()
-      const res = new BigNumber(price.bitcoin.usd)
+      const res = new BigNumber(price.data.price)
       if (res.isGreaterThan(BTCPrice)) setIsBTCRise(true)
       else setIsBTCRise(false)
       setBTCPrice(res)
