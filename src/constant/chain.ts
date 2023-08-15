@@ -3,15 +3,12 @@ export enum ChainId {
   BSC_TEST = 97,
   SEPOLIA = 11155111,
   BASE = 8453,
+  BASE_TEST = 84531,
 }
 
-// export const TEST_RPC_NODE =
-// 'https://dry-little-tent.bsc-testnet.discover.quiknode.pro/84b8cf011376495b8a07b91c5e3868de9e58f08e/'
-// 'https://rpc.ankr.com/bsc_testnet_chapel/128bdedab70a53096c6b5132d94384254aee84b8491502b928ab6c08652a7b78'
-//
-// export const TEST_RPC_NODE = 'https://rpc.ankr.com/bsc_testnet_chapel'
-//
-export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
+// export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
+
+export const TEST_RPC_NODE = 'https://base-goerli.public.blastapi.io'
 
 export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
 
@@ -27,7 +24,7 @@ export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overv
 
 export const MARKET_CHANGE_API = 'https://base-api.krav.trade/krav/v1/price/24hr?symbol=BTCUSDT'
 
-export const TEST_CHAIN_ID = ChainId.BASE
+export const TEST_CHAIN_ID = ChainId.BASE_TEST
 
 export const BTC_CONTRACT = '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
 
@@ -35,7 +32,9 @@ export const BTC_PRICE_API = 'https://api.coingecko.com/api/v3/simple/price?ids=
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
-export const KRAV_ADDRESS = '0x8b99c4DE6f3D396a9d4BBcAF9fA138F5393299FE'
+export const KRAV_ADDRESS = '0x593C951BFF6519E56435367eD302688728963523'
+
+export const VE_KRAV = '0x8b81153Ad24869F54B32bf60B4303142E38A10b5'
 
 export const DashBoard_USER_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/user/asset/amount?account='
 

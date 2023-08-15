@@ -24,6 +24,9 @@ export enum TransactionState {
   CLAIM_KRAV_REWARD = 'claim krav reward',
   UPDATE_SL_ORDER = 'Update stop loss...',
   UPDATE_TP_ORDER = 'Update take profit...',
+  LOCK_KRAV = 'Locking Krav...',
+  INCREASE_AMOUNT = 'Increase lock Krav...',
+  INCREASE_UNLOCK_TIME = 'Increase lock time...',
 }
 
 export enum CreatPoolState {
@@ -50,8 +53,11 @@ export enum TransactionAction {
   CLAIM_LP_REWARD = 'Claim lp reward',
   FAUCET_TEST_TOKEN = 'Faucet token',
   STAKE_KRAV = 'Staked Krav',
-  WITHDRAW_KRAV = 'Withdraw krav',
-  CLAIM_KRAV_REWARD = 'claim krav reward',
+  WITHDRAW_KRAV = 'Withdraw Krav',
+  CLAIM_KRAV_REWARD = 'claim Krav reward',
+  LOCK_KRAV = 'Locked Krav',
+  INCREASE_AMOUNT = 'Increase locked Krav amount',
+  INCREASE_UNLOCK_TIME = 'Increase unlock time',
 }
 
 export type ErrorContent = {
