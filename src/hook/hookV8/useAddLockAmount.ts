@@ -13,7 +13,7 @@ import { getGasLimit } from '../../utils'
 import { eXDecimals } from '../../utils/math'
 
 export const useAddLockAmount = () => {
-  const { provider } = useWeb3React()
+  const { provider, account } = useWeb3React()
   const veContract = useContract(VE_KRAV, voting.abi)
   const kravTokenContract = useTokenContract(KRAV_ADDRESS)
   const updateError = useUpdateError()
@@ -23,11 +23,11 @@ export const useAddLockAmount = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   return useCallback(
     async (lockAmount: BigNumber) => {
-      if (provider && veContract && kravTokenContract) {
+      if (provider && veContract && kravTokenContract && account) {
         try {
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
-          const allowance = await kravTokenContract.allowance(lockAmount, VE_KRAV)
+          const allowance = await kravTokenContract.allowance(account, VE_KRAV)
           console.log('allowance', new BigNumber(allowance._hex).toString())
 
           if (lockAmount.isGreaterThan(new BigNumber(allowance._hex))) {
@@ -39,7 +39,7 @@ export const useAddLockAmount = () => {
           }
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
-          const params = [lockAmount] as any
+          const params = [lockAmount.toString()] as any
 
           let gasLimit = await getGasLimit(veContract, 'increase_amount', params)
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
@@ -62,6 +62,6 @@ export const useAddLockAmount = () => {
         }
       }
     },
-    [provider, veContract, kravTokenContract]
+    [provider, veContract, kravTokenContract, account]
   )
 }

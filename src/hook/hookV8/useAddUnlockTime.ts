@@ -9,6 +9,7 @@ import { useCallback } from 'react'
 import BigNumber from 'bignumber.js'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { getGasLimit } from '../../utils'
+import { getLockTime } from './utils/utils'
 
 export const useAddUnlockTime = () => {
   const { provider } = useWeb3React()
@@ -22,9 +23,11 @@ export const useAddUnlockTime = () => {
     async (lockTime: number) => {
       if (provider && veContract) {
         try {
+          const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
+          const forMatterTime = getLockTime(lockTime) / 1000
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
-          const params = [lockTime] as any
+          const params = [nowTimestamp + forMatterTime] as any
 
           let gasLimit = await getGasLimit(veContract, 'increase_unlock_time', params)
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)

@@ -11,6 +11,7 @@ import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { useRootStore } from '../../store/root'
 import { MAX_UNIT_256 } from '../../constant/math'
 import { eXDecimals } from '../../utils/math'
+import { getLockTime } from './utils/utils'
 
 export const useCreatLock = () => {
   const { provider } = useWeb3React()
@@ -25,25 +26,38 @@ export const useCreatLock = () => {
     async (lockAmount: BigNumber, lockTime: number) => {
       if (provider && veContract && kravTokenContract) {
         try {
+          const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
+          const forMatterLockTime = getLockTime(lockTime)
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
-          const allowance = await kravTokenContract.allowance(lockAmount, VE_KRAV)
-          console.log('allowance', new BigNumber(allowance._hex).toString())
-
-          if (lockAmount.isGreaterThan(new BigNumber(allowance._hex))) {
-            setTransactionState(TransactionState.APPROVE)
-            console.log('2 approve', lockAmount.toString())
-            const approveTX = await kravTokenContract.approve(VE_KRAV, MAX_UNIT_256)
-            await approveTX.wait()
-            console.log('3 approveTX', approveTX)
-          }
+          // TODO: to fix get allowance failed
+          // console.log('kravTokenContract', kravTokenContract)
+          // console.log('lockAmount', lockAmount.toString())
+          // const decimals = await kravTokenContract.decimals()
+          // console.log('decimals', decimals)
+          // const allowance = await kravTokenContract.allowance(account,VE_KRAV)
+          // console.log('allowance', new BigNumber(allowance._hex).toString())
+          //
+          // if (lockAmount.isGreaterThan(new BigNumber(allowance._hex))) {
+          //   setTransactionState(TransactionState.APPROVE)
+          //   console.log('2 approve', lockAmount.toString())
+          //   const approveTX = await kravTokenContract.approve(VE_KRAV, MAX_UNIT_256)
+          //   await approveTX.wait()
+          //   console.log('3 approveTX', approveTX)
+          // }
+          setTransactionState(TransactionState.APPROVE)
+          console.log('2 approve', lockAmount.toString())
+          const approveTX = await kravTokenContract.approve(VE_KRAV, MAX_UNIT_256)
+          await approveTX.wait()
+          console.log('3 approveTX', approveTX)
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
-          const params = [lockAmount, lockTime] as any
-
+          const params = [lockAmount.toString(), forMatterLockTime / 1000 + nowTimestamp] as any
+          console.log('params', params)
           let gasLimit = await getGasLimit(veContract, 'create_lock', params)
-          gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
 
+          gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+          console.log('gasLimit', gasLimit.toFixed(0))
           const tx = await veContract.create_lock(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.LOCK_KRAV)
           console.log('tx', await tx.wait())

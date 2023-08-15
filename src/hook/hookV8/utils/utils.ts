@@ -1,6 +1,12 @@
 import BigNumber from 'bignumber.js'
 import { Tuple } from '../../../components/Trades/type'
 import { eXDecimals } from '../../../utils/math'
+import {
+  FOUR_YEAR_TIMESTAMP,
+  HALF_YEAR_TIMESTAMP,
+  ONE_YEAR_TIMESTAMP,
+  TOW_YEAR_TIMESTAMP,
+} from '../../../constant/math'
 
 export const forMatterOpenTrades = (
   res: any[],
@@ -34,4 +40,25 @@ export const forMatterOpenTrades = (
     })
   }
   return userOpenTrades
+}
+
+export const getLockTime = (lockTime: number) => {
+  let forMatterLockTime = 0
+  switch (lockTime) {
+    case 1:
+      forMatterLockTime = HALF_YEAR_TIMESTAMP
+      break
+    case 2:
+      forMatterLockTime = ONE_YEAR_TIMESTAMP
+      break
+    case 3:
+      forMatterLockTime = TOW_YEAR_TIMESTAMP
+      break
+    case 4:
+      forMatterLockTime = FOUR_YEAR_TIMESTAMP
+      break
+    default:
+      forMatterLockTime = 0
+  }
+  return forMatterLockTime
 }

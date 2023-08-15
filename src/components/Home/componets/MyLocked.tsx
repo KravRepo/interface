@@ -8,9 +8,21 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
 import { css, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
+import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
+import { formatNumber } from '../../../utils'
+import moment from 'moment'
 
-export const MyLocked = () => {
+type MyLockedProp = {
+  userLockPosition: UserLockPosition
+}
+
+export const MyLocked = ({ userLockPosition }: MyLockedProp) => {
   const theme = useTheme()
+
+  // useEffect(() => {
+  //   const res = moment(userLockPosition.end * 1000).utc(false)
+  //   console.log('utc', res)
+  // }, [userLockPosition])
   return (
     <div>
       <p className="title gt">My Locked</p>
@@ -25,11 +37,17 @@ export const MyLocked = () => {
       </div>
       <div className="overview">
         <span>Locked amount</span>
-        <span>235 KRAV</span>
+        <span>{formatNumber(userLockPosition.amount.toString(), 2, false)} KRAV</span>
       </div>
       <div className="overview">
         <span>Locked until</span>
-        <span>Sep 21, 2021 08:30 AM UTC </span>
+        <span>
+          {moment(userLockPosition.end * 1000)
+            .utc()
+            .format('MM DD, YYYY HH:mm ')}{' '}
+          UTC
+        </span>
+        {/*<span>Sep 21, 2021 08:30 AM UTC </span>*/}
       </div>
       <div
         css={css`

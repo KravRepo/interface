@@ -2,11 +2,18 @@
 import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
-import { Slider, TextField, useTheme } from '@mui/material'
+import { Checkbox, Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { align } from '../../../globalStyle'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import { formatNumber } from '../../../utils'
+import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
+import { useCreatLock } from '../../../hook/hookV8/useCreatLock'
+import { addDecimals } from '../../../utils/math'
+import { useAddLockAmount } from '../../../hook/hookV8/useAddLockAmount'
+import { IncreaseUnlockTimeButton } from './IncreaseUnlockTimeButton'
 
 const marks = [
   {
@@ -27,9 +34,27 @@ const marks = [
   },
 ]
 
-export const LockAction = () => {
+type LockActionProp = {
+  userKravBalance: BigNumber
+  userLockPosition: UserLockPosition
+}
+
+export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp) => {
   const theme = useTheme()
-  const [showTip, setShowTip] = useState(false)
+  const [showTip] = useState(false)
+  const [lockTime, setLockTime] = useState(1)
+  const [lockAmount, setLockAmount] = useState(new BigNumber(0))
+  const [increaseUnlockTime, setIncreaseUnlockTime] = useState(true)
+  const creatLock = useCreatLock()
+  const addLockAmount = useAddLockAmount()
+  const handleLockAmountInput = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const newValue = new BigNumber(event.target.value)
+    setLockAmount(newValue)
+  }
+  const handleLockTimeChange = (event: Event, value: number | number[], activeThumb: number) => {
+    setLockTime(value as number)
+  }
+
   return (
     <div>
       <div
@@ -41,7 +66,7 @@ export const LockAction = () => {
         `}
       >
         <span className="title gt">KRAV Lock Amount </span>
-        <span>Available: 235,258.96 KRAV</span>
+        <span>Available: {formatNumber(userKravBalance.toString(), 2, false)} KRAV</span>
       </div>
       <div
         css={css`
@@ -62,16 +87,19 @@ export const LockAction = () => {
               font-weight: 500;
             `}
           >
-            &nbsp;&nbsp;201,256
+            &nbsp;&nbsp;
           </span>
         </div>
         <TextField
           variant="standard"
           type="number"
+          value={lockAmount}
+          onChange={handleLockAmountInput}
           InputProps={{
             disableUnderline: true,
           }}
           sx={{
+            marginLeft: '20px',
             height: '32px',
             fontSize: '20px',
             minHeight: '32px',
@@ -92,6 +120,9 @@ export const LockAction = () => {
             KRAV&nbsp;&nbsp;
           </span>
           <div
+            onClick={() => {
+              setLockAmount(userKravBalance)
+            }}
             css={css`
               border-radius: 2px;
               color: ${theme.text.primary};
@@ -105,65 +136,157 @@ export const LockAction = () => {
           </div>
         </div>
       </div>
-      <div
-        css={css`
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        `}
-      >
-        <span
+      {userLockPosition.amount.isEqualTo(0) && (
+        <div>
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            `}
+          >
+            <span
+              css={css`
+                font-weight: 500;
+                font-size: 20px;
+                padding-bottom: 15px;
+              `}
+            >
+              Lock Period
+            </span>
+            <span>1 year</span>
+          </div>
+          <Slider
+            defaultValue={1}
+            step={1}
+            min={1}
+            max={4}
+            marks={marks}
+            value={lockTime}
+            onChange={handleLockTimeChange}
+            sx={{
+              height: '3px',
+              '& .MuiSlider-root': {
+                color: '#757575',
+              },
+              '& .MuiSlider-rail': {
+                opacity: 1,
+                backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+              },
+              '& .MuiSlider-track': {
+                border: 'unset',
+                color: '#2832F5',
+              },
+              '& .MuiSlider-mark': {
+                height: '16px',
+                width: '16px',
+                borderRadius: '50%',
+                background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                transform: 'translate(-7px, -50%)',
+              },
+              '& .MuiSlider-thumb': {
+                height: '24px',
+                width: '24px',
+                border: '6px solid #2832F5',
+                background: '#ffffff',
+              },
+              '& .MuiSlider-markActive': {
+                background: '#2832F5',
+              },
+              '& .MuiSlider-markLabel': {
+                fontSize: '12px',
+                color: '#757575',
+              },
+            }}
+          />
+        </div>
+      )}
+      {userLockPosition.amount.isGreaterThan(0) && (
+        <div
           css={css`
-            font-weight: 500;
-            font-size: 20px;
-            padding-bottom: 15px;
+            margin-bottom: 24px;
           `}
         >
-          Lock Period
-        </span>
-        <span>1 year</span>
-      </div>
-      <Slider
-        defaultValue={1}
-        step={1}
-        min={1}
-        max={4}
-        marks={marks}
-        sx={{
-          height: '3px',
-          '& .MuiSlider-root': {
-            color: '#757575',
-          },
-          '& .MuiSlider-rail': {
-            opacity: 1,
-            backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
-          },
-          '& .MuiSlider-track': {
-            border: 'unset',
-            color: '#2832F5',
-          },
-          '& .MuiSlider-mark': {
-            height: '16px',
-            width: '16px',
-            borderRadius: '50%',
-            background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
-            transform: 'translate(-7px, -50%)',
-          },
-          '& .MuiSlider-thumb': {
-            height: '24px',
-            width: '24px',
-            border: '6px solid #2832F5',
-            background: '#ffffff',
-          },
-          '& .MuiSlider-markActive': {
-            background: '#2832F5',
-          },
-          '& .MuiSlider-markLabel': {
-            fontSize: '12px',
-            color: '#757575',
-          },
-        }}
-      />
+          <Checkbox
+            checked={increaseUnlockTime}
+            onChange={() => setIncreaseUnlockTime(!increaseUnlockTime)}
+            sx={{
+              padding: 0,
+              '&.Mui-checked': {
+                color: theme.palette.mode === 'dark' ? '#2832f5' : '#000',
+              },
+            }}
+          />{' '}
+          Increase unlock time
+        </div>
+      )}
+      {userLockPosition.amount.isGreaterThan(0) && increaseUnlockTime && (
+        <>
+          <div>
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              `}
+            >
+              <span
+                css={css`
+                  font-weight: 500;
+                  font-size: 20px;
+                  padding-bottom: 15px;
+                `}
+              >
+                Lock Period
+              </span>
+              <span>1 year</span>
+            </div>
+            <Slider
+              defaultValue={1}
+              step={1}
+              min={1}
+              max={4}
+              marks={marks}
+              value={lockTime}
+              onChange={handleLockTimeChange}
+              sx={{
+                height: '3px',
+                '& .MuiSlider-root': {
+                  color: '#757575',
+                },
+                '& .MuiSlider-rail': {
+                  opacity: 1,
+                  backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                },
+                '& .MuiSlider-track': {
+                  border: 'unset',
+                  color: '#2832F5',
+                },
+                '& .MuiSlider-mark': {
+                  height: '16px',
+                  width: '16px',
+                  borderRadius: '50%',
+                  background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                  transform: 'translate(-7px, -50%)',
+                },
+                '& .MuiSlider-thumb': {
+                  height: '24px',
+                  width: '24px',
+                  border: '6px solid #2832F5',
+                  background: '#ffffff',
+                },
+                '& .MuiSlider-markActive': {
+                  background: '#2832F5',
+                },
+                '& .MuiSlider-markLabel': {
+                  fontSize: '12px',
+                  color: '#757575',
+                },
+              }}
+            />
+          </div>
+        </>
+      )}
       <div
         css={css`
           padding-top: 31px;
@@ -227,9 +350,23 @@ export const LockAction = () => {
         <span>Locked until</span>
         <span>Sep 21, 2021 08:30 AM UTC </span>
       </div>
-      <KRAVButton onClick={() => setShowTip(!showTip)} sx={{ mt: '20px' }}>
-        Lock & Mint
-      </KRAVButton>
+      {userLockPosition.amount.isEqualTo(0) && userLockPosition.end === 0 && (
+        <KRAVButton onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)} sx={{ mt: '20px' }}>
+          Lock & Mint
+        </KRAVButton>
+      )}
+      {!increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
+        <KRAVButton onClick={() => addLockAmount(addDecimals(lockAmount, 18))} sx={{ mt: '20px' }}>
+          Lock & Mint
+        </KRAVButton>
+      )}
+      {increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
+        <IncreaseUnlockTimeButton
+          lockAmount={lockAmount}
+          lockTime={lockTime}
+          userPositionUnLockTime={userLockPosition.end}
+        />
+      )}
       <div
         css={css`
           position: relative;

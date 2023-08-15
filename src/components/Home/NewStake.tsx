@@ -8,9 +8,11 @@ import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
 import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.svg'
 import { align } from '../../globalStyle'
 import { formatNumber } from '../../utils'
+import { useGetUserKravLock } from '../../hook/hookV8/useGetUserKravLock'
 
 export const NewStake = () => {
   const theme = useTheme()
+  const { userKravBalance, userLockPosition } = useGetUserKravLock()
   return (
     <div
       css={[
@@ -140,8 +142,8 @@ export const NewStake = () => {
           background: ${theme.background.primary};
         `}
       >
-        <LockAction />
-        <MyLocked />
+        <LockAction userKravBalance={userKravBalance} userLockPosition={userLockPosition} />
+        <MyLocked userLockPosition={userLockPosition} />
       </div>
     </div>
   )
