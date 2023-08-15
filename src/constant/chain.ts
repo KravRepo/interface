@@ -31,7 +31,7 @@ export const TEST_CHAIN_ID = ChainId.BASE
 
 export const BTC_CONTRACT = '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
 
-export const BTC_PRICE_API = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+export const BTC_PRICE_API = 'https://base-api.krav.trade/krav/v1/price?symbol=BTCUSDT'
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
