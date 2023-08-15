@@ -23,8 +23,6 @@ export const useMaxPositionCheck = () => {
         const maxCollateralP = new BigNumber(pairsBackend[1].maxCollateralP._hex)
         const MaxPos = tradePool.poolCurrentBalance?.times(maxCollateralP).div(100)
         const curPos = eXDecimals(new BigNumber(groupCollateral._hex), tradePool.decimals)
-        console.log('MaxPos', MaxPos?.toFixed(2))
-        console.log(curPos.toFixed(2))
         // require(maxPos>=curPos+positionAmount)
 
         console.log('positionAmount', positionAmount.toFixed(2))

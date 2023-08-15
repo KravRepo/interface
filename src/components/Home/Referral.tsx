@@ -30,7 +30,6 @@ export const Referral = () => {
         const host = document.documentURI
         const url = host.split('/')
         const link = url[0] + '//' + url[2] + '/trade/'
-        console.log('link', link)
         const encode = base64.encode(utils.toUtf8Bytes(account))
         await navigator.clipboard.writeText(link + encode)
         setOpenTooltip(true)

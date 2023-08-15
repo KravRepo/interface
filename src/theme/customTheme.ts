@@ -88,8 +88,8 @@ export const darkTheme = createTheme({
     background: '#009B72',
     text: '#ffffff',
     hoverBg: '#077054',
-    disableBg: '#1c1e23',
-    disableText: '#393D46',
+    disableBg: '#393D46',
+    disableText: '#4B4B4B',
     hoverText: '#ffffff',
   },
   shortButton: {
@@ -97,7 +97,7 @@ export const darkTheme = createTheme({
     text: '#ffffff',
     hoverBg: '#C3352A',
     disableBg: '#393D46',
-    disableText: '#ffffff',
+    disableText: '#4B4B4B',
     hoverText: '#ffffff',
   },
   splitLine: {

@@ -606,7 +606,15 @@ export const OrderParamsCard = ({
               {/*  </div>*/}
               {/*</div>*/}
               {tabIndex === 1 && (
-                <div css={input}>
+                <div
+                  css={[
+                    input,
+                    css`
+                      background: ${theme.background.second};
+                      color: ${theme.text.primary};
+                    `,
+                  ]}
+                >
                   <div
                     css={css`
                       display: flex;
@@ -623,7 +631,13 @@ export const OrderParamsCard = ({
                       Price
                     </span>
                     <div>
-                      <span>Leverage: </span>
+                      <span
+                        css={css`
+                          color: #757575;
+                        `}
+                      >
+                        Leverage:
+                      </span>
                       <span>{leverage}x</span>
                     </div>
                   </div>
@@ -666,7 +680,7 @@ export const OrderParamsCard = ({
                   color: ${theme.text.primary};
                 `}
               >
-                Leverage slider
+                Leverage Slider
               </p>
               <Slider
                 defaultValue={2}
@@ -728,7 +742,7 @@ export const OrderParamsCard = ({
                   `,
                 ]}
               >
-                <span>Collateral in</span>
+                <span>Collateral In</span>
                 <span>
                   {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
                 </span>

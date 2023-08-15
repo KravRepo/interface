@@ -3,7 +3,7 @@ import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
-const default_theme = 'light'
+const default_theme = 'dark'
 
 type appThemeProp = {
   children: React.ReactNode

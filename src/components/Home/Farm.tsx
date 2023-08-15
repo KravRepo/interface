@@ -128,7 +128,7 @@ export const Farm = () => {
                     }
                   `}
                 >
-                  Learn more about Liquidity Pool&nbsp; <ArrowRight />
+                  Learn more about Liquidity Pools&nbsp; <ArrowRight />
                 </span>
               </p>
             </div>
