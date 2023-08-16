@@ -297,7 +297,6 @@ export const farm = css`
     font-weight: 900;
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
-    color: #000;
     margin-bottom: 32px;
   }
   .overview {
