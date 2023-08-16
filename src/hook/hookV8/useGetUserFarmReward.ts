@@ -71,7 +71,7 @@ export const useGetUserFarmReward = () => {
           setTransactionDialogVisibility(true)
           const contract = isTrade ? tradeMiningContract : miningContract
           const tx = await contract.claim(
-            addDecimals(isTrade ? lpRewardAmount : tradeRewardAmount, 18),
+            addDecimals(isTrade ? lpRewardAmount : tradeRewardAmount, 18).toString(),
             isTrade ? tradeSignature : lpSignature
           )
           setTransactionState(TransactionState.PENDING)
