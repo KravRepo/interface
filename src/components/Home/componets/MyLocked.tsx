@@ -58,8 +58,8 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList }: MyLockedProp)
         <span>
           {moment(userLockPosition.end * 1000)
             .utc()
-            .format('MM DD, YYYY HH:mm ')}{' '}
-          UTC
+            .format('MMM DD, YYYY HH:mm A')}{' '}
+          &nbsp;UTC
         </span>
         {/*<span>Sep 21, 2021 08:30 AM UTC </span>*/}
       </div>

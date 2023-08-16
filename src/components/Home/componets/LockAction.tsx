@@ -8,12 +8,13 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { align } from '../../../globalStyle'
 import { ChangeEvent, useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { formatNumber } from '../../../utils'
+import { formatNumber, getBigNumberStr } from '../../../utils'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
 import { useCreatLock } from '../../../hook/hookV8/useCreatLock'
 import { addDecimals } from '../../../utils/math'
 import { useAddLockAmount } from '../../../hook/hookV8/useAddLockAmount'
 import { IncreaseUnlockTimeButton } from './IncreaseUnlockTimeButton'
+import moment from 'moment'
 
 const marks = [
   {
@@ -345,11 +346,17 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
       </div>
       <div className="overview">
         <span>Locked amount</span>
-        <span>235 KRAV</span>
+        <span>{getBigNumberStr(userLockPosition.amount.plus(lockAmount), 2)} KRAV</span>
       </div>
       <div className="overview">
         <span>Locked until</span>
-        <span>Sep 21, 2021 08:30 AM UTC </span>
+        <span>
+          {' '}
+          {moment(userLockPosition.end * 1000)
+            .utc()
+            .format('MMM DD, YYYY HH:mm A')}{' '}
+          &nbsp;UTC
+        </span>
       </div>
       {userLockPosition.amount.isEqualTo(0) && userLockPosition.end === 0 && (
         <KRAVButton onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)} sx={{ mt: '20px' }}>
@@ -357,7 +364,11 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
         </KRAVButton>
       )}
       {!increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
-        <KRAVButton onClick={() => addLockAmount(addDecimals(lockAmount, 18))} sx={{ mt: '20px' }}>
+        <KRAVButton
+          disabled={!lockAmount.isGreaterThan(0)}
+          onClick={() => addLockAmount(addDecimals(lockAmount, 18))}
+          sx={{ mt: '20px' }}
+        >
           Lock & Mint
         </KRAVButton>
       )}
