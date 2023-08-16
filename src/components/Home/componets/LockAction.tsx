@@ -205,6 +205,7 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
         <div
           css={css`
             margin-bottom: 24px;
+            text-align: end;
           `}
         >
           <Checkbox

@@ -422,7 +422,7 @@ export const stake = css`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 76px;
-    align-items: center;
+    align-items: start;
     border-radius: 8px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     .my-reward {
@@ -431,6 +431,12 @@ export const stake = css`
       align-items: center;
       gap: 8px;
       grid-template-columns: 1fr 1fr;
+      max-height: 80px;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      ,
       > div {
         display: flex;
         align-items: center;

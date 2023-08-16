@@ -5,6 +5,7 @@ import voting from '../../abi/voting_escrow.json'
 import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
+import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
 export type UserLockPosition = {
   amount: BigNumber
   end: number
@@ -13,6 +14,7 @@ export type UserLockPosition = {
 export const useGetUserKravLock = () => {
   const { provider, account } = useWeb3React()
   const [userKravBalance, setUserKravBalance] = useState(new BigNumber(0))
+  const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
   const [userLockPosition, setUserLockPosition] = useState<UserLockPosition>({
     amount: new BigNumber(0),
     end: 0,
@@ -40,18 +42,20 @@ export const useGetUserKravLock = () => {
   useEffect(() => {
     let Interval: NodeJS.Timer
     if (account && provider) {
-      getUserKravLock().then()
+      Promise.all([getUserFeesReward().then(), getUserKravLock().then()]).then()
+
       Interval = setInterval(async () => {
-        await getUserKravLock()
+        await Promise.all([getUserKravLock(), getUserFeesReward()])
       }, 15000)
     }
     return () => {
       if (Interval) clearInterval(Interval)
     }
-  }, [provider, veContract, account, kravTokenContract])
+  }, [provider, veContract, account, kravTokenContract, getUserFeesReward])
 
   return {
     userKravBalance: userKravBalance,
     userLockPosition: userLockPosition,
+    userFeesRewardList: userFeesRewardList,
   }
 }

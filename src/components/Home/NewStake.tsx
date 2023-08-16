@@ -12,7 +12,7 @@ import { useGetUserKravLock } from '../../hook/hookV8/useGetUserKravLock'
 
 export const NewStake = () => {
   const theme = useTheme()
-  const { userKravBalance, userLockPosition } = useGetUserKravLock()
+  const { userKravBalance, userLockPosition, userFeesRewardList } = useGetUserKravLock()
   return (
     <div
       css={[
@@ -143,7 +143,7 @@ export const NewStake = () => {
         `}
       >
         <LockAction userKravBalance={userKravBalance} userLockPosition={userLockPosition} />
-        <MyLocked userLockPosition={userLockPosition} />
+        <MyLocked userLockPosition={userLockPosition} userFeesRewardList={userFeesRewardList} />
       </div>
     </div>
   )

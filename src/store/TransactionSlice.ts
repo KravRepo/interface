@@ -27,6 +27,7 @@ export enum TransactionState {
   LOCK_KRAV = 'Locking Krav...',
   INCREASE_AMOUNT = 'Increase lock Krav...',
   INCREASE_UNLOCK_TIME = 'Increase lock time...',
+  PENDING = 'Pending...',
 }
 
 export enum CreatPoolState {
@@ -58,6 +59,7 @@ export enum TransactionAction {
   LOCK_KRAV = 'Locked Krav',
   INCREASE_AMOUNT = 'Increase locked Krav amount',
   INCREASE_UNLOCK_TIME = 'Increase unlock time',
+  CLAIM_LOCK_REWARD = 'Claim locked Reward',
 }
 
 export type ErrorContent = {
