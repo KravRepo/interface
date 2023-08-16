@@ -127,14 +127,14 @@ export const NewStake = () => {
           <KRAVTab>% of veKRAV collecting</KRAVTab>
           <p className="data gt">100%</p>
         </div>
-        <div
-          css={css`
-            padding-left: 32px;
-          `}
-        >
-          <KRAVTab>Avg.Lock Time(years)</KRAVTab>
-          <p className="data gt">1.86</p>
-        </div>
+        {/*<div*/}
+        {/*  css={css`*/}
+        {/*    padding-left: 32px;*/}
+        {/*  `}*/}
+        {/*>*/}
+        {/*  <KRAVTab>Avg.Lock Time(years)</KRAVTab>*/}
+        {/*  <p className="data gt">1.86</p>*/}
+        {/*</div>*/}
       </div>
       <div
         className="action"

@@ -79,9 +79,9 @@ export const useGetUserFarmReward = () => {
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
           const tx = await contract.claim(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.PENDING)
+          await tx.wait()
           setTransactionDialogVisibility(false)
           setTransactionState(TransactionState.START)
-          await tx.wait()
           updateSuccessDialog(
             isTrade ? TransactionAction.CLAIM_TRADING_REWARDS : TransactionAction.CLAIM_LIQUIDITY_PROVIDER_REWARDS
           )
