@@ -9,6 +9,7 @@ import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { useRootStore } from '../../store/root'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
+import { getGasLimit } from '../../utils'
 
 type RewardApi = {
   lp: string
@@ -70,10 +71,13 @@ export const useGetUserFarmReward = () => {
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
           const contract = isTrade ? tradeMiningContract : miningContract
-          const tx = await contract.claim(
-            addDecimals(isTrade ? lpRewardAmount : tradeRewardAmount, 18).toString(),
-            isTrade ? tradeSignature : lpSignature
-          )
+          const params = [
+            addDecimals(isTrade ? tradeRewardAmount : lpRewardAmount, 18).toString(),
+            isTrade ? tradeSignature : lpSignature,
+          ] as any
+          let gasLimit = await getGasLimit(contract, 'claim', params)
+          gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+          const tx = await contract.claim(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.PENDING)
           setTransactionDialogVisibility(false)
           setTransactionState(TransactionState.START)
