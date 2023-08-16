@@ -38,7 +38,7 @@ export const LiquidityRewards = ({ lpRewardAmount, contractAmount, claimLpReward
           `}
         >
           <div>
-            <KRAVTab>total Liquidity Provider</KRAVTab>
+            <KRAVTab>Total Liquidity Provider</KRAVTab>
             <p className="data gt">{formatNumber('23102.23', 2, false)}%</p>
           </div>
           <div
@@ -47,7 +47,7 @@ export const LiquidityRewards = ({ lpRewardAmount, contractAmount, claimLpReward
             `}
           >
             <div css={[align]}>
-              <KRAVTab>your Liquidity Provider</KRAVTab>
+              <KRAVTab>Your Liquidity Provider</KRAVTab>
               &nbsp;&nbsp;
               <AlertIcon />
             </div>
