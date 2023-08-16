@@ -60,6 +60,8 @@ export enum TransactionAction {
   INCREASE_AMOUNT = 'Increase locked Krav amount',
   INCREASE_UNLOCK_TIME = 'Increase unlock time',
   CLAIM_LOCK_REWARD = 'Claim locked Reward',
+  CLAIM_LIQUIDITY_PROVIDER_REWARDS = 'Claim liquidity provider rewards',
+  CLAIM_TRADING_REWARDS = 'Claim trading rewards',
 }
 
 export type ErrorContent = {

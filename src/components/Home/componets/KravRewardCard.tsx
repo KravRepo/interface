@@ -5,9 +5,24 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../../globalStyle'
+import { useWeb3React } from '@web3-react/core'
+import BigNumber from 'bignumber.js'
+import { useMemo } from 'react'
+import { getBigNumberStr } from '../../../utils'
 
-export const KravRewardCard = () => {
+type KravRewardCardProps = {
+  isTrade: boolean
+  backendAmount: BigNumber
+  contractAmount: BigNumber
+  claimMethod: (isTrade: boolean) => Promise<void>
+}
+export const KravRewardCard = ({ isTrade, backendAmount, contractAmount, claimMethod }: KravRewardCardProps) => {
+  const { account } = useWeb3React()
   const theme = useTheme()
+  const kravRewardInfo = useMemo(() => {
+    if (backendAmount.isGreaterThan(contractAmount)) return { amount: backendAmount, claimEnable: true }
+    else return { amount: new BigNumber(0), claimEnable: false }
+  }, [backendAmount, contractAmount])
   return (
     <div
       className="krav-reward-card"
@@ -39,11 +54,22 @@ export const KravRewardCard = () => {
               font-size: 20px;
             `}
           >
-            &nbsp;0 KRAV
+            &nbsp;{getBigNumberStr(kravRewardInfo.amount, 2)} KRAV
           </span>
           <span>($0.00)</span>
         </div>
-        <KRAVButton sx={{ height: '30px', minHeight: '30px', width: '129px' }}>Connect Wallet</KRAVButton>
+        {!account && <KRAVButton sx={{ height: '30px', minHeight: '30px', width: '129px' }}>Connect Wallet</KRAVButton>}
+        {account && (
+          <KRAVButton
+            disabled={!kravRewardInfo.claimEnable}
+            onClick={async () => {
+              await claimMethod(isTrade)
+            }}
+            sx={{ height: '30px', minHeight: '30px', width: '129px' }}
+          >
+            Claim
+          </KRAVButton>
+        )}
       </div>
       <div
         css={css`

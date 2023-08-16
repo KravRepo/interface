@@ -11,8 +11,14 @@ import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg
 import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
 import { css, useTheme } from '@mui/material'
+import BigNumber from 'bignumber.js'
 
-export const LiquidityRewards = () => {
+type LiquidityRewardsProps = {
+  lpRewardAmount: BigNumber
+  contractAmount: BigNumber
+  claimLpRewardKrav: (isTrade: boolean) => Promise<void>
+}
+export const LiquidityRewards = ({ lpRewardAmount, contractAmount, claimLpRewardKrav }: LiquidityRewardsProps) => {
   const theme = useTheme()
   return (
     <>
@@ -98,7 +104,12 @@ export const LiquidityRewards = () => {
         </div>
       </div>
       <div css={[align]} className="liquidity-reward-action">
-        <KravRewardCard />
+        <KravRewardCard
+          isTrade={false}
+          backendAmount={lpRewardAmount}
+          contractAmount={contractAmount}
+          claimMethod={claimLpRewardKrav}
+        />
         <div
           className="fees-rewards"
           css={css`
@@ -151,7 +162,7 @@ export const LiquidityRewards = () => {
             </div>
           </div>
           <div className="flex">
-            <div>{'Please go to the Lliquidity" page to claim the fee income'}</div>
+            <div>{'Please go to the "liquidity" page to claim the fee income'}</div>
             <div css={align}>
               <span
                 css={css`

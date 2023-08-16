@@ -11,7 +11,7 @@ export type FeesRewardList = {
   amount: BigNumber
   pool: PoolParams
 }
-
+// claim reward for locked krav
 export const useGetClaimableTokensFee = () => {
   const { account, provider } = useWeb3React()
   const feesDistributorContract = useContract(FEE_DISTRBUTOR, fees_manager.abi)

@@ -8,6 +8,7 @@ const KRAVTab = styled(Typography)(({ theme }) => ({
   borderRadius: '100px',
   fontSize: '14px',
   width: 'fit-content',
+  whiteSpace: 'nowrap',
 }))
 
 export default KRAVTab

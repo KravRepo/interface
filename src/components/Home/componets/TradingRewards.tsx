@@ -8,8 +8,14 @@ import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg
 import { KravRewardCard } from './KravRewardCard'
 import { css, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
+import BigNumber from 'bignumber.js'
 
-export const TradingRewards = () => {
+type TradingRewardsProps = {
+  lpRewardAmount: BigNumber
+  contractAmount: BigNumber
+  claimTradingRewardKrav: (isTrade: boolean) => Promise<void>
+}
+export const TradingRewards = ({ lpRewardAmount, contractAmount, claimTradingRewardKrav }: TradingRewardsProps) => {
   const theme = useTheme()
   return (
     <>
@@ -100,7 +106,12 @@ export const TradingRewards = () => {
           width: 50%;
         `}
       >
-        <KravRewardCard />
+        <KravRewardCard
+          isTrade={true}
+          backendAmount={lpRewardAmount}
+          contractAmount={contractAmount}
+          claimMethod={claimTradingRewardKrav}
+        />
       </div>
     </>
   )

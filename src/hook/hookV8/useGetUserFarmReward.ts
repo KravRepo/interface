@@ -1,0 +1,120 @@
+import { useWeb3React } from '@web3-react/core'
+import mining_pool from '../../abi/mining_pool.json'
+import { useContract } from './useContract'
+import { LP_REWARD_API, LP_REWARD_CONTRACT, TRADE_REWARD_CONTRACT } from '../../constant/chain'
+import { useCallback, useEffect, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import { addDecimals, eXDecimals } from '../../utils/math'
+import { useUpdateError } from './useUpdateError'
+import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
+import { useRootStore } from '../../store/root'
+import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
+
+type RewardApi = {
+  lp: string
+  lpSignature: string
+  trader: string
+  traderSignature: string
+}
+
+export const useGetUserFarmReward = () => {
+  const { account, provider } = useWeb3React()
+  const [lpRewardAmount, setLpRewardAmount] = useState(new BigNumber(0))
+  const [receivedLpRewardAmount, setReceivedLpRewardAmount] = useState(new BigNumber(0))
+  const [tradeRewardAmount, setTradeLpRewardAmout] = useState(new BigNumber(0))
+  const [receivedTradeRewardAmount, setReceivedTradeRewardAmount] = useState(new BigNumber(0))
+  const [lpSignature, setLpSignature] = useState('')
+  const [tradeSignature, setTradeSignature] = useState('')
+  const miningContract = useContract(LP_REWARD_CONTRACT, mining_pool.abi)
+  const tradeMiningContract = useContract(TRADE_REWARD_CONTRACT, mining_pool.abi)
+  const updateError = useUpdateError()
+  const updateSuccessDialog = useUpdateSuccessDialog()
+  const setTransactionState = useRootStore((store) => store.setTransactionState)
+  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
+  const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
+  const queryLPBackend = useCallback(async () => {
+    if (account) {
+      try {
+        const req = await fetch(LP_REWARD_API + account)
+        const lpReward = await req.json()
+        if (lpReward.code == 200) {
+          const lpRewardInfo = lpReward.data as RewardApi
+          setLpRewardAmount(eXDecimals(lpRewardInfo.lp, 18))
+          setLpSignature(lpRewardInfo.lpSignature)
+          setTradeLpRewardAmout(eXDecimals(lpRewardInfo.trader, 18))
+          setTradeSignature(lpRewardInfo.traderSignature)
+        }
+      } catch (e) {}
+    }
+  }, [account])
+
+  const queryLpContract = useCallback(async () => {
+    if (account && provider && miningContract) {
+      const req = await miningContract.claimed(account)
+      setReceivedLpRewardAmount(eXDecimals(new BigNumber(req._hex), 18))
+    }
+  }, [account, provider, miningContract])
+
+  //TODO Wait for traderContract
+  const queryTradeContract = useCallback(async () => {
+    if (account && provider && tradeMiningContract) {
+      const req = await tradeMiningContract.claimed(account)
+      setReceivedTradeRewardAmount(eXDecimals(new BigNumber(req._hex), 18))
+    }
+  }, [account, provider, tradeMiningContract])
+
+  const claimLpRewardKrav = useCallback(
+    async (isTrade: boolean) => {
+      if (miningContract && tradeMiningContract && account && provider) {
+        try {
+          setTransactionState(TransactionState.INTERACTION)
+          setTransactionDialogVisibility(true)
+          const contract = isTrade ? tradeMiningContract : miningContract
+          const tx = await contract.claim(
+            addDecimals(isTrade ? lpRewardAmount : tradeRewardAmount, 18),
+            isTrade ? tradeSignature : lpSignature
+          )
+          setTransactionState(TransactionState.PENDING)
+          setTransactionDialogVisibility(false)
+          setTransactionState(TransactionState.START)
+          await tx.wait()
+          updateSuccessDialog(
+            isTrade ? TransactionAction.CLAIM_TRADING_REWARDS : TransactionAction.CLAIM_LIQUIDITY_PROVIDER_REWARDS
+          )
+          setSuccessSnackbarInfo({
+            snackbarVisibility: true,
+            title: `Claim ${isTrade ? 'trade' : 'liquidity provider'} rewards`,
+            content: `Your ${isTrade ? 'trade' : 'liquidity provider'} rewards has been claimed successfully`,
+          })
+        } catch (e) {
+          updateError(
+            isTrade ? TransactionAction.CLAIM_TRADING_REWARDS : TransactionAction.CLAIM_LIQUIDITY_PROVIDER_REWARDS
+          )
+          console.error('Claim reward!', e)
+        }
+      }
+    },
+    [miningContract, account, provider, lpRewardAmount, tradeMiningContract, tradeRewardAmount]
+  )
+
+  useEffect(() => {
+    let interval: NodeJS.Timer
+    if (miningContract && account && provider) {
+      Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()]).then()
+      interval = setInterval(async () => {
+        await Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()])
+      }, 15000)
+    }
+    return () => clearInterval(interval)
+  }, [miningContract, account, provider])
+
+  return {
+    lpRewardAmount: lpRewardAmount,
+    tradeRewardAmount: tradeRewardAmount,
+    lpSignature: lpSignature,
+    tradeSignature: tradeSignature,
+    claimLpRewardKrav: claimLpRewardKrav,
+    receivedLpRewardAmount: receivedLpRewardAmount,
+    receivedTradeRewardAmount: receivedTradeRewardAmount,
+  }
+}

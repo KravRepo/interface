@@ -100,14 +100,22 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
             disableUnderline: true,
           }}
           sx={{
-            marginLeft: '20px',
-            height: '32px',
-            fontSize: '20px',
+            mx: '10px',
+            height: '37px',
             minHeight: '32px',
+            '> div': {
+              '> input': {
+                fontSize: '20px',
+                fontWeight: '500',
+                fontFamily: 'Inter',
+                textAlign: 'end',
+              },
+            },
             '& .MuiOutlinedInput-root': {
-              height: '32px',
+              height: '37px',
               minHeight: '32px',
               padding: 0,
+              textAlign: 'end',
             },
           }}
         />
