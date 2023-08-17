@@ -11,12 +11,14 @@ type IncreaseUnlockTimeButtonProps = {
   lockAmount: BigNumber
   lockTime: number
   userPositionUnLockTime: number
+  userKravBalance: BigNumber
 }
 
 export const IncreaseUnlockTimeButton = ({
   lockAmount,
   lockTime,
   userPositionUnLockTime,
+  userKravBalance,
 }: IncreaseUnlockTimeButtonProps) => {
   const addUnlockTime = useAddUnlockTime()
   const addLockAmount = useAddLockAmount()
@@ -35,7 +37,11 @@ export const IncreaseUnlockTimeButton = ({
   }, [lockAmount, lockTime, userPositionUnLockTime])
 
   return (
-    <KRAVButton disabled={!unlockAble} onClick={() => updatePosition().then()} sx={{ mt: '20px' }}>
+    <KRAVButton
+      disabled={!unlockAble || lockAmount.isGreaterThan(userKravBalance)}
+      onClick={() => updatePosition().then()}
+      sx={{ mt: '20px' }}
+    >
       Lock & Mint
     </KRAVButton>
   )

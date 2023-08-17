@@ -373,7 +373,7 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
       )}
       {!increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
         <KRAVButton
-          disabled={!lockAmount.isGreaterThan(0)}
+          disabled={!lockAmount.isGreaterThan(0) || lockAmount.isGreaterThan(userKravBalance)}
           onClick={() => addLockAmount(addDecimals(lockAmount, 18))}
           sx={{ mt: '20px' }}
         >
@@ -384,6 +384,7 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
         <IncreaseUnlockTimeButton
           lockAmount={lockAmount}
           lockTime={lockTime}
+          userKravBalance={userKravBalance}
           userPositionUnLockTime={userLockPosition.end}
         />
       )}
