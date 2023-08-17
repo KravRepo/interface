@@ -61,7 +61,7 @@ export const useGetUserKravLock = () => {
     return () => {
       if (Interval) clearInterval(Interval)
     }
-  }, [provider, veContract, account, kravTokenContract, getUserFeesReward])
+  }, [provider, account])
 
   return {
     userKravBalance: userKravBalance,

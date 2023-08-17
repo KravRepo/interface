@@ -6,25 +6,26 @@ import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
 import { useGetUserAssetOverview } from '../../hook/hookV8/useGetUserAssetOverview'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useEffect } from 'react'
+import { useWeb3React } from '@web3-react/core'
 
 export const NewFarm = () => {
+  const { account, provider } = useWeb3React()
   const { lpRewardAmount, receivedLpRewardAmount, tradeRewardAmount, receivedTradeRewardAmount, claimLpRewardKrav } =
     useGetUserFarmReward()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
   const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
-  Promise.all([
-    // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
-    getOverView().then(),
-    getUserAssetOverview(),
-  ]).then()
   useEffect(() => {
-    Promise.all([getOverView().then(), getUserAssetOverview()]).then()
-    const interval = setInterval(async () => {
-      console.log('get user asset data ')
-      await Promise.all([getOverView(), getUserAssetOverview()])
-    }, 15000)
+    let interval: NodeJS.Timer
+    if (provider && account) {
+      Promise.all([getOverView().then(), getUserAssetOverview()]).then()
+      interval = setInterval(async () => {
+        console.log('get user asset data ')
+        await Promise.all([getOverView(), getUserAssetOverview()])
+      }, 15000)
+    }
+
     return () => clearInterval(interval)
-  }, [getOverView, getUserAssetOverview])
+  }, [account, provider])
   return (
     <div css={stake}>
       <TradingRewards

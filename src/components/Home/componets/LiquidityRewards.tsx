@@ -2,7 +2,6 @@
 import KRAVTab from '../../KravUIKit/KravTab'
 import { formatNumber } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
-import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ArrowLeft } from '../../../assets/imgs/arrowLeft.svg'
 import { ReactComponent as ArrowLeftDark } from '../../../assets/imgs/darkModel/arrow_left_dark.svg'
@@ -14,6 +13,7 @@ import { css, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { UserAssetOverview } from '../../../hook/hookV8/useGetUserAssetOverview'
+import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
 
 type LiquidityRewardsProps = {
   lpRewardAmount: BigNumber
@@ -30,6 +30,7 @@ export const LiquidityRewards = ({
   userAssetOverview,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
+  const { userFeesRewardList } = useGetAllLpReward()
   return (
     <>
       <div>
@@ -141,38 +142,54 @@ export const LiquidityRewards = ({
               > div {
                 border-bottom: ${theme.splitLine.primary};
               }
+              margin-top: 25px;
+              min-height: 144px;
+              max-height: 144px;
+              overflow: auto;
+              &::-webkit-scrollbar {
+      display: none
+    },
             `}
           >
-            <div className="reward-item">
-              <KravToken
+            {userFeesRewardList.length > 0 &&
+              userFeesRewardList.map((list) => {
+                return (
+                  <div key={list.position.pool.tradingT} className="reward-item">
+                    <img
+                      css={css`
+                        border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                      `}
+                      src={list.position.pool.logoSource}
+                      height="32"
+                      width="32"
+                    />
+                    <span>
+                      &nbsp;&nbsp;{formatNumber(list.rewardAmount.toString(), 2)} {list.position.pool.symbol}
+                    </span>
+                  </div>
+                )
+              })}
+            {userFeesRewardList.length === 0 && (
+              <div
                 css={css`
-                  height: 32px;
-                  width: 32px;
+                  text-align: center;
+                  padding-top: 40px;
+                  color: ${theme.text.second};
                 `}
-              />
-              <span>&nbsp;&nbsp;1200 DOGE</span>
-            </div>
-            <div className="reward-item">
-              <KravToken
-                css={css`
-                  height: 32px;
-                  width: 32px;
-                `}
-              />
-              <span>&nbsp;&nbsp;1200 DOGE</span>
-            </div>
-            <div className="reward-item">
-              <KravToken
-                css={css`
-                  height: 32px;
-                  width: 32px;
-                `}
-              />
-              <span>&nbsp;&nbsp;1200 DOGE</span>
-            </div>
+              >
+                No Fees Reward
+              </div>
+            )}
           </div>
           <div className="flex">
-            <div>{'Please go to the "liquidity" page to claim the fee income'}</div>
+            <div
+              css={css`
+                padding-right: 36px;
+              `}
+            >
+              {'Please go to the "dashboard" page to claim the fee income'}
+            </div>
             <div css={align}>
               <span
                 css={css`
