@@ -14,6 +14,7 @@ export type UserLockPosition = {
 export const useGetUserKravLock = () => {
   const { provider, account } = useWeb3React()
   const [userKravBalance, setUserKravBalance] = useState(new BigNumber(0))
+  const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
   const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
   const [userLockPosition, setUserLockPosition] = useState<UserLockPosition>({
     amount: new BigNumber(0),
@@ -38,14 +39,23 @@ export const useGetUserKravLock = () => {
       }
     }
   }, [provider, veContract, account, kravTokenContract])
-
+  const getTotalLock = useCallback(async () => {
+    if (veContract) {
+      try {
+        const res = await veContract.supply()
+        setTotalKravLock(eXDecimals(new BigNumber(res._hex), 18))
+      } catch (e) {
+        console.log('get total lock failed!', e)
+      }
+    }
+  }, [veContract])
   useEffect(() => {
     let Interval: NodeJS.Timer
     if (account && provider) {
-      Promise.all([getUserFeesReward().then(), getUserKravLock().then()]).then()
+      Promise.all([getUserFeesReward(), getUserKravLock(), getTotalLock()]).then()
 
       Interval = setInterval(async () => {
-        await Promise.all([getUserKravLock(), getUserFeesReward()])
+        await Promise.all([getUserKravLock(), getUserFeesReward(), getTotalLock()])
       }, 15000)
     }
     return () => {
@@ -57,5 +67,6 @@ export const useGetUserKravLock = () => {
     userKravBalance: userKravBalance,
     userLockPosition: userLockPosition,
     userFeesRewardList: userFeesRewardList,
+    totalKravLock: totalKravLock,
   }
 }
