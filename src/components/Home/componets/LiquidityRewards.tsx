@@ -149,8 +149,8 @@ export const LiquidityRewards = ({
               max-height: 144px;
               overflow: auto;
               &::-webkit-scrollbar {
-      display: none
-    },
+                display: none
+              },
             `}
           >
             {userFeesRewardList.length > 0 &&
