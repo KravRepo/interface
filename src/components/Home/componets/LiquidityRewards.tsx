@@ -14,6 +14,7 @@ import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { UserAssetOverview } from '../../../hook/hookV8/useGetUserAssetOverview'
 import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
+import { useNavigate } from 'react-router-dom'
 
 type LiquidityRewardsProps = {
   lpRewardAmount: BigNumber
@@ -30,6 +31,7 @@ export const LiquidityRewards = ({
   userAssetOverview,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
+  const navigate = useNavigate()
   const { userFeesRewardList } = useGetAllLpReward()
   return (
     <>
@@ -203,6 +205,7 @@ export const LiquidityRewards = ({
               </span>
               {theme.palette.mode === 'dark' ? (
                 <ArrowLeftDark
+                  onClick={() => navigate('/portfolio')}
                   className="poolArrow"
                   css={css`
                     cursor: pointer;
@@ -214,6 +217,7 @@ export const LiquidityRewards = ({
               ) : (
                 <ArrowLeft
                   className="poolArrow"
+                  onClick={() => navigate('/portfolio')}
                   css={css`
                     cursor: pointer;
                     margin-left: 16px;
