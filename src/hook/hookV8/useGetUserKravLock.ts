@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
+import { useRootStore } from '../../store/root'
 export type UserLockPosition = {
   amount: BigNumber
   end: number
@@ -13,6 +14,7 @@ export type UserLockPosition = {
 
 export const useGetUserKravLock = () => {
   const { provider, account } = useWeb3React()
+  const allPoolParams = useRootStore((store) => store.allPoolParams)
   const [userKravBalance, setUserKravBalance] = useState(new BigNumber(0))
   const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
   const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
@@ -51,7 +53,7 @@ export const useGetUserKravLock = () => {
   }, [veContract])
   useEffect(() => {
     let Interval: NodeJS.Timer
-    if (account && provider) {
+    if (account && provider && allPoolParams.length > 0) {
       Promise.all([getUserFeesReward(), getUserKravLock(), getTotalLock()]).then()
 
       Interval = setInterval(async () => {
@@ -61,7 +63,7 @@ export const useGetUserKravLock = () => {
     return () => {
       if (Interval) clearInterval(Interval)
     }
-  }, [provider, account])
+  }, [provider, account, allPoolParams])
 
   return {
     userKravBalance: userKravBalance,
