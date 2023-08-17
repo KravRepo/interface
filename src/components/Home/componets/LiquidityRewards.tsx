@@ -12,13 +12,23 @@ import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
 import { css, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
+import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
+import { UserAssetOverview } from '../../../hook/hookV8/useGetUserAssetOverview'
 
 type LiquidityRewardsProps = {
   lpRewardAmount: BigNumber
   contractAmount: BigNumber
   claimLpRewardKrav: (isTrade: boolean) => Promise<void>
+  overviewData: OverviewData
+  userAssetOverview: UserAssetOverview
 }
-export const LiquidityRewards = ({ lpRewardAmount, contractAmount, claimLpRewardKrav }: LiquidityRewardsProps) => {
+export const LiquidityRewards = ({
+  lpRewardAmount,
+  contractAmount,
+  claimLpRewardKrav,
+  overviewData,
+  userAssetOverview,
+}: LiquidityRewardsProps) => {
   const theme = useTheme()
   return (
     <>
@@ -39,7 +49,7 @@ export const LiquidityRewards = ({ lpRewardAmount, contractAmount, claimLpReward
         >
           <div>
             <KRAVTab>Total Liquidity Provider</KRAVTab>
-            <p className="data gt">{formatNumber('23102.23', 2, false)}%</p>
+            <p className="data gt">{formatNumber(overviewData.liquiditySupply, 2, true)}</p>
           </div>
           <div
             css={css`
@@ -51,7 +61,7 @@ export const LiquidityRewards = ({ lpRewardAmount, contractAmount, claimLpReward
               &nbsp;&nbsp;
               <AlertIcon />
             </div>
-            <p className="data gt">{formatNumber('12345.00', 2, false)} KRAV</p>
+            <p className="data gt">{formatNumber(userAssetOverview.balance, 2, true)} KRAV</p>
           </div>
           <div
             css={css`

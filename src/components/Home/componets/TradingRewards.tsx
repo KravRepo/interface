@@ -9,13 +9,20 @@ import { KravRewardCard } from './KravRewardCard'
 import { css, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
 import BigNumber from 'bignumber.js'
+import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 
 type TradingRewardsProps = {
   lpRewardAmount: BigNumber
   contractAmount: BigNumber
   claimTradingRewardKrav: (isTrade: boolean) => Promise<void>
+  overviewData: OverviewData
 }
-export const TradingRewards = ({ lpRewardAmount, contractAmount, claimTradingRewardKrav }: TradingRewardsProps) => {
+export const TradingRewards = ({
+  lpRewardAmount,
+  contractAmount,
+  claimTradingRewardKrav,
+  overviewData,
+}: TradingRewardsProps) => {
   const theme = useTheme()
   return (
     <>
@@ -41,7 +48,7 @@ export const TradingRewards = ({ lpRewardAmount, contractAmount, claimTradingRew
       >
         <div>
           <KRAVTab>Total Trading Volume</KRAVTab>
-          <p className="data gt">{formatNumber('23102.23', 2, false)}%</p>
+          <p className="data gt">{formatNumber(overviewData.tradingVolume, 2, true)}</p>
         </div>
         <div
           css={css`

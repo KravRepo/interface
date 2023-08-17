@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { DashBoard_USER_OVERVIEW_API } from '../../constant/chain'
 
-type UserAssetOverview = {
+export type UserAssetOverview = {
   balance: string
   lpRewardBalance: string
 }
