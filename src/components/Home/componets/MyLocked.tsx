@@ -96,7 +96,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList }: MyLockedProp)
                   border-radius: 50%;
                   background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                 `}
-                src={item.pool.logoSource}
+                src={item?.pool?.logoSource}
                 height="40"
                 width="40"
               />
