@@ -109,6 +109,12 @@ export const TESTNET_CHAINS: ChainConfig = {
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://mumbai.polygonscan.com'],
   },
+  84531: {
+    urls: [''],
+    name: 'Base Goerli Testnet',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://goerli.basescan.org'],
+  },
   44787: {
     urls: ['https://alfajores-forno.celo-testnet.org'],
     name: 'Celo Alfajores',

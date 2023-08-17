@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useMemo } from 'react'
-import { stake } from './style'
+import { farm } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { FarmItem } from './FarmItem'
@@ -48,7 +48,7 @@ export const Farm = () => {
   }, [account, allPoolParams, provider])
 
   return (
-    <div css={stake}>
+    <div css={farm}>
       <div
         className="title"
         css={css`
@@ -128,7 +128,7 @@ export const Farm = () => {
                     }
                   `}
                 >
-                  Learn more about Liquidity Pool&nbsp; <ArrowRight />
+                  Learn more about Liquidity Pools&nbsp; <ArrowRight />
                 </span>
               </p>
             </div>

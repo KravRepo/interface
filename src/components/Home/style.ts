@@ -284,7 +284,7 @@ export const dashboard = css`
   }
 `
 
-export const stake = css`
+export const farm = css`
   width: 100%;
   padding: 40px 0;
   margin: 0 40px;
@@ -379,6 +379,144 @@ export const stake = css`
     .small {
       font-size: 12px;
     }
+  }
+`
+
+export const stake = css`
+  width: 100%;
+  padding: 40px 0;
+  margin: 0 40px;
+  max-width: 1060px;
+  font-family: 'Inter';
+  line-height: 140%; /* 19.6px */
+  letter-spacing: -0.28px;
+  font-size: 14px;
+  .gt {
+    font-family: 'GT-Flexa-Bold-Trial';
+  }
+  .title {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 110%; /* 30.8px */
+    letter-spacing: 0.56px;
+  }
+  .card {
+    display: grid;
+    grid-template-columns: 1.55fr minmax(280px, 1.152fr) 1fr;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 24px 32px;
+    margin-bottom: 24px;
+  }
+  .data {
+    padding-top: 10px;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 130%;
+  }
+  .action {
+    padding: 40px 32px 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 76px;
+    align-items: start;
+    border-radius: 8px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    .my-reward {
+      margin: 20px 0;
+      display: grid;
+      align-items: center;
+      gap: 8px;
+      grid-template-columns: 1fr 1fr;
+      max-height: 80px;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      ,
+      > div {
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        padding: 20px 16px;
+      }
+    }
+  }
+  .overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .liquidity-reward-action {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .fees-rewards {
+    border-radius: 8px;
+    padding: 24px 32px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .reward-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+  }
+  .krav-reward-card {
+    border-radius: 8px;
+    padding: 24px 32px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    > div:first-of-type,
+    > div:nth-of-type(2) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    > div:last-of-type {
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 16px;
+      font-weight: 500;
+      > p:first-of-type {
+        padding-bottom: 25px;
+      }
+      > p:last-of-type {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > span:first-of-type {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .overview-card {
+    border-radius: 8px;
+    box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    padding: 24px 32px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-bottom: 40px;
+    > div:first-of-type {
+      padding-left: 0 !important;
+    }
+    > div {
+      padding-left: 32px;
+    }
+  }
+  .grey {
+    color: #757575;
   }
 `
 

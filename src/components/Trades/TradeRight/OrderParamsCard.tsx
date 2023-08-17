@@ -680,7 +680,7 @@ export const OrderParamsCard = ({
                   color: ${theme.text.primary};
                 `}
               >
-                Leverage slider
+                Leverage Slider
               </p>
               <Slider
                 defaultValue={2}
@@ -742,7 +742,7 @@ export const OrderParamsCard = ({
                   `,
                 ]}
               >
-                <span>Collateral in</span>
+                <span>Collateral In</span>
                 <span>
                   {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
                 </span>
