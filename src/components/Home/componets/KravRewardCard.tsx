@@ -17,6 +17,19 @@ type KravRewardCardProps = {
   claimMethod: (isTrade: boolean) => Promise<void>
 }
 export const KravRewardCard = ({ isTrade, backendAmount, contractAmount, claimMethod }: KravRewardCardProps) => {
+  const nextDistribution = useMemo(() => {
+    const nowTime = new Date()
+    const nowSeconds = nowTime.getUTCHours() * 3600 + nowTime.getUTCMinutes() * 60 + nowTime.getUTCSeconds()
+    const targetSeconds = 24 * 3600
+    const timeInterval =
+      targetSeconds > nowSeconds ? targetSeconds - nowSeconds : targetSeconds + 24 * 3600 - nowSeconds
+    const disHour = new BigNumber(timeInterval).div(60 * 60).toFixed(0, 1)
+    const disMinut = new BigNumber(timeInterval)
+      .minus(Number(disHour) * 3600)
+      .div(60)
+      .toFixed(0, 1)
+    return { disHour: disHour, disMinut: disMinut }
+  }, [backendAmount])
   const { account } = useWeb3React()
   const theme = useTheme()
   const kravRewardInfo = useMemo(() => {
@@ -79,7 +92,9 @@ export const KravRewardCard = ({ isTrade, backendAmount, contractAmount, claimMe
         <p>Rewards get updated everyday at 12:00 AM UTC. </p>
         <p>
           <span>Next distribution:</span>
-          <span>18 hours 21 minutes</span>
+          <span>
+            {nextDistribution.disHour} hours {nextDistribution.disMinut} minutes
+          </span>
         </p>
       </div>
     </div>
