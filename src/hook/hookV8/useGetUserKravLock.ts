@@ -17,6 +17,7 @@ export const useGetUserKravLock = () => {
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const [userKravBalance, setUserKravBalance] = useState(new BigNumber(0))
   const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
+  const [userVeKravAmount, setUserVeKravAmount] = useState(new BigNumber(0))
   const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
   const [userLockPosition, setUserLockPosition] = useState<UserLockPosition>({
     amount: new BigNumber(0),
@@ -28,14 +29,18 @@ export const useGetUserKravLock = () => {
   const getUserKravLock = useCallback(async () => {
     if (provider && veContract && account && kravTokenContract) {
       try {
-        const res = await Promise.all([kravTokenContract.balanceOf(account), veContract.locked(account)])
+        const res = await Promise.all([
+          kravTokenContract.balanceOf(account),
+          veContract.locked(account),
+          veContract.balanceOf(account),
+        ])
         const balance = new BigNumber(res[0]._hex).toString()
         setUserKravBalance(eXDecimals(balance, 18))
-        console.log('user locked', res[1])
         setUserLockPosition({
           amount: eXDecimals(new BigNumber(res[1].amount._hex), 18),
           end: new BigNumber(res[1].end._hex).toNumber(),
         })
+        setUserVeKravAmount(eXDecimals(new BigNumber(res[2]._hex), 18))
       } catch (e) {
         console.log('get user locked position failed!', e)
       }
@@ -70,5 +75,6 @@ export const useGetUserKravLock = () => {
     userLockPosition: userLockPosition,
     userFeesRewardList: userFeesRewardList,
     totalKravLock: totalKravLock,
+    userVeKravAmount: userVeKravAmount,
   }
 }
