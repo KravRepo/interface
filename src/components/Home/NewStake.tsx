@@ -12,7 +12,7 @@ import { useGetUserKravLock } from '../../hook/hookV8/useGetUserKravLock'
 
 export const NewStake = () => {
   const theme = useTheme()
-  const { userKravBalance, userLockPosition, userFeesRewardList, totalKravLock, userVeKravAmount } =
+  const { userKravBalance, userLockPosition, userFeesRewardList, totalKravLock, userVeKravAmount, totalVeKravAmount } =
     useGetUserKravLock()
 
   return (
@@ -116,7 +116,7 @@ export const NewStake = () => {
           </div>
           <div>
             <KRAVTab>veKRAV Supply</KRAVTab>
-            <p className="data gt">{formatNumber(userVeKravAmount.toNumber(), 2, false)} veKRAV</p>
+            <p className="data gt">{formatNumber(totalVeKravAmount.toNumber(), 2, false)} veKRAV</p>
           </div>
         </div>
         <div
