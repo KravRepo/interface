@@ -16,12 +16,14 @@ type TradingRewardsProps = {
   contractAmount: BigNumber
   claimTradingRewardKrav: (isTrade: boolean) => Promise<void>
   overviewData: OverviewData
+  userTradingVolume24H: number
 }
 export const TradingRewards = ({
   lpRewardAmount,
   contractAmount,
   claimTradingRewardKrav,
   overviewData,
+  userTradingVolume24H,
 }: TradingRewardsProps) => {
   const theme = useTheme()
   return (
@@ -56,7 +58,7 @@ export const TradingRewards = ({
           `}
         >
           <KRAVTab>24h Trading Volume</KRAVTab>
-          <p className="data gt">{formatNumber(' 23102345.00', 2, false)}KRAV</p>
+          <p className="data gt">{formatNumber(overviewData.tradingVolume24H, 2, false)}</p>
         </div>
         <div
           css={css`
@@ -68,7 +70,7 @@ export const TradingRewards = ({
             &nbsp;&nbsp;
             <AlertIcon />
           </div>
-          <p className="data gt">{formatNumber('12345.00', 2, false)} KRAV</p>
+          <p className="data gt">{formatNumber(userTradingVolume24H, 2, false)}</p>
         </div>
         <div
           css={css`

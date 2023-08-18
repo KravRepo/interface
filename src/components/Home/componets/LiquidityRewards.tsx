@@ -64,7 +64,7 @@ export const LiquidityRewards = ({
               &nbsp;&nbsp;
               <AlertIcon />
             </div>
-            <p className="data gt">{formatNumber(userAssetOverview.balance, 2, true)} KRAV</p>
+            <p className="data gt">{formatNumber(userAssetOverview.balance, 2, true)}</p>
           </div>
           <div
             css={css`
@@ -72,7 +72,9 @@ export const LiquidityRewards = ({
             `}
           >
             <KRAVTab>Share of pool</KRAVTab>
-            <p className="data gt">{formatNumber(' 23102345.00', 2, false)}KRAV</p>
+            <p className="data gt">
+              {formatNumber(Number(userAssetOverview.balance) / overviewData.liquiditySupply, 2, false)} %
+            </p>
           </div>
           <div
             css={css`

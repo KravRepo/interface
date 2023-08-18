@@ -10,12 +10,15 @@ import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { useRootStore } from '../../store/root'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { getGasLimit } from '../../utils'
+import { API_DECIMALS } from '../../constant/math'
 
 type RewardApi = {
   lp: string
   lpSignature: string
   trader: string
   traderSignature: string
+  liquidityProvided: string
+  trdingVolume24H: string
 }
 
 export const useGetUserFarmReward = () => {
@@ -24,6 +27,8 @@ export const useGetUserFarmReward = () => {
   const [receivedLpRewardAmount, setReceivedLpRewardAmount] = useState(new BigNumber(0))
   const [tradeRewardAmount, setTradeLpRewardAmout] = useState(new BigNumber(0))
   const [receivedTradeRewardAmount, setReceivedTradeRewardAmount] = useState(new BigNumber(0))
+  const [userLiquidityProvided, setUserLiquidityProvided] = useState(0)
+  const [userTradingVolume24H, setUserTradingVolume24H] = useState(0)
   const [lpSignature, setLpSignature] = useState('')
   const [tradeSignature, setTradeSignature] = useState('')
   const miningContract = useContract(LP_REWARD_CONTRACT, mining_pool.abi)
@@ -44,6 +49,8 @@ export const useGetUserFarmReward = () => {
           setLpSignature(lpRewardInfo.lpSignature)
           setTradeLpRewardAmout(eXDecimals(lpRewardInfo.trader, 18))
           setTradeSignature(lpRewardInfo.traderSignature)
+          setUserLiquidityProvided(Number(lpRewardInfo.liquidityProvided) / API_DECIMALS)
+          setUserTradingVolume24H(Number(lpRewardInfo.trdingVolume24H) / API_DECIMALS)
         }
       } catch (e) {}
     }
@@ -120,5 +127,7 @@ export const useGetUserFarmReward = () => {
     claimLpRewardKrav: claimLpRewardKrav,
     receivedLpRewardAmount: receivedLpRewardAmount,
     receivedTradeRewardAmount: receivedTradeRewardAmount,
+    userLiquidityProvided: userLiquidityProvided,
+    userTradingVolume24H: userTradingVolume24H,
   }
 }

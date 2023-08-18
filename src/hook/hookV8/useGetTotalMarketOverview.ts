@@ -7,6 +7,7 @@ export type OverviewData = {
   orderPlacement: number
   tradingVolume: number
   tradingFrequency: number
+  tradingVolume24H: number
 }
 export const useGetTotalMarketOverview = () => {
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
@@ -19,6 +20,7 @@ export const useGetTotalMarketOverview = () => {
         orderPlacement: Number(overview.data.orderPlacement) / API_DECIMALS,
         tradingFrequency: overview.data.tradingFrequency,
         tradingVolume: Number(overview.data.tradingVolume) / API_DECIMALS,
+        tradingVolume24H: Number(overview.data.tradingVolume24H) / API_DECIMALS,
       })
     } catch (e) {
       console.error('get overview failed!', e)

@@ -10,8 +10,14 @@ import { useWeb3React } from '@web3-react/core'
 
 export const NewFarm = () => {
   const { account, provider } = useWeb3React()
-  const { lpRewardAmount, receivedLpRewardAmount, tradeRewardAmount, receivedTradeRewardAmount, claimLpRewardKrav } =
-    useGetUserFarmReward()
+  const {
+    lpRewardAmount,
+    receivedLpRewardAmount,
+    tradeRewardAmount,
+    receivedTradeRewardAmount,
+    claimLpRewardKrav,
+    userTradingVolume24H,
+  } = useGetUserFarmReward()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
   const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
   useEffect(() => {
@@ -33,6 +39,7 @@ export const NewFarm = () => {
         lpRewardAmount={tradeRewardAmount}
         claimTradingRewardKrav={claimLpRewardKrav}
         overviewData={overviewData}
+        userTradingVolume24H={userTradingVolume24H}
       />
       <LiquidityRewards
         lpRewardAmount={lpRewardAmount}
