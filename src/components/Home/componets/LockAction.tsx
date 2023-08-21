@@ -397,7 +397,11 @@ export const LockAction = ({
         </span>
       </div>
       {userLockPosition.amount.isEqualTo(0) && userLockPosition.end === 0 && (
-        <KRAVButton onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)} sx={{ mt: '20px' }}>
+        <KRAVButton
+          disabled={!lockAmount.isGreaterThan(0) || lockAmount.isGreaterThan(userKravBalance)}
+          onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)}
+          sx={{ mt: '20px' }}
+        >
           Lock & Mint
         </KRAVButton>
       )}
