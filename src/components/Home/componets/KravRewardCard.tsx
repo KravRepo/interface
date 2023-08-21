@@ -35,7 +35,7 @@ export const KravRewardCard = ({
     const disMinut = new BigNumber(timeInterval)
       .minus(Number(disHour) * 3600)
       .div(60)
-      .toFixed(0, 1)
+      .toFixed(0, 0)
     return { disHour: disHour, disMinut: disMinut }
   }, [backendAmount])
   const { account } = useWeb3React()
