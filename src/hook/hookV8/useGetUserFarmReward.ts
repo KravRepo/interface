@@ -18,7 +18,7 @@ type RewardApi = {
   trader: string
   traderSignature: string
   liquidityProvided: string
-  tradingVolume24H: string
+  trdingVolume24H: string
   nextEpoch: number
 }
 
@@ -52,7 +52,7 @@ export const useGetUserFarmReward = () => {
           setTradeLpRewardAmout(eXDecimals(lpRewardInfo.trader, 18))
           setTradeSignature(lpRewardInfo.traderSignature)
           setUserLiquidityProvided(Number(lpRewardInfo.liquidityProvided) / API_DECIMALS)
-          setUserTradingVolume24H(Number(lpRewardInfo.tradingVolume24H) / API_DECIMALS)
+          setUserTradingVolume24H(Number(lpRewardInfo.trdingVolume24H) / API_DECIMALS)
           setNextEpoch(Number(lpRewardInfo.nextEpoch))
         }
       } catch (e) {}
