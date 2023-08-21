@@ -42,7 +42,6 @@ export const useGetUserKravLock = () => {
           amount: eXDecimals(new BigNumber(res[1].amount._hex), 18),
           end: new BigNumber(res[1].end._hex).toNumber(),
         })
-        console.log('veKrav total supply', eXDecimals(new BigNumber(res[3]._hex), 18).toString())
         setUserVeKravAmount(eXDecimals(new BigNumber(res[2]._hex), 18))
         setTotalVeKravAmount(eXDecimals(new BigNumber(res[3]._hex), 18))
       } catch (e) {

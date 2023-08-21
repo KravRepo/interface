@@ -32,7 +32,6 @@ export const useGetClaimableTokensFee = () => {
           }
         })
         setUserFeesRewardList(feesRewardList)
-        console.log('feesRewardList', feesRewardList)
       } catch (e) {
         console.log('getUserFeesReward failed!', e)
       }
