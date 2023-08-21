@@ -85,10 +85,10 @@ export const NewStake = () => {
               KRAV
             </span>
           </div>
-          <div>
-            <KRAVTab>APR</KRAVTab>
-            <p className="data gt">{formatNumber('23,102.23', 2, false)}%</p>
-          </div>
+          {/*<div>*/}
+          {/*  <KRAVTab>APR</KRAVTab>*/}
+          {/*  <p className="data gt">{formatNumber('23,102.23', 2, false)}%</p>*/}
+          {/*</div>*/}
         </div>
         <div
           css={css`

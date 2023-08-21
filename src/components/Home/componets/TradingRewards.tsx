@@ -60,7 +60,7 @@ export const TradingRewards = ({
           `}
         >
           <KRAVTab>24h Trading Volume</KRAVTab>
-          <p className="data gt">{formatNumber(overviewData.tradingVolume24H, 2, false)}</p>
+          <p className="data gt">{formatNumber(overviewData.tradingVolume24H, 2, true)}</p>
         </div>
         <div
           css={css`
@@ -72,7 +72,7 @@ export const TradingRewards = ({
             &nbsp;&nbsp;
             <AlertIcon />
           </div>
-          <p className="data gt">{formatNumber(userTradingVolume24H, 2, false)}</p>
+          <p className="data gt">{formatNumber(userTradingVolume24H, 2, true)}</p>
         </div>
         <div
           css={css`
