@@ -19,6 +19,7 @@ type RewardApi = {
   traderSignature: string
   liquidityProvided: string
   tradingVolume24H: string
+  nextEpoch: number
 }
 
 export const useGetUserFarmReward = () => {
@@ -29,6 +30,7 @@ export const useGetUserFarmReward = () => {
   const [receivedTradeRewardAmount, setReceivedTradeRewardAmount] = useState(new BigNumber(0))
   const [userLiquidityProvided, setUserLiquidityProvided] = useState(0)
   const [userTradingVolume24H, setUserTradingVolume24H] = useState(0)
+  const [nextEpoch, setNextEpoch] = useState(0)
   const [lpSignature, setLpSignature] = useState('')
   const [tradeSignature, setTradeSignature] = useState('')
   const miningContract = useContract(LP_REWARD_CONTRACT, mining_pool.abi)
@@ -51,6 +53,7 @@ export const useGetUserFarmReward = () => {
           setTradeSignature(lpRewardInfo.traderSignature)
           setUserLiquidityProvided(Number(lpRewardInfo.liquidityProvided) / API_DECIMALS)
           setUserTradingVolume24H(Number(lpRewardInfo.tradingVolume24H) / API_DECIMALS)
+          setNextEpoch(Number(lpRewardInfo.nextEpoch))
         }
       } catch (e) {}
     }
@@ -128,5 +131,6 @@ export const useGetUserFarmReward = () => {
     receivedTradeRewardAmount: receivedTradeRewardAmount,
     userLiquidityProvided: userLiquidityProvided,
     userTradingVolume24H: userTradingVolume24H,
+    nextEpoch: nextEpoch,
   }
 }

@@ -98,7 +98,7 @@ export const NewStake = () => {
           `}
         >
           <KRAVTab>Total Governance Reward Pool </KRAVTab>
-          <p className="data gt">{formatNumber('23,102,345.00', 2, false)} KRAV</p>
+          <p className="data gt">{formatNumber(overviewData?.govFeeTotal, 2, false)} KRAV</p>
         </div>
         <div
           css={css`

@@ -9,20 +9,28 @@ import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { useMemo } from 'react'
 import { getBigNumberStr } from '../../../utils'
+import moment from 'moment'
 
 type KravRewardCardProps = {
   isTrade: boolean
   backendAmount: BigNumber
   contractAmount: BigNumber
   claimMethod: (isTrade: boolean) => Promise<void>
+  nextEpoch: number
 }
-export const KravRewardCard = ({ isTrade, backendAmount, contractAmount, claimMethod }: KravRewardCardProps) => {
+export const KravRewardCard = ({
+  isTrade,
+  backendAmount,
+  contractAmount,
+  claimMethod,
+  nextEpoch,
+}: KravRewardCardProps) => {
   const nextDistribution = useMemo(() => {
     const nowTime = new Date()
+    const targetTime = new Date(nextEpoch * 1000)
     const nowSeconds = nowTime.getUTCHours() * 3600 + nowTime.getUTCMinutes() * 60 + nowTime.getUTCSeconds()
-    const targetSeconds = 24 * 3600
-    const timeInterval =
-      targetSeconds > nowSeconds ? targetSeconds - nowSeconds : targetSeconds + 24 * 3600 - nowSeconds
+    const targetSeconds = targetTime.getUTCHours() * 3600 + targetTime.getUTCMinutes() * 60 + targetTime.getUTCSeconds()
+    const timeInterval = targetSeconds > nowSeconds ? targetSeconds - nowSeconds : 0
     const disHour = new BigNumber(timeInterval).div(60 * 60).toFixed(0, 1)
     const disMinut = new BigNumber(timeInterval)
       .minus(Number(disHour) * 3600)
@@ -89,7 +97,13 @@ export const KravRewardCard = ({ isTrade, backendAmount, contractAmount, claimMe
           background: ${theme.background.second};
         `}
       >
-        <p>Rewards get updated everyday at 12:00 AM UTC. </p>
+        <p>
+          Rewards get updated at{' '}
+          {moment(nextEpoch * 1000)
+            .utc()
+            .format('MMM DD, YYYY HH:mm A')}{' '}
+          &nbsp;UTC.{' '}
+        </p>
         <p>
           <span>Next distribution:</span>
           <span>

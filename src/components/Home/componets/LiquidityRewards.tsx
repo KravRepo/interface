@@ -23,6 +23,7 @@ type LiquidityRewardsProps = {
   overviewData: OverviewData
   userAssetOverview: UserAssetOverview
   LpBooster: BigNumber
+  nextEpoch: number
 }
 export const LiquidityRewards = ({
   lpRewardAmount,
@@ -31,6 +32,7 @@ export const LiquidityRewards = ({
   overviewData,
   userAssetOverview,
   LpBooster,
+  nextEpoch,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
   const navigate = useNavigate()
@@ -126,6 +128,7 @@ export const LiquidityRewards = ({
           backendAmount={lpRewardAmount}
           contractAmount={contractAmount}
           claimMethod={claimLpRewardKrav}
+          nextEpoch={nextEpoch}
         />
         <div
           className="fees-rewards"

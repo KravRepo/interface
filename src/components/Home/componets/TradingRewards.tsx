@@ -18,6 +18,7 @@ type TradingRewardsProps = {
   overviewData: OverviewData
   userTradingVolume24H: number
   tradeBooster: BigNumber
+  nextEpoch: number
 }
 export const TradingRewards = ({
   lpRewardAmount,
@@ -26,6 +27,7 @@ export const TradingRewards = ({
   overviewData,
   userTradingVolume24H,
   tradeBooster,
+  nextEpoch,
 }: TradingRewardsProps) => {
   const theme = useTheme()
   return (
@@ -122,6 +124,7 @@ export const TradingRewards = ({
           backendAmount={lpRewardAmount}
           contractAmount={contractAmount}
           claimMethod={claimTradingRewardKrav}
+          nextEpoch={nextEpoch}
         />
       </div>
     </>

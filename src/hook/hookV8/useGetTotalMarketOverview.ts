@@ -12,6 +12,7 @@ export type OverviewData = {
   tradingVolume24H: number
   workingLPSupply: BigNumber
   workingTraderVolume: BigNumber
+  govFeeTotal: number
 }
 export const useGetTotalMarketOverview = () => {
   const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
@@ -27,6 +28,7 @@ export const useGetTotalMarketOverview = () => {
         tradingVolume24H: Number(overview.data.tradingVolume24H) / API_DECIMALS,
         workingLPSupply: eXDecimals(overview.data.workingLPSupply, 18),
         workingTraderVolume: new BigNumber(overview.data.workingTraderVolume).div(API_DECIMALS),
+        govFeeTotal: overview.data?.govFeeTotal ? Number(overview.data.govFeeTotal) / API_DECIMALS : 0,
       })
     } catch (e) {
       console.error('get overview failed!', e)

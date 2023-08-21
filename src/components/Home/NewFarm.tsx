@@ -20,6 +20,7 @@ export const NewFarm = () => {
     claimLpRewardKrav,
     userTradingVolume24H,
     userLiquidityProvided,
+    nextEpoch,
   } = useGetUserFarmReward()
   const { userVeKravAmount, totalVeKravAmount } = useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
@@ -52,6 +53,7 @@ export const NewFarm = () => {
         overviewData={overviewData}
         userTradingVolume24H={userTradingVolume24H}
         tradeBooster={tradeBooster}
+        nextEpoch={nextEpoch}
       />
       <LiquidityRewards
         lpRewardAmount={lpRewardAmount}
@@ -60,6 +62,7 @@ export const NewFarm = () => {
         overviewData={overviewData}
         userAssetOverview={userAssetOverview}
         LpBooster={LpBooster}
+        nextEpoch={nextEpoch}
       />
     </div>
   )
