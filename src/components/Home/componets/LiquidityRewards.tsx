@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import KRAVTab from '../../KravUIKit/KravTab'
-import { formatNumber } from '../../../utils'
+import { formatNumber, getBigNumberStr } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ArrowLeft } from '../../../assets/imgs/arrowLeft.svg'
@@ -22,6 +22,7 @@ type LiquidityRewardsProps = {
   claimLpRewardKrav: (isTrade: boolean) => Promise<void>
   overviewData: OverviewData
   userAssetOverview: UserAssetOverview
+  LpBooster: BigNumber
 }
 export const LiquidityRewards = ({
   lpRewardAmount,
@@ -29,6 +30,7 @@ export const LiquidityRewards = ({
   claimLpRewardKrav,
   overviewData,
   userAssetOverview,
+  LpBooster,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
   const navigate = useNavigate()
@@ -102,7 +104,7 @@ export const LiquidityRewards = ({
                 `}
                 className="data gt"
               >
-                {formatNumber('12345.00', 2, false)} KRAV
+                {getBigNumberStr(LpBooster, 2)}
               </span>
               <KRAVHollowButton sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}>
                 <span

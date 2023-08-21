@@ -6,15 +6,17 @@ import { Checkbox, Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { align } from '../../../globalStyle'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
 import { useCreatLock } from '../../../hook/hookV8/useCreatLock'
-import { addDecimals } from '../../../utils/math'
+import { addDecimals, getBooster } from '../../../utils/math'
 import { useAddLockAmount } from '../../../hook/hookV8/useAddLockAmount'
 import { IncreaseUnlockTimeButton } from './IncreaseUnlockTimeButton'
 import moment from 'moment'
+import { getLockTime } from '../../../hook/hookV8/utils/utils'
+import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 
 const marks = [
   {
@@ -38,9 +40,22 @@ const marks = [
 type LockActionProp = {
   userKravBalance: BigNumber
   userLockPosition: UserLockPosition
+  currentUserBooster: BigNumber
+  userLiquidityProvided: number
+  overviewData: OverviewData
+  userVeKravAmount: BigNumber
+  totalVeKravAmount: BigNumber
 }
 
-export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp) => {
+export const LockAction = ({
+  userKravBalance,
+  userLockPosition,
+  currentUserBooster,
+  userLiquidityProvided,
+  overviewData,
+  userVeKravAmount,
+  totalVeKravAmount,
+}: LockActionProp) => {
   const theme = useTheme()
   const [showTip] = useState(false)
   const [lockTime, setLockTime] = useState(1)
@@ -55,6 +70,21 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
   const handleLockTimeChange = (event: Event, value: number | number[], activeThumb: number) => {
     setLockTime(value as number)
   }
+
+  const newBooster = useMemo(() => {
+    return getBooster(
+      userLiquidityProvided,
+      overviewData,
+      userVeKravAmount.plus(lockAmount),
+      totalVeKravAmount.plus(lockAmount)
+    )
+  }, [userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount, lockAmount])
+
+  const newLockTime = useMemo(() => {
+    const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
+    const forMatterTime = getLockTime(lockTime) / 1000
+    return nowTimestamp + forMatterTime
+  }, [lockTime])
 
   return (
     <div>
@@ -333,25 +363,25 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
             font-size: 20px;
           `}
         >
-          1.5579 → 2.5
+          {getBigNumberStr(currentUserBooster, 2)} → {getBigNumberStr(newBooster, 2)}
         </div>
       </div>
       <div className="overview">
         <span>Expected earnings</span>
-        <span>=201 veKRAV</span>
+        <span>={getBigNumberStr(lockAmount, 2)} veKRAV</span>
       </div>
-      <div
-        css={css`
-          text-align: end;
-          margin-bottom: 12px;
-        `}
-      >
-        ≈201,256 KRAV (APR:2563.25%)
-      </div>
-      <div className="overview">
-        <span>Your voting power will be</span>
-        <span>≈201 veKRAV (Share:25.25%)</span>
-      </div>
+      {/*<div*/}
+      {/*  css={css`*/}
+      {/*    text-align: end;*/}
+      {/*    margin-bottom: 12px;*/}
+      {/*  `}*/}
+      {/*>*/}
+      {/*  ≈201,256 KRAV (APR:2563.25%)*/}
+      {/*</div>*/}
+      {/*<div className="overview">*/}
+      {/*  <span>Your voting power will be</span>*/}
+      {/*  <span>≈201 veKRAV (Share:25.25%)</span>*/}
+      {/*</div>*/}
       <div className="overview">
         <span>Locked amount</span>
         <span>{getBigNumberStr(userLockPosition.amount.plus(lockAmount), 2)} KRAV</span>
@@ -360,7 +390,7 @@ export const LockAction = ({ userKravBalance, userLockPosition }: LockActionProp
         <span>Locked until</span>
         <span>
           {' '}
-          {moment(userLockPosition.end * 1000)
+          {moment(newLockTime * 1000)
             .utc()
             .format('MMM DD, YYYY HH:mm A')}{' '}
           &nbsp;UTC

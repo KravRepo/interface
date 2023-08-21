@@ -18,7 +18,7 @@ type RewardApi = {
   trader: string
   traderSignature: string
   liquidityProvided: string
-  trdingVolume24H: string
+  tradingVolume24H: string
 }
 
 export const useGetUserFarmReward = () => {
@@ -50,7 +50,7 @@ export const useGetUserFarmReward = () => {
           setTradeLpRewardAmout(eXDecimals(lpRewardInfo.trader, 18))
           setTradeSignature(lpRewardInfo.traderSignature)
           setUserLiquidityProvided(Number(lpRewardInfo.liquidityProvided) / API_DECIMALS)
-          setUserTradingVolume24H(Number(lpRewardInfo.trdingVolume24H) / API_DECIMALS)
+          setUserTradingVolume24H(Number(lpRewardInfo.tradingVolume24H) / API_DECIMALS)
         }
       } catch (e) {}
     }
@@ -63,7 +63,6 @@ export const useGetUserFarmReward = () => {
     }
   }, [account, provider, miningContract])
 
-  //TODO Wait for traderContract
   const queryTradeContract = useCallback(async () => {
     if (account && provider && tradeMiningContract) {
       const req = await tradeMiningContract.claimed(account)

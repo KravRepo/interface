@@ -12,13 +12,15 @@ import moment from 'moment'
 import { FeesRewardList } from '../../../hook/hookV8/useGetClaimableTokensFee'
 import { useMemo } from 'react'
 import { useClaimFeesReward } from '../../../hook/hookV8/useClaimFeesReward'
+import BigNumber from 'bignumber.js'
 
 type MyLockedProp = {
   userLockPosition: UserLockPosition
   userFeesRewardList: FeesRewardList[]
+  currentUserBooster: BigNumber
 }
 
-export const MyLocked = ({ userLockPosition, userFeesRewardList }: MyLockedProp) => {
+export const MyLocked = ({ userLockPosition, userFeesRewardList, currentUserBooster }: MyLockedProp) => {
   const theme = useTheme()
   const claimFeesReward = useClaimFeesReward()
 
@@ -76,7 +78,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList }: MyLockedProp)
           <span>&nbsp;My current boost :&nbsp;</span>
           <QuestionIcon />
         </div>
-        <div>1.5579</div>
+        <div>{getBigNumberStr(currentUserBooster, 4)}</div>
       </div>
       <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
         Unlock

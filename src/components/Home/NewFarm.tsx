@@ -5,8 +5,10 @@ import { stake } from './style'
 import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
 import { useGetUserAssetOverview } from '../../hook/hookV8/useGetUserAssetOverview'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import { getBooster, getTradeBooster } from '../../utils/math'
+import { useGetUserKravLock } from '../../hook/hookV8/useGetUserKravLock'
 
 export const NewFarm = () => {
   const { account, provider } = useWeb3React()
@@ -17,7 +19,9 @@ export const NewFarm = () => {
     receivedTradeRewardAmount,
     claimLpRewardKrav,
     userTradingVolume24H,
+    userLiquidityProvided,
   } = useGetUserFarmReward()
+  const { userVeKravAmount, totalVeKravAmount } = useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
   const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
   useEffect(() => {
@@ -29,9 +33,16 @@ export const NewFarm = () => {
         await Promise.all([getOverView(), getUserAssetOverview()])
       }, 15000)
     }
-
     return () => clearInterval(interval)
   }, [account, provider])
+
+  const tradeBooster = useMemo(() => {
+    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
+
+  const LpBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
   return (
     <div css={stake}>
       <TradingRewards
@@ -40,6 +51,7 @@ export const NewFarm = () => {
         claimTradingRewardKrav={claimLpRewardKrav}
         overviewData={overviewData}
         userTradingVolume24H={userTradingVolume24H}
+        tradeBooster={tradeBooster}
       />
       <LiquidityRewards
         lpRewardAmount={lpRewardAmount}
@@ -47,6 +59,7 @@ export const NewFarm = () => {
         claimLpRewardKrav={claimLpRewardKrav}
         overviewData={overviewData}
         userAssetOverview={userAssetOverview}
+        LpBooster={LpBooster}
       />
     </div>
   )
