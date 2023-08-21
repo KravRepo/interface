@@ -53,9 +53,7 @@ export const useGetAllLpReward = () => {
           positionDatas.map(async (positionData, index) => {
             const asyncWorker = async () => {
               const contract = new Contract(positionData.pool.vaultT, trading_vault.abi, provider)
-              const lpReward = await contract.pendingRewardDai.call({
-                from: account,
-              })
+              const lpReward = await contract.pendingRewardDaiByAccount(account)
               const amount = new BigNumber(lpReward._hex)
               if (amount.isGreaterThan(0)) {
                 feesRewardList.push({
