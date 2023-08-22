@@ -3,7 +3,6 @@ import { TradingRewards } from './componets/TradingRewards'
 import { LiquidityRewards } from './componets/LiquidityRewards'
 import { stake } from './style'
 import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
-import { useGetUserAssetOverview } from '../../hook/hookV8/useGetUserAssetOverview'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useEffect, useMemo } from 'react'
 import { useWeb3React } from '@web3-react/core'
@@ -24,14 +23,13 @@ export const NewFarm = () => {
   } = useGetUserFarmReward()
   const { userVeKravAmount, totalVeKravAmount } = useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
-  const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
   useEffect(() => {
     let interval: NodeJS.Timer
     if (provider && account) {
-      Promise.all([getOverView().then(), getUserAssetOverview()]).then()
+      Promise.all([getOverView().then()]).then()
       interval = setInterval(async () => {
         console.log('get user asset data ')
-        await Promise.all([getOverView(), getUserAssetOverview()])
+        await Promise.all([getOverView()])
       }, 15000)
     }
     return () => clearInterval(interval)
@@ -60,9 +58,9 @@ export const NewFarm = () => {
         contractAmount={receivedLpRewardAmount}
         claimLpRewardKrav={claimLpRewardKrav}
         overviewData={overviewData}
-        userAssetOverview={userAssetOverview}
         LpBooster={LpBooster}
         nextEpoch={nextEpoch}
+        userLiquidityProvided={userLiquidityProvided}
       />
     </div>
   )

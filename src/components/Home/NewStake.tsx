@@ -13,7 +13,7 @@ import { useEffect, useMemo } from 'react'
 import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useWeb3React } from '@web3-react/core'
-import { getBooster } from '../../utils/math'
+import { getBooster, getTradeBooster } from '../../utils/math'
 
 export const NewStake = () => {
   const theme = useTheme()
@@ -21,8 +21,16 @@ export const NewStake = () => {
   const { userKravBalance, userLockPosition, userFeesRewardList, totalKravLock, userVeKravAmount, totalVeKravAmount } =
     useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
-  const { userLiquidityProvided } = useGetUserFarmReward()
+  const { userLiquidityProvided, userTradingVolume24H } = useGetUserFarmReward()
   const currentUserBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
+  const tradeBooster = useMemo(() => {
+    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
+
+  const LpBooster = useMemo(() => {
     return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
   }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
 
@@ -178,7 +186,8 @@ export const NewStake = () => {
         <MyLocked
           userLockPosition={userLockPosition}
           userFeesRewardList={userFeesRewardList}
-          currentUserBooster={currentUserBooster}
+          tradeBooster={tradeBooster}
+          LpBooster={LpBooster}
         />
       </div>
     </div>

@@ -17,16 +17,17 @@ import BigNumber from 'bignumber.js'
 type MyLockedProp = {
   userLockPosition: UserLockPosition
   userFeesRewardList: FeesRewardList[]
-  currentUserBooster: BigNumber
+  LpBooster: BigNumber
+  tradeBooster: BigNumber
 }
 
-export const MyLocked = ({ userLockPosition, userFeesRewardList, currentUserBooster }: MyLockedProp) => {
+export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, tradeBooster }: MyLockedProp) => {
   const theme = useTheme()
   const claimFeesReward = useClaimFeesReward()
-
   const unlockButtonEnable = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
     if (!userLockPosition) return false
+    if (userLockPosition.amount.isEqualTo(0)) return false
     if (userLockPosition.end > nowTimestamp) return false
     return true
   }, [userLockPosition])
@@ -53,17 +54,34 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, currentUserBoos
       </div>
       <div className="overview">
         <span>Locked amount</span>
-        <span>{formatNumber(userLockPosition.amount.toString(), 2, false)} KRAV</span>
+        <span>{formatNumber(userLockPosition.amount.toNumber(), 2, false)} KRAV</span>
       </div>
       <div className="overview">
         <span>Locked until</span>
         <span>
-          {moment(userLockPosition.end * 1000)
-            .utc()
-            .format('MMM DD, YYYY HH:mm A')}{' '}
+          {userLockPosition.end === 0
+            ? '--'
+            : moment(userLockPosition.end * 1000)
+                .utc()
+                .format('MMM DD, YYYY HH:mm A')}
           &nbsp;UTC
         </span>
         {/*<span>Sep 21, 2021 08:30 AM UTC </span>*/}
+      </div>
+      <div
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 12px;
+        `}
+      >
+        <div css={align}>
+          <BoostIcon />
+          <span>&nbsp;My trade boost :&nbsp;</span>
+          <QuestionIcon />
+        </div>
+        <div>{getBigNumberStr(tradeBooster, 4)}</div>
       </div>
       <div
         css={css`
@@ -75,10 +93,10 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, currentUserBoos
       >
         <div css={align}>
           <BoostIcon />
-          <span>&nbsp;My current boost :&nbsp;</span>
+          <span>&nbsp;My Liquidity Provider boost :&nbsp;</span>
           <QuestionIcon />
         </div>
-        <div>{getBigNumberStr(currentUserBooster, 4)}</div>
+        <div>{getBigNumberStr(LpBooster, 4)}</div>
       </div>
       <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
         Unlock

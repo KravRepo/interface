@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
-import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
-import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { Checkbox, Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import KRAVButton from '../../KravUIKit/KravButton'
@@ -11,12 +9,13 @@ import BigNumber from 'bignumber.js'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
 import { useCreatLock } from '../../../hook/hookV8/useCreatLock'
-import { addDecimals, getBooster } from '../../../utils/math'
+import { addDecimals } from '../../../utils/math'
 import { useAddLockAmount } from '../../../hook/hookV8/useAddLockAmount'
 import { IncreaseUnlockTimeButton } from './IncreaseUnlockTimeButton'
 import moment from 'moment'
 import { getLockTime } from '../../../hook/hookV8/utils/utils'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
+import { FOUR_YEAR_TIMESTAMP } from '../../../constant/math'
 
 const marks = [
   {
@@ -71,20 +70,17 @@ export const LockAction = ({
     setLockTime(value as number)
   }
 
-  const newBooster = useMemo(() => {
-    return getBooster(
-      userLiquidityProvided,
-      overviewData,
-      userVeKravAmount.plus(lockAmount),
-      totalVeKravAmount.plus(lockAmount)
-    )
-  }, [userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount, lockAmount])
-
   const newLockTime = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
     const forMatterTime = getLockTime(lockTime) / 1000
     return nowTimestamp + forMatterTime
   }, [lockTime])
+
+  const expectedVeAmount = useMemo(() => {
+    const forMatterLockTime = getLockTime(lockTime)
+    const timeIndex = forMatterLockTime / FOUR_YEAR_TIMESTAMP
+    return lockAmount.times(timeIndex)
+  }, [lockTime, lockAmount])
 
   return (
     <div>
@@ -336,39 +332,9 @@ export const LockAction = ({
         The longer you lock your KRAV, the more veKRAV you will receive. You can also get additional veKRAV by locking
         more KRAV or extending the lock period.{' '}
       </div>
-      <div
-        css={css`
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 24px;
-        `}
-      >
-        <div css={align}>
-          <BoostIcon />
-          <span
-            css={css`
-              font-size: 20px;
-              font-weight: 500;
-            `}
-          >
-            &nbsp;My boost :&nbsp;
-          </span>
-          <QuestionIcon />
-        </div>
-        <div
-          className="gt"
-          css={css`
-            font-weight: 900;
-            font-size: 20px;
-          `}
-        >
-          {getBigNumberStr(currentUserBooster, 2)} → {getBigNumberStr(newBooster, 2)}
-        </div>
-      </div>
       <div className="overview">
         <span>Expected earnings</span>
-        <span>={getBigNumberStr(lockAmount, 2)} veKRAV</span>
+        <span>= {getBigNumberStr(expectedVeAmount, 2)} veKRAV</span>
       </div>
       {/*<div*/}
       {/*  css={css`*/}
@@ -382,10 +348,6 @@ export const LockAction = ({
       {/*  <span>Your voting power will be</span>*/}
       {/*  <span>≈201 veKRAV (Share:25.25%)</span>*/}
       {/*</div>*/}
-      <div className="overview">
-        <span>Locked amount</span>
-        <span>{getBigNumberStr(userLockPosition.amount.plus(lockAmount), 2)} KRAV</span>
-      </div>
       <div className="overview">
         <span>Locked until</span>
         <span>

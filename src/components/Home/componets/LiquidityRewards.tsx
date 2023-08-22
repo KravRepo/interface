@@ -12,7 +12,6 @@ import { KravRewardCard } from './KravRewardCard'
 import { css, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
-import { UserAssetOverview } from '../../../hook/hookV8/useGetUserAssetOverview'
 import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
 import { useNavigate } from 'react-router-dom'
 
@@ -21,18 +20,18 @@ type LiquidityRewardsProps = {
   contractAmount: BigNumber
   claimLpRewardKrav: (isTrade: boolean) => Promise<void>
   overviewData: OverviewData
-  userAssetOverview: UserAssetOverview
   LpBooster: BigNumber
   nextEpoch: number
+  userLiquidityProvided: number
 }
 export const LiquidityRewards = ({
   lpRewardAmount,
   contractAmount,
   claimLpRewardKrav,
   overviewData,
-  userAssetOverview,
   LpBooster,
   nextEpoch,
+  userLiquidityProvided,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
   const navigate = useNavigate()
@@ -68,7 +67,7 @@ export const LiquidityRewards = ({
               &nbsp;&nbsp;
               <AlertIcon />
             </div>
-            <p className="data gt">{formatNumber(userAssetOverview.balance, 2, true)}</p>
+            <p className="data gt">{formatNumber(userLiquidityProvided, 2, true)}</p>
           </div>
           <div
             css={css`
@@ -76,9 +75,7 @@ export const LiquidityRewards = ({
             `}
           >
             <KRAVTab>Share of pool</KRAVTab>
-            <p className="data gt">
-              {formatNumber(Number(userAssetOverview.balance) / overviewData.liquiditySupply, 2, false)} %
-            </p>
+            <p className="data gt">{formatNumber(userLiquidityProvided / overviewData.liquiditySupply, 2, false)} %</p>
           </div>
           <div
             css={css`
