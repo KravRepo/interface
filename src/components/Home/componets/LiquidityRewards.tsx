@@ -9,7 +9,7 @@ import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
-import { css, useTheme } from '@mui/material'
+import { css, Tooltip, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
@@ -82,11 +82,17 @@ export const LiquidityRewards = ({
               border-left: ${theme.splitLine.primary};
             `}
           >
-            <div css={[align]}>
-              <KRAVTab>My Boost</KRAVTab>
-              &nbsp;&nbsp;
-              <QuestionIcon />
-            </div>
+            <Tooltip
+              title={
+                'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
+              }
+            >
+              <div css={[align]}>
+                <KRAVTab>My Boost</KRAVTab>
+                &nbsp;&nbsp;
+                <QuestionIcon />
+              </div>
+            </Tooltip>
             <p
               className="data gt"
               css={[
