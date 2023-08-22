@@ -145,8 +145,8 @@ export const LiquidityRewards = ({
           <div className="flex">
             <div className="title gt">Fees Rewards</div>
             <div css={align}>
-              <span>What is this?&nbsp;&nbsp;</span>
-              <QuestionIcon />
+              {/*<span>What is this?&nbsp;&nbsp;</span>*/}
+              {/*<QuestionIcon />*/}
             </div>
           </div>
           <div

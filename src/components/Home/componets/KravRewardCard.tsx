@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
+// import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { useTheme } from '@mui/material'
@@ -58,8 +58,8 @@ export const KravRewardCard = ({
       >
         <div className="title gt">KRAV Rewards</div>
         <div css={align}>
-          <span>What is this?&nbsp;&nbsp;</span>
-          <QuestionIcon />
+          {/*<span>What is this?&nbsp;&nbsp;</span>*/}
+          {/*<QuestionIcon />*/}
         </div>
       </div>
       <div
