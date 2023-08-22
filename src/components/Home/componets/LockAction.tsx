@@ -334,7 +334,7 @@ export const LockAction = ({
       </div>
       <div className="overview">
         <span>Expected earnings</span>
-        <span>= {getBigNumberStr(expectedVeAmount, 2)} veKRAV</span>
+        <span>≈ {getBigNumberStr(expectedVeAmount, 2)} veKRAV</span>
       </div>
       {/*<div*/}
       {/*  css={css`*/}
