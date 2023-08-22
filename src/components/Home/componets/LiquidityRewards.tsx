@@ -9,11 +9,12 @@ import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
-import { css, Tooltip, useTheme } from '@mui/material'
+import { css, Popover, Tooltip, Typography, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
 import { useNavigate } from 'react-router-dom'
+import { useMemo, useState } from 'react'
 
 type LiquidityRewardsProps = {
   lpRewardAmount: BigNumber
@@ -36,6 +37,19 @@ export const LiquidityRewards = ({
   const theme = useTheme()
   const navigate = useNavigate()
   const { userFeesRewardList } = useGetAllLpReward()
+  const [anchorEl, setAnchorEl] = useState(null)
+
+  const handlePopoverOpen = (event: any) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = useMemo(() => {
+    return Boolean(anchorEl)
+  }, [anchorEl])
   return (
     <>
       <div>
@@ -62,11 +76,96 @@ export const LiquidityRewards = ({
               border-left: ${theme.splitLine.primary};
             `}
           >
-            <div css={[align]}>
+            <Typography
+              sx={{ display: 'flex', alignItems: 'center' }}
+              aria-owns={open ? 'mouse-over-popover' : undefined}
+              aria-haspopup="true"
+              onMouseEnter={handlePopoverOpen}
+              onMouseLeave={handlePopoverClose}
+            >
               <KRAVTab>Your Liquidity Provider</KRAVTab>
               &nbsp;&nbsp;
               <AlertIcon />
-            </div>
+            </Typography>
+            <Popover
+              id="mouse-over-popover"
+              sx={{
+                pointerEvents: 'none',
+              }}
+              open={open}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              onClose={handlePopoverClose}
+              disableRestoreFocus
+            >
+              <div
+                css={css`
+                  width: 360px;
+                  padding: 12px 16px;
+                  border-radius: 8px;
+                `}
+              >
+                <div
+                  css={css`
+                    font-size: 12px;
+                    padding-bottom: 16px;
+                  `}
+                >
+                  When actually distributing income, calculate your ratio according to your trading volume after boost
+                </div>
+                <div
+                  css={css`
+                    font-size: 14px;
+                    padding-bottom: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                  `}
+                >
+                  <div>Actual Liquidity Provider</div>
+                  <span
+                    css={css`
+                      font-size: 16px;
+                      font-weight: 500;
+                    `}
+                  >
+                    {formatNumber(userLiquidityProvided, 2)}
+                  </span>
+                </div>
+                <div
+                  css={css`
+                    font-size: 14px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                  `}
+                >
+                  <span>Liquidity Provider after boost</span>
+                  <span
+                    css={css`
+                      font-size: 16px;
+                      font-weight: 500;
+                    `}
+                  >
+                    {formatNumber(
+                      LpBooster.isEqualTo(0)
+                        ? userLiquidityProvided
+                        : LpBooster.times(userLiquidityProvided).toNumber(),
+                      2,
+                      true
+                    )}
+                  </span>
+                </div>
+              </div>
+            </Popover>
             <p className="data gt">{formatNumber(userLiquidityProvided, 2, true)}</p>
           </div>
           <div

@@ -6,11 +6,12 @@ import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.sv
 import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { KravRewardCard } from './KravRewardCard'
-import { css, Tooltip, useTheme } from '@mui/material'
+import { css, Popover, Tooltip, Typography, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { useNavigate } from 'react-router-dom'
+import { useMemo, useState } from 'react'
 
 type TradingRewardsProps = {
   lpRewardAmount: BigNumber
@@ -32,6 +33,19 @@ export const TradingRewards = ({
 }: TradingRewardsProps) => {
   const theme = useTheme()
   const navigate = useNavigate()
+  const [anchorEl, setAnchorEl] = useState(null)
+
+  const handlePopoverOpen = (event: any) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = useMemo(() => {
+    return Boolean(anchorEl)
+  }, [anchorEl])
   return (
     <>
       <div
@@ -71,11 +85,101 @@ export const TradingRewards = ({
             border-left: ${theme.splitLine.primary};
           `}
         >
-          <div css={[align]}>
+          <Typography
+            sx={{ display: 'flex', alignItems: 'center' }}
+            aria-owns={open ? 'mouse-over-popover' : undefined}
+            aria-haspopup="true"
+            onMouseEnter={handlePopoverOpen}
+            onMouseLeave={handlePopoverClose}
+          >
             <KRAVTab>Your 24h Trading Volume</KRAVTab>
             &nbsp;&nbsp;
             <AlertIcon />
-          </div>
+          </Typography>
+          <Popover
+            id="mouse-over-popover"
+            sx={{
+              pointerEvents: 'none',
+            }}
+            open={open}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
+          >
+            <div
+              css={css`
+                width: 360px;
+                padding: 12px 16px;
+                border-radius: 8px;
+              `}
+            >
+              <div
+                css={css`
+                  font-size: 12px;
+                  padding-bottom: 16px;
+                `}
+              >
+                When actually distributing income, calculate your ratio according to your trading volume after boost
+              </div>
+              <div
+                css={css`
+                  font-size: 14px;
+                  padding-bottom: 8px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                `}
+              >
+                <span>Actual trading volume</span>
+                <span
+                  css={css`
+                    font-size: 16px;
+                    font-weight: 500;
+                  `}
+                >
+                  {formatNumber(userTradingVolume24H, 2)}
+                </span>
+              </div>
+              <div
+                css={css`
+                  font-size: 14px;
+                  width: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                `}
+              >
+                <span>Trading volume after boost</span>
+                <span
+                  css={css`
+                    font-size: 16px;
+                    font-weight: 500;
+                  `}
+                >
+                  {formatNumber(
+                    tradeBooster.isEqualTo(0)
+                      ? userTradingVolume24H
+                      : tradeBooster.times(userTradingVolume24H).toNumber(),
+                    2,
+                    true
+                  )}
+                </span>
+              </div>
+            </div>
+          </Popover>
+          {/*<div css={[align]}>*/}
+          {/*  <KRAVTab>Your 24h Trading Volume</KRAVTab>*/}
+          {/*  &nbsp;&nbsp;*/}
+          {/*  <AlertIcon />*/}
+          {/*</div>*/}
           <p className="data gt">{formatNumber(userTradingVolume24H, 2, true)}</p>
         </div>
         <div
