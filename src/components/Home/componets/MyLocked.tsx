@@ -83,7 +83,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         >
           <div css={align}>
             <BoostIcon />
-            <span>&nbsp;My trade boost :&nbsp;</span>
+            <span>&nbsp;My current trade boost :&nbsp;</span>
             <QuestionIcon />
           </div>
         </Tooltip>
@@ -105,7 +105,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         >
           <div css={align}>
             <BoostIcon />
-            <span>&nbsp;My Liquidity Provider boost :&nbsp;</span>
+            <span>&nbsp;My current Liquidity Provider boost :&nbsp;</span>
             <QuestionIcon />
           </div>
         </Tooltip>
