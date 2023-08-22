@@ -6,7 +6,7 @@ import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.sv
 import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { KravRewardCard } from './KravRewardCard'
-import { css, Popover, Tooltip, Typography, useTheme } from '@mui/material'
+import { Box, css, Popover, Tooltip, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
@@ -85,7 +85,7 @@ export const TradingRewards = ({
             border-left: ${theme.splitLine.primary};
           `}
         >
-          <Typography
+          <Box
             sx={{ display: 'flex', alignItems: 'center' }}
             aria-owns={open ? 'mouse-over-popover' : undefined}
             aria-haspopup="true"
@@ -95,7 +95,7 @@ export const TradingRewards = ({
             <KRAVTab>Your 24h Trading Volume</KRAVTab>
             &nbsp;&nbsp;
             <AlertIcon />
-          </Typography>
+          </Box>
           <Popover
             id="mouse-over-popover"
             sx={{
