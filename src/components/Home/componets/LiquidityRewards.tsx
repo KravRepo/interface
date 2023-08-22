@@ -111,7 +111,10 @@ export const LiquidityRewards = ({
               >
                 {getBigNumberStr(LpBooster, 2)}
               </span>
-              <KRAVHollowButton sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}>
+              <KRAVHollowButton
+                onClick={() => navigate('/portfolio/stake')}
+                sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
+              >
                 <span
                   css={css`
                     min-width: 24px;

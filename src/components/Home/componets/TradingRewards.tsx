@@ -10,6 +10,7 @@ import { css, Tooltip, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
+import { useNavigate } from 'react-router-dom'
 
 type TradingRewardsProps = {
   lpRewardAmount: BigNumber
@@ -30,6 +31,7 @@ export const TradingRewards = ({
   nextEpoch,
 }: TradingRewardsProps) => {
   const theme = useTheme()
+  const navigate = useNavigate()
   return (
     <>
       <div
@@ -109,7 +111,10 @@ export const TradingRewards = ({
             >
               {getBigNumberStr(tradeBooster, 2)}
             </span>
-            <KRAVHollowButton sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}>
+            <KRAVHollowButton
+              onClick={() => navigate('/portfolio/stake')}
+              sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
+            >
               <span>Boost&nbsp;</span>
               <BoostIcon
                 css={css`

@@ -23,6 +23,15 @@ export const NewFarm = () => {
   } = useGetUserFarmReward()
   const { userVeKravAmount, totalVeKravAmount } = useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
+
+  const tradeBooster = useMemo(() => {
+    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
+
+  const LpBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
   useEffect(() => {
     let interval: NodeJS.Timer
     if (provider && account) {
@@ -35,13 +44,6 @@ export const NewFarm = () => {
     return () => clearInterval(interval)
   }, [account, provider])
 
-  const tradeBooster = useMemo(() => {
-    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
-  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
-
-  const LpBooster = useMemo(() => {
-    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
-  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
   return (
     <div css={stake}>
       <TradingRewards
