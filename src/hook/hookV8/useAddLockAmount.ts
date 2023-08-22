@@ -22,7 +22,7 @@ export const useAddLockAmount = () => {
   const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   return useCallback(
-    async (lockAmount: BigNumber) => {
+    async (lockAmount: BigNumber, showSuccess = true) => {
       if (provider && veContract && kravTokenContract && account) {
         try {
           setTransactionState(TransactionState.CHECK_APPROVE)
@@ -47,13 +47,15 @@ export const useAddLockAmount = () => {
           const tx = await veContract.increase_amount(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.INCREASE_AMOUNT)
           console.log('tx', await tx.wait())
-          setTransactionState(TransactionState.START)
-          updateSuccessDialog(TransactionAction.INCREASE_AMOUNT)
-          setSuccessSnackbarInfo({
-            snackbarVisibility: true,
-            title: 'Increase Lock Krav',
-            content: `Your increase ${eXDecimals(lockAmount, 18).toFixed(2)} Krav has been locked successfully`,
-          })
+          if (showSuccess) {
+            setTransactionState(TransactionState.START)
+            updateSuccessDialog(TransactionAction.INCREASE_AMOUNT)
+            setSuccessSnackbarInfo({
+              snackbarVisibility: true,
+              title: 'Increase Lock Krav',
+              content: `Your increase ${eXDecimals(lockAmount, 18).toFixed(2)} Krav has been locked successfully`,
+            })
+          }
         } catch (e) {
           setTransactionDialogVisibility(false)
           setTransactionState(TransactionState.START)

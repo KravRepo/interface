@@ -41,7 +41,7 @@ export const IncreaseUnlockTimeButton = ({
 
   const updatePosition = useCallback(async () => {
     if (lockAmount.isGreaterThan(0)) {
-      await addLockAmount(addDecimals(lockAmount, 18))
+      await addLockAmount(addDecimals(lockAmount, 18), false)
     }
     await addUnlockTime(lockTime)
   }, [lockAmount, lockTime, userPositionUnLockTime])

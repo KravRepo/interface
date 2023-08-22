@@ -4,6 +4,7 @@ import { eXDecimals } from '../../../utils/math'
 import {
   FOUR_YEAR_TIMESTAMP,
   HALF_YEAR_TIMESTAMP,
+  ONE_WEEK_TIMESTAMP,
   ONE_YEAR_TIMESTAMP,
   TOW_YEAR_TIMESTAMP,
 } from '../../../constant/math'
@@ -46,16 +47,16 @@ export const getLockTime = (lockTime: number) => {
   let forMatterLockTime = 0
   switch (lockTime) {
     case 1:
-      forMatterLockTime = HALF_YEAR_TIMESTAMP
+      forMatterLockTime = Number((HALF_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
       break
     case 2:
-      forMatterLockTime = ONE_YEAR_TIMESTAMP
+      forMatterLockTime = Number((ONE_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
       break
     case 3:
-      forMatterLockTime = TOW_YEAR_TIMESTAMP
+      forMatterLockTime = Number((TOW_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
       break
     case 4:
-      forMatterLockTime = FOUR_YEAR_TIMESTAMP
+      forMatterLockTime = Number((FOUR_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
       break
     default:
       forMatterLockTime = 0

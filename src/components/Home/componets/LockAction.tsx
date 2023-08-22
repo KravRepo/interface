@@ -77,10 +77,23 @@ export const LockAction = ({
   }, [lockTime])
 
   const expectedVeAmount = useMemo(() => {
-    const forMatterLockTime = getLockTime(lockTime)
-    const timeIndex = forMatterLockTime / FOUR_YEAR_TIMESTAMP
-    return lockAmount.times(timeIndex)
-  }, [lockTime, lockAmount])
+    const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
+    if (userLockPosition.end > 0 && !increaseUnlockTime) {
+      const diff = userLockPosition.end - nowTimestamp
+      const timeIndex = new BigNumber(diff).times(1000).div(FOUR_YEAR_TIMESTAMP)
+      return lockAmount.times(timeIndex)
+    } else if (userLockPosition.end > 0 && increaseUnlockTime) {
+      const diff = newLockTime - nowTimestamp
+      const timeIndex = new BigNumber(diff).times(1000).div(FOUR_YEAR_TIMESTAMP)
+      const lockedAmountIncrease = newLockTime - userLockPosition.end > 0 ? newLockTime - userLockPosition.end : 0
+      const lockedAmountIncreaseTime = (lockedAmountIncrease * 1000) / FOUR_YEAR_TIMESTAMP
+      return lockAmount.times(timeIndex).plus(userLockPosition.amount.times(lockedAmountIncreaseTime))
+    } else {
+      const forMatterLockTime = getLockTime(lockTime)
+      const timeIndex = forMatterLockTime / FOUR_YEAR_TIMESTAMP
+      return lockAmount.times(timeIndex)
+    }
+  }, [lockTime, lockAmount, userLockPosition, newLockTime])
 
   return (
     <div>
