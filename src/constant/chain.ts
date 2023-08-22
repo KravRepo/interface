@@ -34,13 +34,13 @@ export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
 export const KRAV_ADDRESS = '0x593C951BFF6519E56435367eD302688728963523'
 
-export const VE_KRAV = '0x4bB496Dd32a06AF4cf21d00C823d4E84737B3c66'
+export const VE_KRAV = '0x1cEe6F407D44A373141C4243F0b140Af107C4bC6'
 
 export const DashBoard_USER_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/user/asset/amount?account='
 
 export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D94b1'
 
-export const FEE_DISTRBUTOR = '0x1a7308F6fCDee8FC40e3dA99A337998860793e1b'
+export const FEE_DISTRBUTOR = '0x6258D0aE8907611e2bb54B0CF41C4BF844362793'
 
 export const LP_REWARD_API = 'https://test-api.krav.trade/krav/v1/miner/'
 
