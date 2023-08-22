@@ -15,7 +15,7 @@ import { IncreaseUnlockTimeButton } from './IncreaseUnlockTimeButton'
 import moment from 'moment'
 import { getLockTime } from '../../../hook/hookV8/utils/utils'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
-import { FOUR_YEAR_TIMESTAMP } from '../../../constant/math'
+import { FOUR_YEAR_TIMESTAMP, ONE_DAY_TIMESTAMP } from '../../../constant/math'
 
 const marks = [
   {
@@ -71,7 +71,7 @@ export const LockAction = ({
   }
 
   const newLockTime = useMemo(() => {
-    const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
+    const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
     const forMatterTime = getLockTime(lockTime) / 1000
     return nowTimestamp + forMatterTime
   }, [lockTime])
