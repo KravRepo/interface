@@ -9,7 +9,7 @@ import { getGasLimit } from '../../utils'
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { useRootStore } from '../../store/root'
-import { MAX_UNIT_256 } from '../../constant/math'
+import { MAX_UNIT_256, ONE_DAY_TIMESTAMP } from '../../constant/math'
 import { eXDecimals } from '../../utils/math'
 import { getLockTime } from './utils/utils'
 
@@ -26,7 +26,7 @@ export const useCreatLock = () => {
     async (lockAmount: BigNumber, lockTime: number) => {
       if (provider && veContract && kravTokenContract) {
         try {
-          const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
+          const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
           const forMatterLockTime = getLockTime(lockTime)
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
@@ -53,7 +53,6 @@ export const useCreatLock = () => {
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
           const params = [lockAmount.toString(), forMatterLockTime / 1000 + nowTimestamp] as any
-          console.log('params', params)
           let gasLimit = await getGasLimit(veContract, 'create_lock', params)
 
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)

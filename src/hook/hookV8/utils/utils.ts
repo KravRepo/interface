@@ -47,16 +47,16 @@ export const getLockTime = (lockTime: number) => {
   let forMatterLockTime = 0
   switch (lockTime) {
     case 1:
-      forMatterLockTime = Number((HALF_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
+      forMatterLockTime = Math.floor(HALF_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
       break
     case 2:
-      forMatterLockTime = Number((ONE_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
+      forMatterLockTime = Math.floor(ONE_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
       break
     case 3:
-      forMatterLockTime = Number((TOW_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
+      forMatterLockTime = Math.floor(TOW_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
       break
     case 4:
-      forMatterLockTime = Number((FOUR_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP).toFixed(0)) * ONE_WEEK_TIMESTAMP
+      forMatterLockTime = Math.floor(FOUR_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
       break
     default:
       forMatterLockTime = 0
