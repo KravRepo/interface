@@ -17,6 +17,7 @@ type IncreaseUnlockTimeButtonProps = {
 enum ButtonText {
   'LOCK' = 'Lock & Mint',
   'MIN_LOCK_TIME' = 'Min lock period one week',
+  'INSUFFICIENT_BALANCE' = 'Insufficient Balance',
 }
 
 export const IncreaseUnlockTimeButton = ({
@@ -35,9 +36,10 @@ export const IncreaseUnlockTimeButton = ({
   }, [userPositionUnLockTime, lockTime])
 
   const buttonText = useMemo(() => {
-    if (unlockAble) return ButtonText.LOCK
+    if (lockAmount.isGreaterThan(userKravBalance)) return ButtonText.INSUFFICIENT_BALANCE
+    else if (unlockAble) return ButtonText.LOCK
     else return ButtonText.MIN_LOCK_TIME
-  }, [unlockAble])
+  }, [unlockAble, lockAmount, userKravBalance])
 
   const updatePosition = useCallback(async () => {
     if (lockAmount.isGreaterThan(0)) {

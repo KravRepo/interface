@@ -46,6 +46,12 @@ type LockActionProp = {
   totalVeKravAmount: BigNumber
 }
 
+enum LockButtonText {
+  LOCK = 'Lock & Mint',
+  INSUFFICIENT_BALANCE = 'Insufficient Balance',
+  INVALID = 'Invalid number',
+}
+
 export const LockAction = ({
   userKravBalance,
   userLockPosition,
@@ -59,6 +65,7 @@ export const LockAction = ({
   const [showTip] = useState(false)
   const [lockTime, setLockTime] = useState(1)
   const [lockAmount, setLockAmount] = useState(new BigNumber(0))
+  const [buttonText, setButtonText] = useState(LockButtonText.LOCK)
   const [increaseUnlockTime, setIncreaseUnlockTime] = useState(true)
   const creatLock = useCreatLock()
   const addLockAmount = useAddLockAmount()
@@ -69,6 +76,19 @@ export const LockAction = ({
   const handleLockTimeChange = (event: Event, value: number | number[], activeThumb: number) => {
     setLockTime(value as number)
   }
+
+  const lockButtonEnable = useMemo(() => {
+    if (lockAmount.isGreaterThan(userKravBalance)) {
+      setButtonText(LockButtonText.INSUFFICIENT_BALANCE)
+      return false
+    }
+    if (!lockAmount.isGreaterThan(0)) {
+      setButtonText(LockButtonText.INVALID)
+      return false
+    }
+    setButtonText(LockButtonText.LOCK)
+    return true
+  }, [lockAmount, userKravBalance])
 
   const newLockTime = useMemo(() => {
     const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
@@ -373,20 +393,20 @@ export const LockAction = ({
       </div>
       {userLockPosition.amount.isEqualTo(0) && userLockPosition.end === 0 && (
         <KRAVButton
-          disabled={!lockAmount.isGreaterThan(0) || lockAmount.isGreaterThan(userKravBalance)}
+          disabled={!lockButtonEnable}
           onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)}
           sx={{ mt: '20px' }}
         >
-          Lock & Mint
+          {buttonText}
         </KRAVButton>
       )}
       {!increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
         <KRAVButton
-          disabled={!lockAmount.isGreaterThan(0) || lockAmount.isGreaterThan(userKravBalance)}
+          disabled={!lockButtonEnable}
           onClick={() => addLockAmount(addDecimals(lockAmount, 18))}
           sx={{ mt: '20px' }}
         >
-          Lock & Mint
+          {buttonText}
         </KRAVButton>
       )}
       {increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
