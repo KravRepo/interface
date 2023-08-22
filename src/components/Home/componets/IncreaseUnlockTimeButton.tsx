@@ -14,6 +14,11 @@ type IncreaseUnlockTimeButtonProps = {
   userKravBalance: BigNumber
 }
 
+enum ButtonText {
+  'LOCK' = 'Lock & Mint',
+  'MIN_LOCK_TIME' = 'Min lock period one week',
+}
+
 export const IncreaseUnlockTimeButton = ({
   lockAmount,
   lockTime,
@@ -29,6 +34,11 @@ export const IncreaseUnlockTimeButton = ({
     return nowTimestamp + forMatterTime - ONE_WEEK_TIMESTAMP / 1000 > userPositionUnLockTime
   }, [userPositionUnLockTime, lockTime])
 
+  const buttonText = useMemo(() => {
+    if (unlockAble) return ButtonText.LOCK
+    else return ButtonText.MIN_LOCK_TIME
+  }, [unlockAble])
+
   const updatePosition = useCallback(async () => {
     if (lockAmount.isGreaterThan(0)) {
       await addLockAmount(addDecimals(lockAmount, 18))
@@ -42,7 +52,7 @@ export const IncreaseUnlockTimeButton = ({
       onClick={() => updatePosition().then()}
       sx={{ mt: '20px' }}
     >
-      Lock & Mint
+      {buttonText}
     </KRAVButton>
   )
 }
