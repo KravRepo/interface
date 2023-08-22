@@ -93,7 +93,7 @@ export const LockAction = ({
       const timeIndex = forMatterLockTime / FOUR_YEAR_TIMESTAMP
       return lockAmount.times(timeIndex)
     }
-  }, [lockTime, lockAmount, userLockPosition, newLockTime])
+  }, [lockTime, lockAmount, userLockPosition, newLockTime, increaseUnlockTime])
 
   return (
     <div>
