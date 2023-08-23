@@ -1,14 +1,15 @@
-import { useWeb3React } from '@web3-react/core'
 import { useEffect, useState } from 'react'
 import { useRootStore } from '../../store/root'
-import { Contract } from 'ethers'
+import { Contract, ethers } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import pair_info from '../../abi/pair_info_v6_1.json'
 import BigNumber from 'bignumber.js'
+import { TEST_RPC_NODE } from '../../constant/chain'
+import { JsonRpcProvider } from '@ethersproject/providers'
 // import { eXDecimals } from '../../utils/math'
 
 export const useGetMarketStats = (address: string, decimals: number, pairInfoAddress: string) => {
-  const { account, provider } = useWeb3React()
+  const provider = new ethers.providers.JsonRpcProvider(TEST_RPC_NODE) as JsonRpcProvider
   const [openDaiLong, setOpenDaiLong] = useState<BigNumber | undefined>()
   const [openDaiShort, setOpenDaiShort] = useState<BigNumber | undefined>()
   const [borrowLongVal, setBorrowLongVal] = useState<BigNumber | undefined>()
@@ -18,7 +19,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
   useEffect(() => {
     ;(async () => {
       try {
-        if (allPoolParams.length > 0 && account && provider) {
+        if (allPoolParams.length > 0 && provider) {
           const contract = new Contract(address, trading_storage.abi, provider)
           const pairInfoContract = new Contract(pairInfoAddress, pair_info.abi, provider)
           const [longRes, shortRes, infoRes] = await Promise.all([
@@ -48,7 +49,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
         console.log(e)
       }
     })()
-  }, [allPoolParams, account, provider, address])
+  }, [allPoolParams, provider, address])
   return {
     openDaiLong: openDaiLong,
     openDaiShort: openDaiShort,
