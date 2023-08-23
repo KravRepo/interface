@@ -364,7 +364,7 @@ export const OrderParamsCard = ({
   }, [transactionState])
 
   useEffect(() => {
-    setLeverage(0)
+    setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
     setPositionSizeDai(new BigNumber(0))
     setUseSlPercentage(false)
     setSlPrice(new BigNumber(0))
