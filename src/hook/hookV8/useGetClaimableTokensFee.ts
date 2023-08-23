@@ -6,6 +6,7 @@ import fees_manager from '../../abi/fee_distributor_manager.json'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { PoolParams } from '../../store/FactorySlice'
+import { eXDecimals } from '../../utils/math'
 
 export type FeesRewardList = {
   amount: BigNumber
@@ -27,7 +28,7 @@ export const useGetClaimableTokensFee = () => {
         const feesRewardList: FeesRewardList[] = validTokens.map((item, index) => {
           const targetPool = allPoolParams.find((pool) => pool.tokenT === item)!
           return {
-            amount: new BigNumber(list[index]._hex),
+            amount: eXDecimals(new BigNumber(list[index]._hex), 18),
             pool: targetPool,
           }
         })
