@@ -20,6 +20,7 @@ import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
+import { TradeMode } from '../../../store/TradeSlice'
 
 const marks = [
   {
@@ -65,6 +66,53 @@ const marks = [
   {
     value: 50,
     label: '50x',
+  },
+]
+
+const DegenMarks = [
+  {
+    value: 51,
+    label: '51x',
+  },
+  {
+    value: 55,
+    label: '55x',
+  },
+  {
+    value: 60,
+    label: '60x',
+  },
+  {
+    value: 65,
+    label: '65x',
+  },
+  {
+    value: 70,
+    label: '70x',
+  },
+  {
+    value: 75,
+    label: '75x',
+  },
+  {
+    value: 80,
+    label: '80x',
+  },
+  {
+    value: 85,
+    label: '85x',
+  },
+  {
+    value: 90,
+    label: '90x',
+  },
+  {
+    value: 95,
+    label: '95x',
+  },
+  {
+    value: 100,
+    label: '100x',
   },
 ]
 
@@ -133,7 +181,7 @@ export const OrderParamsCard = ({
     setWalletDialogVisibility,
     userOpenLimitList,
     userOpenTradeList,
-    isProModel,
+    tradeModel,
     userPositionDatas,
     setIsOpenSelectToken,
   } = useRootStore((state) => ({
@@ -145,7 +193,7 @@ export const OrderParamsCard = ({
     setWalletDialogVisibility: state.setWalletDialogVisibility,
     userOpenLimitList: state.userOpenLimitList,
     userOpenTradeList: state.userOpenTradeList,
-    isProModel: state.isProModel,
+    tradeModel: state.tradeModel,
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
@@ -316,13 +364,13 @@ export const OrderParamsCard = ({
   }, [transactionState])
 
   useEffect(() => {
-    if (!isProModel) {
-      setUseSlPercentage(false)
-      setSlPrice(new BigNumber(0))
-      setTpUsePercentage(false)
-      setTpPrice(new BigNumber(0))
-    }
-  }, [isProModel])
+    setLeverage(0)
+    setPositionSizeDai(new BigNumber(0))
+    setUseSlPercentage(false)
+    setSlPrice(new BigNumber(0))
+    setTpUsePercentage(false)
+    setTpPrice(new BigNumber(0))
+  }, [tradeModel])
 
   useEffect(() => {
     setPositionSizeDai(new BigNumber(0))
@@ -683,11 +731,11 @@ export const OrderParamsCard = ({
                 Leverage Slider
               </p>
               <Slider
-                defaultValue={2}
+                defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 step={1}
-                marks={marks}
-                min={2}
-                max={50}
+                marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
+                min={tradeModel === TradeMode.DEGEN ? 51 : 2}
+                max={tradeModel === TradeMode.DEGEN ? 100 : 50}
                 value={leverage}
                 disabled={loadingData}
                 onClick={handleSliderClick}
@@ -797,7 +845,7 @@ export const OrderParamsCard = ({
               {/*  </span>*/}
               {/*</p>*/}
             </div>
-            {/*{isProModel && (*/}
+            {/*{tradeModel && (*/}
             {/*  <div*/}
             {/*    css={css`*/}
             {/*      margin-bottom: 16px;*/}

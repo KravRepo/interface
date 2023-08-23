@@ -126,13 +126,15 @@ export const ConfirmTrade = ({
                   ).toFixed(2)}
                 </span>
               </p>
-              <p>
-                <span>Fees</span>
-                <span>
-                  {eXDecimals(getFees(new BigNumber(tuple.positionSizeDai), tuple.leverage), 18).toFixed(2)}{' '}
-                  {tradePool.symbol}
-                </span>
-              </p>
+              {tuple.leverage <= 50 && (
+                <p>
+                  <span>Fees</span>
+                  <span>
+                    {eXDecimals(getFees(new BigNumber(tuple.positionSizeDai), tuple.leverage), 18).toFixed(2)}{' '}
+                    {tradePool.symbol}
+                  </span>
+                </p>
+              )}
               <p>
                 <span>Collateral</span>
                 <span>{eXDecimals(tuple.positionSizeDai, 18).toFixed(2)}</span>
@@ -149,10 +151,10 @@ export const ConfirmTrade = ({
                 <span>Spread</span>
                 <span>0.00%</span>
               </p>
-              <p>
-                <span>Entry Price</span>
-                <span>${eXDecimals(tuple.openPrice, 18).toFixed(2)}</span>
-              </p>
+              {/*<p>*/}
+              {/*  <span>Entry Price</span>*/}
+              {/*  <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>*/}
+              {/*</p>*/}
               <p>
                 <span>Borrow Fee</span>
                 <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>

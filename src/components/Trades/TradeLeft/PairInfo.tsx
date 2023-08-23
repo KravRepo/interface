@@ -7,21 +7,21 @@ import { useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
 import { useEffect } from 'react'
-import KravSwitch from '../../KravUIKit/KravSwitch'
 // import { MARKET_CHANGE_API } from '../../../constant/chain'
 // import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 // import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
+import { TradeMode } from '../../../store/TradeSlice'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
-  isProModel: boolean
-  setIsProModel: (isProModel: boolean) => void
+  tradeModel: TradeMode
+  setTradeModel: (tradeModel: TradeMode) => void
 }
 
-export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: PairInfoProps) => {
+export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
   const theme = useTheme()
   // const [oneDayChange, setOneDayChange] = useState(0)
   // const [oneDayChangePrice, setOneDayChangePrice] = useState(0)
@@ -41,10 +41,6 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     tradePool?.decimals || 18,
     tradePool.pairInfoT || ''
   )
-
-  const handleModelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsProModel(event.target.checked)
-  }
 
   useEffect(() => {
     if (allPoolParams.length > 0) {
@@ -237,23 +233,80 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
         css={css`
           display: flex;
           align-items: center;
+          background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
+          padding: 2px;
+          border-radius: 8px;
         `}
       >
-        <span
+        <div
           css={css`
-            margin: 0;
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 900;
+            width: 83px;
+            border-radius: 8px;
+            line-height: 130%;
+            text-align: center;
+            cursor: pointer;
+            background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
+            color: ${tradeModel === TradeMode.DEGEN ? '#fff' : theme.text.primary};
+          `}
+          onClick={() => setTradeModel(TradeMode.DEGEN)}
+        >
+          Degen
+        </div>
+        <div
+          css={css`
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 20px;
+            font-style: normal;
+            text-align: center;
+            font-weight: 900;
+            line-height: 130%;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 83px;
+            background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
+            color: ${tradeModel === TradeMode.PRO ? '#fff' : theme.text.primary};
+          `}
+          onClick={() => setTradeModel(TradeMode.PRO)}
+        >
+          Pro
+        </div>
+        <div
+          css={css`
             font-family: 'GT-Flexa-Bold-Trial';
             font-size: 20px;
             font-style: normal;
             font-weight: 900;
             line-height: 130%;
-            padding-right: 12px;
-            color: #2832f5;
+            width: 83px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
+            color: ${tradeModel === TradeMode.BASIC ? '#fff' : theme.text.primary};
           `}
+          onClick={() => setTradeModel(TradeMode.BASIC)}
         >
-          {isProModel ? 'Pro' : 'Basic'}
-        </span>
-        <KravSwitch checked={isProModel} onChange={handleModelChange} />
+          Basic
+        </div>
+        {/*<span*/}
+        {/*/!*  css={css`*!/*/}
+        {/*    margin: 0;*/}
+        {/*    font-family: 'GT-Flexa-Bold-Trial';*/}
+        {/*    font-size: 20px;*/}
+        {/*    font-style: normal;*/}
+        {/*    font-weight: 900;*/}
+        {/*    line-height: 130%;*/}
+        {/*    padding-right: 12px;*/}
+        {/*    color: #2832f5;*/}
+        {/*  `}*/}
+        {/*>*/}
+        {/*  {tradeModel ? 'Pro' : 'Basic'}*/}
+        {/*</span>*/}
+        {/*<KravSwitch checked={tradeModel} onChange={handleModelChange} />*/}
       </div>
     </div>
   )
