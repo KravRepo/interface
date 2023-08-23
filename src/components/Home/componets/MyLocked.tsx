@@ -42,15 +42,14 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
 
   return (
     <div>
-      <p className="title gt">My Locked</p>
+      <p className="title gt">My Locked Amount</p>
       <div
         css={css`
           padding: 24px 0 42px;
         `}
       >
-        The longer you lock your KRAV, the more veKRAV you will receive. You can also get additional veKRAV by locking
-        more KRAV or extending the lock period. veKRAV decays slowly over your locking period, eventually reaching
-        1-to-1 with KRAV.
+        Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked
+        amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV.
       </div>
       <div className="overview">
         <span>Locked amount</span>
@@ -114,7 +113,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
       <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
         Unlock
       </KRAVButton>
-      <div className="title gt">My Reward</div>
+      <div className="title gt">My Rewards</div>
       <div className="my-reward">
         {userFeesRewardList.map((item) => {
           return (
@@ -150,7 +149,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         Claim
       </KRAVButton>
       <KRAVHollowButton>
-        To vote <ToVoteIcon />
+        To Vote <ToVoteIcon />
       </KRAVHollowButton>
     </div>
   )

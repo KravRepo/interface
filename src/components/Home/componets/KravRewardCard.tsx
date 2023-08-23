@@ -98,7 +98,7 @@ export const KravRewardCard = ({
         `}
       >
         <p>
-          Rewards get updated at{' '}
+          Rewards will be refreshed on{' '}
           {moment(nextEpoch * 1000)
             .utc()
             .format('MMM DD, YYYY HH:mm A')}{' '}

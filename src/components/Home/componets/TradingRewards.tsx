@@ -53,13 +53,13 @@ export const TradingRewards = ({
           margin-bottom: 40px;
         `}
       >
-        <p className="title gt">Trading Rewards</p>
+        <p className="title gt">Daily Trading Rewards</p>
         <p
           css={css`
             margin-top: 12px;
           `}
         >
-          Earn trading rewards when you trade on KRAV. Rewards are calculated and distributed once daily.
+          Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day.
         </p>
       </div>
       <div

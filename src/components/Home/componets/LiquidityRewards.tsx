@@ -302,7 +302,7 @@ export const LiquidityRewards = ({
                 padding-right: 36px;
               `}
             >
-              {'Please go to the "dashboard" page to claim the fee income'}
+              {"Navigate to the 'dashboard' page to claim your fee earnings"}
             </div>
             <div css={align}>
               <span

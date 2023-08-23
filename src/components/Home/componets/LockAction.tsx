@@ -125,7 +125,7 @@ export const LockAction = ({
           margin-bottom: 16px;
         `}
       >
-        <span className="title gt">KRAV Lock Amount </span>
+        <span className="title gt">KRAV Locking Amount</span>
         <span>Available: {formatNumber(userKravBalance.toString(), 2, false)} KRAV</span>
       </div>
       <div
@@ -220,7 +220,7 @@ export const LockAction = ({
                 padding-bottom: 15px;
               `}
             >
-              Lock Period
+              Locking Period
             </span>
             <span>1 year</span>
           </div>
@@ -362,8 +362,7 @@ export const LockAction = ({
           padding-bottom: 39px;
         `}
       >
-        The longer you lock your KRAV, the more veKRAV you will receive. You can also get additional veKRAV by locking
-        more KRAV or extending the lock period.{' '}
+        Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards
       </div>
       <div className="overview">
         <span>Expected earnings</span>
