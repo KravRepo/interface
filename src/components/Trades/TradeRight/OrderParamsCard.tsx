@@ -75,44 +75,44 @@ const DegenMarks = [
     label: '51x',
   },
   {
-    value: 55,
-    label: '55x',
-  },
-  {
-    value: 60,
-    label: '60x',
-  },
-  {
     value: 65,
     label: '65x',
-  },
-  {
-    value: 70,
-    label: '70x',
-  },
-  {
-    value: 75,
-    label: '75x',
   },
   {
     value: 80,
     label: '80x',
   },
   {
-    value: 85,
-    label: '85x',
-  },
-  {
-    value: 90,
-    label: '90x',
-  },
-  {
     value: 95,
     label: '95x',
   },
   {
-    value: 100,
-    label: '100x',
+    value: 110,
+    label: '110x',
+  },
+  {
+    value: 125,
+    label: '125x',
+  },
+  {
+    value: 140,
+    label: '140x',
+  },
+  {
+    value: 155,
+    label: '155x',
+  },
+  {
+    value: 170,
+    label: '170x',
+  },
+  {
+    value: 185,
+    label: '185x',
+  },
+  {
+    value: 200,
+    label: '200x',
   },
 ]
 
@@ -735,7 +735,7 @@ export const OrderParamsCard = ({
                 step={1}
                 marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
                 min={tradeModel === TradeMode.DEGEN ? 51 : 2}
-                max={tradeModel === TradeMode.DEGEN ? 100 : 50}
+                max={tradeModel === TradeMode.DEGEN ? 200 : 50}
                 value={leverage}
                 disabled={loadingData}
                 onClick={handleSliderClick}
