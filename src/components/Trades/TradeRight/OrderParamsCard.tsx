@@ -21,6 +21,7 @@ import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
+import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 
 const marks = [
   {
@@ -375,7 +376,7 @@ export const OrderParamsCard = ({
   useEffect(() => {
     setPositionSizeDai(new BigNumber(0))
     setOpenBTCSize(new BigNumber(0))
-    setLeverage(2)
+    setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
   }, [isBuy])
 
   useEffect(() => {
@@ -807,6 +808,19 @@ export const OrderParamsCard = ({
                 <span>Leverage</span>
                 <span>{leverage}</span>
               </p>
+              {tradeModel === TradeMode.DEGEN && (
+                <div>
+                  <AlertIcon />
+                  <p
+                    css={css`
+                      color: ${theme.text.primary};
+                      padding-bottom: 8px;
+                    `}
+                  >
+                    A fraction of your profits(if any)is taken when you close the trade
+                  </p>
+                </div>
+              )}
               {/*<p*/}
               {/*  css={[*/}
               {/*    align,*/}
