@@ -14,7 +14,7 @@ export const useGetUserOpenTrade = () => {
   const getUserOpenTrade = useCallback(
     async (storageAddress: string, setStore: boolean) => {
       try {
-        if (account && provider) {
+        if (account && provider && storageAddress) {
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
           const userTotalTrade = await contract.openTradesCount(account, 0)

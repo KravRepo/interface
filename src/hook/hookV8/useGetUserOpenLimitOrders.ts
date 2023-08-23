@@ -15,7 +15,7 @@ export const useGetUserOpenLimitOrders = () => {
   const getUserOpenLimitOrders = useCallback(
     async (storageAddress: string, setStore: boolean) => {
       try {
-        if (provider && account) {
+        if (provider && account && storageAddress) {
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
           const userTotalTrade = await contract.openLimitOrdersCount(account, 0)
