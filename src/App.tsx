@@ -44,8 +44,10 @@ const FullApp = () => {
     Promise.all([factory(), getBTCPrice()]).then()
     setInterval(async () => {
       await factory()
-      await getBTCPrice()
     }, 120000)
+    setInterval(async () => {
+      await getBTCPrice()
+    }, 1500)
   }, [])
 
   return (
