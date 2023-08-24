@@ -11,6 +11,7 @@ import { PoolParams } from '../../../store/FactorySlice'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
 import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
+import { useTheme } from '@mui/material'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -18,6 +19,7 @@ type PositionsItemProps = {
 }
 
 export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
+  const theme = useTheme()
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
   const closeTradeMarket = useCloseTradeMarket(
@@ -156,12 +158,23 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
             {openTrade.sl.toString() === '0' ? `$${liqPrice.toFixed(2)}` : `$${BigNumber(openTrade.sl).toFixed(2)}`}
           </div>
           <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
-          <div>
-            <KRAVButton onClick={() => claimPosition(openTrade.orderId!, false)}>Claim</KRAVButton>
-          </div>
+          {openTrade?.isInPending && (
+            <div
+              css={css`
+                border: 3px solid transparent;
+                border-bottom-color: ${theme.text.primary};
+              `}
+              className="loading"
+            />
+          )}
+          {!openTrade?.isInPending && (
+            <div>
+              <KRAVButton onClick={() => claimPosition(openTrade.orderId!, false)}>Claim</KRAVButton>
+            </div>
+          )}
         </div>
       )}
-      {openTrade.isPendingOrder && openTrade.leverage === 0 && (
+      {openTrade.isPendingOrder && openTrade.leverage === 0 && !openTrade?.isInPending && (
         <div className="position-layout">
           <div>
             <p>BTC</p>

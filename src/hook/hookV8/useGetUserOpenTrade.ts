@@ -37,10 +37,20 @@ export const useGetUserOpenTrade = () => {
           const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
           // console.log('userPendingOrderDetails', userPendingOrderDetails)
           userPendingOrderDetails.forEach((details, index) => {
-            if (new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))) {
-              const res = forMatterOpenTrades(details, 1, account, true, new BigNumber(userPendingOrder[index]._hex))
-              userMarketOrder.push(res[0])
-            }
+            // if (new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))) {
+            //   const res = forMatterOpenTrades(details, 1, account, true, new BigNumber(userPendingOrder[index]._hex))
+            //   userMarketOrder.push(res[0])
+            // }
+            const inPending = new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))
+            const res = forMatterOpenTrades(
+              details,
+              1,
+              account,
+              true,
+              new BigNumber(userPendingOrder[index]._hex),
+              !inPending
+            )
+            userMarketOrder.push(res[0])
           })
           console.log('userOpenTrades', openTrades)
           if (setStore) setUserOpenTradeList(openTrades.concat(userMarketOrder))

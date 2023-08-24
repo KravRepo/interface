@@ -14,7 +14,8 @@ export const forMatterOpenTrades = (
   trades: number,
   account: string,
   isPendingOrder: boolean,
-  orderId?: BigNumber
+  orderId?: BigNumber,
+  isInPending?: boolean
 ) => {
   if (!isPendingOrder) {
     res = res.filter((item) => new BigNumber(item.leverage._hex).isGreaterThan(0))
@@ -38,6 +39,7 @@ export const forMatterOpenTrades = (
       positionSizeDai: eXDecimals(res[i].positionSizeDai._hex, 18),
       isPendingOrder: isPendingOrder,
       orderId: orderId,
+      isInPending: isInPending,
     })
   }
   return userOpenTrades
