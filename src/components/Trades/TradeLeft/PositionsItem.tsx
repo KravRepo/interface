@@ -47,9 +47,8 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
       {!openTrade.isPendingOrder && (
         <div className="position-layout">
           <div>
-            <p>BTC</p>
             <p>
-              <span>{openTrade.leverage}x</span>
+              BTC <span>{openTrade.leverage}x</span>
               <span
                 css={css`
                   color: ${openTrade.buy ? '#009B72' : '#DB4C40'};
