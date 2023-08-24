@@ -17,9 +17,9 @@ export const NODE_ADDRESS = ['0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A']
 
 export const K_LINE_API = 'https://base-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
-export const QUANTO_API = 'https://base-api.krav.trade/krav/v1/list/quanto'
+export const QUANTO_API = 'https://test-api.krav.trade/krav/v1/list/quanto'
 
-export const TRADE_HISTORY_API = 'https://base-api.krav.trade/krav/v1/list/market'
+export const TRADE_HISTORY_API = 'https://test-api.krav.trade/krav/v1/list/market'
 
 export const DASHBOARD_OVERVIEW_API = 'https://test-api.krav.trade/krav/v1/overview'
 // export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
