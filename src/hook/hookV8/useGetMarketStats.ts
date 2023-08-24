@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useRootStore } from '../../store/root'
-import { Contract, ethers } from 'ethers'
+import { Contract } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import pair_info from '../../abi/pair_info_v6_1.json'
 import BigNumber from 'bignumber.js'
-import { TEST_RPC_NODE } from '../../constant/chain'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { useWeb3React } from '@web3-react/core'
 // import { eXDecimals } from '../../utils/math'
 
 export const useGetMarketStats = (address: string, decimals: number, pairInfoAddress: string) => {
-  const provider = new ethers.providers.JsonRpcProvider(TEST_RPC_NODE) as JsonRpcProvider
+  const { provider } = useWeb3React()
   const [openDaiLong, setOpenDaiLong] = useState<BigNumber | undefined>()
   const [openDaiShort, setOpenDaiShort] = useState<BigNumber | undefined>()
   const [borrowLongVal, setBorrowLongVal] = useState<BigNumber | undefined>()
