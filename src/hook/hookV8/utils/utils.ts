@@ -37,12 +37,21 @@ export const forMatterOpenTrades = (
       openPrice: eXDecimals(res[i].openPrice._hex, 10),
       leverage: new BigNumber(res[i].leverage._hex).toNumber(),
       positionSizeDai: eXDecimals(res[i].positionSizeDai._hex, 18),
+      beingMarketClosed: false,
       isPendingOrder: isPendingOrder,
       orderId: orderId,
       isInPending: isInPending,
     })
   }
   return userOpenTrades
+}
+
+export const isBeingMarketClosed = (marketOrders: Tuple[], pendingMarketOrders: Tuple[]) => {
+  marketOrders.forEach((order) => {
+    pendingMarketOrders.forEach((pendingOrder) => {
+      if (pendingOrder.index === order.index && pendingOrder.leverage === 0) order.beingMarketClosed = true
+    })
+  })
 }
 
 export const getLockTime = (lockTime: number) => {

@@ -102,7 +102,18 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
             ${BigNumber(openTrade.tp).toFixed(2)}
           </div>
           <div>
-            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
+            {openTrade.beingMarketClosed && (
+              <div
+                css={css`
+                  border: 3px solid transparent;
+                  border-bottom-color: ${theme.text.primary};
+                `}
+                className="loading"
+              />
+            )}
+            {!openTrade.beingMarketClosed && (
+              <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
+            )}
           </div>
         </div>
       )}

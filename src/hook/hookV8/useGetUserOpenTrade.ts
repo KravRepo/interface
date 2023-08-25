@@ -2,7 +2,7 @@ import { useRootStore } from '../../store/root'
 import { useCallback, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { forMatterOpenTrades } from './utils/utils'
+import { forMatterOpenTrades, isBeingMarketClosed } from './utils/utils'
 import { Contract } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import { Tuple } from '../../components/Trades/type'
@@ -27,7 +27,7 @@ export const useGetUserOpenTrade = () => {
           }
           const res = await Promise.all(task)
           const openTrades = forMatterOpenTrades(res, trades, account, false)
-          const userMarketOrder: Tuple[] = []
+          const userPendingMarketOrder: Tuple[] = []
           const blockNumber = await provider.getBlockNumber()
           const userPendingOrder = await contract.getPendingOrderIds(account)
           const userPendingOrderTask: any[] = []
@@ -50,10 +50,10 @@ export const useGetUserOpenTrade = () => {
               new BigNumber(userPendingOrder[index]._hex),
               !inPending
             )
-            userMarketOrder.push(res[0])
+            userPendingMarketOrder.push(res[0])
           })
-          console.log('userOpenTrades', openTrades)
-          if (setStore) setUserOpenTradeList(openTrades.concat(userMarketOrder))
+          isBeingMarketClosed(openTrades, userPendingMarketOrder)
+          if (setStore) setUserOpenTradeList(openTrades.concat(userPendingMarketOrder))
           else setUserOpenTrades(openTrades)
         }
       } catch (e) {
