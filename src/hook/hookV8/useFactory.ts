@@ -90,7 +90,6 @@ export const useFactory = () => {
           accDaiPerDai: new BigNumber(0),
         })
       })
-      console.log('before task', forMatter)
       const multicall = new Contract(multicall2.address, multicall2.abi, provider)
       const pairStorageInterface = new Interface(pair_storage.abi)
       const pairInfoInterface = new Interface(pair_info.abi)
