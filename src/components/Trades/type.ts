@@ -4,6 +4,8 @@ export type Tuple = TupleWithTrade & {
   isPendingOrder: boolean
   orderId?: BigNumber
   isInPending?: boolean
+  //Used to identify whether the market order is being closed, depends on in pending orders whether there is the same index
+  beingMarketClosed: boolean
 }
 
 export type TupleWithTrade = {
