@@ -2,7 +2,9 @@ import BigNumber from 'bignumber.js'
 
 export type Tuple = TupleWithTrade & {
   isPendingOrder: boolean
+  beingMarketClosed: boolean
   orderId?: BigNumber
+  isInPending?: boolean
 }
 
 export type TupleWithTrade = {
