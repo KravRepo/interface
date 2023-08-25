@@ -28,6 +28,7 @@ import { useRootStore } from '../../store/root'
 import { NavLink, useLocation } from 'react-router-dom'
 import { getConnection } from '../../connectors'
 import { ConnectionType } from '../../connectors/type'
+import { useFactory } from '../../hook/hookV8/useFactory'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { CHAINS, getAddChainParameters } from '../../connectors/chain'
 import KRAVButton from '../KravUIKit/KravButton'
@@ -94,12 +95,13 @@ export const Header = () => {
 
   const setAccount = useRootStore((store) => store.setAccount)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
-
+  const setLoadingData = useRootStore((store) => store.setLoadingData)
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
   const { pathname } = useLocation()
   const theme = useTheme()
   const getUserPosition = useUserPosition()
+  const getFactory = useFactory()
   const toggleTheme = useSetThemeContext()
   const connection = useMemo(() => {
     return getConnection(ConnectionType.INJECTED)
@@ -130,6 +132,12 @@ export const Header = () => {
   const isTradePath = useMemo(() => {
     return pathname.includes('/trade')
   }, [pathname])
+
+  const updateFactory = useCallback(async () => {
+    await getFactory()
+    setLoadingData(false)
+    setAccount(account)
+  }, [])
 
   const [netWorkAnchorEl, setNetWorkAnchorEl] = useState<null | HTMLElement>(null)
   const networkOpen = useMemo(() => {
@@ -180,13 +188,13 @@ export const Header = () => {
         try {
           await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
           await connector.activate()
-          setAccount(account)
           setDisconnectWallet(true)
+          await updateFactory()
         } catch (e) {
           try {
             await connection.connector.activate(getAddChainParameters(TEST_CHAIN_ID))
             await connector.activate()
-            setAccount(account)
+            await updateFactory()
           } catch (e) {}
         }
       }
