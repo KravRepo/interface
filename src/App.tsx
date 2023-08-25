@@ -29,6 +29,7 @@ import { Statistics } from './pages/Statistics'
 import ReportImg from './assets/imgs/report.png'
 import ReportDark from './assets/imgs/darkModel/report_dark.png'
 import { useTheme } from '@mui/material'
+import { useRootStore } from './store/root'
 
 i18n.load({
   en: enMessages,
@@ -40,8 +41,9 @@ const FullApp = () => {
   const factory = useFactory()
   const getBTCPrice = useBTCPrice()
   const theme = useTheme()
+  const setLoadingData = useRootStore((store) => store.setLoadingData)
   useEffect(() => {
-    Promise.all([factory(), getBTCPrice()]).then()
+    Promise.all([factory(), getBTCPrice()]).then(() => setLoadingData(false))
     setInterval(async () => {
       await factory()
       await getBTCPrice()
