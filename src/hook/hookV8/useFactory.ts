@@ -100,7 +100,7 @@ export const useFactory = () => {
         tokenTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.SYMBOL, []))
         decimalsTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.DECIMALS, []))
         pairStorageTask.push(creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.PAIRS, [0]))
-        vaultBalanceTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.CURRENT_BALANCE_DAI, []))
+        vaultSupplyTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.CURRENT_BALANCE_DAI, []))
         vaultBalanceTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.MAX_BALANCE_DAI, []))
         groupCollateralLong.push(
           creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.GROUP_COLLATERAL, [0, true])
@@ -126,35 +126,6 @@ export const useFactory = () => {
         ...accDaiPerDaiTask,
       ])
       const factoryCall = factoryReturn.returnData
-      // forMatter.forEach((item) => {
-      //   const pairStorageContract = new Contract(item.pairStorageT, pair_storage.abi, provider)
-      //   const pairInfoContract = new Contract(item.pairInfoT, pair_info.abi, provider)
-      //   const tokenContract = new Contract(item.tokenT, test_erc20.abi, provider)
-      //   const vaultContract = new Contract(item.vaultT, trading_vault.abi, provider)
-      //   tokenTask.push(tokenContract.symbol())
-      //   decimalsTask.push(tokenContract.decimals())
-      //   pairStorageTask.push(pairStorageContract.pairs(0))
-      //   vaultBalanceTask.push(vaultContract.currentBalanceDai())
-      //   vaultSupplyTask.push(vaultContract.maxBalanceDai())
-      //   groupCollateralLong.push(pairStorageContract.groupCollateral(0, true))
-      //   groupCollateralShort.push(pairStorageContract.groupCollateral(0, false))
-      //   maxWithdrawPTask.push(vaultContract.maxWithdrawP())
-      //   pairParams.push(pairInfoContract.pairParams(0))
-      //   accDaiPerDaiTask.push(vaultContract.accDaiPerDai())
-      // })
-      //
-      // const factoryCall = await Promise.all([
-      //   ...tokenTask,
-      //   ...decimalsTask,
-      //   ...pairStorageTask,
-      //   ...vaultSupplyTask,
-      //   ...vaultBalanceTask,
-      //   ...groupCollateralLong,
-      //   ...groupCollateralShort,
-      //   ...maxWithdrawPTask,
-      //   ...pairParams,
-      //   ...accDaiPerDaiTask,
-      // ])
 
       forMatter.forEach((item, index) => {
         item.symbol = decodeCallResult(tokenInterface, TaskFunc.SYMBOL, factoryCall[index])
