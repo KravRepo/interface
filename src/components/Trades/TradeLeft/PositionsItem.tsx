@@ -50,8 +50,8 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
       {!openTrade.isPendingOrder && (
         <div className="position-layout">
           <div>
-            <p>BTC</p>
             <p>
+              BTC
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
@@ -112,7 +112,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
                   `}
                   className="loading"
                 />
-                <span>closing...</span>
+                <span>&nbsp;&nbsp;closing...</span>
               </div>
             )}
             {!openTrade.beingMarketClosed && (
@@ -182,7 +182,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
                 `}
                 className="loading"
               />
-              <span>opening...</span>
+              <span>&nbsp;&nbsp;opening...</span>
             </div>
           )}
           {!openTrade?.isInPending && (
