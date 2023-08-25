@@ -53,6 +53,7 @@ export const useFactory = () => {
       const pairParams: any[] = []
       const accDaiPerDaiTask: any[] = []
       res.forEach((item) => {
+        if (item.tokenT === '0x2DC1cDa9186a4993bD36dE60D08787c0C382BEAD') return
         //TODO check pairs tokenT is ERC20
         forMatter.push({
           tokenT: item.tokenT,
