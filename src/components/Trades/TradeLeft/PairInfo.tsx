@@ -189,7 +189,11 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   : '#db4c40'};
               `}
             >
-              <span>
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
                 {openDaiShort && openDaiLong?.gt(openDaiShort)
                   ? ''
                   : openDaiLong?.toString() === openDaiShort?.toString()
@@ -217,7 +221,11 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   : '#009b72'};
               `}
             >
-              <span>
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
                 {openDaiShort && openDaiLong?.lt(openDaiShort)
                   ? ''
                   : openDaiLong?.toString() === openDaiShort?.toString()
