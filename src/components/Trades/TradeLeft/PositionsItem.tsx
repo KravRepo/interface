@@ -12,7 +12,6 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
 import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
-import { align } from '../../../globalStyle'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -104,7 +103,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
           <div>
             {openTrade.beingMarketClosed && (
-              <div css={align}>
+              <div>
                 <div
                   css={css`
                     border: 3px solid transparent;
@@ -112,7 +111,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
                   `}
                   className="loading"
                 />
-                <span>&nbsp;&nbsp;closing...</span>
+                <span>closing...</span>
               </div>
             )}
             {!openTrade.beingMarketClosed && (
@@ -174,7 +173,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
           <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
           {openTrade?.isInPending && (
-            <div css={align}>
+            <div>
               <div
                 css={css`
                   border: 3px solid transparent;
@@ -182,7 +181,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
                 `}
                 className="loading"
               />
-              <span>&nbsp;&nbsp;opening...</span>
+              <span>opening...</span>
             </div>
           )}
           {!openTrade?.isInPending && (
