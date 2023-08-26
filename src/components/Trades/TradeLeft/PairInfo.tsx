@@ -260,9 +260,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             text-align: center;
             cursor: pointer;
             border-radius: 8px;
-            background: ${tradeModel === TradeMode.BASIC
-              ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-              : 'transparent'};
+            background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
             color: ${tradeModel === TradeMode.BASIC ? '#000' : theme.text.primary};
           `}
           onClick={() => setTradeModel(TradeMode.BASIC)}
@@ -283,9 +281,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             border-radius: 8px;
             cursor: pointer;
             width: 83px;
-            background: ${tradeModel === TradeMode.PRO
-              ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-              : 'transparent'};
+            background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
             color: ${tradeModel === TradeMode.PRO ? '#000' : theme.text.primary};
           `}
           onClick={() => setTradeModel(TradeMode.PRO)}
