@@ -242,7 +242,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
           display: flex;
           align-items: center;
           background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
-          padding: 2px;
+          padding: 4px;
           border-radius: 8px;
         `}
       >
