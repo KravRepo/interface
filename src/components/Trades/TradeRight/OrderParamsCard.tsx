@@ -20,6 +20,8 @@ import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
+import { TradeMode } from '../../../store/TradeSlice'
+import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 
 const marks = [
   {
@@ -65,6 +67,53 @@ const marks = [
   {
     value: 50,
     label: '50x',
+  },
+]
+
+const DegenMarks = [
+  {
+    value: 51,
+    label: '51x',
+  },
+  {
+    value: 65,
+    label: '65x',
+  },
+  {
+    value: 80,
+    label: '80x',
+  },
+  {
+    value: 95,
+    label: '95x',
+  },
+  {
+    value: 110,
+    label: '110x',
+  },
+  {
+    value: 125,
+    label: '125x',
+  },
+  {
+    value: 140,
+    label: '140x',
+  },
+  {
+    value: 155,
+    label: '155x',
+  },
+  {
+    value: 170,
+    label: '170x',
+  },
+  {
+    value: 185,
+    label: '185x',
+  },
+  {
+    value: 200,
+    label: '200x',
   },
 ]
 
@@ -133,7 +182,7 @@ export const OrderParamsCard = ({
     setWalletDialogVisibility,
     userOpenLimitList,
     userOpenTradeList,
-    isProModel,
+    tradeModel,
     userPositionDatas,
     setIsOpenSelectToken,
   } = useRootStore((state) => ({
@@ -145,7 +194,7 @@ export const OrderParamsCard = ({
     setWalletDialogVisibility: state.setWalletDialogVisibility,
     userOpenLimitList: state.userOpenLimitList,
     userOpenTradeList: state.userOpenTradeList,
-    isProModel: state.isProModel,
+    tradeModel: state.tradeModel,
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
@@ -316,18 +365,18 @@ export const OrderParamsCard = ({
   }, [transactionState])
 
   useEffect(() => {
-    if (!isProModel) {
-      setUseSlPercentage(false)
-      setSlPrice(new BigNumber(0))
-      setTpUsePercentage(false)
-      setTpPrice(new BigNumber(0))
-    }
-  }, [isProModel])
+    setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
+    setPositionSizeDai(new BigNumber(0))
+    setUseSlPercentage(false)
+    setSlPrice(new BigNumber(0))
+    setTpUsePercentage(false)
+    setTpPrice(new BigNumber(0))
+  }, [tradeModel])
 
   useEffect(() => {
     setPositionSizeDai(new BigNumber(0))
     setOpenBTCSize(new BigNumber(0))
-    setLeverage(2)
+    setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
   }, [isBuy])
 
   useEffect(() => {
@@ -683,11 +732,11 @@ export const OrderParamsCard = ({
                 Leverage Slider
               </p>
               <Slider
-                defaultValue={2}
+                defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 step={1}
-                marks={marks}
-                min={2}
-                max={50}
+                marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
+                min={tradeModel === TradeMode.DEGEN ? 51 : 2}
+                max={tradeModel === TradeMode.DEGEN ? 200 : 50}
                 value={leverage}
                 disabled={loadingData}
                 onClick={handleSliderClick}
@@ -759,6 +808,19 @@ export const OrderParamsCard = ({
                 <span>Leverage</span>
                 <span>{leverage}</span>
               </p>
+              {tradeModel === TradeMode.DEGEN && (
+                <div>
+                  <AlertIcon />
+                  <p
+                    css={css`
+                      color: ${theme.text.primary};
+                      padding-bottom: 8px;
+                    `}
+                  >
+                    A fraction of your profits(if any)is taken when you close the trade
+                  </p>
+                </div>
+              )}
               {/*<p*/}
               {/*  css={[*/}
               {/*    align,*/}
@@ -797,7 +859,7 @@ export const OrderParamsCard = ({
               {/*  </span>*/}
               {/*</p>*/}
             </div>
-            {/*{isProModel && (*/}
+            {/*{tradeModel && (*/}
             {/*  <div*/}
             {/*    css={css`*/}
             {/*      margin-bottom: 16px;*/}
