@@ -75,6 +75,7 @@ export const decodeReferral = (referral: string) => {
 }
 
 export const getBigNumberStr = (bigNumber: BigNumber, fixed: number, factor = 1) => {
+  if (isNaN(bigNumber.toNumber())) return '--'
   if (!BigNumber.isBigNumber(bigNumber)) {
     return new BigNumber(bigNumber || 0)?.times(factor)?.toFixed(fixed) || '0'
   }

@@ -3,7 +3,7 @@
 import { css } from '@emotion/react'
 import { useRootStore } from '../../../store/root'
 import BigNumber from 'bignumber.js'
-import { useCancelOpenLimitOrder } from 'hook/hookV8/useCancelOpenLimitOrder'
+import { useCancelOpenLimitOrder } from '../../../hook/hookV8/useCancelOpenLimitOrder'
 
 export const Orders = () => {
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
@@ -12,7 +12,7 @@ export const Orders = () => {
   const cancelOpenLimitOrder = useCancelOpenLimitOrder(tradePool.tradingT, tradePool.storageT)
 
   const getOrderContent = (isBuy: boolean, limitPrice: BigNumber, positionSize: BigNumber, leverage: number) => {
-    return 'Increase BTC' + (isBuy ? 'Long' : 'Short') + ' by $' + positionSize.times(leverage).toFixed(2)
+    return positionSize.times(leverage).toFixed(2) + tradePool.symbol
   }
   return (
     <div>
@@ -24,7 +24,7 @@ export const Orders = () => {
       >
         <span>Type</span>
         <span>Order</span>
-        <span>Price</span>
+        <span>Ask Price</span>
         <span>Market Price</span>
         <span>Leverage</span>
         <span>Collateral</span>
@@ -46,10 +46,13 @@ export const Orders = () => {
               <div>${limit.minPrice.toFixed(2)}</div>
               <div>${BTCPrice.toFixed(2)}</div>
               <div>{limit.leverage}</div>
-              <div>${new BigNumber(limit.positionSize).toFixed(2)}</div>
+              <div>
+                {new BigNumber(limit.positionSize).toFixed(2)} {tradePool.symbol}
+              </div>
               <div
                 css={css`
                   cursor: pointer;
+                  text-decoration: underline;
                 `}
                 onClick={() => cancelOpenLimitOrder(limit.index)}
               >

@@ -4,10 +4,11 @@ import { chart, tradeLeft } from './style'
 import { MyTrade } from './TradeLeft/MyTrade'
 import { TradingView } from './TradeLeft/TradingView'
 import { SelectToken } from '../Dialog/SelectToken'
-import { useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
+import { css, useTheme } from '@mui/material'
+import { TradeMode } from '../../store/TradeSlice'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -18,23 +19,32 @@ type TradeLeftProps = {
 }
 
 export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeType }: TradeLeftProps) => {
-  const [isOpenSelectToken, setIsOpenSelectToken] = useState(false)
-  const { isProModel, setIsProModel } = useRootStore((state) => ({
-    isProModel: state.isProModel,
-    setIsProModel: state.setIsProModel,
+  const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
+    tradeModel: state.tradeModel,
+    setTradeModel: state.setTradeModel,
+    isOpenSelectToken: state.isOpenSelectToken,
+    setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
+  const theme = useTheme()
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
       <div css={tradeLeft}>
-        <PairInfo isProModel={isProModel} setIsOpenSelectToken={setIsOpenSelectToken} setIsProModel={setIsProModel} />
-        {isProModel && (
-          <div css={chart}>
+        <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
+        {tradeModel !== TradeMode.BASIC && (
+          <div
+            css={[
+              chart,
+              css`
+                background: ${theme.background.primary};
+              `,
+            ]}
+          >
             <TradingView />
           </div>
         )}
-        {!isProModel && (
+        {tradeModel === TradeMode.BASIC && (
           <BasicModel
             positionSizeDai={positionSizeDai}
             isBuy={isBuy}

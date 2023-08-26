@@ -6,22 +6,27 @@ import { css } from '@emotion/react'
 import { useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
-import React, { Dispatch, useCallback, useEffect, useState } from 'react'
-import KravSwitch from '../../KravUIKit/KravSwitch'
-import { MARKET_CHANGE_API } from 'constant/chain'
+import { useEffect } from 'react'
+// import { MARKET_CHANGE_API } from '../../../constant/chain'
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+// import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
+import { formatNumber } from '../../../utils'
+import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
+import { TradeMode } from '../../../store/TradeSlice'
 
 type PairInfoProps = {
-  setIsOpenSelectToken: Dispatch<React.SetStateAction<boolean>>
-  isProModel: boolean
-  setIsProModel: (isProModel: boolean) => void
+  setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
+  tradeModel: TradeMode
+  setTradeModel: (tradeModel: TradeMode) => void
 }
 
-export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: PairInfoProps) => {
+export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
   const theme = useTheme()
-  const [oneDayChange, setOneDayChange] = useState(0)
-  const [oneDayChangePrice, setOneDayChangePrice] = useState(0)
-  const [oneDayHeight, setOneDayHeight] = useState(0)
-  const [oneDayLow, setOneDayLow] = useState(0)
+  // const [oneDayChange, setOneDayChange] = useState(0)
+  // const [oneDayChangePrice, setOneDayChangePrice] = useState(0)
+  // const [oneDayHeight, setOneDayHeight] = useState(0)
+  // const [oneDayLow, setOneDayLow] = useState(0)
   const { BTCPrice, isBTCRise, allPoolParams, tradePool, setTradePool, isLoadingFactory } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     isBTCRise: state.isBTCRise,
@@ -31,44 +36,53 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
     isLoadingFactory: state.isLoadingFactory,
   }))
 
-  const handleModelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsProModel(event.target.checked)
-  }
+  const { openDaiLong, openDaiShort, borrowLongVal, borrowShortVal } = useGetMarketStats(
+    tradePool?.storageT || '',
+    tradePool?.decimals || 18,
+    tradePool.pairInfoT || ''
+  )
 
   useEffect(() => {
     if (allPoolParams.length > 0) {
-      const history = localStorage.getItem('trade-pool')
-      const target = allPoolParams.find((pool) => pool.tradingT === history)
-      if (history && target) setTradePool(target)
+      const target = allPoolParams.find((pool) => pool.tradingT === BASE_KRAV_TRADING_ADDRESS)
+      if (target) setTradePool(target)
       else setTradePool(allPoolParams[0])
     }
   }, [isLoadingFactory])
 
-  const getData = useCallback(async () => {
-    try {
-      const response = await fetch(MARKET_CHANGE_API)
-      const data = await response.json()
-      setOneDayHeight(Number(data.highPrice))
-      setOneDayLow(Number(data.lowPrice))
-      setOneDayChange(Number(data.priceChangePercent))
-      setOneDayChangePrice(Number(data.priceChange))
-    } catch (e) {
-      console.error('get 24hr price data failed!', e)
-    }
-  }, [])
+  // const getData = useCallback(async () => {
+  //   try {
+  //     const response = await fetch(MARKET_CHANGE_API)
+  //     const data = await response.json()
+  //     setOneDayHeight(Number(data.data.highPrice))
+  //     setOneDayLow(Number(data.data.lowPrice))
+  //     setOneDayChange(Number(data.data.priceChangePercent))
+  //     setOneDayChangePrice(Number(data.data.priceChange))
+  //   } catch (e) {
+  //     console.error('get 24hr price data failed!', e)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    getData().then()
-    const interval = setInterval(async () => {
-      await getData()
-    }, 7000)
-    return () => {
-      clearInterval(interval)
-    }
-  }, [])
+  // useEffect(() => {
+  //   getData().then()
+  //   const interval = setInterval(async () => {
+  //     await getData()
+  //   }, 7000)
+  //   return () => {
+  //     clearInterval(interval)
+  //   }
+  // }, [])
 
   return (
-    <div css={[pairInfo, card]}>
+    <div
+      css={[
+        pairInfo,
+        card,
+        css`
+          background: ${theme.background.primary};
+        `,
+      ]}
+    >
       <div>
         <div
           css={[
@@ -80,7 +94,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
         >
           <div>
             <span>Market</span>
-            <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
+            {/*<KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />*/}
           </div>
           <div
             onClick={() => {
@@ -94,7 +108,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
               `,
             ]}
           >
-            <span className="symbol">{tradePool?.symbol} / BTC</span>
+            <div className="symbol">
+              <span
+                css={css`
+                  white-space: nowrap;
+                `}
+              >
+                BTC /
+              </span>
+              <span>&nbsp;USDT</span>
+            </div>
             <span
               css={css`
                 color: ${isBTCRise ? '#009b72' : '#db4c40'};
@@ -111,70 +134,105 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
           <div
             className="info-card"
             css={css`
-              border-left: ${theme.card.splitLine};
+              padding: 0 12px !important;
+              border-left: ${theme.splitLine.primary};
             `}
           >
             <p>
-              <Trans>24h Change</Trans>
+              <Trans>Open Interest(L)</Trans>
             </p>
             <p
               css={css`
-                color: ${oneDayChange > 0 ? '#009b72' : '#db4c40'};
+                color: ${theme.text.primary};
+                display: flex;
+                align-items: center;
               `}
             >
-              <span>{oneDayChangePrice.toFixed(2)}</span>
-              <span>({oneDayChange})%</span>
+              <span>{formatNumber(openDaiLong?.toString() || '', 2, false) || '-'}</span>
             </p>
           </div>
           <div
             className="info-card"
             css={css`
-              border-left: ${theme.card.splitLine};
+              padding: 0 12px !important;
+              border-left: ${theme.splitLine.primary};
             `}
           >
             <p>
-              <Trans>Market Price</Trans>
+              <Trans>Open Interest(S)</Trans>
             </p>
             <p
               css={css`
-                color: #000000;
+                color: ${theme.text.primary};
+                display: flex;
+                align-items: center;
               `}
             >
-              <span>{BTCPrice.toFixed(2)}</span>
+              <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
             </p>
           </div>
           <div
             className="info-card"
             css={css`
-              border-left: ${theme.card.splitLine};
+              border-left: ${theme.splitLine.primary};
             `}
           >
             <p>
-              <Trans>24H High</Trans>
+              <Trans>Borrowing(L)</Trans>
             </p>
             <p
               css={css`
-                color: #000000;
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? '#009b72'
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? '#000'
+                  : '#db4c40'};
               `}
             >
-              <span>{oneDayHeight.toFixed(2)}</span>
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                {openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? ''
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? ''
+                  : '-'}
+                {borrowLongVal?.abs()?.toFixed(4)}%
+              </span>
             </p>
           </div>
           <div
             className="info-card"
             css={css`
-              border-left: ${theme.card.splitLine};
+              border-left: ${theme.splitLine.primary};
             `}
           >
             <p>
-              <Trans>24H Low</Trans>
+              <Trans>Borrowing(S)</Trans>
             </p>
             <p
               css={css`
-                color: #000000;
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? '#db4c40'
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? '#000'
+                  : '#009b72'};
               `}
             >
-              <span>{oneDayLow.toFixed(2)}</span>
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                {openDaiShort && openDaiLong?.lt(openDaiShort)
+                  ? ''
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? ''
+                  : '-'}
+                {borrowShortVal?.abs()?.toFixed(4)}%
+              </span>
             </p>
           </div>
         </div>
@@ -183,23 +241,80 @@ export const PairInfo = ({ setIsOpenSelectToken, setIsProModel, isProModel }: Pa
         css={css`
           display: flex;
           align-items: center;
+          background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
+          padding: 2px;
+          border-radius: 8px;
         `}
       >
-        <span
+        <div
           css={css`
-            margin: 0;
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 900;
+            width: 83px;
+            border-radius: 8px;
+            line-height: 130%;
+            text-align: center;
+            cursor: pointer;
+            background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
+            color: ${tradeModel === TradeMode.DEGEN ? '#fff' : theme.text.primary};
+          `}
+          onClick={() => setTradeModel(TradeMode.DEGEN)}
+        >
+          Degen
+        </div>
+        <div
+          css={css`
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 20px;
+            font-style: normal;
+            text-align: center;
+            font-weight: 900;
+            line-height: 130%;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 83px;
+            background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
+            color: ${tradeModel === TradeMode.PRO ? '#fff' : theme.text.primary};
+          `}
+          onClick={() => setTradeModel(TradeMode.PRO)}
+        >
+          Pro
+        </div>
+        <div
+          css={css`
             font-family: 'GT-Flexa-Bold-Trial';
             font-size: 20px;
             font-style: normal;
             font-weight: 900;
             line-height: 130%;
-            padding-right: 12px;
-            color: #2832f5;
+            width: 83px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
+            color: ${tradeModel === TradeMode.BASIC ? '#fff' : theme.text.primary};
           `}
+          onClick={() => setTradeModel(TradeMode.BASIC)}
         >
-          {isProModel ? 'Pro' : 'Basic'}
-        </span>
-        <KravSwitch checked={isProModel} onChange={handleModelChange} />
+          Basic
+        </div>
+        {/*<span*/}
+        {/*/!*  css={css`*!/*/}
+        {/*    margin: 0;*/}
+        {/*    font-family: 'GT-Flexa-Bold-Trial';*/}
+        {/*    font-size: 20px;*/}
+        {/*    font-style: normal;*/}
+        {/*    font-weight: 900;*/}
+        {/*    line-height: 130%;*/}
+        {/*    padding-right: 12px;*/}
+        {/*    color: #2832f5;*/}
+        {/*  `}*/}
+        {/*>*/}
+        {/*  {tradeModel ? 'Pro' : 'Basic'}*/}
+        {/*</span>*/}
+        {/*<KravSwitch checked={tradeModel} onChange={handleModelChange} />*/}
       </div>
     </div>
   )

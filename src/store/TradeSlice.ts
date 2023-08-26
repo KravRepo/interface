@@ -11,11 +11,19 @@ export enum TradeTransactionState {
   OPEN_TRADE_SUCCESS = 'OPEN_TRADE_SUCCESS',
 }
 
+export enum TradeMode {
+  PRO,
+  DEGEN,
+  BASIC,
+}
+
 export interface TradeSlice {
   tradePool: PoolParams
   setTradePool: (tradePool: PoolParams) => void
-  isProModel: boolean
-  setIsProModel: (isProModel: boolean) => void
+  tradeModel: TradeMode
+  setTradeModel: (tradeModel: TradeMode) => void
+  isOpenSelectToken: boolean
+  setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
 }
 
 export const createTradeSlice: StateCreator<
@@ -25,12 +33,16 @@ export const createTradeSlice: StateCreator<
   TradeSlice
 > = (set) => ({
   tradePool: {} as PoolParams,
-  isProModel: true,
+  tradeModel: TradeMode.PRO,
+  isOpenSelectToken: false,
 
   setTradePool(tradePool) {
     set({ tradePool: tradePool })
   },
-  setIsProModel(isProModel: boolean) {
-    set({ isProModel: isProModel })
+  setTradeModel(tradeModel: TradeMode) {
+    set({ tradeModel: tradeModel })
+  },
+  setIsOpenSelectToken(isOpenSelectToken: boolean) {
+    set({ isOpenSelectToken: isOpenSelectToken })
   },
 })

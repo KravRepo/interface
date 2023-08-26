@@ -7,7 +7,7 @@ import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { HistoryItem } from './HistoryItem'
 
-type Quanto = {
+export type Quanto = {
   id: number
   createTime: string
   updateTime: string
@@ -21,6 +21,7 @@ type Quanto = {
   rewardT: string
   vaultT: string
   priceAggregatorT: string
+  timestamp: number
 }
 
 export type HistoryData = {
@@ -71,7 +72,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
       if (quantos.code == 200) {
         const target = quantos.data.find((quanto: Quanto) => quanto?.tradingT === tradePool?.tradingT)
         const historyRequest = await fetch(
-          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${target.id}&offset=0&limit=100`
+          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
         )
         const history = await historyRequest.json()
         if (history.code === 200) {

@@ -1,16 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent } from '@mui/material'
+import { Dialog, DialogContent, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
-import { ReactComponent as DAIIcon } from 'assets/imgs/tokens/dai.svg'
-import { ReactComponent as BTCIcon } from 'assets/imgs/tokens/bitcoin.svg'
+import { ReactComponent as BTCIcon } from '../../assets/imgs/tokens/bitcoin.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { align } from '../../globalStyle'
 import { ConfirmCreatPoolProps } from '../Liquidity/type'
 import { useCreatePool } from '../../hook/hookV8/useCreatePool'
 import { useFactory } from '../../hook/hookV8/useFactory'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { addDecimals } from '../../utils/math'
@@ -28,6 +27,7 @@ export const ConfirmCreatPool = ({
   setTicketSize,
   setTokenAddress,
 }: ConfirmCreatPoolProps) => {
+  const theme = useTheme()
   const creatPool = useCreatePool()
   const updateFactory = useFactory()
   const getUserPosition = useUserPosition()
@@ -44,31 +44,48 @@ export const ConfirmCreatPool = ({
     } catch (e) {}
   }, [creatPool, updateFactory, tokenAddress])
 
+  const tokenLogoSource = useMemo(() => {
+    try {
+      return require(`../../assets/imgs/tokens/${tokenSymbol}.svg`)
+    } catch (e) {
+      return require('../../assets/imgs/tokens/default_token.svg')
+    }
+  }, [tokenSymbol])
+
   return (
     <Dialog
       sx={{
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>Confirm</span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
             `}
           >
-            <div className="confirm-content-input2">
+            <div
+              className="confirm-content-input2"
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
               <p>Target Market</p>
               <div css={align}>
                 <BTCIcon height="40" width="40" />
@@ -85,10 +102,23 @@ export const ConfirmCreatPool = ({
                 </div>
               </div>
             </div>
-            <div className="confirm-content-input2">
+            <div
+              className="confirm-content-input2"
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
               <p>Token Collateral</p>
               <div css={align}>
-                <DAIIcon height="40" width="40" />
+                <img
+                  css={css`
+                    border-radius: 50%;
+                    background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                  `}
+                  src={tokenLogoSource}
+                  height="40"
+                  width="40"
+                />
                 <div
                   css={css`
                     margin-left: 12px;

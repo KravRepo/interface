@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { MarketItemProps } from './type'
 import { useRootStore } from '../../store/root'
@@ -11,8 +10,10 @@ import { eXDecimals } from '../../utils/math'
 import { css } from '@emotion/react'
 import { getBigNumberStr } from '../../utils'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
+import { useTheme } from '@mui/material'
 
-export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => {
+export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
+  const theme = useTheme()
   const { account } = useWeb3React()
   const getLpReward = useGetLpReward(poolParams.vaultT, poolParams.decimals)
   const [lpReward, setLpReward] = useState(new BigNumber(0))
@@ -27,6 +28,12 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
     return eXDecimals(supply, poolParams.decimals)
   }, [poolParams, userPositionDatas])
 
+  const apr = useMemo(() => {
+    const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
+    if (res) return res.apr
+    else return new BigNumber(0)
+  }, [aprList])
+
   useEffect(() => {
     if (poolSupply.isGreaterThan(0)) {
       getLpReward(setLpReward).then()
@@ -36,7 +43,15 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
   return (
     <div className="liquidity-table">
       <div css={align}>
-        <DAIIcon height="40" width="40" />
+        <img
+          css={css`
+            border-radius: 50%;
+            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+          `}
+          src={poolParams.logoSource}
+          height="40"
+          width="40"
+        />
         <div
           css={css`
             margin-left: 8px;
@@ -46,14 +61,16 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
           <p className="small grey">{poolParams.symbol}</p>
         </div>
       </div>
-      <div>1 BTC={poolParams.proportionBTC}</div>
-      <div>12.32%</div>
+      {/*<div>*/}
+      {/*  1 BTC={poolParams.proportionBTC} {poolParams.symbol}*/}
+      {/*</div>*/}
+      <div>{apr.toFixed(2)}%</div>
       <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>
         <p>
           {poolParams.poolTotalSupply?.toFixed(2)} {poolParams.symbol}
         </p>
-        <p className="small grey">({poolParams.poolTotalSupply?.div(poolParams.proportionBTC).toFixed(2)}&nbsp;BTC) </p>
+        {/*<p className="small grey">({poolParams.poolTotalSupply?.div(poolParams.proportionBTC).toFixed(2)}&nbsp;BTC) </p>*/}
       </div>
       <div>
         {getBigNumberStr(poolSupply, 2)} {poolParams.symbol}
@@ -64,6 +81,15 @@ export const MarketItem = ({ setAddLiquidity, poolParams }: MarketItemProps) => 
       <div>
         {account && (
           <KRAVButton
+            sx={{
+              backgroundColor: theme.hollowButton.background,
+              border: theme.hollowButton.border,
+              color: theme.hollowButton.text,
+              '&:hover': {
+                backgroundColor: theme.hollowButton.hoverBg,
+                color: theme.hollowButton.hoverText,
+              },
+            }}
             onClick={() => {
               setAddLiquidity(true)
               setLiquidityInfo(poolParams)

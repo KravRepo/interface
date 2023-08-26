@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core'
-import { LANGUAGE_LOCALSTORAGE_KEY } from 'config/loaclStorage'
+import { LANGUAGE_LOCALSTORAGE_KEY } from '../config/loaclStorage'
 
 export const defaultLocale = 'en'
 

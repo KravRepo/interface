@@ -1,6 +1,6 @@
 import { initializeConnector } from '@web3-react/core'
 import { WalletConnect } from '@web3-react/walletconnect'
-import { URLS } from 'constant/constantV8/chain'
+import { URLS } from '../constant/constantV8/chain'
 
 export const [walletConnect, hooks] = initializeConnector<WalletConnect>(
   (actions) =>

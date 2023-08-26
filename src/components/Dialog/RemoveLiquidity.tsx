@@ -1,22 +1,23 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, TextField } from '@mui/material'
+import { Box, Dialog, DialogContent, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { RemoveLiquidityProps } from '../Liquidity/type'
-import { useRemoveLiquidity } from 'hook/hookV8/useRemoveLiquidity'
+import { useRemoveLiquidity } from '../../hook/hookV8/useRemoveLiquidity'
 import { useRootStore } from '../../store/root'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
+import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 import { useFactory } from '../../hook/hookV8/useFactory'
 
 export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => {
+  const theme = useTheme()
   const { provider } = useWeb3React()
   const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
   const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0)
@@ -30,11 +31,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   }, [liquidityInfo, userPositionDatas])
   const getPoolBalance = useCallback(() => {
     if (Object.keys(liquidityInfo).length > 0 && targetPool) {
-      const res = targetPool.maxDaiDeposited.times(liquidityInfo.maxWithdrawP.div(100) ?? 0)
-      const lockedAmount = targetPool.daiDeposited.minus(res)
+      const res = targetPool?.maxDaiDeposited?.times(liquidityInfo?.maxWithdrawP.div(100) ?? 0)
+      const lockedAmount = targetPool?.daiDeposited?.minus(res)
       const maxAmount = eXDecimals(
-        lockedAmount.isGreaterThan(0) ? res : targetPool.daiDeposited,
-        targetPool.pool.decimals
+        lockedAmount?.isGreaterThan(0) ? res : targetPool?.daiDeposited,
+        targetPool?.pool?.decimals
       ).toNumber()
       setMaxWithdrawAmount(maxAmount)
     }
@@ -54,14 +55,19 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>Remove Liquidity</span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
@@ -71,13 +77,53 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               }}
             />
           </div>
+          <Box
+            padding={'24px 0'}
+            width={392}
+            margin={'auto'}
+            sx={{
+              borderBottom: theme.splitLine.primary,
+            }}
+          >
+            <Stack direction={'row'}>
+              <WarningIcon />
+              <Typography
+                fontFamily={'Inter'}
+                fontSize={16}
+                fontWeight={500}
+                lineHeight={'150%'}
+                sx={{ marginLeft: '8px !important' }}
+              >
+                Liquidity Remove Limit
+              </Typography>
+            </Stack>
+            <Typography
+              fontFamily={'Inter'}
+              fontSize={14}
+              fontWeight={400}
+              lineHeight={'150%'}
+              sx={{ marginTop: '16px !important' }}
+            >
+              <span style={{ fontWeight: 600 }}>Reminder: </span>
+              <span>
+                When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
+                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
+                a stable and fair trading environment on our platform.
+              </span>
+            </Typography>
+          </Box>
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
             `}
           >
-            <div className="confirm-content-input3">
+            <div
+              className="confirm-content-input3"
+              css={css`
+                background: ${theme.background.second};
+                color: ${theme.text.primary};
+              `}
+            >
               <div
                 css={css`
                   display: flex;
@@ -109,6 +155,8 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                     disableUnderline: true,
                   }}
                   sx={{
+                    background: theme.background.second,
+                    color: theme.text.primary,
                     height: '28px',
                     fontSize: '20px',
                     minHeight: '28px',
@@ -123,7 +171,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: #a4a8fe;
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;
@@ -138,9 +186,17 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                         margin: 0 6px;
                       `}
                     >
-                      DAI
+                      {liquidityInfo.symbol}
                     </span>
-                    <DAIIcon height="16" width="16" />
+                    <img
+                      css={css`
+                        border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                      `}
+                      src={liquidityInfo.logoSource}
+                      height="16"
+                      width="16"
+                    />
                   </div>
                 </div>
               </div>

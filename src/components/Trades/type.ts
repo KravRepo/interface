@@ -1,6 +1,13 @@
 import BigNumber from 'bignumber.js'
 
-export type Tuple = {
+export type Tuple = TupleWithTrade & {
+  isPendingOrder: boolean
+  beingMarketClosed: boolean
+  orderId?: BigNumber
+  isInPending?: boolean
+}
+
+export type TupleWithTrade = {
   trader: string
   sl: string | BigNumber
   tp: string | BigNumber
@@ -30,7 +37,7 @@ export type TupleLimitOrder = {
 }
 
 export type OpenTradeParams = {
-  tuple: Tuple
+  tuple: TupleWithTrade
   tradeType: number
   spreadReductionId: number
   slippageP: string | BigNumber

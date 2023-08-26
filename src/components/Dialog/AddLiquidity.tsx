@@ -1,21 +1,22 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, TextField } from '@mui/material'
+import { Box, Dialog, DialogContent, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { AddLiquidityProps } from '../Liquidity/type'
 import { useRootStore } from '../../store/root'
 import { useMemo, useState } from 'react'
-import { useAddLiquidity } from 'hook/hookV8/useAddLiquidity'
+import { useAddLiquidity } from '../../hook/hookV8/useAddLiquidity'
 import { addDecimals } from '../../utils/math'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import BigNumber from 'bignumber.js'
 import { useFactory } from '../../hook/hookV8/useFactory'
+import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 
 export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
+  const theme = useTheme()
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const addLiquidity = useAddLiquidity(liquidityInfo.tokenT)
@@ -38,15 +39,20 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header "
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>Add Liquidity</span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
@@ -56,13 +62,46 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
               }}
             />
           </div>
+          <Box padding={'24px'} pb={0}>
+            <Stack direction={'row'}>
+              <WarningIcon />
+              <Typography
+                fontFamily={'Inter'}
+                fontSize={16}
+                fontWeight={500}
+                lineHeight={'150%'}
+                sx={{ marginLeft: '8px !important' }}
+              >
+                Liquidity Remove Limit
+              </Typography>
+            </Stack>
+            <Typography
+              fontFamily={'Inter'}
+              fontSize={14}
+              fontWeight={400}
+              lineHeight={'150%'}
+              sx={{ marginTop: '16px !important' }}
+            >
+              <span style={{ fontWeight: 600 }}>Reminder: </span>
+              <span>
+                When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
+                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
+                a stable and fair trading environment on our platform.
+              </span>
+            </Typography>
+          </Box>
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
             `}
           >
-            <div className="confirm-content-input3">
+            <div
+              className="confirm-content-input3"
+              css={css`
+                background: ${theme.background.second};
+                color: ${theme.text.primary};
+              `}
+            >
               <div
                 css={css`
                   display: flex;
@@ -89,11 +128,14 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                   variant="standard"
                   type="number"
                   value={amount}
+                  placeholder="0"
                   onChange={(e) => setAmount(e.target.value)}
                   InputProps={{
                     disableUnderline: true,
                   }}
                   sx={{
+                    background: theme.background.second,
+                    color: theme.text.primary,
                     height: '28px',
                     fontSize: '20px',
                     minHeight: '28px',
@@ -108,7 +150,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: #a4a8fe;
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;
@@ -125,7 +167,15 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                     >
                       {liquidityInfo.symbol}
                     </span>
-                    <DAIIcon height="16" width="16" />
+                    <img
+                      css={css`
+                        border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                      `}
+                      src={liquidityInfo.logoSource}
+                      height="16"
+                      width="16"
+                    />
                   </div>
                 </div>
               </div>

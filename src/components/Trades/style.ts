@@ -10,6 +10,9 @@ export const tradeLeft = css`
 
 export const tradeRight = css`
   width: 358px;
+  @media screen and (max-width: 1330px) {
+    width: 310px;
+  }
 `
 
 export const pairInfo = css`
@@ -20,11 +23,14 @@ export const pairInfo = css`
     align-items: center;
   }
   .info-card {
+    white-space: nowrap;
+    min-width: 96px;
     height: 40px;
-    padding: 0 24px;
+    padding: 0 12px;
     color: #757575;
     font-size: 12px;
     > p {
+      white-space: nowrap;
       margin: 0 0 5px 0;
     }
   }
@@ -52,7 +58,6 @@ export const card = css`
   flex-direction: row;
   align-items: center;
   padding: 12px 24px;
-  gap: 32px;
 `
 
 export const actionCard = css`
@@ -64,7 +69,6 @@ export const actionCard = css`
 
 export const bottomCard = css`
   margin-top: 18px;
-  background: #fff;
   border-radius: 8px;
   font-size: 14px;
   padding-bottom: 24px;
@@ -73,13 +77,13 @@ export const bottomCard = css`
     line-height: 46px;
     font-size: 16px;
     padding-left: 24px;
-    border-bottom: 1px solid #dadada;
     font-style: normal;
     font-weight: 500;
   }
   .card-details {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
     padding: 0 24px 8px;
   }
 `

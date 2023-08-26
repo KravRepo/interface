@@ -37,24 +37,24 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
             </div>
           </div>
           <div className="select-token-list">
-            <div
-              onClick={async () => {
-                await getFaucet('0x8b99c4DE6f3D396a9d4BBcAF9fA138F5393299FE')
-                setIsOpen(false)
-              }}
-            >
-              <div css={align}>
-                <DAIIcon height="40" width="40" />
-                <div
-                  css={css`
-                    margin-left: 12px;
-                  `}
-                >
-                  <p>KRAV</p>
-                  <p className="grey">Krav</p>
-                </div>
-              </div>
-            </div>
+            {/*<div*/}
+            {/*  onClick={async () => {*/}
+            {/*    await getFaucet('0x8b99c4DE6f3D396a9d4BBcAF9fA138F5393299FE')*/}
+            {/*    setIsOpen(false)*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  <div css={align}>*/}
+            {/*    <DAIIcon height="40" width="40" />*/}
+            {/*    <div*/}
+            {/*      css={css`*/}
+            {/*        margin-left: 12px;*/}
+            {/*      `}*/}
+            {/*    >*/}
+            {/*      <p>KRAV</p>*/}
+            {/*      <p className="grey">Krav</p>*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             {allPoolParams.length > 0 &&
               allPoolParams.map((pool) => {
                 return (

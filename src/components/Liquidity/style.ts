@@ -4,7 +4,6 @@ export const liquidity = css`
   max-width: 1376px;
   margin: 16px auto 0;
   .liquidity-content {
-    background: #ffffff;
     border-radius: 8px;
     margin-bottom: 18px;
   }
@@ -12,21 +11,20 @@ export const liquidity = css`
     font-size: 20px;
     font-weight: 500;
     padding: 16px 0 12px 32px;
-    border-bottom: 1px solid #dadada;
   }
   .liquidity-table {
     padding: 0 48px 16px 32px;
     align-items: center;
     display: grid;
     grid-template-columns:
-      2fr minmax(100px, 1.8fr) minmax(60px, 1fr) minmax(60px, 1.3fr) minmax(120px, 2.2fr) minmax(120px, 2.2fr)
+      2fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.2fr) minmax(120px, 2.2fr)
       1.6fr 117px;
     font-size: 14px;
   }
   .liquidity-search {
     padding: 24px 48px 24px 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
   .grey {
     color: #757575;
@@ -56,7 +54,6 @@ export const creatPool = css`
   //min-height: calc(100vh - 300px);
   min-height: calc(100vh - 284px);
   margin-bottom: -40px;
-  background: white;
   .creat-pool-content {
     max-width: 1248px;
     margin: 0 auto;
@@ -91,7 +88,6 @@ export const creatPool = css`
       margin-left: 80px;
       margin-bottom: 40px;
       padding: 40px 40px 16px 40px;
-      background: #f6f6f6;
       .step {
         > p:first-of-type {
           font-size: 16px;

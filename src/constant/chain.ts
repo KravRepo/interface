@@ -2,6 +2,7 @@ export enum ChainId {
   MAINNET = 1,
   BSC_TEST = 97,
   SEPOLIA = 11155111,
+  BASE = 8453,
 }
 
 // export const TEST_RPC_NODE =
@@ -10,27 +11,32 @@ export enum ChainId {
 //
 // export const TEST_RPC_NODE = 'https://rpc.ankr.com/bsc_testnet_chapel'
 //
-export const TEST_RPC_NODE =
-  'https://rpc.ankr.com/eth_sepolia/10cb3cef955b49d3f7b668bd18022ec795aa0b97edcdc0490ee39336f2c8af58'
+export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
 
-export const LINK_ADDRESS = '0x779877A7B0D9E8603169DdbD7836e478b4624789'
+export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
 
-export const NODE_ADDRESS = ['0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A']
+export const NODE_ADDRESS = ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56']
 
-export const K_LINE_API = 'https://test-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
+export const K_LINE_API = 'https://base-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
-export const QUANTO_API = 'https://test-api.krav.trade/krav/v1/list/quanto'
+export const QUANTO_API = 'https://base-api.krav.trade/krav/v1/list/quanto'
 
-export const TRADE_HISTORY_API = 'https://test-api.krav.trade/krav/v1/list/market'
+export const TRADE_HISTORY_API = 'https://base-api.krav.trade/krav/v1/list/market'
 
-export const DASHBOARD_OVERVIEW_API = 'https://test-api.krav.trade/krav/v1/overview'
+export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 
-export const MARKET_CHANGE_API = 'https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT'
+export const MARKET_CHANGE_API = 'https://base-api.krav.trade/krav/v1/price/24hr?symbol=BTCUSDT'
 
-export const TEST_CHAIN_ID = ChainId.SEPOLIA
+export const TEST_CHAIN_ID = ChainId.BASE
 
 export const BTC_CONTRACT = '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
+
+export const BTC_PRICE_API = 'https://base-api.krav.trade/krav/v1/price?symbol=BTCUSDT'
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
 export const KRAV_ADDRESS = '0x8b99c4DE6f3D396a9d4BBcAF9fA138F5393299FE'
+
+export const DashBoard_USER_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/user/asset/amount?account='
+
+export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D94b1'
