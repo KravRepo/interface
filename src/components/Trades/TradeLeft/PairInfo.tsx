@@ -248,35 +248,45 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
       >
         <div
           css={css`
-            font-family: 'GT-Flexa-Bold-Trial';
-            font-size: 20px;
+            font-family: 'Inter';
+            font-size: 12px;
             font-style: normal;
-            font-weight: 900;
-            width: 83px;
-            border-radius: 8px;
             line-height: 130%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            width: 83px;
             text-align: center;
             cursor: pointer;
-            background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
-            color: ${tradeModel === TradeMode.DEGEN ? '#fff' : theme.text.primary};
+            border-radius: 8px;
+            background: ${tradeModel === TradeMode.BASIC
+              ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+              : 'transparent'};
+            color: ${tradeModel === TradeMode.BASIC ? '#000' : theme.text.primary};
           `}
-          onClick={() => setTradeModel(TradeMode.DEGEN)}
+          onClick={() => setTradeModel(TradeMode.BASIC)}
         >
-          Degen
+          Basic
         </div>
         <div
           css={css`
-            font-family: 'GT-Flexa-Bold-Trial';
-            font-size: 20px;
+            font-family: 'Inter';
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-style: normal;
             text-align: center;
-            font-weight: 900;
+            height: 30px;
             line-height: 130%;
             border-radius: 8px;
             cursor: pointer;
             width: 83px;
-            background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
-            color: ${tradeModel === TradeMode.PRO ? '#fff' : theme.text.primary};
+            background: ${tradeModel === TradeMode.PRO
+              ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+              : 'transparent'};
+            color: ${tradeModel === TradeMode.PRO ? '#000' : theme.text.primary};
           `}
           onClick={() => setTradeModel(TradeMode.PRO)}
         >
@@ -284,21 +294,26 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
         </div>
         <div
           css={css`
-            font-family: 'GT-Flexa-Bold-Trial';
-            font-size: 20px;
+            font-family: 'Inter';
+            font-size: 12px;
             font-style: normal;
-            font-weight: 900;
-            line-height: 130%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 83px;
+            height: 30px;
+            border-radius: 8px;
+            line-height: 130%;
             text-align: center;
             cursor: pointer;
-            border-radius: 8px;
-            background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
-            color: ${tradeModel === TradeMode.BASIC ? '#fff' : theme.text.primary};
+            background: ${tradeModel === TradeMode.DEGEN
+              ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+              : 'transparent'};
+            color: ${tradeModel === TradeMode.DEGEN ? '#000' : theme.text.primary};
           `}
-          onClick={() => setTradeModel(TradeMode.BASIC)}
+          onClick={() => setTradeModel(TradeMode.DEGEN)}
         >
-          Basic
+          Degen
         </div>
         {/*<span*/}
         {/*/!*  css={css`*!/*/}
