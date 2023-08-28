@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Button, Link, Menu, MenuItem, Switch, Tooltip, useTheme } from '@mui/material'
+import { Box, Button, Link, Menu, MenuItem, Tooltip, useTheme } from '@mui/material'
 import { Trans } from '@lingui/macro'
 import { header, headerBtn, router, setting, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
@@ -17,8 +17,6 @@ import { ReactComponent as DisconnectDarkIcon2 } from '../../assets/imgs/darkMod
 import { ReactComponent as ThemeIconLight } from '../../assets/imgs/model_icon.svg'
 import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/model_icon_dark.svg'
 import { ReactComponent as KravDarkLogo } from '../../assets/imgs/darkModel/krav_logo_dark.svg'
-import SwitchDarkIcon from '../../assets/imgs/darkModel/theme_Switch_dark_icon.svg'
-import SwitchIcon from '../../assets/imgs/theme_icon_light.svg'
 import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
 import { ConnectWalletDialog } from '../../components/Dialog/ConnectWallet'
@@ -39,51 +37,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { getBigNumberStr } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
-import { styled } from '@mui/material/styles'
 import { useSetThemeContext } from '../../theme/appTheme'
+import { KravModeSwitch } from '../KravUIKit/KravModeSwitch'
 
-const ModeSwitch = styled(Switch)(({ theme }) => ({
-  width: 50,
-  height: 28,
-  padding: 0,
-  borderRadius: '18px',
-  '& .MuiSwitch-switchBase': {
-    margin: '2px 0 0 0',
-    padding: 0,
-    transform: 'translateX(6px)',
-    '&.Mui-checked': {
-      color: '#fff',
-      transform: 'translateX(22px)',
-      '& .MuiSwitch-thumb:before': {
-        backgroundImage: `url(${theme.palette.mode === 'dark' ? SwitchDarkIcon : SwitchIcon})`,
-      },
-      '& + .MuiSwitch-track': {
-        opacity: 1,
-        backgroundColor: theme.palette.mode === 'dark' ? '#0F1114' : '#aab4be',
-      },
-    },
-  },
-  '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#ffffff',
-    width: 24,
-    height: 24,
-    '&:before': {
-      content: "''",
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      left: 0,
-      top: 0,
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-    },
-  },
-  '& .MuiSwitch-track': {
-    opacity: 1,
-    backgroundColor: theme.palette.mode === 'dark' ? '#0F1114' : '#aab4be',
-    borderRadius: 20 / 2,
-  },
-}))
+
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -530,7 +487,7 @@ export const Header = () => {
                         {theme.palette.mode === 'light' ? 'Light Mode' : 'Dark Mode'}
                       </span>
                     </div>
-                    <ModeSwitch checked={true} onClick={toggleTheme} />
+                    <KravModeSwitch checked={true} onClick={toggleTheme} />
                   </div>
                 </div>
               </Menu>
