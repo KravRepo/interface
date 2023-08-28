@@ -3,7 +3,6 @@ import { Switch } from '@mui/material'
 import SwitchDarkIcon from '../../assets/imgs/darkModel/theme_Switch_dark_icon.svg'
 import SwitchIcon from '../../assets/imgs/theme_icon_light.svg'
 
-
 export const KravModeSwitch = styled(Switch)(({ theme }) => ({
   width: 50,
   height: 28,
