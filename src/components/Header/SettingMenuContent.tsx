@@ -17,7 +17,7 @@ import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/mod
 import { KravModeSwitch } from '../KravUIKit/KravModeSwitch'
 import BigNumber from 'bignumber.js'
 
-type SettingMenuContentProps = {
+export type SettingMenuContentProps = {
   toggleTheme: () => void
   account: string
   openTooltip: boolean
