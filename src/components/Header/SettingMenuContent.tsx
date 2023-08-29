@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
 import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/KRAV.svg'

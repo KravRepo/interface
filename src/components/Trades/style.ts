@@ -2,7 +2,6 @@ import { css } from '@emotion/react'
 
 export const tradeLeft = css`
   flex: 1;
-  padding-right: 18px;
   > div {
     width: 100%;
   }
@@ -12,6 +11,9 @@ export const tradeRight = css`
   width: 358px;
   @media screen and (max-width: 1330px) {
     width: 310px;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 100%;
   }
 `
 

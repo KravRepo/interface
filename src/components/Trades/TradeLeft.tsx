@@ -7,7 +7,7 @@ import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
-import { css, useTheme } from '@mui/material'
+import { css, useMediaQuery, useTheme } from '@mui/material'
 import { TradeMode } from '../../store/TradeSlice'
 
 type TradeLeftProps = {
@@ -19,18 +19,26 @@ type TradeLeftProps = {
 }
 
 export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeType }: TradeLeftProps) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
     tradeModel: state.tradeModel,
     setTradeModel: state.setTradeModel,
     isOpenSelectToken: state.isOpenSelectToken,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
-  const theme = useTheme()
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
-      <div css={tradeLeft}>
+      <div
+        css={[
+          tradeLeft,
+          css`
+            padding-right: ${isMobile ? 0 : '18px'};
+          `,
+        ]}
+      >
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
         {tradeModel !== TradeMode.BASIC && (
           <div
@@ -53,7 +61,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             tradeType={tradeType}
           />
         )}
-        <MyTrade />
+        {!isMobile && <MyTrade />}
       </div>
     </>
   )

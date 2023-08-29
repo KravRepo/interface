@@ -8,6 +8,8 @@ import { useRootStore } from '../store/root'
 import { useLocation } from 'react-router-dom'
 import { VALIDITY_ADDRESS_LENGTH } from '../constant/math'
 import { decodeReferral } from '../utils'
+import { useMediaQuery, useTheme } from '@mui/material'
+import { MyTrade } from '../components/Trades/TradeLeft/MyTrade'
 
 export const Trade = () => {
   const [leverage, setLeverage] = useState(2)
@@ -19,7 +21,8 @@ export const Trade = () => {
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const [limitPrice, setLimitPrice] = useState<string | BigNumber>(BTCPrice)
   const { pathname } = useLocation()
-
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   useEffect(() => {
     const referralBase64Str = pathname.split('/').length > 2 ? pathname.split('/')[2] : null
     if (referralBase64Str) {
@@ -34,7 +37,7 @@ export const Trade = () => {
   return (
     <div
       css={css`
-        display: flex;
+        display: ${isMobile ? 'block' : 'flex'};
         padding: 16px 32px 0;
         width: 100%;
         font-family: 'Inter';
@@ -63,6 +66,7 @@ export const Trade = () => {
         tradeType={tradeType}
         setTradeType={setTradeType}
       />
+      {isMobile && <MyTrade />}
     </div>
   )
 }
