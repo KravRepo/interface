@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, Input, useTheme } from '@mui/material'
+import { Input, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
@@ -13,6 +13,7 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
+import { DialogLayout } from './DialogLayout'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -157,178 +158,192 @@ export const ProfitConfirmTrade = ({
   }, [slLimit])
 
   return (
-    <Dialog
-      sx={{
-        '.MuiDialog-paper': {
-          width: '440px',
-          borderRadius: '8px',
-          background: theme.background.primary,
-          // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
-        },
-      }}
-      open={isOpen}
-    >
-      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
-        <div css={dialogContent}>
-          <div className="dialog-header ">
-            <span>BTC/USDT(Update SL/TP)</span>
-            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
-          </div>
-          <div
-            css={css`
-              padding: 24px 0 0;
-              border-bottom: ${theme.splitLine.primary};
-            `}
-          >
-            <div className="confirm-content-input">
-              <div
-                css={css`
-                  padding: 0 24px;
-                  margin-bottom: 16px;
-                `}
-              >
-                <div>
-                  {(slSetting !== 0 || !slUsePercentage) && (
-                    <div
-                      css={css`
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        padding: 8px 0;
-                      `}
-                    >
-                      <div>
-                        StopLoss{' '}
-                        <span
-                          css={css`
-                            color: #db4c40;
-                          `}
-                        >
-                          (
-                          {slUsePercentage
-                            ? '$' + getBigNumberStr(targetSl, 2)
-                            : getBigNumberStr(slPercentage, 2) + '%'}
-                          )
-                        </span>
-                      </div>
-                      <span>
-                        {isNaN(slPercentage.times(openTrade.initialPosToken).div(100).toNumber())
-                          ? '--'
-                          : getBigNumberStr(slPercentage.times(openTrade.initialPosToken).div(100), 2)}
-                        {tradePool.symbol}
-                      </span>
-                    </div>
-                  )}
-                  {slSetting === 0 && slUsePercentage && (
-                    <div
-                      css={css`
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        padding: 8px 0;
-                      `}
-                    >
-                      <div>
-                        StopLoss{' '}
-                        <span
-                          css={css`
-                            color: #db4c40;
-                          `}
-                        >
-                          (None)
-                        </span>
-                      </div>
-                      <span
-                        css={css`
-                          color: #db4c40;
-                        `}
-                      >
-                        None
-                      </span>
-                    </div>
-                  )}
+    <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen}>
+      <div css={dialogContent}>
+        <div className="dialog-header ">
+          <span>BTC/USDT(Update SL/TP)</span>
+          <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
+        </div>
+        <div
+          css={css`
+            padding: 24px 0 0;
+            border-bottom: ${theme.splitLine.primary};
+          `}
+        >
+          <div className="confirm-content-input">
+            <div
+              css={css`
+                padding: 0 24px;
+                margin-bottom: 16px;
+              `}
+            >
+              <div>
+                {(slSetting !== 0 || !slUsePercentage) && (
                   <div
                     css={css`
                       display: flex;
                       align-items: center;
                       justify-content: space-between;
-                      background: ${theme.background.second};
-                      > span {
-                        cursor: pointer;
-                      }
+                      padding: 8px 0;
                     `}
                   >
+                    <div>
+                      StopLoss{' '}
+                      <span
+                        css={css`
+                          color: #db4c40;
+                        `}
+                      >
+                        ({slUsePercentage ? '$' + getBigNumberStr(targetSl, 2) : getBigNumberStr(slPercentage, 2) + '%'}
+                        )
+                      </span>
+                    </div>
+                    <span>
+                      {isNaN(slPercentage.times(openTrade.initialPosToken).div(100).toNumber())
+                        ? '--'
+                        : getBigNumberStr(slPercentage.times(openTrade.initialPosToken).div(100), 2)}
+                      {tradePool.symbol}
+                    </span>
+                  </div>
+                )}
+                {slSetting === 0 && slUsePercentage && (
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 8px 0;
+                    `}
+                  >
+                    <div>
+                      StopLoss{' '}
+                      <span
+                        css={css`
+                          color: #db4c40;
+                        `}
+                      >
+                        (None)
+                      </span>
+                    </div>
                     <span
-                      css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(true, 0)}
+                      css={css`
+                        color: #db4c40;
+                      `}
                     >
                       None
                     </span>
-                    <span
-                      css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(true, -10)}
-                    >
-                      -10%
-                    </span>
-                    <span
-                      css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(true, -25)}
-                    >
-                      -25%
-                    </span>
-                    <span
-                      css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(true, -50)}
-                    >
-                      -50%
-                    </span>
-                    <span
-                      css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(true, -75)}
-                    >
-                      -75%
-                    </span>
-                    <Input
-                      type="number"
-                      placeholder="Price"
-                      disableUnderline={true}
-                      value={slPrice}
-                      onChange={(event) => {
-                        setSlPrice(new BigNumber(event.target.value))
-                      }}
-                      onClick={() => setUseSlPercentage(false)}
-                      sx={{
-                        height: '28px',
-                        fontSize: '14px',
-                        minHeight: '28px',
-                        width: '73px',
-                        '& .MuiOutlinedInput-root': {
-                          height: '28px',
-                          minHeight: '28px',
-                          padding: 0,
-                        },
-                        '& .MuiInputBase-input': {
-                          background: theme.background.second,
-                          color: theme.text.primary,
-                          padding: '0px 0px 0px 4px',
-                          margin: '4px 4px 5px 0',
-                        },
-                      }}
-                    />
                   </div>
-                  <KRAVButton
-                    disabled={slLimit !== SlLimitState.UPDATE}
-                    onClick={async () => {
-                      setIsOpen(false)
-                      await closeTradeMarket(true, targetSl, openTrade.index)
-                    }}
-                    sx={{ marginTop: '20px' }}
+                )}
+                <div
+                  css={css`
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background: ${theme.background.second};
+
+                    > span {
+                      cursor: pointer;
+                    }
+                  `}
+                >
+                  <span
+                    css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(true, 0)}
                   >
-                    {slButtonText}
-                  </KRAVButton>
+                    None
+                  </span>
+                  <span
+                    css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(true, -10)}
+                  >
+                    -10%
+                  </span>
+                  <span
+                    css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(true, -25)}
+                  >
+                    -25%
+                  </span>
+                  <span
+                    css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(true, -50)}
+                  >
+                    -50%
+                  </span>
+                  <span
+                    css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(true, -75)}
+                  >
+                    -75%
+                  </span>
+                  <Input
+                    type="number"
+                    placeholder="Price"
+                    disableUnderline={true}
+                    value={slPrice}
+                    onChange={(event) => {
+                      setSlPrice(new BigNumber(event.target.value))
+                    }}
+                    onClick={() => setUseSlPercentage(false)}
+                    sx={{
+                      height: '28px',
+                      fontSize: '14px',
+                      minHeight: '28px',
+                      width: '73px',
+                      '& .MuiOutlinedInput-root': {
+                        height: '28px',
+                        minHeight: '28px',
+                        padding: 0,
+                      },
+                      '& .MuiInputBase-input': {
+                        background: theme.background.second,
+                        color: theme.text.primary,
+                        padding: '0px 0px 0px 4px',
+                        margin: '4px 4px 5px 0',
+                      },
+                    }}
+                  />
                 </div>
-                <div>
-                  {(tpSetting !== 0 || !tpUsePercentage) && (
+                <KRAVButton
+                  disabled={slLimit !== SlLimitState.UPDATE}
+                  onClick={async () => {
+                    setIsOpen(false)
+                    await closeTradeMarket(true, targetSl, openTrade.index)
+                  }}
+                  sx={{ marginTop: '20px' }}
+                >
+                  {slButtonText}
+                </KRAVButton>
+              </div>
+              <div>
+                {(tpSetting !== 0 || !tpUsePercentage) && (
+                  <div
+                    css={css`
+                      display: flex;
+                      align-items: center;
+                      justify-content: space-between;
+                      padding: 16px 0 8px;
+                    `}
+                  >
+                    <div>
+                      Take Profit{' '}
+                      <span
+                        css={css`
+                          color: #009b72;
+                        `}
+                      >
+                        ({tpUsePercentage ? '$' + getBigNumberStr(targetTp, 2) : getBigNumberStr(tpPercentage, 2) + '%'}
+                        )
+                      </span>
+                    </div>
+                    {isNaN(tpPercentage.times(openTrade.initialPosToken).div(100).toNumber())
+                      ? '--'
+                      : getBigNumberStr(tpPercentage.times(openTrade.initialPosToken).div(100), 2)}
+                    {tradePool.symbol}
+                  </div>
+                )}
+                {tpSetting === 0 && tpUsePercentage && (
+                  <>
                     <div
                       css={css`
                         display: flex;
@@ -344,150 +359,120 @@ export const ProfitConfirmTrade = ({
                             color: #009b72;
                           `}
                         >
-                          (
-                          {tpUsePercentage
-                            ? '$' + getBigNumberStr(targetTp, 2)
-                            : getBigNumberStr(tpPercentage, 2) + '%'}
-                          )
+                          (None)
                         </span>
                       </div>
-                      {isNaN(tpPercentage.times(openTrade.initialPosToken).div(100).toNumber())
-                        ? '--'
-                        : getBigNumberStr(tpPercentage.times(openTrade.initialPosToken).div(100), 2)}
-                      {tradePool.symbol}
-                    </div>
-                  )}
-                  {tpSetting === 0 && tpUsePercentage && (
-                    <>
-                      <div
+                      <span
                         css={css`
-                          display: flex;
-                          align-items: center;
-                          justify-content: space-between;
-                          padding: 16px 0 8px;
+                          color: #009b72;
                         `}
                       >
-                        <div>
-                          Take Profit{' '}
-                          <span
-                            css={css`
-                              color: #009b72;
-                            `}
-                          >
-                            (None)
-                          </span>
-                        </div>
-                        <span
-                          css={css`
-                            color: #009b72;
-                          `}
-                        >
-                          None
-                        </span>
-                      </div>
-                    </>
-                  )}
-                  <div
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                      background: ${theme.background.second};
-                      justify-content: space-between;
-                      > span {
-                        cursor: pointer;
-                      }
-                    `}
+                        None
+                      </span>
+                    </div>
+                  </>
+                )}
+                <div
+                  css={css`
+                    display: flex;
+                    align-items: center;
+                    background: ${theme.background.second};
+                    justify-content: space-between;
+
+                    > span {
+                      cursor: pointer;
+                    }
+                  `}
+                >
+                  <span
+                    css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(false, 25)}
                   >
-                    <span
-                      css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(false, 25)}
-                    >
-                      25%
-                    </span>
-                    <span
-                      css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(false, 50)}
-                    >
-                      50%
-                    </span>
-                    <span
-                      css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(false, 100)}
-                    >
-                      100%
-                    </span>
-                    <span
-                      css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(false, 300)}
-                    >
-                      300%
-                    </span>
-                    <span
-                      css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}
-                      onClick={() => handleTpSLSetting(false, 900)}
-                    >
-                      900%
-                    </span>
-                    <Input
-                      type="number"
-                      placeholder="Price"
-                      disableUnderline={true}
-                      value={tpPrice}
-                      onChange={(event) => {
-                        setTpPrice(new BigNumber(event.target.value))
-                      }}
-                      onClick={() => setTpUsePercentage(false)}
-                      sx={{
-                        height: '28px',
-                        fontSize: '14px',
-                        minHeight: '28px',
-                        width: '73px',
-                        '& .MuiOutlinedInput-root': {
-                          height: '28px',
-                          minHeight: '28px',
-                          padding: 0,
-                        },
-                        '& .MuiInputBase-input': {
-                          background: theme.background.second,
-                          color: theme.text.primary,
-                          padding: '0px 0px 0px 4px',
-                          margin: '4px 4px 5px 0',
-                        },
-                      }}
-                    />
-                  </div>
-                  <KRAVButton
-                    disabled={tpLimit !== TpLimitState.UPDATE}
-                    onClick={async () => {
-                      setIsOpen(false)
-                      await closeTradeMarket(false, targetTp, openTrade.index)
+                    25%
+                  </span>
+                  <span
+                    css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(false, 50)}
+                  >
+                    50%
+                  </span>
+                  <span
+                    css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(false, 100)}
+                  >
+                    100%
+                  </span>
+                  <span
+                    css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(false, 300)}
+                  >
+                    300%
+                  </span>
+                  <span
+                    css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}
+                    onClick={() => handleTpSLSetting(false, 900)}
+                  >
+                    900%
+                  </span>
+                  <Input
+                    type="number"
+                    placeholder="Price"
+                    disableUnderline={true}
+                    value={tpPrice}
+                    onChange={(event) => {
+                      setTpPrice(new BigNumber(event.target.value))
                     }}
-                    sx={{ marginTop: '20px' }}
-                  >
-                    {tpButtonText}
-                  </KRAVButton>
+                    onClick={() => setTpUsePercentage(false)}
+                    sx={{
+                      height: '28px',
+                      fontSize: '14px',
+                      minHeight: '28px',
+                      width: '73px',
+                      '& .MuiOutlinedInput-root': {
+                        height: '28px',
+                        minHeight: '28px',
+                        padding: 0,
+                      },
+                      '& .MuiInputBase-input': {
+                        background: theme.background.second,
+                        color: theme.text.primary,
+                        padding: '0px 0px 0px 4px',
+                        margin: '4px 4px 5px 0',
+                      },
+                    }}
+                  />
                 </div>
+                <KRAVButton
+                  disabled={tpLimit !== TpLimitState.UPDATE}
+                  onClick={async () => {
+                    setIsOpen(false)
+                    await closeTradeMarket(false, targetTp, openTrade.index)
+                  }}
+                  sx={{ marginTop: '20px' }}
+                >
+                  {tpButtonText}
+                </KRAVButton>
               </div>
             </div>
           </div>
-          <div
-            css={css`
-              padding: 24px;
-            `}
-          >
-            <div className="confirm-content-info">
-              <p>
-                <span>Current price</span>
-                <span>${btcPrice.toFixed(2)}</span>
-              </p>
-              <p>
-                <span>Liquidation price</span>
-                <span>${lqPrice.toFixed(2)}</span>
-              </p>
-            </div>
+        </div>
+        <div
+          css={css`
+            padding: 24px;
+          `}
+        >
+          <div className="confirm-content-info">
+            <p>
+              <span>Current price</span>
+              <span>${btcPrice.toFixed(2)}</span>
+            </p>
+            <p>
+              <span>Liquidation price</span>
+              <span>${lqPrice.toFixed(2)}</span>
+            </p>
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </DialogLayout>
   )
 }
