@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { doc } from './style'
+import { doc, mobileTabs } from './style'
 // import { ReactComponent as Github } from 'assets/imgs/github.svg'
 // import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
 import { css } from '@emotion/react'
@@ -106,41 +106,72 @@ export const Footer = () => {
           css={css`
             background: ${theme.background.primary};
             margin-top: 40px;
+            padding-top: 24px;
           `}
         >
-          <div>
-            <p onClick={() => setShowFun(!showSup)}>
+          <div
+            css={[
+              mobileTabs,
+              css`
+                border-bottom: ${theme.splitLine.primary};
+              `,
+            ]}
+          >
+            <p onClick={() => setShowFun(!showFun)}>
               <span>Features</span>
               <KeyboardArrowDownIcon />
             </p>
             {showFun && (
-              <>
+              <div
+                css={css`
+                  > a {
+                    text-decoration: none;
+                    > p {
+                      color: ${theme.text.primary};
+                    }
+                  }
+                `}
+              >
                 <NavLink to={'/trade'}>
-                  <p>Trade</p>
+                  <p className="link">Trade</p>
                 </NavLink>
                 <NavLink to={'/liquidity'}>
-                  <p>Earn</p>
+                  <p className="link">Earn</p>
                 </NavLink>
                 <NavLink to={'/portfolio/referral'}>
-                  <p>Referrals</p>
+                  <p className="link">Referrals</p>
                 </NavLink>
-              </>
+              </div>
             )}
           </div>
-          <div>
-            <p onClick={() => setShowDev(!showDev)}>
-              <span>Developers</span>
+          <div
+            css={[
+              mobileTabs,
+              css`
+                border-bottom: ${theme.splitLine.primary};
+              `,
+            ]}
+          >
+            <p css={css``} onClick={() => setShowDev(!showDev)}>
+              <p>Developers</p>
               <KeyboardArrowDownIcon />
             </p>
             {showDev && (
               <>
                 <Link underline="none" sx={{ color: theme.text.primary }} href="https://docs.krav.trade/">
-                  <p>Documentation</p>
+                  <p className="link">Documentation</p>
                 </Link>
               </>
             )}
           </div>
-          <div>
+          <div
+            css={[
+              mobileTabs,
+              css`
+                border-bottom: ${theme.splitLine.primary};
+              `,
+            ]}
+          >
             <p onClick={() => setShowSup(!showSup)}>
               <span>Support</span>
               <KeyboardArrowDownIcon />

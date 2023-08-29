@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, Tab, Tabs, useTheme } from '@mui/material'
+import { css, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Positions } from './Positions'
 import { Orders } from './Orders'
@@ -12,6 +12,7 @@ import { useWeb3React } from '@web3-react/core'
 
 export const MyTrade = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [infoType, setInfoType] = useState(0)
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
   const { account, chainId } = useWeb3React()
@@ -43,6 +44,10 @@ export const MyTrade = () => {
         myTrade,
         css`
           background: ${theme.background.primary};
+          overflow: ${isMobile ? 'auto' : ''};
+          &::-webkit-scrollbar {
+            display: none
+          },
         `,
       ]}
     >

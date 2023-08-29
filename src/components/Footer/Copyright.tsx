@@ -2,17 +2,18 @@
 import { css } from '@emotion/react'
 import { ReactComponent as KravDarkLogo } from '../../assets/imgs/darkModel/krav_logo_dark.svg'
 import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
-import { Link, useTheme } from '@mui/material'
+import { Link, useMediaQuery, useTheme } from '@mui/material'
 import { ReactComponent as Twitter } from '../../assets/imgs/twitter.svg'
 import { ReactComponent as Medium } from '../../assets/imgs/medium.svg'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
 export const Copyright = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   return (
     <div
       css={css`
-        margin-left: 26px;
+        margin: ${isMobile ? '0 16px' : '26px'};
       `}
     >
       {theme.palette.mode === 'dark' ? (
@@ -20,7 +21,8 @@ export const Copyright = () => {
           height="22"
           width="91"
           css={css`
-            margin-top: 27px;
+            margin-top: ${isMobile ? '48px' : '27px'};
+            margin-bottom: ${isMobile ? '64px' : 0};
             margin-right: -4px;
           `}
         />
@@ -80,6 +82,7 @@ export const Copyright = () => {
         <div
           css={css`
             color: ${theme.text.primary};
+            padding-bottom: ${isMobile ? '24px' : '0'};
           `}
         >
           Copyright © 2023 KRAV. All rights reserved

@@ -6,6 +6,12 @@ export const liquidity = css`
   .liquidity-content {
     border-radius: 8px;
     margin-bottom: 18px;
+    @media screen and (max-width: 1200px) {
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
   .liquidity-tabs {
     font-size: 20px;
@@ -20,6 +26,11 @@ export const liquidity = css`
       2fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.2fr) minmax(120px, 2.2fr)
       1.6fr 117px;
     font-size: 14px;
+    @media screen and (max-width: 1200px) {
+      grid-template-columns:
+        minmax(120px, 1fr) minmax(85px, 1.8fr) minmax(115px, 1.3fr) minmax(210px, 2.2fr) minmax(210px, 2.2fr)
+        minmax(141px, 1.6fr) 117px;
+    }
   }
   .liquidity-search {
     padding: 24px 48px 24px 24px;
