@@ -24,11 +24,12 @@ import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOr
 import { DashboardFarm } from './DashboardFarm'
 import { useNavigate } from 'react-router-dom'
 import { API_DECIMALS } from '../../constant/math'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 
 export const Dashboard = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const { account, provider } = useWeb3React()
   // const [userStake, setUserStake] = useState(new BigNumber(0))
   const [userPoolLength, setUserPoolLength] = useState(0)
@@ -132,7 +133,8 @@ export const Dashboard = () => {
                 <div
                   css={css`
                     border-right: ${theme.splitLine.primary};
-                    margin-top: 30px;
+                    border-bottom: ${isMobile ? theme.splitLine.primary : ''};
+                    margin: ${isMobile ? '24px 0' : '30px 0 0 0'};
                   `}
                 />
                 <div className="my-pool">
