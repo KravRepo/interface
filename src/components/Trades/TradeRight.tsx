@@ -5,6 +5,7 @@ import { PositionOverView } from './TradeRight/PositionOverView'
 import { UsefulLinks } from './TradeRight/UsefulLinks'
 import React from 'react'
 import BigNumber from 'bignumber.js'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 export type TradeRightProps = {
   leverage: number
@@ -39,26 +40,32 @@ export const TradeRight = ({
   tradeType,
   setTradeType,
 }: TradeRightProps) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   return (
-    <div css={tradeRight}>
-      <ActionsCard
-        leverage={leverage}
-        positionSizeDai={positionSizeDai}
-        setLeverage={setLeverage}
-        setPositionSizeDai={setPositionSizeDai}
-        setSlPrice={setSlPrice}
-        setTpPrice={setTpPrice}
-        slPrice={slPrice}
-        tpPrice={tpPrice}
-        isBuy={isBuy}
-        setIsBuy={setIsBuy}
-        limitPrice={limitPrice}
-        setLimitPrice={setLimitPrice}
-        tradeType={tradeType}
-        setTradeType={setTradeType}
-      />
-      <PositionOverView />
-      <UsefulLinks />
-    </div>
+    <>
+      {!isMobile && (
+        <div css={tradeRight}>
+          <ActionsCard
+            leverage={leverage}
+            positionSizeDai={positionSizeDai}
+            setLeverage={setLeverage}
+            setPositionSizeDai={setPositionSizeDai}
+            setSlPrice={setSlPrice}
+            setTpPrice={setTpPrice}
+            slPrice={slPrice}
+            tpPrice={tpPrice}
+            isBuy={isBuy}
+            setIsBuy={setIsBuy}
+            limitPrice={limitPrice}
+            setLimitPrice={setLimitPrice}
+            tradeType={tradeType}
+            setTradeType={setTradeType}
+          />
+          <PositionOverView />
+          <UsefulLinks />
+        </div>
+      )}
+    </>
   )
 }
