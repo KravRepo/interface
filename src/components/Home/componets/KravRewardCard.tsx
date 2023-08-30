@@ -2,7 +2,7 @@
 // import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../../globalStyle'
 import { useWeb3React } from '@web3-react/core'
@@ -25,6 +25,8 @@ export const KravRewardCard = ({
   claimMethod,
   nextEpoch,
 }: KravRewardCardProps) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const nextDistribution = useMemo(() => {
     const nowTime = new Date()
     const targetTime = new Date(nextEpoch * 1000)
@@ -39,7 +41,6 @@ export const KravRewardCard = ({
     return { disHour: disHour, disMinut: disMinut }
   }, [backendAmount])
   const { account } = useWeb3React()
-  const theme = useTheme()
   const kravRewardInfo = useMemo(() => {
     if (backendAmount.isGreaterThan(contractAmount)) return { amount: backendAmount, claimEnable: true }
     else return { amount: new BigNumber(0), claimEnable: false }
@@ -67,7 +68,14 @@ export const KravRewardCard = ({
           margin-bottom: 40px;
         `}
       >
-        <div css={align}>
+        <div
+          css={[
+            align,
+            css`
+              padding-bottom: ${isMobile ? '24px' : ''};
+            `,
+          ]}
+        >
           <KravToken />
           <span
             css={css`

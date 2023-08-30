@@ -511,6 +511,10 @@ export const stake = css`
     align-items: center;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
   }
   .fees-rewards {
     border-radius: 8px;
@@ -520,6 +524,12 @@ export const stake = css`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media screen and (max-width: 1200px) {
+        display: block;
+        > div:first-of-type {
+          padding-bottom: 16px;
+        }
+      }
     }
   }
   .reward-item {
@@ -536,6 +546,9 @@ export const stake = css`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media screen and (max-width: 1200px) {
+        display: block;
+      }
     }
     > div:last-of-type {
       border-radius: 8px;
@@ -563,12 +576,19 @@ export const stake = css`
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr;
+    }
     margin-bottom: 40px;
     > div:first-of-type {
       padding-left: 0 !important;
     }
     > div {
       padding-left: 32px;
+      @media screen and (max-width: 1200px) {
+        padding-left: 0;
+      }
     }
   }
   .grey {

@@ -34,7 +34,7 @@ export const HomeLayout = ({ children }: { children: JSX.Element }) => {
       {!isMobile && <LeftMenu />}
       {isMobile && (
         <div
-          css={css`gap: 24px; padding: 0 16px; display: flex; align-items: center; overflow: auto;  &::-webkit-scrollbar {
+          css={css`gap: 24px;margin-bottom: 24px; padding: 0 16px; display: flex; align-items: center; overflow: auto;  &::-webkit-scrollbar {
             display: none
           },`}
         >

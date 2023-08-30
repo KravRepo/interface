@@ -6,7 +6,7 @@ import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.sv
 import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { KravRewardCard } from './KravRewardCard'
-import { Box, css, Popover, Tooltip, useTheme } from '@mui/material'
+import { Box, css, Popover, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
@@ -32,6 +32,7 @@ export const TradingRewards = ({
   nextEpoch,
 }: TradingRewardsProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -68,13 +69,22 @@ export const TradingRewards = ({
           background: ${theme.background.primary};
         `}
       >
-        <div>
+        <div
+          css={css`
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '16px' : 'unset'};
+            margin-bottom: ${isMobile ? '16px' : 'unset'};
+          `}
+        >
           <KRAVTab>Total Trading Volume</KRAVTab>
           <p className="data gt">{formatNumber(overviewData.tradingVolume, 2, true)}</p>
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '16px' : 'unset'};
+            margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
           <KRAVTab>24h Trading Volume</KRAVTab>
@@ -82,7 +92,10 @@ export const TradingRewards = ({
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '16px' : 'unset'};
+            margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
           <Box
@@ -184,7 +197,7 @@ export const TradingRewards = ({
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
           `}
         >
           <Tooltip
@@ -231,7 +244,7 @@ export const TradingRewards = ({
       </div>
       <div
         css={css`
-          width: 50%;
+          width: ${isMobile ? '100%' : '50%'};
         `}
       >
         <KravRewardCard
