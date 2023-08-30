@@ -50,7 +50,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
         <div className="position-layout">
           <div>
             <p>
-              BTC
+              BTC&nbsp;
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
