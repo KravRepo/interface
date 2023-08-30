@@ -428,18 +428,28 @@ export const stake = css`
   line-height: 140%; /* 19.6px */
   letter-spacing: -0.28px;
   font-size: 14px;
+  @media screen and (max-width: 1200px) {
+    padding: 0 16px;
+    margin: 0;
+  }
   .gt {
     font-family: 'GT-Flexa-Bold-Trial';
   }
   .title {
-    font-size: 28px;
     font-weight: 900;
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
+    @media screen and (max-width: 1200px) {
+      font-size: 18px;
+    }
   }
   .card {
     display: grid;
     grid-template-columns: 1.55fr minmax(280px, 1.152fr) 1fr;
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: 1fr;
+      gap: 0px;
+    }
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
@@ -458,6 +468,10 @@ export const stake = css`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 76px;
+    @media screen and (max-width: 1200px) {
+      grid-template-columns: unset;
+      gap: 0;
+    }
     align-items: start;
     border-radius: 8px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
@@ -467,6 +481,11 @@ export const stake = css`
       align-items: center;
       gap: 8px;
       grid-template-columns: 1fr 1fr;
+      @media screen and (max-width: 1200px) {
+        grid-template-columns: unset;
+        grid-template-rows: 1fr;
+        gap: 0;
+      }
       max-height: 80px;
       overflow: auto;
       &::-webkit-scrollbar {

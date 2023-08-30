@@ -82,7 +82,16 @@ export const NewStake = () => {
             `,
           ]}
         >
-          <div css={align}>
+          <div
+            css={[
+              align,
+              css`
+                @media screen and (max-width: 1200px) {
+                  padding-bottom: 16px;
+                }
+              `,
+            ]}
+          >
             <KravToken />
             <span
               css={css`
@@ -104,6 +113,14 @@ export const NewStake = () => {
             padding: 0 32px;
             border-left: ${theme.splitLine.primary};
             border-right: ${theme.splitLine.primary};
+            @media screen and (max-width: 1200px) {
+              width: 100%;
+              border-left: unset;
+              border-right: unset;
+              padding: 0 0 16px 0;
+              margin-bottom: 16px;
+              border-bottom: ${theme.splitLine.primary};
+            }
           `}
         >
           <KRAVTab>Total Governance Reward Pool </KRAVTab>
@@ -112,6 +129,9 @@ export const NewStake = () => {
         <div
           css={css`
             padding-left: 32px;
+            @media screen and (max-width: 1200px) {
+              padding: 0;
+            }
           `}
         >
           <KRAVTab>Total Stake</KRAVTab>
@@ -130,10 +150,23 @@ export const NewStake = () => {
             css`
               display: grid;
               grid-template-columns: 1fr 1fr;
+              @media screen and (max-width: 1200px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+              }
             `,
           ]}
         >
-          <div css={align}>
+          <div
+            css={[
+              align,
+              css`
+                @media screen and (max-width: 1200px) {
+                  padding-bottom: 16px;
+                }
+              `,
+            ]}
+          >
             <VeKravToken />
             <span
               css={css`
@@ -155,6 +188,15 @@ export const NewStake = () => {
             padding: 0 32px;
             border-left: ${theme.splitLine.primary};
             border-right: ${theme.splitLine.primary};
+            @media screen and (max-width: 1200px) {
+              width: 100%;
+              border-bottom: unset;
+              border-left: unset;
+              border-right: unset;
+              padding: 16px 0 0 0;
+              margin-top: 16px;
+              border-top: ${theme.splitLine.primary};
+            }
           `}
         >
           <KRAVTab>You veKRAV Supply</KRAVTab>
@@ -173,6 +215,11 @@ export const NewStake = () => {
         className="action"
         css={css`
           background: ${theme.background.primary};
+          @media screen and (max-width: 1200px) {
+            > div:first-of-type {
+              margin-bottom: 36px;
+            }
+          }
         `}
       >
         <LockAction

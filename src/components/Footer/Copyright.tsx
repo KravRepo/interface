@@ -31,7 +31,8 @@ export const Copyright = () => {
           height="22"
           width="91"
           css={css`
-            margin-top: 27px;
+            margin-top: ${isMobile ? '48px' : '27px'};
+            margin-bottom: ${isMobile ? '64px' : 0};
             margin-right: -4px;
           `}
         />
