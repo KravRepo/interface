@@ -10,7 +10,6 @@ import { useRootStore } from '../../store/root'
 import { css, useTheme } from '@mui/material'
 import { SecondChart } from './TradeLeft/SecondChart'
 import { useState } from 'react'
-import KRAVButton from '../KravUIKit/KravButton'
 import KRAVHollowButton from '../KravUIKit/KRAVHollowButton'
 
 type TradeLeftProps = {
@@ -50,19 +49,45 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             background: ${theme.background.primary};
           `}
         >
-          <KRAVButton
-            sx={{ width: '106px', height: '28px', mr: '8px', borderRadius: '100px' }}
+          <KRAVHollowButton
+            sx={{
+              width: '106px',
+              height: '28px',
+              mr: '8px',
+              borderRadius: '100px',
+              border: chartType === 0 ? 'unset' : theme.hollowButton.border,
+              background: chartType === 0 ? '#2832f5' : '',
+            }}
             onClick={() => setChartType(0)}
           >
             Trading
-          </KRAVButton>
+          </KRAVHollowButton>
           <KRAVHollowButton
-            sx={{ width: '97px', height: '28px', borderRadius: '100px', mr: '16px' }}
+            sx={{
+              width: '97px',
+              height: '28px',
+              borderRadius: '100px',
+              mr: '16px',
+              border: chartType === 1 ? 'unset' : theme.hollowButton.border,
+              background: chartType === 1 ? '#2832f5' : '',
+            }}
             onClick={() => setChartType(1)}
           >
             Per second
           </KRAVHollowButton>
-          <div onClick={() => setChartType(2)}>Depth</div>
+          <KRAVHollowButton
+            sx={{
+              width: '97px',
+              height: '28px',
+              borderRadius: '100px',
+              mr: '16px',
+              border: chartType === 2 ? 'unset' : theme.hollowButton.border,
+              background: chartType === 2 ? '#2832f5' : '',
+            }}
+            onClick={() => setChartType(2)}
+          >
+            Depth
+          </KRAVHollowButton>
         </div>
         {chartType === 0 && (
           <div
