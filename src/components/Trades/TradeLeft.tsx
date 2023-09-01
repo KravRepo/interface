@@ -11,6 +11,7 @@ import { css, useTheme } from '@mui/material'
 import { SecondChart } from './TradeLeft/SecondChart'
 import { useState } from 'react'
 import KRAVButton from '../KravUIKit/KravButton'
+import KRAVHollowButton from '../KravUIKit/KRAVHollowButton'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -45,6 +46,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             display: flex;
             align-items: center;
             justify-content: end;
+            padding-right: 24px;
             background: ${theme.background.primary};
           `}
         >
@@ -54,7 +56,12 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
           >
             Trading
           </KRAVButton>
-          <div onClick={() => setChartType(1)}>Per second</div>
+          <KRAVHollowButton
+            sx={{ width: '97px', height: '28px', borderRadius: '100px', mr: '16px' }}
+            onClick={() => setChartType(1)}
+          >
+            Per second
+          </KRAVHollowButton>
           <div onClick={() => setChartType(2)}>Depth</div>
         </div>
         {chartType === 0 && (

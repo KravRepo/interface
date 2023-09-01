@@ -33,8 +33,9 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
           justify-content: space-between;
           font-size: 14px;
           font-weight: 700;
-          padding-top: 16px;
+          padding: 16px 12px 0;
           color: ${theme.text.primary};
+          background: ${theme.background.primary};
         `}
       >
         <div>
@@ -78,7 +79,6 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
       <div
         css={css`
           height: 481px;
-          margin-top: 12px;
           border-radius: 8px;
           position: relative;
           overflow: hidden;
