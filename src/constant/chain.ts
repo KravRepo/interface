@@ -27,7 +27,7 @@ export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overv
 
 export const MARKET_CHANGE_API = 'https://base-api.krav.trade/krav/v1/price/24hr?symbol=BTCUSDT'
 
-export const TEST_CHAIN_ID = ChainId.BASE
+export const TEST_CHAIN_ID = ChainId.MAINNET
 
 export const BTC_CONTRACT = '0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43'
 
