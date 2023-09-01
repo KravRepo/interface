@@ -56,7 +56,7 @@ export const SecondChart = () => {
       },
       series: [
         {
-          name: 'Fake Data',
+          name: 'BTC Price',
           type: 'line',
           showSymbol: false,
           data: chartData,
