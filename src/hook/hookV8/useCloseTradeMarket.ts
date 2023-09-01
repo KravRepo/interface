@@ -20,11 +20,15 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
     async (orderIndex: number, pairIndex = 0) => {
       try {
         const params = [pairIndex, orderIndex] as any
+        const minETHFees = await contract.cminExecutionFee()
         let gasLimit = await getGasLimit(contract, 'closeTradeMarket', params)
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
-        const tx = await contract.closeTradeMarket(...params, { gasLimit: gasLimit.toFixed(0) })
+        const tx = await contract.closeTradeMarket(...params, {
+          value: new BigNumber(minETHFees._hex).toString(),
+          gasLimit: gasLimit.toFixed(0),
+        })
         setTransactionState(TransactionState.CANCEL_MARKET_ORDER)
         const closeTradeMarketTX = await tx.wait()
         console.log('tx', closeTradeMarketTX)
@@ -58,11 +62,15 @@ export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: str
       try {
         const func = isSL ? 'updateSl' : 'updateTp'
         const params = [pairIndex, orderIndex, price.times(Number(1e10)).toString()] as any
+        const minETHFees = await contract.cminExecutionFee()
         let gasLimit = await getGasLimit(contract, func, params)
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
-        const tx = await contract[func](...params, { gasLimit: gasLimit.toFixed(0) })
+        const tx = await contract[func](...params, {
+          value: new BigNumber(minETHFees._hex).toString(),
+          gasLimit: gasLimit.toFixed(0),
+        })
         setTransactionState(isSL ? TransactionState.UPDATE_SL_ORDER : TransactionState.UPDATE_TP_ORDER)
         const closeTradeMarketTX = await tx.wait()
         console.log('tx', closeTradeMarketTX)

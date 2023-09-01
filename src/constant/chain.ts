@@ -13,9 +13,9 @@ export enum ChainId {
 //
 export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
 
-export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
+export const LINK_ADDRESS = '0x514910771AF9Ca656af840dff83E8264EcF986CA'
 
-export const NODE_ADDRESS = ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56']
+export const NODE_ADDRESS = ["0xcf9c4337dcBFd7cBB71c2c5fb1b9e86edEcfb7C8"]
 
 export const K_LINE_API = 'https://base-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
