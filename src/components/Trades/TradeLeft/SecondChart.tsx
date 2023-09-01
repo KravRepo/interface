@@ -3,10 +3,6 @@ import { css, useTheme } from '@mui/material'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as echarts from 'echarts'
 
-// type ChartData = {
-//   value: any
-// }
-
 export const SecondChart = () => {
   const theme = useTheme()
   const [secondCharts, setSecondCharts] = useState<null | echarts.ECharts>(null)
