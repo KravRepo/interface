@@ -17,12 +17,6 @@ export const SecondChart = () => {
       backgroundColor: theme.background.primary,
       tooltip: {
         trigger: 'axis',
-        // formatter: function (params: any) {
-        //   params = params[0]
-        //   console.log('params', params)
-        //   const date = new Date(params.name)
-        //   return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1]
-        // },
         axisPointer: {
           animation: true,
         },
@@ -63,6 +57,10 @@ export const SecondChart = () => {
           smooth: true,
           endLabel: {
             show: true,
+            backgroundColor: 'red',
+            padding: [4, 8, 4, 8],
+            color: '#fff',
+            borderRadius: 2,
           },
           lineStyle: {
             color: '#DB4C40',
