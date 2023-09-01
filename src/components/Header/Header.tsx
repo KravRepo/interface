@@ -3,7 +3,7 @@ import { Box, Button, Link, Menu, MenuItem, Switch, Tooltip, useTheme } from '@m
 import { Trans } from '@lingui/macro'
 import { header, headerBtn, router, setting, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
-import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
+import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
 import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
 import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/karv_icon.svg'
 import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
@@ -327,7 +327,7 @@ export const Header = () => {
             aria-expanded={networkOpen ? 'true' : undefined}
             onClick={handleNetWorkClick}
           >
-            <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+            <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
           </Button>
           <Menu
             sx={{
@@ -353,8 +353,8 @@ export const Header = () => {
                 `}
               >
                 <div css={align}>
-                  <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-                  <span>Base</span>
+                  <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+                  <span>Ethereum</span>
                 </div>
                 <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
               </div>
