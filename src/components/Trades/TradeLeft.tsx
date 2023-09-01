@@ -38,7 +38,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
         <div
           css={css`
-            height: 36px;
+            height: 48px;
             width: 100%;
             border-radius: 8px 8px 0px 0px;
             border-bottom: ${theme.splitLine.primary};
