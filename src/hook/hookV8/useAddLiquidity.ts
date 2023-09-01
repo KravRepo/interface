@@ -42,7 +42,7 @@ export const useAddLiquidity = (tokenAddress: string) => {
             console.log('3 approveTX', approveTX)
           }
           setTransactionState(TransactionState.INTERACTION)
-          const tx = await trading_vault_contract.depositDai(amount.toString())
+          const tx = await trading_vault_contract.deposit(amount.toString())
           setTransactionState(TransactionState.ADD_LIQUIDITY)
           await tx.wait()
           setTransactionDialogVisibility(false)

@@ -19,7 +19,8 @@ export const useRemoveLiquidity = (vaultAddress: string) => {
       try {
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
-        const tx = await trading_vault_contract.withdrawDai(amount.toString())
+        //TODO Only ethereum use withdraw other use withdrawDai
+        const tx = await trading_vault_contract.withdraw(amount.toString())
         setTransactionState(TransactionState.REMOVE_LIQUIDITY)
         await tx.wait()
         setTransactionState(TransactionState.START)
