@@ -9,13 +9,13 @@ export enum ChainId {
 // 'https://dry-little-tent.bsc-testnet.discover.quiknode.pro/84b8cf011376495b8a07b91c5e3868de9e58f08e/'
 // 'https://rpc.ankr.com/bsc_testnet_chapel/128bdedab70a53096c6b5132d94384254aee84b8491502b928ab6c08652a7b78'
 //
-// export const TEST_RPC_NODE = 'https://rpc.ankr.com/bsc_testnet_chapel'
+// export const TEST_RPC_NODE = 'https://mainnet.gateway.tenderly.co'
 //
-export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
+export const TEST_RPC_NODE = 'https://ethereum.publicnode.com'
 
 export const LINK_ADDRESS = '0x514910771AF9Ca656af840dff83E8264EcF986CA'
 
-export const NODE_ADDRESS = ["0xcf9c4337dcBFd7cBB71c2c5fb1b9e86edEcfb7C8"]
+export const NODE_ADDRESS = ['0xcf9c4337dcBFd7cBB71c2c5fb1b9e86edEcfb7C8']
 
 export const K_LINE_API = 'https://base-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
