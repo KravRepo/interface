@@ -25,6 +25,7 @@ enum Task {
   maxWithdrawPTask = 7,
   pairParams = 8,
   accDaiPerDaiTask = 9,
+  minPosition = 10,
 }
 
 enum TaskFunc {
@@ -37,6 +38,7 @@ enum TaskFunc {
   MAX_WITHDRAW_P = 'maxWithdrawP',
   PAIR_PARAMS = 'pairParams',
   ACC_DAI_PER_DAI = 'accDaiPerDai',
+  POSITION_MIN_LEV = 'pairMinLevPosDai',
 }
 
 export const useFactory = () => {
@@ -67,6 +69,7 @@ export const useFactory = () => {
       const maxWithdrawPTask: any[] = []
       const pairParams: any[] = []
       const accDaiPerDaiTask: any[] = []
+      const minPositionTask: any[] = []
       res.forEach((item) => {
         //TODO check pairs tokenT is ERC20
         forMatter.push({
@@ -84,6 +87,7 @@ export const useFactory = () => {
           decimals: 0,
           blockNumber: blockNumber,
           utilization: new BigNumber(0),
+          minPositionLev: new BigNumber(0),
           maxWithdrawP: new BigNumber(0),
           logoSource: null,
           fundingFeePerBlockP: new BigNumber(0),
@@ -110,6 +114,7 @@ export const useFactory = () => {
         maxWithdrawPTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.MAX_WITHDRAW_P, []))
         pairParams.push(creatCall(item.pairInfoT, pairInfoInterface, TaskFunc.PAIR_PARAMS, [0]))
         accDaiPerDaiTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.ACC_DAI_PER_DAI, []))
+        minPositionTask.push(creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.POSITION_MIN_LEV, [0]))
       })
 
       const factoryReturn = await multicall.callStatic.aggregate([
@@ -123,6 +128,7 @@ export const useFactory = () => {
         ...maxWithdrawPTask,
         ...pairParams,
         ...accDaiPerDaiTask,
+        ...minPositionTask,
       ])
       const factoryCall = factoryReturn.returnData
       // forMatter.forEach((item) => {
@@ -220,6 +226,16 @@ export const useFactory = () => {
             TaskFunc.ACC_DAI_PER_DAI,
             factoryCall[Task.accDaiPerDaiTask * totalPools + index]
           )._hex
+        )
+        item.minPositionLev = eXDecimals(
+          new BigNumber(
+            decodeCallResult(
+              pairStorageInterface,
+              TaskFunc.POSITION_MIN_LEV,
+              factoryCall[Task.minPosition * totalPools + index]
+            )._hex
+          ),
+          item.decimals
         )
         try {
           item.logoSource = require(`../../assets/imgs/tokens/${item.symbol}.svg`)

@@ -15,7 +15,7 @@ import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
-import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
+import { POSITION_LIMITS } from '../../../constant/math'
 import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 import KravLongButton from '../../KravUIKit/KravLongButton'
@@ -349,12 +349,12 @@ export const OrderParamsCard = ({
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
       setButtonState(ButtonText.REACHED_LIMIT)
     else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
-    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(MINI_POSITION_SIZE))
+    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
       setButtonState(ButtonText.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
-  }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai])
+  }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
 
   useEffect(() => {
     if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
