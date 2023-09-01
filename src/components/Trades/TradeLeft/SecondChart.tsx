@@ -132,10 +132,10 @@ export const SecondChart = () => {
         }, 1000)
       })
     }
-    // return () => {
-    //   secondCharts?.dispose()
-    //   setSecondCharts(null)
-    // }
+    return () => {
+      secondCharts?.dispose()
+      setSecondCharts(null)
+    }
   }, [secondChartRef.current, theme])
   return (
     <div
