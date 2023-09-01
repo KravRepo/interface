@@ -58,14 +58,23 @@ export function getInjection(isDarkMode?: boolean): { name: string } | undefined
   return { name: 'Browser Wallet' }
 }
 
-export async function getGasLimit(contract: Contract, method: string, params = []) {
-  const res = await contract.estimateGas[method](...params)
-  let gasLimit = new BigNumber(res.toString())
-  if (gasLimit.lt(22000)) {
-    gasLimit = new BigNumber(22000)
-  }
+export async function getGasLimit(contract: Contract, method: string, params = [], value?: string) {
+  if (value) {
+    const res = await contract.estimateGas[method](...params, { value: value })
+    let gasLimit = new BigNumber(res.toString())
+    if (gasLimit.lt(22000)) {
+      gasLimit = new BigNumber(22000)
+    }
 
-  return gasLimit.times(11000).div(10000) // add a 10% buffer
+    return gasLimit.times(11000).div(10000) // add a 10% buffer
+  } else {
+    const res = await contract.estimateGas[method](...params)
+    let gasLimit = new BigNumber(res.toString())
+    if (gasLimit.lt(22000)) {
+      gasLimit = new BigNumber(22000)
+    }
+    return gasLimit.times(11000).div(10000) // add a 10% buffer
+  }
 }
 
 export const decodeReferral = (referral: string) => {

@@ -21,7 +21,12 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
       try {
         const params = [pairIndex, orderIndex] as any
         const minETHFees = await contract.minExecutionFee()
-        let gasLimit = await getGasLimit(contract, 'closeTradeMarket', params)
+        let gasLimit = await getGasLimit(
+          contract,
+          'closeTradeMarket',
+          params,
+          new BigNumber(minETHFees._hex).toString()
+        )
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
@@ -63,7 +68,7 @@ export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: str
         const func = isSL ? 'updateSl' : 'updateTp'
         const params = [pairIndex, orderIndex, price.times(Number(1e10)).toString()] as any
         const minETHFees = await contract.minExecutionFee()
-        let gasLimit = await getGasLimit(contract, func, params)
+        let gasLimit = await getGasLimit(contract, func, params, new BigNumber(minETHFees._hex).toString())
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
