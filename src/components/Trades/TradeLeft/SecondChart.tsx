@@ -61,6 +61,9 @@ export const SecondChart = () => {
           showSymbol: false,
           data: chartData,
           smooth: true,
+          endLabel: {
+            show: true,
+          },
           lineStyle: {
             color: '#DB4C40',
           },
