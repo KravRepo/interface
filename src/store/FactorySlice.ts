@@ -22,6 +22,7 @@ export type PoolParams = {
   utilization: BigNumber
   maxWithdrawP: BigNumber
   accDaiPerDai: BigNumber
+  minPositionLev: BigNumber
   fundingFeePerBlockP: BigNumber
   poolTotalSupply?: BigNumber
   poolCurrentBalance?: BigNumber
