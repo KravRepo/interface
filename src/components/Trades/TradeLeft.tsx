@@ -2,7 +2,7 @@
 import { PairInfo } from './TradeLeft/PairInfo'
 import { chart, tradeLeft } from './style'
 import { MyTrade } from './TradeLeft/MyTrade'
-import { TradingView } from './TradeLeft/TradingView'
+import TradingViewWidget from './TradeLeft/newTradingView'
 import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
@@ -98,7 +98,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
               `,
             ]}
           >
-            <TradingView />
+            <TradingViewWidget />
           </div>
         )}
         {chartType === 2 && (
