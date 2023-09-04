@@ -80,6 +80,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
         card,
         css`
           background: ${theme.background.primary};
+          margin-bottom: 12px;
         `,
       ]}
     >
