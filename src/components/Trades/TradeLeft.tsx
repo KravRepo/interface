@@ -9,8 +9,7 @@ import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
 import { css, useTheme } from '@mui/material'
 import { SecondChart } from './TradeLeft/SecondChart'
-import { useState } from 'react'
-import KRAVHollowButton from '../KravUIKit/KRAVHollowButton'
+import { TradeMode } from '../../store/TradeSlice'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -28,68 +27,13 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
   const theme = useTheme()
-  const [chartType, setChartType] = useState(0)
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
       <div css={tradeLeft}>
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
-        <div
-          css={css`
-            height: 48px;
-            width: 100%;
-            border-radius: 8px 8px 0px 0px;
-            border-bottom: ${theme.splitLine.primary};
-            margin-top: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: end;
-            padding-right: 24px;
-            background: ${theme.background.primary};
-          `}
-        >
-          <KRAVHollowButton
-            sx={{
-              width: '106px',
-              height: '28px',
-              mr: '8px',
-              borderRadius: '100px',
-              border: chartType === 0 ? 'unset' : theme.hollowButton.border,
-              background: chartType === 0 ? '#2832f5' : '',
-            }}
-            onClick={() => setChartType(0)}
-          >
-            Trading
-          </KRAVHollowButton>
-          <KRAVHollowButton
-            sx={{
-              width: '97px',
-              height: '28px',
-              borderRadius: '100px',
-              mr: '16px',
-              border: chartType === 1 ? 'unset' : theme.hollowButton.border,
-              background: chartType === 1 ? '#2832f5' : '',
-            }}
-            onClick={() => setChartType(1)}
-          >
-            Per second
-          </KRAVHollowButton>
-          <KRAVHollowButton
-            sx={{
-              width: '97px',
-              height: '28px',
-              borderRadius: '100px',
-              mr: '16px',
-              border: chartType === 2 ? 'unset' : theme.hollowButton.border,
-              background: chartType === 2 ? '#2832f5' : '',
-            }}
-            onClick={() => setChartType(2)}
-          >
-            Depth
-          </KRAVHollowButton>
-        </div>
-        {chartType === 0 && (
+        {tradeModel === TradeMode.PRO && (
           <div
             css={[
               chart,
@@ -101,7 +45,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             <TradingView />
           </div>
         )}
-        {chartType === 2 && (
+        {tradeModel === TradeMode.BASIC && (
           <BasicModel
             positionSizeDai={positionSizeDai}
             isBuy={isBuy}
@@ -110,7 +54,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             tradeType={tradeType}
           />
         )}
-        {chartType === 1 && <SecondChart />}
+        {tradeModel === TradeMode.DEGEN && <SecondChart />}
         <MyTrade />
       </div>
     </>
