@@ -52,7 +52,7 @@ export const TradingView = () => {
       <div
         id="tradingview_2daf6"
         css={css`
-          height: 440px;
+          height: 480px;
         `}
       />
     </div>
