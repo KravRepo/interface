@@ -16,7 +16,6 @@ export default function TradingViewWidget() {
         style: '1',
         locale: 'en',
         enable_publishing: false,
-        allow_symbol_change: true,
         container_id: 'tradingview_2daf6',
       })
     }
