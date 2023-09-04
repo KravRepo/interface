@@ -37,7 +37,7 @@ export default function TradingViewWidget() {
       <div
         id="tradingview_2daf6"
         css={css`
-          height: 440px;
+          height: 480px;
         `}
       />
     </div>
