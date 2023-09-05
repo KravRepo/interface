@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@mui/material'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as echarts from 'echarts'
 
 export const SecondChart = () => {
@@ -78,14 +78,12 @@ export const SecondChart = () => {
     }
   }, [theme])
 
-  useEffect(() => {
-    const ws1D = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1s')
-    ws1D.onmessage = function (msg) {
-      if (msg.data && secondCharts) {
-        const data = JSON.parse(msg.data)
+  const updateCharts = useCallback(
+    (data: number) => {
+      if (secondCharts) {
         const newData = chartData
         const nowStr = new Date().toLocaleString()
-        newData.push([nowStr, Number(data.k.c)])
+        newData.push([nowStr, data])
         setChartData(newData)
         secondCharts.setOption({
           series: [
@@ -107,6 +105,37 @@ export const SecondChart = () => {
           ],
         })
       }
+    },
+    [secondCharts]
+  )
+
+  const connectWs = useCallback(
+    (url: string) => {
+      setTimeout(() => {
+        const ws1D = new WebSocket(url)
+        ws1D.onmessage = function (msg) {
+          if (msg.data) {
+            new Response(msg.data).json().then((res) => {
+              updateCharts(Number(res.k.c))
+            })
+          }
+        }
+      }, 2000)
+    },
+    [updateCharts]
+  )
+
+  useEffect(() => {
+    const ws1D = new WebSocket('ws://47.128.0.109:8800')
+    ws1D.onmessage = function (msg) {
+      if (msg.data && secondCharts) {
+        new Response(msg.data).json().then((res) => {
+          updateCharts(Number(res.k.c))
+        })
+      }
+    }
+    ws1D.onclose = function () {
+      setTimeout(() => connectWs('ws://47.128.0.109:8800'), 2000)
     }
   }, [secondCharts])
 
