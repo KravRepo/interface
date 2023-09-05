@@ -126,7 +126,7 @@ export const SecondChart = () => {
   )
 
   useEffect(() => {
-    const ws1D = new WebSocket('ws://47.128.0.109:8800')
+    const ws1D = new WebSocket('wss://wss.krav.trade:8800')
     ws1D.onmessage = function (msg) {
       if (msg.data && secondCharts) {
         new Response(msg.data).json().then((res) => {
@@ -135,7 +135,7 @@ export const SecondChart = () => {
       }
     }
     ws1D.onclose = function () {
-      setTimeout(() => connectWs('ws://47.128.0.109:8800'), 2000)
+      setTimeout(() => connectWs('wss://wss.krav.trade:8800'), 2000)
     }
   }, [secondCharts])
 
