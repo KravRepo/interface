@@ -146,16 +146,12 @@ export const SecondChart = () => {
         charts.setOption(SecondChartOptions)
         setSecondCharts(charts)
         window.addEventListener('resize', () => {
-          setTimeout(() => {
-            charts?.resize()
-          }, 1000)
+          charts?.resize()
         })
       }
       secondCharts?.setOption(SecondChartOptions)
       window.addEventListener('resize', () => {
-        setTimeout(() => {
-          secondCharts?.resize()
-        }, 1000)
+        secondCharts?.resize()
       })
     }
     return () => {
