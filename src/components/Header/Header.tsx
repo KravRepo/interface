@@ -177,7 +177,6 @@ export const Header = () => {
     if (connection && connector) {
       await connector.resetState()
       await connection.connector.resetState()
-      console.log('setDisconnect')
       setDisconnectWallet(true)
     }
   }, [connector])
