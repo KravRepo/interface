@@ -5,7 +5,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { headerBtn, setting } from './sytle'
 import { css } from '@emotion/react'
 import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
-import { Menu } from '@mui/material'
+import { Menu, useMediaQuery, useTheme } from '@mui/material'
 import { SettingMenuContent } from './SettingMenuContent'
 import { Trans } from '@lingui/macro'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -31,6 +31,8 @@ export const WalletButton = ({
   ethBalance,
   toggleTheme,
 }: WalletButtonProps) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [settingAnchorEl, setSettingAnchorEl] = useState<null | HTMLElement>(null)
   const [openTooltip, setOpenTooltip] = useState(false)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
@@ -67,19 +69,6 @@ export const WalletButton = ({
   }, [connector])
   return (
     <div css={align}>
-      {/*<Button*/}
-      {/*  css={headerBtn}*/}
-      {/*  sx={{*/}
-      {/*    color: '#000',*/}
-      {/*    borderRadius: '4px',*/}
-      {/*    border: '1px solid #DADADA',*/}
-      {/*    textTransform: 'none',*/}
-      {/*    minWidth: '172px',*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  <Base height="14" width="14" style={{ marginRight: 5, borderRadius: '50%' }} />*/}
-      {/*  <Trans>Base</Trans>*/}
-      {/*</Button>*/}
       <NetWorkButton />
       {account ? (
         <div css={align}>
@@ -121,7 +110,7 @@ export const WalletButton = ({
             css={setting}
             sx={{
               '& .MuiPaper-root': {
-                minWidth: 440,
+                minWidth: isMobile ? 200 : 440,
               },
               '& .MuiMenu-list': {
                 padding: 0,
