@@ -13,7 +13,7 @@ export const Copyright = () => {
   return (
     <div
       css={css`
-        margin: ${isMobile ? '0 16px' : '26px'};
+        margin: ${isMobile ? '0 16px' : ''};
       `}
     >
       {theme.palette.mode === 'dark' ? (

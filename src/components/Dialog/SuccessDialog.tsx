@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, useTheme } from '@mui/material'
+import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { errorDialog } from './sytle'
 import { ReactComponent as SuccessIcon } from '../../assets/imgs/success_icon.svg'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
@@ -12,6 +12,7 @@ import { css } from '@emotion/react'
 
 export const SuccessDialog = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const successContent = useRootStore((state) => state.successContent)
   const setSuccessContent = useRootStore((state) => state.setSuccessContent)
   return (
@@ -33,7 +34,13 @@ export const SuccessDialog = () => {
                 margin-left: 60px;
               `}
             />
-            <span>Сongratulations! </span>
+            <span
+              css={css`
+                font-size: ${isMobile ? '18px' : '20px'};
+              `}
+            >
+              Сongratulations!{' '}
+            </span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
               onClick={() => {

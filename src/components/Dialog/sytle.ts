@@ -178,7 +178,6 @@ export const snackbar = css`
 
 export const errorDialog = css`
   padding: 24px 0;
-  width: 440px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -188,7 +187,6 @@ export const errorDialog = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
     padding: 0 24px 24px 64px;
     > span {
       padding-left: 15px;

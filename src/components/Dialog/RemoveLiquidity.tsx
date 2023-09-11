@@ -69,9 +69,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
           />
         </div>
         <Box
-          padding={'24px 0'}
-          width={392}
-          margin={'auto'}
+          padding={'24px'}
           sx={{
             borderBottom: theme.splitLine.primary,
           }}

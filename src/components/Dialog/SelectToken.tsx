@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../store/root'
@@ -15,6 +15,7 @@ type SelectTokenProps = {
 
 export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const allPoolParams = useRootStore((state) => state.allPoolParams)
   return (
     <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -23,6 +24,7 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
           className="select-token-header"
           css={css`
             border-bottom: ${theme.splitLine.primary};
+            font-size: ${isMobile ? '18px' : '20px'};
           `}
         >
           <div>

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Input, useTheme } from '@mui/material'
+import { Input, useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
@@ -65,6 +65,7 @@ export const ProfitConfirmTrade = ({
   pool,
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((store) => store.tradePool)
   const [slUsePercentage, setUseSlPercentage] = useState(BigNumber(openTrade.tp).gt(0) ? false : true)
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
@@ -161,7 +162,13 @@ export const ProfitConfirmTrade = ({
     <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen}>
       <div css={dialogContent}>
         <div className="dialog-header ">
-          <span>BTC/USDT(Update SL/TP)</span>
+          <span
+            css={css`
+              font-size: ${isMobile ? '18px' : '20px'};
+            `}
+          >
+            BTC/USDT(Update SL/TP)
+          </span>
           <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
         </div>
         <div

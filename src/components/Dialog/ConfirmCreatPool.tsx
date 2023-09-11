@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -29,6 +29,7 @@ export const ConfirmCreatPool = ({
   setTokenAddress,
 }: ConfirmCreatPoolProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const creatPool = useCreatePool()
   const updateFactory = useFactory()
   const getUserPosition = useUserPosition()
@@ -62,7 +63,13 @@ export const ConfirmCreatPool = ({
             border-bottom: ${theme.splitLine.primary};
           `}
         >
-          <span>Confirm</span>
+          <span
+            css={css`
+              font-size: ${isMobile ? '18px' : '20px'};
+            `}
+          >
+            Confirm
+          </span>
           <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
         </div>
         <div

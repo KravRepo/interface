@@ -153,7 +153,7 @@ export const Footer = () => {
             ]}
           >
             <p css={css``} onClick={() => setShowDev(!showDev)}>
-              <p>Developers</p>
+              <span>Developers</span>
               <KeyboardArrowDownIcon />
             </p>
             {showDev && (
