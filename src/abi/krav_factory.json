@@ -3,14 +3,46 @@
   "abi": [
     {
       "inputs": [
-        { "internalType": "address", "name": "_storageT", "type": "address" },
-        { "internalType": "address", "name": "_pairInfoT", "type": "address" },
-        { "internalType": "address", "name": "_pairStorageT", "type": "address" },
-        { "internalType": "address", "name": "_tradingT", "type": "address" },
-        { "internalType": "address", "name": "_callbackT", "type": "address" },
-        { "internalType": "address", "name": "_rewardT", "type": "address" },
-        { "internalType": "address", "name": "_vaultT", "type": "address" },
-        { "internalType": "address", "name": "_priceAggregatorT", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "_storageT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_pairInfoT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_pairStorageT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_tradingT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_callbackT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_rewardT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_vaultT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_priceAggregatorT",
+          "type": "address"
+        }
       ],
       "stateMutability": "nonpayable",
       "type": "constructor"
@@ -18,17 +50,161 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "internalType": "uint256", "name": "", "type": "uint256" },
-        { "indexed": false, "internalType": "int256", "name": "", "type": "int256" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "", "type": "address" }
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "quantoIndex",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "callback",
+          "type": "address"
+        }
+      ],
+      "name": "CallbackUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "DistributeFee",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "version",
+          "type": "uint8"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferStarted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
       ],
       "name": "QuantoCreated",
       "type": "event"
@@ -36,19 +212,94 @@
     {
       "anonymous": false,
       "inputs": [
-        { "indexed": false, "internalType": "address", "name": "trader", "type": "address" },
-        { "indexed": false, "internalType": "address", "name": "referral", "type": "address" }
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "trader",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "referral",
+          "type": "address"
+        }
       ],
       "name": "Referral",
       "type": "event"
     },
     {
+      "anonymous": false,
       "inputs": [
-        { "internalType": "contract TokenInterfaceV5", "name": "_token", "type": "address" },
-        { "internalType": "contract TokenInterfaceV5", "name": "_linkToken", "type": "address" },
-        { "internalType": "address[]", "name": "_nodes", "type": "address[]" },
-        { "internalType": "int256", "name": "proportionBTC", "type": "int256" },
-        { "internalType": "uint256", "name": "_depositAmount", "type": "uint256" }
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "referral",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "ReferralClaim",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "acceptOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_tokens",
+          "type": "address[]"
+        }
+      ],
+      "name": "claimReward",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract TokenInterface",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "contract TokenInterface",
+          "name": "_linkToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_nodes",
+          "type": "address[]"
+        },
+        {
+          "internalType": "int256",
+          "name": "proportionBTC",
+          "type": "int256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_depositAmount",
+          "type": "uint256"
+        }
       ],
       "name": "createQuanto",
       "outputs": [],
@@ -56,46 +307,250 @@
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_trader",
+          "type": "address"
+        }
+      ],
+      "name": "discountP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "distributeFee",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feeDistributorManager",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "indexByToken",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "name": "isPriceAggregator",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "name": "isStorage",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "name": "isTrading",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "name": "numReferral",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "pendingOwner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "name": "quantos",
       "outputs": [
-        { "internalType": "address", "name": "tokenT", "type": "address" },
-        { "internalType": "address", "name": "storageT", "type": "address" },
-        { "internalType": "address", "name": "pairInfoT", "type": "address" },
-        { "internalType": "address", "name": "pairStorageT", "type": "address" },
-        { "internalType": "address", "name": "tradingT", "type": "address" },
-        { "internalType": "address", "name": "callbackT", "type": "address" },
-        { "internalType": "address", "name": "rewardT", "type": "address" },
-        { "internalType": "address", "name": "vaultT", "type": "address" },
-        { "internalType": "address", "name": "priceAggregatorT", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "tokenT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "storageT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "pairInfoT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "pairStorageT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "tradingT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "callbackT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "rewardT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "vaultT",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "priceAggregatorT",
+          "type": "address"
+        }
       ],
       "stateMutability": "view",
       "type": "function"
@@ -103,21 +558,110 @@
     {
       "inputs": [],
       "name": "quantosCount",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-      "name": "referrals",
-      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "address", "name": "_trader", "type": "address" },
-        { "internalType": "address", "name": "_referral", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "referralP",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "referrals",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "rewardsReferral",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_feeDistributorManager",
+          "type": "address"
+        }
+      ],
+      "name": "setFeeDistributorManager",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_trader",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_referral",
+          "type": "address"
+        }
       ],
       "name": "storeReferral",
       "outputs": [],
@@ -126,12 +670,77 @@
     },
     {
       "inputs": [
-        { "internalType": "contract TokenInterfaceV5", "name": "_token", "type": "address" },
-        { "internalType": "address", "name": "_from", "type": "address" },
-        { "internalType": "address", "name": "_to", "type": "address" },
-        { "internalType": "uint256", "name": "_amount", "type": "uint256" }
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_trader",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "storeReward",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "contract TokenInterface",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
       ],
       "name": "transferTokenProxy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "updateQuantoCallback",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
