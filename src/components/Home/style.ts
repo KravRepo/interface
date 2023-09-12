@@ -669,7 +669,6 @@ export const referral = css`
   }
   .referral-stats {
     border-radius: 8px;
-    background: #f6f6f6;
     margin: 40px 0;
     padding: 40px;
     font-size: 12px;

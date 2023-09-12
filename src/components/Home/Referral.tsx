@@ -7,7 +7,7 @@ import { ReactComponent as TGDarkIcon } from '../../assets/imgs/darkModel/referr
 // import { ReactComponent as Medium } from '../../assets/imgs/medium.svg'
 // import { ReactComponent as DiscordIcon } from '../../assets/imgs/referral_discord.svg'
 import { ReactComponent as KravLogo } from '../../assets/imgs/referral_logo.svg'
-// import { ReactComponent as Notify } from '../../assets/imgs/referral_notify.svg'
+import { ReactComponent as Notify } from '../../assets/imgs/referral_notify.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { referral } from './style'
 import { css } from '@emotion/react'
@@ -18,7 +18,7 @@ import { base64 } from 'ethers/lib/utils'
 import { utils } from 'ethers'
 import { Tooltip, useTheme } from '@mui/material'
 import { useRootStore } from '../../store/root'
-// import { useNumReferral } from '../../hook/hookV8/useNumReferral'
+import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { useReferral } from '../../hook/hookV8/useReferral'
 import { getBigNumberStr } from '../../utils'
 
@@ -26,8 +26,8 @@ export const Referral = () => {
   const { account } = useWeb3React()
   const theme = useTheme()
   const [openTooltip, setOpenTooltip] = useState(false)
-  // const [numReferral, setNumReferral] = useState(0)
-  // useNumReferral(setNumReferral)
+  const [numReferral, setNumReferral] = useState(0)
+  useNumReferral(setNumReferral)
   const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const useCopyLink = useCallback(async () => {
@@ -311,27 +311,40 @@ export const Referral = () => {
           </div>
         </div>
       </div>
-      {/*<div className="referral-stats">*/}
-      {/*  <p>Your Referral stats</p>*/}
-      {/*  <div>*/}
-      {/*    <div className="referral-stats-item">*/}
-      {/*      <p>{numReferral}</p>*/}
-      {/*      <p css={align}>*/}
-      {/*        FRIENDS INVITED&nbsp; <Notify />{' '}*/}
-      {/*      </p>*/}
-      {/*    </div>*/}
-      {/*    <div className="referral-stats-item line">*/}
-      {/*      <p>-- </p>*/}
-      {/*      <p>You Have Earned</p>*/}
-      {/*    </div>*/}
-      {/*    <div className="referral-stats-item line">*/}
-      {/*      <p>--</p>*/}
-      {/*      <p css={align}>*/}
-      {/*        REFERRALS POINTS&nbsp; <Notify />{' '}*/}
-      {/*      </p>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*</div>*/}
+      <div
+        className="referral-stats"
+        css={css`
+          background: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#f6f6f6'};
+          color: ${theme.text.primary};
+        `}
+      >
+        <p>Your Referral stats</p>
+        <div>
+          <div className="referral-stats-item">
+            <p>{numReferral}</p>
+            <p
+              css={[
+                align,
+                css`
+                  color: ${theme.text.third};
+                `,
+              ]}
+            >
+              FRIENDS INVITED&nbsp; <Notify />{' '}
+            </p>
+          </div>
+          {/*<div className="referral-stats-item line">*/}
+          {/*  <p>-- </p>*/}
+          {/*  <p>You Have Earned</p>*/}
+          {/*</div>*/}
+          {/*<div className="referral-stats-item line">*/}
+          {/*  <p>--</p>*/}
+          {/*  <p css={align}>*/}
+          {/*    REFERRALS POINTS&nbsp; <Notify />{' '}*/}
+          {/*  </p>*/}
+          {/*</div>*/}
+        </div>
+      </div>
       <div
         className="referral-leaderboard"
         css={css`
