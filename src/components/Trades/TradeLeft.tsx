@@ -9,6 +9,7 @@ import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
 import { css, useTheme } from '@mui/material'
 import { TradeMode } from '../../store/TradeSlice'
+import { SecondChart } from './TradeLeft/SecondCharts'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -32,7 +33,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
       <div css={tradeLeft}>
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
-        {tradeModel !== TradeMode.BASIC && (
+        {tradeModel === TradeMode.PRO && (
           <div
             css={[
               chart,
@@ -53,6 +54,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             tradeType={tradeType}
           />
         )}
+        {tradeModel === TradeMode.DEGEN && <SecondChart />}
         <MyTrade />
       </div>
     </>
