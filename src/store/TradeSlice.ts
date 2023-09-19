@@ -33,7 +33,7 @@ export const createTradeSlice: StateCreator<
   TradeSlice
 > = (set) => ({
   tradePool: {} as PoolParams,
-  tradeModel: TradeMode.DEGEN,
+  tradeModel: TradeMode.PRO,
   isOpenSelectToken: false,
 
   setTradePool(tradePool) {
