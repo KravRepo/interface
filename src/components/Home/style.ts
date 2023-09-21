@@ -303,7 +303,6 @@ export const stake = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #dadada;
     padding: 8px 32px 12px;
     > div {
       display: flex;
@@ -434,7 +433,7 @@ export const referral = css`
       }
     }
     .rotate-text {
-      color: white;
+      //color: white;
       position: absolute;
       transform: rotate(-90deg);
       translate: 0 100px;
@@ -446,14 +445,14 @@ export const referral = css`
     border-radius: 100%;
     translate: -21px;
     margin-bottom: 7px;
-    background: white;
+    //background: white;
   }
   .triangle-up {
     width: 0;
     height: 0;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
-    border-bottom: 15px solid white;
+    //border-left: 11px solid transparent;
+    //border-right: 11px solid transparent;
+    //border-bottom: 15px solid white;
     position: absolute;
     bottom: 0;
     z-index: 2;
@@ -461,9 +460,9 @@ export const referral = css`
   .triangle-down {
     width: 0;
     height: 0;
-    border-left: 11px solid transparent;
-    border-right: 11px solid transparent;
-    border-top: 15px solid white;
+    //border-left: 11px solid transparent;
+    //border-right: 11px solid transparent;
+    //border-top: 15px solid white;
     position: absolute;
     top: 0;
     z-index: 2;
@@ -472,7 +471,7 @@ export const referral = css`
     display: grid;
     grid-template-columns: 174px auto 174px;
     padding-bottom: 40px;
-    border-bottom: 1px solid #dadada;
+    //border-bottom: 1px solid #dadada;
     font-family: 'Inter';
     font-size: 14px;
     font-style: normal;
@@ -482,15 +481,15 @@ export const referral = css`
     .link-text {
       flex: 1;
       border-radius: 4px;
-      border: 1px solid #dadada;
-      background: #f6f6f6;
+      //border: 1px solid #dadada;
+      //background: #f6f6f6;
       line-height: 40px;
       padding: 0 16px;
       display: flex;
       justify-content: space-between;
       > div {
         padding: 0 24px;
-        border-left: 1px solid #dadada;
+        //border-left: 1px solid #dadada;
         position: relative;
         > span:last-of-type {
           position: absolute;
@@ -502,7 +501,7 @@ export const referral = css`
     }
     > div:first-of-type {
       padding-right: 24px;
-      border-right: 1px solid #dadada;
+      //border-right: 1px solid #dadada;
       > p:first-of-type {
         margin: 0 0 16px;
       }
@@ -523,7 +522,7 @@ export const referral = css`
     }
     > div:last-of-type {
       padding-left: 24px;
-      border-left: 1px solid #dadada;
+      //border-left: 1px solid #dadada;
       > p {
         padding-bottom: 16px;
       }
@@ -539,7 +538,7 @@ export const referral = css`
   }
   .referral-stats {
     border-radius: 8px;
-    background: #f6f6f6;
+    //background: #f6f6f6;
     margin: 40px 0;
     padding: 40px;
     font-size: 12px;
@@ -573,6 +572,9 @@ export const referral = css`
     margin-bottom: 80px;
     > div:first-of-type {
       font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-family: 'Inter';
       font-weight: 500;
       padding-bottom: 24px;
@@ -583,7 +585,7 @@ export const referral = css`
       line-height: 120%;
       letter-spacing: 0.24px;
       padding: 16px 26px;
-      background: #f6f6f6;
+      //background: #f6f6f6;
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
@@ -591,7 +593,7 @@ export const referral = css`
       display: grid;
       grid-template-columns: 1fr 1fr;
       padding: 24px;
-      border-bottom: 1px solid #dadada;
+      //border-bottom: 1px solid #dadada;
     }
   }
 `

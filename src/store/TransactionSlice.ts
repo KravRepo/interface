@@ -24,6 +24,7 @@ export enum TransactionState {
   CLAIM_KRAV_REWARD = 'claim krav reward',
   UPDATE_SL_ORDER = 'Update stop loss...',
   UPDATE_TP_ORDER = 'Update take profit...',
+  CLAIM_REFERRAL_REWARD = 'Claim referral reward...',
 }
 
 export enum CreatPoolState {
@@ -52,6 +53,7 @@ export enum TransactionAction {
   STAKE_KRAV = 'Staked Krav',
   WITHDRAW_KRAV = 'Withdraw krav',
   CLAIM_KRAV_REWARD = 'claim krav reward',
+  CLAIM_REFERRAL_REWARD = 'Claim referral reward',
 }
 
 export type ErrorContent = {
