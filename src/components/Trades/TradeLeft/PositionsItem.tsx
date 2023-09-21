@@ -12,7 +12,6 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
 import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
-import { align } from '../../../globalStyle'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -50,8 +49,8 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
       {!openTrade.isPendingOrder && (
         <div className="position-layout">
           <div>
-            <p>BTC</p>
             <p>
+              BTC&nbsp;
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
@@ -104,7 +103,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
           <div>
             {openTrade.beingMarketClosed && (
-              <div css={align}>
+              <div>
                 <div
                   css={css`
                     border: 3px solid transparent;
@@ -174,7 +173,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           </div>
           <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
           {openTrade?.isInPending && (
-            <div css={align}>
+            <div>
               <div
                 css={css`
                   border: 3px solid transparent;

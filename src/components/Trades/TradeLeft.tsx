@@ -2,14 +2,14 @@
 import { PairInfo } from './TradeLeft/PairInfo'
 import { chart, tradeLeft } from './style'
 import { MyTrade } from './TradeLeft/MyTrade'
-import { TradingView } from './TradeLeft/TradingView'
+import TradingViewWidget from './TradeLeft/newTradingView'
 import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
 import { css, useTheme } from '@mui/material'
+import { SecondChart } from './TradeLeft/SecondChart'
 import { TradeMode } from '../../store/TradeSlice'
-import { SecondChart } from './TradeLeft/SecondCharts'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -42,7 +42,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
               `,
             ]}
           >
-            <TradingView />
+            <TradingViewWidget />
           </div>
         )}
         {tradeModel === TradeMode.BASIC && (

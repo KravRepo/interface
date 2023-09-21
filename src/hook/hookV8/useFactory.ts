@@ -25,6 +25,7 @@ enum Task {
   maxWithdrawPTask = 7,
   pairParams = 8,
   accDaiPerDaiTask = 9,
+  minPosition = 10,
 }
 
 enum TaskFunc {
@@ -37,6 +38,7 @@ enum TaskFunc {
   MAX_WITHDRAW_P = 'maxWithdrawP',
   PAIR_PARAMS = 'pairParams',
   ACC_DAI_PER_DAI = 'accDaiPerDai',
+  POSITION_MIN_LEV = 'pairMinLevPosDai',
 }
 
 export const useFactory = () => {
@@ -56,7 +58,7 @@ export const useFactory = () => {
         poolsParams.push(factory.quantos(i))
       }
       const res = await Promise.all(poolsParams)
-      const forMatter = [] as PoolParams[]
+      let forMatter = [] as PoolParams[]
       const tokenTask: any[] = []
       const decimalsTask: any[] = []
       const pairStorageTask: any[] = []
@@ -67,6 +69,7 @@ export const useFactory = () => {
       const maxWithdrawPTask: any[] = []
       const pairParams: any[] = []
       const accDaiPerDaiTask: any[] = []
+      const minPositionTask: any[] = []
       res.forEach((item) => {
         //TODO check pairs tokenT is ERC20
         forMatter.push({
@@ -85,12 +88,12 @@ export const useFactory = () => {
           blockNumber: blockNumber,
           utilization: new BigNumber(0),
           maxWithdrawP: new BigNumber(0),
+          minPositionLev: new BigNumber(0),
           logoSource: null,
           fundingFeePerBlockP: new BigNumber(0),
           accDaiPerDai: new BigNumber(0),
         })
       })
-
       const multicall = new Contract(multicall2.address, multicall2.abi, provider)
       const pairStorageInterface = new Interface(pair_storage.abi)
       const pairInfoInterface = new Interface(pair_info.abi)
@@ -100,8 +103,8 @@ export const useFactory = () => {
         tokenTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.SYMBOL, []))
         decimalsTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.DECIMALS, []))
         pairStorageTask.push(creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.PAIRS, [0]))
-        vaultSupplyTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.CURRENT_BALANCE_DAI, []))
-        vaultBalanceTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.MAX_BALANCE_DAI, []))
+        vaultBalanceTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.CURRENT_BALANCE_DAI, []))
+        vaultSupplyTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.MAX_BALANCE_DAI, []))
         groupCollateralLong.push(
           creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.GROUP_COLLATERAL, [0, true])
         )
@@ -111,6 +114,7 @@ export const useFactory = () => {
         maxWithdrawPTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.MAX_WITHDRAW_P, []))
         pairParams.push(creatCall(item.pairInfoT, pairInfoInterface, TaskFunc.PAIR_PARAMS, [0]))
         accDaiPerDaiTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.ACC_DAI_PER_DAI, []))
+        minPositionTask.push(creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.POSITION_MIN_LEV, [0]))
       })
 
       const factoryReturn = await multicall.callStatic.aggregate([
@@ -124,8 +128,38 @@ export const useFactory = () => {
         ...maxWithdrawPTask,
         ...pairParams,
         ...accDaiPerDaiTask,
+        ...minPositionTask,
       ])
       const factoryCall = factoryReturn.returnData
+      // forMatter.forEach((item) => {
+      //   const pairStorageContract = new Contract(item.pairStorageT, pair_storage.abi, provider)
+      //   const pairInfoContract = new Contract(item.pairInfoT, pair_info.abi, provider)
+      //   const tokenContract = new Contract(item.tokenT, test_erc20.abi, provider)
+      //   const vaultContract = new Contract(item.vaultT, trading_vault.abi, provider)
+      //   tokenTask.push(tokenContract.symbol())
+      //   decimalsTask.push(tokenContract.decimals())
+      //   pairStorageTask.push(pairStorageContract.pairs(0))
+      //   vaultBalanceTask.push(vaultContract.currentBalanceDai())
+      //   vaultSupplyTask.push(vaultContract.maxBalanceDai())
+      //   groupCollateralLong.push(pairStorageContract.groupCollateral(0, true))
+      //   groupCollateralShort.push(pairStorageContract.groupCollateral(0, false))
+      //   maxWithdrawPTask.push(vaultContract.maxWithdrawP())
+      //   pairParams.push(pairInfoContract.pairParams(0))
+      //   accDaiPerDaiTask.push(vaultContract.accDaiPerDai())
+      // })
+      //
+      // const factoryCall = await Promise.all([
+      //   ...tokenTask,
+      //   ...decimalsTask,
+      //   ...pairStorageTask,
+      //   ...vaultSupplyTask,
+      //   ...vaultBalanceTask,
+      //   ...groupCollateralLong,
+      //   ...groupCollateralShort,
+      //   ...maxWithdrawPTask,
+      //   ...pairParams,
+      //   ...accDaiPerDaiTask,
+      // ])
 
       forMatter.forEach((item, index) => {
         item.symbol = decodeCallResult(tokenInterface, TaskFunc.SYMBOL, factoryCall[index])
@@ -193,12 +227,23 @@ export const useFactory = () => {
             factoryCall[Task.accDaiPerDaiTask * totalPools + index]
           )._hex
         )
+        item.minPositionLev = eXDecimals(
+          new BigNumber(
+            decodeCallResult(
+              pairStorageInterface,
+              TaskFunc.POSITION_MIN_LEV,
+              factoryCall[Task.minPosition * totalPools + index]
+            )._hex
+          ),
+          item.decimals
+        )
         try {
           item.logoSource = require(`../../assets/imgs/tokens/${item.symbol}.svg`)
         } catch (e) {
           item.logoSource = require('../../assets/imgs/tokens/default_token.svg').default
         }
       })
+      forMatter = forMatter.filter((pool) => pool.symbol !== 'MAG')
       setAllPoolParams(forMatter)
       setIsLoadingFactory(false)
       return forMatter
