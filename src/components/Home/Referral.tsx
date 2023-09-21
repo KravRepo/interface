@@ -12,7 +12,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { referral } from './style'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { base64 } from 'ethers/lib/utils'
 import { utils } from 'ethers'
@@ -30,6 +30,15 @@ export const Referral = () => {
   useNumReferral(setNumReferral)
   const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
+  const reLink = useMemo(() => {
+    if (account) {
+      const host = document.documentURI
+      const url = host.split('/')
+      const link = url[0] + '//' + url[2] + '/trade/'
+      const encode = base64.encode(utils.toUtf8Bytes(account))
+      return link + encode
+    } else return ''
+  }, [account])
   const useCopyLink = useCallback(async () => {
     if (account) {
       try {
@@ -181,7 +190,9 @@ export const Referral = () => {
             <div className="rotate-text">Invite your friends</div>
             <div className="referral-title-right">
               <p>COPY REFERRAL LINK</p>
-              <KRAVButton sx={{ width: '115px', background: '#000' }}>Invite friends</KRAVButton>
+              <KRAVButton onClick={useCopyLink} sx={{ width: '115px', background: '#000' }}>
+                Invite friends
+              </KRAVButton>
               <div />
             </div>
           </div>
@@ -287,20 +298,20 @@ export const Referral = () => {
           </p>
           <div className="social">
             {theme.palette.mode === 'dark' ? (
-              <TWDarkIcon onClick={() => window.open('https://twitter.com/kravtrade')} />
+              <TWDarkIcon onClick={() => window.open(`https://twitter.com/intent/tweet?text=${reLink}`)} />
             ) : (
-              <TWIcon onClick={() => window.open('https://twitter.com/kravtrade')} />
+              <TWIcon onClick={() => window.open(`https://twitter.com/intent/tweet?text=${reLink}`)} />
             )}
             {theme.palette.mode === 'dark' ? (
               <TGDarkIcon
-                onClick={() => window.open('https://t.me/kravtrade')}
+                onClick={() => window.open(`https://t.me/share?url=${reLink}&text=${reLink}`)}
                 css={css`
                   margin: 0 12px;
                 `}
               />
             ) : (
               <TGIcon
-                onClick={() => window.open('https://t.me/kravtrade')}
+                onClick={() => window.open(`https://t.me/share?url=${reLink}&text=${reLink}`)}
                 css={css`
                   margin: 0 12px;
                 `}

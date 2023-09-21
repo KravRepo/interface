@@ -27,6 +27,7 @@ export const useGetUserOpenTrade = () => {
           }
           const res = await Promise.all(task)
           const openTrades = forMatterOpenTrades(res, trades, account, false)
+          console.log('openTrades', openTrades)
           const userPendingMarketOrder: Tuple[] = []
           const blockNumber = await provider.getBlockNumber()
           const userPendingOrder = await contract.getPendingOrderIds(account)
@@ -53,6 +54,7 @@ export const useGetUserOpenTrade = () => {
             userPendingMarketOrder.push(res[0])
           })
           isBeingMarketClosed(openTrades, userPendingMarketOrder)
+          console.log('userPendingMarketOrder', userPendingMarketOrder)
           if (setStore) setUserOpenTradeList(openTrades.concat(userPendingMarketOrder))
           else setUserOpenTrades(openTrades)
         }
