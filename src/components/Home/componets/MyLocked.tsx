@@ -3,7 +3,7 @@ import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ToVoteIcon } from '../../../assets/imgs/to_vote.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
-import KRAVHollowButton from '../../KravUIKit/KravHollowButton'
+import KRAVHollowButton from '../../KravUIKit/KRAVHollowButton'
 import { css, Tooltip, useTheme } from '@mui/material'
 import { align } from '../../../globalStyle'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
