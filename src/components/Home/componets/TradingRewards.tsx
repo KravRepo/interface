@@ -3,7 +3,7 @@ import KRAVTab from '../../KravUIKit/KravTab'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
-import KRAVHollowButton from '../../KravUIKit/KRAVHollowButton'
+import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { KravRewardCard } from './KravRewardCard'
 import { Box, css, Popover, Tooltip, useTheme } from '@mui/material'
@@ -215,7 +215,7 @@ export const TradingRewards = ({
             >
               {getBigNumberStr(tradeBooster, 2)}
             </span>
-            <KRAVHollowButton
+            <KravButtonHollow
               onClick={() => navigate('/portfolio/stake')}
               sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
             >
@@ -225,7 +225,7 @@ export const TradingRewards = ({
                   min-width: 24px;
                 `}
               />
-            </KRAVHollowButton>
+            </KravButtonHollow>
           </p>
         </div>
       </div>

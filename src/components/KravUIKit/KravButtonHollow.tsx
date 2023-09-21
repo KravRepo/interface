@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { Button } from '@mui/material'
 
-const KRAVHollowButton = styled(Button)(({ theme }) => ({
+const KravButtonHollow = styled(Button)(({ theme }) => ({
   whiteSpace: 'nowrap',
   textTransform: 'none',
   width: '100%',
@@ -22,4 +22,4 @@ const KRAVHollowButton = styled(Button)(({ theme }) => ({
   },
 }))
 
-export default KRAVHollowButton
+export default KravButtonHollow

@@ -5,7 +5,7 @@ import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ArrowLeft } from '../../../assets/imgs/arrowLeft.svg'
 import { ReactComponent as ArrowLeftDark } from '../../../assets/imgs/darkModel/arrow_left_dark.svg'
-import KRAVHollowButton from '../../KravUIKit/KRAVHollowButton'
+import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
@@ -210,7 +210,7 @@ export const LiquidityRewards = ({
               >
                 {getBigNumberStr(LpBooster, 2)}
               </span>
-              <KRAVHollowButton
+              <KravButtonHollow
                 onClick={() => navigate('/portfolio/stake')}
                 sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
               >
@@ -222,7 +222,7 @@ export const LiquidityRewards = ({
                   Boost&nbsp;
                 </span>
                 <BoostIcon />
-              </KRAVHollowButton>
+              </KravButtonHollow>
             </p>
           </div>
         </div>
