@@ -22,23 +22,9 @@ import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { useReferral } from '../../hook/hookV8/useReferral'
 import { getBigNumberStr } from '../../utils'
 
-export const Referral = () => {
-  const { account } = useWeb3React()
-  const theme = useTheme()
+const CopyLink = ({ children }: { children: JSX.Element }) => {
   const [openTooltip, setOpenTooltip] = useState(false)
-  const [numReferral, setNumReferral] = useState(0)
-  useNumReferral(setNumReferral)
-  const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
-  const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
-  const reLink = useMemo(() => {
-    if (account) {
-      const host = document.documentURI
-      const url = host.split('/')
-      const link = url[0] + '//' + url[2] + '/trade/'
-      const encode = base64.encode(utils.toUtf8Bytes(account))
-      return link + encode
-    } else return ''
-  }, [account])
+  const { account } = useWeb3React()
   const useCopyLink = useCallback(async () => {
     if (account) {
       try {
@@ -56,6 +42,31 @@ export const Referral = () => {
       }
     }
   }, [account])
+  return (
+    <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
+      <div onClick={useCopyLink}>{children}</div>
+    </Tooltip>
+  )
+}
+
+export const Referral = () => {
+  const { account } = useWeb3React()
+  const theme = useTheme()
+
+  const [numReferral, setNumReferral] = useState(0)
+  useNumReferral(setNumReferral)
+  const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
+  const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
+  const reLink = useMemo(() => {
+    if (account) {
+      const host = document.documentURI
+      const url = host.split('/')
+      const link = url[0] + '//' + url[2] + '/trade/'
+      const encode = base64.encode(utils.toUtf8Bytes(account))
+      return link + encode
+    } else return ''
+  }, [account])
+
   return (
     <div css={referral}>
       <div className="referral-title">
@@ -190,9 +201,9 @@ export const Referral = () => {
             <div className="rotate-text">Invite your friends</div>
             <div className="referral-title-right">
               <p>COPY REFERRAL LINK</p>
-              <KRAVButton onClick={useCopyLink} sx={{ width: '115px', background: '#000' }}>
-                Invite friends
-              </KRAVButton>
+              <CopyLink>
+                <KRAVButton sx={{ width: '115px', background: '#000', zIndex: 2 }}>Invite friends</KRAVButton>
+              </CopyLink>
               <div />
             </div>
           </div>
@@ -254,9 +265,8 @@ export const Referral = () => {
               </div>
             </div>
             {account && (
-              <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
+              <CopyLink>
                 <KRAVButton
-                  onClick={useCopyLink}
                   sx={{
                     width: '140px',
                     ml: '8px',
@@ -270,7 +280,7 @@ export const Referral = () => {
                 >
                   Copy referral link
                 </KRAVButton>
-              </Tooltip>
+              </CopyLink>
             )}
             {!account && (
               <KRAVButton
