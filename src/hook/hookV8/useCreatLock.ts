@@ -29,7 +29,7 @@ export const useCreatLock = () => {
           const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
           let forMatterLockTime = 0
           if (lockTime === 1) {
-            forMatterLockTime = ONE_WEEK_TIMESTAMP
+            forMatterLockTime = ONE_WEEK_TIMESTAMP * 2
           } else {
             forMatterLockTime = getLockTime(lockTime)
           }
