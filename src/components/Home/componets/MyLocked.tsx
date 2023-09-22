@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
-import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
+// import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
+// import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ToVoteIcon } from '../../../assets/imgs/to_vote.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
 import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
-import { css, Tooltip, useTheme } from '@mui/material'
-import { align } from '../../../globalStyle'
+import { css, useTheme } from '@mui/material'
+// import { align } from '../../../globalStyle'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import moment from 'moment'
@@ -75,19 +75,19 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
           margin-bottom: 12px;
         `}
       >
-        <Tooltip
-          title={
-            'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
-          }
-        >
-          <div css={align}>
-            <BoostIcon />
-            <span>&nbsp;My current trade boost :&nbsp;</span>
-            <QuestionIcon />
-          </div>
-        </Tooltip>
+        {/*<Tooltip*/}
+        {/*  title={*/}
+        {/*    'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'*/}
+        {/*  }*/}
+        {/*>*/}
+        {/*  <div css={align}>*/}
+        {/*    <BoostIcon />*/}
+        {/*    <span>&nbsp;My current trade boost :&nbsp;</span>*/}
+        {/*    <QuestionIcon />*/}
+        {/*  </div>*/}
+        {/*</Tooltip>*/}
 
-        <div>{getBigNumberStr(tradeBooster, 4)}</div>
+        {/*<div>{getBigNumberStr(tradeBooster, 4)}</div>*/}
       </div>
       <div
         css={css`
@@ -97,18 +97,18 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
           margin-bottom: 32px;
         `}
       >
-        <Tooltip
-          title={
-            'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
-          }
-        >
-          <div css={align}>
-            <BoostIcon />
-            <span>&nbsp;My current Liquidity Provider boost :&nbsp;</span>
-            <QuestionIcon />
-          </div>
-        </Tooltip>
-        <div>{getBigNumberStr(LpBooster, 4)}</div>
+        {/*<Tooltip*/}
+        {/*  title={*/}
+        {/*    'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'*/}
+        {/*  }*/}
+        {/*>*/}
+        {/*  <div css={align}>*/}
+        {/*    <BoostIcon />*/}
+        {/*    <span>&nbsp;My current Liquidity Provider boost :&nbsp;</span>*/}
+        {/*    <QuestionIcon />*/}
+        {/*  </div>*/}
+        {/*</Tooltip>*/}
+        {/*<div>{getBigNumberStr(LpBooster, 4)}</div>*/}
       </div>
       <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
         Unlock
