@@ -8,8 +8,7 @@ import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { css } from '@emotion/react'
 import { dashboard } from './style'
 import { DashboardCard } from './DashboardCard'
-import { useCallback, useEffect, useState } from 'react'
-import { DASHBOARD_OVERVIEW_API } from '../../constant/chain'
+import { useEffect, useState } from 'react'
 import { formatNumber, getBigNumberStr } from '../../utils'
 import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
 import { MyOrder } from './MyOrder'
@@ -26,18 +25,11 @@ import { DashboardFarm } from './DashboardFarm'
 import { useNavigate } from 'react-router-dom'
 import { API_DECIMALS } from '../../constant/math'
 import { useTheme } from '@mui/material'
-
-type OverviewData = {
-  liquiditySupply: number
-  orderPlacement: number
-  tradingVolume: number
-  tradingFrequency: number
-}
+import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 
 export const Dashboard = () => {
   const theme = useTheme()
   const { account, provider } = useWeb3React()
-  const [overviewData, setOverViewData] = useState<OverviewData>({} as OverviewData)
   // const [userStake, setUserStake] = useState(new BigNumber(0))
   const [userPoolLength, setUserPoolLength] = useState(0)
   const navigate = useNavigate()
@@ -46,37 +38,28 @@ export const Dashboard = () => {
   // const { getUserStake } = useGetKravStake()
   const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
-  const getOverView = useCallback(async () => {
-    try {
-      const req = await fetch(DASHBOARD_OVERVIEW_API)
-      const overview = await req.json()
-      setOverViewData({
-        liquiditySupply: Number(overview.data.liquiditySupply) / API_DECIMALS,
-        orderPlacement: Number(overview.data.orderPlacement) / API_DECIMALS,
-        tradingFrequency: overview.data.tradingFrequency,
-        tradingVolume: Number(overview.data.tradingVolume) / API_DECIMALS,
-      })
-    } catch (e) {
-      console.error('get overview failed!', e)
-    }
-  }, [])
+  const { getOverView, overviewData } = useGetTotalMarketOverview()
 
   useEffect(() => {
-    Promise.all([
-      // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
-      getOverView().then(),
-      getUserAssetOverview(),
-    ]).then()
-    getUserAllLimitOrders().then()
-    setInterval(async () => {
-      console.log('get user asset data ')
-      await Promise.all([
-        getOverView(),
+    let interval: NodeJS.Timer
+    if (account) {
+      Promise.all([
         // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
+        getOverView().then(),
         getUserAssetOverview(),
-      ])
-      await getUserAllLimitOrders()
-    }, 15000)
+      ]).then()
+      getUserAllLimitOrders().then()
+      interval = setInterval(async () => {
+        console.log('get user asset data ')
+        await Promise.all([
+          getOverView(),
+          // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
+          getUserAssetOverview(),
+        ])
+        await getUserAllLimitOrders()
+      }, 15000)
+    }
+    return () => clearInterval(interval)
   }, [account])
 
   useEffect(() => {

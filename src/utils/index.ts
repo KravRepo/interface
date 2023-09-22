@@ -96,6 +96,7 @@ export const shareToTwitter = (url: string, content: string) => {
 }
 
 export const formatNumber = (val: string | number, decimals: number, isDollar = true) => {
+  if (val === '0' || val === 0) return isDollar ? '$0' : '0'
   const forMatterStr = isDollar ? '$0,0.00' : '0,0.00'
   return numeral(Number(val).toFixed(decimals)).format(forMatterStr)
 }

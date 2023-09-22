@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import React, { useEffect, useMemo } from 'react'
-import { stake } from './style'
+import { farm } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { FarmItem } from './FarmItem'
@@ -56,7 +56,7 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
   return (
     <div
       css={[
-        stake,
+        farm,
         css`
           margin: 0 !important;
           min-height: 0 !important;

@@ -39,7 +39,6 @@ export const useAddLiquidity = (tokenAddress: string) => {
             console.log('2 approve', amount.toString())
             const approveTX = await tokenContract.approve(vaultAddress, MAX_UNIT_256)
             await approveTX.wait()
-            console.log('3 approveTX', approveTX)
           }
           setTransactionState(TransactionState.INTERACTION)
           const tx = await trading_vault_contract.depositDai(amount.toString())

@@ -6,7 +6,7 @@ import { align } from '../../globalStyle'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
 import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
 import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
-import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/karv_icon.svg'
+import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/KRAV.svg'
 import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
 import { ReactComponent as OpenIcon } from '../../assets/imgs/open_browser.svg'
 import { ReactComponent as CopyDarkIcon } from '../../assets/imgs/darkModel/copy_icon_dark.svg'
@@ -178,7 +178,6 @@ export const Header = () => {
     if (connection && connector) {
       await connector.resetState()
       await connection.connector.resetState()
-      console.log('setDisconnect')
       setDisconnectWallet(true)
     }
   }, [connector])
