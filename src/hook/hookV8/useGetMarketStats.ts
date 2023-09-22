@@ -18,7 +18,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
   useEffect(() => {
     ;(async () => {
       try {
-        if (allPoolParams.length > 0 && provider) {
+        if (allPoolParams.length > 0 && provider && address) {
           console.log('-------useGetMarketStats------------')
           const contract = new Contract(address, trading_storage.abi, provider)
           const pairInfoContract = new Contract(pairInfoAddress, pair_info.abi, provider)

@@ -4,7 +4,7 @@
 import { ReactComponent as ToVoteIcon } from '../../../assets/imgs/to_vote.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
 import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
-import { css } from '@mui/material'
+import { css, Link, useTheme } from '@mui/material'
 // import { align } from '../../../globalStyle'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
 import { formatNumber } from '../../../utils'
@@ -29,7 +29,7 @@ export const MyLocked = ({
   tradeBooster,
   unLockPosition,
 }: MyLockedProp) => {
-  // const theme = useTheme()
+  const theme = useTheme()
   // const claimFeesReward = useClaimFeesReward()
   const unlockButtonEnable = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
@@ -155,9 +155,11 @@ export const MyLocked = ({
       {/*>*/}
       {/*  Claim*/}
       {/*</KRAVButton>*/}
-      <KravButtonHollow>
-        To Vote <ToVoteIcon />
-      </KravButtonHollow>
+      <Link underline="none" sx={{ color: theme.text.primary }} href="https://snapshot.org/#/krav.eth">
+        <KravButtonHollow>
+          To Vote <ToVoteIcon />
+        </KravButtonHollow>
+      </Link>
     </div>
   )
 }
