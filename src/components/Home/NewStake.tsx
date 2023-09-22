@@ -14,13 +14,21 @@ import { useEffect } from 'react'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
+import { FeesRewardList } from '../../hook/hookV8/useGetClaimableTokensFee'
 // import { getBooster, getTradeBooster } from '../../utils/math'
 
 export const NewStake = () => {
   const theme = useTheme()
   const { account } = useWeb3React()
-  const { userKravBalance, userLockPosition, userFeesRewardList, totalKravLock, userVeKravAmount, totalVeKravAmount } =
-    useGetUserKravLock()
+  const {
+    userKravBalance,
+    userLockPosition,
+    // userFeesRewardList,
+    totalKravLock,
+    userVeKravAmount,
+    totalVeKravAmount,
+    unLockPosition,
+  } = useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
   // const { userLiquidityProvided, userTradingVolume24H } = useGetUserFarmReward()
   // const currentUserBooster = useMemo(() => {
@@ -188,9 +196,10 @@ export const NewStake = () => {
         />
         <MyLocked
           userLockPosition={userLockPosition}
-          userFeesRewardList={userFeesRewardList}
+          userFeesRewardList={[] as FeesRewardList[]}
           tradeBooster={new BigNumber(0)}
           LpBooster={new BigNumber(0)}
+          unLockPosition={unLockPosition}
         />
       </div>
     </div>

@@ -5,8 +5,11 @@ import voting from '../../abi/voting_escrow.json'
 import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
-import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
+// import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
 import { useRootStore } from '../../store/root'
+import { useUpdateError } from './useUpdateError'
+import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
+import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 export type UserLockPosition = {
   amount: BigNumber
   end: number
@@ -19,11 +22,16 @@ export const useGetUserKravLock = () => {
   const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
   const [userVeKravAmount, setUserVeKravAmount] = useState(new BigNumber(0))
   const [totalVeKravAmount, setTotalVeKravAmount] = useState(new BigNumber(0))
-  const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
+  // const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
   const [userLockPosition, setUserLockPosition] = useState<UserLockPosition>({
     amount: new BigNumber(0),
     end: 0,
   })
+  const updateError = useUpdateError()
+  const updateSuccessDialog = useUpdateSuccessDialog()
+  const setTransactionState = useRootStore((store) => store.setTransactionState)
+  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
+  const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
 
   const veContract = useContract(VE_KRAV, voting.abi)
   const kravTokenContract = useTokenContract(KRAV_ADDRESS)
@@ -59,13 +67,33 @@ export const useGetUserKravLock = () => {
       }
     }
   }, [veContract])
+  const unLockPosition = useCallback(async () => {
+    if (veContract) {
+      try {
+        setTransactionState(TransactionState.INTERACTION)
+        setTransactionDialogVisibility(true)
+        const tx = await veContract.withdraw()
+        setTransactionState(TransactionState.UNLOCK)
+        await tx.wait()
+        setTransactionState(TransactionState.START)
+        updateSuccessDialog(TransactionAction.UNLOCK)
+        setSuccessSnackbarInfo({
+          snackbarVisibility: true,
+          title: 'Unlock',
+          content: 'Unlocked successfully',
+        })
+      } catch (e) {
+        updateError(TransactionAction.UNLOCK)
+      }
+    }
+  }, [veContract])
   useEffect(() => {
     let Interval: NodeJS.Timer
     if (account && provider && allPoolParams.length > 0) {
-      Promise.all([getUserFeesReward(), getUserKravLock(), getTotalLock()]).then()
+      Promise.all([getUserKravLock(), getTotalLock()]).then()
 
       Interval = setInterval(async () => {
-        await Promise.all([getUserKravLock(), getUserFeesReward(), getTotalLock()])
+        await Promise.all([getUserKravLock(), getTotalLock()])
       }, 15000)
     }
     return () => {
@@ -76,9 +104,10 @@ export const useGetUserKravLock = () => {
   return {
     userKravBalance: userKravBalance,
     userLockPosition: userLockPosition,
-    userFeesRewardList: userFeesRewardList,
+    // userFeesRewardList: userFeesRewardList,
     totalKravLock: totalKravLock,
     userVeKravAmount: userVeKravAmount,
     totalVeKravAmount: totalVeKravAmount,
+    unLockPosition: unLockPosition,
   }
 }

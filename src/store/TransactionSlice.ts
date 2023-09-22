@@ -29,6 +29,7 @@ export enum TransactionState {
   INCREASE_UNLOCK_TIME = 'Increase lock time...',
   PENDING = 'Pending...',
   CLAIM_REFERRAL_REWARD = 'Claim referral reward...',
+  UNLOCK = 'Unlock',
 }
 
 export enum CreatPoolState {
@@ -64,6 +65,7 @@ export enum TransactionAction {
   CLAIM_LIQUIDITY_PROVIDER_REWARDS = 'Claim liquidity provider rewards',
   CLAIM_TRADING_REWARDS = 'Claim trading rewards',
   CLAIM_REFERRAL_REWARD = 'Claim referral reward',
+  UNLOCK = 'Unlock',
 }
 
 export type ErrorContent = {

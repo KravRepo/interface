@@ -19,9 +19,16 @@ type MyLockedProp = {
   userFeesRewardList: FeesRewardList[]
   LpBooster: BigNumber
   tradeBooster: BigNumber
+  unLockPosition: () => Promise<void>
 }
 
-export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, tradeBooster }: MyLockedProp) => {
+export const MyLocked = ({
+  userLockPosition,
+  userFeesRewardList,
+  LpBooster,
+  tradeBooster,
+  unLockPosition,
+}: MyLockedProp) => {
   // const theme = useTheme()
   // const claimFeesReward = useClaimFeesReward()
   const unlockButtonEnable = useMemo(() => {
@@ -110,7 +117,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         {/*</Tooltip>*/}
         {/*<div>{getBigNumberStr(LpBooster, 4)}</div>*/}
       </div>
-      <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
+      <KRAVButton disabled={!unlockButtonEnable} onClick={() => unLockPosition()} sx={{ mb: '32px' }}>
         Unlock
       </KRAVButton>
       {/*<div className="title gt">My Rewards</div>*/}
