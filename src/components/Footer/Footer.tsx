@@ -138,7 +138,7 @@ export const Footer = () => {
           </div>
         </div>
         <div css={[doc, hover]}>
-          <p>Features</p>
+          <p>Functions</p>
           <NavLink to={'/trade'}>
             <p>Trade</p>
           </NavLink>
