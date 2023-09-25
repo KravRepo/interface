@@ -67,7 +67,7 @@ export const SelectPair = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
                           border-radius: 50%;
                           background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
                         `}
-                        src={pair.logoSource}
+                        src={pair.logoSource.default}
                         height="40"
                         width="40"
                       />
@@ -76,7 +76,7 @@ export const SelectPair = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
                           margin-left: 12px;
                         `}
                       >
-                        <p>{pair.symbol}</p>
+                        <p>{pair.titleSymbol}</p>
                         <p className="grey">{pair.symbol}</p>
                       </div>
                     </div>

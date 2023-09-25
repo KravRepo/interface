@@ -20,7 +20,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     titleSymbol: 'BTC/USDT',
     pairIndex: 0,
     fixDecimals: 2,
-    logoSource: '',
+    logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
   },
   // 1: {
   //   symbol: 'ETH',
@@ -50,6 +50,6 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     titleSymbol: 'JPY/USD',
     pairIndex: 2,
     fixDecimals: 6,
-    logoSource: '',
+    logoSource: require('../assets/imgs/tokens/JPY.svg'),
   },
 }
