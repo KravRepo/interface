@@ -13,6 +13,7 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
+import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -78,6 +79,10 @@ export const ProfitConfirmTrade = ({
       font-weight: 700;
     `
   }, [theme])
+
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[openTrade.pairIndex]
+  }, [openTrade])
 
   const targetSl = useMemo(() => {
     return slUsePercentage
@@ -478,11 +483,11 @@ export const ProfitConfirmTrade = ({
             <div className="confirm-content-info">
               <p>
                 <span>Current price</span>
-                <span>${btcPrice.toFixed(2)}</span>
+                <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
                 <span>Liquidation price</span>
-                <span>${lqPrice.toFixed(2)}</span>
+                <span>${lqPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
             </div>
           </div>

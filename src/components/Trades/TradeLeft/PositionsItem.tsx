@@ -37,8 +37,8 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
     else return tp
   }, [BTCPrice, openTrade])
 
-  const tradeSymbol = useMemo(() => {
-    return EXCHANGE_CONFIG[tradePairIndex].symbol
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[tradePairIndex]
   }, [tradePairIndex])
 
   const liqPrice = useMemo(() => {
@@ -58,7 +58,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
         <div className="position-layout">
           <div>
             <p>
-              {tradeSymbol}&nbsp;
+              {tradePair.symbol}&nbsp;
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
@@ -101,13 +101,15 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
           </div>
-          <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
-          <div>${BTCPrice.toFixed(2)}</div>
+          <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
+          <div>${BTCPrice.toFixed(tradePair.fixDecimals)}</div>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
-            {openTrade.sl.toString() === '0' ? `$${liqPrice.toFixed(2)}` : `$${BigNumber(openTrade.sl).toFixed(2)}`}
+            {openTrade.sl.toString() === '0'
+              ? `$${liqPrice.toFixed(tradePair.fixDecimals)}`
+              : `$${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}`}
           </div>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
-            ${BigNumber(openTrade.tp).toFixed(2)}
+            ${BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}
           </div>
           <div>
             {openTrade.beingMarketClosed && (
@@ -174,10 +176,12 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool.symbol}
           </div>
-          <div>${new BigNumber(openTrade.openPrice).toFixed(2)}</div>
-          <div>${BTCPrice.toFixed(2)}</div>
+          <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
+          <div>${BTCPrice.toFixed(tradePair.fixDecimals)}</div>
           <div>
-            {openTrade.sl.toString() === '0' ? `$${liqPrice.toFixed(2)}` : `$${BigNumber(openTrade.sl).toFixed(2)}`}
+            {openTrade.sl.toString() === '0'
+              ? `$${liqPrice.toFixed(tradePair.fixDecimals)}`
+              : `$${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}`}
           </div>
           <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
           {openTrade?.isInPending && (

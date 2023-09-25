@@ -57,8 +57,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     return tradePool.tradingT === EXCHANGE_TRADING_T
   }, [tradePool])
 
-  const tradePairSymbol = useMemo(() => {
-    return EXCHANGE_CONFIG[tradePairIndex].titleSymbol
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[tradePairIndex]
   }, [tradePairIndex])
 
   useEffect(() => {
@@ -122,7 +122,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   align-items: center;
                 `}
               >
-                {tradePairSymbol}
+                {tradePair.titleSymbol}
                 {showSwitch && <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />}
               </div>
               <div
@@ -141,7 +141,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                     line-height: 1.4;
                   `}
                 >
-                  {BTCPrice.toFixed(2)}
+                  {BTCPrice.toFixed(tradePair.fixDecimals)}
                 </span>
                 <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
               </div>
