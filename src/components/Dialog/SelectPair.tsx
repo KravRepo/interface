@@ -5,24 +5,17 @@ import { css } from '@emotion/react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { align } from '../../globalStyle'
 import { useRootStore } from '../../store/root'
+import { useMemo } from 'react'
+import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
-type PairInfo = {
-  symbol: string
-  pairIndex: number
-  logoSource: any
-}
-
-export const SelectPair = ({
-  isOpen,
-  setIsOpen,
-  allPairInfo,
-}: {
-  isOpen: boolean
-  setIsOpen: () => void
-  allPairInfo: PairInfo[]
-}) => {
+export const SelectPair = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: () => void }) => {
   const theme = useTheme()
   const setTradePairIndex = useRootStore((store) => store.setTradePairIndex)
+  const pairs = useMemo(() => {
+    return Object.keys(EXCHANGE_CONFIG).map((key) => {
+      return EXCHANGE_CONFIG[Number(key)]
+    })
+  }, [])
   return (
     <Dialog
       sx={{
@@ -58,8 +51,8 @@ export const SelectPair = ({
               }
             `}
           >
-            {allPairInfo.length > 0 &&
-              allPairInfo.map((pair) => {
+            {pairs.length > 0 &&
+              pairs.map((pair) => {
                 return (
                   <div
                     key={pair.symbol}

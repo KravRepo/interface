@@ -12,6 +12,7 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
 import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
+import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -22,6 +23,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
   const theme = useTheme()
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
+  const tradePairIndex = useRootStore((state) => state.tradePairIndex)
 
   const closeTradeMarket = useCloseTradeMarket(
     pool ? pool.tradingT : tradePool.tradingT,
@@ -34,6 +36,11 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
     if (isNaN(tp.toNumber())) return new BigNumber(0)
     else return tp
   }, [BTCPrice, openTrade])
+
+  const tradeSymbol = useMemo(() => {
+    return EXCHANGE_CONFIG[tradePairIndex].symbol
+  }, [tradePairIndex])
+
   const liqPrice = useMemo(() => {
     return getLiqPrice(
       openTrade.openPrice as BigNumber,
@@ -51,7 +58,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
         <div className="position-layout">
           <div>
             <p>
-              BTC&nbsp;
+              {tradeSymbol}&nbsp;
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`

@@ -74,22 +74,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
 
   return (
     <>
-      <SelectPair
-        isOpen={choosePair}
-        setIsOpen={() => setChoosePair(false)}
-        allPairInfo={[
-          {
-            symbol: 'BTC/USDT',
-            pairIndex: 0,
-            logoSource: '',
-          },
-          {
-            symbol: 'JPY/USD',
-            pairIndex: 1,
-            logoSource: '',
-          },
-        ]}
-      />
+      <SelectPair isOpen={choosePair} setIsOpen={() => setChoosePair(false)} />
       <div
         css={[
           pairInfo,

@@ -1,12 +1,13 @@
 export const EXCHANGE_TRADING_T = '0x1333235fA15A0991468cd67696a5E7b81E58DF86'
 
-type BasicExchangeConfig = {
+export type BasicExchangeConfig = {
   symbol: string
   chartSymbol: string
   apiSymbol: string
   titleSymbol: string
   pairIndex: number
   fixDecimals: number
+  logoSource: any
 }
 
 type ExchangeConfig = { [pairIndex: number]: BasicExchangeConfig }
@@ -19,6 +20,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     titleSymbol: 'BTC/USDT',
     pairIndex: 0,
     fixDecimals: 2,
+    logoSource: '',
   },
   // 1: {
   //   symbol: 'ETH',
@@ -41,12 +43,13 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
   //   titleSymbol: 'CNY/USDT',
   //   pairIndex: 3,
   // },
-  1: {
+  2: {
     symbol: 'JPY',
     chartSymbol: 'FX_IDC:JPYUSD',
     apiSymbol: 'JPY',
     titleSymbol: 'JPY/USD',
-    pairIndex: 1,
+    pairIndex: 2,
     fixDecimals: 6,
+    logoSource: '',
   },
 }
