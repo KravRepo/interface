@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
 import { PoolParams } from '../../../store/FactorySlice'
+import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 type HistoryItemProps = {
   history: HistoryData
@@ -34,6 +35,10 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
             pool ? pool.decimals : tradePool.decimals
           )
     } else return new BigNumber(0)
+  }, [history])
+
+  const tradeSymbol = useMemo(() => {
+    return EXCHANGE_CONFIG[history.tradePairIndex].titleSymbol
   }, [history])
 
   const tradeType = useMemo(() => {
@@ -63,7 +68,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
             margin-left: 8px;
           `}
         >
-          {pool ? pool.symbol : tradePool.symbol} / BTC
+          {tradeSymbol}
         </span>
       </div>
       <div

@@ -22,6 +22,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
   const theme = useTheme()
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
+
   const closeTradeMarket = useCloseTradeMarket(
     pool ? pool.tradingT : tradePool.tradingT,
     pool ? pool.storageT : tradePool.storageT

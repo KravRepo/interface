@@ -62,7 +62,7 @@ export const BasicModelDepth = ({
             setTakeProfit(takeProfitAmount)
             return `
               <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
-              <p style='margin: 0;font-size: 16px'>BTC ${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
+              <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
               <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${new BigNumber(
                 params[0].data
               ).toFixed(2)}</span></p>
@@ -254,7 +254,7 @@ export const BasicModelDepth = ({
             setTakeProfit(takeProfitAmount)
             return `
               <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
-              <p style='margin: 0;font-size: 16px'>BTC ${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
+              <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
               <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${reachesPrice.toFixed(
                 2
               )}</span></p>

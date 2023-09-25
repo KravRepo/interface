@@ -11,20 +11,20 @@ export const useGetUserOpenLimitOrders = () => {
   const { account, provider } = useWeb3React()
   const [userLimitOrders, setUserLimitOrders] = useState([] as TupleLimitOrder[])
   const setUserOpenLimitList = useRootStore((store) => store.setUserOpenLimitList)
-
+  const tradePairIndex = useRootStore((state) => state.tradePairIndex)
   const getUserOpenLimitOrders = useCallback(
-    async (storageAddress: string, setStore: boolean, pairIndex = 0) => {
+    async (storageAddress: string, setStore: boolean) => {
       try {
         if (provider && account && storageAddress) {
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
-          const userTotalTrade = await contract.openLimitOrdersCount(account, pairIndex)
+          const userTotalTrade = await contract.openLimitOrdersCount(account, tradePairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
           const task = []
           const hasOpenLimitOrderArray = []
           if (trades > 0) {
             for (let i = 0; i < 3; i++) {
-              const has = await contract.hasOpenLimitOrder(account, pairIndex, i)
+              const has = await contract.hasOpenLimitOrder(account, tradePairIndex, i)
               if (has) {
                 hasOpenLimitOrderArray.push(i)
               }
@@ -32,7 +32,7 @@ export const useGetUserOpenLimitOrders = () => {
           }
 
           for (let i = 0; i < hasOpenLimitOrderArray.length; i++) {
-            task.push(contract.getOpenLimitOrder(account, pairIndex, hasOpenLimitOrderArray[i]))
+            task.push(contract.getOpenLimitOrder(account, tradePairIndex, hasOpenLimitOrderArray[i]))
           }
           const res = await Promise.all(task)
           const userOpenLimit: TupleLimitOrder[] = []
@@ -60,7 +60,7 @@ export const useGetUserOpenLimitOrders = () => {
         console.log('get user open Limit orders failed! failed!', e)
       }
     },
-    [provider, account]
+    [provider, account, tradePairIndex]
   )
 
   return { getUserOpenLimitOrders: getUserOpenLimitOrders, userLimitOrders: userLimitOrders }

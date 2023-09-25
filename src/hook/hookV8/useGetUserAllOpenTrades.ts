@@ -15,7 +15,7 @@ export type UseAllOpenTrades = {
   pool: PoolParams
   tuple: Tuple[]
 }
-
+// TODO match pair index
 export const useGetUserAllOpenTrades = () => {
   const { account, provider } = useWeb3React()
   const allPoolParams = useRootStore((store) => store.allPoolParams)

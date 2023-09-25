@@ -6,6 +6,7 @@ type BasicExchangeConfig = {
   apiSymbol: string
   titleSymbol: string
   pairIndex: number
+  fixDecimals: number
 }
 
 type ExchangeConfig = { [pairIndex: number]: BasicExchangeConfig }
@@ -17,6 +18,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     apiSymbol: 'BTCUSDT',
     titleSymbol: 'BTC/USDT',
     pairIndex: 0,
+    fixDecimals: 2,
   },
   // 1: {
   //   symbol: 'ETH',
@@ -45,5 +47,6 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     apiSymbol: 'JPY',
     titleSymbol: 'JPY/USD',
     pairIndex: 1,
+    fixDecimals: 6,
   },
 }
