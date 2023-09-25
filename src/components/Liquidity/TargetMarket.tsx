@@ -81,7 +81,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         )}
         {account && (
           <KRAVButton
-            sx={{ width: '132px', marginLeft: '20px', display: 'none' }}
+            sx={{ width: '132px', marginLeft: '20px', display: 'flex' }}
             onClick={() => setCreateLiquidityPool(true)}
           >
             Create Liquidity
