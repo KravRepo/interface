@@ -18,6 +18,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
   useEffect(() => {
     ;(async () => {
       try {
+        console.log('paiIndex', paiIndex)
         if (allPoolParams.length > 0 && provider && typeof paiIndex !== 'undefined') {
           console.log('-------useGetMarketStats------------')
           const contract = new Contract(address, trading_storage.abi, provider)

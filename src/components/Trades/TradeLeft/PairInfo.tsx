@@ -49,7 +49,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
   const { openDaiLong, openDaiShort, borrowLongVal, borrowShortVal } = useGetMarketStats(
     tradePool?.storageT || '',
     tradePool?.decimals || 18,
-    tradePool.pairInfoT || ''
+    tradePool.pairInfoT || '',
+    tradePairIndex
   )
 
   const showSwitch = useMemo(() => {
