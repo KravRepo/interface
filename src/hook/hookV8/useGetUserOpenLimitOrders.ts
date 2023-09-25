@@ -13,18 +13,18 @@ export const useGetUserOpenLimitOrders = () => {
   const setUserOpenLimitList = useRootStore((store) => store.setUserOpenLimitList)
 
   const getUserOpenLimitOrders = useCallback(
-    async (storageAddress: string, setStore: boolean) => {
+    async (storageAddress: string, setStore: boolean, pairIndex = 0) => {
       try {
         if (provider && account && storageAddress) {
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
-          const userTotalTrade = await contract.openLimitOrdersCount(account, 0)
+          const userTotalTrade = await contract.openLimitOrdersCount(account, pairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
           const task = []
           const hasOpenLimitOrderArray = []
           if (trades > 0) {
             for (let i = 0; i < 3; i++) {
-              const has = await contract.hasOpenLimitOrder(account, 0, i)
+              const has = await contract.hasOpenLimitOrder(account, pairIndex, i)
               if (has) {
                 hasOpenLimitOrderArray.push(i)
               }
@@ -32,7 +32,7 @@ export const useGetUserOpenLimitOrders = () => {
           }
 
           for (let i = 0; i < hasOpenLimitOrderArray.length; i++) {
-            task.push(contract.getOpenLimitOrder(account, 0, hasOpenLimitOrderArray[i]))
+            task.push(contract.getOpenLimitOrder(account, pairIndex, hasOpenLimitOrderArray[i]))
           }
           const res = await Promise.all(task)
           const userOpenLimit: TupleLimitOrder[] = []

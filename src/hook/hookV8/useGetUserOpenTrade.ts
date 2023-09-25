@@ -12,17 +12,17 @@ export const useGetUserOpenTrade = () => {
   const [userOpenTrades, setUserOpenTrades] = useState([] as Tuple[])
   const setUserOpenTradeList = useRootStore((store) => store.setUserOpenTradeList)
   const getUserOpenTrade = useCallback(
-    async (storageAddress: string, setStore: boolean) => {
+    async (storageAddress: string, setStore: boolean, pairIndex = 0) => {
       try {
         if (account && provider && storageAddress) {
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
-          const userTotalTrade = await contract.openTradesCount(account, 0)
+          const userTotalTrade = await contract.openTradesCount(account, pairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
           const task = []
           if (trades > 0) {
             for (let i = 0; i < 3; i++) {
-              task.push(contract.openTrades(account, 0, i))
+              task.push(contract.openTrades(account, pairIndex, i))
             }
           }
           const res = await Promise.all(task)

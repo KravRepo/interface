@@ -30,7 +30,6 @@ export const useOpenTrade = ({
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   return useCallback(async () => {
     try {
-      console.log('referral', referral)
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
       const params = [tuple, tradeType, spreadReductionId, slippageP, referral] as any
