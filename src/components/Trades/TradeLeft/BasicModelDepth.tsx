@@ -37,8 +37,8 @@ export const BasicModelDepth = ({
 
   const BTCPrice = useMemo(() => {
     return tradeType === 0 ? currentBTCPrice : new BigNumber(limitPrice)
-  }, [tradeType, limitPrice])
-
+  }, [tradeType, limitPrice, currentBTCPrice])
+  //TODO: fix JPY charts
   const depthOptions = useMemo(() => {
     return {
       // title: {
