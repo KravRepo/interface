@@ -24,6 +24,8 @@ export interface TradeSlice {
   setTradeModel: (tradeModel: TradeMode) => void
   isOpenSelectToken: boolean
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
+  tradePairIndex: number
+  setTradePairIndex: (tradePairIndex: number) => void
 }
 
 export const createTradeSlice: StateCreator<
@@ -35,7 +37,7 @@ export const createTradeSlice: StateCreator<
   tradePool: {} as PoolParams,
   tradeModel: TradeMode.DEGEN,
   isOpenSelectToken: false,
-
+  tradePairIndex: 0,
   setTradePool(tradePool) {
     set({ tradePool: tradePool })
   },
@@ -44,5 +46,8 @@ export const createTradeSlice: StateCreator<
   },
   setIsOpenSelectToken(isOpenSelectToken: boolean) {
     set({ isOpenSelectToken: isOpenSelectToken })
+  },
+  setTradePairIndex(tradePairIndex: number) {
+    set({ tradePairIndex: tradePairIndex })
   },
 })
