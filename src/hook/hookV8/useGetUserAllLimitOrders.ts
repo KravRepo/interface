@@ -85,7 +85,7 @@ export const useGetUserAllLimitOrders = () => {
                     for (let i = index * 3; i < index * 3 + 3; i++) {
                       if (hasOpenLimitOrderReturnData[i]) {
                         hasOpenLimitOrderArray.push({
-                          index: i,
+                          index: i % 3,
                           pairIndex: trades.pairIndex,
                         })
                       }
