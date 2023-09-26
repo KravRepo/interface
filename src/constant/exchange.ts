@@ -1,4 +1,5 @@
 export const EXCHANGE_TRADING_T = '0x1333235fA15A0991468cd67696a5E7b81E58DF86'
+export const EXCHANGE_STORAGE_T = '0xcBf486ffe298Dffc021D45CCf8550BcD31C9D8e3'
 
 export type BasicExchangeConfig = {
   symbol: string
