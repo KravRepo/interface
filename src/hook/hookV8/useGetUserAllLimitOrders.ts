@@ -58,7 +58,6 @@ export const useGetUserAllLimitOrders = () => {
                     }
                   })
                   const hasOpenLimitOrderTask: CreatCall[] = []
-                  console.log('userTotalLimits', userTotalLimits)
                   userTotalLimits.forEach((trades: { trades: number; pairIndex: number }) => {
                     if (trades.trades > 0) {
                       for (let i = 0; i < 3; i++) {
@@ -91,7 +90,6 @@ export const useGetUserAllLimitOrders = () => {
                       }
                     }
                   })
-                  console.log('hasOpenLimitOrderArray', hasOpenLimitOrderArray)
                   const positionTask: CreatCall[] = []
                   // let totalCount = 0
                   hasOpenLimitOrderArray.forEach((item: { index: number; pairIndex: number }) => {
