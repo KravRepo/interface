@@ -59,7 +59,7 @@ export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: str
     async (isSL: boolean, price: BigNumber, orderIndex: number) => {
       try {
         const func = isSL ? 'updateSl' : 'updateTp'
-        const params = [tradePairIndex, orderIndex, price.times(Number(1e10)).toString()] as any
+        const params = [tradePairIndex, orderIndex, price.times(Number(1e10)).toFixed(0, 1)] as any
         let gasLimit = await getGasLimit(contract, func, params)
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         setTransactionState(TransactionState.INTERACTION)

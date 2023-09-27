@@ -70,8 +70,8 @@ export const ProfitConfirmTrade = ({
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
   const [tpSetting, setTpSetting] = useState(0)
   const [slSetting, setSlSetting] = useState(0)
-  const [slPrice, setSlPrice] = useState<BigNumber | string>(openTrade.sl)
-  const [tpPrice, setTpPrice] = useState<BigNumber | string>(openTrade.tp)
+  const [slPrice, setSlPrice] = useState<BigNumber | string | number>(openTrade.sl)
+  const [tpPrice, setTpPrice] = useState<BigNumber | string | number>(openTrade.tp)
 
   const activeTab = useMemo(() => {
     return css`
@@ -299,7 +299,7 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={slPrice}
                       onChange={(event) => {
-                        setSlPrice(new BigNumber(event.target.value))
+                        setSlPrice(Number(event.target.value))
                       }}
                       onClick={() => setUseSlPercentage(false)}
                       sx={{
@@ -439,7 +439,7 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={tpPrice}
                       onChange={(event) => {
-                        setTpPrice(new BigNumber(event.target.value))
+                        setTpPrice(Number(event.target.value))
                       }}
                       onClick={() => setTpUsePercentage(false)}
                       sx={{
