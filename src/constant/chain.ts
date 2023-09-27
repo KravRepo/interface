@@ -28,7 +28,7 @@ export const MARKET_CHANGE_API = 'https://base-api.krav.trade/krav/v1/price/24hr
 
 export const TEST_CHAIN_ID = ChainId.BASE_TEST
 
-export const BTC_PRICE_API = 'https://apiv1.friendroom.org/api/rpc/ticker?symbol='
+export const BTC_PRICE_API = 'https://test-api.krav.trade/krav/v1/ticker?symbol='
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
