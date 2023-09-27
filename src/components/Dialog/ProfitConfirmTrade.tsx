@@ -211,7 +211,7 @@ export const ProfitConfirmTrade = ({
                         >
                           (
                           {slUsePercentage
-                            ? '$' + getBigNumberStr(targetSl, 2)
+                            ? '$' + getBigNumberStr(targetSl, tradePair.fixDecimals)
                             : getBigNumberStr(slPercentage, 2) + '%'}
                           )
                         </span>
@@ -351,7 +351,7 @@ export const ProfitConfirmTrade = ({
                         >
                           (
                           {tpUsePercentage
-                            ? '$' + getBigNumberStr(targetTp, 2)
+                            ? '$' + getBigNumberStr(targetTp, tradePair.fixDecimals)
                             : getBigNumberStr(tpPercentage, 2) + '%'}
                           )
                         </span>
