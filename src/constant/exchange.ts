@@ -17,7 +17,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
   0: {
     symbol: 'BTC',
     chartSymbol: 'BINANCE:BTCUSDT',
-    apiSymbol: 'BTCUSDT',
+    apiSymbol: 'BTC',
     titleSymbol: 'BTC/USDT',
     pairIndex: 0,
     fixDecimals: 2,
@@ -74,7 +74,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
   5: {
     symbol: 'ETH',
     chartSymbol: 'BINANCE:ETHUSDT',
-    apiSymbol: 'ETHUSDT',
+    apiSymbol: 'ETH',
     titleSymbol: 'ETH/USDT',
     pairIndex: 5,
     fixDecimals: 2,
@@ -83,7 +83,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
   6: {
     symbol: 'BNB',
     chartSymbol: 'BINANCE:BNBUSDT',
-    apiSymbol: 'BNBUSDT',
+    apiSymbol: 'BNB',
     titleSymbol: 'BNB/USDT',
     pairIndex: 6,
     fixDecimals: 2,
