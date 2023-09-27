@@ -34,11 +34,14 @@ export const useBTCPrice = () => {
   useEffect(() => {
     if (priceRef.current) clearInterval(priceRef.current)
     getPrice().then()
-    priceRef.current = setInterval(async () => {
-      await getPrice()
-    }, 15000)
+    priceRef.current = setInterval(
+      async () => {
+        await getPrice()
+      },
+      tradePairIndex === 3 ? 6000 : 15000
+    )
     return () => {
       if (priceRef.current) clearInterval(priceRef.current)
     }
-  }, [getPrice])
+  }, [getPrice, tradePairIndex])
 }

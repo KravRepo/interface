@@ -8,6 +8,7 @@ import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 export const SecondChart = () => {
   const theme = useTheme()
   const tradePairIndex = useRootStore((store) => store.tradePairIndex)
+  const BTCPrice = useRootStore((store) => store.BTCPrice)
   const tradingViewSymbol = useMemo(() => {
     return EXCHANGE_CONFIG[tradePairIndex].chartSymbol
   }, [tradePairIndex])
@@ -45,12 +46,28 @@ export const SecondChart = () => {
       sx={{ mt: '12px', borderRadius: '8px', height: '481px', padding: '18px', background: theme.background.primary }}
     >
       <div className="tradingview-widget-container">
-        <div
-          css={css`
-            height: 440px;
-          `}
-          id="tradingview_2daf6"
-        />
+        {EXCHANGE_CONFIG[tradePairIndex].symbol !== 'NDX100' && (
+          <div
+            css={css`
+              height: 440px;
+            `}
+            id="tradingview_2daf6"
+          />
+        )}
+        {EXCHANGE_CONFIG[tradePairIndex].symbol === 'NDX100' && (
+          <div
+            css={css`
+              height: 440px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-family: 'GT-Flexa-Bold-Trial';
+              font-size: 32px;
+            `}
+          >
+            NDX100&nbsp;:&nbsp;{BTCPrice.toFixed(EXCHANGE_CONFIG[tradePairIndex].fixDecimals)}
+          </div>
+        )}
       </div>
     </Box>
   )
