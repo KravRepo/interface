@@ -33,6 +33,7 @@ export const SelectPair = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: 
             className="select-token-header"
             css={css`
               border-bottom: ${theme.splitLine.primary};
+              padding-bottom: 0 !important;
             `}
           >
             <div>
