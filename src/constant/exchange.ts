@@ -23,27 +23,6 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
   },
-  // 1: {
-  //   symbol: 'ETH',
-  //   chartSymbol: 'BINANCE:ETHUSDT',
-  //   apiSymbol: 'ETHUSDT',
-  //   titleSymbol: 'ETH/USDT',
-  //   pairIndex: 1,
-  // },
-  // 2: {
-  //   symbol: 'BNB',
-  //   chartSymbol: 'BINANCE:BNBUSDT',
-  //   apiSymbol: 'BNBUSDT',
-  //   titleSymbol: 'BNB/USDT',
-  //   pairIndex: 2,
-  // },
-  // 3: {
-  //   symbol: 'CNY',
-  //   chartSymbol: 'FX_IDC:JPYUSD',
-  //   apiSymbol: 'CNY',
-  //   titleSymbol: 'CNY/USDT',
-  //   pairIndex: 3,
-  // },
   2: {
     symbol: 'JPY',
     chartSymbol: 'FX_IDC:JPYUSD',

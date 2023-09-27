@@ -24,8 +24,6 @@ export const TRADE_HISTORY_API = 'https://test-api.krav.trade/krav/v1/list/marke
 export const DASHBOARD_OVERVIEW_API = 'https://test-api.krav.trade/krav/v1/overview'
 // export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 
-export const MARKET_CHANGE_API = 'https://base-api.krav.trade/krav/v1/price/24hr?symbol=BTCUSDT'
-
 export const TEST_CHAIN_ID = ChainId.BASE_TEST
 
 export const BTC_PRICE_API = 'https://test-api.krav.trade/krav/v1/ticker?symbol='

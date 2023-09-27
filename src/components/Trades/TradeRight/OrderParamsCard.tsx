@@ -218,7 +218,7 @@ export const OrderParamsCard = ({
       sl: '0',
       tp: '0',
       pairIndex: tradePairIndex,
-      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toString(),
+      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toFixed(0, 1),
       leverage: leverage,
       initialPosToken: 0,
       index: 0,
