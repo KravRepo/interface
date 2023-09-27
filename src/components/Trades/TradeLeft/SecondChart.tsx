@@ -20,7 +20,7 @@ export const SecondChart = () => {
         interval: '1',
         timezone: 'Etc/UTC',
         theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
-        style: '2',
+        style: '3',
         locale: 'en',
         enable_publishing: false,
         hide_top_toolbar: true,
