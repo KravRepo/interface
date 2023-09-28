@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { HistoryData } from './TradeHistory'
 import { align } from '../../../globalStyle'
-import { ReactComponent as BTCIcon } from '../../../assets/imgs/tokens/bitcoin.svg'
 import { css } from '@emotion/react'
 import { eXDecimals } from '../../../utils/math'
 import BigNumber from 'bignumber.js'
@@ -37,8 +36,8 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
     } else return new BigNumber(0)
   }, [history])
 
-  const tradeSymbol = useMemo(() => {
-    return EXCHANGE_CONFIG[history.tradePairIndex].titleSymbol
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[history.tradePairIndex]
   }, [history])
 
   const tradeType = useMemo(() => {
@@ -62,13 +61,13 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
     <div className="history-layout">
       <div>{history.createTime.split(' ')[0]}</div>
       <div css={align}>
-        <BTCIcon height="20" width="20" />
+        <img src={tradePair.logoSource.default} height="20" width="20" alt="" />
         <span
           css={css`
             margin-left: 8px;
           `}
         >
-          {tradeSymbol}
+          {tradePair.titleSymbol}
         </span>
       </div>
       <div
@@ -78,7 +77,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
       >
         {tradeType}
       </div>
-      <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
+      <div>${eXDecimals(history.price, 10).toFixed(tradePair.fixDecimals)}</div>
       <div>{history.tradeLeverage}</div>
       <div>{eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals || 18).toFixed(2)}</div>
       <div
