@@ -61,7 +61,7 @@ export const TradeHistory = () => {
   return (
     <div>
       <div
-        className="position-layout"
+        className="history-layout"
         css={css`
           color: #617168;
         `}

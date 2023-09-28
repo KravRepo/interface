@@ -16,8 +16,8 @@ export const LimitOrder = () => {
       >
         <span>Type</span>
         <span>Order</span>
+        <span>pair</span>
         <span>Ask Price</span>
-        <span>Market Price</span>
         <span>Leverage</span>
         <span>Collateral</span>
         <div>Action</div>

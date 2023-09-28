@@ -4,12 +4,19 @@ import { css } from '@emotion/react'
 import { useRootStore } from '../../../store/root'
 import BigNumber from 'bignumber.js'
 import { useCancelOpenLimitOrder } from '../../../hook/hookV8/useCancelOpenLimitOrder'
+import { useMemo } from 'react'
+import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 export const Orders = () => {
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((store) => store.tradePool)
+  const tradePairIndex = useRootStore((store) => store.tradePairIndex)
   const cancelOpenLimitOrder = useCancelOpenLimitOrder(tradePool.tradingT, tradePool.storageT)
+
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[tradePairIndex]
+  }, [tradePairIndex])
 
   const getOrderContent = (isBuy: boolean, limitPrice: BigNumber, positionSize: BigNumber, leverage: number) => {
     return positionSize.times(leverage).toFixed(2) + tradePool.symbol
@@ -43,8 +50,8 @@ export const Orders = () => {
                 Limit
               </div>
               <div>{getOrderContent(limit.buy, limit.minPrice, new BigNumber(limit.positionSize), limit.leverage)}</div>
-              <div>${limit.minPrice.toFixed(2)}</div>
-              <div>${BTCPrice.toFixed(2)}</div>
+              <div>${limit.minPrice.toFixed(tradePair.fixDecimals)}</div>
+              <div>${BTCPrice.toFixed(tradePair.fixDecimals)}</div>
               <div>{limit.leverage}</div>
               <div>
                 {new BigNumber(limit.positionSize).toFixed(2)} {tradePool.symbol}

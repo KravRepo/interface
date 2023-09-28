@@ -52,8 +52,6 @@ export const useFactory = () => {
       const totalPools = await factory.quantosCount()
       const blockNumber = await provider.getBlockNumber()
       const poolsParams = []
-      // const ethcallProvider = new Provider(provider)
-      // await ethcallProvider.init()
       for (let i = 0; i < totalPools; i++) {
         poolsParams.push(factory.quantos(i))
       }
@@ -131,35 +129,6 @@ export const useFactory = () => {
         ...minPositionTask,
       ])
       const factoryCall = factoryReturn.returnData
-      // forMatter.forEach((item) => {
-      //   const pairStorageContract = new Contract(item.pairStorageT, pair_storage.abi, provider)
-      //   const pairInfoContract = new Contract(item.pairInfoT, pair_info.abi, provider)
-      //   const tokenContract = new Contract(item.tokenT, test_erc20.abi, provider)
-      //   const vaultContract = new Contract(item.vaultT, trading_vault.abi, provider)
-      //   tokenTask.push(tokenContract.symbol())
-      //   decimalsTask.push(tokenContract.decimals())
-      //   pairStorageTask.push(pairStorageContract.pairs(0))
-      //   vaultBalanceTask.push(vaultContract.currentBalanceDai())
-      //   vaultSupplyTask.push(vaultContract.maxBalanceDai())
-      //   groupCollateralLong.push(pairStorageContract.groupCollateral(0, true))
-      //   groupCollateralShort.push(pairStorageContract.groupCollateral(0, false))
-      //   maxWithdrawPTask.push(vaultContract.maxWithdrawP())
-      //   pairParams.push(pairInfoContract.pairParams(0))
-      //   accDaiPerDaiTask.push(vaultContract.accDaiPerDai())
-      // })
-      //
-      // const factoryCall = await Promise.all([
-      //   ...tokenTask,
-      //   ...decimalsTask,
-      //   ...pairStorageTask,
-      //   ...vaultSupplyTask,
-      //   ...vaultBalanceTask,
-      //   ...groupCollateralLong,
-      //   ...groupCollateralShort,
-      //   ...maxWithdrawPTask,
-      //   ...pairParams,
-      //   ...accDaiPerDaiTask,
-      // ])
 
       forMatter.forEach((item, index) => {
         item.symbol = decodeCallResult(tokenInterface, TaskFunc.SYMBOL, factoryCall[index])
