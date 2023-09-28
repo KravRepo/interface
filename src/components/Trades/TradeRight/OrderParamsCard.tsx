@@ -356,6 +356,10 @@ export const OrderParamsCard = ({
   }, [])
 
   useEffect(() => {
+    setLimitPrice('')
+  }, [tradePairIndex])
+
+  useEffect(() => {
     if (tradePool && provider) {
       if (orderLimitRef.current) clearInterval(orderLimitRef.current)
       getOrderLimit().then((res) => {
