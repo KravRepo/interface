@@ -45,7 +45,6 @@ export const TradeHistory = () => {
           }
         }
       })
-      console.log('history', res)
       setAllHistoryData(res)
     } catch (e) {
       console.error('get user trade history failed!', e)

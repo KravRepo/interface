@@ -212,9 +212,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
               <KRAVButton
                 onClick={async () => {
                   const isValidity = await checkAddressValidity(tokenAddress)
-                  console.log('checked pass')
                   if (isValidity) {
-                    console.log('get token symbol')
                     await getTokenSymbol(isValidity)
                     setConfirm(true)
                   }
