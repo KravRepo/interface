@@ -23,48 +23,48 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
   },
-  2: {
+  1: {
     symbol: 'JPY',
     chartSymbol: 'FX_IDC:JPYUSD',
     apiSymbol: 'JPY',
     titleSymbol: 'JPY/USD',
-    pairIndex: 2,
+    pairIndex: 1,
     fixDecimals: 6,
     logoSource: require('../assets/imgs/tokens/JPY.svg'),
   },
-  3: {
+  2: {
     symbol: 'NDX100',
     chartSymbol: 'NASDAQ:NDX',
     apiSymbol: 'NDAQ',
     titleSymbol: 'NDX100',
-    pairIndex: 3,
+    pairIndex: 2,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/ndaq_icon.svg'),
   },
-  4: {
+  3: {
     symbol: 'EUR',
     chartSymbol: 'FX:EURUSD',
     apiSymbol: 'EUR',
     titleSymbol: 'EUR/USD',
-    pairIndex: 4,
+    pairIndex: 3,
     fixDecimals: 6,
     logoSource: require('../assets/imgs/tokens/EUR.svg'),
   },
-  5: {
+  4: {
     symbol: 'ETH',
     chartSymbol: 'BINANCE:ETHUSDT',
     apiSymbol: 'ETH',
     titleSymbol: 'ETH/USDT',
-    pairIndex: 5,
+    pairIndex: 4,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/Ehter.svg'),
   },
-  6: {
+  5: {
     symbol: 'BNB',
     chartSymbol: 'BINANCE:BNBUSDT',
     apiSymbol: 'BNB',
     titleSymbol: 'BNB/USDT',
-    pairIndex: 6,
+    pairIndex: 5,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/asset_BNB.svg'),
   },
