@@ -22,6 +22,7 @@ import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 const marks = [
   {
@@ -552,6 +553,9 @@ export const OrderParamsCard = ({
                       src={tradePool.logoSource}
                       height="16"
                       width="16"
+                    />
+                    <KeyboardArrowDownIcon
+                      sx={{ height: '12px', width: '12px', marginLeft: '8px', color: theme.text.primary }}
                     />
                   </div>
                 </div>

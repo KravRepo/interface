@@ -4,7 +4,6 @@ import { card, pairInfo } from '../style'
 import { align } from '../../../globalStyle'
 import { css } from '@emotion/react'
 import { useTheme } from '@mui/material'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
 import { useEffect } from 'react'
 // import { MARKET_CHANGE_API } from '../../../constant/chain'
@@ -98,9 +97,6 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             {/*<KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />*/}
           </div>
           <div
-            onClick={() => {
-              setIsOpenSelectToken(true)
-            }}
             css={[
               align,
               css`
@@ -128,7 +124,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             >
               {BTCPrice.toFixed(2)}
             </span>
-            <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
+            {/*<KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />*/}
           </div>
         </div>
         <div css={align}>
