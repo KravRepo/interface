@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab } from './style'
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
@@ -173,6 +173,7 @@ export const OrderParamsCard = ({
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
   const [orderLimit, setOrderLimit] = useState(new BigNumber(0))
+  const orderLimitRef = useRef<NodeJS.Timer | null>(null)
   const getOrderLimit = useGetOrderLimit()
   const {
     BTCPrice,
@@ -186,6 +187,7 @@ export const OrderParamsCard = ({
     tradeModel,
     userPositionDatas,
     setIsOpenSelectToken,
+    tradePairIndex,
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     transactionState: state.transactionState,
@@ -198,6 +200,7 @@ export const OrderParamsCard = ({
     tradeModel: state.tradeModel,
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
+    tradePairIndex: state.tradePairIndex,
   }))
 
   const PoolWalletBalance = useMemo(() => {
@@ -215,8 +218,8 @@ export const OrderParamsCard = ({
       // tp: addDecimals(targetTp, 10).toFixed(0),
       sl: '0',
       tp: '0',
-      pairIndex: 0,
-      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toString(),
+      pairIndex: tradePairIndex,
+      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toFixed(0, 1),
       leverage: leverage,
       initialPosToken: 0,
       index: 0,
@@ -235,6 +238,7 @@ export const OrderParamsCard = ({
     // tpSetting,
     tpPrice,
     tpUsePercentage,
+    tradePairIndex,
   ])
 
   const approve = useApprove(tradePool.tokenT, tradePool.tradingT, tradePool.storageT)
@@ -353,21 +357,25 @@ export const OrderParamsCard = ({
   }, [])
 
   useEffect(() => {
-    let interval: NodeJS.Timer
+    setLimitPrice('')
+  }, [tradePairIndex])
+
+  useEffect(() => {
     if (tradePool && provider) {
+      if (orderLimitRef.current) clearInterval(orderLimitRef.current)
       getOrderLimit().then((res) => {
         if (res) setOrderLimit(res)
       })
-      interval = setInterval(async () => {
+      orderLimitRef.current = setInterval(async () => {
         getOrderLimit().then((res) => {
           if (res) setOrderLimit(res)
         })
       }, 15000)
     }
     return () => {
-      if (interval) clearInterval(interval)
+      if (orderLimitRef.current) clearInterval(orderLimitRef.current)
     }
-  }, [tradePool, provider])
+  }, [tradePool, provider, tradePairIndex])
 
   return (
     <>

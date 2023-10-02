@@ -45,7 +45,6 @@ export const TradeHistory = () => {
           }
         }
       })
-      console.log('history', res)
       setAllHistoryData(res)
     } catch (e) {
       console.error('get user trade history failed!', e)
@@ -61,7 +60,7 @@ export const TradeHistory = () => {
   return (
     <div>
       <div
-        className="position-layout"
+        className="history-layout"
         css={css`
           color: #617168;
         `}

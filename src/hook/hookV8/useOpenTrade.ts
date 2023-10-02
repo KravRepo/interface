@@ -30,9 +30,9 @@ export const useOpenTrade = ({
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   return useCallback(async () => {
     try {
-      console.log('referral', referral)
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
+      console.log('tuple', tuple)
       const params = [tuple, tradeType, spreadReductionId, slippageP, referral] as any
 
       let gasLimit = await getGasLimit(contract, 'openTrade', params)

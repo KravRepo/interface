@@ -1,15 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useTheme } from '@mui/material'
+import { useRootStore } from '../../../store/root'
+import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 export default function TradingViewWidget() {
+  const tradePairIndex = useRootStore((store) => store.tradePairIndex)
+  const tradingViewSymbol = useMemo(() => {
+    return EXCHANGE_CONFIG[tradePairIndex].chartSymbol
+  }, [tradePairIndex])
   const theme = useTheme()
   const createWidget = useCallback(() => {
     if (document.getElementById('tradingview_2daf6') && 'TradingView' in window) {
       new window.TradingView.widget({
         autosize: true,
-        symbol: 'BINANCE:BTCUSDT',
+        symbol: tradingViewSymbol,
         interval: 'D',
         timezone: 'Etc/UTC',
         theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
@@ -19,7 +25,7 @@ export default function TradingViewWidget() {
         container_id: 'tradingview_2daf6',
       })
     }
-  }, [theme])
+  }, [theme, tradingViewSymbol])
   useEffect(() => {
     new Promise((resolve) => {
       const script = document.createElement('script')
@@ -29,7 +35,7 @@ export default function TradingViewWidget() {
       script.onload = resolve
       document.head.appendChild(script)
     }).then(() => createWidget())
-  }, [theme])
+  }, [createWidget])
 
   return (
     <div className="tradingview-widget-container">

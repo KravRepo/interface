@@ -13,6 +13,7 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
+import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -69,8 +70,8 @@ export const ProfitConfirmTrade = ({
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
   const [tpSetting, setTpSetting] = useState(0)
   const [slSetting, setSlSetting] = useState(0)
-  const [slPrice, setSlPrice] = useState<BigNumber | string>(openTrade.sl)
-  const [tpPrice, setTpPrice] = useState<BigNumber | string>(openTrade.tp)
+  const [slPrice, setSlPrice] = useState<BigNumber | string | number>(openTrade.sl)
+  const [tpPrice, setTpPrice] = useState<BigNumber | string | number>(openTrade.tp)
 
   const activeTab = useMemo(() => {
     return css`
@@ -78,6 +79,10 @@ export const ProfitConfirmTrade = ({
       font-weight: 700;
     `
   }, [theme])
+
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[openTrade.pairIndex]
+  }, [openTrade])
 
   const targetSl = useMemo(() => {
     return slUsePercentage
@@ -206,7 +211,7 @@ export const ProfitConfirmTrade = ({
                         >
                           (
                           {slUsePercentage
-                            ? '$' + getBigNumberStr(targetSl, 2)
+                            ? '$' + getBigNumberStr(targetSl, tradePair.fixDecimals)
                             : getBigNumberStr(slPercentage, 2) + '%'}
                           )
                         </span>
@@ -294,7 +299,7 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={slPrice}
                       onChange={(event) => {
-                        setSlPrice(new BigNumber(event.target.value))
+                        setSlPrice(Number(event.target.value))
                       }}
                       onClick={() => setUseSlPercentage(false)}
                       sx={{
@@ -346,7 +351,7 @@ export const ProfitConfirmTrade = ({
                         >
                           (
                           {tpUsePercentage
-                            ? '$' + getBigNumberStr(targetTp, 2)
+                            ? '$' + getBigNumberStr(targetTp, tradePair.fixDecimals)
                             : getBigNumberStr(tpPercentage, 2) + '%'}
                           )
                         </span>
@@ -434,7 +439,7 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={tpPrice}
                       onChange={(event) => {
-                        setTpPrice(new BigNumber(event.target.value))
+                        setTpPrice(Number(event.target.value))
                       }}
                       onClick={() => setTpUsePercentage(false)}
                       sx={{
@@ -478,11 +483,11 @@ export const ProfitConfirmTrade = ({
             <div className="confirm-content-info">
               <p>
                 <span>Current price</span>
-                <span>${btcPrice.toFixed(2)}</span>
+                <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
                 <span>Liquidation price</span>
-                <span>${lqPrice.toFixed(2)}</span>
+                <span>${lqPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
             </div>
           </div>

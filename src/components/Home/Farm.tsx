@@ -40,7 +40,7 @@ export const Farm = () => {
     if (allPoolParams.length > 0 && account && provider) {
       backInterval = setInterval(() => {
         userBackend().then()
-      }, 1000)
+      }, 10000)
     }
     return () => {
       if (backInterval) clearInterval(backInterval)
