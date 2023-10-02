@@ -104,7 +104,6 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               css={[
                 align,
                 css`
-                  cursor: pointer;
                   display: flex;
                   align-items: center;
                   margin-left: 34px;
@@ -120,6 +119,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 }}
                 css={css`
                   display: flex;
+                  cursor: pointer;
                   align-items: center;
                 `}
               >
@@ -127,9 +127,9 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 {showSwitch && <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />}
               </div>
               <div
-                onClick={() => {
-                  setIsOpenSelectToken(true)
-                }}
+                // onClick={() => {
+                //   setIsOpenSelectToken(true)
+                // }}
                 css={css`
                   display: flex;
                   align-items: center;
@@ -144,7 +144,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 >
                   {BTCPrice.toFixed(tradePair.fixDecimals)}
                 </span>
-                <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
+                {/*<KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />*/}
               </div>
             </div>
           </div>
