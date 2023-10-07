@@ -19,6 +19,7 @@ export const MyTrade = () => {
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const tradePool = useRootStore((store) => store.tradePool)
+  const tradePairIndex = useRootStore((store) => store.tradePairIndex)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setInfoType(newValue)
   }
@@ -36,7 +37,7 @@ export const MyTrade = () => {
     return () => {
       if (tradeInterval) clearInterval(tradeInterval)
     }
-  }, [tradePool, account, chainId])
+  }, [tradePool, account, chainId, tradePairIndex])
 
   return (
     <div

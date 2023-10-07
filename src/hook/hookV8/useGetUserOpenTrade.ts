@@ -11,18 +11,20 @@ export const useGetUserOpenTrade = () => {
   const { account, provider } = useWeb3React()
   const [userOpenTrades, setUserOpenTrades] = useState([] as Tuple[])
   const setUserOpenTradeList = useRootStore((store) => store.setUserOpenTradeList)
+  const tradePairIndex = useRootStore((state) => state.tradePairIndex)
+
   const getUserOpenTrade = useCallback(
     async (storageAddress: string, setStore: boolean) => {
       try {
         if (account && provider && storageAddress) {
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
-          const userTotalTrade = await contract.openTradesCount(account, 0)
+          const userTotalTrade = await contract.openTradesCount(account, tradePairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
           const task = []
           if (trades > 0) {
             for (let i = 0; i < 3; i++) {
-              task.push(contract.openTrades(account, 0, i))
+              task.push(contract.openTrades(account, tradePairIndex, i))
             }
           }
           const res = await Promise.all(task)
@@ -60,7 +62,7 @@ export const useGetUserOpenTrade = () => {
         console.log('get user open trades failed!', e)
       }
     },
-    [account, provider]
+    [account, provider, tradePairIndex]
   )
 
   return { userOpenTrades: userOpenTrades, getUserOpenTrade: getUserOpenTrade }

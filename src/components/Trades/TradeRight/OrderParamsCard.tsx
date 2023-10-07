@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab } from './style'
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
@@ -15,7 +15,7 @@ import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
-import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
+import { POSITION_LIMITS } from '../../../constant/math'
 import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 import KravLongButton from '../../KravUIKit/KravLongButton'
@@ -172,6 +172,7 @@ export const OrderParamsCard = ({
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
   const [orderLimit, setOrderLimit] = useState(new BigNumber(0))
+  const orderLimitRef = useRef<NodeJS.Timer | null>(null)
   const getOrderLimit = useGetOrderLimit()
   const {
     BTCPrice,
@@ -185,6 +186,7 @@ export const OrderParamsCard = ({
     tradeModel,
     userPositionDatas,
     setIsOpenSelectToken,
+    tradePairIndex,
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     transactionState: state.transactionState,
@@ -197,6 +199,7 @@ export const OrderParamsCard = ({
     tradeModel: state.tradeModel,
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
+    tradePairIndex: state.tradePairIndex,
   }))
 
   const PoolWalletBalance = useMemo(() => {
@@ -204,30 +207,6 @@ export const OrderParamsCard = ({
       userPositionDatas.find((item) => item.pool?.tradingT === tradePool?.tradingT)?.walletBalance ?? new BigNumber(0)
     )
   }, [tradePool, userPositionDatas])
-
-  // const targetSl = useMemo(() => {
-  //   return slUsePercentage
-  //     ? slSetting === 0
-  //       ? new BigNumber(0)
-  //       : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
-  //     : new BigNumber(slPrice)
-  // }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
-
-  // const targetTp = useMemo(() => {
-  //   return tpUsePercentage
-  //     ? tpSetting === 0
-  //       ? new BigNumber(0)
-  //       : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
-  //     : new BigNumber(tpPrice)
-  // }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
-
-  // const slPercentage = useMemo(() => {
-  //   return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetSl, isBuy, leverage, true)
-  // }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetSl])
-  //
-  // const tpPercentage = useMemo(() => {
-  //   return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetTp, isBuy, leverage, false)
-  // }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
 
   const { account } = useWeb3React()
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
@@ -238,8 +217,8 @@ export const OrderParamsCard = ({
       // tp: addDecimals(targetTp, 10).toFixed(0),
       sl: '0',
       tp: '0',
-      pairIndex: 0,
-      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toString(),
+      pairIndex: tradePairIndex,
+      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toFixed(0, 1),
       leverage: leverage,
       initialPosToken: 0,
       index: 0,
@@ -258,6 +237,7 @@ export const OrderParamsCard = ({
     // tpSetting,
     tpPrice,
     tpUsePercentage,
+    tradePairIndex,
   ])
 
   const approve = useApprove(tradePool.tokenT, tradePool.tradingT, tradePool.storageT)
@@ -332,29 +312,17 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
-  // const handleTpSLSetting = (isSl: boolean, value: number) => {
-  //   if (isSl) {
-  //     setSlSetting(value)
-  //     setUseSlPercentage(true)
-  //     setSlPrice('')
-  //   } else {
-  //     setTpSetting(value)
-  //     setTpUsePercentage(true)
-  //     setTpPrice('')
-  //   }
-  // }
-
   useEffect(() => {
     if (!account) setButtonState(ButtonText.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
       setButtonState(ButtonText.REACHED_LIMIT)
     else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
-    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(MINI_POSITION_SIZE))
+    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
       setButtonState(ButtonText.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
-  }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai])
+  }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
 
   useEffect(() => {
     if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
@@ -388,21 +356,21 @@ export const OrderParamsCard = ({
   }, [])
 
   useEffect(() => {
-    let interval: NodeJS.Timer
     if (tradePool && provider) {
+      if (orderLimitRef.current) clearInterval(orderLimitRef.current)
       getOrderLimit().then((res) => {
         if (res) setOrderLimit(res)
       })
-      interval = setInterval(async () => {
+      orderLimitRef.current = setInterval(async () => {
         getOrderLimit().then((res) => {
           if (res) setOrderLimit(res)
         })
       }, 15000)
     }
     return () => {
-      if (interval) clearInterval(interval)
+      if (orderLimitRef.current) clearInterval(orderLimitRef.current)
     }
-  }, [tradePool, provider])
+  }, [tradePool, provider, tradePairIndex])
 
   return (
     <>

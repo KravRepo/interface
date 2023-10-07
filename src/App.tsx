@@ -38,16 +38,13 @@ i18n.activate('en')
 
 const FullApp = () => {
   const factory = useFactory()
-  const getBTCPrice = useBTCPrice()
+  useBTCPrice()
   const theme = useTheme()
   useEffect(() => {
-    Promise.all([factory(), getBTCPrice()]).then()
+    Promise.all([factory()]).then()
     setInterval(async () => {
       await factory()
-    }, 120000)
-    setInterval(async () => {
-      await getBTCPrice()
-    }, 1500)
+    }, 60000)
   }, [])
 
   return (

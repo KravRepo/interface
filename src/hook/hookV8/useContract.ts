@@ -71,7 +71,17 @@ export const useMulticall2 = () => {
   return useContract(multicall2.address, multicall2.abi)
 }
 
-export const creatCall = (contractAddress: string, contractInterface: Interface, func: string, params: any[]) => {
+export type CreatCall = {
+  target: string
+  callData: string
+}
+
+export const creatCall = (
+  contractAddress: string,
+  contractInterface: Interface,
+  func: string,
+  params: any[]
+): CreatCall => {
   return {
     target: contractAddress,
     callData: contractInterface.encodeFunctionData(func, params),

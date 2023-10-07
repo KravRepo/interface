@@ -2,7 +2,7 @@
 import { Checkbox, Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { css } from '@emotion/react'
 import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
@@ -13,6 +13,7 @@ import { decodeReferral } from '../../utils'
 import KRAVLongButton from '../KravUIKit/KravLongButton'
 import KRAVShortButton from '../KravUIKit/KravShortButton'
 import { TradeMode } from '../../store/TradeSlice'
+import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -44,6 +45,10 @@ export const ConfirmTrade = ({
   const handleSlippagePChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
   }
+
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[tuple.pairIndex]
+  }, [tuple])
 
   const openTrade = useOpenTrade({
     tuple: tuple,
@@ -121,7 +126,7 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Entry Price</span>
-                <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>
+                <span>${eXDecimals(tuple.openPrice, 10).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
                 <span>Liq. Price</span>
@@ -132,7 +137,7 @@ export const ConfirmTrade = ({
                     eXDecimals(tuple.positionSizeDai, 18),
                     tuple.buy,
                     tuple.leverage
-                  ).toFixed(2)}
+                  ).toFixed(tradePair.fixDecimals)}
                 </span>
               </p>
               {tuple.leverage <= 50 && (

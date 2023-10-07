@@ -19,6 +19,7 @@ export const leftMenu = css`
 // `
 
 export const home = css`
+  display: flex;
   margin-bottom: -40px;
   .home-content {
     width: 100%;
@@ -79,10 +80,6 @@ export const dashboard = css`
   width: 100%;
   padding: 40px 0;
   margin: 0 40px;
-  @media screen and (max-width: 1200px) {
-    padding: 0 16px;
-    margin: 0;
-  }
   max-width: 1060px;
   font-family: 'Inter';
   .tabs {
@@ -96,18 +93,21 @@ export const dashboard = css`
       align-items: center;
       display: grid;
       padding: 12px 24px 0px;
-      grid-template-columns:
-        minmax(110px, 1fr) minmax(160px, 1fr) minmax(111px, 1fr) minmax(111px, 1fr) minmax(111px, 1fr)
-        minmax(111px, 1fr) minmax(111px, 1fr) 0.5fr;
+      grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 0.5fr;
+      font-size: 12px;
+    }
+    .history-layout {
+      align-items: center;
+      display: grid;
+      padding: 12px 24px 0px;
+      grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
     }
     .order-layout {
       align-items: center;
       display: grid;
       padding: 12px 24px 0px;
-      grid-template-columns:
-        minmax(110px, 1fr) minmax(160px, 1fr) minmax(111px, 1fr) minmax(111px, 1fr) minmax(111px, 1fr)
-        minmax(111px, 1fr) minmax(111px, 1fr) 0.5fr;
+      grid-template-columns: 80px minmax(140px, 2fr) 1fr 1fr 1fr 1fr 1fr;
       font-size: 12px;
     }
     .no-data {
@@ -124,10 +124,6 @@ export const dashboard = css`
     border-radius: 8px;
     padding: 32px;
     margin-bottom: 40px;
-    @media screen and (max-width: 1200px) {
-      display: block;
-      margin-bottom: 16px;
-    }
     > p:first-of-type {
       font-family: 'Inter';
       font-size: 16px;
@@ -139,9 +135,6 @@ export const dashboard = css`
       color: #2832f5;
       font-family: 'GT-Flexa-Bold-Trial';
       font-size: 64px;
-      @media screen and (max-width: 1200px) {
-        font-size: 32px;
-      }
       font-weight: 900;
       line-height: 110%; /* 70.4px */
       text-transform: uppercase;
@@ -158,11 +151,6 @@ export const dashboard = css`
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
     padding-bottom: 32px;
-    @media screen and (max-width: 1200px) {
-      padding-bottom: 16px;
-      font-size: 18px;
-      padding-left: 16px;
-    }
   }
   .earning {
     margin-bottom: 40px;
@@ -170,18 +158,12 @@ export const dashboard = css`
       display: grid;
       gap: 20px;
       grid-template-columns: 2.06fr 1fr;
-      @media screen and (max-width: 1200px) {
-        display: block;
-      }
     }
     .card {
       box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     }
     .krav {
       padding: 24px;
-      @media screen and (max-width: 1200px) {
-        margin-top: 16px;
-      }
       > p:first-of-type {
         width: 105px;
         margin-bottom: 17px;
@@ -219,9 +201,6 @@ export const dashboard = css`
         margin-top: -12px;
         display: grid;
         grid-template-columns: 1fr 1px 1.72fr;
-        @media screen and (max-width: 1200px) {
-          display: block;
-        }
         .total {
           padding-top: 30px;
           > div:first-of-type {
@@ -245,9 +224,6 @@ export const dashboard = css`
         .my-pool {
           > div {
             height: 100%;
-            @media screen and (max-width: 1200px) {
-              padding: 0;
-            }
             padding-top: 30px;
             padding-left: 32px;
             > p {
@@ -295,12 +271,6 @@ export const dashboard = css`
     gap: 20px;
     font-size: 12px;
     padding-bottom: 48px;
-    @media screen and (max-width: 1200px) {
-      display: grid;
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-template-columns: unset;
-      gap: 20px;
-    }
     .data-card {
       padding: 24px;
       border-radius: 8px;
@@ -396,7 +366,7 @@ export const farm = css`
     align-items: center;
     display: grid;
     grid-template-columns:
-      minmax(120px, 1.7fr) minmax(80px, 1.8fr) minmax(100px, 1.3fr) minmax(200px, 2.5fr) minmax(120px, 1.7fr)
+      1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
       80px;
     font-size: 14px;
     line-height: 1.4;
@@ -428,28 +398,18 @@ export const stake = css`
   line-height: 140%; /* 19.6px */
   letter-spacing: -0.28px;
   font-size: 14px;
-  @media screen and (max-width: 1200px) {
-    padding: 0 16px;
-    margin: 0;
-  }
   .gt {
     font-family: 'GT-Flexa-Bold-Trial';
   }
   .title {
+    font-size: 28px;
     font-weight: 900;
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
-    @media screen and (max-width: 1200px) {
-      font-size: 18px;
-    }
   }
   .card {
     display: grid;
     grid-template-columns: 1.55fr minmax(280px, 1.152fr) 1fr;
-    @media screen and (max-width: 1200px) {
-      grid-template-columns: 1fr;
-      gap: 0px;
-    }
     align-items: center;
     justify-content: space-between;
     border-radius: 8px;
@@ -468,10 +428,6 @@ export const stake = css`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 76px;
-    @media screen and (max-width: 1200px) {
-      grid-template-columns: unset;
-      gap: 0;
-    }
     align-items: start;
     border-radius: 8px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
@@ -481,11 +437,6 @@ export const stake = css`
       align-items: center;
       gap: 8px;
       grid-template-columns: 1fr 1fr;
-      @media screen and (max-width: 1200px) {
-        grid-template-columns: unset;
-        grid-template-rows: 1fr;
-        gap: 0;
-      }
       max-height: 80px;
       overflow: auto;
       &::-webkit-scrollbar {
@@ -511,10 +462,6 @@ export const stake = css`
     align-items: center;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
-    @media screen and (max-width: 1200px) {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr;
-    }
   }
   .fees-rewards {
     border-radius: 8px;
@@ -524,12 +471,6 @@ export const stake = css`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      @media screen and (max-width: 1200px) {
-        display: block;
-        > div:first-of-type {
-          padding-bottom: 16px;
-        }
-      }
     }
   }
   .reward-item {
@@ -546,9 +487,6 @@ export const stake = css`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      @media screen and (max-width: 1200px) {
-        display: block;
-      }
     }
     > div:last-of-type {
       border-radius: 8px;
@@ -576,19 +514,12 @@ export const stake = css`
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    @media screen and (max-width: 1200px) {
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 1fr 1fr 1fr;
-    }
     margin-bottom: 40px;
     > div:first-of-type {
       padding-left: 0 !important;
     }
     > div {
       padding-left: 32px;
-      @media screen and (max-width: 1200px) {
-        padding-left: 0;
-      }
     }
   }
   .grey {
@@ -660,14 +591,12 @@ export const referral = css`
     border-radius: 100%;
     translate: -21px;
     margin-bottom: 7px;
-    background: white;
   }
   .triangle-up {
     width: 0;
     height: 0;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
-    border-bottom: 15px solid white;
     position: absolute;
     bottom: 0;
     z-index: 2;
@@ -677,7 +606,6 @@ export const referral = css`
     height: 0;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
-    border-top: 15px solid white;
     position: absolute;
     top: 0;
     z-index: 2;
@@ -686,7 +614,6 @@ export const referral = css`
     display: grid;
     grid-template-columns: 174px auto 174px;
     padding-bottom: 40px;
-    border-bottom: 1px solid #dadada;
     font-family: 'Inter';
     font-size: 14px;
     font-style: normal;
@@ -696,15 +623,12 @@ export const referral = css`
     .link-text {
       flex: 1;
       border-radius: 4px;
-      border: 1px solid #dadada;
-      background: #f6f6f6;
       line-height: 40px;
       padding: 0 16px;
       display: flex;
       justify-content: space-between;
       > div {
         padding: 0 24px;
-        border-left: 1px solid #dadada;
         position: relative;
         > span:last-of-type {
           position: absolute;
@@ -716,7 +640,6 @@ export const referral = css`
     }
     > div:first-of-type {
       padding-right: 24px;
-      border-right: 1px solid #dadada;
       > p:first-of-type {
         margin: 0 0 16px;
       }
@@ -737,7 +660,7 @@ export const referral = css`
     }
     > div:last-of-type {
       padding-left: 24px;
-      border-left: 1px solid #dadada;
+
       > p {
         padding-bottom: 16px;
       }
@@ -753,7 +676,6 @@ export const referral = css`
   }
   .referral-stats {
     border-radius: 8px;
-    background: #f6f6f6;
     margin: 40px 0;
     padding: 40px;
     font-size: 12px;
@@ -789,6 +711,10 @@ export const referral = css`
       font-size: 20px;
       font-family: 'Inter';
       font-weight: 500;
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding-bottom: 24px;
     }
     > div:nth-of-type(2) {
@@ -797,7 +723,6 @@ export const referral = css`
       line-height: 120%;
       letter-spacing: 0.24px;
       padding: 16px 26px;
-      background: #f6f6f6;
       display: grid;
       grid-template-columns: 1fr 1fr;
     }
@@ -805,7 +730,6 @@ export const referral = css`
       display: grid;
       grid-template-columns: 1fr 1fr;
       padding: 24px;
-      border-bottom: 1px solid #dadada;
     }
   }
 `

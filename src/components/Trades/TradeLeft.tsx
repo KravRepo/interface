@@ -2,12 +2,13 @@
 import { PairInfo } from './TradeLeft/PairInfo'
 import { chart, tradeLeft } from './style'
 import { MyTrade } from './TradeLeft/MyTrade'
-import { TradingView } from './TradeLeft/TradingView'
+import TradingViewWidget from './TradeLeft/newTradingView'
 import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
-import { css, useMediaQuery, useTheme } from '@mui/material'
+import { css, useTheme } from '@mui/material'
+import { SecondChart } from './TradeLeft/SecondChart'
 import { TradeMode } from '../../store/TradeSlice'
 
 type TradeLeftProps = {
@@ -19,28 +20,20 @@ type TradeLeftProps = {
 }
 
 export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeType }: TradeLeftProps) => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
     tradeModel: state.tradeModel,
     setTradeModel: state.setTradeModel,
     isOpenSelectToken: state.isOpenSelectToken,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
+  const theme = useTheme()
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
-      <div
-        css={[
-          tradeLeft,
-          css`
-            padding-right: ${isMobile ? 0 : '18px'};
-          `,
-        ]}
-      >
+      <div css={tradeLeft}>
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
-        {tradeModel !== TradeMode.BASIC && (
+        {tradeModel === TradeMode.PRO && (
           <div
             css={[
               chart,
@@ -49,7 +42,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
               `,
             ]}
           >
-            <TradingView />
+            <TradingViewWidget />
           </div>
         )}
         {tradeModel === TradeMode.BASIC && (
@@ -61,7 +54,8 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
             tradeType={tradeType}
           />
         )}
-        {!isMobile && <MyTrade />}
+        {tradeModel === TradeMode.DEGEN && <SecondChart />}
+        <MyTrade />
       </div>
     </>
   )

@@ -7,7 +7,7 @@ import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 // import { eXDecimals } from '../../utils/math'
 
-export const useGetMarketStats = (address: string, decimals: number, pairInfoAddress: string) => {
+export const useGetMarketStats = (address: string, decimals: number, pairInfoAddress: string, paiIndex = 0) => {
   const { provider } = useWeb3React()
   const [openDaiLong, setOpenDaiLong] = useState<BigNumber | undefined>()
   const [openDaiShort, setOpenDaiShort] = useState<BigNumber | undefined>()
@@ -18,14 +18,15 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
   useEffect(() => {
     ;(async () => {
       try {
-        if (allPoolParams.length > 0 && provider) {
+        console.log('paiIndex', paiIndex)
+        if (allPoolParams.length > 0 && provider && typeof paiIndex !== 'undefined') {
           console.log('-------useGetMarketStats------------')
           const contract = new Contract(address, trading_storage.abi, provider)
           const pairInfoContract = new Contract(pairInfoAddress, pair_info.abi, provider)
           const [longRes, shortRes, infoRes] = await Promise.all([
-            contract.openInterestDai(0, 0),
-            contract.openInterestDai(0, 1),
-            pairInfoContract.getFundingFeePerBlockP(0),
+            contract.openInterestDai(paiIndex, 0),
+            contract.openInterestDai(paiIndex, 1),
+            pairInfoContract.getFundingFeePerBlockP(paiIndex),
           ])
           const long = new BigNumber(longRes._hex).div(Number(`1e${decimals}`))
           setOpenDaiLong(long)
@@ -49,7 +50,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
         console.log(e)
       }
     })()
-  }, [allPoolParams, provider, address])
+  }, [allPoolParams, provider, address, paiIndex])
   return {
     openDaiLong: openDaiLong,
     openDaiShort: openDaiShort,

@@ -14,11 +14,11 @@ export const MarketOrder = () => {
         `}
       >
         <span>Position</span>
-        <span>PnL</span>
+        {/*<span>PnL</span>*/}
         <span>Size</span>
         <span>Collateral</span>
         <span>Entry price</span>
-        <span>Mark price</span>
+        {/*<span>Mark price</span>*/}
         <span>Liq.price</span>
         <span>Close</span>
       </div>

@@ -32,6 +32,7 @@ export const useOpenTrade = ({
     try {
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
+      console.log('tuple', tuple)
       const params = [tuple, tradeType, spreadReductionId, slippageP, referral] as any
 
       let gasLimit = await getGasLimit(contract, 'openTrade', params)
