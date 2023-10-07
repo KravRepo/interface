@@ -3,7 +3,7 @@ import { Trans } from '@lingui/macro'
 import { card, pairInfo } from '../style'
 import { align } from '../../../globalStyle'
 import { css } from '@emotion/react'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
 import { useEffect, useMemo, useState } from 'react'
@@ -25,6 +25,7 @@ type PairInfoProps = {
 
 export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [choosePair, setChoosePair] = useState(false)
   const {
     BTCPrice,
@@ -82,9 +83,12 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
           pairInfo,
           card,
           css`
-            background: ${theme.background.primary};
-            margin-bottom: 12px;
-          `,
+          background: ${theme.background.primary};
+          overflow: ${isMobile ? 'auto' : ''};
+           &::-webkit-scrollbar {
+                display: none
+           },
+        `,
         ]}
       >
         <div>

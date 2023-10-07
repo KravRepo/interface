@@ -7,7 +7,7 @@ import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
 import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
-import { css, useTheme } from '@mui/material'
+import { css, useMediaQuery, useTheme } from '@mui/material'
 import { SecondChart } from './TradeLeft/SecondChart'
 import { TradeMode } from '../../store/TradeSlice'
 
@@ -27,11 +27,19 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
     setIsOpenSelectToken: state.setIsOpenSelectToken,
   }))
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
-      <div css={tradeLeft}>
+      <div
+        css={[
+          tradeLeft,
+          css`
+            padding-right: ${isMobile ? 0 : '18px'};
+          `,
+        ]}
+      >
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
         {tradeModel === TradeMode.PRO && (
           <div
@@ -55,7 +63,7 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
           />
         )}
         {tradeModel === TradeMode.DEGEN && <SecondChart />}
-        <MyTrade />
+        {!isMobile && <MyTrade />}
       </div>
     </>
   )
