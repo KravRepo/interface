@@ -271,96 +271,81 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             </div>
           </div>
         </div>
-        <div
-          css={css`
-            display: flex;
-            align-items: center;
-            background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
-            padding: 4px;
-            border-radius: 8px;
-          `}
-        >
-          <div
-            css={css`
-              font-family: 'Inter';
-              font-size: 12px;
-              font-style: normal;
-              line-height: 130%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              height: 30px;
-              width: 83px;
-              text-align: center;
-              cursor: pointer;
-              border-radius: 8px;
-              background: ${tradeModel === TradeMode.BASIC ? '#ff5c00' : 'transparent'};
-              color: ${tradeModel === TradeMode.BASIC ? '#fff' : theme.text.primary};
-            `}
-            onClick={() => setTradeModel(TradeMode.BASIC)}
-          >
-            Basic
-          </div>
-          <div
-            css={css`
-              font-family: 'Inter';
-              font-size: 12px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-style: normal;
-              text-align: center;
-              height: 30px;
-              line-height: 130%;
-              border-radius: 8px;
-              cursor: pointer;
-              width: 83px;
-              background: ${tradeModel === TradeMode.PRO ? '#ff5c00' : 'transparent'};
-              color: ${tradeModel === TradeMode.PRO ? '#fff' : theme.text.primary};
-            `}
-            onClick={() => setTradeModel(TradeMode.PRO)}
-          >
-            Pro
-          </div>
-          <div
-            css={css`
-              font-family: 'Inter';
-              font-size: 12px;
-              font-style: normal;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              width: 83px;
-              height: 30px;
-              border-radius: 8px;
-              line-height: 130%;
-              text-align: center;
-              cursor: pointer;
-              background: ${tradeModel === TradeMode.DEGEN
-                ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                : 'transparent'};
-              color: ${tradeModel === TradeMode.DEGEN ? '#000' : theme.text.primary};
-            `}
-            onClick={() => setTradeModel(TradeMode.DEGEN)}
-          >
-            Degen
-          </div>
-          {/*<span*/}
-          {/*/!*  css={css`*!/*/}
-          {/*    margin: 0;*/}
-          {/*    font-family: 'GT-Flexa-Bold-Trial';*/}
-          {/*    font-size: 20px;*/}
-          {/*    font-style: normal;*/}
-          {/*    font-weight: 900;*/}
-          {/*    line-height: 130%;*/}
-          {/*    padding-right: 12px;*/}
-          {/*    color: #2832f5;*/}
-          {/*  `}*/}
-          {/*>*/}
-          {/*  {tradeModel ? 'Pro' : 'Basic'}*/}
-          {/*</span>*/}
-          {/*<KravSwitch checked={tradeModel} onChange={handleModelChange} />*/}
-        </div>
+        {/*<div*/}
+        {/*  css={css`*/}
+        {/*    display: flex;*/}
+        {/*    align-items: center;*/}
+        {/*    background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};*/}
+        {/*    padding: 4px;*/}
+        {/*    border-radius: 8px;*/}
+        {/*  `}*/}
+        {/*>*/}
+        {/*  <div*/}
+        {/*    css={css`*/}
+        {/*      font-family: 'Inter';*/}
+        {/*      font-size: 12px;*/}
+        {/*      font-style: normal;*/}
+        {/*      line-height: 130%;*/}
+        {/*      display: flex;*/}
+        {/*      align-items: center;*/}
+        {/*      justify-content: center;*/}
+        {/*      height: 30px;*/}
+        {/*      width: 83px;*/}
+        {/*      text-align: center;*/}
+        {/*      cursor: pointer;*/}
+        {/*      border-radius: 8px;*/}
+        {/*      background: ${tradeModel === TradeMode.BASIC ? '#ff5c00' : 'transparent'};*/}
+        {/*      color: ${tradeModel === TradeMode.BASIC ? '#fff' : theme.text.primary};*/}
+        {/*    `}*/}
+        {/*    onClick={() => setTradeModel(TradeMode.BASIC)}*/}
+        {/*  >*/}
+        {/*    Basic*/}
+        {/*  </div>*/}
+        {/*  <div*/}
+        {/*    css={css`*/}
+        {/*      font-family: 'Inter';*/}
+        {/*      font-size: 12px;*/}
+        {/*      display: flex;*/}
+        {/*      align-items: center;*/}
+        {/*      justify-content: center;*/}
+        {/*      font-style: normal;*/}
+        {/*      text-align: center;*/}
+        {/*      height: 30px;*/}
+        {/*      line-height: 130%;*/}
+        {/*      border-radius: 8px;*/}
+        {/*      cursor: pointer;*/}
+        {/*      width: 83px;*/}
+        {/*      background: ${tradeModel === TradeMode.PRO ? '#ff5c00' : 'transparent'};*/}
+        {/*      color: ${tradeModel === TradeMode.PRO ? '#fff' : theme.text.primary};*/}
+        {/*    `}*/}
+        {/*    onClick={() => setTradeModel(TradeMode.PRO)}*/}
+        {/*  >*/}
+        {/*    Pro*/}
+        {/*  </div>*/}
+        {/*  <div*/}
+        {/*    css={css`*/}
+        {/*      font-family: 'Inter';*/}
+        {/*      font-size: 12px;*/}
+        {/*      font-style: normal;*/}
+        {/*      display: flex;*/}
+        {/*      align-items: center;*/}
+        {/*      justify-content: center;*/}
+        {/*      width: 83px;*/}
+        {/*      height: 30px;*/}
+        {/*      border-radius: 8px;*/}
+        {/*      line-height: 130%;*/}
+        {/*      text-align: center;*/}
+        {/*      cursor: pointer;*/}
+        {/*      background: ${tradeModel === TradeMode.DEGEN*/}
+        {/*        ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'*/}
+        {/*        : 'transparent'};*/}
+        {/*      color: ${tradeModel === TradeMode.DEGEN ? '#000' : theme.text.primary};*/}
+        {/*    `}*/}
+        {/*    onClick={() => setTradeModel(TradeMode.DEGEN)}*/}
+        {/*  >*/}
+        {/*    Degen*/}
+        {/*  </div>*/}
+        {/*</div>*/}
       </div>
     </>
   )

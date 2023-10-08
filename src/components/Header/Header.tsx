@@ -17,10 +17,11 @@ import { ReactComponent as DisconnectIcon2 } from '../../assets/imgs/disconnect_
 import { ReactComponent as DisconnectDarkIcon2 } from '../../assets/imgs/darkModel/disconnect_icon_2_dark.svg'
 import { ReactComponent as ThemeIconLight } from '../../assets/imgs/model_icon.svg'
 import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/model_icon_dark.svg'
-import { ReactComponent as KravDarkLogo } from '../../assets/imgs/darkModel/krav_logo_dark.svg'
+// import { ReactComponent as KravDarkLogo } from '../../assets/imgs/darkModel/krav_logo_dark.svg'
 import SwitchDarkIcon from '../../assets/imgs/darkModel/theme_Switch_dark_icon.svg'
 import SwitchIcon from '../../assets/imgs/theme_icon_light.svg'
-import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
+// import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
+import { ReactComponent as EvendLogo } from '../../assets/imgs/evenodds_logo.svg'
 import { css } from '@emotion/react'
 import { ConnectWalletDialog } from '../../components/Dialog/ConnectWallet'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -254,11 +255,12 @@ export const Header = () => {
             ]}
           >
             <NavLink style={{ height: '22px' }} to={'/trade'}>
-              {theme.palette.mode === 'dark' ? (
-                <KravDarkLogo height="22" width="91" />
-              ) : (
-                <KravLogo height="22" width="91" />
-              )}
+              {/*{theme.palette.mode === 'dark' ? (*/}
+              {/*  <KravDarkLogo height="22" width="91" />*/}
+              {/*) : (*/}
+              {/*  <KravLogo height="22" width="91" />*/}
+              {/*)}*/}
+              <EvendLogo />
             </NavLink>
           </div>
           <Box
