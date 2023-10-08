@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro'
 import { header, headerBtn, router, setting, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
-import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
+// import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
 import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
 import { ReactComponent as KarvIcon } from '../../assets/imgs/tokens/KRAV.svg'
 import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
@@ -390,26 +390,26 @@ export const Header = () => {
                 <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
               </div>
             </MenuItem>
-            <MenuItem sx={{ width: '100%' }} onClick={handleNetWorkClose}>
-              <Link underline="none" href="https://eth.krav.trade/">
-                <div
-                  css={css`
-                    width: 100%;
-                  `}
-                >
-                  <div css={align}>
-                    <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-                    <span
-                      css={css`
-                        color: ${theme.text.primary};
-                      `}
-                    >
-                      Ethereum
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </MenuItem>
+            {/*<MenuItem sx={{ width: '100%' }} onClick={handleNetWorkClose}>*/}
+            {/*  <Link underline="none" href="https://eth.krav.trade/">*/}
+            {/*    <div*/}
+            {/*      css={css`*/}
+            {/*        width: 100%;*/}
+            {/*      `}*/}
+            {/*    >*/}
+            {/*      <div css={align}>*/}
+            {/*        <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />*/}
+            {/*        <span*/}
+            {/*          css={css`*/}
+            {/*            color: ${theme.text.primary};*/}
+            {/*          `}*/}
+            {/*        >*/}
+            {/*          Ethereum*/}
+            {/*        </span>*/}
+            {/*      </div>*/}
+            {/*    </div>*/}
+            {/*  </Link>*/}
+            {/*</MenuItem>*/}
           </Menu>
           {account ? (
             <>
