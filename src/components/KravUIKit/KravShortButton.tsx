@@ -7,16 +7,16 @@ const KRAVShortButton = styled(Button)(({ theme }) => ({
   width: '100%',
   fontFamily: 'Inter',
   color: '#fff',
-  background: '#DB4C40',
+  background: '#FF5C00',
   borderRadius: '4px',
   padding: '10px 16px',
   height: '40px',
   fontSize: '14px',
   '&:hover': {
-    backgroundColor: '#C3352A',
+    backgroundColor: '#FF5C00',
   },
   '&:active': {
-    background: '#C3352A',
+    background: '#FF5C00',
   },
   '&.Mui-disabled': {
     background: theme.shortButton.disableBg,

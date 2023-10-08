@@ -56,7 +56,7 @@ export const ActionsCard = ({
     >
       <Box
         sx={{
-          padding: '4px',
+          // padding: '4px',
           background: theme.palette.mode === 'dark' ? theme.background.second : '#F7F7F7',
           borderRadius: '4px',
         }}
@@ -74,20 +74,20 @@ export const ActionsCard = ({
           <Tab
             sx={{
               width: '50%',
-              borderRadius: '4px',
+              borderRadius: '4px 0 0 4px',
               minHeight: '30px',
               padding: 0,
-              background: orderType === 0 ? '#009B72 !important' : '',
+              background: orderType === 0 ? '#FF5C00 !important' : 'rgba(171, 174, 188, 0.12)',
             }}
             label="Long"
           />
           <Tab
             sx={{
               width: '50%',
-              borderRadius: '4px',
+              borderRadius: '0 4px 4px 0',
               minHeight: '30px',
               padding: 0,
-              background: orderType === 1 ? '#DB4C40 !important' : '',
+              background: orderType === 1 ? '#FF5C00 !important' : 'rgba(171, 174, 188, 0.12)',
             }}
             label="Short"
           />

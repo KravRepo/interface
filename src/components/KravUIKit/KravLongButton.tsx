@@ -7,16 +7,16 @@ const KRAVLongButton = styled(Button)(({ theme }) => ({
   width: '100%',
   fontFamily: 'Inter',
   color: '#fff',
-  background: '#009B72',
+  background: '#FF5C00',
   borderRadius: '4px',
   padding: '10px 16px',
   height: '40px',
   fontSize: '14px',
   '&:hover': {
-    backgroundColor: '#077054',
+    backgroundColor: '#FF5C00',
   },
   '&:active': {
-    background: '#077054',
+    background: '#FF5C00',
   },
   '&.Mui-disabled': {
     background: theme.longButton.disableBg,
