@@ -150,7 +150,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                   <div
                     css={css`
                       border-radius: 2px;
-                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                      background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;

@@ -13,7 +13,7 @@ const KravSwitch = styled(Switch)(({ theme }) => ({
       transform: 'translateX(24px)',
       color: '#fff',
       '& + .MuiSwitch-track': {
-        background: '#2832F5',
+        background: '#ff5c00',
         opacity: 1,
         border: 0,
       },
@@ -22,11 +22,11 @@ const KravSwitch = styled(Switch)(({ theme }) => ({
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#2832F5',
+      color: '#ff5c00',
       border: '6px solid #fff',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
-      color: '#2832F5',
+      color: '#ff5c00',
     },
     '&.Mui-disabled + .MuiSwitch-track': {
       opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
@@ -39,7 +39,7 @@ const KravSwitch = styled(Switch)(({ theme }) => ({
   },
   '& .MuiSwitch-track': {
     borderRadius: 14,
-    background: '#2832F5',
+    background: '#ff5c00',
     backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
     opacity: 1,
     transition: theme.transitions.create(['background-color'], {

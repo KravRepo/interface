@@ -20,7 +20,7 @@ export const LeftMenu = () => {
   const { pathname } = useLocation()
   const menuActive = useMemo(() => {
     return css`
-      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#f6f6f6'};
+      background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#f6f6f6'};
     `
   }, [theme])
   return (

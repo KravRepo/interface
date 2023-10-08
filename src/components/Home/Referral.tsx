@@ -80,7 +80,7 @@ export const Referral = () => {
         >
           <div
             css={css`
-              background: #2832f5;
+              background: #ff5c00;
               width: 21px;
               height: 216px;
               border-radius: 4px 0 0 4px;
@@ -132,7 +132,7 @@ export const Referral = () => {
           </div>
           <div
             css={css`
-              background: #2832f5;
+              background: #ff5c00;
               width: 90px;
               display: flex;
               align-items: center;
@@ -153,7 +153,7 @@ export const Referral = () => {
               height: 216px;
               position: relative;
               border-right: 2px dashed #959595;
-              background: #2832f5;
+              background: #ff5c00;
             `}
           >
             <div
@@ -171,7 +171,7 @@ export const Referral = () => {
           </div>
           <div
             css={css`
-              background: #2832f5;
+              background: #ff5c00;
               width: 322px;
               height: 216px;
               border-radius: 4px;

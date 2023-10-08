@@ -19,7 +19,7 @@ export const DashboardCard = ({ title, content }: DashboardCardProps) => {
       <span
         className="tabs"
         css={css`
-          background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+          background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#a4a8fe'};
           color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
         `}
       >

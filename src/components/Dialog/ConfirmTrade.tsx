@@ -182,7 +182,7 @@ export const ConfirmTrade = ({
                   sx={{
                     padding: 0,
                     '&.Mui-checked': {
-                      color: theme.palette.mode === 'dark' ? '#2832f5' : '#000',
+                      color: theme.palette.mode === 'dark' ? '#ff5c00' : '#000',
                     },
                   }}
                 />

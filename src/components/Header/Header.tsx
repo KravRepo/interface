@@ -110,9 +110,9 @@ export const Header = () => {
 
   const routerActive = useMemo(() => {
     return css`
-      background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : 'black'};
-      color: white;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      background: ${theme.palette.mode === 'dark' ? 'transparent' : 'black'};
+      color: #ff5c00;
+      border-bottom: 1px solid #ff5c00;
     `
   }, [theme])
 
@@ -239,7 +239,8 @@ export const Header = () => {
         css={[
           header,
           css`
-            background: ${isHomePath ? theme.background.fourth : ''};
+            background: ${isHomePath ? '#131418' : '#131418'};
+            border-bottom: 1px solid rgba(171, 174, 188, 0.12);
           `,
         ]}
       >
@@ -307,7 +308,7 @@ export const Header = () => {
             sx={{
               color: '#000',
               borderRadius: '4px',
-              border: theme.palette.mode === 'dark' ? '1px solid #4B4B4B' : '1px solid #DADADA',
+              border: theme.palette.mode === 'dark' ? '1px solid #ff5c00' : '1px solid #DADADA',
               textTransform: 'none',
               minWidth: '60px',
               '&:hover': {
@@ -316,9 +317,9 @@ export const Header = () => {
             }}
             endIcon={
               networkOpen ? (
-                <KeyboardArrowUpIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+                <KeyboardArrowUpIcon sx={{ color: theme.palette.mode === 'dark' ? '#ff5c00' : '' }} />
               ) : (
-                <KeyboardArrowDownIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+                <KeyboardArrowDownIcon sx={{ color: theme.palette.mode === 'dark' ? '#ff5c00' : '' }} />
               )
             }
             id="network-button"
@@ -542,7 +543,7 @@ export const Header = () => {
                       </p>
                       <p
                         css={css`
-                          color: #2832f5;
+                          color: #ff5c00;
                         `}
                       >
                         {getBigNumberStr(ethBalance, 4)} ETH

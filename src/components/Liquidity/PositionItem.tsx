@@ -109,10 +109,10 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
             height: '32px',
             width: '32px',
             minWidth: '32px',
-            border: theme.palette.mode === 'dark' ? '1px solid #dedede' : '1px solid #2E2E2E',
+            border: theme.palette.mode === 'dark' ? '1px solid #ff5c00' : '1px solid #2E2E2E',
             margin: '12px',
             '> svg > path': {
-              fill: theme.palette.mode === 'dark' ? '#dedede' : '',
+              fill: theme.palette.mode === 'dark' ? '#ff5c00' : '',
             },
           }}
         >
@@ -128,9 +128,9 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
             height: '32px',
             width: '32px',
             minWidth: '32px',
-            border: theme.palette.mode === 'dark' ? '1px solid #dedede' : '1px solid #2E2E2E',
+            border: theme.palette.mode === 'dark' ? '1px solid #ff5c00' : '1px solid #2E2E2E',
             '> svg > path': {
-              fill: theme.palette.mode === 'dark' ? '#dedede' : '',
+              fill: theme.palette.mode === 'dark' ? '#ff5c00' : '',
             },
             '&.Mui-disabled': {
               cursor: 'not-allowed',

@@ -69,15 +69,15 @@ export const UnSupport = css`
 `
 
 export const routerActive = css`
-  background: #000000;
-  color: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  //background: #000000;
+  color: #ff5c00 !important;
+  //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid #ff5c00;
 `
 
 export const router = css`
   margin-right: 16px;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 8px 8px 27px 8px;
   height: 32px;
   font-size: 14px;
   font-weight: 400;
@@ -85,6 +85,7 @@ export const router = css`
   cursor: pointer;
   font-family: 'Inter';
   text-decoration: none;
+  background: transparent !important;
 `
 
 export const headerBtn = css`

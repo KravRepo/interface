@@ -124,7 +124,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 `}
               >
                 {tradePair.titleSymbol}
-                {showSwitch && <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />}
+                {showSwitch && (
+                  <KeyboardArrowDownIcon
+                    sx={{
+                      height: '12px',
+                      width: '12px',
+                      marginLeft: '8px',
+                      color: theme.palette.mode === 'dark' ? '#ff5c00' : '',
+                    }}
+                  />
+                )}
               </div>
               <div
                 onClick={() => {
@@ -144,7 +153,14 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 >
                   {BTCPrice.toFixed(tradePair.fixDecimals)}
                 </span>
-                <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
+                <KeyboardArrowDownIcon
+                  sx={{
+                    height: '12px',
+                    width: '12px',
+                    marginLeft: '8px',
+                    color: theme.palette.mode === 'dark' ? '#ff5c00' : '',
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -278,8 +294,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               text-align: center;
               cursor: pointer;
               border-radius: 8px;
-              background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
-              color: ${tradeModel === TradeMode.BASIC ? '#000' : theme.text.primary};
+              background: ${tradeModel === TradeMode.BASIC ? '#ff5c00' : 'transparent'};
+              color: ${tradeModel === TradeMode.BASIC ? '#fff' : theme.text.primary};
             `}
             onClick={() => setTradeModel(TradeMode.BASIC)}
           >
@@ -299,8 +315,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               border-radius: 8px;
               cursor: pointer;
               width: 83px;
-              background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
-              color: ${tradeModel === TradeMode.PRO ? '#000' : theme.text.primary};
+              background: ${tradeModel === TradeMode.PRO ? '#ff5c00' : 'transparent'};
+              color: ${tradeModel === TradeMode.PRO ? '#fff' : theme.text.primary};
             `}
             onClick={() => setTradeModel(TradeMode.PRO)}
           >

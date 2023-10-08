@@ -22,7 +22,7 @@ import { HomeReferral } from './pages/home/HomeReferral'
 import { HomeFarm } from './pages/home/HomeFarm'
 import { css } from '@emotion/react'
 import DashboardBg from './assets/imgs/dashboard_bg.png'
-import DashboardDarkBg from './assets/imgs/darkModel/dashboard_bg_dark.png'
+// import DashboardDarkBg from './assets/imgs/darkModel/dashboard_bg_dark.png'
 import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
@@ -53,7 +53,7 @@ const FullApp = () => {
         className="App"
         css={css`
           position: relative;
-          background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg});
+          background: url(${theme.palette.mode === 'dark' ? '#131418' : DashboardBg});
         `}
       >
         <div className="fullApp">

@@ -61,7 +61,7 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
       >
         <span>{PoolWalletBalance.toFixed(4) || 0}</span>
         {tradePool?.tradingT === pool?.tradingT && (
-          <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '#2832f5' }} />
+          <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#ff5c00' : '#2832f5' }} />
         )}
       </div>
     </div>

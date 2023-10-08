@@ -119,7 +119,7 @@ export const Dashboard = () => {
                 css={css`
                   width: 180px;
                   color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
-                  background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                  background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#a4a8fe'};
                 `}
               >
                 Liquidity being provided
@@ -183,7 +183,7 @@ export const Dashboard = () => {
           >
             <p
               css={css`
-                background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#a4a8fe'};
                 color: ${theme.palette.mode === 'dark' ? theme.text.primary : '#fff'};
               `}
               className="tabs"

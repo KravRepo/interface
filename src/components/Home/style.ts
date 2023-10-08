@@ -132,7 +132,7 @@ export const dashboard = css`
     }
     > p:last-of-type {
       padding-top: 10px;
-      color: #2832f5;
+      color: #ff5c00;
       font-family: 'GT-Flexa-Bold-Trial';
       font-size: 64px;
       font-weight: 900;
@@ -320,7 +320,7 @@ export const farm = css`
       > div {
         > span:last-of-type {
           font-size: 16px;
-          color: #2832f5;
+          color: #ff5c00;
         }
         > span:first-of-type {
           font-size: 20px;
@@ -692,7 +692,7 @@ export const referral = css`
     }
     .referral-stats-item {
       > p:first-of-type {
-        color: #2832f5;
+        color: #ff5c00;
         font-family: 'GT-Flexa-Bold-Trial';
         font-size: 40px;
         font-weight: 900;

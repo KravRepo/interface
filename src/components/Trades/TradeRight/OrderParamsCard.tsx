@@ -403,7 +403,7 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 0 ? 'white' : ''};
-                  background: ${tabIndex === 0 ? theme.background.third : ''};
+                  background: ${tabIndex === 0 ? '#ff5c00' : ''};
                   margin-right: 13px;
                 `,
               ]}
@@ -419,7 +419,7 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 1 ? 'white' : ''};
-                  background: ${tabIndex === 1 ? theme.background.third : ''};
+                  background: ${tabIndex === 1 ? '#ff5c00' : ''};
                 `,
               ]}
               onClick={() => {
@@ -459,7 +459,7 @@ export const OrderParamsCard = ({
             </span>{' '}
             <span
               css={css`
-                color: #2832f5;
+                color: #ff5c00;
               `}
             >
               {getBigNumberStr(orderLimit, 6) || '0'} {tradePool?.symbol}
@@ -522,7 +522,7 @@ export const OrderParamsCard = ({
                     css={css`
                       border-radius: 2px;
                       color: ${theme.text.primary};
-                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                      background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#a4a8fe'};
                       padding: 2px 6px;
                       font-size: 12px;
                       cursor: pointer;
@@ -722,7 +722,7 @@ export const OrderParamsCard = ({
                   },
                   '& .MuiSlider-track': {
                     border: 'unset',
-                    color: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+                    color: theme.palette.mode === 'dark' ? '#ff5c00' : '#000000',
                   },
                   '& .MuiSlider-mark': {
                     height: '6px',
@@ -731,10 +731,10 @@ export const OrderParamsCard = ({
                   '& .MuiSlider-thumb': {
                     height: '10px',
                     width: '10px',
-                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+                    background: theme.palette.mode === 'dark' ? '#ff5c00' : '#000000',
                   },
                   '& .MuiSlider-markActive': {
-                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+                    background: theme.palette.mode === 'dark' ? '#ff5c00' : '#000000',
                   },
                   '& .MuiSlider-markLabel': {
                     fontSize: '12px',

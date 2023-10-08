@@ -16,10 +16,10 @@ const KRAVMenuButton = styled(Button)(({ theme }) => ({
     marginLeft: '12px',
   },
   '&:hover': {
-    background: theme.palette.mode === 'dark' ? '#2832f5' : '#F6F6F6',
+    background: theme.palette.mode === 'dark' ? '#ff5c00' : '#F6F6F6',
   },
   '&:active': {
-    background: theme.palette.mode === 'dark' ? '#2832f5' : '#F6F6F6',
+    background: theme.palette.mode === 'dark' ? '#ff5c00' : '#F6F6F6',
   },
   '& .MuiTouchRipple-root': {
     color: 'white',

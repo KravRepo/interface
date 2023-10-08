@@ -194,7 +194,7 @@ export const LockAction = ({
             css={css`
               border-radius: 2px;
               color: ${theme.text.primary};
-              background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+              background: ${theme.palette.mode === 'dark' ? '#ff5c00' : '#a4a8fe'};
               padding: 2px 6px;
               font-size: 12px;
               cursor: pointer;
@@ -243,7 +243,7 @@ export const LockAction = ({
               },
               '& .MuiSlider-track': {
                 border: 'unset',
-                color: '#2832F5',
+                color: '#ff5c00',
               },
               '& .MuiSlider-mark': {
                 height: '16px',
@@ -255,11 +255,11 @@ export const LockAction = ({
               '& .MuiSlider-thumb': {
                 height: '24px',
                 width: '24px',
-                border: '6px solid #2832F5',
+                border: '6px solid #ff5c00',
                 background: '#ffffff',
               },
               '& .MuiSlider-markActive': {
-                background: '#2832F5',
+                background: '#ff5c00',
               },
               '& .MuiSlider-markLabel': {
                 fontSize: '12px',
@@ -282,7 +282,7 @@ export const LockAction = ({
             sx={{
               padding: 0,
               '&.Mui-checked': {
-                color: theme.palette.mode === 'dark' ? '#2832f5' : '#000',
+                color: theme.palette.mode === 'dark' ? '#ff5c00' : '#000',
               },
             }}
           />{' '}
@@ -329,7 +329,7 @@ export const LockAction = ({
                 },
                 '& .MuiSlider-track': {
                   border: 'unset',
-                  color: '#2832F5',
+                  color: '#ff5c00',
                 },
                 '& .MuiSlider-mark': {
                   height: '16px',
@@ -341,11 +341,11 @@ export const LockAction = ({
                 '& .MuiSlider-thumb': {
                   height: '24px',
                   width: '24px',
-                  border: '6px solid #2832F5',
+                  border: '6px solid #ff5c00',
                   background: '#ffffff',
                 },
                 '& .MuiSlider-markActive': {
-                  background: '#2832F5',
+                  background: '#ff5c00',
                 },
                 '& .MuiSlider-markLabel': {
                   fontSize: '12px',
