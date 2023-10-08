@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css, useTheme } from '@mui/material'
+import { css } from '@mui/material'
 import { BasicModelDepth } from './BasicModelDepth'
 import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
@@ -15,7 +15,6 @@ type BasicModelProps = {
 }
 
 export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeType }: BasicModelProps) => {
-  const theme = useTheme()
   const [priceReaches, setPriceReaches] = useState(new BigNumber(0))
   const [takeProfit, setTakeProfit] = useState(new BigNumber(0))
   const [takeProfitPercentage, setTakeProfitPercentage] = useState(new BigNumber(0))
@@ -27,16 +26,16 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
   return (
     <div>
       <div
-        css={css`
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          font-size: 14px;
-          font-weight: 700;
-          padding: 16px 12px 0;
-          color: ${theme.text.primary};
-          background: ${theme.background.primary};
-        `}
+      // css={css`
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: space-between;
+      //   font-size: 14px;
+      //   font-weight: 700;
+      //   padding: 16px 12px 0;
+      //   color: ${theme.text.primary};
+      //   background: ${theme.background.primary};
+      // `}
       >
         <div>
           <span>{isBuy ? 'Long' : 'Short'} Amount</span>

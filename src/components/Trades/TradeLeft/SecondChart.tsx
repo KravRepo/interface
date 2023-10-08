@@ -42,9 +42,7 @@ export const SecondChart = () => {
     }).then(() => createWidget())
   }, [createWidget])
   return (
-    <Box
-      sx={{ mt: '12px', borderRadius: '8px', height: '481px', padding: '18px', background: theme.background.primary }}
-    >
+    <Box>
       <div className="tradingview-widget-container">
         {EXCHANGE_CONFIG[tradePairIndex].symbol !== 'NDX100' && (
           <div

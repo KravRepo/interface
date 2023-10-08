@@ -10,6 +10,9 @@ import { useRootStore } from '../../store/root'
 import { css, useMediaQuery, useTheme } from '@mui/material'
 import { SecondChart } from './TradeLeft/SecondChart'
 import { TradeMode } from '../../store/TradeSlice'
+import KRAVButton from '../KravUIKit/KravButton'
+import { OrderParamsMobile } from '../Dialog/OrderParamsMobile'
+import React, { useState } from 'react'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -17,9 +20,31 @@ type TradeLeftProps = {
   isBuy: boolean
   limitPrice: string | BigNumber
   tradeType: number
+  setLeverage: React.Dispatch<React.SetStateAction<number>>
+  setPositionSizeDai: React.Dispatch<React.SetStateAction<BigNumber>>
+  tpPrice: BigNumber | string
+  setTpPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
+  slPrice: BigNumber | string
+  setSlPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
+  setLimitPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
+  setTradeType: React.Dispatch<React.SetStateAction<number>>
 }
 
-export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeType }: TradeLeftProps) => {
+export const TradeLeft = ({
+  positionSizeDai,
+  leverage,
+  isBuy,
+  limitPrice,
+  tradeType,
+  setLeverage,
+  setLimitPrice,
+  setPositionSizeDai,
+  setSlPrice,
+  setTpPrice,
+  setTradeType,
+  slPrice,
+  tpPrice,
+}: TradeLeftProps) => {
   const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
     tradeModel: state.tradeModel,
     setTradeModel: state.setTradeModel,
@@ -28,10 +53,30 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
   }))
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
+  const [openCard, setOpenCard] = useState(false)
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
+      {isMobile && (
+        <OrderParamsMobile
+          isOpen={openCard}
+          setIsOpen={() => setOpenCard(false)}
+          leverage={leverage}
+          positionSizeDai={positionSizeDai}
+          setLeverage={setLeverage}
+          setPositionSizeDai={setPositionSizeDai}
+          setSlPrice={setSlPrice}
+          setTpPrice={setTpPrice}
+          slPrice={slPrice}
+          tpPrice={tpPrice}
+          isBuy={isBuy}
+          limitPrice={limitPrice}
+          setLimitPrice={setLimitPrice}
+          tradeType={tradeType}
+          setTradeType={setTradeType}
+        />
+      )}
       <div
         css={[
           tradeLeft,
@@ -41,28 +86,36 @@ export const TradeLeft = ({ positionSizeDai, leverage, isBuy, limitPrice, tradeT
         ]}
       >
         <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
-        {tradeModel === TradeMode.PRO && (
-          <div
-            css={[
-              chart,
-              css`
-                background: ${theme.background.primary};
-              `,
-            ]}
-          >
-            <TradingViewWidget />
-          </div>
-        )}
-        {tradeModel === TradeMode.BASIC && (
-          <BasicModel
-            positionSizeDai={positionSizeDai}
-            isBuy={isBuy}
-            leverage={leverage}
-            limitPrice={limitPrice}
-            tradeType={tradeType}
-          />
-        )}
-        {tradeModel === TradeMode.DEGEN && <SecondChart />}
+        <div
+          css={[
+            chart,
+            css`
+              background: ${theme.background.primary};
+              height: ${isMobile ? '481px' : '551px'};
+            `,
+          ]}
+        >
+          {tradeModel === TradeMode.BASIC && (
+            <BasicModel
+              positionSizeDai={positionSizeDai}
+              isBuy={isBuy}
+              leverage={leverage}
+              limitPrice={limitPrice}
+              tradeType={tradeType}
+            />
+          )}
+          {tradeModel === TradeMode.PRO && <TradingViewWidget />}
+          {tradeModel === TradeMode.DEGEN && <SecondChart />}
+          {isMobile && (
+            <div
+              css={css`
+                padding: 16px 10px;
+              `}
+            >
+              <KRAVButton onClick={() => setOpenCard(true)}>Open Trade</KRAVButton>
+            </div>
+          )}
+        </div>
         {!isMobile && <MyTrade />}
       </div>
     </>

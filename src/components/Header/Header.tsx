@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Button, Link, Menu, MenuItem, Switch, Tooltip, useTheme } from '@mui/material'
+import { Box, Button, Link, Menu, MenuItem, Switch, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { Trans } from '@lingui/macro'
 import { header, headerBtn, router, setting, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
@@ -87,6 +87,17 @@ const ModeSwitch = styled(Switch)(({ theme }) => ({
 }))
 
 export const Header = () => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
+  return (
+    <>
+      {!isMobile && <HeaderPC />}
+      {/*{isMobile && }*/}
+    </>
+  )
+}
+
+export const HeaderPC = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const walletDialogVisibility = useRootStore((store) => store.walletDialogVisibility)
   const { account, chainId, connector, provider } = useWeb3React()

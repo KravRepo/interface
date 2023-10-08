@@ -91,8 +91,8 @@ export const bottomCard = css`
 `
 
 export const chart = css`
-  height: 481px;
   background: #fff;
   border-radius: 8px;
   position: relative;
+  margin-top: 12px;
 `

@@ -49,6 +49,14 @@ export const Trade = () => {
         positionSizeDai={positionSizeDai}
         leverage={leverage}
         limitPrice={limitPrice}
+        setLeverage={setLeverage}
+        setPositionSizeDai={setPositionSizeDai}
+        setSlPrice={setSlPrice}
+        setTpPrice={setTpPrice}
+        slPrice={slPrice}
+        tpPrice={tpPrice}
+        setLimitPrice={setLimitPrice}
+        setTradeType={setTradeType}
       />
       <TradeRight
         leverage={leverage}
