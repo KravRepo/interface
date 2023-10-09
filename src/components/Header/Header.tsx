@@ -283,12 +283,12 @@ export const Header = () => {
             <NavLink to={'/liquidity'} css={[router, routerColor, pathname === '/liquidity' ? routerActive : '']}>
               <Trans>Liquidity</Trans>
             </NavLink>
-            <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
-              <Trans>Portfolio</Trans>
-            </NavLink>
-            <NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>
-              <Trans>Statistics</Trans>
-            </NavLink>
+            {/*<NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>*/}
+            {/*  <Trans>Portfolio</Trans>*/}
+            {/*</NavLink>*/}
+            {/*<NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>*/}
+            {/*  <Trans>Statistics</Trans>*/}
+            {/*</NavLink>*/}
           </Box>
         </div>
         <div css={align}>
