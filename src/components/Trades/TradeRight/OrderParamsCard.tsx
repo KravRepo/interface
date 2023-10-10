@@ -520,43 +520,50 @@ export const OrderParamsCard = ({
                   />
                   <div
                     css={css`
-                      border-radius: 2px;
-                      color: ${theme.text.primary};
-                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
-                      padding: 2px 6px;
-                      font-size: 12px;
-                      cursor: pointer;
+                      display: flex;
+                      align-items: center;
                     `}
-                    onClick={handleMaxInput}
                   >
-                    MAX
-                  </div>
-                  <div
-                    onClick={() => setIsOpenSelectToken(true)}
-                    css={[
-                      align,
-                      css`
+                    <div
+                      css={css`
+                        border-radius: 2px;
+                        color: ${theme.text.primary};
+                        background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                        padding: 2px 6px;
+                        font-size: 12px;
                         cursor: pointer;
-                      `,
-                    ]}
-                  >
-                    <span
-                      css={css`
-                        margin: 0 4px;
-                        color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
                       `}
+                      onClick={handleMaxInput}
                     >
-                      {tradePool?.symbol}
-                    </span>
-                    <img
-                      css={css`
-                        border-radius: 50%;
-                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
-                      `}
-                      src={tradePool.logoSource}
-                      height="16"
-                      width="16"
-                    />
+                      MAX
+                    </div>
+                    <div
+                      onClick={() => setIsOpenSelectToken(true)}
+                      css={[
+                        align,
+                        css`
+                          cursor: pointer;
+                        `,
+                      ]}
+                    >
+                      <span
+                        css={css`
+                          margin: 0 4px;
+                          color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
+                        `}
+                      >
+                        {tradePool?.symbol}
+                      </span>
+                      <img
+                        css={css`
+                          border-radius: 50%;
+                          background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                        `}
+                        src={tradePool.logoSource}
+                        height="16"
+                        width="16"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

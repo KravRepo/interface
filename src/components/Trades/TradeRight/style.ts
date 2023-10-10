@@ -16,6 +16,9 @@ export const input = css`
   @media screen and (max-width: 1330px) {
     width: 262px;
   }
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
 `
 export const orderParamsTab = css`
   padding: 4px 12px;

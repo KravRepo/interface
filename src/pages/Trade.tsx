@@ -57,6 +57,7 @@ export const Trade = () => {
         tpPrice={tpPrice}
         setLimitPrice={setLimitPrice}
         setTradeType={setTradeType}
+        setIsBuy={setIsBuy}
       />
       <TradeRight
         leverage={leverage}

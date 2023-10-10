@@ -28,6 +28,7 @@ type TradeLeftProps = {
   setSlPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
   setLimitPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
   setTradeType: React.Dispatch<React.SetStateAction<number>>
+  setIsBuy: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const TradeLeft = ({
@@ -44,6 +45,7 @@ export const TradeLeft = ({
   setTradeType,
   slPrice,
   tpPrice,
+  setIsBuy,
 }: TradeLeftProps) => {
   const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
     tradeModel: state.tradeModel,
@@ -75,6 +77,7 @@ export const TradeLeft = ({
           setLimitPrice={setLimitPrice}
           tradeType={tradeType}
           setTradeType={setTradeType}
+          setIsBuy={setIsBuy}
         />
       )}
       <div
@@ -91,7 +94,7 @@ export const TradeLeft = ({
             chart,
             css`
               background: ${theme.background.primary};
-              height: ${isMobile ? '481px' : '551px'};
+              height: ${!isMobile ? '481px' : '514px'};
             `,
           ]}
         >
