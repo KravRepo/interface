@@ -87,8 +87,14 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             @media screen and (max-width: 1500px) {
               overflow: auto;
               &::-webkit-scrollbar {
-            display: none
-          },
+                width: 5px;
+                height: 8px;
+                //height: 4px;
+              }
+              &::-webkit-scrollbar-thumb {
+                border-radius: 99px;
+                background-color: ${theme.background.second};
+              }
             }
           `,
         ]}

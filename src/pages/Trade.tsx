@@ -38,7 +38,7 @@ export const Trade = () => {
     <div
       css={css`
         display: ${isMobile ? 'block' : 'flex'};
-        padding: 16px 32px 0;
+        padding: ${isMobile ? '14px 16px' : '16px 32px 0'};
         width: 100%;
         font-family: 'Inter';
       `}
