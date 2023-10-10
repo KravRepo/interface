@@ -96,6 +96,12 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 background-color: ${theme.background.second};
               }
             }
+            @media screen and (max-width: 1200px) {
+              &::-webkit-scrollbar {
+                display: none;
+                //height: 4px;
+              }
+            }
           `,
         ]}
       >
