@@ -584,10 +584,18 @@ export const referral = css`
   padding: 40px 0;
   margin: 0 40px;
   max-width: 1060px;
+  @media screen and (max-width: 1200px) {
+    margin: 0;
+    padding: 0;
+  }
   .referral-title {
     display: flex;
     justify-content: space-between;
     margin-bottom: 64px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      margin-bottom: 24px;
+    }
     .referral-title-left {
       max-width: 550px;
       > div {
@@ -612,6 +620,12 @@ export const referral = css`
       position: relative;
       margin: 15px 15px 15px 98px;
       text-align: center;
+      @media screen and (max-width: 600px) {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        margin: 0;
+      }
       > p {
         padding: 38px 22px 24px;
         font-size: 20px;
@@ -672,6 +686,10 @@ export const referral = css`
     font-weight: 400;
     line-height: 140%; /* 19.6px */
     letter-spacing: -0.28px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      padding-bottom: 0;
+    }
     .link-text {
       flex: 1;
       border-radius: 4px;
@@ -703,6 +721,9 @@ export const referral = css`
     > div:nth-of-type(2) {
       padding: 0 24px;
       font-size: 14px;
+      @media screen and (max-width: 1200px) {
+        padding: 24px 0;
+      }
       > div:first-of-type {
         display: flex;
         align-items: center;
@@ -712,7 +733,10 @@ export const referral = css`
     }
     > div:last-of-type {
       padding-left: 24px;
-
+      @media screen and (max-width: 1200px) {
+        padding-left: 0;
+        padding-top: 24px;
+      }
       > p {
         padding-bottom: 16px;
       }
