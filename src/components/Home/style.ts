@@ -98,7 +98,9 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
-      min-width: 1200px;
+      @media screen and (max-width: 1200px) {
+        min-width: 1200px;
+      }
     }
     .history-layout {
       align-items: center;
@@ -106,7 +108,9 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
-      min-width: 1200px;
+      @media screen and (max-width: 1200px) {
+        min-width: 1200px;
+      }
     }
     .order-layout {
       align-items: center;
@@ -114,7 +118,9 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 80px minmax(140px, 2fr) 1fr 1fr 1fr 1fr 1fr;
       font-size: 12px;
-      min-width: 1200px;
+      @media screen and (max-width: 1200px) {
+        min-width: 1200px;
+      }
     }
     .no-data {
       padding-top: 103px;
@@ -377,7 +383,9 @@ export const farm = css`
     padding: 0 32px 16px 32px;
     align-items: center;
     display: grid;
-    min-width: 1200px;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
     grid-template-columns:
       1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
       80px;

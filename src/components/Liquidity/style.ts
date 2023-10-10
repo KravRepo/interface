@@ -20,7 +20,6 @@ export const liquidity = css`
   }
   .liquidity-table {
     padding: 0 48px 16px 32px;
-    min-width: 1200px;
     align-items: center;
     display: grid;
     grid-template-columns:
@@ -28,6 +27,7 @@ export const liquidity = css`
       1.6fr 117px;
     font-size: 14px;
     @media screen and (max-width: 1200px) {
+      min-width: 1200px;
       grid-template-columns:
         minmax(120px, 1fr) minmax(85px, 1.8fr) minmax(115px, 1.3fr) minmax(210px, 2.2fr) minmax(210px, 2.2fr)
         minmax(141px, 1.6fr) 117px;

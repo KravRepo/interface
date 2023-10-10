@@ -39,7 +39,9 @@ export const YourPosition = ({
         className="liquidity-tabs"
         css={css`
           border-bottom: ${theme.splitLine.primary};
-          min-width: 1200px;
+          @media screen and (max-width: 1200px) {
+            min-width: 1200px;
+          }
         `}
       >
         <span>Your positions</span>
