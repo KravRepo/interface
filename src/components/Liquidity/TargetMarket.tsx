@@ -64,6 +64,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         className="liquidity-tabs"
         css={css`
           border-bottom: ${theme.splitLine.primary};
+          min-width: 1200px;
         `}
       >
         <span>Target Market</span>

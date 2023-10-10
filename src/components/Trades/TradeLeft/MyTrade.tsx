@@ -54,7 +54,6 @@ export const MyTrade = () => {
     >
       <div
         css={css`
-          border-bottom: ${theme.splitLine.primary};
           padding-left: 24px;
         `}
       >

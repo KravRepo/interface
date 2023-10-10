@@ -6,6 +6,7 @@ import { QUANTO_API, TEST_CHAIN_ID, TRADE_HISTORY_API } from '../../../constant/
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { HistoryItem } from './HistoryItem'
+import { useTheme } from '@mui/material'
 
 export type Quanto = {
   id: number
@@ -59,6 +60,7 @@ type TradeHistoryProps = {
 }
 
 export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps) => {
+  const theme = useTheme()
   const tradePool = useRootStore((state) => state.tradePool)
   const allPoolParams = useRootStore((state) => state.allPoolParams)
   const { account } = useWeb3React()
@@ -97,6 +99,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         className="position-layout"
         css={css`
           color: #617168;
+          border-top: ${theme.splitLine.primary};
         `}
       >
         <span>Date</span>
