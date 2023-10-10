@@ -216,6 +216,7 @@ export const NewStake = () => {
         css={css`
           background: ${theme.background.primary};
           @media screen and (max-width: 1200px) {
+            display: block !important;
             > div:first-of-type {
               margin-bottom: 36px;
             }

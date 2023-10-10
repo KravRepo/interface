@@ -411,6 +411,9 @@ export const stake = css`
   line-height: 140%; /* 19.6px */
   letter-spacing: -0.28px;
   font-size: 14px;
+  @media screen and (max-width: 1200px) {
+    margin: 0;
+  }
   .gt {
     font-family: 'GT-Flexa-Bold-Trial';
   }
@@ -429,6 +432,9 @@ export const stake = css`
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     padding: 24px 32px;
     margin-bottom: 24px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+    }
   }
   .data {
     padding-top: 10px;
@@ -444,6 +450,9 @@ export const stake = css`
     align-items: start;
     border-radius: 8px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    @media screen and (max-width: 1200px) {
+      padding: 0px 24px 40px;
+    }
     .my-reward {
       margin: 20px 0;
       display: grid;
