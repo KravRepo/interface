@@ -84,6 +84,7 @@ export const TradingRewards = ({
             border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
             border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
             padding-bottom: ${isMobile ? '16px' : 'unset'};
+            padding-left: ${isMobile ? '0px' : '32px'};
             margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
@@ -95,6 +96,7 @@ export const TradingRewards = ({
             border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
             border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
             padding-bottom: ${isMobile ? '16px' : 'unset'};
+            padding-left: ${isMobile ? '0px' : '32px'};
             margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
@@ -198,6 +200,7 @@ export const TradingRewards = ({
         <div
           css={css`
             border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            padding-left: ${isMobile ? '0px' : '32px'};
           `}
         >
           <Tooltip

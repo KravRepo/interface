@@ -413,6 +413,7 @@ export const stake = css`
   font-size: 14px;
   @media screen and (max-width: 1200px) {
     margin: 0;
+    padding: 0;
   }
   .gt {
     font-family: 'GT-Flexa-Bold-Trial';
@@ -484,6 +485,10 @@ export const stake = css`
     align-items: center;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      margin-bottom: 40px;
+    }
   }
   .fees-rewards {
     border-radius: 8px;
@@ -493,6 +498,12 @@ export const stake = css`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media screen and (max-width: 1200px) {
+        display: block;
+        > div:last-of-type {
+          padding-top: 16px;
+        }
+      }
     }
   }
   .reward-item {
@@ -504,11 +515,17 @@ export const stake = css`
     border-radius: 8px;
     padding: 24px 32px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    @media screen and (max-width: 1200px) {
+      padding: 16px 24px;
+    }
     > div:first-of-type,
     > div:nth-of-type(2) {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media screen and (max-width: 1200px) {
+        display: block;
+      }
     }
     > div:last-of-type {
       border-radius: 8px;
@@ -522,6 +539,12 @@ export const stake = css`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @media screen and (max-width: 1200px) {
+          display: block;
+          > span {
+            display: block;
+          }
+        }
         > span:first-of-type {
           font-size: 14px;
           font-weight: 400;
@@ -537,11 +560,18 @@ export const stake = css`
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-bottom: 40px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      padding: 16px 24px;
+    }
     > div:first-of-type {
       padding-left: 0 !important;
     }
     > div {
       padding-left: 32px;
+      @media screen and (max-width: 1200px) {
+        padding-left: 0;
+      }
     }
   }
   .grey {

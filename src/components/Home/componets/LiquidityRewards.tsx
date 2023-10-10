@@ -70,7 +70,7 @@ export const LiquidityRewards = ({
         >
           <div
             css={css`
-              border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+              border-left: unset;
               border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
               padding-bottom: ${isMobile ? '16px' : 'unset'};
               margin-bottom: ${isMobile ? '16px' : 'unset'};
