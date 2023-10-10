@@ -3,11 +3,12 @@ import { headerBtn } from './sytle'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
-import { Button, Menu, MenuItem, useTheme } from '@mui/material'
+import { Button, Link, Menu, MenuItem, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
 import React, { useMemo, useState } from 'react'
+import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
 
 export const NetWorkButton = () => {
   const theme = useTheme()
@@ -79,6 +80,26 @@ export const NetWorkButton = () => {
             </div>
             <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
           </div>
+        </MenuItem>
+        <MenuItem sx={{ width: '100%' }} onClick={handleNetWorkClose}>
+          <Link underline="none" href="https://eth.krav.trade/">
+            <div
+              css={css`
+                width: 100%;
+              `}
+            >
+              <div css={align}>
+                <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+                <span
+                  css={css`
+                    color: ${theme.text.primary};
+                  `}
+                >
+                  Ethereum
+                </span>
+              </div>
+            </div>
+          </Link>
         </MenuItem>
       </Menu>
     </>

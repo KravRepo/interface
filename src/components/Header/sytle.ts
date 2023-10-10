@@ -8,6 +8,9 @@ export const header = css`
   margin: 0 auto;
   padding: 0 32px 0 25px;
   background: transparent;
+  @media screen and (max-width: 1200px) {
+    padding-left: 16px;
+  }
 `
 
 export const setting = css`
