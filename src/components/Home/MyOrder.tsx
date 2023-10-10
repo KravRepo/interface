@@ -58,7 +58,7 @@ export const MyOrder = () => {
           css={css`
             padding-left: 24px;
             background: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#f1f1f1'};
-            min-width: ${isMobile ? '950px' : ''};
+            min-width: ${isMobile ? '1200px' : ''};
           `}
         >
           <Tabs

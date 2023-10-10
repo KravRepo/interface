@@ -22,6 +22,9 @@ export const home = css`
   display: flex;
   margin-bottom: -40px;
   .home-content {
+    @media screen and (max-width: 1200px) {
+      padding: 0 16px;
+    }
     width: 100%;
     display: flex;
     justify-content: center;
@@ -95,6 +98,7 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
+      min-width: 1200px;
     }
     .history-layout {
       align-items: center;
@@ -102,6 +106,7 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
+      min-width: 1200px;
     }
     .order-layout {
       align-items: center;
@@ -109,6 +114,7 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 80px minmax(140px, 2fr) 1fr 1fr 1fr 1fr 1fr;
       font-size: 12px;
+      min-width: 1200px;
     }
     .no-data {
       padding-top: 103px;
@@ -221,38 +227,6 @@ export const dashboard = css`
             letter-spacing: 0.8px;
           }
         }
-        .my-pool {
-          > div {
-            height: 100%;
-            padding-top: 30px;
-            padding-left: 32px;
-            > p {
-              font-family: 'Inter';
-              font-size: 14px;
-              font-weight: 400;
-              line-height: 140%; /* 19.6px */
-              letter-spacing: -0.28px;
-              padding-bottom: 8px;
-            }
-            > p:last-of-type {
-              display: flex;
-              align-items: center;
-              > span:first-of-type {
-                font-family: 'GT-Flexa-Bold-Trial';
-                font-size: 40px;
-                font-style: normal;
-                font-weight: 900;
-                line-height: 110%; /* 44px */
-                letter-spacing: 0.8px;
-                padding-right: 16px;
-              }
-            }
-          }
-          .poolArrow:hover {
-            cursor: pointer;
-            transform: scale(1.1);
-          }
-        }
         > div:first-of-type {
           height: 100%;
         }
@@ -263,11 +237,49 @@ export const dashboard = css`
         }
       }
     }
+    .my-pool {
+      > div {
+        height: 100%;
+        padding-top: 30px;
+        padding-left: 32px;
+        > p {
+          font-family: 'Inter';
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 140%; /* 19.6px */
+          letter-spacing: -0.28px;
+          padding-bottom: 8px;
+        }
+        > p:last-of-type {
+          display: flex;
+          align-items: center;
+          > span:first-of-type {
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 900;
+            line-height: 110%; /* 44px */
+            letter-spacing: 0.8px;
+            padding-right: 16px;
+          }
+        }
+      }
+      .poolArrow:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
   }
   .data {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 148px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      > div {
+        margin-bottom: 16px;
+      }
+    }
     gap: 20px;
     font-size: 12px;
     padding-bottom: 48px;
@@ -365,6 +377,7 @@ export const farm = css`
     padding: 0 32px 16px 32px;
     align-items: center;
     display: grid;
+    min-width: 1200px;
     grid-template-columns:
       1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
       80px;
