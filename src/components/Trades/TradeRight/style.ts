@@ -31,6 +31,12 @@ export const orderParamsTab = css`
     color: #fff;
     background: black;
   }
+  @media screen and (max-width: 1200px) {
+    :hover {
+      color: #fff;
+      background: #757575;
+    }
+  }
 `
 export const orderParamsTabActive = css`
   color: #000;

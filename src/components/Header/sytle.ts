@@ -9,7 +9,7 @@ export const header = css`
   padding: 0 32px 0 25px;
   background: transparent;
   @media screen and (max-width: 1200px) {
-    padding-left: 16px;
+    padding: 0 10px 0 16px;
   }
 `
 

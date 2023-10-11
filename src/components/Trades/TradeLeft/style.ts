@@ -37,6 +37,9 @@ export const myTrade = css`
     padding: 12px 24px 0px;
     grid-template-columns: 80px minmax(140px, 2fr) 1fr 1fr 1fr 1fr 1fr;
     font-size: 12px;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
   }
   .no-data {
     padding-top: 103px;

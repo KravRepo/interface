@@ -94,7 +94,7 @@ export const TradeLeft = ({
             chart,
             css`
               background: ${theme.background.primary};
-              height: ${!isMobile ? '481px' : '514px'};
+              height: ${!isMobile ? '481px' : ''};
             `,
           ]}
         >

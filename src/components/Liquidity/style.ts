@@ -3,6 +3,10 @@ import { css } from '@emotion/react'
 export const liquidity = css`
   max-width: 1376px;
   margin: 16px auto 0;
+  @media screen and (max-width: 1200px) {
+    margin: 16px 0 0;
+    padding: 0 16px;
+  }
   .liquidity-content {
     border-radius: 8px;
     margin-bottom: 18px;

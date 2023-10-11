@@ -85,6 +85,10 @@ export const dashboard = css`
   margin: 0 40px;
   max-width: 1060px;
   font-family: 'Inter';
+  @media screen and (max-width: 1200px) {
+    margin: 0;
+    padding: 0;
+  }
   .tabs {
     //background: #a4a8fe;
     padding: 2px 8px;

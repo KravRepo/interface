@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, Drawer, useMediaQuery, useTheme } from '@mui/material'
+import { Dialog, DialogContent, SwipeableDrawer, useMediaQuery, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 
 type DialogLayoutProps = {
@@ -28,12 +28,13 @@ export const DialogLayout = ({ isOpen, setIsOpen, children }: DialogLayoutProps)
         </Dialog>
       )}
       {isMobile && (
-        <Drawer
+        <SwipeableDrawer
           sx={{
             '& .MuiPaper-root': {
               borderRadius: '8px 8px 0px 0px',
             },
           }}
+          onOpen={() => console.log('open')}
           anchor={'bottom'}
           open={isOpen}
           onClose={() => setIsOpen(false)}
@@ -53,7 +54,7 @@ export const DialogLayout = ({ isOpen, setIsOpen, children }: DialogLayoutProps)
             />
           </div>
           {children}
-        </Drawer>
+        </SwipeableDrawer>
       )}
     </>
   )
