@@ -61,16 +61,16 @@ export const NavMenu = ({ isOpen, setIsOpen }: NavMenuProps) => {
           border-bottom: ${theme.splitLine.primary};
         `}
       >
-        <NavLink to={'/trade'} css={[routerColor]}>
+        <NavLink onClick={setIsOpen} to={'/trade'} css={[routerColor]}>
           <Trans>Trade</Trans>
         </NavLink>
-        <NavLink to={'/liquidity'} css={[routerColor]}>
+        <NavLink onClick={setIsOpen} to={'/liquidity'} css={[routerColor]}>
           <Trans>Liquidity</Trans>
         </NavLink>
-        <NavLink to={'/portfolio'} css={[routerColor]}>
+        <NavLink onClick={setIsOpen} to={'/portfolio'} css={[routerColor]}>
           <Trans>Portfolio</Trans>
         </NavLink>
-        <NavLink to={'/statistics'} css={[routerColor]}>
+        <NavLink onClick={setIsOpen} to={'/statistics'} css={[routerColor]}>
           <Trans>Statistics</Trans>
         </NavLink>
       </div>

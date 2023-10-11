@@ -453,6 +453,7 @@ export const stake = css`
     margin-bottom: 24px;
     @media screen and (max-width: 1200px) {
       display: block;
+      padding: 16px 24px;
     }
   }
   .data {
