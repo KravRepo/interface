@@ -21,6 +21,9 @@ export const liquidity = css`
     font-size: 20px;
     font-weight: 500;
     padding: 16px 0 12px 32px;
+    @media screen and (max-width: 1200px) {
+      padding: 16px 16px 12px;
+    }
   }
   .liquidity-table {
     padding: 0 48px 16px 32px;
@@ -32,6 +35,7 @@ export const liquidity = css`
     font-size: 14px;
     @media screen and (max-width: 1200px) {
       min-width: 1200px;
+      padding: 16px 16px 12px;
       grid-template-columns:
         minmax(120px, 1fr) minmax(85px, 1.8fr) minmax(115px, 1.3fr) minmax(210px, 2.2fr) minmax(210px, 2.2fr)
         minmax(141px, 1.6fr) 117px;
@@ -41,6 +45,10 @@ export const liquidity = css`
     padding: 24px 48px 24px 24px;
     display: flex;
     justify-content: flex-end;
+    @media screen and (max-width: 1200px) {
+      padding: 16px 16px 12px;
+      justify-content: start;
+    }
   }
   .grey {
     color: #757575;

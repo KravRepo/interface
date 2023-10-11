@@ -34,6 +34,7 @@ export const EarningInfoMobile = ({
           background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
           width: 180px;
           margin-bottom: 18px;
+          color: ${theme.text.primary};
         `}
       >
         Liquidity being provided
