@@ -12,8 +12,8 @@ import { SecondChart } from './TradeLeft/SecondChart'
 import { TradeMode } from '../../store/TradeSlice'
 import KRAVButton from '../KravUIKit/KravButton'
 import { OrderParamsMobile } from '../Dialog/OrderParamsMobile'
-import React, { useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import React from 'react'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -48,26 +48,34 @@ export const TradeLeft = ({
   tpPrice,
   setIsBuy,
 }: TradeLeftProps) => {
-  const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken, setWalletDialogVisibility } =
-    useRootStore((state) => ({
-      tradeModel: state.tradeModel,
-      setTradeModel: state.setTradeModel,
-      isOpenSelectToken: state.isOpenSelectToken,
-      setIsOpenSelectToken: state.setIsOpenSelectToken,
-      setWalletDialogVisibility: state.setWalletDialogVisibility,
-    }))
+  const {
+    tradeModel,
+    setTradeModel,
+    isOpenSelectToken,
+    setIsOpenSelectToken,
+    setWalletDialogVisibility,
+    openTradeCard,
+    setOpenTradeCard,
+  } = useRootStore((state) => ({
+    tradeModel: state.tradeModel,
+    setTradeModel: state.setTradeModel,
+    isOpenSelectToken: state.isOpenSelectToken,
+    setIsOpenSelectToken: state.setIsOpenSelectToken,
+    setWalletDialogVisibility: state.setWalletDialogVisibility,
+    openTradeCard: state.openTradeCard,
+    setOpenTradeCard: state.setOpenTradeCard,
+  }))
   const theme = useTheme()
   const { account } = useWeb3React()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
-  const [openCard, setOpenCard] = useState(false)
 
   return (
     <>
       <SelectToken isOpen={isOpenSelectToken} setIsOpen={setIsOpenSelectToken} />
       {isMobile && (
         <OrderParamsMobile
-          isOpen={openCard}
-          setIsOpen={() => setOpenCard(false)}
+          isOpen={openTradeCard}
+          setIsOpen={() => setOpenTradeCard(false)}
           leverage={leverage}
           positionSizeDai={positionSizeDai}
           setLeverage={setLeverage}
@@ -120,7 +128,7 @@ export const TradeLeft = ({
               `}
             >
               {account ? (
-                <KRAVButton onClick={() => setOpenCard(true)}>Open Trade</KRAVButton>
+                <KRAVButton onClick={() => setOpenTradeCard(true)}>Open Trade</KRAVButton>
               ) : (
                 <KRAVButton onClick={() => setWalletDialogVisibility(true)}>Connect Wallet</KRAVButton>
               )}

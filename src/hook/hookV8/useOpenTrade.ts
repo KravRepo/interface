@@ -28,6 +28,7 @@ export const useOpenTrade = ({
   const setTransactionState = useRootStore((store) => store.setTransactionState)
   const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
+  const setOpenTradeCard = useRootStore((state) => state.setOpenTradeCard)
   return useCallback(async () => {
     try {
       setTransactionState(TransactionState.INTERACTION)
@@ -54,6 +55,7 @@ export const useOpenTrade = ({
         title: (tuple.buy ? 'Long' : 'Short') + (tuple.index === 0 ? 'Market Order' : 'Limit Order'),
         content: 'Your position has been opened successfully',
       })
+      setOpenTradeCard(false)
     } catch (e: any) {
       updateError(TransactionAction.OPEN_TRADE)
       console.error('Open Trade failed!', e)
