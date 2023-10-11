@@ -464,7 +464,8 @@ export const stake = css`
     border-radius: 8px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     @media screen and (max-width: 1200px) {
-      padding: 0px 24px 40px;
+      padding: 16px 24px;
+      margin-bottom: 40px;
     }
     .my-reward {
       margin: 20px 0;
