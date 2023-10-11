@@ -170,6 +170,9 @@ export const dashboard = css`
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
     padding-bottom: 32px;
+    @media screen and (max-width: 1200px) {
+      padding-bottom: 24px;
+    }
   }
   .earning {
     margin-bottom: 40px;

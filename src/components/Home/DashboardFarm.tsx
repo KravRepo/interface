@@ -71,9 +71,17 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
           align-items: center;
           justify-content: space-between;
           color: ${theme.text.primary};
+          @media screen and (max-width: 600px) {
+            display: block;
+            margin-bottom: 0 !important;
+            border-bottom: ${theme.splitLine.primary};
+            > div {
+              margin-bottom: 16px;
+            }
+          }
         `}
       >
-        <span>My Liquidity Pools</span>
+        <div>My Liquidity Pools</div>
         <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
           + Provider liquidity
         </KRAVButton>
