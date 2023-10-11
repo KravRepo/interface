@@ -26,16 +26,20 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
   return (
     <div>
       <div
-      // css={css`
-      //   display: flex;
-      //   align-items: center;
-      //   justify-content: space-between;
-      //   font-size: 14px;
-      //   font-weight: 700;
-      //   padding: 16px 12px 0;
-      //   color: ${theme.text.primary};
-      //   background: ${theme.background.primary};
-      // `}
+        css={css`
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px 12px 0;
+          @media screen and (max-width: 1000px) {
+            display: block;
+            text-align: center;
+          }
+          @media screen and (max-width: 500px) {
+            display: block;
+            text-align: start;
+          }
+        `}
       >
         <div>
           <span>{isBuy ? 'Long' : 'Short'} Amount</span>
