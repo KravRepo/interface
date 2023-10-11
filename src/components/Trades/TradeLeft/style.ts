@@ -5,6 +5,9 @@ export const myTrade = css`
   background: #fff;
   border-radius: 8px;
   min-height: 371px;
+  @media screen and (max-width: 1200px) {
+    min-height: 170px;
+  }
   .position-layout {
     align-items: center;
     display: grid;

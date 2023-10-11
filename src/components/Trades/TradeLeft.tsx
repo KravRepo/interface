@@ -13,6 +13,7 @@ import { TradeMode } from '../../store/TradeSlice'
 import KRAVButton from '../KravUIKit/KravButton'
 import { OrderParamsMobile } from '../Dialog/OrderParamsMobile'
 import React, { useState } from 'react'
+import { useWeb3React } from '@web3-react/core'
 
 type TradeLeftProps = {
   positionSizeDai: BigNumber
@@ -47,13 +48,16 @@ export const TradeLeft = ({
   tpPrice,
   setIsBuy,
 }: TradeLeftProps) => {
-  const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken } = useRootStore((state) => ({
-    tradeModel: state.tradeModel,
-    setTradeModel: state.setTradeModel,
-    isOpenSelectToken: state.isOpenSelectToken,
-    setIsOpenSelectToken: state.setIsOpenSelectToken,
-  }))
+  const { tradeModel, setTradeModel, isOpenSelectToken, setIsOpenSelectToken, setWalletDialogVisibility } =
+    useRootStore((state) => ({
+      tradeModel: state.tradeModel,
+      setTradeModel: state.setTradeModel,
+      isOpenSelectToken: state.isOpenSelectToken,
+      setIsOpenSelectToken: state.setIsOpenSelectToken,
+      setWalletDialogVisibility: state.setWalletDialogVisibility,
+    }))
   const theme = useTheme()
+  const { account } = useWeb3React()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [openCard, setOpenCard] = useState(false)
 
@@ -115,7 +119,11 @@ export const TradeLeft = ({
                 padding: 16px 10px;
               `}
             >
-              <KRAVButton onClick={() => setOpenCard(true)}>Open Trade</KRAVButton>
+              {account ? (
+                <KRAVButton onClick={() => setOpenCard(true)}>Open Trade</KRAVButton>
+              ) : (
+                <KRAVButton onClick={() => setWalletDialogVisibility(true)}>Connect Wallet</KRAVButton>
+              )}
             </div>
           )}
         </div>

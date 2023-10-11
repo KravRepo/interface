@@ -17,7 +17,7 @@ export const HomeLayout = ({ children }: { children: JSX.Element }) => {
   const navigate = useNavigate()
   const menuActive = useMemo(() => {
     return css`
-      border-bottom: 2px solid #2832f5;
+      border-bottom: 3px solid #2832f5;
     `
   }, [theme])
   const { pathname } = useLocation()
@@ -34,7 +34,7 @@ export const HomeLayout = ({ children }: { children: JSX.Element }) => {
       {!isMobile && <LeftMenu />}
       {isMobile && (
         <div
-          css={css`gap: 24px;margin-bottom: 24px; padding: 0 16px; display: flex; align-items: center; overflow: auto;  &::-webkit-scrollbar {
+          css={css` border-bottom: ${theme.splitLine.primary}; gap: 24px;margin-bottom: 24px; padding: 0 16px; display: flex; align-items: center; overflow: auto;  &::-webkit-scrollbar {
             display: none
           },`}
         >
