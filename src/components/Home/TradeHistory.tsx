@@ -8,6 +8,8 @@ import { HistoryData, Quanto } from '../Trades/TradeLeft/TradeHistory'
 import { css } from '@emotion/react'
 import { HistoryItem } from '../Trades/TradeLeft/HistoryItem'
 import { PoolParams } from '../../store/FactorySlice'
+import { historyOver } from '../Trades/TradeLeft/style'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 export type HistoryDataWithPool = {
   pool: PoolParams
@@ -15,6 +17,8 @@ export type HistoryDataWithPool = {
 }
 
 export const TradeHistory = () => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [allHistoryData, setAllHistoryData] = useState<HistoryDataWithPool[]>([])
   const allPoolParams = useRootStore((state) => state.allPoolParams)
   const { account } = useWeb3React()
@@ -59,7 +63,7 @@ export const TradeHistory = () => {
   }, [allPoolParams, account])
 
   return (
-    <div>
+    <div css={isMobile ? historyOver : ''}>
       <div
         className="history-layout"
         css={css`

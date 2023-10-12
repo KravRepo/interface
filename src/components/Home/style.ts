@@ -22,6 +22,9 @@ export const home = css`
   display: flex;
   margin-bottom: -40px;
   .home-content {
+    @media screen and (max-width: 1200px) {
+      padding: 0 16px;
+    }
     width: 100%;
     display: flex;
     justify-content: center;
@@ -82,6 +85,10 @@ export const dashboard = css`
   margin: 0 40px;
   max-width: 1060px;
   font-family: 'Inter';
+  @media screen and (max-width: 1200px) {
+    margin: 0;
+    padding: 0;
+  }
   .tabs {
     //background: #a4a8fe;
     padding: 2px 8px;
@@ -95,6 +102,9 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
+      @media screen and (max-width: 1200px) {
+        min-width: 1200px;
+      }
     }
     .history-layout {
       align-items: center;
@@ -102,6 +112,9 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
       font-size: 12px;
+      @media screen and (max-width: 1200px) {
+        min-width: 1200px;
+      }
     }
     .order-layout {
       align-items: center;
@@ -109,6 +122,9 @@ export const dashboard = css`
       padding: 12px 24px 0px;
       grid-template-columns: 80px minmax(140px, 2fr) 1fr 1fr 1fr 1fr 1fr;
       font-size: 12px;
+      @media screen and (max-width: 1200px) {
+        min-width: 1200px;
+      }
     }
     .no-data {
       padding-top: 103px;
@@ -118,6 +134,9 @@ export const dashboard = css`
       font-size: 16px;
       font-weight: 500;
       color: #757575;
+      @media screen and (max-width: 1200px) {
+        padding-top: 50px;
+      }
     }
   }
   .income {
@@ -151,6 +170,9 @@ export const dashboard = css`
     line-height: 110%; /* 30.8px */
     letter-spacing: 0.56px;
     padding-bottom: 32px;
+    @media screen and (max-width: 1200px) {
+      padding-bottom: 24px;
+    }
   }
   .earning {
     margin-bottom: 40px;
@@ -221,38 +243,6 @@ export const dashboard = css`
             letter-spacing: 0.8px;
           }
         }
-        .my-pool {
-          > div {
-            height: 100%;
-            padding-top: 30px;
-            padding-left: 32px;
-            > p {
-              font-family: 'Inter';
-              font-size: 14px;
-              font-weight: 400;
-              line-height: 140%; /* 19.6px */
-              letter-spacing: -0.28px;
-              padding-bottom: 8px;
-            }
-            > p:last-of-type {
-              display: flex;
-              align-items: center;
-              > span:first-of-type {
-                font-family: 'GT-Flexa-Bold-Trial';
-                font-size: 40px;
-                font-style: normal;
-                font-weight: 900;
-                line-height: 110%; /* 44px */
-                letter-spacing: 0.8px;
-                padding-right: 16px;
-              }
-            }
-          }
-          .poolArrow:hover {
-            cursor: pointer;
-            transform: scale(1.1);
-          }
-        }
         > div:first-of-type {
           height: 100%;
         }
@@ -263,11 +253,49 @@ export const dashboard = css`
         }
       }
     }
+    .my-pool {
+      > div {
+        height: 100%;
+        padding-top: 30px;
+        padding-left: 32px;
+        > p {
+          font-family: 'Inter';
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 140%; /* 19.6px */
+          letter-spacing: -0.28px;
+          padding-bottom: 8px;
+        }
+        > p:last-of-type {
+          display: flex;
+          align-items: center;
+          > span:first-of-type {
+            font-family: 'GT-Flexa-Bold-Trial';
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 900;
+            line-height: 110%; /* 44px */
+            letter-spacing: 0.8px;
+            padding-right: 16px;
+          }
+        }
+      }
+      .poolArrow:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
   }
   .data {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 148px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      > div {
+        margin-bottom: 16px;
+      }
+    }
     gap: 20px;
     font-size: 12px;
     padding-bottom: 48px;
@@ -365,6 +393,9 @@ export const farm = css`
     padding: 0 32px 16px 32px;
     align-items: center;
     display: grid;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
     grid-template-columns:
       1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
       80px;
@@ -398,6 +429,10 @@ export const stake = css`
   line-height: 140%; /* 19.6px */
   letter-spacing: -0.28px;
   font-size: 14px;
+  @media screen and (max-width: 1200px) {
+    margin: 0;
+    padding: 0;
+  }
   .gt {
     font-family: 'GT-Flexa-Bold-Trial';
   }
@@ -416,6 +451,10 @@ export const stake = css`
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
     padding: 24px 32px;
     margin-bottom: 24px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      padding: 16px 24px;
+    }
   }
   .data {
     padding-top: 10px;
@@ -431,6 +470,10 @@ export const stake = css`
     align-items: start;
     border-radius: 8px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    @media screen and (max-width: 1200px) {
+      padding: 16px 24px;
+      margin-bottom: 40px;
+    }
     .my-reward {
       margin: 20px 0;
       display: grid;
@@ -462,6 +505,10 @@ export const stake = css`
     align-items: center;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      margin-bottom: 40px;
+    }
   }
   .fees-rewards {
     border-radius: 8px;
@@ -471,6 +518,12 @@ export const stake = css`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media screen and (max-width: 1200px) {
+        display: block;
+        > div:last-of-type {
+          padding-top: 16px;
+        }
+      }
     }
   }
   .reward-item {
@@ -482,11 +535,17 @@ export const stake = css`
     border-radius: 8px;
     padding: 24px 32px;
     box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.1);
+    @media screen and (max-width: 1200px) {
+      padding: 16px 24px;
+    }
     > div:first-of-type,
     > div:nth-of-type(2) {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media screen and (max-width: 1200px) {
+        display: block;
+      }
     }
     > div:last-of-type {
       border-radius: 8px;
@@ -500,6 +559,12 @@ export const stake = css`
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @media screen and (max-width: 1200px) {
+          display: block;
+          > span {
+            display: block;
+          }
+        }
         > span:first-of-type {
           font-size: 14px;
           font-weight: 400;
@@ -515,11 +580,18 @@ export const stake = css`
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-bottom: 40px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      padding: 16px 24px;
+    }
     > div:first-of-type {
       padding-left: 0 !important;
     }
     > div {
       padding-left: 32px;
+      @media screen and (max-width: 1200px) {
+        padding-left: 0;
+      }
     }
   }
   .grey {
@@ -532,10 +604,18 @@ export const referral = css`
   padding: 40px 0;
   margin: 0 40px;
   max-width: 1060px;
+  @media screen and (max-width: 1200px) {
+    margin: 0;
+    padding: 0;
+  }
   .referral-title {
     display: flex;
     justify-content: space-between;
     margin-bottom: 64px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      margin-bottom: 24px;
+    }
     .referral-title-left {
       max-width: 550px;
       > div {
@@ -560,6 +640,12 @@ export const referral = css`
       position: relative;
       margin: 15px 15px 15px 98px;
       text-align: center;
+      @media screen and (max-width: 600px) {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        margin: 0;
+      }
       > p {
         padding: 38px 22px 24px;
         font-size: 20px;
@@ -620,6 +706,10 @@ export const referral = css`
     font-weight: 400;
     line-height: 140%; /* 19.6px */
     letter-spacing: -0.28px;
+    @media screen and (max-width: 1200px) {
+      display: block;
+      padding-bottom: 0;
+    }
     .link-text {
       flex: 1;
       border-radius: 4px;
@@ -651,6 +741,9 @@ export const referral = css`
     > div:nth-of-type(2) {
       padding: 0 24px;
       font-size: 14px;
+      @media screen and (max-width: 1200px) {
+        padding: 24px 0;
+      }
       > div:first-of-type {
         display: flex;
         align-items: center;
@@ -660,7 +753,10 @@ export const referral = css`
     }
     > div:last-of-type {
       padding-left: 24px;
-
+      @media screen and (max-width: 1200px) {
+        padding-left: 0;
+        padding-top: 24px;
+      }
       > p {
         padding-bottom: 16px;
       }

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import KRAVButton from '../KravUIKit/KravButton'
-import { css, Tab, Tabs, useTheme } from '@mui/material'
+import { css, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import { MarketOrder } from './MarketOrder'
 import { TradeHistory } from './TradeHistory'
@@ -10,6 +10,7 @@ import { useRootStore } from '../../store/root'
 
 export const MyOrder = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [infoType, setInfoType] = useState(0)
   const navigate = useNavigate()
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -47,11 +48,17 @@ export const MyOrder = () => {
           To trade
         </KRAVButton>
       </p>
-      <div>
+      <div
+        css={css` overflow: ${isMobile ? 'auto' : ''};
+            &::-webkit-scrollbar {
+            display: none
+            },`}
+      >
         <div
           css={css`
             padding-left: 24px;
             background: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#f1f1f1'};
+            min-width: ${isMobile ? '1200px' : ''};
           `}
         >
           <Tabs

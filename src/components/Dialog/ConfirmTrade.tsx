@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Checkbox, Dialog, DialogContent, useTheme } from '@mui/material'
+import { Checkbox, Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
@@ -37,6 +37,7 @@ export const ConfirmTrade = ({
   setLeverage,
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((store) => store.tradePool)
   const tradeModel = useRootStore((store) => store.tradeModel)
   const [checked, setChecked] = useState(false)
@@ -81,7 +82,13 @@ export const ConfirmTrade = ({
       <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
           <div className="dialog-header ">
-            <span>{tradeType === 0 ? (tuple.buy ? 'Confirm Long' : 'Confirm Short') : 'Confirm Limit Order'}</span>
+            <span
+              css={css`
+                font-size: ${isMobile ? '18px' : '20px'};
+              `}
+            >
+              {tradeType === 0 ? (tuple.buy ? 'Confirm Long' : 'Confirm Short') : 'Confirm Limit Order'}
+            </span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
           <div

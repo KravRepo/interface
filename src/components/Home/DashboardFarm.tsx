@@ -12,13 +12,14 @@ import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 type DashboardFarmProps = {
   setUserPoolLength: React.Dispatch<React.SetStateAction<number>>
 }
 
 export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
@@ -70,9 +71,17 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
           align-items: center;
           justify-content: space-between;
           color: ${theme.text.primary};
+          @media screen and (max-width: 600px) {
+            display: block;
+            margin-bottom: 0 !important;
+            border-bottom: ${theme.splitLine.primary};
+            > div {
+              margin-bottom: 16px;
+            }
+          }
         `}
       >
-        <span>My Liquidity Pools</span>
+        <div>My Liquidity Pools</div>
         <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
           + Provider liquidity
         </KRAVButton>
@@ -85,7 +94,12 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
           {/*    <span>≈ $246,556,893.30</span>*/}
           {/*  </div>*/}
           {/*</div>*/}
-          <div>
+          <div
+            css={css` overflow: ${isMobile ? 'auto' : ''};
+            &::-webkit-scrollbar {
+            display: none
+            },`}
+          >
             <div
               css={css`
                 margin-top: 24px;

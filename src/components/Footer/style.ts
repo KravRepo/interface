@@ -20,3 +20,22 @@ export const doc = css`
     padding-bottom: 10px;
   }
 `
+
+export const mobileTabs = css`
+  > p:first-of-type {
+    padding: 18px 16px 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  > a > p {
+    padding: 18px 16px 18px 24px;
+  }
+  .link {
+    padding: 18px 16px 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+`

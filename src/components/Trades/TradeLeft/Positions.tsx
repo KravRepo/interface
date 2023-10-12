@@ -2,16 +2,18 @@
 import { css } from '@emotion/react'
 import { useRootStore } from '../../../store/root'
 import { PositionsItem } from './PositionsItem'
+import { useTheme } from '@mui/material'
 
 export const Positions = () => {
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
-
+  const theme = useTheme()
   return (
     <div>
       <div
         className="position-layout"
         css={css`
           color: #617168;
+          border-top: ${theme.splitLine.primary};
         `}
       >
         <span>Position</span>

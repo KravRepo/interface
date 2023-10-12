@@ -1,69 +1,45 @@
-/** @jsxImportSource @emotion/react */
+import { Box, SwipeableDrawer, Tab, Tabs, useTheme } from '@mui/material'
+import { OrderParamsCard } from '../Trades/TradeRight/OrderParamsCard'
 import React, { useState } from 'react'
-import { Box, Drawer, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
-import { actionCard } from '../style'
-import { OrderParamsCard } from './OrderParamsCard'
 import BigNumber from 'bignumber.js'
-import { css } from '@emotion/react'
 
-export type ActionCardProp = {
+type OrderParamsMobileProps = {
+  isOpen: boolean
+  setIsOpen: () => void
   leverage: number
   setLeverage: React.Dispatch<React.SetStateAction<number>>
   positionSizeDai: BigNumber
   setPositionSizeDai: React.Dispatch<React.SetStateAction<BigNumber>>
-  isBuy: boolean
-  setIsBuy: React.Dispatch<React.SetStateAction<boolean>>
   tpPrice: BigNumber | string
   setTpPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
   slPrice: BigNumber | string
   setSlPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
+  isBuy: boolean
   limitPrice: string | BigNumber
   setLimitPrice: React.Dispatch<React.SetStateAction<string | BigNumber>>
   tradeType: number
   setTradeType: React.Dispatch<React.SetStateAction<number>>
-  openDrawer?: boolean
-  setOpenDrawer?: React.Dispatch<React.SetStateAction<boolean>>
+  setIsBuy: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-type ActionsCardLayoutProps = {
-  isOpen?: boolean
-  setIsOpen?: (isOpenSelectToken: boolean) => void
-  children: JSX.Element
-}
-
-export const ActionsCardLayout = ({ isOpen, setIsOpen, children }: ActionsCardLayoutProps) => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
-  return (
-    <>
-      {!isMobile && <>{children}</>}
-      {isMobile && setIsOpen && isOpen && (
-        <Drawer anchor={'bottom'} open={isOpen} onClose={() => setIsOpen(false)}>
-          {children}
-        </Drawer>
-      )}
-    </>
-  )
-}
-
-export const ActionsCard = ({
+export const OrderParamsMobile = ({
+  isOpen,
+  setIsOpen,
   isBuy,
-  setIsBuy,
   leverage,
-  setLeverage,
-  positionSizeDai,
-  setPositionSizeDai,
-  tpPrice,
-  setTpPrice,
-  slPrice,
-  setSlPrice,
   limitPrice,
+  positionSizeDai,
+  setLeverage,
   setLimitPrice,
-  tradeType,
+  setPositionSizeDai,
+  setSlPrice,
+  setTpPrice,
   setTradeType,
-  openDrawer,
-  setOpenDrawer,
-}: ActionCardProp) => {
+  slPrice,
+  tpPrice,
+  tradeType,
+  setIsBuy,
+}: OrderParamsMobileProps) => {
   const [orderType, setOrderType] = useState(0)
   const theme = useTheme()
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -71,15 +47,17 @@ export const ActionsCard = ({
     setIsBuy(newValue === 0)
   }
   return (
-    <ActionsCardLayout isOpen={openDrawer} setIsOpen={setOpenDrawer}>
-      <div
-        css={[
-          actionCard,
-          css`
-            background: ${theme.background.primary};
-          `,
-        ]}
-      >
+    <SwipeableDrawer anchor={'bottom'} open={isOpen} onOpen={() => console.log('open')} onClose={setIsOpen}>
+      <Box sx={{ padding: '16px 24px 32px' }}>
+        <Box
+          sx={{
+            width: '96px',
+            borderRadius: '8px',
+            height: '4px',
+            background: theme.background.third,
+            margin: '0 auto 32px',
+          }}
+        />
         <Box
           sx={{
             padding: '4px',
@@ -102,6 +80,7 @@ export const ActionsCard = ({
                 width: '50%',
                 borderRadius: '4px',
                 minHeight: '30px',
+                maxWidth: '50%',
                 padding: 0,
                 background: orderType === 0 ? '#009B72 !important' : '',
               }}
@@ -112,6 +91,7 @@ export const ActionsCard = ({
                 width: '50%',
                 borderRadius: '4px',
                 minHeight: '30px',
+                maxWidth: '50%',
                 padding: 0,
                 background: orderType === 1 ? '#DB4C40 !important' : '',
               }}
@@ -134,7 +114,7 @@ export const ActionsCard = ({
           tradeType={tradeType}
           setTradeType={setTradeType}
         />
-      </div>
-    </ActionsCardLayout>
+      </Box>
+    </SwipeableDrawer>
   )
 }

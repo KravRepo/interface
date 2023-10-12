@@ -6,8 +6,10 @@ import BigNumber from 'bignumber.js'
 import { useCancelOpenLimitOrder } from '../../../hook/hookV8/useCancelOpenLimitOrder'
 import { useMemo } from 'react'
 import { EXCHANGE_CONFIG } from '../../../constant/exchange'
+import { useTheme } from '@mui/material'
 
 export const Orders = () => {
+  const theme = useTheme()
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((store) => store.tradePool)
@@ -27,6 +29,7 @@ export const Orders = () => {
         className="order-layout"
         css={css`
           color: #617168;
+          border-top: ${theme.splitLine.primary};
         `}
       >
         <span>Type</span>

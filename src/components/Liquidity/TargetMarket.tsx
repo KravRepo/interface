@@ -6,7 +6,7 @@ import { useRootStore } from '../../store/root'
 import { MarketItem } from './MarketItem'
 import { useWeb3React } from '@web3-react/core'
 import { MarketSkeleton } from './MarketSkeleton'
-import { Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useCallback, useMemo, useState } from 'react'
@@ -14,6 +14,7 @@ import { css } from '@emotion/react'
 
 export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList }: TargetMarketProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
@@ -64,6 +65,9 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         className="liquidity-tabs"
         css={css`
           border-bottom: ${theme.splitLine.primary};
+          @media screen and (max-width: 1200px) {
+            min-width: 1200px;
+          }
         `}
       >
         <span>Target Market</span>
@@ -73,7 +77,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         {/* <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} /> */}
         {account && (
           <KRAVButton
-            sx={{ width: '132px', marginLeft: 'auto' }}
+            sx={{ width: '132px', marginLeft: isMobile ? '0' : 'auto' }}
             onClick={() => window.open('https://forms.gle/wiqvg5AES6Lwzgpq9', '_blank')}
           >
             Listing

@@ -16,7 +16,7 @@ import { useCallback, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { base64 } from 'ethers/lib/utils'
 import { utils } from 'ethers'
-import { Tooltip, useTheme } from '@mui/material'
+import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { useRootStore } from '../../store/root'
 import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { useReferral } from '../../hook/hookV8/useReferral'
@@ -25,6 +25,7 @@ import { getBigNumberStr } from '../../utils'
 export const Referral = () => {
   const { account } = useWeb3React()
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [openTooltip, setOpenTooltip] = useState(false)
   const [numReferral, setNumReferral] = useState(0)
   useNumReferral(setNumReferral)
@@ -85,6 +86,9 @@ export const Referral = () => {
               height: 216px;
               border-radius: 4px 0 0 4px;
               padding: 14px 0;
+              @media screen and (max-width: 360px) {
+                display: none;
+              }
             `}
           >
             <div
@@ -140,6 +144,9 @@ export const Referral = () => {
               height: 216px;
               color: white;
               font-size: 14px;
+              @media screen and (max-width: 360px) {
+                display: none;
+              }
             `}
           >
             <div>
@@ -154,6 +161,9 @@ export const Referral = () => {
               position: relative;
               border-right: 2px dashed #959595;
               background: #2832f5;
+              @media screen and (max-width: 360px) {
+                display: none;
+              }
             `}
           >
             <div
@@ -178,7 +188,16 @@ export const Referral = () => {
               position: relative;
             `}
           >
-            <div className="rotate-text">Invite your friends</div>
+            <div
+              css={css`
+                @media screen and (max-width: 450px) {
+                  display: none;
+                }
+              `}
+              className="rotate-text"
+            >
+              Invite your friends
+            </div>
             <div className="referral-title-right">
               <p>COPY REFERRAL LINK</p>
               <KRAVButton sx={{ width: '115px', background: '#000' }}>Invite friends</KRAVButton>
@@ -190,13 +209,15 @@ export const Referral = () => {
       <div
         className="referral-link"
         css={css`
-          border-bottom: ${theme.splitLine.primary};
+          border-bottom: ${isMobile ? 'unset' : theme.splitLine.primary};
           color: ${theme.text.primary};
         `}
       >
         <div
           css={css`
-            border-right: ${theme.splitLine.primary};
+            border-right: ${isMobile ? 'unset' : theme.splitLine.primary};
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '24px' : ''};
           `}
         >
           <p
@@ -208,7 +229,11 @@ export const Referral = () => {
           </p>
           <p>Base</p>
         </div>
-        <div>
+        <div
+          css={css`
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+          `}
+        >
           <div>
             <span
               css={css`
@@ -218,7 +243,12 @@ export const Referral = () => {
               Your Referral Link
             </span>
           </div>
-          <div css={align}>
+          <div
+            css={css`
+              display: ${isMobile ? 'block' : 'flex'};
+              align-items: center;
+            `}
+          >
             <div
               className="link-text"
               css={css`
@@ -248,7 +278,8 @@ export const Referral = () => {
                   onClick={useCopyLink}
                   sx={{
                     width: '140px',
-                    ml: '8px',
+                    ml: isMobile ? '0' : '8px',
+                    mt: isMobile ? '8px' : '0',
                     '&:hover': {
                       backgroundColor: '#757575',
                     },
@@ -263,7 +294,7 @@ export const Referral = () => {
             )}
             {!account && (
               <KRAVButton
-                sx={{ width: '140px', ml: '8px' }}
+                sx={{ width: '140px', ml: isMobile ? '0' : '8px', mt: isMobile ? '8px' : '0' }}
                 onClick={() => {
                   setWalletDialogVisibility(true)
                 }}
@@ -275,7 +306,7 @@ export const Referral = () => {
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
           `}
         >
           <p
