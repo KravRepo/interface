@@ -52,5 +52,8 @@ export const myTrade = css`
     font-size: 16px;
     font-weight: 500;
     color: #757575;
+    @media screen and (max-width: 1200px) {
+      padding-top: 30px;
+    }
   }
 `
