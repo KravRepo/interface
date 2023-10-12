@@ -67,7 +67,7 @@ export const WalletButton = ({
       console.log('account', account)
       input.setAttribute('value', account ? account : '')
       input.select()
-      console.log('document.execCommand(\'copy\')', document.execCommand('copy'))
+      console.log("document.execCommand('copy')", document.execCommand('copy'))
       if (document.execCommand('copy')) {
         document.execCommand('copy')
       }
