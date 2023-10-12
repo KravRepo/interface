@@ -7,7 +7,7 @@ import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { HistoryItem } from './HistoryItem'
 import { useMediaQuery, useTheme } from '@mui/material'
-import { historyOver } from './style'
+import { historyOverflow } from './style'
 
 export type Quanto = {
   id: number
@@ -96,7 +96,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
   }, [tradePool, account])
 
   return (
-    <div css={isMobile ? historyOver : ''}>
+    <div css={isMobile ? historyOverflow : ''}>
       <div
         className="position-layout"
         css={css`

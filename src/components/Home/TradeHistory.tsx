@@ -8,7 +8,7 @@ import { HistoryData, Quanto } from '../Trades/TradeLeft/TradeHistory'
 import { css } from '@emotion/react'
 import { HistoryItem } from '../Trades/TradeLeft/HistoryItem'
 import { PoolParams } from '../../store/FactorySlice'
-import { historyOver } from '../Trades/TradeLeft/style'
+import { historyOverflow } from '../Trades/TradeLeft/style'
 import { useMediaQuery, useTheme } from '@mui/material'
 
 export type HistoryDataWithPool = {
@@ -63,7 +63,7 @@ export const TradeHistory = () => {
   }, [allPoolParams, account])
 
   return (
-    <div css={isMobile ? historyOver : ''}>
+    <div css={isMobile ? historyOverflow : ''}>
       <div
         className="history-layout"
         css={css`
