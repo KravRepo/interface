@@ -50,6 +50,9 @@ export const WalletButton = ({
     try {
       if (account) {
         await navigator.clipboard.writeText(account)
+        console.log('account', account)
+        console.log('readText', await navigator.clipboard.readText())
+        console.log('read', await navigator.clipboard.read())
         setOpenTooltip(true)
         setTimeout(() => {
           setOpenTooltip(false)

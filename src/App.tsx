@@ -28,7 +28,8 @@ import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
 import ReportImg from './assets/imgs/report.png'
 import ReportDark from './assets/imgs/darkModel/report_dark.png'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
+import VConsole from 'vconsole'
 
 i18n.load({
   en: enMessages,
@@ -40,7 +41,9 @@ const FullApp = () => {
   const factory = useFactory()
   useBTCPrice()
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   useEffect(() => {
+    if (isMobile) new VConsole({ theme: 'dark' })
     Promise.all([factory()]).then()
     setInterval(async () => {
       await factory()
