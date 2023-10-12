@@ -49,9 +49,9 @@ export const WalletButton = ({
   const useCopyAddress = useCallback(async () => {
     console.log('copy address!')
     try {
+      console.log('account', account)
       if (account) {
         await navigator.clipboard.writeText(account)
-        console.log('account', account)
         console.log('readText', await navigator.clipboard.readText())
         console.log('read', await navigator.clipboard.read())
         setOpenTooltip(true)
@@ -60,7 +60,9 @@ export const WalletButton = ({
           setSettingAnchorEl(null)
         }, 3000)
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log('clipboard error', e)
+    }
   }, [account])
 
   const disconnect = useCallback(async () => {
