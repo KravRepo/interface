@@ -57,3 +57,11 @@ export const myTrade = css`
     }
   }
 `
+
+export const historyOverflow = css`
+  max-height: 400px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`

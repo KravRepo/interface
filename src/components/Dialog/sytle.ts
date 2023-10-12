@@ -15,6 +15,9 @@ export const dialogContent = css`
   }
   .select-token-header {
     padding: 0 24px 24px;
+    @media screen and (max-width: 1200px) {
+      padding: 0 24px;
+    }
     > div:first-of-type {
       display: flex;
       align-items: center;
