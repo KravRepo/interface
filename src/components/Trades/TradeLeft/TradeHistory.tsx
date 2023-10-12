@@ -98,7 +98,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
   return (
     <div css={isMobile ? historyOverflow : ''}>
       <div
-        className="position-layout"
+        className="history-layout"
         css={css`
           color: #617168;
           border-top: ${theme.splitLine.primary};

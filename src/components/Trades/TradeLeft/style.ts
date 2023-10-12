@@ -34,6 +34,16 @@ export const myTrade = css`
       }
     }
   }
+  .history-layout {
+    align-items: center;
+    display: grid;
+    padding: 12px 24px 0px;
+    grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    font-size: 12px;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
+  }
   .order-layout {
     align-items: center;
     display: grid;
