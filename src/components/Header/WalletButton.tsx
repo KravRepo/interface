@@ -47,6 +47,7 @@ export const WalletButton = ({
     setSettingAnchorEl(null)
   }
   const useCopyAddress = useCallback(async () => {
+    console.log('copy address!')
     try {
       if (account) {
         await navigator.clipboard.writeText(account)
