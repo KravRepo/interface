@@ -1,6 +1,6 @@
 import { Box, SwipeableDrawer, Tab, Tabs, useTheme } from '@mui/material'
 import { OrderParamsCard } from '../Trades/TradeRight/OrderParamsCard'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 
 type OrderParamsMobileProps = {
@@ -46,6 +46,13 @@ export const OrderParamsMobile = ({
     setOrderType(newValue)
     setIsBuy(newValue === 0)
   }
+
+  useEffect(() => {
+    return () => {
+      setIsOpen()
+    }
+  }, [])
+
   return (
     <SwipeableDrawer anchor={'bottom'} open={isOpen} onOpen={() => console.log('open')} onClose={setIsOpen}>
       <Box sx={{ padding: '16px 24px 32px' }}>
