@@ -62,6 +62,15 @@ export const WalletButton = ({
       }
     } catch (e) {
       console.log('clipboard error', e)
+      const input = document.createElement('input')
+      document.body.appendChild(input)
+      input.setAttribute('value', account ? account : '')
+      input.select()
+      if (document.execCommand('copy')) {
+        document.execCommand('copy')
+      }
+      document.body.removeChild(input)
+      console.log('exec command')
     }
   }, [account])
 
