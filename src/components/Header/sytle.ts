@@ -94,6 +94,9 @@ export const headerBtn = css`
   padding: 10px 16px;
   height: 40px;
   font-size: 14px;
+  @media screen and (max-width: 1200px) {
+    padding: 10px 6px;
+  }
 `
 
 export const notifyBtn = css`
