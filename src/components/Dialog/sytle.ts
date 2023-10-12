@@ -188,9 +188,16 @@ export const errorDialog = css`
     justify-content: space-between;
     align-items: center;
     padding: 0 24px 24px 64px;
+    @media screen and (max-width: 1200px) {
+      padding: 0 24px 24px 24px;
+    }
     > span {
       padding-left: 15px;
       padding-right: 45px;
+      @media screen and (max-width: 1200px) {
+        text-align: start;
+        padding: 0;
+      }
     }
   }
   .error-dialog-content {

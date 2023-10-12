@@ -31,7 +31,7 @@ export const SuccessDialog = () => {
           <div className="error-dialog-title">
             <SuccessIcon
               css={css`
-                margin-left: 60px;
+                margin-left: ${isMobile ? '0' : '60px'};
               `}
             />
             <span
