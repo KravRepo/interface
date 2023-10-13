@@ -13,6 +13,7 @@ import { Connection } from '../../connectors/type'
 import { Connector } from '@web3-react/types'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
+import copy from 'copy-to-clipboard'
 
 type WalletButtonProps = {
   account: string | undefined
@@ -47,13 +48,9 @@ export const WalletButton = ({
     setSettingAnchorEl(null)
   }
   const useCopyAddress = useCallback(async () => {
-    console.log('copy address!')
     try {
-      console.log('account', account)
       if (account) {
         await navigator.clipboard.writeText(account)
-        console.log('readText', await navigator.clipboard.readText())
-        console.log('read', await navigator.clipboard.read())
         setOpenTooltip(true)
         setTimeout(() => {
           setOpenTooltip(false)
@@ -61,18 +58,11 @@ export const WalletButton = ({
         }, 3000)
       }
     } catch (e) {
-      console.log('clipboard error', e)
-      const input = document.createElement('input')
-      document.body.appendChild(input)
-      console.log('account', account)
-      input.setAttribute('value', account ? account : '')
-      input.select()
-      console.log("document.execCommand('copy')", document.execCommand('copy'))
-      if (document.execCommand('copy')) {
-        document.execCommand('copy')
-      }
-      document.body.removeChild(input)
-      console.log('exec command')
+      copy(account ? account : 'please connect wallet')
+      setTimeout(() => {
+        setOpenTooltip(false)
+        setSettingAnchorEl(null)
+      }, 3000)
     }
   }, [account])
 

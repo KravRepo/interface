@@ -21,6 +21,7 @@ import { useRootStore } from '../../store/root'
 import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { useReferral } from '../../hook/hookV8/useReferral'
 import { getBigNumberStr } from '../../utils'
+import copy from 'copy-to-clipboard'
 
 export const Referral = () => {
   const { account } = useWeb3React()
@@ -33,11 +34,11 @@ export const Referral = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const useCopyLink = useCallback(async () => {
     if (account) {
+      const host = document.documentURI
+      const url = host.split('/')
+      const link = url[0] + '//' + url[2] + '/trade/'
+      const encode = base64.encode(utils.toUtf8Bytes(account))
       try {
-        const host = document.documentURI
-        const url = host.split('/')
-        const link = url[0] + '//' + url[2] + '/trade/'
-        const encode = base64.encode(utils.toUtf8Bytes(account))
         await navigator.clipboard.writeText(link + encode)
         setOpenTooltip(true)
         setTimeout(() => {
@@ -45,6 +46,10 @@ export const Referral = () => {
         }, 3000)
       } catch (e) {
         console.error('copy failed!', e)
+        copy(link + encode)
+        setTimeout(() => {
+          setOpenTooltip(false)
+        }, 3000)
       }
     }
   }, [account])
