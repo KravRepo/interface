@@ -22,11 +22,7 @@ export const Statistics = () => {
       >
         Stay tuned! This feature will be launched soon.
       </p>
-      <div
-        css={css`
-          min-height: 400px;
-        `}
-      >
+      <div>
         <Coming className="coming" />
         <Coming className="coming" />
         <Coming className="coming" />

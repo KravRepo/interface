@@ -37,6 +37,9 @@ export const comingSoon = css`
   font-family: 'Inter';
   font-weight: 500;
   min-height: calc(100vh - 284px);
+  @media screen and (max-width: 600px) {
+    min-height: calc(100vh - 200px);
+  }
   font-size: 16px;
   position: relative;
   overflow: hidden;
