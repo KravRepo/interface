@@ -18,6 +18,9 @@ export const Statistics = () => {
         css={css`
           margin-left: 40px !important;
           text-align: start !important;
+          @media screen and (max-width: 600px) {
+            margin-left: 16px !important;
+          }
         `}
       >
         Stay tuned! This feature will be launched soon.

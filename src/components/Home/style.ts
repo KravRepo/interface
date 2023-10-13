@@ -52,6 +52,9 @@ export const comingSoon = css`
     letter-spacing: 0.56px;
     margin-left: 40px;
     margin-bottom: 98px;
+    @media screen and (max-width: 600px) {
+      margin-left: 16px;
+    }
   }
   > p:last-of-type {
     text-align: center;
