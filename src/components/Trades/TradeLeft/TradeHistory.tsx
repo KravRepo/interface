@@ -113,8 +113,10 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         <span>PnL</span>
         <span>%</span>
       </div>
-      {historyList.length === 0 && <div className="no-data">No trade history</div>}
+      {historyList.length === 0 && account && <div className="no-data">No trade history</div>}
+      {!account && <div className="no-data">Connect wallet</div>}
       {historyList.length > 0 &&
+        account &&
         historyList.map((history, index) => {
           return <HistoryItem key={tradePool.tradingT + index} history={history} />
         })}

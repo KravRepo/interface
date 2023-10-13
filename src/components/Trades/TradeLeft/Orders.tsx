@@ -7,9 +7,11 @@ import { useCancelOpenLimitOrder } from '../../../hook/hookV8/useCancelOpenLimit
 import { useMemo } from 'react'
 import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 import { useTheme } from '@mui/material'
+import { useWeb3React } from '@web3-react/core'
 
 export const Orders = () => {
   const theme = useTheme()
+  const { account } = useWeb3React()
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((store) => store.tradePool)
@@ -40,8 +42,10 @@ export const Orders = () => {
         <span>Collateral</span>
         <div>Action</div>
       </div>
-      {userOpenLimitList.length === 0 && <div className="no-data">No Orders</div>}
+      {userOpenLimitList.length === 0 && account && <div className="no-data">No Orders</div>}
+      {!account && <div className="no-data">Connect wallet</div>}
       {userOpenLimitList.length > 0 &&
+        account &&
         userOpenLimitList.map((limit, index) => {
           return (
             <div className="order-layout" key={index}>
