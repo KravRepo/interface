@@ -131,7 +131,7 @@ export const TradingRewards = ({
           >
             <div
               css={css`
-                width: 360px;
+                width: ${isMobile ? '220px' : '360px'};
                 padding: 12px 16px;
                 border-radius: 8px;
               `}
