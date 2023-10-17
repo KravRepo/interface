@@ -3,19 +3,17 @@ import { Trans } from '@lingui/macro'
 import { card, pairInfo } from '../style'
 import { align } from '../../../globalStyle'
 import { css } from '@emotion/react'
-import { useTheme } from '@mui/material'
+import { Button, Menu, MenuItem, useMediaQuery, useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
-import { useEffect, useMemo, useState } from 'react'
-// import { MARKET_CHANGE_API } from '../../../constant/chain'
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-// import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import { TradeMode } from '../../../store/TradeSlice'
 import { EXCHANGE_CONFIG, EXCHANGE_TRADING_T } from '../../../constant/exchange'
 import { SelectPair } from '../../Dialog/SelectPair'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
@@ -25,6 +23,7 @@ type PairInfoProps = {
 
 export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [choosePair, setChoosePair] = useState(false)
   const {
     BTCPrice,
@@ -60,6 +59,26 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
   const tradePair = useMemo(() => {
     return EXCHANGE_CONFIG[tradePairIndex]
   }, [tradePairIndex])
+
+  const currentMode = useMemo(() => {
+    if (tradeModel === TradeMode.DEGEN) return 'Degen'
+    if (tradeModel === TradeMode.BASIC) return 'Basic'
+    return 'Pro'
+  }, [tradeModel])
+
+  const [modeAnchorEl, setModeAnchorEl] = useState<null | HTMLElement>(null)
+
+  const modeOpen = useMemo(() => {
+    return Boolean(modeAnchorEl)
+  }, [modeAnchorEl])
+
+  const handleModeClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setModeAnchorEl(event.currentTarget)
+  }
+
+  const handleModeClose = () => {
+    setModeAnchorEl(null)
+  }
 
   useEffect(() => {
     setTradePairIndex(0)
@@ -97,6 +116,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               }
             }
             @media screen and (max-width: 1200px) {
+              padding: 12px;
               &::-webkit-scrollbar {
                 display: none;
                 //height: 4px;
@@ -124,7 +144,91 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 `,
               ]}
             >
-              <div>
+              <div
+                css={css`
+                  display: flex;
+                  align-items: center;
+                `}
+              >
+                {isMobile && (
+                  <>
+                    <Button
+                      sx={{
+                        color: theme.palette.mode === 'dark' ? '#a4a8fe' : '#2832f5',
+                        borderRadius: '4px',
+                        border: 'unset',
+                        textTransform: 'none',
+                        minWidth: '60px',
+                      }}
+                      endIcon={
+                        modeOpen ? (
+                          <KeyboardArrowUpIcon
+                            sx={{
+                              height: '12px',
+                              width: '12px',
+                              color: theme.palette.mode === 'dark' ? '#dedede' : '',
+                            }}
+                          />
+                        ) : (
+                          <KeyboardArrowDownIcon
+                            sx={{
+                              height: '12px',
+                              width: '12px',
+                              color: theme.palette.mode === 'dark' ? '#dedede' : '',
+                            }}
+                          />
+                        )
+                      }
+                      id="network-button"
+                      aria-controls={modeOpen ? 'network-menu' : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={modeOpen ? 'true' : undefined}
+                      onClick={handleModeClick}
+                    >
+                      {currentMode}
+                    </Button>
+                    <Menu
+                      sx={{
+                        '& .MuiPaper-root': {
+                          minWidth: 100,
+                        },
+                      }}
+                      id="network-menu"
+                      anchorEl={modeAnchorEl}
+                      open={modeOpen}
+                      onClose={handleModeClose}
+                      MenuListProps={{
+                        'aria-labelledby': 'network-button',
+                      }}
+                    >
+                      <MenuItem
+                        onClick={() => {
+                          setTradeModel(TradeMode.DEGEN)
+                          setModeAnchorEl(null)
+                        }}
+                      >
+                        Degen
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setTradeModel(TradeMode.PRO)
+                          setModeAnchorEl(null)
+                        }}
+                      >
+                        Pro
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          setTradeModel(TradeMode.BASIC)
+                          setModeAnchorEl(null)
+                        }}
+                      >
+                        Basic
+                      </MenuItem>
+                    </Menu>
+                  </>
+                )}
+
                 <span>Market</span>
                 {/*<KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />*/}
               </div>
@@ -135,7 +239,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                     cursor: pointer;
                     display: flex;
                     align-items: center;
-                    margin-left: 34px;
+                    margin-left: ${isMobile ? '8px' : '34px'};
                   `,
                 ]}
               >
