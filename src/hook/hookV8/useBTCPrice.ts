@@ -1,21 +1,17 @@
 import { useCallback, useEffect, useRef } from 'react'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { shallow } from 'zustand/shallow'
 import { BTC_PRICE_API } from '../../constant/chain'
 import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 //TODO: match price with pair index
 export const useBTCPrice = () => {
-  const { setIsBTCRise, BTCPrice, setBTCPrice, tradePairIndex } = useRootStore(
-    (state) => ({
-      setIsBTCRise: state.setIsBTCRise,
-      BTCPrice: state.BTCPrice,
-      setBTCPrice: state.setBTCPrice,
-      tradePairIndex: state.tradePairIndex,
-    }),
-    shallow
-  )
+  const { setIsBTCRise, BTCPrice, setBTCPrice, tradePairIndex } = useRootStore((state) => ({
+    setIsBTCRise: state.setIsBTCRise,
+    BTCPrice: state.BTCPrice,
+    setBTCPrice: state.setBTCPrice,
+    tradePairIndex: state.tradePairIndex,
+  }))
   const priceRef = useRef<NodeJS.Timer | null>(null)
 
   const getPrice = useCallback(async () => {
