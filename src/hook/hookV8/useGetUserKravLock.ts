@@ -10,6 +10,7 @@ import { useRootStore } from '../../store/root'
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
+import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
 export type UserLockPosition = {
   amount: BigNumber
   end: number
@@ -22,7 +23,7 @@ export const useGetUserKravLock = () => {
   const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
   const [userVeKravAmount, setUserVeKravAmount] = useState(new BigNumber(0))
   const [totalVeKravAmount, setTotalVeKravAmount] = useState(new BigNumber(0))
-  // const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
+  const { getUserFeesReward, userFeesRewardList } = useGetClaimableTokensFee()
   const [userLockPosition, setUserLockPosition] = useState<UserLockPosition>({
     amount: new BigNumber(0),
     end: 0,
@@ -90,10 +91,10 @@ export const useGetUserKravLock = () => {
   useEffect(() => {
     let Interval: NodeJS.Timer
     if (account && provider && allPoolParams.length > 0) {
-      Promise.all([getUserKravLock(), getTotalLock()]).then()
+      Promise.all([getUserKravLock(), getTotalLock(), getUserFeesReward()]).then()
 
       Interval = setInterval(async () => {
-        await Promise.all([getUserKravLock(), getTotalLock()])
+        await Promise.all([getUserKravLock(), getTotalLock(), getUserFeesReward()])
       }, 15000)
     }
     return () => {
@@ -104,7 +105,7 @@ export const useGetUserKravLock = () => {
   return {
     userKravBalance: userKravBalance,
     userLockPosition: userLockPosition,
-    // userFeesRewardList: userFeesRewardList,
+    userFeesRewardList: userFeesRewardList,
     totalKravLock: totalKravLock,
     userVeKravAmount: userVeKravAmount,
     totalVeKravAmount: totalVeKravAmount,

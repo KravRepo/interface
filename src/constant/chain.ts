@@ -11,7 +11,7 @@ export enum ChainId {
 //
 // export const TEST_RPC_NODE = 'https://rpc.ankr.com/bsc_testnet_chapel'
 //
-export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
+export const TEST_RPC_NODE = 'https://base-mainnet.g.alchemy.com/v2/hHGvPWEXI0L1TyBsSxrHedZpV1jpk0Fn'
 
 export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
 
@@ -39,7 +39,7 @@ export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D
 
 export const VE_KRAV = '0xDeE06ff0dBE3eBFD05b9E54B4ea228eC0FbD7f71'
 
-export const FEE_DISTRBUTOR = '0x6258D0aE8907611e2bb54B0CF41C4BF844362793'
+export const FEE_DISTRBUTOR = '0x37170e7f0045C3DDe99F8884d9B6E2322697CC74'
 
 export const LP_REWARD_API = 'https://test-api.krav.trade/krav/v1/miner/'
 

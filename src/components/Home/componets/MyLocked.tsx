@@ -7,11 +7,11 @@ import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
 import { css, Link, useTheme } from '@mui/material'
 // import { align } from '../../../globalStyle'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
-import { formatNumber } from '../../../utils'
+import { formatNumber, getBigNumberStr } from '../../../utils'
 import moment from 'moment'
 import { FeesRewardList } from '../../../hook/hookV8/useGetClaimableTokensFee'
 import { useMemo } from 'react'
-// import { useClaimFeesReward } from '../../../hook/hookV8/useClaimFeesReward'
+import { useClaimFeesReward } from '../../../hook/hookV8/useClaimFeesReward'
 import BigNumber from 'bignumber.js'
 
 type MyLockedProp = {
@@ -30,7 +30,7 @@ export const MyLocked = ({
   unLockPosition,
 }: MyLockedProp) => {
   const theme = useTheme()
-  // const claimFeesReward = useClaimFeesReward()
+  const claimFeesReward = useClaimFeesReward()
   const unlockButtonEnable = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
     if (!userLockPosition) return false
@@ -39,13 +39,13 @@ export const MyLocked = ({
     return true
   }, [userLockPosition])
 
-  // const claimButtonEnable = useMemo(() => {
-  //   let enable = false
-  //   userFeesRewardList.forEach((list) => {
-  //     if (list.amount.isGreaterThan(0)) enable = true
-  //   })
-  //   return enable
-  // }, [userFeesRewardList])
+  const claimButtonEnable = useMemo(() => {
+    let enable = false
+    userFeesRewardList.forEach((list) => {
+      if (list.amount.isGreaterThan(0)) enable = true
+    })
+    return enable
+  }, [userFeesRewardList])
 
   return (
     <div>
@@ -120,41 +120,41 @@ export const MyLocked = ({
       <KRAVButton disabled={!unlockButtonEnable} onClick={() => unLockPosition()} sx={{ mb: '32px' }}>
         Unlock
       </KRAVButton>
-      {/*<div className="title gt">My Rewards</div>*/}
-      {/*<div className="my-reward">*/}
-      {/*  {userFeesRewardList.map((item) => {*/}
-      {/*    return (*/}
-      {/*      <div*/}
-      {/*        key={item.pool.tradingT}*/}
-      {/*        css={css`*/}
-      {/*          background: ${theme.background.second};*/}
-      {/*        `}*/}
-      {/*      >*/}
-      {/*        <img*/}
-      {/*          css={css`*/}
-      {/*            border-radius: 50%;*/}
-      {/*            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};*/}
-      {/*          `}*/}
-      {/*          src={item?.pool?.logoSource}*/}
-      {/*          height="40"*/}
-      {/*          width="40"*/}
-      {/*        />*/}
-      {/*        <span>*/}
-      {/*          &nbsp;&nbsp;{getBigNumberStr(item.amount, 2)} {item.pool.symbol}*/}
-      {/*        </span>*/}
-      {/*      </div>*/}
-      {/*    )*/}
-      {/*  })}*/}
-      {/*</div>*/}
-      {/*<KRAVButton*/}
-      {/*  disabled={!claimButtonEnable}*/}
-      {/*  onClick={async () => {*/}
-      {/*    await claimFeesReward(userFeesRewardList)*/}
-      {/*  }}*/}
-      {/*  sx={{ mb: '12px' }}*/}
-      {/*>*/}
-      {/*  Claim*/}
-      {/*</KRAVButton>*/}
+      <div className="title gt">My Rewards</div>
+      <div className="my-reward">
+        {userFeesRewardList.map((item) => {
+          return (
+            <div
+              key={item.pool.tradingT}
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
+              <img
+                css={css`
+                  border-radius: 50%;
+                  background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                `}
+                src={item?.pool?.logoSource}
+                height="40"
+                width="40"
+              />
+              <span>
+                &nbsp;&nbsp;{getBigNumberStr(item.amount, 2)} {item.pool.symbol}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+      <KRAVButton
+        disabled={!claimButtonEnable}
+        onClick={async () => {
+          await claimFeesReward(userFeesRewardList)
+        }}
+        sx={{ mb: '12px' }}
+      >
+        Claim
+      </KRAVButton>
       <Link underline="none" sx={{ color: theme.text.primary }} href="https://snapshot.org/#/krav.eth">
         <KravButtonHollow>
           To Vote <ToVoteIcon />
