@@ -14,7 +14,6 @@ import { useEffect } from 'react'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
-import { FeesRewardList } from '../../hook/hookV8/useGetClaimableTokensFee'
 // import { getBooster, getTradeBooster } from '../../utils/math'
 
 export const NewStake = () => {
@@ -23,7 +22,7 @@ export const NewStake = () => {
   const {
     userKravBalance,
     userLockPosition,
-    // userFeesRewardList,
+    userFeesRewardList,
     totalKravLock,
     userVeKravAmount,
     totalVeKravAmount,
@@ -196,7 +195,7 @@ export const NewStake = () => {
         />
         <MyLocked
           userLockPosition={userLockPosition}
-          userFeesRewardList={[] as FeesRewardList[]}
+          userFeesRewardList={userFeesRewardList}
           tradeBooster={new BigNumber(0)}
           LpBooster={new BigNumber(0)}
           unLockPosition={unLockPosition}

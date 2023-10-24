@@ -23,7 +23,6 @@ export const useGetClaimableTokensFee = () => {
     if (feesDistributorContract && account && provider && allPoolParams.length > 0) {
       try {
         const validTokens = (await feesDistributorContract.getValidTokens()) as string[]
-        console.log('validTokens', validTokens)
         const list = await feesDistributorContract.claimableTokens(account, validTokens)
         const feesRewardList: FeesRewardList[] = validTokens.map((item, index) => {
           const targetPool = allPoolParams.find((pool) => pool.tokenT === item)!
