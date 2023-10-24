@@ -25,6 +25,7 @@ export const useGetClaimableTokensFee = () => {
         const validTokens = (await feesDistributorContract.getValidTokens()) as string[]
         console.log('validTokens', validTokens)
         const list = await feesDistributorContract.claimableTokens(account, validTokens)
+        console.log('list', list)
         const feesRewardList: FeesRewardList[] = validTokens.map((item, index) => {
           const targetPool = allPoolParams.find((pool) => pool.tokenT === item)!
           return {
