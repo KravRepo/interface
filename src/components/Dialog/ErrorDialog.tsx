@@ -42,7 +42,12 @@ export const ErrorDialog = () => {
             />
           </div>
           <div className="error-dialog-content">
-            <p>There is a problem with {errorContent.action}.</p>
+            {errorContent?.replaceAction ? (
+              <p>{errorContent.replaceAction}.</p>
+            ) : (
+              <p>There is a problem with {errorContent.action}.</p>
+            )}
+
             {errorContent?.reason && <p>{errorContent.reason}</p>}
             {theme.palette.mode === 'dark' ? <ErrorDarkLogo /> : <ErrorLogo />}
             <KRAVButton

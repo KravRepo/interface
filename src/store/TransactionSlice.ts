@@ -52,7 +52,7 @@ export enum TransactionAction {
   UPDATE_TP_ORDER = 'Updated take profit',
   CLAIM_ORDER = 'Claim position',
   APPROVE = 'Approve',
-  ADDRESS_CHECK = 'Token address check',
+  ADDRESS_CHECK = 'The selected collateral is not on BASE',
   CLAIM_LP_REWARD = 'Claim lp reward',
   FAUCET_TEST_TOKEN = 'Faucet token',
   STAKE_KRAV = 'Staked Krav',
@@ -72,6 +72,7 @@ export type ErrorContent = {
   dialogVisibility: boolean
   action: TransactionAction
   reason?: string
+  replaceAction?: string
 }
 
 export type SuccessContent = {

@@ -13,7 +13,7 @@ export const useCheckAddressValidity = () => {
     async (tokenAddress: string) => {
       try {
         if (tokenAddress?.length !== VALIDITY_ADDRESS_LENGTH) {
-          updateError(TransactionAction.ADDRESS_CHECK)
+          updateError(TransactionAction.ADDRESS_CHECK, 'The selected collateral is not on BASE')
           return false
         }
         if (provider && tokenAddress?.length === VALIDITY_ADDRESS_LENGTH) {
@@ -22,7 +22,7 @@ export const useCheckAddressValidity = () => {
           return true
         } else return false
       } catch (e) {
-        updateError(TransactionAction.ADDRESS_CHECK)
+        updateError(TransactionAction.ADDRESS_CHECK, 'The selected collateral is not on BASE')
         return false
       }
     },
