@@ -21,7 +21,7 @@ import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
   const theme = useTheme()
   const [confirm, setConfirm] = useState(false)
-  const [ticketSize, setTicketSize] = useState<string | number>('')
+  const [ticketSize, setTicketSize] = useState<string | number>(1)
   const [LPProvision, setLPProvision] = useState<string | number>('')
   const [tokenAddress, setTokenAddress] = useState('')
   const [tokenSymbol, setTokenSymbol] = useState('')
