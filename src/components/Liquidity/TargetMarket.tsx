@@ -73,7 +73,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList 
         {/* <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} /> */}
         {account && (
           <KRAVButton
-            sx={{ width: '132px', marginLeft: '20px', display: 'none' }}
+            sx={{ width: '132px', marginLeft: '20px', display: 'flex' }}
             onClick={() => setCreateLiquidityPool(true)}
           >
             Create Liquidity
