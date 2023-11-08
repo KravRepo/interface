@@ -33,17 +33,13 @@ export const useOpenTrade = ({
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
       const params = [tuple, tradeType, spreadReductionId, slippageP, referral] as any
-      console.log('params', params)
       const minETHFees = await contract.minExecutionFee()
-      console.log('minETHFees', minETHFees)
       let gasLimit = await getGasLimit(contract, 'openTrade', params, new BigNumber(minETHFees._hex).toString())
       gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
-      console.log('gasLimit', gasLimit)
       const tx = await contract.openTrade(...params, {
         value: new BigNumber(minETHFees._hex).toString(),
         gasLimit: gasLimit.toFixed(0),
       })
-      console.log('openTrade', tx)
       setTransactionState(TransactionState.START_OPEN_TRADE)
       console.log('tx', await tx.wait())
       setTransactionDialogVisibility(false)
