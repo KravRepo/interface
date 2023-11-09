@@ -191,40 +191,40 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
           )}
         </div>
       )}
-      {openTrade.isPendingOrder && openTrade.leverage === 0 && !openTrade?.isInPending && (
-        <div className="position-layout">
-          <div>
-            <p>BTC</p>
-            <p>
-              <span>{openTrade.leverage}x</span>
-              <span
-                css={css`
-                  color: ${openTrade.buy ? '#009B72' : '#DB4C40'};
-                `}
-              >
-                {openTrade.buy ? ' Long' : ' Short'}
-              </span>
-            </p>
-          </div>
-          <div>
-            <p
-              css={css`
-                text-decoration: underline;
-              `}
-            >
-              --
-            </p>
-          </div>
-          <div>--</div>
-          <div>--</div>
-          <div>---</div>
-          <div>--</div>
-          <div>--</div>
-          <div>
-            <KRAVButton onClick={() => claimPosition(openTrade.orderId!, true)}>Claim</KRAVButton>
-          </div>
-        </div>
-      )}
+      {/*{openTrade.isPendingOrder && openTrade.leverage === 0 && !openTrade?.isInPending && (*/}
+      {/*  <div className="position-layout">*/}
+      {/*    <div>*/}
+      {/*      <p>BTC</p>*/}
+      {/*      <p>*/}
+      {/*        <span>{openTrade.leverage}x</span>*/}
+      {/*        <span*/}
+      {/*          css={css`*/}
+      {/*            color: ${openTrade.buy ? '#009B72' : '#DB4C40'};*/}
+      {/*          `}*/}
+      {/*        >*/}
+      {/*          {openTrade.buy ? ' Long' : ' Short'}*/}
+      {/*        </span>*/}
+      {/*      </p>*/}
+      {/*    </div>*/}
+      {/*    <div>*/}
+      {/*      <p*/}
+      {/*        css={css`*/}
+      {/*          text-decoration: underline;*/}
+      {/*        `}*/}
+      {/*      >*/}
+      {/*        --*/}
+      {/*      </p>*/}
+      {/*    </div>*/}
+      {/*    <div>--</div>*/}
+      {/*    <div>--</div>*/}
+      {/*    <div>---</div>*/}
+      {/*    <div>--</div>*/}
+      {/*    <div>--</div>*/}
+      {/*    <div>*/}
+      {/*      <KRAVButton onClick={() => claimPosition(openTrade.orderId!, true)}>Claim</KRAVButton>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*)}*/}
       {!openTrade.isPendingOrder && (
         <ProfitConfirmTrade
           isOpen={isOpen}
