@@ -22,6 +22,14 @@ const NetWorkerLogo = () => {
   switch (chainId) {
     case ChainId.MAINNET:
       return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.BSC_TEST:
+      return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.OP_GOERLI:
+      return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.MUMBAI_TEST:
+      return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.ARB_TEST:
+      return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     default:
       return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
   }

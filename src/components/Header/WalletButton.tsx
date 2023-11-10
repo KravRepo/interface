@@ -76,7 +76,12 @@ export const WalletButton = ({
 
   const showFaucet = useMemo(() => {
     if (chainId) {
-      if ([ChainId.MUMBAI_TEST, ChainId.ARB_TEST, ChainId.BSC_TEST, ChainId.OP_GOERLI].includes(chainId)) return true
+      if (
+        [ChainId.MUMBAI_TEST, ChainId.ARB_TEST, ChainId.BSC_TEST, ChainId.OP_GOERLI, ChainId.BASE_TEST].includes(
+          chainId
+        )
+      )
+        return true
       else return false
     } else return false
   }, [chainId])

@@ -75,13 +75,19 @@ export const useFactoryContract = (provider: JsonRpcProvider) => {
 
 export const useFactoryWithProvider = (provider: any) => {
   const expectChainId = useRootStore((store) => store.expectChainId)
-  return useMemo(() => {
-    return new Contract(
-      CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
-      krav_factory.abi,
-      provider
-    )
+  console.log('expectChainId', expectChainId)
+  // return useMemo(() => {
+  //   return new Contract(
+  //     CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
+  //     krav_factory.abi,
+  //     provider
+  //   )
+  // }, [expectChainId])
+  const address = useMemo(() => {
+    return CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN]
+      .factory
   }, [expectChainId])
+  return useContract(address, krav_factory.abi)
 }
 
 export type CreatCall = {
