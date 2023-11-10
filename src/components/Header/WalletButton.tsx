@@ -9,7 +9,6 @@ import { Menu, useMediaQuery, useTheme } from '@mui/material'
 import { SettingMenuContent } from './SettingMenuContent'
 import { Trans } from '@lingui/macro'
 import React, { useCallback, useMemo, useState } from 'react'
-import { Connection } from '../../connectors/type'
 import { Connector } from '@web3-react/types'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
@@ -20,18 +19,10 @@ type WalletButtonProps = {
   chainId: number | undefined
   ethBalance: BigNumber
   toggleTheme: () => void
-  connection: Connection | undefined
   connector: Connector
 }
 
-export const WalletButton = ({
-  account,
-  connection,
-  connector,
-  chainId,
-  ethBalance,
-  toggleTheme,
-}: WalletButtonProps) => {
+export const WalletButton = ({ account, connector, chainId, ethBalance, toggleTheme }: WalletButtonProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [settingAnchorEl, setSettingAnchorEl] = useState<null | HTMLElement>(null)
@@ -67,10 +58,8 @@ export const WalletButton = ({
   }, [account])
 
   const disconnect = useCallback(async () => {
-    if (connection && connector) {
+    if (connector) {
       await connector.resetState()
-      await connection.connector.resetState()
-      console.log('setDisconnect')
       setDisconnectWallet(true)
     }
   }, [connector])

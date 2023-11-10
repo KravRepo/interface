@@ -17,6 +17,7 @@ export const useGetUserOpenTrade = () => {
     async (storageAddress: string, setStore: boolean) => {
       try {
         if (account && provider && storageAddress) {
+          // console.log('start useGetUserOpenTrade')
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
           const userTotalTrade = await contract.openTradesCount(account, tradePairIndex)
@@ -37,12 +38,7 @@ export const useGetUserOpenTrade = () => {
             userPendingOrderTask.push(contract.reqID_pendingMarketOrder(orderId.toString()))
           })
           const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
-          // console.log('userPendingOrderDetails', userPendingOrderDetails)
           userPendingOrderDetails.forEach((details, index) => {
-            // if (new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))) {
-            //   const res = forMatterOpenTrades(details, 1, account, true, new BigNumber(userPendingOrder[index]._hex))
-            //   userMarketOrder.push(res[0])
-            // }
             const inPending = new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))
             const res = forMatterOpenTrades(
               details,

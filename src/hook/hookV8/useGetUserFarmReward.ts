@@ -115,7 +115,9 @@ export const useGetUserFarmReward = () => {
     if (miningContract && account && provider) {
       Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()]).then()
       interval = setInterval(async () => {
-        await Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()])
+        await Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()]).catch((e) => {
+          console.log('get user farm reward failed!', e)
+        })
       }, 15000)
     }
     return () => clearInterval(interval)

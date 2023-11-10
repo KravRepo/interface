@@ -13,6 +13,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { useInterval } from '../../hook/hookV8/useInterval'
 type DashboardFarmProps = {
   setUserPoolLength: React.Dispatch<React.SetStateAction<number>>
 }
@@ -38,15 +39,12 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
   }, [userPositionDatas])
 
   const allPoolParams = useRootStore((store) => store.allPoolParams)
+
+  useInterval(userBackend, 60000)
+
   useEffect(() => {
-    let backInterval: NodeJS.Timer
     if (allPoolParams.length > 0 && account && provider) {
-      backInterval = setInterval(() => {
-        userBackend().then()
-      }, 1000)
-    }
-    return () => {
-      if (backInterval) clearInterval(backInterval)
+      userBackend().then()
     }
   }, [account, allPoolParams, provider])
 

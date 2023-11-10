@@ -10,6 +10,7 @@ import { eXDecimals } from '../../utils/math'
 import { EXCHANGE_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
 import multicall2 from '../../abi/multicall2.json'
 import { creatCall, CreatCall, decodeCallResult } from './useContract'
+import { useConfig } from './useConfig'
 
 export type UseAllLimitOrders = {
   pool: PoolParams
@@ -18,17 +19,18 @@ export type UseAllLimitOrders = {
 // TODO match pair index
 export const useGetUserAllLimitOrders = () => {
   const { account, provider } = useWeb3React()
+  const config = useConfig()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const setUserAllOpenLimitList = useRootStore((store) => store.setUserAllOpenLimitList)
   return useCallback(async () => {
     try {
-      if (allPoolParams.length > 0 && account && provider) {
+      if (allPoolParams.length > 0 && account && provider && config) {
         const storageList: string[] = []
         allPoolParams.forEach((pool) => {
           storageList.push(pool.storageT)
         })
         const useAllLimits: UseAllLimitOrders[] = []
-        const multicall = new Contract(multicall2.address, multicall2.abi, provider)
+        const multicall = new Contract(config.multicall, multicall2.abi, provider)
         const getAndForMatter = async () => {
           return await Promise.all(
             storageList.map(async (address, index) => {
@@ -179,9 +181,8 @@ export const useGetUserAllLimitOrders = () => {
           )
         }
         await getAndForMatter()
-        console.log('useAllLimits', useAllLimits)
         setUserAllOpenLimitList(useAllLimits)
       }
     } catch (e) {}
-  }, [allPoolParams, account, provider])
+  }, [allPoolParams, account, provider, config])
 }

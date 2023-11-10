@@ -1,6 +1,5 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract, useTokenContract } from './useContract'
-import { KRAV_ADDRESS, VE_KRAV } from '../../constant/chain'
 import voting from '../../abi/voting_escrow.json'
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
@@ -11,11 +10,13 @@ import { TransactionAction, TransactionState } from '../../store/TransactionSlic
 import { MAX_UNIT_256 } from '../../constant/math'
 import { getGasLimit } from '../../utils'
 import { eXDecimals } from '../../utils/math'
+import { useConfig } from './useConfig'
 
 export const useAddLockAmount = () => {
   const { provider, account } = useWeb3React()
-  const veContract = useContract(VE_KRAV, voting.abi)
-  const kravTokenContract = useTokenContract(KRAV_ADDRESS)
+  const config = useConfig()
+  const veContract = useContract(config?.veKrav, voting.abi)
+  const kravTokenContract = useTokenContract(config?.kravAddress)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -23,17 +24,17 @@ export const useAddLockAmount = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   return useCallback(
     async (lockAmount: BigNumber, showSuccess = true) => {
-      if (provider && veContract && kravTokenContract && account) {
+      if (provider && veContract && kravTokenContract && account && config) {
         try {
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
-          const allowance = await kravTokenContract.allowance(account, VE_KRAV)
+          const allowance = await kravTokenContract.allowance(account, config.veKrav)
           console.log('allowance', new BigNumber(allowance._hex).toString())
 
           if (lockAmount.isGreaterThan(new BigNumber(allowance._hex))) {
             setTransactionState(TransactionState.APPROVE)
             console.log('2 approve', lockAmount.toString())
-            const approveTX = await kravTokenContract.approve(VE_KRAV, MAX_UNIT_256)
+            const approveTX = await kravTokenContract.approve(config.veKrav, MAX_UNIT_256)
             await approveTX.wait()
             console.log('3 approveTX', approveTX)
           }
@@ -64,6 +65,6 @@ export const useAddLockAmount = () => {
         }
       }
     },
-    [provider, veContract, kravTokenContract, account]
+    [provider, veContract, kravTokenContract, account, config]
   )
 }

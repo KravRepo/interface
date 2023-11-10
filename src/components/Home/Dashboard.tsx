@@ -52,7 +52,6 @@ export const Dashboard = () => {
       ]).then()
       getUserAllLimitOrders().then()
       interval = setInterval(async () => {
-        console.log('get user asset data ')
         await Promise.all([
           getOverView(),
           // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),

@@ -1,8 +1,8 @@
-import { TEST_RPC_NODE } from '../../constant/chain'
+import { API_CONFIG, ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
 import { Contract, ethers } from 'ethers'
 import { creatCall, decodeCallResult, useFactoryContract } from './useContract'
 import type { JsonRpcProvider } from '@ethersproject/providers'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useRootStore } from '../../store/root'
 import { PoolParams } from '../../store/FactorySlice'
 import test_erc20 from '../../abi/test_erc20.json'
@@ -44,11 +44,24 @@ enum TaskFunc {
 export const useFactory = () => {
   const setAllPoolParams = useRootStore((store) => store.setAllPoolParams)
   const setIsLoadingFactory = useRootStore((store) => store.setIsLoadingFactory)
-  const provider = new ethers.providers.JsonRpcProvider(TEST_RPC_NODE) as JsonRpcProvider
-  const factory = useFactoryContract(provider)!
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  const setTradePool = useRootStore((store) => store.setTradePool)
+  const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
+
+  const provider = useMemo(() => {
+    return new ethers.providers.JsonRpcProvider(
+      expectChainId && SUPPORT_CHAIN.includes(expectChainId)
+        ? API_CONFIG[expectChainId].rpcNode
+        : API_CONFIG[DEFAULT_CHAIN].rpcNode
+    ) as JsonRpcProvider
+  }, [expectChainId])
+  const factory = useFactoryContract(provider)
 
   return useCallback(async () => {
     try {
+      console.log('factory', expectChainId)
+      // if (typeof expectChainId === 'undefined' && typeof chainId === 'undefined') return
+      // if (typeof expectChainId !== 'undefined' && typeof chainId === 'undefined') return
       const totalPools = await factory.quantosCount()
       const blockNumber = await provider.getBlockNumber()
       const poolsParams = []
@@ -92,7 +105,13 @@ export const useFactory = () => {
           accDaiPerDai: new BigNumber(0),
         })
       })
-      const multicall = new Contract(multicall2.address, multicall2.abi, provider)
+      const multicall = new Contract(
+        expectChainId && SUPPORT_CHAIN.includes(expectChainId)
+          ? CONTRACT_CONFIG[expectChainId].multicall
+          : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall,
+        multicall2.abi,
+        provider
+      )
       const pairStorageInterface = new Interface(pair_storage.abi)
       const pairInfoInterface = new Interface(pair_info.abi)
       const tokenInterface = new Interface(test_erc20.abi)
@@ -214,11 +233,16 @@ export const useFactory = () => {
       })
       forMatter = forMatter.filter((pool) => pool.symbol !== 'MAG')
       setAllPoolParams(forMatter)
+      if (isLoadingFactory) {
+        const target = forMatter.find((pool) => pool.tradingT === CONTRACT_CONFIG[ChainId.BASE].kravTrading)
+        if (target) setTradePool(target)
+        else setTradePool(forMatter[0])
+      }
       setIsLoadingFactory(false)
       return forMatter
     } catch (e) {
       console.error('get factory failed!', e)
       return [] as PoolParams[]
     }
-  }, [factory])
+  }, [factory, expectChainId])
 }

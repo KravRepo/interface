@@ -1,6 +1,6 @@
 import { useFactoryWithProvider } from './useContract'
 import { useCallback } from 'react'
-import { LINK_ADDRESS, NODE_ADDRESS } from '../../constant/chain'
+import { CONTRACT_CONFIG, LINK_ADDRESS, NODE_ADDRESS } from '../../constant/chain'
 import { getGasLimit, getProviderOrSigner } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { useUpdateError } from './useUpdateError'
@@ -14,7 +14,7 @@ import { MAX_UNIT_256 } from '../../constant/math'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 
 export const useCreatePool = () => {
-  const { provider, account } = useWeb3React()
+  const { provider, account, chainId } = useWeb3React()
   const factory = useFactoryWithProvider()!
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
@@ -23,8 +23,14 @@ export const useCreatePool = () => {
 
   return useCallback(
     async (tokenAddress: string, proportionBTC: number | string, depositAmount: BigNumber) => {
-      const params = [tokenAddress, LINK_ADDRESS, NODE_ADDRESS, proportionBTC, depositAmount.toString()] as any
-      if (provider && account) {
+      if (provider && account && chainId) {
+        const params = [
+          tokenAddress,
+          CONTRACT_CONFIG[chainId].linkAddress,
+          CONTRACT_CONFIG[chainId].nodeAddress,
+          proportionBTC,
+          depositAmount.toString(),
+        ] as any
         try {
           setTransactionDialogVisibility(true)
           setTransactionState(TransactionState.APPROVE)
@@ -57,6 +63,6 @@ export const useCreatePool = () => {
         }
       }
     },
-    [factory, provider, account]
+    [factory, provider, account, chainId]
   )
 }

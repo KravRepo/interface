@@ -1,6 +1,6 @@
 import { useWeb3React } from '@web3-react/core'
 import { creatCall, decodeCallResult, useFactoryWithProvider } from './useContract'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRootStore } from '../../store/root'
 import { Contract } from 'ethers'
 import multicall2 from '../../abi/multicall2.json'
@@ -13,6 +13,8 @@ import { TransactionAction, TransactionState } from '../../store/TransactionSlic
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { getGasLimit } from '../../utils'
+import { CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
+import { useInterval } from './useInterval'
 
 type UseRewardInfo = {
   pool: PoolParams
@@ -20,10 +22,9 @@ type UseRewardInfo = {
 }
 
 export const useReferral = () => {
-  const { account, provider } = useWeb3React()
+  const { account, provider, chainId } = useWeb3React()
   const [useRewardInfo, setUserRewardInfo] = useState([] as UseRewardInfo[])
   const [buttonEnable, setButtonEnable] = useState(false)
-  const referralRef = useRef<null | NodeJS.Timer>(null)
   const factory = useFactoryWithProvider()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const updateError = useUpdateError()
@@ -65,7 +66,13 @@ export const useReferral = () => {
   const getRewardsReferral = useCallback(async () => {
     if (factory && account && provider && allPoolParams.length > 0) {
       try {
-        const multicall = new Contract(multicall2.address, multicall2.abi, provider)
+        const multicall = new Contract(
+          chainId && SUPPORT_CHAIN.includes(chainId)
+            ? CONTRACT_CONFIG[chainId].multicall
+            : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall,
+          multicall2.abi,
+          provider
+        )
         const factoryInterface = new Interface(factory_abi.abi)
         const task: any[] = []
         allPoolParams.forEach((pool) => {
@@ -87,17 +94,12 @@ export const useReferral = () => {
         console.log('getRewardsReferral failed!', e)
       }
     }
-  }, [account, provider, factory, allPoolParams])
+  }, [account, provider, factory, allPoolParams, chainId])
+
+  useInterval(getRewardsReferral, 30000)
 
   useEffect(() => {
     getRewardsReferral().then()
-    if (referralRef.current) clearInterval(referralRef.current)
-    referralRef.current = setInterval(async () => {
-      await getRewardsReferral()
-    }, 30000)
-    return () => {
-      if (referralRef.current) clearInterval(referralRef.current)
-    }
   }, [getRewardsReferral])
 
   return { useRewardInfo: useRewardInfo, claimRewards: claimRewards, buttonEnable: buttonEnable }

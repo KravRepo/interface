@@ -12,6 +12,7 @@ export const useGetUserOpenLimitOrders = () => {
   const [userLimitOrders, setUserLimitOrders] = useState([] as TupleLimitOrder[])
   const setUserOpenLimitList = useRootStore((store) => store.setUserOpenLimitList)
   const tradePairIndex = useRootStore((state) => state.tradePairIndex)
+
   const getUserOpenLimitOrders = useCallback(
     async (storageAddress: string, setStore: boolean) => {
       try {

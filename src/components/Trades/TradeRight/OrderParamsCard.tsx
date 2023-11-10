@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab } from './style'
-import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
@@ -22,6 +22,7 @@ import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
+import { useInterval } from '../../../hook/hookV8/useInterval'
 
 const marks = [
   {
@@ -162,22 +163,20 @@ export const OrderParamsCard = ({
   setTradeType,
 }: OrderParamsCardProps) => {
   const theme = useTheme()
-  const { provider } = useWeb3React()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
   const [tabIndex, setTabIndex] = useState(0)
+  const { provider } = useWeb3React()
   // const [slSetting, setSlSetting] = useState(0)
   const [slUsePercentage, setUseSlPercentage] = useState(true)
   // const [tpSetting, setTpSetting] = useState(0)
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
-  const [orderLimit, setOrderLimit] = useState(new BigNumber(0))
-  const orderLimitRef = useRef<NodeJS.Timer | null>(null)
-  const getOrderLimit = useGetOrderLimit()
+  const { orderLimit, getOrderLimit } = useGetOrderLimit()
   const {
     BTCPrice,
     transactionState,
-    loadingData,
+    isLoadingFactory,
     tradePool,
     setErrorContent,
     setWalletDialogVisibility,
@@ -190,7 +189,7 @@ export const OrderParamsCard = ({
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     transactionState: state.transactionState,
-    loadingData: state.loadingData,
+    isLoadingFactory: state.isLoadingFactory,
     tradePool: state.tradePool,
     setErrorContent: state.setErrorContent,
     setWalletDialogVisibility: state.setWalletDialogVisibility,
@@ -322,7 +321,7 @@ export const OrderParamsCard = ({
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
-  }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
+  }, [account, isBuy, isLoadingFactory, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
 
   useEffect(() => {
     if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
@@ -355,20 +354,11 @@ export const OrderParamsCard = ({
     }
   }, [])
 
+  useInterval(getOrderLimit, 15000)
+
   useEffect(() => {
-    if (tradePool && provider) {
-      if (orderLimitRef.current) clearInterval(orderLimitRef.current)
-      getOrderLimit().then((res) => {
-        if (res) setOrderLimit(res)
-      })
-      orderLimitRef.current = setInterval(async () => {
-        getOrderLimit().then((res) => {
-          if (res) setOrderLimit(res)
-        })
-      }, 15000)
-    }
-    return () => {
-      if (orderLimitRef.current) clearInterval(orderLimitRef.current)
+    if (tradePool.pairStorageT && tradePool.poolCurrentBalance && provider) {
+      getOrderLimit().then()
     }
   }, [tradePool, provider, tradePairIndex])
 
@@ -713,7 +703,7 @@ export const OrderParamsCard = ({
                 min={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 max={tradeModel === TradeMode.DEGEN ? 200 : 50}
                 value={leverage}
-                disabled={loadingData}
+                disabled={isLoadingFactory}
                 onClick={handleSliderClick}
                 onChange={handleLeverageChange}
                 // color="#2832F5"

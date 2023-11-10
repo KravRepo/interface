@@ -4,23 +4,16 @@ import { useCallback } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import MetamaskIcon from '../../assets/imgs/wallet/metamask.svg'
 import { dialogContent } from './sytle'
-import { getConnection } from '../../connectors'
-import { ConnectionType } from '../../connectors/type'
+// import { getConnection } from '../../connectors'
+// import { Connection, ConnectionType } from '../../connectors/type'
 import { useWeb3React } from '@web3-react/core'
-import { useRootStore } from '../../store/root'
-import useEvent from '../../hook/hookV8/useEvent'
-import { useGetUserAllBalance } from '../../hook/hookV8/useGetBalance'
-import { useGetUserOpenTrade } from '../../hook/hookV8/useGetUserOpenTrade'
-import { useGetUserOpenLimitOrders } from '../../hook/hookV8/useGetUserOpenLimitOrders'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
-import { useFactory } from '../../hook/hookV8/useFactory'
 import { getAddChainParameters } from '../../connectors/chain'
 import { useUpdateError } from '../../hook/hookV8/useUpdateError'
 import { TransactionAction } from '../../store/TransactionSlice'
-import { TEST_CHAIN_ID } from '../../constant/chain'
+import { DEFAULT_CHAIN } from '../../constant/chain'
 import { css } from '@emotion/react'
 // import { ReactComponent as CoinbaseWalletIcon } from 'assets/imgs/wallet/wallet_coinbase.svg'
-// import { ReactComponent as WalletConnectIcon } from 'assets/imgs/wallet/wallet-connect.svg'
+// import { ReactComponent as WalletConnectIcon } from '../../assets/imgs/wallet/wallet-connect.svg'
 
 export type ConnectWalletDialogProp = {
   walletDialogVisibility: boolean
@@ -29,42 +22,23 @@ export type ConnectWalletDialogProp = {
 
 export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVisibility }: ConnectWalletDialogProp) => {
   const theme = useTheme()
-  const { connector, account, chainId, provider } = useWeb3React()
-  const getBalance = useGetUserAllBalance()
-  const tradePool = useRootStore((store) => store.tradePool)
-  const setLoadingData = useRootStore((store) => store.setLoadingData)
-  const { getUserOpenTrade } = useGetUserOpenTrade()
-  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
-  const getUserPositionData = useUserPosition()
-  const getFactory = useFactory()
+  const { account, chainId, connector } = useWeb3React()
   const updateError = useUpdateError()
 
-  const initUserToken = useEvent(async () => {
-    if (account && provider) {
-      await Promise.all([
-        getFactory(),
-        getBalance(),
-        getUserOpenTrade(tradePool.storageT, true),
-        getUserOpenLimitOrders(tradePool.storageT, true),
-      ])
-      setLoadingData(false)
-    }
-  })
-
   const activeConnection = useCallback(
-    async (walletName: string) => {
-      const connection = getConnection(ConnectionType.INJECTED)!
+    async (walletName?: string) => {
       try {
-        if (walletName === 'metamask') {
+        // let connection: Connection
+        // if (walletName === 'metamask') connection = getConnection(ConnectionType.INJECTED)!
+        // else connection = getConnection(ConnectionType.WALLET_CONNECT_V2)!
+        // console.log('connection', connection)
+        try {
+          await connector.activate(chainId !== DEFAULT_CHAIN ? DEFAULT_CHAIN : undefined)
+        } catch (e) {
           try {
-            await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
-            await connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
+            await connector.activate(getAddChainParameters(DEFAULT_CHAIN))
           } catch (e) {
-            try {
-              await connection.connector.activate(getAddChainParameters(TEST_CHAIN_ID))
-            } catch (e) {
-              updateError(TransactionAction.WALLET)
-            }
+            updateError(TransactionAction.WALLET)
           }
         }
       } catch (e) {
@@ -100,15 +74,15 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
               onClick={async () => {
                 await activeConnection('metamask')
                 setWalletDialogVisibility(false)
-                await initUserToken()
-                setInterval(async () => {
-                  await Promise.all([
-                    getBalance(),
-                    getUserOpenTrade(tradePool.storageT, true),
-                    getUserOpenLimitOrders(tradePool.storageT, true),
-                    getUserPositionData(),
-                  ])
-                }, 90000)
+                // await initUserToken()
+                // setInterval(async () => {
+                //   await Promise.all([
+                //     getBalance(),
+                //     getUserOpenTrade(tradePool.storageT, true),
+                //     getUserOpenLimitOrders(tradePool.storageT, true),
+                //     getUserPositionData(),
+                //   ])
+                // }, 90000)
               }}
             >
               <img src={MetamaskIcon} height="25" width="25" alt="" />

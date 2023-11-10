@@ -9,7 +9,7 @@ import { useRootStore } from '../../../store/root'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
-import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
+// import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import { TradeMode } from '../../../store/TradeSlice'
 import { EXCHANGE_CONFIG, EXCHANGE_TRADING_T } from '../../../constant/exchange'
 import { SelectPair } from '../../Dialog/SelectPair'
@@ -28,10 +28,10 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
   const {
     BTCPrice,
     isBTCRise,
-    allPoolParams,
+    // allPoolParams,
     tradePool,
-    setTradePool,
-    isLoadingFactory,
+    // setTradePool,
+    // isLoadingFactory,
     setTradePairIndex,
     tradePairIndex,
   } = useRootStore((state) => ({
@@ -85,13 +85,14 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     return () => setTradePairIndex(0)
   }, [showSwitch])
 
-  useEffect(() => {
-    if (allPoolParams.length > 0) {
-      const target = allPoolParams.find((pool) => pool.tradingT === BASE_KRAV_TRADING_ADDRESS)
-      if (target) setTradePool(target)
-      else setTradePool(allPoolParams[0])
-    }
-  }, [isLoadingFactory])
+  // useEffect(() => {
+  //   if (allPoolParams.length > 0) {
+  //     setTradePool(allPoolParams[0])
+  //     // const target = allPoolParams.find((pool) => pool.tradingT === BASE_KRAV_TRADING_ADDRESS)
+  //     // if (target) setTradePool(target)
+  //     // else setTradePool(allPoolParams[0])
+  //   }
+  // }, [allPoolParams])
 
   return (
     <>

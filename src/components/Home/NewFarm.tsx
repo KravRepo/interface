@@ -37,7 +37,6 @@ export const NewFarm = () => {
     if (provider && account) {
       Promise.all([getOverView().then()]).then()
       interval = setInterval(async () => {
-        console.log('get user asset data ')
         await Promise.all([getOverView()])
       }, 15000)
     }

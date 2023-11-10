@@ -3,25 +3,47 @@ import { headerBtn } from './sytle'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
-import { Button, Link, Menu, MenuItem, useTheme } from '@mui/material'
+import { Button, Menu, MenuItem, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
 import React, { useMemo, useState } from 'react'
 import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
+import { useWeb3React } from '@web3-react/core'
+import { ChainId } from '../../constant/chain'
+import { useConnect } from '../../hook/hookV8/useConnect'
+
+const NetWorkerLogo = () => {
+  const { chainId } = useWeb3React()
+  switch (chainId) {
+    case ChainId.MAINNET:
+      return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    default:
+      return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+  }
+}
 
 export const NetWorkButton = () => {
+  const { chainId } = useWeb3React()
   const theme = useTheme()
+  const connect = useConnect()
   const [netWorkAnchorEl, setNetWorkAnchorEl] = useState<null | HTMLElement>(null)
   const networkOpen = useMemo(() => {
     return Boolean(netWorkAnchorEl)
   }, [netWorkAnchorEl])
+
   const handleNetWorkClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setNetWorkAnchorEl(event.currentTarget)
   }
   const handleNetWorkClose = () => {
     setNetWorkAnchorEl(null)
   }
+
+  const handleChangeNetWork = async (chainId: number) => {
+    await connect(chainId)
+    setNetWorkAnchorEl(null)
+  }
+
   return (
     <>
       <Button
@@ -49,7 +71,7 @@ export const NetWorkButton = () => {
         aria-expanded={networkOpen ? 'true' : undefined}
         onClick={handleNetWorkClick}
       >
-        <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+        <NetWorkerLogo />
       </Button>
       <Menu
         sx={{
@@ -65,7 +87,12 @@ export const NetWorkButton = () => {
           'aria-labelledby': 'network-button',
         }}
       >
-        <MenuItem sx={{ width: '100%' }} onClick={handleNetWorkClose}>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.BASE)
+          }}
+        >
           <div
             css={css`
               display: flex;
@@ -78,28 +105,62 @@ export const NetWorkButton = () => {
               <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>Base</span>
             </div>
-            <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            {chainId === ChainId.BASE && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
           </div>
         </MenuItem>
-        <MenuItem sx={{ width: '100%' }} onClick={handleNetWorkClose}>
-          <Link underline="none" href="https://eth.krav.trade/">
-            <div
-              css={css`
-                width: 100%;
-              `}
-            >
-              <div css={align}>
-                <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-                <span
-                  css={css`
-                    color: ${theme.text.primary};
-                  `}
-                >
-                  Ethereum
-                </span>
-              </div>
+        <MenuItem
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.MAINNET)
+          }}
+          sx={{ width: '100%' }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                Ethereum
+              </span>
             </div>
-          </Link>
+            {chainId === ChainId.MAINNET && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.BASE_TEST)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>Base Goerli</span>
+            </div>
+            {chainId === ChainId.BASE_TEST && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
         </MenuItem>
       </Menu>
     </>

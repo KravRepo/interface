@@ -2,6 +2,7 @@ import { UserData } from '../hook/hookV8/useUserPosition'
 import { StateCreator } from 'zustand'
 import { RootStore } from './root'
 import BigNumber from 'bignumber.js'
+import { DEFAULT_CHAIN } from '../constant/chain'
 
 export type PoolParams = {
   tokenT: string
@@ -35,6 +36,8 @@ export interface FactorySlice {
   setAllPoolParams: (allPoolInfo: PoolParams[]) => void
   userPositionDatas: UserData[]
   setUserPositionDatas: (userPositionDatas: UserData[]) => void
+  expectChainId: number
+  setExpectChainId: (expectChainId: number) => void
 }
 
 export const createFactorySlice: StateCreator<
@@ -46,6 +49,7 @@ export const createFactorySlice: StateCreator<
   isLoadingFactory: true,
   allPoolParams: [],
   userPositionDatas: [],
+  expectChainId: DEFAULT_CHAIN,
   setAllPoolParams(allPoolParams) {
     set({ allPoolParams: allPoolParams })
   },
@@ -54,5 +58,8 @@ export const createFactorySlice: StateCreator<
   },
   setIsLoadingFactory(isLoadingFactory) {
     set({ isLoadingFactory: isLoadingFactory })
+  },
+  setExpectChainId(expectChainId) {
+    set({ expectChainId: expectChainId })
   },
 })

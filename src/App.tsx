@@ -30,6 +30,10 @@ import ReportImg from './assets/imgs/report.png'
 import ReportDark from './assets/imgs/darkModel/report_dark.png'
 import { useMediaQuery, useTheme } from '@mui/material'
 import VConsole from 'vconsole'
+import { useInterval } from './hook/hookV8/useInterval'
+import { useRootStore } from './store/root'
+import { useUserPosition } from './hook/hookV8/useUserPosition'
+import { useChainIdListener } from './hook/hookV8/useChainIdListener'
 
 i18n.load({
   en: enMessages,
@@ -38,17 +42,29 @@ i18n.load({
 i18n.activate('en')
 
 const FullApp = () => {
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  const getUserPosition = useUserPosition()
   const factory = useFactory()
+  useChainIdListener()
+  useInterval(factory, 60000)
+  useInterval(async () => getUserPosition(), 15000)
   useBTCPrice()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
+
+  useEffect(() => {
+    factory().then()
+  }, [expectChainId])
+
   useEffect(() => {
     if (isMobile) new VConsole({ theme: 'dark' })
-    Promise.all([factory()]).then()
-    setInterval(async () => {
-      await factory()
-    }, 60000)
   }, [])
+
+  // useEffect(() => {
+  //   if (chainId) {
+  //     setExpectChainId(chainId)
+  //   }
+  // }, [chainId])
 
   return (
     <Router>
@@ -60,28 +76,25 @@ const FullApp = () => {
         `}
       >
         <div className="fullApp">
-          <Web3Provider>
-            <I18nProvider i18n={i18n}>
-              <ErrorDialog />
-              <SuccessDialog />
-              <SuccessSnackbar />
-              <TransactionDialog />
-              <Header />
-              <Routes>
-                <Route path="/" element={<Navigate to={'/trade'} replace />} />
-                <Route path={'/trade'} element={<Trade />} />
-                <Route path={'/trade/:referral'} element={<Trade />} />
-                <Route path={'/liquidity'} element={<Liquidity />} />
-                <Route path={'/portfolio'} element={<Home />} />
-                <Route path={'/portfolio/stake'} element={<HomeStake />} />
-                <Route path={'/portfolio/farm'} element={<HomeFarm />} />
-                <Route path={'/portfolio/referral'} element={<HomeReferral />} />
-                <Route path={'/statistics'} element={<Statistics />} />
-                {/*<Route path={'/dashboard/reward'} element={<HomeRewardCenter />} />*/}
-              </Routes>
-              <Footer />
-            </I18nProvider>
-          </Web3Provider>
+          <I18nProvider i18n={i18n}>
+            <ErrorDialog />
+            <SuccessDialog />
+            <SuccessSnackbar />
+            <TransactionDialog />
+            <Header />
+            <Routes>
+              <Route path="/" element={<Navigate to={'/trade'} replace />} />
+              <Route path={'/trade'} element={<Trade />} />
+              <Route path={'/trade/:referral'} element={<Trade />} />
+              <Route path={'/liquidity'} element={<Liquidity />} />
+              <Route path={'/portfolio'} element={<Home />} />
+              <Route path={'/portfolio/stake'} element={<HomeStake />} />
+              <Route path={'/portfolio/farm'} element={<HomeFarm />} />
+              <Route path={'/portfolio/referral'} element={<HomeReferral />} />
+              <Route path={'/statistics'} element={<Statistics />} />
+            </Routes>
+            <Footer />
+          </I18nProvider>
         </div>
         <img
           src={theme.palette.mode === 'dark' ? ReportDark : ReportImg}
@@ -98,7 +111,9 @@ const FullApp = () => {
 function App() {
   return (
     <AppTheme>
-      <FullApp />
+      <Web3Provider>
+        <FullApp />
+      </Web3Provider>
     </AppTheme>
   )
 }

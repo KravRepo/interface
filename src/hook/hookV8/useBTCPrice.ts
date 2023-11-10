@@ -3,9 +3,11 @@ import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { BTC_PRICE_API } from '../../constant/chain'
 import { EXCHANGE_CONFIG } from '../../constant/exchange'
+import { useWeb3React } from '@web3-react/core'
 
 //TODO: match price with pair index
 export const useBTCPrice = () => {
+  const { chainId } = useWeb3React()
   const { setIsBTCRise, BTCPrice, setBTCPrice, tradePairIndex } = useRootStore((state) => ({
     setIsBTCRise: state.setIsBTCRise,
     BTCPrice: state.BTCPrice,
@@ -39,5 +41,5 @@ export const useBTCPrice = () => {
     return () => {
       if (priceRef.current) clearInterval(priceRef.current)
     }
-  }, [getPrice, tradePairIndex])
+  }, [getPrice, tradePairIndex, chainId])
 }

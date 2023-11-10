@@ -3,15 +3,17 @@ import { Contract } from 'ethers'
 import { useMemo } from 'react'
 import { getContract } from '../../utils'
 import trading_v6 from '../../abi/trading_v6_1.json'
+import trading_v6_eth from '../../abi/trading_v6_eth.json'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import test_erc20 from '../../abi/test_erc20.json'
 import btc_price from '../../abi/bsc_price.json'
 import trading_vault from '../../abi/trading_vault_v5.json'
 import pair_storage from '../../abi/pair_storage_v6.json'
 import krav_factory from '../../abi/krav_factory.json'
-import multicall2 from '../../abi/multicall2.json'
 import type { JsonRpcProvider } from '@ethersproject/providers'
 import { Interface } from 'ethers/lib/utils'
+import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
+import { useRootStore } from '../../store/root'
 
 export function useContract<T extends Contract = Contract>(
   addressOrAddressMap: string | { [chainId: number]: string } | undefined,
@@ -35,7 +37,8 @@ export function useContract<T extends Contract = Contract>(
 }
 
 export const useTradingV6Contract = (tradingAddress: string) => {
-  return useContract(tradingAddress, trading_v6.abi, true)
+  const { chainId } = useWeb3React()
+  return useContract(tradingAddress, chainId === ChainId.MAINNET ? trading_v6_eth.abi : trading_v6.abi, true)
 }
 
 export const useTradingStoreContract = (storageAddress: string) => {
@@ -60,15 +63,24 @@ export const usePairStorageContract = (address: string) => {
 }
 
 export const useFactoryContract = (provider: JsonRpcProvider) => {
-  return new Contract(krav_factory.address, krav_factory.abi, provider)
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  return useMemo(() => {
+    return new Contract(
+      CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
+      krav_factory.abi,
+      provider
+    )
+  }, [expectChainId])
 }
 
 export const useFactoryWithProvider = () => {
-  return useContract(krav_factory.address, krav_factory.abi)
-}
-
-export const useMulticall2 = () => {
-  return useContract(multicall2.address, multicall2.abi)
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  return useMemo(() => {
+    return new Contract(
+      CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
+      krav_factory.abi
+    )
+  }, [expectChainId])
 }
 
 export type CreatCall = {

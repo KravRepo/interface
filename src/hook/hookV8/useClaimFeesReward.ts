@@ -1,6 +1,5 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract } from './useContract'
-import { FEE_DISTRBUTOR } from '../../constant/chain'
 import fees_manager from '../../abi/fee_distributor_manager.json'
 import { useCallback } from 'react'
 import { useUpdateError } from './useUpdateError'
@@ -10,10 +9,12 @@ import { TransactionAction, TransactionState } from '../../store/TransactionSlic
 import { getGasLimit } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { FeesRewardList } from './useGetClaimableTokensFee'
+import { useConfig } from './useConfig'
 
 export const useClaimFeesReward = () => {
   const { account, provider } = useWeb3React()
-  const feesDistributorContract = useContract(FEE_DISTRBUTOR, fees_manager.abi)
+  const config = useConfig()
+  const feesDistributorContract = useContract(config?.feeDistrbutor, fees_manager.abi)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)

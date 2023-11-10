@@ -1,9 +1,6 @@
 import { useCallback } from 'react'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
-// import { Contract } from 'ethers'
-// import trading_storage from 'abi/trading_storage_v5.json'
-// import BigNumber from 'bignumber.js'
 import { Tuple } from '../../components/Trades/type'
 import { PoolParams } from '../../store/FactorySlice'
 import { Contract } from 'ethers'
@@ -13,6 +10,7 @@ import { forMatterOpenTrades } from './utils/utils'
 import { EXCHANGE_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
 import { CreatCall, creatCall, decodeCallResult } from './useContract'
 import multicall2 from '../../abi/multicall2.json'
+import { useConfig } from './useConfig'
 
 export type UseAllOpenTrades = {
   pool: PoolParams
@@ -21,17 +19,18 @@ export type UseAllOpenTrades = {
 // TODO match pair index
 export const useGetUserAllOpenTrades = () => {
   const { account, provider } = useWeb3React()
+  const config = useConfig()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const setUserAllOpenTradeList = useRootStore((store) => store.setUserAllOpenTradeList)
   const getUserAllOpenTrades = useCallback(async () => {
     try {
-      if (allPoolParams.length > 0 && account && provider) {
+      if (allPoolParams.length > 0 && account && provider && config) {
         const storageList: string[] = []
         allPoolParams.forEach((pool) => {
           storageList.push(pool.storageT)
         })
         const allOpenTrades: UseAllOpenTrades[] = []
-        const multicall = new Contract(multicall2.address, multicall2.abi, provider)
+        const multicall = new Contract(config.multicall, multicall2.abi, provider)
         const getAndForMatter = async () => {
           return await Promise.all(
             storageList.map(async (address, index) => {
@@ -109,7 +108,7 @@ export const useGetUserAllOpenTrades = () => {
         setUserAllOpenTradeList(allOpenTrades)
       }
     } catch (e) {}
-  }, [allPoolParams, account, provider])
+  }, [allPoolParams, account, provider, config])
 
   return { getUserAllOpenTrades: getUserAllOpenTrades }
 }

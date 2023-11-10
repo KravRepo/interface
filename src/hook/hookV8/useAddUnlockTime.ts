@@ -1,6 +1,5 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract } from './useContract'
-import { VE_KRAV } from '../../constant/chain'
 import voting from '../../abi/voting_escrow.json'
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
@@ -10,10 +9,12 @@ import BigNumber from 'bignumber.js'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { getGasLimit } from '../../utils'
 import { getLockTime } from './utils/utils'
+import { useConfig } from './useConfig'
 
 export const useAddUnlockTime = () => {
   const { provider } = useWeb3React()
-  const veContract = useContract(VE_KRAV, voting.abi)
+  const config = useConfig()
+  const veContract = useContract(config?.veKrav, voting.abi)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)

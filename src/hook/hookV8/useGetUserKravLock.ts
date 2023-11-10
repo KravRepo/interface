@@ -1,12 +1,13 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract, useTokenContract } from './useContract'
-import { KRAV_ADDRESS, VE_KRAV } from '../../constant/chain'
 import voting from '../../abi/voting_escrow.json'
 import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
 import { useRootStore } from '../../store/root'
+import { useConfig } from './useConfig'
+import { useInterval } from './useInterval'
 export type UserLockPosition = {
   amount: BigNumber
   end: number
@@ -14,6 +15,7 @@ export type UserLockPosition = {
 
 export const useGetUserKravLock = () => {
   const { provider, account } = useWeb3React()
+  const config = useConfig()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const [userKravBalance, setUserKravBalance] = useState(new BigNumber(0))
   const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
@@ -25,8 +27,8 @@ export const useGetUserKravLock = () => {
     end: 0,
   })
 
-  const veContract = useContract(VE_KRAV, voting.abi)
-  const kravTokenContract = useTokenContract(KRAV_ADDRESS)
+  const veContract = useContract(config?.veKrav, voting.abi)
+  const kravTokenContract = useTokenContract(config?.kravAddress)
   const getUserKravLock = useCallback(async () => {
     if (provider && veContract && account && kravTokenContract) {
       try {
@@ -37,6 +39,7 @@ export const useGetUserKravLock = () => {
           veContract.totalSupply(),
         ])
         const balance = new BigNumber(res[0]._hex).toString()
+        console.log('getUserKravLock res', res)
         setUserKravBalance(eXDecimals(balance, 18))
         setUserLockPosition({
           amount: eXDecimals(new BigNumber(res[1].amount._hex), 18),
@@ -59,17 +62,12 @@ export const useGetUserKravLock = () => {
       }
     }
   }, [veContract])
+
+  useInterval(async () => await Promise.all([getUserKravLock(), getUserFeesReward(), getTotalLock()]), 15000)
+
   useEffect(() => {
-    let Interval: NodeJS.Timer
     if (account && provider && allPoolParams.length > 0) {
       Promise.all([getUserFeesReward(), getUserKravLock(), getTotalLock()]).then()
-
-      Interval = setInterval(async () => {
-        await Promise.all([getUserKravLock(), getUserFeesReward(), getTotalLock()])
-      }, 15000)
-    }
-    return () => {
-      if (Interval) clearInterval(Interval)
     }
   }, [provider, account, allPoolParams])
 

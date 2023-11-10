@@ -11,6 +11,7 @@ import { useUserPosition } from '../hook/hookV8/useUserPosition'
 import { useWeb3React } from '@web3-react/core'
 import { css } from '@emotion/react'
 import { useGetApr } from '../hook/hookV8/useGetApr'
+import { useInterval } from '../hook/hookV8/useInterval'
 
 export const Liquidity = () => {
   const { account, provider, chainId } = useWeb3React()
@@ -21,16 +22,10 @@ export const Liquidity = () => {
   const userBackend = useUserPosition()
   const { aprList } = useGetApr()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
+  useInterval(userBackend, 15000)
   useEffect(() => {
-    let backInterval: NodeJS.Timer
     if (allPoolParams.length >= 0 && account && provider) {
       userBackend().then(() => setIsLoadingUserPosition(false))
-      backInterval = setInterval(() => {
-        userBackend().then()
-      }, 10000)
-    }
-    return () => {
-      if (backInterval) clearInterval(backInterval)
     }
   }, [account, allPoolParams, provider, chainId])
 

@@ -40,7 +40,6 @@ export const TradeHistory = () => {
           const filterData = data.filter((item: HistoryData) =>
             new BigNumber(item.tradeInitialPosToken).isGreaterThan(0)
           )
-          console.log('filterData', filterData)
           if (data.length > 0) {
             res.push({
               pool: allPoolParams[quanto.id],
@@ -49,7 +48,6 @@ export const TradeHistory = () => {
           }
         }
       })
-      console.log('history', res)
       setAllHistoryData(res)
     } catch (e) {
       console.error('get user trade history failed!', e)

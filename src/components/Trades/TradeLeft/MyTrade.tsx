@@ -8,14 +8,15 @@ import { myTrade } from './style'
 import { useRootStore } from '../../../store/root'
 import { useGetUserOpenTrade } from '../../../hook/hookV8/useGetUserOpenTrade'
 import { useGetUserOpenLimitOrders } from '../../../hook/hookV8/useGetUserOpenLimitOrders'
+import { useInterval } from '../../../hook/hookV8/useInterval'
 import { useWeb3React } from '@web3-react/core'
 
 export const MyTrade = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [infoType, setInfoType] = useState(0)
+  const { provider, account } = useWeb3React()
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
-  const { account, chainId } = useWeb3React()
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const tradePool = useRootStore((store) => store.tradePool)
@@ -25,19 +26,24 @@ export const MyTrade = () => {
   }
   const { getUserOpenTrade } = useGetUserOpenTrade()
   const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
+  useInterval(async () => {
+    await getUserOpenTrade(tradePool.storageT, true)
+  }, 15000)
+  useInterval(async () => {
+    await getUserOpenLimitOrders(tradePool.storageT, true)
+  }, 15000)
 
   useEffect(() => {
-    let tradeInterval: NodeJS.Timer | null = null
-    Promise.all([getUserOpenLimitOrders(tradePool.storageT, true), getUserOpenTrade(tradePool.storageT, true)]).then()
-
-    tradeInterval = setInterval(async () => {
-      console.log('---------------------update user orders------------------')
-      await Promise.all([getUserOpenLimitOrders(tradePool.storageT, true), getUserOpenTrade(tradePool.storageT, true)])
-    }, 15000)
-    return () => {
-      if (tradeInterval) clearInterval(tradeInterval)
+    if (provider && account && tradePool.storageT) {
+      getUserOpenLimitOrders(tradePool.storageT, true).then()
     }
-  }, [tradePool, account, chainId, tradePairIndex])
+  }, [provider, account, tradePairIndex, tradePool])
+
+  useEffect(() => {
+    if (provider && account && tradePool.storageT) {
+      getUserOpenTrade(tradePool.storageT, true).then()
+    }
+  }, [provider, account, tradePairIndex, tradePool])
 
   return (
     <div

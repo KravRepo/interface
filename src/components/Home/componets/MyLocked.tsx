@@ -115,10 +115,10 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
       </KRAVButton>
       <div className="title gt">My Rewards</div>
       <div className="my-reward">
-        {userFeesRewardList.map((item) => {
+        {userFeesRewardList.map((item, index) => {
           return (
             <div
-              key={item.pool.tradingT}
+              key={index}
               css={css`
                 background: ${theme.background.second};
               `}
@@ -133,7 +133,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
                 width="40"
               />
               <span>
-                &nbsp;&nbsp;{getBigNumberStr(item.amount, 2)} {item.pool.symbol}
+                &nbsp;&nbsp;{getBigNumberStr(item.amount, 2)} {item?.pool?.symbol}
               </span>
             </div>
           )
