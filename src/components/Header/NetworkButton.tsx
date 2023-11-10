@@ -3,6 +3,10 @@ import { headerBtn } from './sytle'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
+import { ReactComponent as ARB } from '../../assets/imgs/arbitrum.svg'
+import { ReactComponent as BSC } from '../../assets/imgs/bsc.svg'
+import { ReactComponent as OP } from '../../assets/imgs/optimism.svg'
+import { ReactComponent as Polygon } from '../../assets/imgs/polygon.svg'
 import { Button, Menu, MenuItem, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
@@ -158,6 +162,98 @@ export const NetWorkButton = () => {
               <span>Base Goerli</span>
             </div>
             {chainId === ChainId.BASE_TEST && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.BSC_TEST)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <BSC height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>BSC Test</span>
+            </div>
+            {chainId === ChainId.BSC_TEST && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.ARB_TEST)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <ARB height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>Arbitrum Goerli</span>
+            </div>
+            {chainId === ChainId.ARB_TEST && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.OP_GOERLI)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <OP height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>Optimism Goerli</span>
+            </div>
+            {chainId === ChainId.OP_GOERLI && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.MUMBAI_TEST)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <Polygon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>Mumbai</span>
+            </div>
+            {chainId === ChainId.MUMBAI_TEST && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>

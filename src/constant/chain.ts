@@ -4,6 +4,9 @@ export enum ChainId {
   SEPOLIA = 11155111,
   BASE = 8453,
   BASE_TEST = 84531,
+  ARB_TEST = 421613,
+  MUMBAI_TEST = 80001,
+  OP_GOERLI = 420,
 }
 
 export type ContractInfo = {
@@ -24,7 +27,15 @@ type apiInfo = {
   rpcNode: string
 }
 
-export const SUPPORT_CHAIN = [ChainId.MAINNET, ChainId.BASE, ChainId.BASE_TEST]
+export const SUPPORT_CHAIN = [
+  ChainId.MAINNET,
+  ChainId.BASE,
+  ChainId.BASE_TEST,
+  ChainId.MUMBAI_TEST,
+  ChainId.ARB_TEST,
+  ChainId.OP_GOERLI,
+  ChainId.BSC_TEST,
+]
 
 export const DEFAULT_CHAIN = ChainId.BASE
 
@@ -35,8 +46,20 @@ export const API_CONFIG: { [chainId: number]: apiInfo } = {
   [ChainId.BASE]: {
     rpcNode: 'https://mainnet.base.org',
   },
+  [ChainId.BSC_TEST]: {
+    rpcNode: 'https://bsc-testnet.publicnode.com',
+  },
   [ChainId.BASE_TEST]: {
     rpcNode: 'https://base-goerli.g.alchemy.com/v2/pjZ1AFp1o4cKAxlaTFre52frhKOxy-nH',
+  },
+  [ChainId.OP_GOERLI]: {
+    rpcNode: 'https://optimism-goerli.publicnode.com',
+  },
+  [ChainId.ARB_TEST]: {
+    rpcNode: 'https://arbitrum-nova.publicnode.com',
+  },
+  [ChainId.MUMBAI_TEST]: {
+    rpcNode: 'https://polygon-testnet.public.blastapi.io',
   },
 }
 
@@ -81,6 +104,62 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',
     tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
     multicall: '0x771D8465C2Bb5FFe6fC3Bc5F5Dc50d73bD846E1f',
+  },
+  [ChainId.ARB_TEST]: {
+    factory: '0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A',
+    linkAddress: '0xd14838A68E8AFBAdE5efb411d5871ea0011AFd28',
+    nodeAddress: ['0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'],
+    // krav stake address conflict
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '0xF7050aEf15a1E6EF477439c69E58fCc38CB80B43',
+  },
+  [ChainId.BSC_TEST]: {
+    factory: '0xc87E47Bf5e8615651247bb2BbbD0bED2225fbB8D',
+    linkAddress: '0x84b9B910527Ad5C03A9Ca831909E21e236EA7b06',
+    nodeAddress: ['0x18465D16a1c6c12EABD540F815d6eD1f521515a0'],
+    // krav stake address conflict
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '0xd0C3CFF5f01d3357505077D4a72d5538ef4DbA50',
+  },
+  [ChainId.MUMBAI_TEST]: {
+    factory: '0x7e7D51C0F9f496Baf7dB89d864476f7953169324',
+    linkAddress: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB',
+    nodeAddress: ['0xd74312bbB9d7Af619E23f8afB5bcC820F7c26E0A'],
+    // krav stake address conflict
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '0x39De4bF497E5e26B03d227bdf4534c4775f73709',
+  },
+  [ChainId.OP_GOERLI]: {
+    factory: '0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A',
+    linkAddress: '0xdc2CC710e42857672E7907CF474a69B63B93089f',
+    nodeAddress: ['0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'],
+    // krav stake address conflict
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '0xF7050aEf15a1E6EF477439c69E58fCc38CB80B43',
   },
 }
 
