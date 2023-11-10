@@ -25,7 +25,7 @@ export const useReferral = () => {
   const { account, provider, chainId } = useWeb3React()
   const [useRewardInfo, setUserRewardInfo] = useState([] as UseRewardInfo[])
   const [buttonEnable, setButtonEnable] = useState(false)
-  const factory = useFactoryWithProvider()
+  const factory = useFactoryWithProvider(provider)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()

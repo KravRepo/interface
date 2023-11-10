@@ -44,7 +44,7 @@ export const ConfirmCreatPool = ({
       setTokenAddress('')
       setCreateLiquidityPool(false)
     } catch (e) {}
-  }, [creatPool, updateFactory, tokenAddress])
+  }, [creatPool, updateFactory, tokenAddress, LPProvision, tokenDecimals])
 
   const tokenLogoSource = useMemo(() => {
     try {

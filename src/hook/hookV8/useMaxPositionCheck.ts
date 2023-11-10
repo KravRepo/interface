@@ -9,7 +9,7 @@ export const useMaxPositionCheck = () => {
   const tradePool = useRootStore((state) => state.tradePool)
   const tradePairIndex = useRootStore((state) => state.tradePairIndex)
   const { provider } = useWeb3React()
-  const pairStorageContract = usePairStorageContract(tradePool.pairStorageT)
+  const pairStorageContract = usePairStorageContract(tradePool?.pairStorageT)
 
   return useCallback(
     async (positionAmount: BigNumber, leverage: number) => {

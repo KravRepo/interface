@@ -13,6 +13,8 @@ import { Connector } from '@web3-react/types'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
 import copy from 'copy-to-clipboard'
+import InvertColorsOutlinedIcon from '@mui/icons-material/InvertColorsOutlined'
+import { ChainId } from '../../constant/chain'
 
 type WalletButtonProps = {
   account: string | undefined
@@ -20,9 +22,17 @@ type WalletButtonProps = {
   ethBalance: BigNumber
   toggleTheme: () => void
   connector: Connector
+  setOpenFaucet: () => void
 }
 
-export const WalletButton = ({ account, connector, chainId, ethBalance, toggleTheme }: WalletButtonProps) => {
+export const WalletButton = ({
+  account,
+  connector,
+  chainId,
+  ethBalance,
+  toggleTheme,
+  setOpenFaucet,
+}: WalletButtonProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [settingAnchorEl, setSettingAnchorEl] = useState<null | HTMLElement>(null)
@@ -63,9 +73,23 @@ export const WalletButton = ({ account, connector, chainId, ethBalance, toggleTh
       setDisconnectWallet(true)
     }
   }, [connector])
+
+  const showFaucet = useMemo(() => {
+    if (chainId) {
+      if ([ChainId.MUMBAI_TEST, ChainId.ARB_TEST, ChainId.BSC_TEST, ChainId.OP_GOERLI].includes(chainId)) return true
+      else return false
+    } else return false
+  }, [chainId])
+
   return (
     <div css={align}>
       <NetWorkButton />
+      {account && showFaucet && (
+        <KRAVButton onClick={setOpenFaucet}>
+          <InvertColorsOutlinedIcon />
+          Faucet
+        </KRAVButton>
+      )}
       {account ? (
         <div css={align}>
           <KRAVButton

@@ -63,6 +63,7 @@ export const useFactory = () => {
       // if (typeof expectChainId === 'undefined' && typeof chainId === 'undefined') return
       // if (typeof expectChainId !== 'undefined' && typeof chainId === 'undefined') return
       const totalPools = await factory.quantosCount()
+      console.log('totalPools', totalPools)
       const blockNumber = await provider.getBlockNumber()
       const poolsParams = []
       for (let i = 0; i < totalPools; i++) {
@@ -231,12 +232,41 @@ export const useFactory = () => {
           item.logoSource = require('../../assets/imgs/tokens/default_token.svg').default
         }
       })
+      console.log('all pools', forMatter)
       forMatter = forMatter.filter((pool) => pool.symbol !== 'MAG')
       setAllPoolParams(forMatter)
       if (isLoadingFactory) {
-        const target = forMatter.find((pool) => pool.tradingT === CONTRACT_CONFIG[ChainId.BASE].kravTrading)
-        if (target) setTradePool(target)
-        else setTradePool(forMatter[0])
+        if (forMatter.length === 0) {
+          const nullTradePool = {
+            tokenT: '',
+            storageT: '',
+            pairInfoT: '',
+            pairStorageT: '',
+            apr: new BigNumber(0),
+            tradingT: '',
+            callbackT: '',
+            rewardT: '',
+            vaultT: '',
+            priceAggregatorT: '',
+            symbol: '',
+            proportionBTC: 1,
+            decimals: 18,
+            blockNumber: 0,
+            logoSource: require('../../assets/imgs/tokens/default_token.svg').default,
+            utilization: new BigNumber(0),
+            maxWithdrawP: new BigNumber(0),
+            accDaiPerDai: new BigNumber(0),
+            minPositionLev: new BigNumber(0),
+            fundingFeePerBlockP: new BigNumber(0),
+            poolTotalSupply: new BigNumber(0),
+            poolCurrentBalance: new BigNumber(0),
+          }
+          setTradePool(nullTradePool)
+        } else {
+          const target = forMatter.find((pool) => pool.tradingT === CONTRACT_CONFIG[ChainId.BASE].kravTrading)
+          if (target) setTradePool(target)
+          else setTradePool(forMatter[0])
+        }
       }
       setIsLoadingFactory(false)
       return forMatter

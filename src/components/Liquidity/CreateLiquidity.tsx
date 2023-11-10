@@ -37,6 +37,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
         const req = await Promise.all([tokenContract.symbol(), tokenContract.decimals()])
         const symbol = req[0]
         const decimals = req[1]
+        console.log('token decimals', decimals)
         setTokenSymbol(symbol)
         setTokenDecimals(decimals)
       }
@@ -204,7 +205,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 <KRAVTextField
                   value={LPProvision}
                   type="number"
-                  onChange={(event) => setLPProvision(Number(event.target.value))}
+                  onChange={(event) => setLPProvision(event.target.value)}
                   sx={{ width: '100%' }}
                 />
                 {/*<p>2000 X token Value about $200</p>*/}

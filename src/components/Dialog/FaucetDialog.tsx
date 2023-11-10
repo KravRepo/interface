@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { Dispatch, SetStateAction } from 'react'
-import { useRootStore } from '../../store/root'
 import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
@@ -8,13 +7,13 @@ import { css } from '@emotion/react'
 import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import { align } from '../../globalStyle'
 import { useFaucet } from '../../hook/hookV8/useFaucet'
+import InvertColorsOutlinedIcon from '@mui/icons-material/InvertColorsOutlined'
 
 type FaucetDialogProps = {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
-  const allPoolParams = useRootStore((state) => state.allPoolParams)
   const getFaucet = useFaucet()
   return (
     <Dialog
@@ -55,30 +54,23 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
             {/*    </div>*/}
             {/*  </div>*/}
             {/*</div>*/}
-            {allPoolParams.length > 0 &&
-              allPoolParams.map((pool) => {
-                return (
-                  <div
-                    key={pool.tradingT}
-                    onClick={async () => {
-                      await getFaucet(pool.tokenT)
-                      setIsOpen(false)
-                    }}
-                  >
-                    <div css={align}>
-                      <DAIIcon height="40" width="40" />
-                      <div
-                        css={css`
-                          margin-left: 12px;
-                        `}
-                      >
-                        <p>{pool.symbol}</p>
-                        <p className="grey">{pool.symbol}</p>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
+            <div
+              onClick={async () => {
+                await getFaucet()
+                setIsOpen(false)
+              }}
+            >
+              <div css={align}>
+                <DAIIcon height="40" width="40" />
+                <div
+                  css={css`
+                    margin-left: 12px;
+                  `}
+                >
+                  <InvertColorsOutlinedIcon />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </DialogContent>

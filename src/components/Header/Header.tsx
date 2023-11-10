@@ -20,6 +20,7 @@ import { WalletButton } from './WalletButton'
 import { useInterval } from '../../hook/hookV8/useInterval'
 import { getAddChainParameters } from '../../connectors/chain'
 import { SUPPORT_CHAIN } from '../../constant/chain'
+import { FaucetDialog } from '../Dialog/FaucetDialog'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -27,6 +28,7 @@ export const Header = () => {
   const { account, chainId, connector, provider } = useWeb3React()
   const [ethBalance, setEthBalance] = useState(new BigNumber(0))
   const [openMobileNav, setOpenMobileNav] = useState(false)
+  const [openFa, setOpenFa] = useState(false)
 
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
@@ -98,6 +100,7 @@ export const Header = () => {
   return (
     <>
       <NavMenu isOpen={openMobileNav} setIsOpen={() => setOpenMobileNav(false)} />
+      <FaucetDialog isOpen={openFa} setIsOpen={setOpenFa} />
       <header
         css={[
           header,
@@ -160,6 +163,7 @@ export const Header = () => {
             ethBalance={ethBalance}
             toggleTheme={toggleTheme}
             account={account}
+            setOpenFaucet={() => setOpenFa(true)}
           />
           {isMobile && <DehazeIcon onClick={() => setOpenMobileNav(true)} height="24" width="24" />}
         </div>
