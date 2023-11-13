@@ -21,7 +21,7 @@ import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
   const theme = useTheme()
   const [confirm, setConfirm] = useState(false)
-  const [ticketSize, setTicketSize] = useState<string | number>('')
+  const [ticketSize, setTicketSize] = useState<string | number>(1)
   const [LPProvision, setLPProvision] = useState<string | number>('')
   const [tokenAddress, setTokenAddress] = useState('')
   const [tokenSymbol, setTokenSymbol] = useState('')
@@ -173,34 +173,6 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 </KRAVTextField>
               </div>
               <div className="input-params">
-                <div>Set Ticket Size</div>
-                <div
-                  css={css`
-                    display: grid;
-                    grid-template-columns: auto 1fr;
-                    align-items: center;
-                  `}
-                >
-                  <div
-                    css={css`
-                      margin-right: 16px;
-                    `}
-                  >
-                    1 BTC =
-                  </div>
-                  <div>
-                    <KRAVTextField
-                      value={ticketSize}
-                      type="number"
-                      onChange={(event) => setTicketSize(Number(event.target.value))}
-                      sx={{ width: '100%' }}
-                    >
-                      <span>DAI token</span>
-                    </KRAVTextField>
-                  </div>
-                </div>
-              </div>
-              <div className="input-params">
                 <div>Initial LP Provision</div>
                 <KRAVTextField
                   value={LPProvision}
@@ -263,31 +235,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
               </div>
               <div className="step">
                 <p>
-                  <Trans>Step 3 Set Ticket Size</Trans>
-                </p>
-                <p>
-                  This conversion ratio is a fixed value and is not affected by the price of{' '}
-                  <span
-                    css={css`
-                      color: #009b72;
-                    `}
-                  >
-                    {tokenSymbol === '' ? 'X' : tokenSymbol}
-                  </span>{' '}
-                  token. The transaction profit and loss will be settled in BTC, and finally settled with{' '}
-                  <span
-                    css={css`
-                      color: #009b72;
-                    `}
-                  >
-                    {tokenSymbol === '' ? 'X' : tokenSymbol}
-                  </span>{' '}
-                  token according to the conversion ratio.
-                </p>
-              </div>
-              <div className="step">
-                <p>
-                  <Trans>Step 4 Initial LP Provision</Trans>
+                  <Trans>Step 3 Initial LP Provision</Trans>
                 </p>
                 <p>
                   <Trans>
