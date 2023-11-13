@@ -29,6 +29,7 @@ export const Header = () => {
   const [ethBalance, setEthBalance] = useState(new BigNumber(0))
   const [openMobileNav, setOpenMobileNav] = useState(false)
   const [openFa, setOpenFa] = useState(false)
+  const [autoConnect, setAutoConnect] = useState(true)
 
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
@@ -67,16 +68,15 @@ export const Header = () => {
 
   useEffect(() => {
     setTimeout(async () => {
-      if (!account && !disconnectWallet) {
+      if (!account && !disconnectWallet && autoConnect) {
         try {
-          console.log('chainId !== expectChainId', chainId !== expectChainId)
-          console.log('chainId', chainId)
-          console.log('expectChainId', expectChainId)
           await connector.activate(chainId !== expectChainId ? expectChainId : undefined)
           setDisconnectWallet(true)
+          setAutoConnect(false)
         } catch (e) {
           try {
             await connector.activate(getAddChainParameters(expectChainId))
+            setAutoConnect(false)
           } catch (e) {}
         }
       }
