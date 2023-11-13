@@ -38,7 +38,11 @@ export function useContract<T extends Contract = Contract>(
 
 export const useTradingV6Contract = (tradingAddress: string) => {
   const { chainId } = useWeb3React()
-  return useContract(tradingAddress, chainId === ChainId.MAINNET ? trading_v6_eth.abi : trading_v6.abi, true)
+  return useContract(
+    tradingAddress,
+    chainId === ChainId.BASE || chainId === ChainId.BASE_TEST ? trading_v6.abi : trading_v6_eth.abi,
+    true
+  )
 }
 
 export const useTradingStoreContract = (storageAddress: string) => {
@@ -75,14 +79,6 @@ export const useFactoryContract = (provider: JsonRpcProvider) => {
 
 export const useFactoryWithProvider = (provider: any) => {
   const expectChainId = useRootStore((store) => store.expectChainId)
-  console.log('expectChainId', expectChainId)
-  // return useMemo(() => {
-  //   return new Contract(
-  //     CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
-  //     krav_factory.abi,
-  //     provider
-  //   )
-  // }, [expectChainId])
   const address = useMemo(() => {
     return CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN]
       .factory

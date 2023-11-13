@@ -14,6 +14,7 @@ import { TradeMode } from '../../../store/TradeSlice'
 import { EXCHANGE_CONFIG, EXCHANGE_TRADING_T } from '../../../constant/exchange'
 import { SelectPair } from '../../Dialog/SelectPair'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
@@ -28,9 +29,9 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
   const {
     BTCPrice,
     isBTCRise,
-    // allPoolParams,
+    allPoolParams,
     tradePool,
-    // setTradePool,
+    setTradePool,
     // isLoadingFactory,
     setTradePairIndex,
     tradePairIndex,
@@ -85,14 +86,14 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     return () => setTradePairIndex(0)
   }, [showSwitch])
 
-  // useEffect(() => {
-  //   if (allPoolParams.length > 0) {
-  //     setTradePool(allPoolParams[0])
-  //     // const target = allPoolParams.find((pool) => pool.tradingT === BASE_KRAV_TRADING_ADDRESS)
-  //     // if (target) setTradePool(target)
-  //     // else setTradePool(allPoolParams[0])
-  //   }
-  // }, [allPoolParams])
+  useEffect(() => {
+    if (allPoolParams.length > 0) {
+      setTradePool(allPoolParams[0])
+      const target = allPoolParams.find((pool) => pool.tradingT === BASE_KRAV_TRADING_ADDRESS)
+      if (target) setTradePool(target)
+      else setTradePool(allPoolParams[0])
+    }
+  }, [allPoolParams])
 
   return (
     <>

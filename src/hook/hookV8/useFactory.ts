@@ -59,7 +59,8 @@ export const useFactory = () => {
 
   return useCallback(async () => {
     try {
-      console.log('factory', expectChainId)
+      console.log('factory', factory)
+      console.log('expectChainId', expectChainId)
       // if (typeof expectChainId === 'undefined' && typeof chainId === 'undefined') return
       // if (typeof expectChainId !== 'undefined' && typeof chainId === 'undefined') return
       const totalPools = await factory.quantosCount()

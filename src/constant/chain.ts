@@ -148,7 +148,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     multicall: '0x39De4bF497E5e26B03d227bdf4534c4775f73709',
   },
   [ChainId.OP_GOERLI]: {
-    factory: '0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A',
+    factory: '0x188dFEE91c18cbF821731de6125cF4551011b2a4',
     linkAddress: '0xdc2CC710e42857672E7907CF474a69B63B93089f',
     nodeAddress: ['0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'],
     // krav stake address conflict
@@ -163,27 +163,20 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
   },
 }
 
-// export const TEST_RPC_NODE = 'https://developer-access-mainnet.base.org'
-
 export const TEST_RPC_NODE = 'https://base-goerli.g.alchemy.com/v2/pjZ1AFp1o4cKAxlaTFre52frhKOxy-nH'
-
-export const LINK_ADDRESS = '0x6D0F8D488B669aa9BA2D0f0b7B75a88bf5051CD3'
-// export const LINK_ADDRESS = '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011'
-export const NODE_ADDRESS = ['0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A']
-// export const NODE_ADDRESS = ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56']
 
 export const K_LINE_API = 'https://base-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
-export const QUANTO_API = 'https://test-api.krav.trade/krav/v1/list/quanto'
+export const QUANTO_API = 'https://base-api.krav.trade/krav/v1/list/quanto'
 
-export const TRADE_HISTORY_API = 'https://test-api.krav.trade/krav/v1/list/market'
+export const TRADE_HISTORY_API = 'https://base-api.krav.trade/krav/v1/list/market'
 
-export const DASHBOARD_OVERVIEW_API = 'https://test-api.krav.trade/krav/v1/overview'
+export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 // export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 
 export const TEST_CHAIN_ID = ChainId.BASE_TEST
 
-export const BTC_PRICE_API = 'https://test-api.krav.trade/krav/v1/ticker?symbol='
+export const BTC_PRICE_API = 'https://base-api.krav.trade/krav/v1/ticker?symbol='
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
@@ -197,7 +190,7 @@ export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D
 
 export const FEE_DISTRBUTOR = '0x345bCD94ac3aBe5C7d9a5Cbe4647dF6cF449d01d'
 
-export const LP_REWARD_API = 'https://test-api.krav.trade/krav/v1/miner/'
+export const LP_REWARD_API = 'https://base-api.krav.trade/krav/v1/miner/'
 
 export const LP_REWARD_CONTRACT = '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19'
 

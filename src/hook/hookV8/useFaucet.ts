@@ -37,7 +37,7 @@ export const useFaucet = () => {
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
       const tokenContract = new Contract(testTokenAddress, test_erc20.abi, getProviderOrSigner(provider!, account))
-      const faucetTx = await tokenContract.mint('10000000000000000000000', account)
+      const faucetTx = await tokenContract.mint('100000000000000000000000', account)
       setTransactionState(TransactionState.FAUCET_TEST_TOKEN)
       await faucetTx.wait()
       updateSuccessDialog(TransactionAction.FAUCET_TEST_TOKEN)

@@ -3,11 +3,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { Dialog, DialogContent } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import { css } from '@emotion/react'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
 import { align } from '../../globalStyle'
 import { useFaucet } from '../../hook/hookV8/useFaucet'
-import InvertColorsOutlinedIcon from '@mui/icons-material/InvertColorsOutlined'
+import KRAVButton from '../KravUIKit/KravButton'
 
 type FaucetDialogProps = {
   isOpen: boolean
@@ -31,7 +29,7 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
         <div css={dialogContent}>
           <div className="select-token-header">
             <div>
-              <span>Select a token</span>
+              <span>Faucet</span>
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
             </div>
           </div>
@@ -54,23 +52,14 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
             {/*    </div>*/}
             {/*  </div>*/}
             {/*</div>*/}
-            <div
+            <KRAVButton
               onClick={async () => {
                 await getFaucet()
                 setIsOpen(false)
               }}
             >
-              <div css={align}>
-                <DAIIcon height="40" width="40" />
-                <div
-                  css={css`
-                    margin-left: 12px;
-                  `}
-                >
-                  <InvertColorsOutlinedIcon />
-                </div>
-              </div>
-            </div>
+              <div css={align}>Faucet</div>
+            </KRAVButton>
           </div>
         </div>
       </DialogContent>

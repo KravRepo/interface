@@ -66,6 +66,7 @@ export const useUserPosition = () => {
           }
           userPositionDatas.push(positionDetails)
         })
+        console.log('userPositionDatas', userPositionDatas)
         setUserPositionDatas(userPositionDatas)
         // console.log('get user position over')
       }

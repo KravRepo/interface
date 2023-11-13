@@ -60,12 +60,6 @@ const FullApp = () => {
     if (isMobile) new VConsole({ theme: 'dark' })
   }, [])
 
-  // useEffect(() => {
-  //   if (chainId) {
-  //     setExpectChainId(chainId)
-  //   }
-  // }, [chainId])
-
   return (
     <Router>
       <div

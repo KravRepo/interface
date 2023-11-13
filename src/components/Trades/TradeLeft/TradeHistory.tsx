@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import React, { Dispatch, useCallback, useEffect } from 'react'
 import { useRootStore } from '../../../store/root'
-import { QUANTO_API, TEST_CHAIN_ID, TRADE_HISTORY_API } from '../../../constant/chain'
+import { QUANTO_API, TRADE_HISTORY_API } from '../../../constant/chain'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { HistoryItem } from './HistoryItem'
@@ -65,18 +65,16 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((state) => state.tradePool)
   const allPoolParams = useRootStore((state) => state.allPoolParams)
-  const { account } = useWeb3React()
+  const { account, chainId } = useWeb3React()
 
   const getTradeHistory = useCallback(async () => {
     try {
-      const quantosRequest = await fetch(
-        QUANTO_API + `?chainId=${TEST_CHAIN_ID}&offset=0&limit=` + allPoolParams.length
-      )
+      const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
       const quantos = await quantosRequest.json()
       if (quantos.code == 200) {
         const target = quantos.data.find((quanto: Quanto) => quanto?.tradingT === tradePool?.tradingT)
         const historyRequest = await fetch(
-          TRADE_HISTORY_API + `?chainId=${TEST_CHAIN_ID}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
+          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
         )
         const history = await historyRequest.json()
         if (history.code === 200) {
@@ -87,13 +85,13 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
     } catch (e) {
       console.error('get user trade history failed!', e)
     }
-  }, [tradePool, allPoolParams, account])
+  }, [tradePool, allPoolParams, account, chainId])
 
   useEffect(() => {
     if (tradePool && account) {
       getTradeHistory().then()
     }
-  }, [tradePool, account])
+  }, [tradePool, account, chainId])
 
   return (
     <div css={isMobile ? historyOverflow : ''}>

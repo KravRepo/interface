@@ -39,18 +39,19 @@ export const useOpenTrade = ({
       const params = [tuple, tradeType, spreadReductionId, slippageP, referral] as any
       let gasLimit: BigNumber
       let tx: any
-      if (chainId === ChainId.MAINNET) {
-        const minETHFees = await contract.minExecutionFee()
-        gasLimit = await getGasLimit(contract, 'openTrade', params, new BigNumber(minETHFees._hex).toString())
-        gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
-        tx = await contract.openTrade(...params, {
-          value: new BigNumber(minETHFees._hex).toString(),
-          gasLimit: gasLimit.toFixed(0),
-        })
-      } else {
+      if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
         gasLimit = await getGasLimit(contract, 'openTrade', params)
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         tx = await contract.openTrade(...params, { gasLimit: gasLimit.toFixed(0) })
+      } else {
+        const minETHFees = await contract.minExecutionFee()
+        console.log('minETHFees', minETHFees)
+        // gasLimit = await getGasLimit(contract, 'openTrade', params, new BigNumber(minETHFees._hex).toString())
+        // gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+        tx = await contract.openTrade(...params, {
+          value: new BigNumber(minETHFees._hex).toString(),
+          // gasLimit: gasLimit.toFixed(0),
+        })
       }
       setTransactionState(TransactionState.START_OPEN_TRADE)
       console.log('tx', await tx.wait())
