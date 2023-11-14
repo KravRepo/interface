@@ -21,6 +21,7 @@ import { useInterval } from '../../hook/hookV8/useInterval'
 import { getAddChainParameters } from '../../connectors/chain'
 import { SUPPORT_CHAIN } from '../../constant/chain'
 import { FaucetDialog } from '../Dialog/FaucetDialog'
+import { useFactory } from '../../hook/hookV8/useFactory'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -30,6 +31,7 @@ export const Header = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false)
   const [openFa, setOpenFa] = useState(false)
   const [autoConnect, setAutoConnect] = useState(true)
+  const factory = useFactory()
 
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
@@ -69,7 +71,6 @@ export const Header = () => {
   useEffect(() => {
     setTimeout(async () => {
       if (!account && !disconnectWallet && autoConnect) {
-        console.log('auto connect wallet')
         try {
           await connector.activate(chainId !== expectChainId ? expectChainId : undefined)
           setDisconnectWallet(true)
@@ -79,6 +80,8 @@ export const Header = () => {
             await connector.activate(getAddChainParameters(expectChainId))
             setAutoConnect(false)
           } catch (e) {}
+        } finally {
+          factory().then()
         }
       }
     }, 200)
