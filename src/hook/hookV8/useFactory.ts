@@ -59,12 +59,7 @@ export const useFactory = () => {
 
   return useCallback(async () => {
     try {
-      console.log('factory', factory)
-      console.log('expectChainId', expectChainId)
-      // if (typeof expectChainId === 'undefined' && typeof chainId === 'undefined') return
-      // if (typeof expectChainId !== 'undefined' && typeof chainId === 'undefined') return
       const totalPools = await factory.quantosCount()
-      console.log('totalPools', totalPools)
       const blockNumber = await provider.getBlockNumber()
       const poolsParams = []
       for (let i = 0; i < totalPools; i++) {
@@ -233,7 +228,6 @@ export const useFactory = () => {
           item.logoSource = require('../../assets/imgs/tokens/default_token.svg').default
         }
       })
-      console.log('all pools', forMatter)
       forMatter = forMatter.filter((pool) => pool.symbol !== 'MAG')
       setAllPoolParams(forMatter)
       if (isLoadingFactory) {

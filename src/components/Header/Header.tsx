@@ -69,6 +69,7 @@ export const Header = () => {
   useEffect(() => {
     setTimeout(async () => {
       if (!account && !disconnectWallet && autoConnect) {
+        console.log('auto connect wallet')
         try {
           await connector.activate(chainId !== expectChainId ? expectChainId : undefined)
           setDisconnectWallet(true)
@@ -175,21 +176,7 @@ export const Header = () => {
       {chainId && !SUPPORT_CHAIN.includes(chainId) && account && (
         <div css={UnSupport}>
           Unsupported network! &nbsp;
-          <span
-          // onClick={async () => {
-          //   if (connector) {
-          //     try {
-          //       await connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
-          //     } catch (e) {
-          //       try {
-          //         await connector.activate(getAddChainParameters(TEST_CHAIN_ID))
-          //       } catch (e) {}
-          //     }
-          //   }
-          // }}
-          >
-            Please change network.
-          </span>
+          <span>Please change network.</span>
         </div>
       )}
     </>

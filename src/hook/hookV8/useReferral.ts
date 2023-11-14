@@ -64,7 +64,7 @@ export const useReferral = () => {
   }, [account, provider, factory, allPoolParams])
 
   const getRewardsReferral = useCallback(async () => {
-    if (factory && account && provider && allPoolParams.length > 0) {
+    if (factory && account && provider && allPoolParams.length > 0 && chainId) {
       try {
         const multicall = new Contract(
           chainId && SUPPORT_CHAIN.includes(chainId)
@@ -76,7 +76,14 @@ export const useReferral = () => {
         const factoryInterface = new Interface(factory_abi.abi)
         const task: any[] = []
         allPoolParams.forEach((pool) => {
-          task.push(creatCall(factory_abi.address, factoryInterface, 'rewardsReferral', [account, pool.tokenT]))
+          task.push(
+            creatCall(
+              CONTRACT_CONFIG[chainId && SUPPORT_CHAIN.includes(chainId) ? chainId : DEFAULT_CHAIN].factory,
+              factoryInterface,
+              'rewardsReferral',
+              [account, pool.tokenT]
+            )
+          )
         })
         const data = await multicall.callStatic.aggregate(task)
         let rewardInfos = data.returnData

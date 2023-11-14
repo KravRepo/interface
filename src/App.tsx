@@ -43,6 +43,7 @@ i18n.activate('en')
 
 const FullApp = () => {
   const expectChainId = useRootStore((store) => store.expectChainId)
+  const allPoolParams = useRootStore((store) => store.allPoolParams)
   const getUserPosition = useUserPosition()
   const factory = useFactory()
   useChainIdListener()
@@ -55,6 +56,10 @@ const FullApp = () => {
   useEffect(() => {
     factory().then()
   }, [expectChainId])
+
+  useEffect(() => {
+    if (allPoolParams) getUserPosition().then()
+  }, [allPoolParams])
 
   useEffect(() => {
     if (isMobile) new VConsole({ theme: 'dark' })

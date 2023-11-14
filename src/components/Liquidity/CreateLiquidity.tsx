@@ -37,7 +37,6 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
         const req = await Promise.all([tokenContract.symbol(), tokenContract.decimals()])
         const symbol = req[0]
         const decimals = req[1]
-        console.log('token decimals', decimals)
         setTokenSymbol(symbol)
         setTokenDecimals(decimals)
       }

@@ -11,8 +11,8 @@ export const HomeReferral = () => {
   return (
     <HomeLayout>
       <>
-        {expectChainId === ChainId.MAINNET && <ComingSoon title={'Referral'} />}
-        {expectChainId !== ChainId.MAINNET && <Referral />}
+        {expectChainId !== ChainId.BASE && expectChainId !== ChainId.BASE_TEST && <ComingSoon title={'Referral'} />}
+        {(expectChainId === ChainId.BASE || expectChainId === ChainId.BASE_TEST) && <Referral />}
       </>
     </HomeLayout>
   )

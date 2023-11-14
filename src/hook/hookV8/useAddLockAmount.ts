@@ -29,14 +29,11 @@ export const useAddLockAmount = () => {
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
           const allowance = await kravTokenContract.allowance(account, config.veKrav)
-          console.log('allowance', new BigNumber(allowance._hex).toString())
 
           if (lockAmount.isGreaterThan(new BigNumber(allowance._hex))) {
             setTransactionState(TransactionState.APPROVE)
-            console.log('2 approve', lockAmount.toString())
             const approveTX = await kravTokenContract.approve(config.veKrav, MAX_UNIT_256)
             await approveTX.wait()
-            console.log('3 approveTX', approveTX)
           }
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)

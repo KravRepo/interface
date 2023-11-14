@@ -15,12 +15,13 @@ export const MyTrade = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [infoType, setInfoType] = useState(0)
-  const { provider, account } = useWeb3React()
+  const { provider, account, chainId } = useWeb3React()
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const tradePool = useRootStore((store) => store.tradePool)
   const tradePairIndex = useRootStore((store) => store.tradePairIndex)
+  const expectChainId = useRootStore((store) => store.expectChainId)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setInfoType(newValue)
   }
@@ -34,16 +35,16 @@ export const MyTrade = () => {
   }, 15000)
 
   useEffect(() => {
-    if (provider && account && tradePool.storageT) {
+    if (provider && account && tradePool.storageT && expectChainId === chainId) {
       getUserOpenLimitOrders(tradePool.storageT, true).then()
     }
-  }, [provider, account, tradePairIndex, tradePool])
+  }, [provider, account, tradePairIndex, tradePool, expectChainId, chainId])
 
   useEffect(() => {
-    if (provider && account && tradePool.storageT) {
+    if (provider && account && tradePool.storageT && expectChainId === chainId) {
       getUserOpenTrade(tradePool.storageT, true).then()
     }
-  }, [provider, account, tradePairIndex, tradePool])
+  }, [provider, account, tradePairIndex, tradePool, expectChainId, chainId])
 
   return (
     <div

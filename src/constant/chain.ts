@@ -56,7 +56,7 @@ export const API_CONFIG: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://optimism-goerli.publicnode.com',
   },
   [ChainId.ARB_TEST]: {
-    rpcNode: 'https://arbitrum-nova.publicnode.com',
+    rpcNode: 'https://arb-goerli.g.alchemy.com/v2/bLMhTU8OhjUQvkGwDTrPUiU3GDtD_Jj3',
   },
   [ChainId.MUMBAI_TEST]: {
     rpcNode: 'https://polygon-testnet.public.blastapi.io',

@@ -35,11 +35,9 @@ export const useAddLiquidity = (tokenAddress: string) => {
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
           const allowance = await tokenContract.allowance(account, vaultAddress)
-          console.log('allowance', new BigNumber(allowance._hex).toString())
 
           if (amount.isGreaterThan(new BigNumber(allowance._hex))) {
             setTransactionState(TransactionState.APPROVE)
-            console.log('2 approve', amount.toString())
             const approveTX = await tokenContract.approve(vaultAddress, MAX_UNIT_256)
             await approveTX.wait()
           }
