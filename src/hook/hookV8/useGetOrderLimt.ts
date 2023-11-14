@@ -27,7 +27,7 @@ export const useGetOrderLimit = () => {
         setOrderLimit(MaxPos?.minus(curPos))
       }
     } catch (e) {
-      console.error('get order limit failed!')
+      console.log('get order limit failed!')
     }
   }, [tradePool, provider, tradePairIndex, pairStorageContract])
 

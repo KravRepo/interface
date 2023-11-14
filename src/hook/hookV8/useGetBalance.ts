@@ -45,11 +45,11 @@ export const useGetUserAllBalance = () => {
           })
           setUserPositionDatas(newUserPositionDatas)
         } catch (e) {
-          console.error('send balance task failed!', e)
+          console.log('send balance task failed!', e)
         }
       }
     } catch (e) {
-      console.error('get user all balance failed!', e)
+      console.log('get user all balance failed!', e)
     }
   }, [account, provider])
 }

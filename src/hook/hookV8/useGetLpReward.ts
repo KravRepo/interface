@@ -21,7 +21,7 @@ export const useGetLpReward = (vaultAddress: string, decimals: number) => {
           setLpReward(eXDecimals(new BigNumber(lpReward._hex), decimals))
         }
       } catch (e) {
-        console.error('get lp reward failed!', e)
+        console.log('get lp reward failed!', e)
       }
     },
     [account, vaultContract]
