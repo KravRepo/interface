@@ -37,7 +37,7 @@ export const useGetUserAllOpenTrades = () => {
               const asyncWorker = async () => {
                 //TODO current pairIndex only one , change in next update
                 const contract = new Contract(address, trading_storage.abi, provider)
-                if (address === EXCHANGE_STORAGE_T) {
+                if (EXCHANGE_STORAGE_T.includes(address)) {
                   const userTotalTradesTask: CreatCall[] = []
                   const config = Object.keys(EXCHANGE_CONFIG).map((key) => {
                     return EXCHANGE_CONFIG[Number(key)]

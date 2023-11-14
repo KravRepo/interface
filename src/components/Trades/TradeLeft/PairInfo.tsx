@@ -54,7 +54,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
   )
 
   const showSwitch = useMemo(() => {
-    return tradePool.tradingT === EXCHANGE_TRADING_T
+    return EXCHANGE_TRADING_T.includes(tradePool.tradingT)
   }, [tradePool])
 
   const tradePair = useMemo(() => {

@@ -36,7 +36,7 @@ export const useGetUserAllLimitOrders = () => {
             storageList.map(async (address, index) => {
               const asyncWorker = async () => {
                 const contract = new Contract(address, trading_storage.abi, provider)
-                if (address === EXCHANGE_STORAGE_T) {
+                if (EXCHANGE_STORAGE_T.includes(address)) {
                   const userTotalLimitTask: CreatCall[] = []
                   const config = Object.keys(EXCHANGE_CONFIG).map((key) => {
                     return EXCHANGE_CONFIG[Number(key)]
