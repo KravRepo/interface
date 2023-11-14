@@ -41,9 +41,13 @@ export const useCreatePool = () => {
             const approve = await tokenContract.approve(CONTRACT_CONFIG[chainId].factory, MAX_UNIT_256)
             await approve.wait()
           }
-
+          let gasLimit: BigNumber
           setTransactionState(TransactionState.INTERACTION)
-          let gasLimit = await getGasLimit(factory, 'createQuanto', params)
+          try {
+            gasLimit = await getGasLimit(factory, 'createQuanto', params)
+          } catch (e) {
+            gasLimit = new BigNumber(6200000)
+          }
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
           // const tx = await factory.createQuanto(...params, { gasLimit: gasLimit.toFixed(0) })
           const tx = await factory.createQuanto(

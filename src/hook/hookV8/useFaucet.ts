@@ -25,8 +25,6 @@ export const useFaucet = () => {
         return '0x0A9475f047DFc96E23343F01eeBbce56497f7520'
       case ChainId.MUMBAI_TEST:
         return '0x17a26d994800Faf302CE033B4d49B2FD12bE669b'
-      case ChainId.BASE_TEST:
-        return '0xCAbE05a699d674D09373606d5a0a781D9f1E3F81'
       default:
         return '0x0A9475f047DFc96E23343F01eeBbce56497f7520'
     }
