@@ -102,7 +102,13 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
-          <div>${BTCPrice.toFixed(tradePair.fixDecimals)}</div>
+          <div
+            css={css`
+              color: #ffb800;
+            `}
+          >
+            ${BTCPrice.toFixed(tradePair.fixDecimals)}
+          </div>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             {openTrade.sl.toString() === '0'
               ? `$${liqPrice.toFixed(tradePair.fixDecimals)}`
@@ -177,7 +183,13 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool.symbol}
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
-          <div>${BTCPrice.toFixed(tradePair.fixDecimals)}</div>
+          <div
+            css={css`
+              color: #ffb800;
+            `}
+          >
+            ${BTCPrice.toFixed(tradePair.fixDecimals)}
+          </div>
           <div>
             {openTrade.sl.toString() === '0'
               ? `$${liqPrice.toFixed(tradePair.fixDecimals)}`

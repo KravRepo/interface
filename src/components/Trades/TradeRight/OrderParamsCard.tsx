@@ -23,100 +23,7 @@ import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { useInterval } from '../../../hook/hookV8/useInterval'
-
-const marks = [
-  {
-    value: 2,
-    label: '2x',
-  },
-  {
-    value: 5,
-    label: '5x',
-  },
-  {
-    value: 10,
-    label: '10x',
-  },
-  {
-    value: 15,
-    label: '15x',
-  },
-  {
-    value: 20,
-    label: '20x',
-  },
-  {
-    value: 25,
-    label: '25x',
-  },
-  {
-    value: 30,
-    label: '30x',
-  },
-  {
-    value: 35,
-    label: '35x',
-  },
-  {
-    value: 40,
-    label: '40x',
-  },
-  {
-    value: 45,
-    label: '45x',
-  },
-  {
-    value: 50,
-    label: '50x',
-  },
-]
-
-const DegenMarks = [
-  {
-    value: 51,
-    label: '51x',
-  },
-  {
-    value: 65,
-    label: '65x',
-  },
-  {
-    value: 80,
-    label: '80x',
-  },
-  {
-    value: 95,
-    label: '95x',
-  },
-  {
-    value: 110,
-    label: '110x',
-  },
-  {
-    value: 125,
-    label: '125x',
-  },
-  {
-    value: 140,
-    label: '140x',
-  },
-  {
-    value: 155,
-    label: '155x',
-  },
-  {
-    value: 170,
-    label: '170x',
-  },
-  {
-    value: 185,
-    label: '185x',
-  },
-  {
-    value: 200,
-    label: '200x',
-  },
-]
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 type OrderParamsCardProps = {
   leverage: number
@@ -553,6 +460,20 @@ export const OrderParamsCard = ({
                         height="16"
                         width="16"
                       />
+                      <div
+                        css={css`
+                          background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          border-radius: 4px;
+                          height: 16px;
+                          width: 16px;
+                          margin-left: 8px;
+                        `}
+                      >
+                        <KeyboardArrowDownIcon sx={{ color: '#000', height: '16px', width: '16px' }} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -699,7 +620,7 @@ export const OrderParamsCard = ({
               <Slider
                 defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 step={1}
-                marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
+                // marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
                 min={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 max={tradeModel === TradeMode.DEGEN ? 200 : 50}
                 value={leverage}
@@ -709,26 +630,29 @@ export const OrderParamsCard = ({
                 // color="#2832F5"
                 valueLabelDisplay="auto"
                 sx={{
-                  height: '2px',
+                  height: '12px',
                   '& .MuiSlider-root': {
                     color: '#757575',
                   },
                   '& .MuiSlider-rail': {
                     opacity: 1,
-                    backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                    background:
+                      theme.palette.mode === 'dark'
+                        ? 'linear-gradient(172deg, #84FF9F -6.76%, #FFE071 46.7%, #F96262 97.25%)'
+                        : 'linear-gradient(270deg, #E9FF84 0.81%, #FFE071 49.85%, #F96262 99.84%)',
                   },
                   '& .MuiSlider-track': {
                     border: 'unset',
-                    color: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
-                  },
-                  '& .MuiSlider-mark': {
-                    height: '6px',
-                    background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                    background:
+                      theme.palette.mode === 'dark'
+                        ? 'linear-gradient(172deg, #84FF9F -6.76%, #FFE071 46.7%, #F96262 97.25%)'
+                        : 'linear-gradient(270deg, #E9FF84 0.81%, #FFE071 49.85%, #F96262 99.84%)',
                   },
                   '& .MuiSlider-thumb': {
-                    height: '10px',
-                    width: '10px',
-                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+                    height: '19px',
+                    width: '19px',
+                    background: '#fff',
+                    border: `4px solid ${theme.palette.mode === 'dark' ? '#2832F5' : '#2E2E2E'}`,
                   },
                   '& .MuiSlider-markActive': {
                     background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',

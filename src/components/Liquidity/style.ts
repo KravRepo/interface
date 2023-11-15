@@ -50,6 +50,15 @@ export const liquidity = css`
       justify-content: start;
     }
   }
+  .liquidity-card-layout {
+    font-family: 'Inter';
+    font-style: normal;
+    margin: 32px 40px 0;
+    padding-bottom: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 56px 32px;
+  }
   .grey {
     color: #757575;
   }
@@ -124,6 +133,106 @@ export const creatPool = css`
           margin: 0;
           padding-bottom: 24px;
         }
+      }
+    }
+  }
+`
+
+export const marketCard = css`
+  border-radius: 16px;
+  width: 300px;
+  box-shadow: 0px 2px 15px 0px rgba(0, 0, 0, 0.16);
+  .card-title {
+    position: relative;
+    padding: 32px 16px 16px;
+    > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      > span {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+    > img {
+      position: absolute;
+    }
+  }
+  .card-content {
+    padding: 16px;
+    .data {
+      > p:first-of-type {
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+      > p:nth-of-type(2) {
+        font-size: 20px;
+        font-weight: 900;
+      }
+      > div {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 900;
+      }
+    }
+    .stake-info {
+      padding: 8px 12px;
+      border-radius: 12px;
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 700;
+        > span:first-of-type {
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+    }
+    .action {
+      overflow: hidden;
+      margin-top: 24px;
+      border-radius: 12px;
+      > div:first-of-type {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        > span:last-of-type {
+          font-size: 14px;
+        }
+      }
+      > div:last-of-type {
+        padding: 0px 12px 8px;
+        > p {
+          font-size: 12px;
+          font-weight: 700;
+        }
+        > div {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-size: 20px;
+          font-weight: 900;
+        }
+      }
+    }
+    .apr {
+      border-radius: 12px;
+      margin-top: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      > span:first-of-type {
+        font-size: 12px;
       }
     }
   }

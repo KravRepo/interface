@@ -30,7 +30,6 @@ export const useUserPosition = () => {
   return useCallback(async () => {
     try {
       if (allPoolParams.length > 0 && account && provider && chainId) {
-        // console.log('into get user position')
         const multicall = new Contract(
           chainId && SUPPORT_CHAIN.includes(chainId)
             ? CONTRACT_CONFIG[chainId].multicall
@@ -67,7 +66,6 @@ export const useUserPosition = () => {
           userPositionDatas.push(positionDetails)
         })
         setUserPositionDatas(userPositionDatas)
-        // console.log('get user position over')
       }
     } catch (e) {
       console.log('get user position failed!', e)

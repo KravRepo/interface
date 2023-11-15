@@ -258,7 +258,22 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   `}
                 >
                   {tradePair.titleSymbol}
-                  {showSwitch && <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />}
+                  {showSwitch && (
+                    <div
+                      css={css`
+                        background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 6px;
+                        height: 32px;
+                        width: 32px;
+                        margin-left: 8px;
+                      `}
+                    >
+                      <KeyboardArrowDownIcon sx={{ color: '#000', height: '24px', width: '24px' }} />
+                    </div>
+                  )}
                 </div>
                 <div
                   onClick={() => {
@@ -278,7 +293,20 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   >
                     {BTCPrice.toFixed(tradePair.fixDecimals)}
                   </span>
-                  <KeyboardArrowDownIcon sx={{ height: '12px', width: '12px', marginLeft: '8px' }} />
+                  <div
+                    css={css`
+                      background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      border-radius: 6px;
+                      height: 32px;
+                      width: 32px;
+                      margin-left: 8px;
+                    `}
+                  >
+                    <KeyboardArrowDownIcon sx={{ color: '#000', height: '24px', width: '24px' }} />
+                  </div>
                 </div>
               </div>
             </div>
@@ -402,6 +430,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               css={css`
                 font-family: 'Inter';
                 font-size: 12px;
+                font-weight: 600;
                 font-style: normal;
                 line-height: 130%;
                 display: flex;
@@ -412,7 +441,9 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 text-align: center;
                 cursor: pointer;
                 border-radius: 8px;
-                background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
+                background: ${tradeModel === TradeMode.BASIC
+                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                  : 'transparent'};
                 color: ${tradeModel === TradeMode.BASIC ? '#000' : theme.text.primary};
               `}
               onClick={() => setTradeModel(TradeMode.BASIC)}
@@ -433,7 +464,10 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 border-radius: 8px;
                 cursor: pointer;
                 width: 83px;
-                background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
+                font-weight: 600;
+                background: ${tradeModel === TradeMode.PRO
+                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                  : 'transparent'};
                 color: ${tradeModel === TradeMode.PRO ? '#000' : theme.text.primary};
               `}
               onClick={() => setTradeModel(TradeMode.PRO)}
@@ -454,6 +488,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 line-height: 130%;
                 text-align: center;
                 cursor: pointer;
+                font-weight: 600;
                 background: ${tradeModel === TradeMode.DEGEN
                   ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
                   : 'transparent'};

@@ -7,12 +7,14 @@ import { useWeb3React } from '@web3-react/core'
 import { useMemo } from 'react'
 import { MarketSkeleton } from './MarketSkeleton'
 import { useTheme } from '@mui/material'
+import { PositionItemCard } from './PositionItemCard'
 
 export const YourPosition = ({
   setAddLiquidity,
   setRemoveLiquidity,
   isLoadingUserPosition,
   aprList,
+  isTable,
 }: YourPositionProps) => {
   const { account } = useWeb3React()
   const theme = useTheme()
@@ -47,40 +49,69 @@ export const YourPosition = ({
         <span>Your positions</span>
         <span>{positionDatas.length > 0 ? ` (${positionDatas.length})` : ''}</span>
       </div>
-      <div>
+      {isTable && (
+        <div>
+          <div
+            className="liquidity-table grey nowrap"
+            css={css`
+              margin-top: 24px;
+            `}
+          >
+            <div>ASSET</div>
+            {/*<div>PER TICKET PRICE</div>*/}
+            <div>APR</div>
+            <div>UTILIZATION</div>
+            <div>YOUR LIQUIDITY SUPPLY</div>
+            <div>REMOVE LIMIT</div>
+            <div>WITHDRAW_BLOCK</div>
+          </div>
+          {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
+          {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
+          {account && !isLoadingUserPosition && positionDatas.length === 0 && (
+            <div className="no-data">No Position yet</div>
+          )}
+          {account &&
+            positionDatas.length > 0 &&
+            positionDatas.map((position, index) => {
+              return (
+                <PositionItem
+                  key={position.pool?.tradingT + index}
+                  position={position}
+                  setAddLiquidity={setAddLiquidity}
+                  setRemoveLiquidity={setRemoveLiquidity}
+                  aprList={aprList}
+                />
+              )
+            })}
+        </div>
+      )}
+      {!isTable && (
         <div
-          className="liquidity-table grey nowrap"
+          className="liquidity-card-layout"
           css={css`
-            margin-top: 24px;
+            margin-top: 72px !important;
           `}
         >
-          <div>ASSET</div>
-          {/*<div>PER TICKET PRICE</div>*/}
-          <div>APR</div>
-          <div>UTILIZATION</div>
-          <div>YOUR LIQUIDITY SUPPLY</div>
-          <div>REMOVE LIMIT</div>
-          <div>WITHDRAW_BLOCK</div>
+          {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
+          {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
+          {account && !isLoadingUserPosition && positionDatas.length === 0 && (
+            <div className="no-data">No Position yet</div>
+          )}
+          {account &&
+            positionDatas.length > 0 &&
+            positionDatas.map((position, index) => {
+              return (
+                <PositionItemCard
+                  key={position.pool?.tradingT + index}
+                  position={position}
+                  setAddLiquidity={setAddLiquidity}
+                  setRemoveLiquidity={setRemoveLiquidity}
+                  aprList={aprList}
+                />
+              )
+            })}
         </div>
-        {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
-        {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
-        {account && !isLoadingUserPosition && positionDatas.length === 0 && (
-          <div className="no-data">No Position yet</div>
-        )}
-        {account &&
-          positionDatas.length > 0 &&
-          positionDatas.map((position, index) => {
-            return (
-              <PositionItem
-                key={position.pool?.tradingT + index}
-                position={position}
-                setAddLiquidity={setAddLiquidity}
-                setRemoveLiquidity={setRemoveLiquidity}
-                aprList={aprList}
-              />
-            )
-          })}
-      </div>
+      )}
     </div>
   )
 }
