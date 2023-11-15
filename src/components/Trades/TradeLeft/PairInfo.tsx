@@ -247,6 +247,14 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               >
                 <div
                   className="symbol"
+                  css={css`
+                    display: flex;
+                    align-items: center;
+                  `}
+                >
+                  {tradePair.titleSymbol}
+                </div>
+                <div
                   onClick={() => {
                     if (showSwitch) {
                       setChoosePair(true)
@@ -257,7 +265,15 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                     align-items: center;
                   `}
                 >
-                  {tradePair.titleSymbol}
+                  <span
+                    css={css`
+                      color: ${isBTCRise ? '#009b72' : '#db4c40'};
+                      font-size: 20px;
+                      line-height: 1.4;
+                    `}
+                  >
+                    {BTCPrice.toFixed(tradePair.fixDecimals)}
+                  </span>
                   {showSwitch && (
                     <div
                       css={css`
@@ -274,39 +290,6 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                       <KeyboardArrowDownIcon sx={{ color: '#000', height: '24px', width: '24px' }} />
                     </div>
                   )}
-                </div>
-                <div
-                  onClick={() => {
-                    setIsOpenSelectToken(true)
-                  }}
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                  `}
-                >
-                  <span
-                    css={css`
-                      color: ${isBTCRise ? '#009b72' : '#db4c40'};
-                      font-size: 20px;
-                      line-height: 1.4;
-                    `}
-                  >
-                    {BTCPrice.toFixed(tradePair.fixDecimals)}
-                  </span>
-                  <div
-                    css={css`
-                      background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      border-radius: 6px;
-                      height: 32px;
-                      width: 32px;
-                      margin-left: 8px;
-                    `}
-                  >
-                    <KeyboardArrowDownIcon sx={{ color: '#000', height: '24px', width: '24px' }} />
-                  </div>
                 </div>
               </div>
             </div>
