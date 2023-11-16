@@ -36,6 +36,8 @@ export const Header = () => {
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
   const expectChainId = useRootStore((store) => store.expectChainId)
+  const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
+
   const { pathname } = useLocation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -70,19 +72,23 @@ export const Header = () => {
 
   useEffect(() => {
     setTimeout(async () => {
+      const id = localStorage.getItem('krav-chain-id')
       if (!account && !disconnectWallet && autoConnect) {
         try {
-          await connector.activate(chainId !== expectChainId ? expectChainId : undefined)
+          await connector.activate()
           setDisconnectWallet(true)
           setAutoConnect(false)
         } catch (e: any) {
           if (e.code === 4001) return
           try {
-            await connector.activate(getAddChainParameters(expectChainId))
+            await connector.activate(getAddChainParameters(Number(id) ? Number(id) : expectChainId))
             setAutoConnect(false)
           } catch (e) {}
         } finally {
-          factory().then()
+          if (!isLoadingFactory)
+            factory().then(() => {
+              console.log('auto connect wallet update factory')
+            })
         }
       }
     }, 200)

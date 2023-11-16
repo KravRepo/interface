@@ -34,6 +34,7 @@ import { useInterval } from './hook/hookV8/useInterval'
 import { useRootStore } from './store/root'
 import { useUserPosition } from './hook/hookV8/useUserPosition'
 import { useChainIdListener } from './hook/hookV8/useChainIdListener'
+import { DEFAULT_CHAIN } from './constant/chain'
 
 i18n.load({
   en: enMessages,
@@ -44,6 +45,7 @@ i18n.activate('en')
 const FullApp = () => {
   const expectChainId = useRootStore((store) => store.expectChainId)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
+  const factoryLock = useRootStore((store) => store.factoryLock)
   const getUserPosition = useUserPosition()
   const factory = useFactory()
 
@@ -55,7 +57,14 @@ const FullApp = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
 
   useEffect(() => {
-    factory().then()
+    const localChainId = localStorage.getItem('krav-chain-id')
+    factory(localChainId ? Number(localChainId) : DEFAULT_CHAIN).then()
+  }, [])
+
+  useEffect(() => {
+    if (!factoryLock) {
+      factory().then()
+    }
   }, [expectChainId])
 
   useEffect(() => {

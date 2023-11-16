@@ -32,6 +32,8 @@ export type PoolParams = {
 export interface FactorySlice {
   isLoadingFactory: boolean
   setIsLoadingFactory: (isLoadingFactory: boolean) => void
+  factoryLock: boolean
+  setFactoryLock: (isLoadingFactory: boolean) => void
   allPoolParams: PoolParams[]
   setAllPoolParams: (allPoolInfo: PoolParams[]) => void
   userPositionDatas: UserData[]
@@ -50,6 +52,7 @@ export const createFactorySlice: StateCreator<
   allPoolParams: [],
   userPositionDatas: [],
   expectChainId: DEFAULT_CHAIN,
+  factoryLock: true,
   setAllPoolParams(allPoolParams) {
     set({ allPoolParams: allPoolParams })
   },
@@ -61,5 +64,8 @@ export const createFactorySlice: StateCreator<
   },
   setExpectChainId(expectChainId) {
     set({ expectChainId: expectChainId })
+  },
+  setFactoryLock(factoryLock) {
+    set({ factoryLock: factoryLock })
   },
 })

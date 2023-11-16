@@ -8,9 +8,9 @@ import { UseAllOpenTrades } from './useGetUserAllOpenTrades'
 
 export const useResetStore = () => {
   const setAllPoolParams = useRootStore((store) => store.setAllPoolParams)
-  const setIsLoadingFactory = useRootStore((store) => store.setIsLoadingFactory)
   const setTradePairIndex = useRootStore((store) => store.setTradePairIndex)
   const setTradePool = useRootStore((store) => store.setTradePool)
+  const setIsLoadingFactory = useRootStore((store) => store.setIsLoadingFactory)
   const setUserOpenLimitList = useRootStore((store) => store.setUserOpenLimitList)
   const setUserOpenTradeList = useRootStore((store) => store.setUserOpenTradeList)
   const setUserAllOpenTradeList = useRootStore((store) => store.setUserAllOpenTradeList)
@@ -19,12 +19,12 @@ export const useResetStore = () => {
   return useCallback(() => {
     setUserOpenLimitList([] as TupleLimitOrder[])
     setUserOpenTradeList([] as Tuple[])
-    setIsLoadingFactory(true)
     setAllPoolParams([] as PoolParams[])
     setTradePairIndex(0)
     setTradePool({} as PoolParams)
     setUserPositionDatas([] as UserData[])
     setUserAllOpenLimitList([] as UseAllLimitOrders[])
     setUserAllOpenTradeList([] as UseAllOpenTrades[])
+    setIsLoadingFactory(true)
   }, [])
 }

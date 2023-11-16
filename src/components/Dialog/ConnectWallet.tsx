@@ -4,16 +4,12 @@ import { useCallback } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import MetamaskIcon from '../../assets/imgs/wallet/metamask.svg'
 import { dialogContent } from './sytle'
-// import { getConnection } from '../../connectors'
-// import { Connection, ConnectionType } from '../../connectors/type'
 import { useWeb3React } from '@web3-react/core'
 import { getAddChainParameters } from '../../connectors/chain'
 import { useUpdateError } from '../../hook/hookV8/useUpdateError'
 import { TransactionAction } from '../../store/TransactionSlice'
 import { DEFAULT_CHAIN } from '../../constant/chain'
 import { css } from '@emotion/react'
-// import { ReactComponent as CoinbaseWalletIcon } from 'assets/imgs/wallet/wallet_coinbase.svg'
-// import { ReactComponent as WalletConnectIcon } from '../../assets/imgs/wallet/wallet-connect.svg'
 
 export type ConnectWalletDialogProp = {
   walletDialogVisibility: boolean
@@ -22,14 +18,14 @@ export type ConnectWalletDialogProp = {
 
 export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVisibility }: ConnectWalletDialogProp) => {
   const theme = useTheme()
-  const { account, chainId, connector } = useWeb3React()
+  const { account, connector } = useWeb3React()
   const updateError = useUpdateError()
 
   const activeConnection = useCallback(
     async (walletName?: string) => {
       try {
         try {
-          await connector.activate(chainId !== DEFAULT_CHAIN ? DEFAULT_CHAIN : undefined)
+          await connector.activate()
         } catch (e: any) {
           if (e.code === 4001) return
           try {
@@ -85,16 +81,6 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
               <img src={MetamaskIcon} height="25" width="25" alt="" />
               <span>MetaMask</span>
             </div>
-            {/*<div onClick={()=> {*/}
-
-            {/*}}>*/}
-            {/*  <CoinbaseWalletIcon height="25" width="25" />*/}
-            {/*  <span>Coinbase Wallet</span>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*  <WalletConnectIcon height="25" width="25" />*/}
-            {/*  <span>Wallet Connect</span>*/}
-            {/*</div>*/}
           </div>
         </div>
       </DialogContent>
