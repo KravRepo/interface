@@ -21,6 +21,7 @@ export type ContractInfo = {
   lpReward: string
   tradeReward: string
   multicall: string
+  nativeToken: string
 }
 
 type apiInfo = {
@@ -77,6 +78,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '',
     tradeReward: '',
     multicall: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
+    nativeToken: 'ETH',
   },
   [ChainId.BASE]: {
     factory: '0xFfD88F38025e02f9d2eB7F0875060F6B4a20980a',
@@ -91,6 +93,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',
     tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
     multicall: '0x01096E802a1f6798173f2b876fbc6A8D423D8bdD',
+    nativeToken: 'ETH',
   },
   [ChainId.BASE_TEST]: {
     factory: '0xF9d56982944b344FF3632B4eE6105C2Ea6E5e931',
@@ -104,6 +107,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',
     tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
     multicall: '0x771D8465C2Bb5FFe6fC3Bc5F5Dc50d73bD846E1f',
+    nativeToken: 'ETH',
   },
   [ChainId.ARB_TEST]: {
     factory: '0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A',
@@ -118,6 +122,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '',
     tradeReward: '',
     multicall: '0xF7050aEf15a1E6EF477439c69E58fCc38CB80B43',
+    nativeToken: 'ETH',
   },
   [ChainId.BSC_TEST]: {
     factory: '0xc87E47Bf5e8615651247bb2BbbD0bED2225fbB8D',
@@ -132,6 +137,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '',
     tradeReward: '',
     multicall: '0xd0C3CFF5f01d3357505077D4a72d5538ef4DbA50',
+    nativeToken: 'BNB',
   },
   [ChainId.MUMBAI_TEST]: {
     factory: '0x7e7D51C0F9f496Baf7dB89d864476f7953169324',
@@ -146,6 +152,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '',
     tradeReward: '',
     multicall: '0x39De4bF497E5e26B03d227bdf4534c4775f73709',
+    nativeToken: 'MATIC',
   },
   [ChainId.OP_GOERLI]: {
     factory: '0x188dFEE91c18cbF821731de6125cF4551011b2a4',
@@ -160,6 +167,7 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '',
     tradeReward: '',
     multicall: '0xF7050aEf15a1E6EF477439c69E58fCc38CB80B43',
+    nativeToken: 'ETH',
   },
 }
 
