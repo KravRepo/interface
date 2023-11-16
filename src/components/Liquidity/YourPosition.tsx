@@ -87,7 +87,7 @@ export const YourPosition = ({
       )}
       {!isTable && (
         <div
-          className="liquidity-card-layout"
+          className={positionDatas.length > 0 ? 'liquidity-card-layout' : ''}
           css={css`
             margin-top: 72px !important;
           `}
