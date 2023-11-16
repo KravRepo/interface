@@ -17,6 +17,7 @@ import { ReactComponent as ThemeIconLight } from '../../assets/imgs/model_icon.s
 import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/model_icon_dark.svg'
 import { KravModeSwitch } from '../KravUIKit/KravModeSwitch'
 import BigNumber from 'bignumber.js'
+import { ChainId } from '../../constant/chain'
 
 export type SettingMenuContentProps = {
   toggleTheme: () => void
@@ -116,7 +117,7 @@ export const SettingMenuContent = ({
               color: #2832f5;
             `}
           >
-            {getBigNumberStr(ethBalance, 4)} ETH
+            {getBigNumberStr(ethBalance, 4)} {chainId === ChainId.BSC_TEST ? 'ETH' : 'BNB' }
           </p>
         </div>
       </div>
