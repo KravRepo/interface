@@ -98,7 +98,7 @@ export const TESTNET_CHAINS: ChainConfig = {
     blockExplorerUrls: ['https://goerli-explorer.optimism.io'],
   },
   421613: {
-    urls: ['https://arbitrum-nova.publicnode.com'],
+    urls: ['https://arbitrum-goerli.publicnode.com'],
     name: 'Arbitrum Goerli',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://testnet.arbiscan.io'],
