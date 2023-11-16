@@ -16,10 +16,11 @@ import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 type PositionsItemProps = {
   openTrade: Tuple
+  index: number
   pool?: PoolParams
 }
 
-export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
+export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) => {
   const theme = useTheme()
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
@@ -55,7 +56,13 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
   return (
     <>
       {!openTrade.isPendingOrder && (
-        <div className="position-layout">
+        <div
+          className="position-layout"
+          css={css`
+            background: ${(index + 1) % 2 !== 0 ? (theme.palette.mode === 'dark' ? '#0f1114' : '#f1f1f1') : ''};
+            border-radius: 24px;
+          `}
+        >
           <div>
             <p>
               {tradePair.symbol}&nbsp;

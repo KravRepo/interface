@@ -11,7 +11,8 @@ export const myTrade = css`
   .position-layout {
     align-items: center;
     display: grid;
-    padding: 12px 24px 0px;
+    padding: 12px 24px;
+    margin: 0 12px;
     grid-template-columns: 120px minmax(200px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
     @media screen and (max-width: 1200px) {
       min-width: 1200px;

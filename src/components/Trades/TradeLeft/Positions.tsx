@@ -33,7 +33,7 @@ export const Positions = () => {
       {userOpenTradeList.length > 0 &&
         account &&
         userOpenTradeList.map((openTrade, index) => {
-          return <PositionsItem openTrade={openTrade} key={index} />
+          return <PositionsItem openTrade={openTrade} key={index} index={index} />
         })}
     </div>
   )
