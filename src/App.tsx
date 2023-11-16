@@ -65,7 +65,7 @@ const FullApp = () => {
     if (!factoryLock) {
       factory().then()
     }
-  }, [expectChainId])
+  }, [expectChainId, factoryLock])
 
   useEffect(() => {
     if (allPoolParams) getUserPosition().then()
