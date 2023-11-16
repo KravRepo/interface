@@ -88,17 +88,17 @@ export const ProfitConfirmTrade = ({
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, btcPrice)
+        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(slPrice)
-  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, btcPrice, slPrice])
+  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, slPrice])
 
   const targetTp = useMemo(() => {
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, btcPrice)
+        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(tpPrice)
-  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, btcPrice, tpPrice])
+  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, tpPrice])
 
   const slPercentage = useMemo(() => {
     return getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
