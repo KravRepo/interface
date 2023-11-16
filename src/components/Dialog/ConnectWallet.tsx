@@ -28,13 +28,10 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
   const activeConnection = useCallback(
     async (walletName?: string) => {
       try {
-        // let connection: Connection
-        // if (walletName === 'metamask') connection = getConnection(ConnectionType.INJECTED)!
-        // else connection = getConnection(ConnectionType.WALLET_CONNECT_V2)!
-        // console.log('connection', connection)
         try {
           await connector.activate(chainId !== DEFAULT_CHAIN ? DEFAULT_CHAIN : undefined)
-        } catch (e) {
+        } catch (e: any) {
+          if (e.code === 4001) return
           try {
             await connector.activate(getAddChainParameters(DEFAULT_CHAIN))
           } catch (e) {

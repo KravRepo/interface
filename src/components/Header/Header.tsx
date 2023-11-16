@@ -75,7 +75,8 @@ export const Header = () => {
           await connector.activate(chainId !== expectChainId ? expectChainId : undefined)
           setDisconnectWallet(true)
           setAutoConnect(false)
-        } catch (e) {
+        } catch (e: any) {
+          if (e.code === 4001) return
           try {
             await connector.activate(getAddChainParameters(expectChainId))
             setAutoConnect(false)
