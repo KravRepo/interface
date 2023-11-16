@@ -117,7 +117,7 @@ export const SettingMenuContent = ({
               color: #2832f5;
             `}
           >
-            {getBigNumberStr(ethBalance, 4)} {chainId === ChainId.BSC_TEST ? 'ETH' : 'BNB'}
+            {getBigNumberStr(ethBalance, 4)} {chainId === ChainId.BSC_TEST ? 'BNB' : 'ETH'}
           </p>
         </div>
       </div>
