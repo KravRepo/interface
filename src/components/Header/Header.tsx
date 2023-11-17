@@ -85,10 +85,7 @@ export const Header = () => {
             setAutoConnect(false)
           } catch (e) {}
         } finally {
-          if (!isLoadingFactory)
-            factory().then(() => {
-              console.log('auto connect wallet update factory')
-            })
+          if (!isLoadingFactory) factory().then(() => {})
         }
       }
     }, 200)
