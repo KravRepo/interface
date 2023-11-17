@@ -130,6 +130,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
         <div
           css={css`
             position: absolute;
+            width: calc(100% - 48px);
           `}
         >
           <div
