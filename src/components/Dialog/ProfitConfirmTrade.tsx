@@ -126,7 +126,13 @@ export const ProfitConfirmTrade = ({
   )
 
   const slLimit = useMemo(() => {
-    const percentage = getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
+    const percentage = getTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetSl,
+      openTrade.buy,
+      openTrade.leverage,
+      true
+    )
     if (new BigNumber(targetSl).isGreaterThanOrEqualTo(openTrade.openPrice) && openTrade.buy && !targetSl.isEqualTo(0))
       return SlLimitState.SL_GT_OPEN_PRICE
     if (new BigNumber(targetSl).isLessThanOrEqualTo(openTrade.openPrice) && !openTrade.buy && !targetSl.isEqualTo(0))
@@ -137,7 +143,13 @@ export const ProfitConfirmTrade = ({
   }, [slPercentage, targetSl, slPrice, slUsePercentage, btcPrice, openTrade.buy, openTrade.leverage])
 
   const tpLimit = useMemo(() => {
-    const percentage = getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
+    const percentage = getTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetTp,
+      openTrade.buy,
+      openTrade.leverage,
+      false
+    )
     if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
     if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
     if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
