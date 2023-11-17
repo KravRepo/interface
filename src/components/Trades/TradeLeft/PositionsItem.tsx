@@ -109,6 +109,9 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             ${BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}
           </div>
+          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
+            ${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}
+          </div>
           <div>
             {openTrade.beingMarketClosed && (
               <div>
@@ -174,6 +177,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               : `$${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}`}
           </div>
           <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
+          <div>${BigNumber(openTrade.sl).toFixed(2)}</div>
           {openTrade?.isInPending && (
             <div>
               <div

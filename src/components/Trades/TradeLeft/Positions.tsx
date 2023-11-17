@@ -26,6 +26,7 @@ export const Positions = () => {
         <span>Mark price</span>
         <span>Liq.price</span>
         <span>Take profit</span>
+        <span>Stop loss</span>
         <span>Close</span>
       </div>
       {userOpenTradeList.length === 0 && account && <div className="no-data">No open position</div>}

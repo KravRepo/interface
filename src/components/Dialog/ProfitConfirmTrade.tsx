@@ -503,6 +503,14 @@ export const ProfitConfirmTrade = ({
                 <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
+                <span>Current Tp</span>
+                <span>${new BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}</span>
+              </p>
+              <p>
+                <span>Current Sl</span>
+                <span>${new BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}</span>
+              </p>
+              <p>
                 <span>Liquidation price</span>
                 <span>${lqPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
