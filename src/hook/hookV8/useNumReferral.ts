@@ -4,8 +4,8 @@ import { Dispatch, SetStateAction, useCallback, useEffect } from 'react'
 import BigNumber from 'bignumber.js'
 
 export const useNumReferral = (setNumReferral: Dispatch<SetStateAction<number>>) => {
-  const { account } = useWeb3React()
-  const factory = useFactoryWithProvider()
+  const { account, provider } = useWeb3React()
+  const factory = useFactoryWithProvider(provider)
 
   const getNumReferral = useCallback(async () => {
     if (factory && account) {

@@ -30,13 +30,19 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-size: 14px;
-          font-weight: 700;
-          padding-top: 16px;
+          padding: 16px 12px 0;
+          @media screen and (max-width: 1000px) {
+            display: block;
+            text-align: center;
+          }
+          @media screen and (max-width: 500px) {
+            display: block;
+            text-align: start;
+          }
         `}
       >
         <div>
-          <span>User {isBuy ? 'Long' : 'Short'} Amount</span>
+          <span>{isBuy ? 'Long' : 'Short'} Amount</span>
           <span
             css={css`
               padding: 0 15px;
@@ -63,7 +69,7 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
           </span>
         </div>
         <div>
-          <span> the profit will be </span>
+          <span> The profit will be </span>
           <span
             css={css`
               color: #00c076;
@@ -76,7 +82,6 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
       <div
         css={css`
           height: 481px;
-          margin-top: 12px;
           border-radius: 8px;
           position: relative;
           overflow: hidden;

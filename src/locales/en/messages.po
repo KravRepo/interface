@@ -22,12 +22,12 @@ msgid "Liquidity"
 msgstr "Liquidity"
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Market Price"
-msgstr "Market Price"
+#~ msgid "Market Price"
+#~ msgstr "Market Price"
 
 #: src/components/Header/Header.tsx
-msgid "DashBoard"
-msgstr "DashBoard"
+#~ msgid "DashBoard"
+#~ msgstr "DashBoard"
 
 #: src/components/Header/Header.tsx
 msgid "Connect Wallet"
@@ -37,17 +37,29 @@ msgstr "Connect Wallet"
 msgid "Trade"
 msgstr "Trade"
 
-#: src/components/Header/Header.tsx
-msgid "Sepolia"
-msgstr "Sepolia"
-
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24H Low"
-msgstr "24H Low"
+#~ msgid "24H Low"
+#~ msgstr "24H Low"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 msgstr "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+
+#: src/components/Header/Header.tsx
+msgid "Portfolio"
+msgstr "Portfolio"
+
+#: src/components/Header/Header.tsx
+#~ msgid "Base"
+#~ msgstr "Base"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Borrowing(S)"
+msgstr "Borrowing(S)"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Borrowing(L)"
+msgstr "Borrowing(L)"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 4 Initial LP Provision"
@@ -58,8 +70,8 @@ msgid "With BTC as the underlying asset, different assets are used as investment
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24H High"
-msgstr "24H High"
+#~ msgid "24H High"
+#~ msgstr "24H High"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 2 Select Token Collateral"
@@ -74,8 +86,12 @@ msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24h Change"
-msgstr "24h Change"
+msgid "Open Interest(L)"
+msgstr "Open Interest(L)"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+#~ msgid "24h Change"
+#~ msgstr "24h Change"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
@@ -86,5 +102,10 @@ msgid "Step 3 Set Ticket Size"
 msgstr "Step 3 Set Ticket Size"
 
 #: src/components/Trades/TradeRight/OrderParamsCard.tsx
+#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "{buttonState}"
 msgstr "{buttonState}"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Open Interest(S)"
+msgstr "Open Interest(S)"

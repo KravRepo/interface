@@ -1,37 +1,45 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { Contract, ethers } from 'ethers'
-import btc_price from 'abi/bsc_price.json'
-import { shallow } from 'zustand/shallow'
-import { BTC_CONTRACT, TEST_RPC_NODE } from '../../constant/chain'
-import { JsonRpcProvider } from '@ethersproject/providers'
+import { BTC_PRICE_API } from '../../constant/chain'
+import { EXCHANGE_CONFIG } from '../../constant/exchange'
+import { useWeb3React } from '@web3-react/core'
 
+//TODO: match price with pair index
 export const useBTCPrice = () => {
-  const provider = new ethers.providers.JsonRpcProvider(TEST_RPC_NODE) as JsonRpcProvider
-  //TODO change BTC price source
-  const contract = new Contract(BTC_CONTRACT, btc_price, provider as any)
-  const { setIsBTCRise, BTCPrice, setBTCPrice } = useRootStore(
-    (state) => ({
-      setIsBTCRise: state.setIsBTCRise,
-      BTCPrice: state.BTCPrice,
-      setBTCPrice: state.setBTCPrice,
-    }),
-    shallow
-  )
+  const { chainId } = useWeb3React()
+  const { setIsBTCRise, BTCPrice, setBTCPrice, tradePairIndex } = useRootStore((state) => ({
+    setIsBTCRise: state.setIsBTCRise,
+    BTCPrice: state.BTCPrice,
+    setBTCPrice: state.setBTCPrice,
+    tradePairIndex: state.tradePairIndex,
+  }))
+  const priceRef = useRef<NodeJS.Timer | null>(null)
 
-  return useCallback(async () => {
+  const getPrice = useCallback(async () => {
     try {
-      if (provider) {
-        const price = await contract.latestRoundData()
-        const res = new BigNumber(price.answer._hex).div(new BigNumber(10).pow(8))
-        if (res.isGreaterThan(BTCPrice)) setIsBTCRise(true)
-        else setIsBTCRise(false)
-        setBTCPrice(res)
-      }
+      const req = await fetch(BTC_PRICE_API + EXCHANGE_CONFIG[tradePairIndex].apiSymbol)
+      const price = await req.json()
+      const res = new BigNumber(price.data.price)
+      if (res.isGreaterThan(BTCPrice)) setIsBTCRise(true)
+      else setIsBTCRise(false)
+      setBTCPrice(res)
     } catch (e) {
       console.error('get BTC Price failed!', e)
-      return
     }
-  }, [contract, provider])
+  }, [tradePairIndex])
+
+  useEffect(() => {
+    if (priceRef.current) clearInterval(priceRef.current)
+    getPrice().then()
+    priceRef.current = setInterval(
+      async () => {
+        await getPrice()
+      },
+      tradePairIndex === 3 ? 6000 : 15000
+    )
+    return () => {
+      if (priceRef.current) clearInterval(priceRef.current)
+    }
+  }, [getPrice, tradePairIndex, chainId])
 }

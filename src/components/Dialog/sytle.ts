@@ -12,11 +12,12 @@ export const dialogContent = css`
     height: 76px;
     font-size: 20px;
     font-weight: 500;
-    border-bottom: 1px solid #dadada;
   }
   .select-token-header {
-    border-bottom: 1px solid #dadada;
     padding: 0 24px 24px;
+    @media screen and (max-width: 1200px) {
+      padding: 0 24px;
+    }
     > div:first-of-type {
       display: flex;
       align-items: center;
@@ -27,15 +28,11 @@ export const dialogContent = css`
     }
   }
   .select-token-list {
-    border-bottom: 1px solid #dadada;
     padding: 16px 0;
     max-height: 368px;
     overflow: scroll;
     > div {
       cursor: pointer;
-      :hover {
-        background: #f6f6f6;
-      }
       padding: 8px 24px;
       display: flex;
       align-items: center;
@@ -50,7 +47,6 @@ export const dialogContent = css`
     > div {
       display: flex;
       align-items: center;
-      border: 1px solid #dadada;
       border-radius: 4px;
       font-size: 20px;
       padding: 4px 10px;
@@ -62,15 +58,13 @@ export const dialogContent = css`
     }
   }
   .confirm-content-input {
-    background: #f6f6f6;
     text-align: center;
     border-radius: 8px;
     font-size: 16px;
     margin-bottom: 20px;
-    padding: 12px 0;
+    padding: 20px 0;
   }
   .confirm-content-input2 {
-    background: #f6f6f6;
     text-align: start;
     border-radius: 8px;
     font-size: 14px;
@@ -83,7 +77,6 @@ export const dialogContent = css`
     align-items: flex-start;
     padding: 8px 12px;
     width: 100%;
-    background: #f7f7f7;
     border-radius: 4px;
     margin-bottom: 8px;
   }
@@ -157,7 +150,6 @@ export const dialogContent = css`
 `
 
 export const snackbar = css`
-  background: white;
   border-radius: 8px;
   padding: 24px;
   font-family: 'Inter';
@@ -188,8 +180,7 @@ export const snackbar = css`
 `
 
 export const errorDialog = css`
-  padding: 24px;
-  width: 440px;
+  padding: 24px 0;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -199,15 +190,21 @@ export const errorDialog = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
-    padding-bottom: 48px;
-    padding-left: 40px;
+    padding: 0 24px 24px 64px;
+    @media screen and (max-width: 1200px) {
+      padding: 0 24px 24px 24px;
+    }
     > span {
       padding-left: 15px;
       padding-right: 45px;
+      @media screen and (max-width: 1200px) {
+        text-align: start;
+        padding: 0;
+      }
     }
   }
   .error-dialog-content {
+    padding: 24px 24px 0;
     font-size: 14px;
     > svg {
       margin: 24px 0;

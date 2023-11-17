@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, TextField } from '@mui/material'
+import { Box, Stack, TextField, Typography, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -8,13 +8,16 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { AddLiquidityProps } from '../Liquidity/type'
 import { useRootStore } from '../../store/root'
 import { useMemo, useState } from 'react'
-import { useAddLiquidity } from 'hook/hookV8/useAddLiquidity'
+import { useAddLiquidity } from '../../hook/hookV8/useAddLiquidity'
 import { addDecimals } from '../../utils/math'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import BigNumber from 'bignumber.js'
 import { useFactory } from '../../hook/hookV8/useFactory'
+import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
+import { DialogLayout } from './DialogLayout'
 
 export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
+  const theme = useTheme()
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const addLiquidity = useAddLiquidity(liquidityInfo.tokenT)
@@ -32,126 +35,163 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
   }
 
   return (
-    <Dialog
-      sx={{
-        '.MuiDialog-paper': {
-          width: '440px',
-          borderRadius: '8px',
-          background: '#fff',
-          // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
-        },
-      }}
-      open={isOpen}
-    >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
-        <div css={dialogContent}>
-          <div className="dialog-header ">
-            <span>Add Liquidity</span>
-            <CloseSharpIcon
-              sx={{ cursor: 'pointer' }}
-              onClick={() => {
-                setAmount('')
-                setIsOpen(false)
-              }}
-            />
-          </div>
+    <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen}>
+      <div css={dialogContent}>
+        <div
+          className="dialog-header "
+          css={css`
+            border-bottom: ${theme.splitLine.primary};
+          `}
+        >
+          <span>Add Liquidity</span>
+          <CloseSharpIcon
+            sx={{ cursor: 'pointer' }}
+            onClick={() => {
+              setAmount('')
+              setIsOpen(false)
+            }}
+          />
+        </div>
+        <Box padding={'24px'} pb={0}>
+          <Stack direction={'row'}>
+            <WarningIcon />
+            <Typography
+              fontFamily={'Inter'}
+              fontSize={16}
+              fontWeight={500}
+              lineHeight={'150%'}
+              sx={{ marginLeft: '8px !important' }}
+            >
+              Liquidity Remove Limit
+            </Typography>
+          </Stack>
+          <Typography
+            fontFamily={'Inter'}
+            fontSize={14}
+            fontWeight={400}
+            lineHeight={'150%'}
+            sx={{ marginTop: '16px !important' }}
+          >
+            <span style={{ fontWeight: 600 }}>Reminder: </span>
+            <span>
+              When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
+              there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure a
+              stable and fair trading environment on our platform.
+            </span>
+          </Typography>
+        </Box>
+        <div
+          css={css`
+            padding: 24px;
+          `}
+        >
           <div
+            className="confirm-content-input3"
             css={css`
-              padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
+              background: ${theme.background.second};
+              color: ${theme.text.primary};
             `}
           >
-            <div className="confirm-content-input3">
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  width: 100%;
-                  justify-content: space-between;
-                  margin-bottom: 20px;
-                `}
-              >
-                <span>Pay</span>
-                <span>
-                  Available:{PoolWalletBalance.toFixed(4)} {liquidityInfo.symbol}
-                </span>
-              </div>
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  width: 100%;
-                  justify-content: space-between;
-                `}
-              >
-                <TextField
-                  variant="standard"
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  sx={{
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 20px;
+              `}
+            >
+              <span>Pay</span>
+              <span>
+                Available:{PoolWalletBalance.toFixed(4)} {liquidityInfo.symbol}
+              </span>
+            </div>
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                width: 100%;
+                justify-content: space-between;
+              `}
+            >
+              <TextField
+                variant="standard"
+                type="number"
+                value={amount}
+                placeholder="0"
+                onChange={(e) => setAmount(e.target.value)}
+                InputProps={{
+                  disableUnderline: true,
+                }}
+                sx={{
+                  background: theme.background.second,
+                  color: theme.text.primary,
+                  height: '28px',
+                  fontSize: '20px',
+                  minHeight: '28px',
+                  '& .MuiOutlinedInput-root': {
                     height: '28px',
-                    fontSize: '20px',
                     minHeight: '28px',
-                    '& .MuiOutlinedInput-root': {
-                      height: '28px',
-                      minHeight: '28px',
-                      padding: 0,
-                    },
-                  }}
-                />
+                    padding: 0,
+                  },
+                }}
+              />
+              <div css={align}>
+                <div
+                  css={css`
+                    border-radius: 2px;
+                    background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                    padding: 2px 6px;
+                    font-size: 12px;
+                    cursor: pointer;
+                  `}
+                  onClick={handleMaxInput}
+                >
+                  MAX
+                </div>
                 <div css={align}>
-                  <div
+                  <span
                     css={css`
-                      border-radius: 2px;
-                      background: #a4a8fe;
-                      padding: 2px 6px;
-                      font-size: 12px;
-                      cursor: pointer;
+                      margin: 0 6px;
                     `}
-                    onClick={handleMaxInput}
                   >
-                    MAX
-                  </div>
-                  <div css={align}>
-                    <span
-                      css={css`
-                        margin: 0 6px;
-                      `}
-                    >
-                      {liquidityInfo.symbol}
-                    </span>
-                    <img src={liquidityInfo.logoSource} height="16" width="16" />
-                  </div>
+                    {liquidityInfo.symbol}
+                  </span>
+                  <img
+                    css={css`
+                      border-radius: 50%;
+                      background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                    `}
+                    src={liquidityInfo.logoSource}
+                    height="16"
+                    width="16"
+                  />
                 </div>
               </div>
             </div>
-            <KRAVButton
-              disabled={
-                new BigNumber(amount.toString()).isGreaterThan(PoolWalletBalance) ||
-                !new BigNumber(amount).isGreaterThan(0)
-              }
-              onClick={async () => {
-                setIsOpen(false)
-                setAmount('')
-                await addLiquidity(
-                  addDecimals(amount.toString(), liquidityInfo.decimals),
-                  liquidityInfo.vaultT,
-                  liquidityInfo.symbol,
-                  liquidityInfo.decimals
-                )
-                await Promise.all([getFactory(), getUserPosition()])
-              }}
-              sx={{ mt: '24px' }}
-            >
-              Add
-            </KRAVButton>
           </div>
+          <KRAVButton
+            disabled={
+              new BigNumber(amount.toString()).isGreaterThan(PoolWalletBalance) ||
+              !new BigNumber(amount).isGreaterThan(0)
+            }
+            onClick={async () => {
+              setIsOpen(false)
+              setAmount('')
+              await addLiquidity(
+                addDecimals(amount.toString(), liquidityInfo.decimals),
+                liquidityInfo.vaultT,
+                liquidityInfo.symbol,
+                liquidityInfo.decimals
+              )
+              await Promise.all([getFactory(), getUserPosition()])
+            }}
+            sx={{ mt: '24px' }}
+          >
+            Add
+          </KRAVButton>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </DialogLayout>
   )
 }

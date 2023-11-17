@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Connector } from '@web3-react/types'
-import { injectedConnection } from 'connectors'
+import { injectedConnection } from '../../connectors'
 
 async function connect(connector: Connector) {
   try {

@@ -27,6 +27,7 @@ const CELO: AddEthereumChainParameter['nativeCurrency'] = {
 interface BasicChainInformation {
   urls: string[]
   name: string
+  blockExplorerUrls?: string[]
 }
 
 interface ExtendedChainInformation extends BasicChainInformation {
@@ -65,6 +66,12 @@ export const MAINNET_CHAINS: ChainConfig = {
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://polygonscan.com'],
   },
+  8453: {
+    urls: ['https://developer-access-mainnet.base.org'],
+    name: 'Base',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://basescan.org'],
+  },
   42220: {
     urls: ['https://forno.celo.org'],
     name: 'Celo',
@@ -85,22 +92,28 @@ export const TESTNET_CHAINS: ChainConfig = {
     blockExplorerUrls: ['https://testnet.bscscan.com'],
   },
   420: {
-    urls: [''],
+    urls: ['https://optimism-goerli.publicnode.com'],
     name: 'Optimism Goerli',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://goerli-explorer.optimism.io'],
   },
   421613: {
-    urls: [''],
+    urls: ['https://arbitrum-goerli.publicnode.com'],
     name: 'Arbitrum Goerli',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://testnet.arbiscan.io'],
   },
   80001: {
-    urls: [''],
+    urls: ['https://polygon-testnet.public.blastapi.io'],
     name: 'Polygon Mumbai',
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://mumbai.polygonscan.com'],
+  },
+  84531: {
+    urls: ['https://goerli.base.org'],
+    name: 'Base Goerli Testnet',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://goerli.basescan.org'],
   },
   44787: {
     urls: ['https://alfajores-forno.celo-testnet.org'],
@@ -116,7 +129,7 @@ export const TESTNET_CHAINS: ChainConfig = {
   },
 }
 
-const CHAINS: ChainConfig = {
+export const CHAINS: ChainConfig = {
   ...MAINNET_CHAINS,
   ...TESTNET_CHAINS,
 }

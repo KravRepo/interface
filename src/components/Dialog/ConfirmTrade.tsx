@@ -1,23 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { Checkbox, Dialog, DialogContent } from '@mui/material'
+import { Checkbox, Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import KRAVButton from '../KravUIKit/KravButton'
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { css } from '@emotion/react'
-import { Tuple } from '../Trades/type'
+import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
-import { eXDecimals, getLiqPrice } from '../../utils/math'
-import { OPEN_FEES } from '../../constant/math'
+import { eXDecimals, getBorrowFees, getFees, getLiqPrice } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
-import { ReactComponent as ArrowDownIcon } from 'assets/imgs/arrowDown.svg'
 import { decodeReferral } from '../../utils'
+import KRAVLongButton from '../KravUIKit/KravLongButton'
+import KRAVShortButton from '../KravUIKit/KravShortButton'
+import { TradeMode } from '../../store/TradeSlice'
+import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
-  tuple: Tuple
+  tuple: TupleWithTrade
   tradeType: number
   openBTCSize: BigNumber
   setPositionSizeDai: Dispatch<React.SetStateAction<BigNumber>>
@@ -35,12 +36,19 @@ export const ConfirmTrade = ({
   setOpenBTCSize,
   setLeverage,
 }: ConfirmTradeDialogProp) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((store) => store.tradePool)
+  const tradeModel = useRootStore((store) => store.tradeModel)
   const [checked, setChecked] = useState(false)
   const [referralAddress, setReferralAddress] = useState('0x0000000000000000000000000000000000000000')
   const handleSlippagePChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
   }
+
+  const tradePair = useMemo(() => {
+    return EXCHANGE_CONFIG[tuple.pairIndex]
+  }, [tuple])
 
   const openTrade = useOpenTrade({
     tuple: tuple,
@@ -65,40 +73,45 @@ export const ConfirmTrade = ({
         '.MuiDialog-paper': {
           width: '440px',
           borderRadius: '8px',
-          background: '#fff',
+          background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
         },
       }}
       open={isOpen}
     >
-      <DialogContent sx={{ padding: 0, color: '#000' }}>
+      <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
           <div className="dialog-header ">
-            <span>{tradeType === 0 ? (tuple.buy ? 'Confirm Long' : 'Confirm Short') : 'Confirm Limit Order'}</span>
+            <span
+              css={css`
+                font-size: ${isMobile ? '18px' : '20px'};
+              `}
+            >
+              {tradeType === 0 ? (tuple.buy ? 'Confirm Long' : 'Confirm Short') : 'Confirm Limit Order'}
+            </span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
           <div
             css={css`
               padding: 24px;
-              border-bottom: 1px solid #f6f6f6;
+              border-bottom: ${theme.splitLine.primary};
             `}
           >
-            <div className="confirm-content-input">
+            <div
+              className="confirm-content-input"
+              css={css`
+                background: ${theme.background.second};
+              `}
+            >
               <div>
                 <p
                   css={css`
                     margin-bottom: 36px;
+                    font-weight: 500;
+                    font-size: 32px;
                   `}
                 >
-                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol} ($
-                  {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)})
-                </p>
-                <p>
-                  <ArrowDownIcon />
-                </p>
-                <p>
-                  {tuple.buy ? 'Long' : 'Short'} {openBTCSize.toFixed(4)} BTC($
-                  {openBTCSize.times(eXDecimals(tuple.openPrice, 18)).toFixed(2)})
+                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
                 </p>
               </div>
             </div>
@@ -113,7 +126,7 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Entry Price</span>
-                <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>
+                <span>${eXDecimals(tuple.openPrice, 10).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
                 <span>Liq. Price</span>
@@ -124,15 +137,18 @@ export const ConfirmTrade = ({
                     eXDecimals(tuple.positionSizeDai, 18),
                     tuple.buy,
                     tuple.leverage
-                  ).toFixed(2)}
+                  ).toFixed(tradePair.fixDecimals)}
                 </span>
               </p>
-              <p>
-                <span>Fees</span>
-                <span>
-                  {eXDecimals(tuple.positionSizeDai, 18).times(OPEN_FEES).toFixed(2)} {tradePool.symbol}
-                </span>
-              </p>
+              {tuple.leverage <= 50 && (
+                <p>
+                  <span>Fees</span>
+                  <span>
+                    {eXDecimals(getFees(new BigNumber(tuple.positionSizeDai), tuple.leverage), 18).toFixed(2)}{' '}
+                    {tradePool.symbol}
+                  </span>
+                </p>
+              )}
               <p>
                 <span>Collateral</span>
                 <span>{eXDecimals(tuple.positionSizeDai, 18).toFixed(2)}</span>
@@ -149,13 +165,13 @@ export const ConfirmTrade = ({
                 <span>Spread</span>
                 <span>0.00%</span>
               </p>
-              <p>
-                <span>Entry Price</span>
-                <span>${eXDecimals(tuple.openPrice, 18).toFixed(2)}</span>
-              </p>
+              {/*<p>*/}
+              {/*  <span>Entry Price</span>*/}
+              {/*  <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>*/}
+              {/*</p>*/}
               <p>
                 <span>Borrow Fee</span>
-                <span>0.0053%/1h</span>
+                <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
               </p>
               {/*<p>*/}
               {/*  <span>Execution Fee</span>*/}
@@ -173,7 +189,7 @@ export const ConfirmTrade = ({
                   sx={{
                     padding: 0,
                     '&.Mui-checked': {
-                      color: '#000',
+                      color: theme.palette.mode === 'dark' ? '#2832f5' : '#000',
                     },
                   }}
                 />
@@ -193,18 +209,33 @@ export const ConfirmTrade = ({
             {/*{transactionState === TransactionState.START_OPEN_TRADE && (*/}
             {/*  <KRAVButton sx={{ marginTop: '20px' }}>{tuple.buy ? 'Long...' : 'Short...'}</KRAVButton>*/}
             {/*)}*/}
-            <KRAVButton
-              onClick={async () => {
-                setIsOpen(false)
-                await openTrade()
-                setPositionSizeDai(new BigNumber(0))
-                setOpenBTCSize(new BigNumber(0))
-                setLeverage(2)
-              }}
-              sx={{ marginTop: '20px' }}
-            >
-              {tuple.buy ? 'Long' : 'Short'}
-            </KRAVButton>
+            {tuple.buy ? (
+              <KRAVLongButton
+                onClick={async () => {
+                  setIsOpen(false)
+                  await openTrade()
+                  setPositionSizeDai(new BigNumber(0))
+                  setOpenBTCSize(new BigNumber(0))
+                  setLeverage(2)
+                }}
+                sx={{ marginTop: '20px' }}
+              >
+                Long
+              </KRAVLongButton>
+            ) : (
+              <KRAVShortButton
+                onClick={async () => {
+                  setIsOpen(false)
+                  await openTrade()
+                  setPositionSizeDai(new BigNumber(0))
+                  setOpenBTCSize(new BigNumber(0))
+                  setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
+                }}
+                sx={{ marginTop: '20px' }}
+              >
+                Short
+              </KRAVShortButton>
+            )}
           </div>
         </div>
       </DialogContent>

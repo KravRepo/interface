@@ -1,15 +1,19 @@
 import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'ethers'
 import { useMemo } from 'react'
-import { getContract } from 'utils'
-import trading_v6 from 'abi/trading_v6_1.json'
-import trading_storage from 'abi/trading_storage_v5.json'
-import test_erc20 from 'abi/test_erc20.json'
-import btc_price from 'abi/bsc_price.json'
-import trading_vault from 'abi/trading_vault_v5.json'
-import pair_storage from 'abi/pair_storage_v6.json'
-import krav_factory from 'abi/krav_factory.json'
+import { getContract } from '../../utils'
+import trading_v6 from '../../abi/trading_v6_1.json'
+import trading_v6_eth from '../../abi/trading_v6_eth.json'
+import trading_storage from '../../abi/trading_storage_v5.json'
+import test_erc20 from '../../abi/test_erc20.json'
+import btc_price from '../../abi/bsc_price.json'
+import trading_vault from '../../abi/trading_vault_v5.json'
+import pair_storage from '../../abi/pair_storage_v6.json'
+import krav_factory from '../../abi/krav_factory.json'
 import type { JsonRpcProvider } from '@ethersproject/providers'
+import { Interface } from 'ethers/lib/utils'
+import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
+import { useRootStore } from '../../store/root'
 
 export function useContract<T extends Contract = Contract>(
   addressOrAddressMap: string | { [chainId: number]: string } | undefined,
@@ -33,7 +37,12 @@ export function useContract<T extends Contract = Contract>(
 }
 
 export const useTradingV6Contract = (tradingAddress: string) => {
-  return useContract(tradingAddress, trading_v6.abi, true)
+  const { chainId } = useWeb3React()
+  return useContract(
+    tradingAddress,
+    chainId === ChainId.BASE || chainId === ChainId.BASE_TEST ? trading_v6.abi : trading_v6_eth.abi,
+    true
+  )
 }
 
 export const useTradingStoreContract = (storageAddress: string) => {
@@ -58,9 +67,44 @@ export const usePairStorageContract = (address: string) => {
 }
 
 export const useFactoryContract = (provider: JsonRpcProvider) => {
-  return new Contract(krav_factory.address, krav_factory.abi, provider)
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  return useMemo(() => {
+    return new Contract(
+      CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
+      krav_factory.abi,
+      provider
+    )
+  }, [expectChainId])
 }
 
-export const useFactoryWithProvider = () => {
-  return useContract(krav_factory.address, krav_factory.abi)
+export const useFactoryWithProvider = (provider: any) => {
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  const address = useMemo(() => {
+    return CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN]
+      .factory
+  }, [expectChainId])
+  return useContract(address, krav_factory.abi)
+}
+
+export type CreatCall = {
+  target: string
+  callData: string
+}
+
+export const creatCall = (
+  contractAddress: string,
+  contractInterface: Interface,
+  func: string,
+  params: any[]
+): CreatCall => {
+  return {
+    target: contractAddress,
+    callData: contractInterface.encodeFunctionData(func, params),
+  }
+}
+
+export const decodeCallResult = (contractInterface: Interface, func: string, returnData: string) => {
+  const result = contractInterface.decodeFunctionResult(func, returnData)
+  if (result.length === 1) return result[0]
+  else return result
 }

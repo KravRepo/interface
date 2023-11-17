@@ -1,48 +1,68 @@
 /** @jsxImportSource @emotion/react */
-import { Button, Link } from '@mui/material'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { Trans } from '@lingui/macro'
-import { header, headerBtn, notifyBtn, router, routerActive, UnSupport } from './sytle'
-import { align } from 'globalStyle'
-import { ReactComponent as Ether } from 'assets/imgs/tokens/Ehter.svg'
-import { ReactComponent as Notify } from 'assets/imgs/notify.svg'
-import { ReactComponent as KravLogo } from 'assets/imgs/krav_logo.svg'
+import { header, router, UnSupport } from './sytle'
+import { align } from '../../globalStyle'
+import { ReactComponent as KravDarkLogo } from '../../assets/imgs/darkModel/krav_logo_dark.svg'
+import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { css } from '@emotion/react'
-import { ConnectWalletDialog } from 'components/Dialog/ConnectWallet'
+import { ConnectWalletDialog } from '../../components/Dialog/ConnectWallet'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
-import WaterDropIcon from '@mui/icons-material/WaterDrop'
 import { NavLink, useLocation } from 'react-router-dom'
-import { FaucetDialog } from 'components/Dialog/FaucetDialog'
-import { getConnection } from '../../connectors'
-import { ConnectionType } from '../../connectors/type'
+import BigNumber from 'bignumber.js'
+import { eXDecimals } from '../../utils/math'
+import { useSetThemeContext } from '../../theme/appTheme'
+import DehazeIcon from '@mui/icons-material/Dehaze'
+import { NavMenu } from './mobile/NavMenu'
+import { WalletButton } from './WalletButton'
+import { useInterval } from '../../hook/hookV8/useInterval'
+import { getAddChainParameters } from '../../connectors/chain'
+import { SUPPORT_CHAIN } from '../../constant/chain'
+import { FaucetDialog } from '../Dialog/FaucetDialog'
 import { useFactory } from '../../hook/hookV8/useFactory'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
-import { getAddChainParameters } from 'connectors/chain'
-import KRAVButton from '../KravUIKit/KravButton'
-import { TEST_CHAIN_ID } from '../../constant/chain'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const walletDialogVisibility = useRootStore((store) => store.walletDialogVisibility)
-  const [openFaucet, setOpenFaucet] = useState(false)
-  const { account, chainId, connector } = useWeb3React()
-  const [dataInterval, setDataInterval] = useState<null | NodeJS.Timer>(null)
+  const { account, chainId, connector, provider } = useWeb3React()
+  const [ethBalance, setEthBalance] = useState(new BigNumber(0))
+  const [openMobileNav, setOpenMobileNav] = useState(false)
+  const [openFa, setOpenFa] = useState(false)
+  const [autoConnect, setAutoConnect] = useState(true)
+  const factory = useFactory()
 
-  const setAccount = useRootStore((store) => store.setAccount)
-  const DAIBalance = useRootStore((store) => store.DAIBalance)
-  const allPoolParams = useRootStore((store) => store.allPoolParams)
-  const setLoadingData = useRootStore((store) => store.setLoadingData)
+  const disconnectWallet = useRootStore((store) => store.disconnectWallet)
+  const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
+
   const { pathname } = useLocation()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
 
-  const getUserPosition = useUserPosition()
-  const getFactory = useFactory()
-  const connection = useMemo(() => {
-    return getConnection(ConnectionType.INJECTED)
-  }, [chainId])
+  const toggleTheme = useSetThemeContext()
+
+  const routerActive = useMemo(() => {
+    return css`
+      background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : 'black'};
+      color: white;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    `
+  }, [theme])
+
+  const routerColor = useMemo(() => {
+    return css`
+      color: ${theme.text.primary};
+      :hover {
+        color: rgb(117, 117, 117);
+      },
+    `
+  }, [theme])
 
   const isHomePath = useMemo(() => {
-    const pathList = ['/', '/dashboard/stake', '/dashboard/farm', '/dashboard/referral', '/dashboard/reward']
+    const pathList = ['/portfolio', '/portfolio/stake', '/portfolio/farm', '/portfolio/referral', '/portfolio/reward']
     return pathList.includes(pathname)
   }, [pathname])
 
@@ -50,57 +70,53 @@ export const Header = () => {
     return pathname.includes('/trade')
   }, [pathname])
 
-  const getUserData = useCallback(async () => {
-    await getFactory()
-    setLoadingData(false)
-    setAccount(account)
-  }, [])
-
   useEffect(() => {
     setTimeout(async () => {
-      if (connection && !account) {
+      const id = localStorage.getItem('krav-chain-id')
+      if (!account && !disconnectWallet && autoConnect) {
         try {
-          await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
           await connector.activate()
-          await getUserData()
-        } catch (e) {
+          setDisconnectWallet(true)
+          setAutoConnect(false)
+        } catch (e: any) {
+          if (e.code === 4001) return
           try {
-            await connection.connector.activate(getAddChainParameters(TEST_CHAIN_ID))
-            await connector.activate()
-            await getUserData()
+            await connector.activate(getAddChainParameters(Number(id) ? Number(id) : expectChainId))
+            setAutoConnect(false)
           } catch (e) {}
+        } finally {
+          if (!isLoadingFactory)
+            factory().then(() => {
+              console.log('auto connect wallet update factory')
+            })
         }
       }
     }, 200)
-  }, [connection, account, chainId])
+  }, [account, chainId, disconnectWallet])
+
+  const getUserBalance = useCallback(async () => {
+    if (account && provider) {
+      provider.getBalance(account).then((res) => {
+        setEthBalance(eXDecimals(res._hex, 18))
+      })
+    } else return
+  }, [account, provider])
 
   useEffect(() => {
-    if (account && allPoolParams.length > 0) {
-      setTimeout(() => {
-        getUserPosition().then()
-      }, 1000)
-      if (!dataInterval) {
-        const res = setInterval(async () => {
-          console.log('update user data')
-          await getUserPosition()
-        }, 10000)
-        setDataInterval(res)
-      }
-    }
-    return () => {
-      clearInterval(dataInterval as NodeJS.Timer)
-      setDataInterval(null)
-    }
-  }, [account, allPoolParams])
+    getUserBalance().then()
+  }, [account, provider])
+
+  useInterval(getUserBalance, 15000)
 
   return (
     <>
-      <FaucetDialog isOpen={openFaucet} setIsOpen={setOpenFaucet} />
+      <NavMenu isOpen={openMobileNav} setIsOpen={() => setOpenMobileNav(false)} />
+      <FaucetDialog isOpen={openFa} setIsOpen={setOpenFa} />
       <header
         css={[
           header,
           css`
-            background: ${isHomePath ? '#fff' : ''};
+            background: ${isHomePath ? theme.background.fourth : ''};
           `,
         ]}
       >
@@ -109,123 +125,68 @@ export const Header = () => {
             css={[
               align,
               css`
-                margin-right: 73px;
+                margin-right: ${isMobile ? '0' : '73px'};
               `,
             ]}
           >
-            <KravLogo height="22" width="91" />
+            <NavLink style={{ height: '22px' }} to={'/trade'}>
+              {theme.palette.mode === 'dark' ? (
+                <KravDarkLogo height="22" width="91" />
+              ) : (
+                <KravLogo height="22" width="91" />
+              )}
+            </NavLink>
           </div>
-          <div>
-            <NavLink to={'/'} css={[router, isHomePath ? routerActive : '']}>
-              <Trans>DashBoard</Trans>
-            </NavLink>
-            <NavLink to={'/trade'} css={[router, isTradePath ? routerActive : '']}>
-              <Trans>Trade</Trans>
-            </NavLink>
-            <NavLink to={'/liquidity'} css={[router, pathname === '/liquidity' ? routerActive : '']}>
-              <Trans>Liquidity</Trans>
-            </NavLink>
-            <Link underline={'none'} css={router}>
-              <Trans>Statistics</Trans>
-            </Link>
-          </div>
-        </div>
-        <div css={align}>
-          {account && !DAIBalance.isGreaterThan(0) && (
-            <div
-              onClick={() => setOpenFaucet(true)}
-              css={css`
-                border-radius: 4px;
-                border: 1px solid #dadada;
-                margin-right: 9px;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                padding: 0 16px 0 14px;
-                cursor: pointer;
-              `}
-            >
-              <WaterDropIcon />
-              <span>Faucet</span>
-            </div>
-          )}
-
-          <Button
-            css={headerBtn}
-            sx={{
-              color: '#000',
-              borderRadius: '4px',
-              border: '1px solid #DADADA',
-              textTransform: 'none',
-              minWidth: '172px',
-            }}
-          >
-            <Ether height="14" width="14" style={{ marginRight: 5 }} />
-            <Trans>Sepolia</Trans>
-          </Button>
-          {account ? (
-            <KRAVButton
+          {!isMobile && (
+            <Box
               sx={{
-                width: 'auto',
-                color: '#fff',
-                background: '#000000',
-                mx: '9px',
-                borderRadius: '4px',
-                textTransform: 'none',
-              }}
-              css={headerBtn}
-            >
-              {account.substr(0, 4)}
-              ...
-              {account.substr(account.length - 2, 2)}
-            </KRAVButton>
-          ) : (
-            <KRAVButton
-              sx={{
-                color: '#fff',
-                background: '#000000',
-                mx: '9px',
-                borderRadius: '4px',
-                textTransform: 'none',
-                '&:hover': {
+                '& a:hover': {
+                  background: 'none',
+                  boxShadow: 'none',
+                  color: '#757575',
+                },
+                '& a.active:hover': {
                   background: '#000000',
+                  color: '#fff',
+                  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                 },
               }}
-              css={headerBtn}
-              onClick={() => setWalletDialogVisibility(true)}
             >
-              <Trans>Connect Wallet</Trans>
-            </KRAVButton>
+              <NavLink to={'/trade'} css={[router, routerColor, isTradePath ? routerActive : '']}>
+                <Trans>Trade</Trans>
+              </NavLink>
+              <NavLink to={'/liquidity'} css={[router, routerColor, pathname === '/liquidity' ? routerActive : '']}>
+                <Trans>Liquidity</Trans>
+              </NavLink>
+              <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
+                <Trans>Portfolio</Trans>
+              </NavLink>
+              <NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>
+                <Trans>Statistics</Trans>
+              </NavLink>
+            </Box>
           )}
-
-          <div css={notifyBtn}>
-            <Notify />
-          </div>
+        </div>
+        <div css={align}>
+          <WalletButton
+            chainId={chainId}
+            connector={connector}
+            ethBalance={ethBalance}
+            toggleTheme={toggleTheme}
+            account={account}
+            setOpenFaucet={() => setOpenFa(true)}
+          />
+          {isMobile && <DehazeIcon onClick={() => setOpenMobileNav(true)} height="24" width="24" />}
         </div>
         <ConnectWalletDialog
           walletDialogVisibility={walletDialogVisibility}
           setWalletDialogVisibility={setWalletDialogVisibility}
         />
       </header>
-      {chainId !== TEST_CHAIN_ID && account && (
+      {chainId && !SUPPORT_CHAIN.includes(chainId) && account && (
         <div css={UnSupport}>
-          UnSupport network ! &nbsp;
-          <span
-            onClick={async () => {
-              if (connection) {
-                try {
-                  await connection.connector.activate(chainId !== TEST_CHAIN_ID ? TEST_CHAIN_ID : undefined)
-                  await connector.activate()
-                } catch (e) {
-                  try {
-                    await connector.activate(getAddChainParameters(TEST_CHAIN_ID))
-                  } catch (e) {}
-                }
-              }
-            }}
-          >
-            please change network
-          </span>
+          Unsupported network! &nbsp;
+          <span>Please change network.</span>
         </div>
       )}
     </>

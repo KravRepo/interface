@@ -58,8 +58,8 @@ export function getInjection(isDarkMode?: boolean): { name: string } | undefined
   return { name: 'Browser Wallet' }
 }
 
-export async function getGasLimit(contract: Contract, method: string, params = []) {
-  const res = await contract.estimateGas[method](...params)
+export async function getGasLimit(contract: Contract, method: string, params = [], value?: string) {
+  const res = await contract.estimateGas[method](...params, { value: value })
   let gasLimit = new BigNumber(res.toString())
   if (gasLimit.lt(22000)) {
     gasLimit = new BigNumber(22000)
@@ -75,6 +75,7 @@ export const decodeReferral = (referral: string) => {
 }
 
 export const getBigNumberStr = (bigNumber: BigNumber, fixed: number, factor = 1) => {
+  if (isNaN(bigNumber.toNumber())) return '--'
   if (!BigNumber.isBigNumber(bigNumber)) {
     return new BigNumber(bigNumber || 0)?.times(factor)?.toFixed(fixed) || '0'
   }
@@ -95,6 +96,7 @@ export const shareToTwitter = (url: string, content: string) => {
 }
 
 export const formatNumber = (val: string | number, decimals: number, isDollar = true) => {
+  if (val === '0' || val === 0) return isDollar ? '$0' : '0'
   const forMatterStr = isDollar ? '$0,0.00' : '0,0.00'
   return numeral(Number(val).toFixed(decimals)).format(forMatterStr)
 }

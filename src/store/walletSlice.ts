@@ -1,8 +1,9 @@
 import { StateCreator } from 'zustand'
-
 import { RootStore } from './root'
 import BigNumber from 'bignumber.js'
-import { Tuple, TupleLimitOrder } from 'components/Trades/type'
+import { UseAllLimitOrders } from '../hook/hookV8/useGetUserAllLimitOrders'
+import { UseAllOpenTrades } from '../hook/hookV8/useGetUserAllOpenTrades'
+import { Tuple, TupleLimitOrder } from '../components/Trades/type'
 
 export enum ApprovalMethod {
   APPROVE = 'Transaction',
@@ -20,12 +21,20 @@ export interface WalletSlice {
   setIsBTCRise: (isBTCRise: boolean) => void
   userOpenTradeList: Tuple[] | []
   setUserOpenTradeList: (userOpenTradeList: Tuple[]) => void
+  userAllOpenTradeList: UseAllOpenTrades[] | []
+  setUserAllOpenTradeList: (userAllOpenTradeList: UseAllOpenTrades[] | []) => void
   userOpenLimitList: TupleLimitOrder[] | []
   setUserOpenLimitList: (userOpenLimitList: TupleLimitOrder[]) => void
+  userAllOpenLimitList: UseAllLimitOrders[] | []
+  setUserAllOpenLimitList: (userAllOpenLimitList: UseAllLimitOrders[] | []) => void
   loadingData: boolean
   setLoadingData: (loadingData: boolean) => void
   walletDialogVisibility: boolean
   setWalletDialogVisibility: (walletDialogVisibility: boolean) => void
+  disconnectWallet: boolean
+  setDisconnectWallet: (disconnectWallet: boolean) => void
+  userPoolLength: number
+  setUserPoolLength: (userPoolLength: number) => void
 }
 
 // const getWalletPreferences = () => {
@@ -51,6 +60,10 @@ export const createWalletSlice: StateCreator<
   userOpenLimitList: [],
   loadingData: true,
   walletDialogVisibility: false,
+  disconnectWallet: false,
+  userAllOpenTradeList: [],
+  userPoolLength: 0,
+  userAllOpenLimitList: [],
   setAccount(account) {
     set({ account: account || '' })
   },
@@ -74,5 +87,17 @@ export const createWalletSlice: StateCreator<
   },
   setWalletDialogVisibility(walletDialogVisibility) {
     set({ walletDialogVisibility: walletDialogVisibility })
+  },
+  setDisconnectWallet(disconnectWallet) {
+    set({ disconnectWallet: disconnectWallet })
+  },
+  setUserAllOpenTradeList(userAllOpenTradeList) {
+    set({ userAllOpenTradeList: userAllOpenTradeList })
+  },
+  setUserPoolLength(userPoolLength) {
+    set({ userPoolLength: userPoolLength })
+  },
+  setUserAllOpenLimitList(userAllOpenLimitList) {
+    set({ userAllOpenLimitList: userAllOpenLimitList })
   },
 })

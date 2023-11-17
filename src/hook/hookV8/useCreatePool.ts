@@ -1,21 +1,21 @@
 import { useFactoryWithProvider } from './useContract'
 import { useCallback } from 'react'
-import { LINK_ADDRESS, NODE_ADDRESS } from '../../constant/chain'
-import { getGasLimit, getProviderOrSigner } from '../../utils'
+import { CONTRACT_CONFIG } from '../../constant/chain'
+// import { getGasLimit } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { useUpdateError } from './useUpdateError'
 import { useRootStore } from '../../store/root'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { Contract } from 'ethers'
 import test_erc20 from '../../abi/test_erc20.json'
-import krav_factory from '../../abi/krav_factory.json'
 import { useWeb3React } from '@web3-react/core'
 import { MAX_UNIT_256 } from '../../constant/math'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
+import { getGasLimit, getProviderOrSigner } from '../../utils'
 
 export const useCreatePool = () => {
-  const { provider, account } = useWeb3React()
-  const factory = useFactoryWithProvider()!
+  const { provider, account, chainId } = useWeb3React()
+  const factory = useFactoryWithProvider(provider)!
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((state) => state.setTransactionState)
@@ -23,22 +23,37 @@ export const useCreatePool = () => {
 
   return useCallback(
     async (tokenAddress: string, proportionBTC: number | string, depositAmount: BigNumber) => {
-      const params = [tokenAddress, LINK_ADDRESS, NODE_ADDRESS, proportionBTC, depositAmount.toString()] as any
-      if (provider && account) {
+      if (provider && account && chainId) {
+        const params = [
+          tokenAddress,
+          CONTRACT_CONFIG[chainId].linkAddress,
+          CONTRACT_CONFIG[chainId].nodeAddress,
+          proportionBTC,
+          depositAmount.toString(),
+        ] as any
         try {
           setTransactionDialogVisibility(true)
           setTransactionState(TransactionState.APPROVE)
           const tokenContract = new Contract(tokenAddress, test_erc20.abi, getProviderOrSigner(provider, account))
-          const approve = await tokenContract.approve(krav_factory.address, MAX_UNIT_256)
-          await approve.wait()
+          const allowance = await tokenContract.allowance(account, CONTRACT_CONFIG[chainId].factory)
+          const allowanceAmount = new BigNumber(allowance.toString())
+          if (!allowanceAmount.isGreaterThan(0)) {
+            const approve = await tokenContract.approve(CONTRACT_CONFIG[chainId].factory, MAX_UNIT_256)
+            await approve.wait()
+          }
+          let gasLimit: BigNumber
           setTransactionState(TransactionState.INTERACTION)
-          let gasLimit = await getGasLimit(factory, 'createQuanto', params)
+          try {
+            gasLimit = await getGasLimit(factory, 'createQuanto', params)
+          } catch (e) {
+            gasLimit = new BigNumber(6200000)
+          }
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
           // const tx = await factory.createQuanto(...params, { gasLimit: gasLimit.toFixed(0) })
           const tx = await factory.createQuanto(
             tokenAddress,
-            LINK_ADDRESS,
-            ...[NODE_ADDRESS],
+            CONTRACT_CONFIG[chainId].linkAddress,
+            ...[CONTRACT_CONFIG[chainId].nodeAddress],
             proportionBTC,
             depositAmount.toString(),
             {
@@ -57,6 +72,6 @@ export const useCreatePool = () => {
         }
       }
     },
-    [factory, provider, account]
+    [factory, provider, account, chainId]
   )
 }

@@ -18,9 +18,6 @@ export const MarketSkeleton = () => {
         </div>
       </div>
       <div>
-        <Skeleton animation="wave" height={20} width="80%" />
-      </div>
-      <div>
         <Skeleton animation="wave" height={20} width="40%" />
       </div>
       <div>

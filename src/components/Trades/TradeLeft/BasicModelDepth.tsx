@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as echarts from 'echarts'
 import React, { Dispatch, useEffect, useMemo, useRef, useState } from 'react'
-import { css } from '@mui/material'
+import { css, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { getReachPrice, getTakeProfit } from '../../../utils/math'
@@ -29,6 +29,7 @@ export const BasicModelDepth = ({
   tradeType,
   limitPrice,
 }: BasicModelDepthProps) => {
+  const theme = useTheme()
   const [depthCharts, setDepthCharts] = useState<null | echarts.ECharts>(null)
   const currentBTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
@@ -36,16 +37,16 @@ export const BasicModelDepth = ({
 
   const BTCPrice = useMemo(() => {
     return tradeType === 0 ? currentBTCPrice : new BigNumber(limitPrice)
-  }, [tradeType, limitPrice])
-
+  }, [tradeType, limitPrice, currentBTCPrice])
+  //TODO: fix JPY charts
   const depthOptions = useMemo(() => {
     return {
       // title: {
       //   text: 'Depth',
       // },
-      backgroundColor: '#fff',
+      backgroundColor: theme.background.primary,
       tooltip: {
-        backgroundColor: '#fff',
+        backgroundColor: theme.background.primary,
         borderWidth: 1,
         borderColor: '#000',
         textStyle: {
@@ -53,15 +54,15 @@ export const BasicModelDepth = ({
         },
         formatter: function (params: any) {
           const takeProfit = params[0].data
-          setTakeProfitPercentage(new BigNumber(takeProfit))
           if (takeProfit > 0) {
             const takeProfitPre = getTakeProfit(BTCPrice, new BigNumber(params[0].data), isBuy, leverage, false)
             const takeProfitAmount = positionSize.times(takeProfitPre.div(100))
             setPriceReaches(new BigNumber(params[0].data))
+            setTakeProfitPercentage(new BigNumber(takeProfitPre))
             setTakeProfit(takeProfitAmount)
             return `
-              <div style='padding-left: 14px; font-weight: 500; color: black'>
-              <p style='margin: 0;font-size: 16px'>BTC ${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
+              <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
+              <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
               <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${new BigNumber(
                 params[0].data
               ).toFixed(2)}</span></p>
@@ -227,16 +228,16 @@ export const BasicModelDepth = ({
         },
       ],
     }
-  }, [isBuy, liquidityPrice, BTCPrice])
+  }, [isBuy, liquidityPrice, BTCPrice, theme])
 
   const shortDepthOptions = useMemo(() => {
     return {
       // title: {
       //   text: 'Depth',
       // },
-      backgroundColor: '#fff',
+      backgroundColor: theme.background.primary,
       tooltip: {
-        backgroundColor: '#fff',
+        backgroundColor: theme.background.primary,
         borderWidth: 1,
         borderColor: '#000',
         textStyle: {
@@ -252,8 +253,8 @@ export const BasicModelDepth = ({
             setPriceReaches(reachesPrice)
             setTakeProfit(takeProfitAmount)
             return `
-              <div style='padding-left: 14px; font-weight: 500; color: black'>
-              <p style='margin: 0;font-size: 16px'>BTC ${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
+              <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
+              <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
               <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${reachesPrice.toFixed(
                 2
               )}</span></p>
@@ -452,7 +453,7 @@ export const BasicModelDepth = ({
       depthCharts?.dispose()
       setDepthCharts(null)
     }
-  }, [depthRef.current, isBuy, liquidityPrice, BTCPrice])
+  }, [depthRef.current, isBuy, liquidityPrice, BTCPrice, theme])
 
   return (
     <div

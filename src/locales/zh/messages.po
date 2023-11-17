@@ -22,12 +22,12 @@ msgid "Liquidity"
 msgstr ""
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Market Price"
-msgstr ""
+#~ msgid "Market Price"
+#~ msgstr ""
 
 #: src/components/Header/Header.tsx
-msgid "DashBoard"
-msgstr ""
+#~ msgid "DashBoard"
+#~ msgstr ""
 
 #: src/components/Header/Header.tsx
 msgid "Connect Wallet"
@@ -37,16 +37,28 @@ msgstr ""
 msgid "Trade"
 msgstr ""
 
-#: src/components/Header/Header.tsx
-msgid "Sepolia"
-msgstr "Sepolia"
-
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24H Low"
-msgstr ""
+#~ msgid "24H Low"
+#~ msgstr ""
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+msgstr ""
+
+#: src/components/Header/Header.tsx
+msgid "Portfolio"
+msgstr ""
+
+#: src/components/Header/Header.tsx
+#~ msgid "Base"
+#~ msgstr "Base"
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Borrowing(S)"
+msgstr ""
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Borrowing(L)"
 msgstr ""
 
 #: src/components/Liquidity/CreateLiquidity.tsx
@@ -58,8 +70,8 @@ msgid "With BTC as the underlying asset, different assets are used as investment
 msgstr ""
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24H High"
-msgstr ""
+#~ msgid "24H High"
+#~ msgstr ""
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 2 Select Token Collateral"
@@ -74,8 +86,12 @@ msgid "Step 1 Choose Target Market"
 msgstr ""
 
 #: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "24h Change"
+msgid "Open Interest(L)"
 msgstr ""
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+#~ msgid "24h Change"
+#~ msgstr ""
 
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
@@ -86,5 +102,10 @@ msgid "Step 3 Set Ticket Size"
 msgstr ""
 
 #: src/components/Trades/TradeRight/OrderParamsCard.tsx
+#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "{buttonState}"
+msgstr ""
+
+#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Open Interest(S)"
 msgstr ""
