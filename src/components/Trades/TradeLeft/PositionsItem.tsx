@@ -109,9 +109,6 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             ${BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}
           </div>
-          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
-            ${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}
-          </div>
           <div>
             {openTrade.beingMarketClosed && (
               <div>
