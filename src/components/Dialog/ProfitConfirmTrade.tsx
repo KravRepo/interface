@@ -101,12 +101,12 @@ export const ProfitConfirmTrade = ({
   }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, tpPrice])
 
   const slPercentage = useMemo(() => {
-    return getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
-  }, [btcPrice, openTrade.buy, openTrade.leverage, targetSl])
+    return getTakeProfit(new BigNumber(openTrade.openPrice), targetSl, openTrade.buy, openTrade.leverage, true)
+  }, [openTrade.buy, openTrade.leverage, targetSl])
 
   const tpPercentage = useMemo(() => {
-    return getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
-  }, [btcPrice, openTrade.buy, openTrade.leverage, targetTp])
+    return getTakeProfit(new BigNumber(openTrade.openPrice), targetTp, openTrade.buy, openTrade.leverage, false)
+  }, [openTrade.buy, openTrade.leverage, targetTp])
 
   const handleTpSLSetting = (isSl: boolean, value: number) => {
     if (isSl) {
