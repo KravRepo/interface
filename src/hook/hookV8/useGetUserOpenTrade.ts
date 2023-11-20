@@ -6,9 +6,13 @@ import { forMatterOpenTrades, isBeingMarketClosed } from './utils/utils'
 import { Contract } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import { Tuple } from '../../components/Trades/type'
+import { ChainId } from '../../constant/chain'
+
+const ARB_TIME_OUT = 60
+const DEFALUT_TIME_OUT = 30
 
 export const useGetUserOpenTrade = () => {
-  const { account, provider } = useWeb3React()
+  const { account, provider, chainId } = useWeb3React()
   const [userOpenTrades, setUserOpenTrades] = useState([] as Tuple[])
   const setUserOpenTradeList = useRootStore((store) => store.setUserOpenTradeList)
   const tradePairIndex = useRootStore((state) => state.tradePairIndex)
@@ -39,7 +43,9 @@ export const useGetUserOpenTrade = () => {
           })
           const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
           userPendingOrderDetails.forEach((details, index) => {
-            const inPending = new BigNumber(blockNumber).isGreaterThan(new BigNumber(details.block._hex).plus(30))
+            const inPending = new BigNumber(blockNumber).isGreaterThan(
+              new BigNumber(details.block._hex).plus(chainId === ChainId.ARB_TEST ? ARB_TIME_OUT : DEFALUT_TIME_OUT)
+            )
             const res = forMatterOpenTrades(
               details,
               1,
@@ -59,7 +65,7 @@ export const useGetUserOpenTrade = () => {
         console.log('get user open trades failed!', e)
       }
     },
-    [account, provider, tradePairIndex]
+    [account, provider, tradePairIndex, chainId]
   )
 
   return { userOpenTrades: userOpenTrades, getUserOpenTrade: getUserOpenTrade }
