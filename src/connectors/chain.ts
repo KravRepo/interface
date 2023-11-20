@@ -101,7 +101,7 @@ export const TESTNET_CHAINS: ChainConfig = {
     urls: ['https://rpc.public.zkevm-test.net'],
     name: 'Polygon zkEVM Testnet',
     nativeCurrency: ETH,
-    blockExplorerUrls: ['https://explorer.public.zkevm-test.net'],
+    blockExplorerUrls: ['https://testnet-zkevm.polygonscan.com/'],
   },
   421613: {
     urls: ['https://arbitrum-goerli.publicnode.com'],
