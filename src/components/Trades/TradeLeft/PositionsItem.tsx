@@ -174,7 +174,6 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               : `$${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}`}
           </div>
           <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
-          <div>${BigNumber(openTrade.sl).toFixed(2)}</div>
           {openTrade?.isInPending && (
             <div>
               <div

@@ -30,6 +30,8 @@ const NetWorkerLogo = () => {
       return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     case ChainId.ARB_TEST:
       return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.POLYGON_ZKEVM_TEST:
+      return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     default:
       return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
   }
@@ -262,6 +264,29 @@ export const NetWorkButton = () => {
               <span>Mumbai</span>
             </div>
             {chainId === ChainId.MUMBAI_TEST && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
+            await handleChangeNetWork(ChainId.POLYGON_ZKEVM_TEST)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <Polygon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>Polygon zkEVM Testnet</span>
+            </div>
+            {chainId === ChainId.POLYGON_ZKEVM_TEST && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>

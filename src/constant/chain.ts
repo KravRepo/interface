@@ -7,6 +7,7 @@ export enum ChainId {
   ARB_TEST = 421613,
   MUMBAI_TEST = 80001,
   OP_GOERLI = 420,
+  POLYGON_ZKEVM_TEST = 1442,
 }
 
 export type ContractInfo = {
@@ -36,6 +37,7 @@ export const SUPPORT_CHAIN = [
   ChainId.ARB_TEST,
   ChainId.OP_GOERLI,
   ChainId.BSC_TEST,
+  ChainId.POLYGON_ZKEVM_TEST,
 ]
 
 export const DEFAULT_CHAIN = ChainId.BASE
@@ -62,6 +64,9 @@ export const API_CONFIG: { [chainId: number]: apiInfo } = {
   [ChainId.MUMBAI_TEST]: {
     rpcNode: 'https://polygon-testnet.public.blastapi.io',
   },
+  [ChainId.POLYGON_ZKEVM_TEST]: {
+    rpcNode: 'https://rpc.public.zkevm-test.net',
+  },
 }
 
 export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
@@ -69,7 +74,6 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     factory: '0xB86eE91672f9bC416De975a6DE06dCFF6bcE9677',
     linkAddress: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
     nodeAddress: ['0xcf9c4337dcBFd7cBB71c2c5fb1b9e86edEcfb7C8'],
-    // krav stake address conflict
     kravStake: '',
     kravAddress: '',
     kravTrading: '',
@@ -84,7 +88,6 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     factory: '0xFfD88F38025e02f9d2eB7F0875060F6B4a20980a',
     linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
-    // krav stake address conflict
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
     kravAddress: '0xbE3111856e4acA828593274eA6872f27968C8DD6',
     kravTrading: '0x8975Fdbad4884998AC36669d126471cE239D94b1',
@@ -113,7 +116,6 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     factory: '0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A',
     linkAddress: '0xd14838A68E8AFBAdE5efb411d5871ea0011AFd28',
     nodeAddress: ['0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'],
-    // krav stake address conflict
     kravStake: '',
     kravAddress: '',
     kravTrading: '',
@@ -128,7 +130,6 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     factory: '0xc87E47Bf5e8615651247bb2BbbD0bED2225fbB8D',
     linkAddress: '0x84b9B910527Ad5C03A9Ca831909E21e236EA7b06',
     nodeAddress: ['0x18465D16a1c6c12EABD540F815d6eD1f521515a0'],
-    // krav stake address conflict
     kravStake: '',
     kravAddress: '',
     kravTrading: '',
@@ -143,7 +144,6 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     factory: '0x7e7D51C0F9f496Baf7dB89d864476f7953169324',
     linkAddress: '0x326C977E6efc84E512bB9C30f76E30c160eD06FB',
     nodeAddress: ['0xd74312bbB9d7Af619E23f8afB5bcC820F7c26E0A'],
-    // krav stake address conflict
     kravStake: '',
     kravAddress: '',
     kravTrading: '',
@@ -158,7 +158,6 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     factory: '0x188dFEE91c18cbF821731de6125cF4551011b2a4',
     linkAddress: '0xdc2CC710e42857672E7907CF474a69B63B93089f',
     nodeAddress: ['0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'],
-    // krav stake address conflict
     kravStake: '',
     kravAddress: '',
     kravTrading: '',
@@ -167,6 +166,20 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
     lpReward: '',
     tradeReward: '',
     multicall: '0xF7050aEf15a1E6EF477439c69E58fCc38CB80B43',
+    nativeToken: 'ETH',
+  },
+  [ChainId.POLYGON_ZKEVM_TEST]: {
+    factory: '0x0A9475f047DFc96E23343F01eeBbce56497f7520',
+    linkAddress: '0x67630EAaea12B10740E2b0e4955E654961A55AE4',
+    nodeAddress: ['0x5Dc7cbF3D0a8AC43Dd344e3d16887044a749D960'],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '0x12EADdBF9133F2cde1aFb999CC17966B998aEac3',
     nativeToken: 'ETH',
   },
 }
@@ -203,3 +216,5 @@ export const LP_REWARD_API = 'https://multi-dev.krav.trade/krav/v1/miner/'
 export const LP_REWARD_CONTRACT = '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19'
 
 export const TRADE_REWARD_CONTRACT = '0x291182b2F0108E666e79b8fBC7c7b67C502564d7'
+
+export const REWARD_API = 'https://multi-dev.krav.trade/krav/v1/reward/list/'

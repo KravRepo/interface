@@ -97,6 +97,12 @@ export const TESTNET_CHAINS: ChainConfig = {
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://goerli-explorer.optimism.io'],
   },
+  1442: {
+    urls: ['https://rpc.public.zkevm-test.net'],
+    name: 'Polygon zkEVM Testnet',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://explorer.public.zkevm-test.net'],
+  },
   421613: {
     urls: ['https://arbitrum-goerli.publicnode.com'],
     name: 'Arbitrum Goerli',
