@@ -7,6 +7,7 @@ import { ReactComponent as ARB } from '../../assets/imgs/arbitrum.svg'
 import { ReactComponent as BSC } from '../../assets/imgs/bsc.svg'
 import { ReactComponent as OP } from '../../assets/imgs/optimism.svg'
 import { ReactComponent as Polygon } from '../../assets/imgs/polygon.svg'
+import { ReactComponent as ZKEVM } from '../../assets/imgs/zkevm.svg'
 import { Button, Menu, MenuItem, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
@@ -283,7 +284,7 @@ export const NetWorkButton = () => {
             `}
           >
             <div css={align}>
-              <Polygon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <ZKEVM height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>Polygon zkEVM Testnet</span>
             </div>
             {chainId === ChainId.POLYGON_ZKEVM_TEST && (
