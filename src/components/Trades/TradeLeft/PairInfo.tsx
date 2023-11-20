@@ -131,6 +131,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
           css={css`
             position: absolute;
             width: calc(100% - 48px);
+            justify-content: space-between;
           `}
         >
           <div

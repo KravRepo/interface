@@ -9,7 +9,7 @@ import { Tuple } from '../../components/Trades/type'
 import { ChainId } from '../../constant/chain'
 
 const ARB_TIME_OUT = 60
-const DEFALUT_TIME_OUT = 30
+const DEFAULT_TIME_OUT = 30
 
 export const useGetUserOpenTrade = () => {
   const { account, provider, chainId } = useWeb3React()
@@ -44,7 +44,7 @@ export const useGetUserOpenTrade = () => {
           const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
           userPendingOrderDetails.forEach((details, index) => {
             const inPending = new BigNumber(blockNumber).isGreaterThan(
-              new BigNumber(details.block._hex).plus(chainId === ChainId.ARB_TEST ? ARB_TIME_OUT : DEFALUT_TIME_OUT)
+              new BigNumber(details.block._hex).plus(chainId === ChainId.ARB_TEST ? ARB_TIME_OUT : DEFAULT_TIME_OUT)
             )
             const res = forMatterOpenTrades(
               details,
