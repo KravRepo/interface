@@ -8,8 +8,9 @@ import trading_storage from '../../abi/trading_storage_v5.json'
 import { Tuple } from '../../components/Trades/type'
 import { ChainId } from '../../constant/chain'
 
-const ARB_TIME_OUT = 60
+const ARB_TIME_OUT = 100
 const DEFAULT_TIME_OUT = 30
+const TIME_OUT_CONFIG = [ChainId.ARB_TEST]
 
 export const useGetUserOpenTrade = () => {
   const { account, provider, chainId } = useWeb3React()
@@ -20,7 +21,7 @@ export const useGetUserOpenTrade = () => {
   const getUserOpenTrade = useCallback(
     async (storageAddress: string, setStore: boolean) => {
       try {
-        if (account && provider && storageAddress) {
+        if (account && provider && storageAddress && chainId) {
           // console.log('start useGetUserOpenTrade')
           //TODO current pairIndex only one , change in next update
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
@@ -44,7 +45,7 @@ export const useGetUserOpenTrade = () => {
           const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
           userPendingOrderDetails.forEach((details, index) => {
             const inPending = new BigNumber(blockNumber).isGreaterThan(
-              new BigNumber(details.block._hex).plus(chainId === ChainId.ARB_TEST ? ARB_TIME_OUT : DEFAULT_TIME_OUT)
+              new BigNumber(details.block._hex).plus(TIME_OUT_CONFIG.includes(chainId) ? ARB_TIME_OUT : DEFAULT_TIME_OUT)
             )
             const res = forMatterOpenTrades(
               details,
