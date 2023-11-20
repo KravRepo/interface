@@ -36,7 +36,7 @@ export const useBTCPrice = () => {
       async () => {
         await getPrice()
       },
-      tradePairIndex === 3 ? 6000 : 15000
+      tradePairIndex === 3 ? 6000 : 8000
     )
     return () => {
       if (priceRef.current) clearInterval(priceRef.current)
