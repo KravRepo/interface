@@ -32,7 +32,7 @@ const NetWorkerLogo = () => {
     case ChainId.ARB_TEST:
       return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     case ChainId.POLYGON_ZKEVM_TEST:
-      return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+      return <ZKEVM height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     default:
       return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
   }
