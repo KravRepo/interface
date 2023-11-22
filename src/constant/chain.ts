@@ -193,7 +193,6 @@ export const QUANTO_API = 'https://multi-dev.krav.trade/krav/v1/list/quanto'
 export const TRADE_HISTORY_API = 'https://multi-dev.krav.trade/krav/v1/list/market'
 
 export const DASHBOARD_OVERVIEW_API = 'https://multi-dev.krav.trade/krav/v1/overview'
-// export const DASHBOARD_OVERVIEW_API = 'https://base-api.krav.trade/krav/v1/overview'
 
 export const TEST_CHAIN_ID = ChainId.BASE_TEST
 

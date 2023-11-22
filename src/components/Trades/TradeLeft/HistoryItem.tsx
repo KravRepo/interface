@@ -8,7 +8,6 @@ import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
 import { PoolParams } from '../../../store/FactorySlice'
-import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 type HistoryItemProps = {
   history: HistoryData
@@ -25,7 +24,7 @@ type HistoryItemProps = {
 
 export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   const tradePool = useRootStore((state) => state.tradePool)
-
+  const pairConfig = useRootStore((state) => state.pairConfig)
   const pnlValue = useMemo(() => {
     if (history) {
       return new BigNumber(history.percentProfit).isEqualTo(0)
@@ -38,8 +37,8 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   }, [history])
 
   const tradeSymbol = useMemo(() => {
-    return EXCHANGE_CONFIG[history.tradePairIndex].titleSymbol
-  }, [history])
+    return pairConfig[history.tradePairIndex].titleSymbol
+  }, [history, pairConfig])
 
   const tradeType = useMemo(() => {
     switch (history.limitOrderType.toString()) {

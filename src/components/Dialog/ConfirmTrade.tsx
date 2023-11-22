@@ -13,7 +13,6 @@ import { decodeReferral } from '../../utils'
 import KRAVLongButton from '../KravUIKit/KravLongButton'
 import KRAVShortButton from '../KravUIKit/KravShortButton'
 import { TradeMode } from '../../store/TradeSlice'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -40,6 +39,7 @@ export const ConfirmTrade = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((store) => store.tradePool)
   const tradeModel = useRootStore((store) => store.tradeModel)
+  const pairConfig = useRootStore((state) => state.pairConfig)
   const [checked, setChecked] = useState(false)
   const [referralAddress, setReferralAddress] = useState('0x0000000000000000000000000000000000000000')
   const handleSlippagePChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,8 +47,8 @@ export const ConfirmTrade = ({
   }
 
   const tradePair = useMemo(() => {
-    return EXCHANGE_CONFIG[tuple.pairIndex]
-  }, [tuple])
+    return pairConfig[tuple.pairIndex]
+  }, [tuple, pairConfig])
 
   const openTrade = useOpenTrade({
     tuple: tuple,

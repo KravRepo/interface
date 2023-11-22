@@ -2,23 +2,23 @@ import { useCallback, useEffect, useRef } from 'react'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { BTC_PRICE_API } from '../../constant/chain'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
 import { useWeb3React } from '@web3-react/core'
 
 //TODO: match price with pair index
 export const useBTCPrice = () => {
   const { chainId } = useWeb3React()
-  const { setIsBTCRise, BTCPrice, setBTCPrice, tradePairIndex } = useRootStore((state) => ({
+  const { setIsBTCRise, BTCPrice, setBTCPrice, tradePairIndex, pairConfig } = useRootStore((state) => ({
     setIsBTCRise: state.setIsBTCRise,
     BTCPrice: state.BTCPrice,
     setBTCPrice: state.setBTCPrice,
     tradePairIndex: state.tradePairIndex,
+    pairConfig: state.pairConfig,
   }))
   const priceRef = useRef<NodeJS.Timer | null>(null)
 
   const getPrice = useCallback(async () => {
     try {
-      const req = await fetch(BTC_PRICE_API + EXCHANGE_CONFIG[tradePairIndex].apiSymbol)
+      const req = await fetch(BTC_PRICE_API + pairConfig[tradePairIndex].apiSymbol)
       const price = await req.json()
       const res = new BigNumber(price.data.price)
       if (res.isGreaterThan(BTCPrice)) setIsBTCRise(true)
@@ -27,7 +27,7 @@ export const useBTCPrice = () => {
     } catch (e) {
       console.error('get BTC Price failed!', e)
     }
-  }, [tradePairIndex])
+  }, [tradePairIndex, pairConfig])
 
   useEffect(() => {
     if (priceRef.current) clearInterval(priceRef.current)

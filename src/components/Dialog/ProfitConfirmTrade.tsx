@@ -13,7 +13,6 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -66,6 +65,7 @@ export const ProfitConfirmTrade = ({
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
   const tradePool = useRootStore((store) => store.tradePool)
+  const pairConfig = useRootStore((store) => store.pairConfig)
   const [slUsePercentage, setUseSlPercentage] = useState(BigNumber(openTrade.tp).gt(0) ? false : true)
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
   const [tpSetting, setTpSetting] = useState(0)
@@ -81,8 +81,8 @@ export const ProfitConfirmTrade = ({
   }, [theme])
 
   const tradePair = useMemo(() => {
-    return EXCHANGE_CONFIG[openTrade.pairIndex]
-  }, [openTrade])
+    return pairConfig[openTrade.pairIndex]
+  }, [openTrade, pairConfig])
 
   const targetSl = useMemo(() => {
     return slUsePercentage

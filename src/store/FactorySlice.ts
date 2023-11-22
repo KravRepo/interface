@@ -3,6 +3,7 @@ import { StateCreator } from 'zustand'
 import { RootStore } from './root'
 import BigNumber from 'bignumber.js'
 import { DEFAULT_CHAIN } from '../constant/chain'
+import { EXCHANGE_CONFIG, ExchangeConfig } from '../constant/exchange'
 
 export type PoolParams = {
   tokenT: string
@@ -40,6 +41,8 @@ export interface FactorySlice {
   setUserPositionDatas: (userPositionDatas: UserData[]) => void
   expectChainId: number
   setExpectChainId: (expectChainId: number) => void
+  pairConfig: ExchangeConfig
+  setPairConfig: (pairConfig: ExchangeConfig) => void
 }
 
 export const createFactorySlice: StateCreator<
@@ -53,6 +56,7 @@ export const createFactorySlice: StateCreator<
   userPositionDatas: [],
   expectChainId: DEFAULT_CHAIN,
   factoryLock: true,
+  pairConfig: EXCHANGE_CONFIG,
   setAllPoolParams(allPoolParams) {
     set({ allPoolParams: allPoolParams })
   },
@@ -67,5 +71,8 @@ export const createFactorySlice: StateCreator<
   },
   setFactoryLock(factoryLock) {
     set({ factoryLock: factoryLock })
+  },
+  setPairConfig(pairConfig) {
+    set({ pairConfig: pairConfig })
   },
 })

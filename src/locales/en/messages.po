@@ -14,10 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #: src/components/Header/Header.tsx
+#: src/components/Header/mobile/NavMenu.tsx
 msgid "Statistics"
 msgstr "Statistics"
 
 #: src/components/Header/Header.tsx
+#: src/components/Header/mobile/NavMenu.tsx
 msgid "Liquidity"
 msgstr "Liquidity"
 
@@ -29,11 +31,12 @@ msgstr "Liquidity"
 #~ msgid "DashBoard"
 #~ msgstr "DashBoard"
 
-#: src/components/Header/Header.tsx
+#: src/components/Header/WalletButton.tsx
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
 #: src/components/Header/Header.tsx
+#: src/components/Header/mobile/NavMenu.tsx
 msgid "Trade"
 msgstr "Trade"
 
@@ -46,6 +49,7 @@ msgid "The assets you deposit will be part of the liquidity pool and receive fee
 msgstr "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 
 #: src/components/Header/Header.tsx
+#: src/components/Header/mobile/NavMenu.tsx
 msgid "Portfolio"
 msgstr "Portfolio"
 
@@ -62,9 +66,10 @@ msgid "Borrowing(L)"
 msgstr "Borrowing(L)"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
-msgid "Step 4 Initial LP Provision"
-msgstr "Step 4 Initial LP Provision"
+#~ msgid "Step 4 Initial LP Provision"
+#~ msgstr "Step 4 Initial LP Provision"
 
+#: src/components/Liquidity/CreateLiquidity.tsx
 #: src/components/Liquidity/CreateLiquidity.tsx
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
@@ -82,6 +87,10 @@ msgid "Select a network"
 msgstr "Select a network"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Step 3 Initial LP Provision"
+msgstr "Step 3 Initial LP Provision"
+
+#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
@@ -94,12 +103,12 @@ msgstr "Open Interest(L)"
 #~ msgstr "24h Change"
 
 #: src/components/Liquidity/CreateLiquidity.tsx
-msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
-msgstr "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
+#~ msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
+#~ msgstr "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
 
 #: src/components/Liquidity/CreateLiquidity.tsx
-msgid "Step 3 Set Ticket Size"
-msgstr "Step 3 Set Ticket Size"
+#~ msgid "Step 3 Set Ticket Size"
+#~ msgstr "Step 3 Set Ticket Size"
 
 #: src/components/Trades/TradeRight/OrderParamsCard.tsx
 #: src/components/Trades/TradeRight/OrderParamsCard.tsx

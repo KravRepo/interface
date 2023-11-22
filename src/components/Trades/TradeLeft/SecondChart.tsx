@@ -3,15 +3,15 @@ import { Box, useTheme } from '@mui/material'
 import { useCallback, useEffect, useMemo } from 'react'
 import { css } from '@emotion/react'
 import { useRootStore } from '../../../store/root'
-import { EXCHANGE_CONFIG } from '../../../constant/exchange'
+import { TVChartContainer } from './TVChartContainer'
 
 export const SecondChart = () => {
   const theme = useTheme()
   const tradePairIndex = useRootStore((store) => store.tradePairIndex)
-  const BTCPrice = useRootStore((store) => store.BTCPrice)
+  const pairConfig = useRootStore((store) => store.pairConfig)
   const tradingViewSymbol = useMemo(() => {
-    return EXCHANGE_CONFIG[tradePairIndex].chartSymbol
-  }, [tradePairIndex])
+    return pairConfig[tradePairIndex].chartSymbol
+  }, [tradePairIndex, pairConfig])
   const createWidget = useCallback(() => {
     if (document.getElementById('tradingview_2daf6') && 'TradingView' in window) {
       new window.TradingView.widget({
@@ -44,7 +44,7 @@ export const SecondChart = () => {
   return (
     <Box>
       <div className="tradingview-widget-container">
-        {EXCHANGE_CONFIG[tradePairIndex].symbol !== 'NDX100' && (
+        {!pairConfig[tradePairIndex].useDataFeed && (
           <div
             css={css`
               height: 440px;
@@ -52,18 +52,19 @@ export const SecondChart = () => {
             id="tradingview_2daf6"
           />
         )}
-        {EXCHANGE_CONFIG[tradePairIndex].symbol === 'NDX100' && (
+        {pairConfig[tradePairIndex].useDataFeed && (
           <div
             css={css`
               height: 440px;
               display: flex;
+              width: 100%;
               align-items: center;
               justify-content: center;
               font-family: 'GT-Flexa-Bold-Trial';
               font-size: 32px;
             `}
           >
-            NDX100&nbsp;:&nbsp;{BTCPrice.toFixed(EXCHANGE_CONFIG[tradePairIndex].fixDecimals)}
+            <TVChartContainer symbol={pairConfig[tradePairIndex].symbol} />
           </div>
         )}
       </div>

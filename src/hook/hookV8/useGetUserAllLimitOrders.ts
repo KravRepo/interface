@@ -7,7 +7,7 @@ import { Contract } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
-import { EXCHANGE_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
+import { BASE_PAIR_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
 import multicall2 from '../../abi/multicall2.json'
 import { creatCall, CreatCall, decodeCallResult } from './useContract'
 import { useConfig } from './useConfig'
@@ -21,6 +21,8 @@ export const useGetUserAllLimitOrders = () => {
   const { account, provider } = useWeb3React()
   const config = useConfig()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
+  const pairConfig = useRootStore((store) => store.pairConfig)
+  pairConfig
   const setUserAllOpenLimitList = useRootStore((store) => store.setUserAllOpenLimitList)
   return useCallback(async () => {
     try {
@@ -36,10 +38,10 @@ export const useGetUserAllLimitOrders = () => {
             storageList.map(async (address, index) => {
               const asyncWorker = async () => {
                 const contract = new Contract(address, trading_storage.abi, provider)
-                if (EXCHANGE_STORAGE_T.includes(address)) {
+                if (EXCHANGE_STORAGE_T.includes(address) || pairConfig === BASE_PAIR_CONFIG) {
                   const userTotalLimitTask: CreatCall[] = []
-                  const config = Object.keys(EXCHANGE_CONFIG).map((key) => {
-                    return EXCHANGE_CONFIG[Number(key)]
+                  const config = Object.keys(pairConfig).map((key) => {
+                    return pairConfig[Number(key)]
                   })
                   for (let i = 0; i < config.length; i++) {
                     userTotalLimitTask.push(

@@ -12,7 +12,6 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
 import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
-import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -25,6 +24,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
   const tradePairIndex = useRootStore((state) => state.tradePairIndex)
+  const pairConfig = useRootStore((state) => state.pairConfig)
 
   const closeTradeMarket = useCloseTradeMarket(
     pool ? pool.tradingT : tradePool.tradingT,
@@ -39,8 +39,8 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
   }, [BTCPrice, openTrade])
 
   const tradePair = useMemo(() => {
-    return EXCHANGE_CONFIG[tradePairIndex]
-  }, [tradePairIndex])
+    return pairConfig[tradePairIndex]
+  }, [tradePairIndex, pairConfig])
 
   const liqPrice = useMemo(() => {
     return getLiqPrice(

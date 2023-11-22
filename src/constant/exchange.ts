@@ -15,9 +15,10 @@ export type BasicExchangeConfig = {
   pairIndex: number
   fixDecimals: number
   logoSource: any
+  useDataFeed: boolean
 }
 
-type ExchangeConfig = { [pairIndex: number]: BasicExchangeConfig }
+export type ExchangeConfig = { [pairIndex: number]: BasicExchangeConfig }
 
 export const EXCHANGE_CONFIG: ExchangeConfig = {
   0: {
@@ -28,6 +29,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     pairIndex: 0,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
+    useDataFeed: false,
   },
   2: {
     symbol: 'JPY',
@@ -37,6 +39,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     pairIndex: 2,
     fixDecimals: 6,
     logoSource: require('../assets/imgs/tokens/JPY.svg'),
+    useDataFeed: false,
   },
   3: {
     symbol: 'NDX100',
@@ -46,6 +49,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     pairIndex: 3,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/ndaq_icon.svg'),
+    useDataFeed: true,
   },
   4: {
     symbol: 'EUR',
@@ -55,6 +59,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     pairIndex: 4,
     fixDecimals: 6,
     logoSource: require('../assets/imgs/tokens/EUR.svg'),
+    useDataFeed: false,
   },
   5: {
     symbol: 'ETH',
@@ -64,6 +69,7 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     pairIndex: 5,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/Ehter.svg'),
+    useDataFeed: false,
   },
   6: {
     symbol: 'BNB',
@@ -73,5 +79,51 @@ export const EXCHANGE_CONFIG: ExchangeConfig = {
     pairIndex: 6,
     fixDecimals: 2,
     logoSource: require('../assets/imgs/tokens/asset_BNB.svg'),
+    useDataFeed: false,
+  },
+}
+
+export const BASE_PAIR_CONFIG: ExchangeConfig = {
+  0: {
+    symbol: 'BTC',
+    chartSymbol: 'BINANCE:BTCUSDT',
+    apiSymbol: 'BTC',
+    titleSymbol: 'BTC/USDT',
+    pairIndex: 0,
+    fixDecimals: 2,
+    logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
+    useDataFeed: false,
+  },
+  // 1: {
+  //   symbol: 'ETH',
+  //   chartSymbol: 'BINANCE:ETHUSDT',
+  //   apiSymbol: 'ETH',
+  //   titleSymbol: 'ETH/USDT',
+  //   pairIndex: 1,
+  //   fixDecimals: 2,
+  //   logoSource: require('../assets/imgs/tokens/Ehter.svg'),
+  // },
+}
+
+export const COIN_BASE_TEST_CONFIG = {
+  0: {
+    symbol: 'BTC',
+    chartSymbol: 'BINANCE:BTCUSDT',
+    apiSymbol: 'BTC',
+    titleSymbol: 'BTC/USDT',
+    pairIndex: 0,
+    fixDecimals: 2,
+    logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
+    useDataFeed: false,
+  },
+  1: {
+    symbol: 'Coinbase',
+    chartSymbol: 'NASDAQ:COIN',
+    apiSymbol: 'COIN',
+    titleSymbol: 'Coinbase/USD',
+    pairIndex: 1,
+    fixDecimals: 4,
+    logoSource: require('../assets/imgs/tokens/coinbase.svg'),
+    useDataFeed: true,
   },
 }

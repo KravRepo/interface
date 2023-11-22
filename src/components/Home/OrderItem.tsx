@@ -8,14 +8,14 @@ import { PoolParams } from '../../store/FactorySlice'
 import { useCloseTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { getLiqPrice } from '../../utils/math'
 import { Tuple } from '../Trades/type'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
+import { useRootStore } from '../../store/root'
 
 type PositionsItemProps = {
   openTrade: Tuple
   pool: PoolParams
 }
 export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
-  // const BTCPrice = useRootStore((state) => state.BTCPrice)
+  const pairConfig = useRootStore((state) => state.pairConfig)
   const closeTradeMarket = useCloseTradeMarket(pool.tradingT, pool.storageT)
   // const positionTp = useMemo(() => {
   //   const tp = getTakeProfit(new BigNumber(openTrade.openPrice), BTCPrice, openTrade.buy, openTrade.leverage, false)
@@ -34,7 +34,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
   return (
     <div className="position-layout">
       <div>
-        <p>{EXCHANGE_CONFIG[openTrade.pairIndex].symbol}</p>
+        <p>{pairConfig[openTrade.pairIndex].symbol}</p>
         <p>
           <span>{openTrade.leverage}x</span>
           <span
@@ -73,9 +73,9 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
       <div>
         {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool.symbol}
       </div>
-      <div>${new BigNumber(openTrade.openPrice).toFixed(EXCHANGE_CONFIG[openTrade.pairIndex].fixDecimals)}</div>
+      <div>${new BigNumber(openTrade.openPrice).toFixed(pairConfig[openTrade.pairIndex].fixDecimals)}</div>
       {/*<div>${BTCPrice.toFixed(2)}</div>*/}
-      <div>${liqPrice.toFixed(EXCHANGE_CONFIG[openTrade.pairIndex].fixDecimals)}</div>
+      <div>${liqPrice.toFixed(pairConfig[openTrade.pairIndex].fixDecimals)}</div>
       <div>
         <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
       </div>

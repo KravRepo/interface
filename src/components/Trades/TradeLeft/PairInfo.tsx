@@ -11,7 +11,7 @@ import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
 // import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import { TradeMode } from '../../../store/TradeSlice'
-import { EXCHANGE_CONFIG, EXCHANGE_TRADING_T } from '../../../constant/exchange'
+import { EXCHANGE_TRADING_T } from '../../../constant/exchange'
 import { SelectPair } from '../../Dialog/SelectPair'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
@@ -35,6 +35,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     // isLoadingFactory,
     setTradePairIndex,
     tradePairIndex,
+    pairConfig,
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     isBTCRise: state.isBTCRise,
@@ -44,6 +45,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     isLoadingFactory: state.isLoadingFactory,
     setTradePairIndex: state.setTradePairIndex,
     tradePairIndex: state.tradePairIndex,
+    pairConfig: state.pairConfig,
   }))
 
   const { openDaiLong, openDaiShort, borrowLongVal, borrowShortVal } = useGetMarketStats(
@@ -54,12 +56,12 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
   )
 
   const showSwitch = useMemo(() => {
-    return EXCHANGE_TRADING_T.includes(tradePool.tradingT)
+    return EXCHANGE_TRADING_T.includes(tradePool.tradingT) || Object.keys(pairConfig).length > 0
   }, [tradePool])
 
   const tradePair = useMemo(() => {
-    return EXCHANGE_CONFIG[tradePairIndex]
-  }, [tradePairIndex])
+    return pairConfig[tradePairIndex]
+  }, [tradePairIndex, pairConfig])
 
   const currentMode = useMemo(() => {
     if (tradeModel === TradeMode.DEGEN) return 'Degen'
