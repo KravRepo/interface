@@ -1,15 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import KRAVTab from '../../KravUIKit/KravTab'
-import { formatNumber, getBigNumberStr } from '../../../utils'
+import { formatNumber } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
-import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ArrowLeft } from '../../../assets/imgs/arrowLeft.svg'
 import { ReactComponent as ArrowLeftDark } from '../../../assets/imgs/darkModel/arrow_left_dark.svg'
-import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
-import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
-import { Box, css, Popover, Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import { Box, css, Popover, useMediaQuery, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
@@ -24,6 +21,7 @@ type LiquidityRewardsProps = {
   LpBooster: BigNumber
   nextEpoch: number
   userLiquidityProvided: number
+  liquidityReward: number
 }
 export const LiquidityRewards = ({
   lpRewardAmount,
@@ -33,6 +31,7 @@ export const LiquidityRewards = ({
   LpBooster,
   nextEpoch,
   userLiquidityProvided,
+  liquidityReward,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -190,55 +189,55 @@ export const LiquidityRewards = ({
             <KRAVTab>Share of pool</KRAVTab>
             <p className="data gt">{formatNumber(userLiquidityProvided / overviewData.liquiditySupply, 2, false)} %</p>
           </div>
-          <div
-            css={css`
-              border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
-            `}
-          >
-            <Tooltip
-              title={
-                'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
-              }
-            >
-              <div css={[align]}>
-                <KRAVTab>My Boost</KRAVTab>
-                &nbsp;&nbsp;
-                <QuestionIcon />
-              </div>
-            </Tooltip>
-            <p
-              className="data gt"
-              css={[
-                align,
-                css`
-                  justify-content: space-between;
-                  padding-top: 0 !important;
-                `,
-              ]}
-            >
-              <span
-                css={css`
-                  padding-top: 2px;
-                `}
-                className="data gt"
-              >
-                {getBigNumberStr(LpBooster, 2)}
-              </span>
-              <KravButtonHollow
-                onClick={() => navigate('/portfolio/stake')}
-                sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
-              >
-                <span
-                  css={css`
-                    min-width: 24px;
-                  `}
-                >
-                  Boost&nbsp;
-                </span>
-                <BoostIcon />
-              </KravButtonHollow>
-            </p>
-          </div>
+          {/*<div*/}
+          {/*  css={css`*/}
+          {/*    border-left: ${isMobile ? 'unset' : theme.splitLine.primary};*/}
+          {/*  `}*/}
+          {/*>*/}
+          {/*  <Tooltip*/}
+          {/*    title={*/}
+          {/*      'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    <div css={[align]}>*/}
+          {/*      <KRAVTab>My Boost</KRAVTab>*/}
+          {/*      &nbsp;&nbsp;*/}
+          {/*      <QuestionIcon />*/}
+          {/*    </div>*/}
+          {/*  </Tooltip>*/}
+          {/*  <p*/}
+          {/*    className="data gt"*/}
+          {/*    css={[*/}
+          {/*      align,*/}
+          {/*      css`*/}
+          {/*        justify-content: space-between;*/}
+          {/*        padding-top: 0 !important;*/}
+          {/*      `,*/}
+          {/*    ]}*/}
+          {/*  >*/}
+          {/*    <span*/}
+          {/*      css={css`*/}
+          {/*        padding-top: 2px;*/}
+          {/*      `}*/}
+          {/*      className="data gt"*/}
+          {/*    >*/}
+          {/*      {getBigNumberStr(LpBooster, 2)}*/}
+          {/*    </span>*/}
+          {/*    <KravButtonHollow*/}
+          {/*      onClick={() => navigate('/portfolio/stake')}*/}
+          {/*      sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}*/}
+          {/*    >*/}
+          {/*      <span*/}
+          {/*        css={css`*/}
+          {/*          min-width: 24px;*/}
+          {/*        `}*/}
+          {/*      >*/}
+          {/*        Boost&nbsp;*/}
+          {/*      </span>*/}
+          {/*      <BoostIcon />*/}
+          {/*    </KravButtonHollow>*/}
+          {/*  </p>*/}
+          {/*</div>*/}
         </div>
       </div>
       <div css={[align]} className="liquidity-reward-action">
@@ -248,6 +247,7 @@ export const LiquidityRewards = ({
           contractAmount={contractAmount}
           claimMethod={claimLpRewardKrav}
           nextEpoch={nextEpoch}
+          liquidityReward={liquidityReward}
         />
         <div
           className="fees-rewards"
