@@ -65,7 +65,7 @@ export const API_CONFIG: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://polygon-testnet.public.blastapi.io',
   },
   [ChainId.POLYGON_ZKEVM_TEST]: {
-    rpcNode: 'https://rpc.public.zkevm-test.net',
+    rpcNode: 'https://polygonzkevm-testnet.g.alchemy.com/v2/QCgU4kMWvlqTyYHYfKkbCmaWr3aLCa3r',
   },
 }
 
