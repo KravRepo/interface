@@ -39,7 +39,10 @@ export const NewFarm = () => {
       try {
         const req = await fetch(REWARD_API + account + '?offset=0&limit=100')
         const response = await req.json()
-        const rewardList: Reward[] = response.data
+        const total = response.total
+        const totalReq = await fetch(REWARD_API + account + `?offset=0&limit=${total}`)
+        const totalRep = await totalReq.json()
+        const rewardList: Reward[] = totalRep.data
         rewardList.forEach((reward) => {
           if (reward.rewardType === 'trade') {
             setTradeReward(tradeReward + Number(reward.reward) / API_DECIMALS)
