@@ -12,7 +12,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { referral } from './style'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { base64 } from 'ethers/lib/utils'
 import { utils } from 'ethers'
@@ -22,6 +22,7 @@ import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { useReferral } from '../../hook/hookV8/useReferral'
 import { getBigNumberStr } from '../../utils'
 import copy from 'copy-to-clipboard'
+import { CHAINS } from '../../connectors/chain'
 
 export const Referral = () => {
   const { account } = useWeb3React()
@@ -32,6 +33,10 @@ export const Referral = () => {
   useNumReferral(setNumReferral)
   const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  const inviteChain = useMemo(() => {
+    return CHAINS[expectChainId]?.name
+  }, [expectChainId])
   const useCopyLink = useCallback(async () => {
     if (account) {
       const host = document.documentURI
@@ -232,7 +237,7 @@ export const Referral = () => {
           >
             Invite Chain
           </p>
-          <p>Base</p>
+          <p>{inviteChain}</p>
         </div>
         <div
           css={css`
@@ -261,7 +266,7 @@ export const Referral = () => {
                 background: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#f6f6f6'};
               `}
             >
-              <span>https://base.krav.trade/trade/</span>
+              <span>https://app.krav.trade/trade/</span>
               <div
                 css={css`
                   border-left: ${theme.splitLine.primary};
