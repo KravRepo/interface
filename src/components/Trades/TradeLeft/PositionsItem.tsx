@@ -131,7 +131,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
       {openTrade.isPendingOrder && openTrade.leverage > 0 && (
         <div className="position-layout">
           <div>
-            <p>BTC</p>
+            <p>{tradePair.symbol}</p>
             <p>
               <span>{openTrade.leverage}x</span>
               <span
