@@ -34,7 +34,7 @@ export const useReferral = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
 
   const claimRewards = useCallback(async () => {
-    if (factory && account && provider && allPoolParams.length > 0) {
+    if (factory && account && provider && allPoolParams.length > 0 && chainId) {
       try {
         const tokenAddresses: string[] = []
         allPoolParams.forEach((pool) => {
@@ -61,7 +61,7 @@ export const useReferral = () => {
         updateError(TransactionAction.CLAIM_REFERRAL_REWARD)
       }
     }
-  }, [account, provider, factory, allPoolParams])
+  }, [account, provider, factory, allPoolParams, chainId])
 
   const getRewardsReferral = useCallback(async () => {
     if (factory && account && provider && allPoolParams.length > 0 && chainId) {
