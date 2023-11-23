@@ -19,7 +19,7 @@ import { NavMenu } from './mobile/NavMenu'
 import { WalletButton } from './WalletButton'
 import { useInterval } from '../../hook/hookV8/useInterval'
 import { getAddChainParameters } from '../../connectors/chain'
-import { SUPPORT_CHAIN } from '../../constant/chain'
+import { DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
 import { FaucetDialog } from '../Dialog/FaucetDialog'
 import { useFactory } from '../../hook/hookV8/useFactory'
 
@@ -183,7 +183,18 @@ export const Header = () => {
       {chainId && !SUPPORT_CHAIN.includes(chainId) && account && (
         <div css={UnSupport}>
           Unsupported network! &nbsp;
-          <span>Please change network.</span>
+          <span
+            onClick={async () => {
+              try {
+                await connector.activate(DEFAULT_CHAIN)
+              } catch (e: any) {
+                if (e.code === 4001) return
+                await connector.activate(getAddChainParameters(DEFAULT_CHAIN))
+              }
+            }}
+          >
+            Please change network.
+          </span>
         </div>
       )}
     </>
