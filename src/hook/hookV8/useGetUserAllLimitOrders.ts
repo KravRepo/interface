@@ -22,7 +22,7 @@ export const useGetUserAllLimitOrders = () => {
   const config = useConfig()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const pairConfig = useRootStore((store) => store.pairConfig)
-  pairConfig
+
   const setUserAllOpenLimitList = useRootStore((store) => store.setUserAllOpenLimitList)
   return useCallback(async () => {
     try {

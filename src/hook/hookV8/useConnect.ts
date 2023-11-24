@@ -14,14 +14,6 @@ export const useConnect = () => {
   const setIsLoadingFactory = useRootStore((store) => store.setIsLoadingFactory)
   const setTradePairIndex = useRootStore((store) => store.setTradePairIndex)
   const setTradePool = useRootStore((store) => store.setTradePool)
-  // const expectChainId = useRootStore((store) => store.expectChainId)
-
-  // useEffect(() => {
-  //   if (typeof expectChainId === 'undefined' && chainId && !isLoadingFactory) return
-  //   console.log('reset stores', expectChainId)
-  //   resetAllStores()
-  //   setIsLoadingFactory(true)
-  // }, [chainId])
 
   return useCallback(
     async (chainId: number) => {
@@ -32,7 +24,6 @@ export const useConnect = () => {
         setAllPoolParams([] as PoolParams[])
         setTradePairIndex(0)
         setTradePool({} as PoolParams)
-        // resetAllStores()
       } catch (e: any) {
         try {
           if (e.code === 4001) return

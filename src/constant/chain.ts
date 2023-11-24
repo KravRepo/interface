@@ -1,9 +1,14 @@
 export enum ChainId {
   MAINNET = 1,
+  OP = 10,
+  BSC = 56,
   BSC_TEST = 97,
+  POLYGON = 137,
+  POLYGON_ZK_EVM = 1101,
   SEPOLIA = 11155111,
   BASE = 8453,
   BASE_TEST = 84531,
+  ARB = 42161,
   ARB_TEST = 421613,
   MUMBAI_TEST = 80001,
   OP_GOERLI = 420,
@@ -29,7 +34,7 @@ type apiInfo = {
   rpcNode: string
 }
 
-export const SUPPORT_CHAIN = [
+export const SUPPORT_CHAIN_TEST = [
   ChainId.MAINNET,
   ChainId.BASE,
   ChainId.BASE_TEST,
@@ -40,9 +45,19 @@ export const SUPPORT_CHAIN = [
   ChainId.POLYGON_ZKEVM_TEST,
 ]
 
+export const SUPPORT_CHAIN_PRODUCTION = [
+  ChainId.MAINNET,
+  ChainId.BASE,
+  ChainId.BSC,
+  ChainId.POLYGON,
+  ChainId.ARB,
+  ChainId.OP,
+  ChainId.POLYGON_ZK_EVM,
+]
+
 export const DEFAULT_CHAIN = ChainId.BASE
 
-export const API_CONFIG: { [chainId: number]: apiInfo } = {
+export const API_CONFIG_TEST: { [chainId: number]: apiInfo } = {
   [ChainId.MAINNET]: {
     rpcNode: 'https://ethereum.publicnode.com',
   },
@@ -69,7 +84,31 @@ export const API_CONFIG: { [chainId: number]: apiInfo } = {
   },
 }
 
-export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
+export const API_CONFIG_PRODUCTION: { [chainId: number]: apiInfo } = {
+  [ChainId.MAINNET]: {
+    rpcNode: 'https://ethereum.publicnode.com',
+  },
+  [ChainId.BASE]: {
+    rpcNode: 'https://mainnet.base.org',
+  },
+  [ChainId.BSC]: {
+    rpcNode: 'https://bsc.publicnode.com',
+  },
+  [ChainId.OP]: {
+    rpcNode: 'https://opt-mainnet.g.alchemy.com/v2/oB5aEK18AWZaY9W_L8IhuqRx5pIFYsdQ',
+  },
+  [ChainId.ARB]: {
+    rpcNode: 'https://arb-mainnet.g.alchemy.com/v2/mwtFvWS1EjUHkU-pFTBDqakpLZTn2kN1',
+  },
+  [ChainId.POLYGON]: {
+    rpcNode: 'https://polygon-mainnet.g.alchemy.com/v2/mJ8yErW75AGxNl5bk50DJK-8hV37xUOc',
+  },
+  [ChainId.POLYGON_ZK_EVM]: {
+    rpcNode: 'https://polygonzkevm-mainnet.g.alchemy.com/v2/hgPVJ9u__bH3XrIBngdm2BAKSm21zOcC',
+  },
+}
+
+export const CONTRACT_CONFIG_TEST: { [chainId: number]: ContractInfo } = {
   [ChainId.MAINNET]: {
     factory: '0xB86eE91672f9bC416De975a6DE06dCFF6bcE9677',
     linkAddress: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
@@ -184,6 +223,115 @@ export const CONTRACT_CONFIG: { [chainId: number]: ContractInfo } = {
   },
 }
 
+export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
+  [ChainId.MAINNET]: {
+    factory: '0xB86eE91672f9bC416De975a6DE06dCFF6bcE9677',
+    linkAddress: '0x514910771AF9Ca656af840dff83E8264EcF986CA',
+    nodeAddress: ['0xcf9c4337dcBFd7cBB71c2c5fb1b9e86edEcfb7C8'],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
+    nativeToken: 'ETH',
+  },
+  [ChainId.BASE]: {
+    factory: '0xFfD88F38025e02f9d2eB7F0875060F6B4a20980a',
+    linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
+    nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
+    kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
+    kravAddress: '0xbE3111856e4acA828593274eA6872f27968C8DD6',
+    kravTrading: '0x8975Fdbad4884998AC36669d126471cE239D94b1',
+    veKrav: '0xDeE06ff0dBE3eBFD05b9E54B4ea228eC0FbD7f71',
+    feeDistrbutor: '0x37170e7f0045C3DDe99F8884d9B6E2322697CC74',
+    lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',
+    tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
+    multicall: '0x01096E802a1f6798173f2b876fbc6A8D423D8bdD',
+    nativeToken: 'ETH',
+  },
+  [ChainId.ARB]: {
+    factory: '',
+    linkAddress: '',
+    nodeAddress: [''],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '',
+    nativeToken: 'ETH',
+  },
+  [ChainId.BSC]: {
+    factory: '',
+    linkAddress: '',
+    nodeAddress: [''],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '',
+    nativeToken: 'BNB',
+  },
+  [ChainId.POLYGON]: {
+    factory: '',
+    linkAddress: '',
+    nodeAddress: [''],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '',
+    nativeToken: 'MATIC',
+  },
+  [ChainId.OP]: {
+    factory: '',
+    linkAddress: '',
+    nodeAddress: [''],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '',
+    nativeToken: 'ETH',
+  },
+  [ChainId.POLYGON_ZK_EVM]: {
+    factory: '',
+    linkAddress: '',
+    nodeAddress: [''],
+    kravStake: '',
+    kravAddress: '',
+    kravTrading: '',
+    veKrav: '',
+    feeDistrbutor: '',
+    lpReward: '',
+    tradeReward: '',
+    multicall: '',
+    nativeToken: 'ETH',
+  },
+}
+
+export const IS_PRODUCTION = false
+
+export const API_CONFIG = IS_PRODUCTION ? API_CONFIG_PRODUCTION : API_CONFIG_TEST
+
+export const CONTRACT_CONFIG = IS_PRODUCTION ? CONTRACT_CONFIG_PRODUCTION : CONTRACT_CONFIG_TEST
+
+export const SUPPORT_CHAIN = IS_PRODUCTION ? SUPPORT_CHAIN_PRODUCTION : SUPPORT_CHAIN_TEST
+
 export const TEST_RPC_NODE = 'https://base-goerli.g.alchemy.com/v2/pjZ1AFp1o4cKAxlaTFre52frhKOxy-nH'
 
 export const K_LINE_API = 'https://multi-dev.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
@@ -193,8 +341,6 @@ export const QUANTO_API = 'https://multi-dev.krav.trade/krav/v1/list/quanto'
 export const TRADE_HISTORY_API = 'https://multi-dev.krav.trade/krav/v1/list/market'
 
 export const DASHBOARD_OVERVIEW_API = 'https://multi-dev.krav.trade/krav/v1/overview'
-
-export const TEST_CHAIN_ID = ChainId.BASE_TEST
 
 export const BTC_PRICE_API = 'https://multi-dev.krav.trade/krav/v1/ticker?symbol='
 
