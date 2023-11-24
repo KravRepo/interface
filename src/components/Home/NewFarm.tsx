@@ -4,12 +4,13 @@ import { LiquidityRewards } from './componets/LiquidityRewards'
 import { stake } from './style'
 import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { LP_REWARD_API } from '../../constant/chain'
+import { eXDecimals, getBooster, getTradeBooster } from '../../utils/math'
 
-type RewardInfo = {
+export type RewardInfo = {
   liquidityProvided: string
   lp: string
   nextEpoch: number
@@ -33,6 +34,8 @@ export const NewFarm = () => {
   const { getOverView, overviewData } = useGetTotalMarketOverview()
   const [tradeReward, setTradeReward] = useState(0)
   const [liquidityReward, setLiquidityReward] = useState(0)
+  const [userVeKravAmount, setUserVeKravAmount] = useState(new BigNumber(0))
+  const [totalVeKravAmount, setTotalVeKravAmount] = useState(new BigNumber(0))
 
   const getRewardList = useCallback(async () => {
     if (account) {
@@ -40,19 +43,21 @@ export const NewFarm = () => {
         const totalReq = await fetch(LP_REWARD_API + account)
         const totalRep = await totalReq.json()
         const rewardInfo: RewardInfo = totalRep.data
+        setUserVeKravAmount(eXDecimals(rewardInfo.veBalance, 18))
+        setTotalVeKravAmount(eXDecimals(rewardInfo.veTotalSupply, 18))
         setTradeReward(tradeReward + Number(rewardInfo.trader))
         setLiquidityReward(liquidityReward + Number(rewardInfo.lp))
       } catch (e) {}
     }
   }, [account])
 
-  // const tradeBooster = useMemo(() => {
-  //   return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
-  //
-  // const LpBooster = useMemo(() => {
-  //   return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+  const tradeBooster = useMemo(() => {
+    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
+
+  const LpBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
 
   useEffect(() => {
     let interval: NodeJS.Timer
@@ -73,7 +78,7 @@ export const NewFarm = () => {
         claimTradingRewardKrav={claimLpRewardKrav}
         overviewData={overviewData}
         userTradingVolume24H={userTradingVolume24H}
-        tradeBooster={new BigNumber(0)}
+        tradeBooster={tradeBooster}
         tradeReward={tradeReward}
         nextEpoch={nextEpoch}
       />
@@ -82,7 +87,7 @@ export const NewFarm = () => {
         contractAmount={new BigNumber(0)}
         claimLpRewardKrav={claimLpRewardKrav}
         overviewData={overviewData}
-        LpBooster={new BigNumber(0)}
+        LpBooster={LpBooster}
         nextEpoch={nextEpoch}
         userLiquidityProvided={userLiquidityProvided}
         liquidityReward={liquidityReward}

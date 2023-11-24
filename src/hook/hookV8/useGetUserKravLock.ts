@@ -39,7 +39,6 @@ export const useGetUserKravLock = () => {
           veContract.totalSupply(),
         ])
         const balance = new BigNumber(res[0]._hex).toString()
-        console.log('getUserKravLock res', res)
         setUserKravBalance(eXDecimals(balance, 18))
         setUserLockPosition({
           amount: eXDecimals(new BigNumber(res[1].amount._hex), 18),

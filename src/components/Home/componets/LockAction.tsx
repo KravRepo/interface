@@ -96,6 +96,21 @@ export const LockAction = ({
     return nowTimestamp + forMatterTime
   }, [lockTime])
 
+  const lockPeriod = useMemo(() => {
+    switch (lockTime) {
+      case 1:
+        return '6 months'
+      case 2:
+        return '1 year'
+      case 3:
+        return '2 years'
+      case 4:
+        return '4 years'
+      default:
+        return '6 months'
+    }
+  }, [lockTime])
+
   const expectedVeAmount = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
     if (userLockPosition.end > 0 && !increaseUnlockTime) {
@@ -311,7 +326,7 @@ export const LockAction = ({
               >
                 Lock Period
               </span>
-              <span>1 year</span>
+              <span>{lockPeriod}</span>
             </div>
             <Slider
               defaultValue={1}

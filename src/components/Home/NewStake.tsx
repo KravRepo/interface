@@ -9,13 +9,12 @@ import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.s
 import { align } from '../../globalStyle'
 import { formatNumber } from '../../utils'
 import { useGetUserKravLock } from '../../hook/hookV8/useGetUserKravLock'
-import { useEffect } from 'react'
-// import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
+import { useEffect, useMemo } from 'react'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useWeb3React } from '@web3-react/core'
-import BigNumber from 'bignumber.js'
 import { useInterval } from '../../hook/hookV8/useInterval'
-// import { getBooster, getTradeBooster } from '../../utils/math'
+import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
+import { getBooster, getTradeBooster } from '../../utils/math'
 
 export const NewStake = () => {
   const theme = useTheme()
@@ -23,18 +22,19 @@ export const NewStake = () => {
   const { userKravBalance, userLockPosition, userFeesRewardList, totalKravLock, userVeKravAmount, totalVeKravAmount } =
     useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
-  // const { userLiquidityProvided, userTradingVolume24H } = useGetUserFarmReward()
-  // const currentUserBooster = useMemo(() => {
-  //   return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
-  //
-  // const tradeBooster = useMemo(() => {
-  //   return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
-  //
-  // const LpBooster = useMemo(() => {
-  //   return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
+  const { userLiquidityProvided, userTradingVolume24H } = useGetUserFarmReward()
+  const currentUserBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
+  const tradeBooster = useMemo(() => {
+    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
+
+  const lpBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
 
   useInterval(getOverView, 30000)
 
@@ -225,7 +225,7 @@ export const NewStake = () => {
         <LockAction
           userKravBalance={userKravBalance}
           userLockPosition={userLockPosition}
-          currentUserBooster={new BigNumber(0)}
+          currentUserBooster={currentUserBooster}
           overviewData={overviewData}
           userLiquidityProvided={0}
           userVeKravAmount={userVeKravAmount}
@@ -234,8 +234,8 @@ export const NewStake = () => {
         <MyLocked
           userLockPosition={userLockPosition}
           userFeesRewardList={userFeesRewardList}
-          tradeBooster={new BigNumber(0)}
-          LpBooster={new BigNumber(0)}
+          tradeBooster={tradeBooster}
+          LpBooster={lpBooster}
         />
       </div>
     </div>

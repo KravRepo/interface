@@ -1,12 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import KRAVTab from '../../KravUIKit/KravTab'
-import { formatNumber } from '../../../utils'
+import { formatNumber, getBigNumberStr } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { KravRewardCard } from './KravRewardCard'
-import { Box, css, Popover, useMediaQuery, useTheme } from '@mui/material'
+import { Box, css, Popover, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { useMemo, useState } from 'react'
+import { align } from '../../../globalStyle'
+import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
+import { useNavigate } from 'react-router-dom'
+import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
+import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 
 type TradingRewardsProps = {
   lpRewardAmount: BigNumber
@@ -30,7 +35,7 @@ export const TradingRewards = ({
 }: TradingRewardsProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handlePopoverOpen = (event: any) => {
@@ -194,53 +199,53 @@ export const TradingRewards = ({
           {/*</div>*/}
           <p className="data gt">{formatNumber(userTradingVolume24H, 2, true)}</p>
         </div>
-        {/*<div*/}
-        {/*  css={css`*/}
-        {/*    border-left: ${isMobile ? 'unset' : theme.splitLine.primary};*/}
-        {/*    padding-left: ${isMobile ? '0px' : '32px'};*/}
-        {/*  `}*/}
-        {/*>*/}
-        {/*  <Tooltip*/}
-        {/*    title={*/}
-        {/*      'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'*/}
-        {/*    }*/}
-        {/*  >*/}
-        {/*    <div css={[align]}>*/}
-        {/*      <KRAVTab>My Boost</KRAVTab>*/}
-        {/*      &nbsp;&nbsp;*/}
-        {/*      <QuestionIcon />*/}
-        {/*    </div>*/}
-        {/*  </Tooltip>*/}
-        {/*  <p*/}
-        {/*    className="data gt"*/}
-        {/*    css={[*/}
-        {/*      align,*/}
-        {/*      css`*/}
-        {/*        justify-content: space-between;*/}
-        {/*        padding-top: 0 !important;*/}
-        {/*      `,*/}
-        {/*    ]}*/}
-        {/*  >*/}
-        {/*    <span*/}
-        {/*      css={css`*/}
-        {/*        padding-top: 10px;*/}
-        {/*      `}*/}
-        {/*    >*/}
-        {/*      {getBigNumberStr(tradeBooster, 2)}*/}
-        {/*    </span>*/}
-        {/*    <KravButtonHollow*/}
-        {/*      onClick={() => navigate('/portfolio/stake')}*/}
-        {/*      sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}*/}
-        {/*    >*/}
-        {/*      <span>Boost&nbsp;</span>*/}
-        {/*      <BoostIcon*/}
-        {/*        css={css`*/}
-        {/*          min-width: 24px;*/}
-        {/*        `}*/}
-        {/*      />*/}
-        {/*    </KravButtonHollow>*/}
-        {/*  </p>*/}
-        {/*</div>*/}
+        <div
+          css={css`
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            padding-left: ${isMobile ? '0px' : '32px'};
+          `}
+        >
+          <Tooltip
+            title={
+              'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
+            }
+          >
+            <div css={[align]}>
+              <KRAVTab>My Boost</KRAVTab>
+              &nbsp;&nbsp;
+              <QuestionIcon />
+            </div>
+          </Tooltip>
+          <p
+            className="data gt"
+            css={[
+              align,
+              css`
+                justify-content: space-between;
+                padding-top: 0 !important;
+              `,
+            ]}
+          >
+            <span
+              css={css`
+                padding-top: 10px;
+              `}
+            >
+              {getBigNumberStr(tradeBooster, 2)}
+            </span>
+            <KravButtonHollow
+              onClick={() => navigate('/portfolio/stake')}
+              sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
+            >
+              <span>Boost&nbsp;</span>
+              <BoostIcon
+                css={css`
+                  min-width: 24px;
+                `}
+              />
+            </KravButtonHollow>
+          </p>
+        </div>
       </div>
       <div
         css={css`
