@@ -7,7 +7,7 @@ import { Contract } from 'ethers'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import BigNumber from 'bignumber.js'
 import { forMatterOpenTrades } from './utils/utils'
-import { BASE_PAIR_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
+import { BASE_PAIR_CONFIG, COIN_BASE_TEST_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
 import { CreatCall, creatCall, decodeCallResult } from './useContract'
 import multicall2 from '../../abi/multicall2.json'
 import { useConfig } from './useConfig'
@@ -38,7 +38,7 @@ export const useGetUserAllOpenTrades = () => {
               const asyncWorker = async () => {
                 //TODO current pairIndex only one , change in next update
                 const contract = new Contract(address, trading_storage.abi, provider)
-                if (EXCHANGE_STORAGE_T.includes(address) || pairConfig === BASE_PAIR_CONFIG) {
+                if (EXCHANGE_STORAGE_T.includes(address) || pairConfig === COIN_BASE_TEST_CONFIG) {
                   const userTotalTradesTask: CreatCall[] = []
                   const config = Object.keys(pairConfig).map((key) => {
                     return pairConfig[Number(key)]
