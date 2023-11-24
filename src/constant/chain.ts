@@ -53,19 +53,19 @@ export const API_CONFIG: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://bsc-testnet.publicnode.com',
   },
   [ChainId.BASE_TEST]: {
-    rpcNode: 'https://base-goerli.g.alchemy.com/v2/pjZ1AFp1o4cKAxlaTFre52frhKOxy-nH',
+    rpcNode: 'https://base-goerli.publicnode.com',
   },
   [ChainId.OP_GOERLI]: {
     rpcNode: 'https://optimism-goerli.publicnode.com',
   },
   [ChainId.ARB_TEST]: {
-    rpcNode: 'https://arb-goerli.g.alchemy.com/v2/bLMhTU8OhjUQvkGwDTrPUiU3GDtD_Jj3',
+    rpcNode: 'https://arbitrum-goerli.publicnode.com',
   },
   [ChainId.MUMBAI_TEST]: {
     rpcNode: 'https://polygon-testnet.public.blastapi.io',
   },
   [ChainId.POLYGON_ZKEVM_TEST]: {
-    rpcNode: 'https://polygonzkevm-testnet.g.alchemy.com/v2/QCgU4kMWvlqTyYHYfKkbCmaWr3aLCa3r',
+    rpcNode: 'https://rpc.public.zkevm-test.net',
   },
 }
 
