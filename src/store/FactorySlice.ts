@@ -34,7 +34,7 @@ export interface FactorySlice {
   isLoadingFactory: boolean
   setIsLoadingFactory: (isLoadingFactory: boolean) => void
   factoryLock: boolean
-  setFactoryLock: (isLoadingFactory: boolean) => void
+  setFactoryLock: (factoryLock: boolean) => void
   allPoolParams: PoolParams[]
   setAllPoolParams: (allPoolInfo: PoolParams[]) => void
   userPositionDatas: UserData[]
