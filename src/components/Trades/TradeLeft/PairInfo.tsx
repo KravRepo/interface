@@ -32,7 +32,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     allPoolParams,
     tradePool,
     setTradePool,
-    // isLoadingFactory,
+    isLoadingFactory,
     setTradePairIndex,
     tradePairIndex,
     pairConfig,
@@ -95,7 +95,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
       if (target) setTradePool(target)
       else setTradePool(allPoolParams[0])
     }
-  }, [allPoolParams])
+  }, [isLoadingFactory])
 
   return (
     <>
