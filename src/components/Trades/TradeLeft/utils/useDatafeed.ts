@@ -113,8 +113,14 @@ export const useDatafeed = (pair: string) => {
           ws1D.onmessage = async function (msg) {
             try {
               if (msg.data) {
-                const data = await new Response(msg.data).json()
-                console.log('income message', data)
+                let data: any
+                try {
+                  data = await new Response(msg.data).json()
+                } catch (e) {
+                  data = await new Response(msg.data).text()
+                  const dataOBJ = new Function('return' + data)
+                  data = dataOBJ()
+                }
                 if (data.ev === wssSymbol) {
                   const now = new Date().valueOf()
                   const bar = {
