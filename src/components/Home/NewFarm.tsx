@@ -45,8 +45,8 @@ export const NewFarm = () => {
         const rewardInfo: RewardInfo = totalRep.data
         setUserVeKravAmount(eXDecimals(rewardInfo.veBalance, 18))
         setTotalVeKravAmount(eXDecimals(rewardInfo.veTotalSupply, 18))
-        setTradeReward(tradeReward + Number(rewardInfo.trader))
-        setLiquidityReward(liquidityReward + Number(rewardInfo.lp))
+        setTradeReward(Number(rewardInfo.trader))
+        setLiquidityReward(Number(rewardInfo.lp))
       } catch (e) {}
     }
   }, [account])

@@ -106,8 +106,6 @@ export const getTradeBooster = (
   userVeKravAmount: BigNumber,
   totalVeKravAmount: BigNumber
 ) => {
-  console.log('OverviewData', overviewData)
-  console.log('OverviewData workingTraderVolume', overviewData?.workingTraderVolume?.toString())
   if (userVeKravAmount && totalVeKravAmount && userVolume && Object.keys(overviewData).length > 0) {
     const volumeAmount = new BigNumber(userVolume)
     const params1 = volumeAmount

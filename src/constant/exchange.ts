@@ -94,15 +94,16 @@ export const BASE_PAIR_CONFIG: ExchangeConfig = {
     logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
     useDataFeed: false,
   },
-  // 1: {
-  //   symbol: 'ETH',
-  //   chartSymbol: 'BINANCE:ETHUSDT',
-  //   apiSymbol: 'ETH',
-  //   titleSymbol: 'ETH/USDT',
-  //   pairIndex: 1,
-  //   fixDecimals: 2,
-  //   logoSource: require('../assets/imgs/tokens/Ehter.svg'),
-  // },
+  1: {
+    symbol: 'ETH',
+    chartSymbol: 'BINANCE:ETHUSDT',
+    apiSymbol: 'ETH',
+    titleSymbol: 'ETH/USDT',
+    pairIndex: 1,
+    fixDecimals: 2,
+    logoSource: require('../assets/imgs/tokens/Ehter.svg'),
+    useDataFeed: false,
+  },
 }
 
 export const COIN_BASE_TEST_CONFIG = {

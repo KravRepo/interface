@@ -96,7 +96,6 @@ export const useReferral = () => {
           }
         })
         setUserRewardInfo(rewardInfos)
-        console.log('rewardInfos', rewardInfos)
       } catch (e) {
         console.log('getRewardsReferral failed!', e)
       }
