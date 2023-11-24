@@ -41,36 +41,44 @@ export const MAINNET_CHAINS: ChainConfig = {
   1: {
     urls: [''],
     name: 'Mainnet',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://optimistic.etherscan.io'],
   },
   10: {
-    urls: [''],
+    urls: ['https://optimism.publicnode.com'],
     name: 'Optimism',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://optimistic.etherscan.io'],
   },
   56: {
-    urls: [''],
+    urls: ['https://bsc.publicnode.com'],
     name: 'Binance',
     nativeCurrency: BSC,
     blockExplorerUrls: ['https://bscscan.com'],
   },
-  42161: {
-    urls: [''],
-    name: 'Arbitrum One',
-    nativeCurrency: ETH,
-    blockExplorerUrls: ['https://arbiscan.io'],
-  },
   137: {
-    urls: [''],
+    urls: ['https://polygon-mainnet.public.blastapi.io'],
     name: 'Polygon Mainnet',
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://polygonscan.com'],
+  },
+  1101: {
+    urls: ['https://zkevm-rpc.com'],
+    name: 'Polygon zkEVM',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://zkevm.polygonscan.com'],
   },
   8453: {
     urls: ['https://developer-access-mainnet.base.org'],
     name: 'Base',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://basescan.org'],
+  },
+  42161: {
+    urls: ['https://arbitrum-one.publicnode.com'],
+    name: 'Arbitrum One',
+    nativeCurrency: ETH,
+    blockExplorerUrls: ['https://arbiscan.io'],
   },
   42220: {
     urls: ['https://forno.celo.org'],
