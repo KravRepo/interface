@@ -45,6 +45,7 @@ export const useGetUserFarmReward = () => {
         const lpReward = await req.json()
         if (lpReward.code == 200) {
           const lpRewardInfo = lpReward.data as RewardApi
+          console.log('lpRewardInfo', lpRewardInfo)
           setLpRewardAmount(eXDecimals(lpRewardInfo.lp, 18))
           setLpSignature(lpRewardInfo.lpSignature)
           setTradeLpRewardAmout(eXDecimals(lpRewardInfo.trader, 18))
