@@ -7,16 +7,16 @@ import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOv
 import { useCallback, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
-import { REWARD_API } from '../../constant/chain'
-import { API_DECIMALS } from '../../constant/math'
+import { LP_REWARD_API } from '../../constant/chain'
 
-type Reward = {
-  account: string
-  createTime: string
-  id: 0
-  reward: string
-  rewardType: string
-  updateTime: string
+type RewardInfo = {
+  liquidityProvided: string
+  lp: string
+  nextEpoch: number
+  trader: string
+  trdingVolume24H: string
+  veBalance: string
+  veTotalSupply: string
 }
 
 export const NewFarm = () => {
@@ -37,19 +37,11 @@ export const NewFarm = () => {
   const getRewardList = useCallback(async () => {
     if (account) {
       try {
-        const req = await fetch(REWARD_API + account + '?offset=0&limit=100')
-        const response = await req.json()
-        const total = response.total
-        const totalReq = await fetch(REWARD_API + account + `?offset=0&limit=${total}`)
+        const totalReq = await fetch(LP_REWARD_API + account)
         const totalRep = await totalReq.json()
-        const rewardList: Reward[] = totalRep.data
-        rewardList.forEach((reward) => {
-          if (reward.rewardType === 'trade') {
-            setTradeReward(tradeReward + Number(reward.reward) / API_DECIMALS)
-          } else {
-            setLiquidityReward(liquidityReward + Number(reward.reward) / API_DECIMALS)
-          }
-        })
+        const rewardInfo: RewardInfo = totalRep.data
+        setTradeReward(tradeReward + Number(rewardInfo.trader))
+        setLiquidityReward(liquidityReward + Number(rewardInfo.lp))
       } catch (e) {}
     }
   }, [account])
