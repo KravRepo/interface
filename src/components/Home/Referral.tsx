@@ -16,22 +16,34 @@ import { useCallback, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { base64 } from 'ethers/lib/utils'
 import { utils } from 'ethers'
-import { Tooltip, useTheme } from '@mui/material'
+import { Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { useRootStore } from '../../store/root'
 import { useNumReferral } from '../../hook/hookV8/useNumReferral'
 import { useReferral } from '../../hook/hookV8/useReferral'
 import { getBigNumberStr } from '../../utils'
+import copy from 'copy-to-clipboard'
+import { CHAINS } from '../../connectors/chain'
 
-const CopyLink = ({ children }: { children: JSX.Element }) => {
-  const [openTooltip, setOpenTooltip] = useState(false)
+export const Referral = () => {
   const { account } = useWeb3React()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
+  const [openTooltip, setOpenTooltip] = useState(false)
+  const [numReferral, setNumReferral] = useState(0)
+  useNumReferral(setNumReferral)
+  const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
+  const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
+  const expectChainId = useRootStore((store) => store.expectChainId)
+  const inviteChain = useMemo(() => {
+    return CHAINS[expectChainId]?.name
+  }, [expectChainId])
   const useCopyLink = useCallback(async () => {
     if (account) {
+      const host = document.documentURI
+      const url = host.split('/')
+      const link = url[0] + '//' + url[2] + '/trade/'
+      const encode = base64.encode(utils.toUtf8Bytes(account))
       try {
-        const host = document.documentURI
-        const url = host.split('/')
-        const link = url[0] + '//' + url[2] + '/trade/'
-        const encode = base64.encode(utils.toUtf8Bytes(account))
         await navigator.clipboard.writeText(link + encode)
         setOpenTooltip(true)
         setTimeout(() => {
@@ -39,34 +51,13 @@ const CopyLink = ({ children }: { children: JSX.Element }) => {
         }, 3000)
       } catch (e) {
         console.error('copy failed!', e)
+        copy(link + encode)
+        setTimeout(() => {
+          setOpenTooltip(false)
+        }, 3000)
       }
     }
   }, [account])
-  return (
-    <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
-      <div onClick={useCopyLink}>{children}</div>
-    </Tooltip>
-  )
-}
-
-export const Referral = () => {
-  const { account } = useWeb3React()
-  const theme = useTheme()
-
-  const [numReferral, setNumReferral] = useState(0)
-  useNumReferral(setNumReferral)
-  const { useRewardInfo, claimRewards, buttonEnable } = useReferral()
-  const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
-  const reLink = useMemo(() => {
-    if (account) {
-      const host = document.documentURI
-      const url = host.split('/')
-      const link = url[0] + '//' + url[2] + '/trade/'
-      const encode = base64.encode(utils.toUtf8Bytes(account))
-      return link + encode
-    } else return ''
-  }, [account])
-
   return (
     <div css={referral}>
       <div className="referral-title">
@@ -105,6 +96,9 @@ export const Referral = () => {
               height: 216px;
               border-radius: 4px 0 0 4px;
               padding: 14px 0;
+              @media screen and (max-width: 360px) {
+                display: none;
+              }
             `}
           >
             <div
@@ -160,6 +154,9 @@ export const Referral = () => {
               height: 216px;
               color: white;
               font-size: 14px;
+              @media screen and (max-width: 360px) {
+                display: none;
+              }
             `}
           >
             <div>
@@ -174,6 +171,9 @@ export const Referral = () => {
               position: relative;
               border-right: 2px dashed #959595;
               background: #2832f5;
+              @media screen and (max-width: 360px) {
+                display: none;
+              }
             `}
           >
             <div
@@ -198,12 +198,19 @@ export const Referral = () => {
               position: relative;
             `}
           >
-            <div className="rotate-text">Invite your friends</div>
+            <div
+              css={css`
+                @media screen and (max-width: 450px) {
+                  display: none;
+                }
+              `}
+              className="rotate-text"
+            >
+              Invite your friends
+            </div>
             <div className="referral-title-right">
               <p>COPY REFERRAL LINK</p>
-              <CopyLink>
-                <KRAVButton sx={{ width: '115px', background: '#000', zIndex: 2 }}>Invite friends</KRAVButton>
-              </CopyLink>
+              <KRAVButton sx={{ width: '115px', background: '#000' }}>Invite friends</KRAVButton>
               <div />
             </div>
           </div>
@@ -212,13 +219,15 @@ export const Referral = () => {
       <div
         className="referral-link"
         css={css`
-          border-bottom: ${theme.splitLine.primary};
+          border-bottom: ${isMobile ? 'unset' : theme.splitLine.primary};
           color: ${theme.text.primary};
         `}
       >
         <div
           css={css`
-            border-right: ${theme.splitLine.primary};
+            border-right: ${isMobile ? 'unset' : theme.splitLine.primary};
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '24px' : ''};
           `}
         >
           <p
@@ -228,9 +237,13 @@ export const Referral = () => {
           >
             Invite Chain
           </p>
-          <p>Base</p>
+          <p>{inviteChain}</p>
         </div>
-        <div>
+        <div
+          css={css`
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+          `}
+        >
           <div>
             <span
               css={css`
@@ -240,7 +253,12 @@ export const Referral = () => {
               Your Referral Link
             </span>
           </div>
-          <div css={align}>
+          <div
+            css={css`
+              display: ${isMobile ? 'block' : 'flex'};
+              align-items: center;
+            `}
+          >
             <div
               className="link-text"
               css={css`
@@ -248,7 +266,7 @@ export const Referral = () => {
                 background: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#f6f6f6'};
               `}
             >
-              <span>https://base.krav.trade/trade/</span>
+              <span>https://app.krav.trade/trade/</span>
               <div
                 css={css`
                   border-left: ${theme.splitLine.primary};
@@ -265,11 +283,13 @@ export const Referral = () => {
               </div>
             </div>
             {account && (
-              <CopyLink>
+              <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
                 <KRAVButton
+                  onClick={useCopyLink}
                   sx={{
                     width: '140px',
-                    ml: '8px',
+                    ml: isMobile ? '0' : '8px',
+                    mt: isMobile ? '8px' : '0',
                     '&:hover': {
                       backgroundColor: '#757575',
                     },
@@ -280,11 +300,11 @@ export const Referral = () => {
                 >
                   Copy referral link
                 </KRAVButton>
-              </CopyLink>
+              </Tooltip>
             )}
             {!account && (
               <KRAVButton
-                sx={{ width: '140px', ml: '8px' }}
+                sx={{ width: '140px', ml: isMobile ? '0' : '8px', mt: isMobile ? '8px' : '0' }}
                 onClick={() => {
                   setWalletDialogVisibility(true)
                 }}
@@ -296,7 +316,7 @@ export const Referral = () => {
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
           `}
         >
           <p
@@ -308,20 +328,20 @@ export const Referral = () => {
           </p>
           <div className="social">
             {theme.palette.mode === 'dark' ? (
-              <TWDarkIcon onClick={() => window.open(`https://twitter.com/intent/tweet?text=${reLink}`)} />
+              <TWDarkIcon onClick={() => window.open('https://twitter.com/kravtrade')} />
             ) : (
-              <TWIcon onClick={() => window.open(`https://twitter.com/intent/tweet?text=${reLink}`)} />
+              <TWIcon onClick={() => window.open('https://twitter.com/kravtrade')} />
             )}
             {theme.palette.mode === 'dark' ? (
               <TGDarkIcon
-                onClick={() => window.open(`https://t.me/share?url=${reLink}&text=${reLink}`)}
+                onClick={() => window.open('https://t.me/kravtrade')}
                 css={css`
                   margin: 0 12px;
                 `}
               />
             ) : (
               <TGIcon
-                onClick={() => window.open(`https://t.me/share?url=${reLink}&text=${reLink}`)}
+                onClick={() => window.open('https://t.me/kravtrade')}
                 css={css`
                   margin: 0 12px;
                 `}

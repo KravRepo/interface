@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import { useCancelOpenLimitOrder } from '../../hook/hookV8/useCancelOpenLimitOrder'
 import { TupleLimitOrder } from '../Trades/type'
 import { PoolParams } from '../../store/FactorySlice'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
+import { useRootStore } from '../../store/root'
 
 /** @jsxImportSource @emotion/react */
 
@@ -14,6 +14,7 @@ type LimitOrderItemProps = {
 
 export const LimitOrderItem = ({ limit, pool }: LimitOrderItemProps) => {
   const cancelOpenLimitOrder = useCancelOpenLimitOrder(pool.tradingT, pool.storageT)
+  const pairConfig = useRootStore((store) => store.pairConfig)
 
   const getOrderContent = (
     isBuy: boolean,
@@ -36,8 +37,8 @@ export const LimitOrderItem = ({ limit, pool }: LimitOrderItemProps) => {
       <div>
         {getOrderContent(limit.buy, limit.minPrice, new BigNumber(limit.positionSize), limit.leverage, pool.symbol)}
       </div>
-      <div>{EXCHANGE_CONFIG[limit.pairIndex].symbol}</div>
-      <div>${limit.minPrice.toFixed(EXCHANGE_CONFIG[limit.pairIndex].fixDecimals)}</div>
+      <div>{pairConfig[limit.pairIndex].symbol}</div>
+      <div>${limit.minPrice.toFixed(pairConfig[limit.pairIndex].fixDecimals)}</div>
       <div>{limit.leverage}</div>
       <div>{new BigNumber(limit.positionSize).toFixed(2)}</div>
       <div

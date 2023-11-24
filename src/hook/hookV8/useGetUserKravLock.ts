@@ -1,16 +1,13 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract, useTokenContract } from './useContract'
-import { KRAV_ADDRESS, VE_KRAV } from '../../constant/chain'
 import voting from '../../abi/voting_escrow.json'
 import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
-// import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
-import { useRootStore } from '../../store/root'
-import { useUpdateError } from './useUpdateError'
-import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
-import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { useGetClaimableTokensFee } from './useGetClaimableTokensFee'
+import { useRootStore } from '../../store/root'
+import { useConfig } from './useConfig'
+import { useInterval } from './useInterval'
 export type UserLockPosition = {
   amount: BigNumber
   end: number
@@ -18,6 +15,7 @@ export type UserLockPosition = {
 
 export const useGetUserKravLock = () => {
   const { provider, account } = useWeb3React()
+  const config = useConfig()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const [userKravBalance, setUserKravBalance] = useState(new BigNumber(0))
   const [totalKravLock, setTotalKravLock] = useState(new BigNumber(0))
@@ -28,14 +26,9 @@ export const useGetUserKravLock = () => {
     amount: new BigNumber(0),
     end: 0,
   })
-  const updateError = useUpdateError()
-  const updateSuccessDialog = useUpdateSuccessDialog()
-  const setTransactionState = useRootStore((store) => store.setTransactionState)
-  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
-  const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
 
-  const veContract = useContract(VE_KRAV, voting.abi)
-  const kravTokenContract = useTokenContract(KRAV_ADDRESS)
+  const veContract = useContract(config?.veKrav, voting.abi)
+  const kravTokenContract = useTokenContract(config?.kravAddress)
   const getUserKravLock = useCallback(async () => {
     if (provider && veContract && account && kravTokenContract) {
       try {
@@ -68,37 +61,12 @@ export const useGetUserKravLock = () => {
       }
     }
   }, [veContract])
-  const unLockPosition = useCallback(async () => {
-    if (veContract) {
-      try {
-        setTransactionState(TransactionState.INTERACTION)
-        setTransactionDialogVisibility(true)
-        const tx = await veContract.withdraw()
-        setTransactionState(TransactionState.UNLOCK)
-        await tx.wait()
-        setTransactionState(TransactionState.START)
-        updateSuccessDialog(TransactionAction.UNLOCK)
-        setSuccessSnackbarInfo({
-          snackbarVisibility: true,
-          title: 'Unlock',
-          content: 'Unlocked successfully',
-        })
-      } catch (e) {
-        updateError(TransactionAction.UNLOCK)
-      }
-    }
-  }, [veContract])
-  useEffect(() => {
-    let Interval: NodeJS.Timer
-    if (account && provider && allPoolParams.length > 0) {
-      Promise.all([getUserKravLock(), getTotalLock(), getUserFeesReward()]).then()
 
-      Interval = setInterval(async () => {
-        await Promise.all([getUserKravLock(), getTotalLock(), getUserFeesReward()])
-      }, 15000)
-    }
-    return () => {
-      if (Interval) clearInterval(Interval)
+  useInterval(async () => await Promise.all([getUserKravLock(), getUserFeesReward(), getTotalLock()]), 15000)
+
+  useEffect(() => {
+    if (account && provider && allPoolParams.length > 0) {
+      Promise.all([getUserFeesReward(), getUserKravLock(), getTotalLock()]).then()
     }
   }, [provider, account, allPoolParams])
 
@@ -109,6 +77,5 @@ export const useGetUserKravLock = () => {
     totalKravLock: totalKravLock,
     userVeKravAmount: userVeKravAmount,
     totalVeKravAmount: totalVeKravAmount,
-    unLockPosition: unLockPosition,
   }
 }

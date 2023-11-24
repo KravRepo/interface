@@ -6,16 +6,16 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { align } from '../../globalStyle'
 import { useRootStore } from '../../store/root'
 import { useMemo } from 'react'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export const SelectPair = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: () => void }) => {
   const theme = useTheme()
   const setTradePairIndex = useRootStore((store) => store.setTradePairIndex)
+  const pairConfig = useRootStore((store) => store.pairConfig)
   const pairs = useMemo(() => {
-    return Object.keys(EXCHANGE_CONFIG).map((key) => {
-      return EXCHANGE_CONFIG[Number(key)]
+    return Object.keys(pairConfig).map((key) => {
+      return pairConfig[Number(key)]
     })
-  }, [])
+  }, [pairConfig])
   return (
     <Dialog
       sx={{

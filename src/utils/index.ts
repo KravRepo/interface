@@ -58,8 +58,8 @@ export function getInjection(isDarkMode?: boolean): { name: string } | undefined
   return { name: 'Browser Wallet' }
 }
 
-export async function getGasLimit(contract: Contract, method: string, params = []) {
-  const res = await contract.estimateGas[method](...params)
+export async function getGasLimit(contract: Contract, method: string, params = [], value?: string) {
+  const res = await contract.estimateGas[method](...params, { value: value })
   let gasLimit = new BigNumber(res.toString())
   if (gasLimit.lt(22000)) {
     gasLimit = new BigNumber(22000)

@@ -13,7 +13,6 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
-import { EXCHANGE_CONFIG } from '../../constant/exchange'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -66,6 +65,7 @@ export const ProfitConfirmTrade = ({
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
   const tradePool = useRootStore((store) => store.tradePool)
+  const pairConfig = useRootStore((store) => store.pairConfig)
   const [slUsePercentage, setUseSlPercentage] = useState(BigNumber(openTrade.tp).gt(0) ? false : true)
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
   const [tpSetting, setTpSetting] = useState(0)
@@ -81,32 +81,32 @@ export const ProfitConfirmTrade = ({
   }, [theme])
 
   const tradePair = useMemo(() => {
-    return EXCHANGE_CONFIG[openTrade.pairIndex]
-  }, [openTrade])
+    return pairConfig[openTrade.pairIndex]
+  }, [openTrade, pairConfig])
 
   const targetSl = useMemo(() => {
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, btcPrice)
+        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(slPrice)
-  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, btcPrice, slPrice])
+  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, slPrice])
 
   const targetTp = useMemo(() => {
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, btcPrice)
+        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(tpPrice)
-  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, btcPrice, tpPrice])
+  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, tpPrice])
 
   const slPercentage = useMemo(() => {
-    return getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
-  }, [btcPrice, openTrade.buy, openTrade.leverage, targetSl])
+    return getTakeProfit(new BigNumber(openTrade.openPrice), targetSl, openTrade.buy, openTrade.leverage, true)
+  }, [openTrade.buy, openTrade.leverage, targetSl])
 
   const tpPercentage = useMemo(() => {
-    return getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
-  }, [btcPrice, openTrade.buy, openTrade.leverage, targetTp])
+    return getTakeProfit(new BigNumber(openTrade.openPrice), targetTp, openTrade.buy, openTrade.leverage, false)
+  }, [openTrade.buy, openTrade.leverage, targetTp])
 
   const handleTpSLSetting = (isSl: boolean, value: number) => {
     if (isSl) {
@@ -126,7 +126,13 @@ export const ProfitConfirmTrade = ({
   )
 
   const slLimit = useMemo(() => {
-    const percentage = getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
+    const percentage = getTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetSl,
+      openTrade.buy,
+      openTrade.leverage,
+      true
+    )
     if (new BigNumber(targetSl).isGreaterThanOrEqualTo(openTrade.openPrice) && openTrade.buy && !targetSl.isEqualTo(0))
       return SlLimitState.SL_GT_OPEN_PRICE
     if (new BigNumber(targetSl).isLessThanOrEqualTo(openTrade.openPrice) && !openTrade.buy && !targetSl.isEqualTo(0))
@@ -137,7 +143,13 @@ export const ProfitConfirmTrade = ({
   }, [slPercentage, targetSl, slPrice, slUsePercentage, btcPrice, openTrade.buy, openTrade.leverage])
 
   const tpLimit = useMemo(() => {
-    const percentage = getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
+    const percentage = getTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetTp,
+      openTrade.buy,
+      openTrade.leverage,
+      false
+    )
     if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
     if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
     if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
@@ -175,7 +187,12 @@ export const ProfitConfirmTrade = ({
     >
       <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>BTC/USDT(Update SL/TP)</span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
@@ -484,6 +501,14 @@ export const ProfitConfirmTrade = ({
               <p>
                 <span>Current price</span>
                 <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
+              </p>
+              <p>
+                <span>Current TP</span>
+                <span>${new BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}</span>
+              </p>
+              <p>
+                <span>Current SL</span>
+                <span>${new BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
                 <span>Liquidation price</span>

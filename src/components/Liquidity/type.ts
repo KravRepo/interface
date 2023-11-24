@@ -10,12 +10,14 @@ export type YourPositionProps = {
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   isLoadingUserPosition: boolean
   aprList: AprList[]
+  isTable: boolean
 }
 
 export type TargetMarketProps = {
   setCreateLiquidityPool: Dispatch<SetStateAction<boolean>>
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
   aprList: AprList[]
+  isTable: boolean
 }
 
 export type ConfirmCreatPoolProps = {

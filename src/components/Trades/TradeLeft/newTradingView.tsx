@@ -3,13 +3,13 @@ import { css } from '@emotion/react'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useTheme } from '@mui/material'
 import { useRootStore } from '../../../store/root'
-import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 export default function TradingViewWidget() {
   const tradePairIndex = useRootStore((store) => store.tradePairIndex)
+  const pairConfig = useRootStore((store) => store.pairConfig)
   const tradingViewSymbol = useMemo(() => {
-    return EXCHANGE_CONFIG[tradePairIndex].chartSymbol
-  }, [tradePairIndex])
+    return pairConfig[tradePairIndex].chartSymbol
+  }, [tradePairIndex, pairConfig])
   const theme = useTheme()
   const createWidget = useCallback(() => {
     if (document.getElementById('tradingview_2daf6') && 'TradingView' in window) {

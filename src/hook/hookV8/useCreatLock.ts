@@ -1,6 +1,5 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract, useTokenContract } from './useContract'
-import { KRAV_ADDRESS, VE_KRAV } from '../../constant/chain'
 import voting from '../../abi/voting_escrow.json'
 import { useCallback } from 'react'
 import BigNumber from 'bignumber.js'
@@ -12,11 +11,13 @@ import { useRootStore } from '../../store/root'
 import { MAX_UNIT_256, ONE_DAY_TIMESTAMP } from '../../constant/math'
 import { eXDecimals } from '../../utils/math'
 import { getLockTime } from './utils/utils'
+import { useConfig } from './useConfig'
 
 export const useCreatLock = () => {
   const { provider } = useWeb3React()
-  const veContract = useContract(VE_KRAV, voting.abi)
-  const kravTokenContract = useTokenContract(KRAV_ADDRESS)
+  const config = useConfig()
+  const veContract = useContract(config?.veKrav, voting.abi)
+  const kravTokenContract = useTokenContract(config?.kravAddress)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -24,7 +25,7 @@ export const useCreatLock = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   return useCallback(
     async (lockAmount: BigNumber, lockTime: number) => {
-      if (provider && veContract && kravTokenContract) {
+      if (provider && veContract && kravTokenContract && config) {
         try {
           const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
           const forMatterLockTime = getLockTime(lockTime)
@@ -47,7 +48,7 @@ export const useCreatLock = () => {
           // }
           setTransactionState(TransactionState.APPROVE)
           console.log('2 approve', lockAmount.toString())
-          const approveTX = await kravTokenContract.approve(VE_KRAV, MAX_UNIT_256)
+          const approveTX = await kravTokenContract.approve(config.veKrav, MAX_UNIT_256)
           await approveTX.wait()
           console.log('3 approveTX', approveTX)
           setTransactionState(TransactionState.INTERACTION)
@@ -75,6 +76,6 @@ export const useCreatLock = () => {
         }
       }
     },
-    [provider, veContract]
+    [provider, veContract, config, kravTokenContract]
   )
 }

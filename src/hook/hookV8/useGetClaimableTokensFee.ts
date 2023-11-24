@@ -1,12 +1,12 @@
 import { useWeb3React } from '@web3-react/core'
 import { useContract } from './useContract'
 import { useCallback, useState } from 'react'
-import { FEE_DISTRBUTOR } from '../../constant/chain'
 import fees_manager from '../../abi/fee_distributor_manager.json'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { PoolParams } from '../../store/FactorySlice'
 import { eXDecimals } from '../../utils/math'
+import { useConfig } from './useConfig'
 
 export type FeesRewardList = {
   amount: BigNumber
@@ -15,7 +15,8 @@ export type FeesRewardList = {
 // claim reward for locked krav
 export const useGetClaimableTokensFee = () => {
   const { account, provider } = useWeb3React()
-  const feesDistributorContract = useContract(FEE_DISTRBUTOR, fees_manager.abi)
+  const config = useConfig()
+  const feesDistributorContract = useContract(config?.feeDistrbutor, fees_manager.abi)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const [userFeesRewardList, setUserFeesRewardList] = useState([] as FeesRewardList[])
 

@@ -138,10 +138,13 @@ export const LockAction = ({
           align-items: center;
           justify-content: space-between;
           margin-bottom: 16px;
+          @media screen and (max-width: 1200px) {
+            display: block;
+          }
         `}
       >
-        <span className="title gt">KRAV Locking Amount</span>
-        <span>Available: {formatNumber(userKravBalance.toString(), 2, false)} KRAV</span>
+        <div className="title gt">KRAV Locking Amount</div>
+        <div>Available: {formatNumber(userKravBalance.toString(), 2, false)} KRAV</div>
       </div>
       <div
         css={css`

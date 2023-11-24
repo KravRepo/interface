@@ -10,6 +10,7 @@ import { eXDecimals } from '../../utils/math'
 import multicall2 from '../../abi/multicall2.json'
 import { creatCall, decodeCallResult } from './useContract'
 import { Interface } from 'ethers/lib/utils'
+import { CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
 
 export type UserData = {
   pool: PoolParams
@@ -23,13 +24,19 @@ export type UserData = {
 }
 
 export const useUserPosition = () => {
-  const { provider, account } = useWeb3React()
+  const { provider, account, chainId } = useWeb3React()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const setUserPositionDatas = useRootStore((store) => store.setUserPositionDatas)
   return useCallback(async () => {
     try {
-      if (allPoolParams.length > 0 && account && provider) {
-        const multicall = new Contract(multicall2.address, multicall2.abi, provider)
+      if (allPoolParams.length > 0 && account && provider && chainId) {
+        const multicall = new Contract(
+          chainId && SUPPORT_CHAIN.includes(chainId)
+            ? CONTRACT_CONFIG[chainId].multicall
+            : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall,
+          multicall2.abi,
+          provider
+        )
         const task: any[] = []
         const balanceTask: any[] = []
         const tokenInterface = new Interface(test_erc20.abi)
@@ -63,5 +70,5 @@ export const useUserPosition = () => {
     } catch (e) {
       console.log('get user position failed!', e)
     }
-  }, [allPoolParams, account, provider])
+  }, [allPoolParams, account, provider, chainId])
 }

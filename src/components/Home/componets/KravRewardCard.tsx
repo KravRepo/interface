@@ -1,14 +1,11 @@
 /** @jsxImportSource @emotion/react */
-// import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
-import { ReactComponent as KravToken } from '../../../assets/imgs/krav_token.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../../globalStyle'
 import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { useMemo } from 'react'
-import { getBigNumberStr } from '../../../utils'
 import moment from 'moment'
 
 type KravRewardCardProps = {
@@ -17,6 +14,8 @@ type KravRewardCardProps = {
   contractAmount: BigNumber
   claimMethod: (isTrade: boolean) => Promise<void>
   nextEpoch: number
+  tradeReward?: number
+  liquidityReward?: number
 }
 export const KravRewardCard = ({
   isTrade,
@@ -24,7 +23,11 @@ export const KravRewardCard = ({
   contractAmount,
   claimMethod,
   nextEpoch,
+  tradeReward,
+  liquidityReward,
 }: KravRewardCardProps) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const nextDistribution = useMemo(() => {
     const nowTime = new Date()
     const targetTime = new Date(nextEpoch * 1000)
@@ -39,11 +42,10 @@ export const KravRewardCard = ({
     return { disHour: disHour, disMinut: disMinut }
   }, [backendAmount])
   const { account } = useWeb3React()
-  const theme = useTheme()
-  const kravRewardInfo = useMemo(() => {
-    if (backendAmount.isGreaterThan(contractAmount)) return { amount: backendAmount, claimEnable: true }
-    else return { amount: new BigNumber(0), claimEnable: false }
-  }, [backendAmount, contractAmount])
+  // const kravRewardInfo = useMemo(() => {
+  //   if (backendAmount.isGreaterThan(contractAmount)) return { amount: backendAmount, claimEnable: true }
+  //   else return { amount: new BigNumber(0), claimEnable: false }
+  // }, [backendAmount, contractAmount])
   return (
     <div
       className="krav-reward-card"
@@ -56,7 +58,7 @@ export const KravRewardCard = ({
           margin-bottom: 10px;
         `}
       >
-        <div className="title gt">KRAV Rewards</div>
+        <div className="title gt">Rewards</div>
         <div css={align}>
           {/*<span>What is this?&nbsp;&nbsp;</span>*/}
           {/*<QuestionIcon />*/}
@@ -67,30 +69,36 @@ export const KravRewardCard = ({
           margin-bottom: 40px;
         `}
       >
-        <div css={align}>
-          <KravToken />
+        <div
+          css={[
+            align,
+            css`
+              padding-bottom: ${isMobile ? '24px' : ''};
+            `,
+          ]}
+        >
+          {/*<KravToken />*/}
           <span
             css={css`
               font-weight: 500;
               font-size: 20px;
             `}
           >
-            &nbsp;{getBigNumberStr(kravRewardInfo.amount, 2)} KRAV
+            &nbsp;{tradeReward ? tradeReward : liquidityReward}
           </span>
-          <span>($0.00)</span>
         </div>
         {!account && <KRAVButton sx={{ height: '30px', minHeight: '30px', width: '129px' }}>Connect Wallet</KRAVButton>}
-        {account && (
-          <KRAVButton
-            disabled={!kravRewardInfo.claimEnable}
-            onClick={async () => {
-              await claimMethod(isTrade)
-            }}
-            sx={{ height: '30px', minHeight: '30px', width: '129px' }}
-          >
-            Claim
-          </KRAVButton>
-        )}
+        {/*{account && (*/}
+        {/*  <KRAVButton*/}
+        {/*    disabled={!kravRewardInfo.claimEnable}*/}
+        {/*    onClick={async () => {*/}
+        {/*      await claimMethod(isTrade)*/}
+        {/*    }}*/}
+        {/*    sx={{ height: '30px', minHeight: '30px', width: '129px' }}*/}
+        {/*  >*/}
+        {/*    Claim*/}
+        {/*  </KRAVButton>*/}
+        {/*)}*/}
       </div>
       <div
         css={css`

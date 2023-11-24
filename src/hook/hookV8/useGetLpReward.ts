@@ -21,7 +21,7 @@ export const useGetLpReward = (vaultAddress: string, decimals: number) => {
           setLpReward(eXDecimals(new BigNumber(lpReward._hex), decimals))
         }
       } catch (e) {
-        console.error('get lp reward failed!', e)
+        console.log('get lp reward failed!', e)
       }
     },
     [account, vaultContract]
@@ -33,7 +33,7 @@ export type UserFeesRewardList = {
   rewardAmount: BigNumber
 }
 export const useGetAllLpReward = () => {
-  const { account, provider } = useWeb3React()
+  const { account, provider, chainId } = useWeb3React()
   const [userFeesRewardList, setUserFeesRewardList] = useState([] as UserFeesRewardList[])
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const positionDatas = useMemo(() => {
@@ -46,21 +46,23 @@ export const useGetAllLpReward = () => {
     } else return []
   }, [userPositionDatas])
   const getAllLpReward = useCallback(async () => {
-    if (positionDatas.length > 0 && account && provider) {
+    if (positionDatas.length > 0 && account && provider && chainId) {
       const feesRewardList: UserFeesRewardList[] = []
       const getAndForMatter = async () => {
         return await Promise.all(
           positionDatas.map(async (positionData, index) => {
             const asyncWorker = async () => {
-              const contract = new Contract(positionData.pool.vaultT, trading_vault.abi, provider)
-              const lpReward = await contract.pendingRewardDaiByAccount(account)
-              const amount = new BigNumber(lpReward._hex)
-              if (amount.isGreaterThan(0)) {
-                feesRewardList.push({
-                  position: positionData,
-                  rewardAmount: eXDecimals(new BigNumber(lpReward._hex), positionData.pool.decimals),
-                })
-              }
+              try {
+                const contract = new Contract(positionData.pool.vaultT, trading_vault.abi, provider)
+                const lpReward = await contract.pendingRewardDaiByAccount(account)
+                const amount = new BigNumber(lpReward._hex)
+                if (amount.isGreaterThan(0)) {
+                  feesRewardList.push({
+                    position: positionData,
+                    rewardAmount: eXDecimals(new BigNumber(lpReward._hex), positionData.pool.decimals),
+                  })
+                }
+              } catch (e) {}
             }
             return await asyncWorker()
           })
@@ -69,7 +71,7 @@ export const useGetAllLpReward = () => {
       await getAndForMatter()
       setUserFeesRewardList(feesRewardList)
     }
-  }, [positionDatas, account, provider])
+  }, [positionDatas, account, provider, chainId])
 
   useEffect(() => {
     let interval: NodeJS.Timer

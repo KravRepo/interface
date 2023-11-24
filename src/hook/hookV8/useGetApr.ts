@@ -1,9 +1,10 @@
 import { useRootStore } from '../../store/root'
 import { useCallback, useEffect, useState } from 'react'
-import { QUANTO_API, TEST_CHAIN_ID } from '../../constant/chain'
+import { QUANTO_API } from '../../constant/chain'
 import { Quanto } from '../../components/Trades/TradeLeft/TradeHistory'
 import BigNumber from 'bignumber.js'
 import { ONE_YEAR_TIMESTAMP } from '../../constant/math'
+import { useWeb3React } from '@web3-react/core'
 
 export type AprList = {
   tradingT: string
@@ -11,14 +12,13 @@ export type AprList = {
 }
 
 export const useGetApr = () => {
+  const { chainId } = useWeb3React()
   const [aprList, setAprList] = useState<AprList[]>([])
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const getApr = useCallback(async () => {
     if (allPoolParams.length > 0) {
       try {
-        const quantosRequest = await fetch(
-          QUANTO_API + `?chainId=${TEST_CHAIN_ID}&offset=0&limit=` + allPoolParams.length
-        )
+        const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
         const quantos = await quantosRequest.json()
         if (quantos.code == 200) {
           const allPoolApr: AprList[] = []
@@ -42,13 +42,10 @@ export const useGetApr = () => {
         }
       } catch (e) {}
     }
-  }, [allPoolParams])
+  }, [allPoolParams, chainId])
 
   useEffect(() => {
     getApr().then()
-    setInterval(async () => {
-      await getApr()
-    }, 20000)
-  }, [allPoolParams])
+  }, [allPoolParams, chainId])
   return { aprList: aprList }
 }

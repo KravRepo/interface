@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { HistoryData } from './TradeHistory'
 import { align } from '../../../globalStyle'
+import { ReactComponent as BTCIcon } from '../../../assets/imgs/tokens/bitcoin.svg'
 import { css } from '@emotion/react'
 import { eXDecimals } from '../../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
 import { PoolParams } from '../../../store/FactorySlice'
-import { EXCHANGE_CONFIG } from '../../../constant/exchange'
 
 type HistoryItemProps = {
   history: HistoryData
@@ -24,7 +24,7 @@ type HistoryItemProps = {
 
 export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   const tradePool = useRootStore((state) => state.tradePool)
-
+  const pairConfig = useRootStore((state) => state.pairConfig)
   const pnlValue = useMemo(() => {
     if (history) {
       return new BigNumber(history.percentProfit).isEqualTo(0)
@@ -36,9 +36,9 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
     } else return new BigNumber(0)
   }, [history])
 
-  const tradePair = useMemo(() => {
-    return EXCHANGE_CONFIG[history.tradePairIndex]
-  }, [history])
+  const tradeSymbol = useMemo(() => {
+    return pairConfig[history.tradePairIndex].titleSymbol
+  }, [history, pairConfig])
 
   const tradeType = useMemo(() => {
     switch (history.limitOrderType.toString()) {
@@ -61,13 +61,13 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
     <div className="history-layout">
       <div>{history.createTime.split(' ')[0]}</div>
       <div css={align}>
-        <img src={tradePair.logoSource.default} height="20" width="20" alt="" />
+        <BTCIcon height="20" width="20" />
         <span
           css={css`
             margin-left: 8px;
           `}
         >
-          {tradePair.titleSymbol}
+          {tradeSymbol}
         </span>
       </div>
       <div
@@ -77,7 +77,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
       >
         {tradeType}
       </div>
-      <div>${eXDecimals(history.price, 10).toFixed(tradePair.fixDecimals)}</div>
+      <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>
       <div>{eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals || 18).toFixed(2)}</div>
       <div

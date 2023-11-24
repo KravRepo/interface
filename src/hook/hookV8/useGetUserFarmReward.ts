@@ -25,9 +25,7 @@ type RewardApi = {
 export const useGetUserFarmReward = () => {
   const { account, provider } = useWeb3React()
   const [lpRewardAmount, setLpRewardAmount] = useState(new BigNumber(0))
-  const [receivedLpRewardAmount, setReceivedLpRewardAmount] = useState(new BigNumber(0))
   const [tradeRewardAmount, setTradeLpRewardAmout] = useState(new BigNumber(0))
-  const [receivedTradeRewardAmount, setReceivedTradeRewardAmount] = useState(new BigNumber(0))
   const [userLiquidityProvided, setUserLiquidityProvided] = useState(0)
   const [userTradingVolume24H, setUserTradingVolume24H] = useState(0)
   const [nextEpoch, setNextEpoch] = useState(0)
@@ -47,6 +45,7 @@ export const useGetUserFarmReward = () => {
         const lpReward = await req.json()
         if (lpReward.code == 200) {
           const lpRewardInfo = lpReward.data as RewardApi
+          console.log('lpRewardInfo', lpRewardInfo)
           setLpRewardAmount(eXDecimals(lpRewardInfo.lp, 18))
           setLpSignature(lpRewardInfo.lpSignature)
           setTradeLpRewardAmout(eXDecimals(lpRewardInfo.trader, 18))
@@ -58,20 +57,6 @@ export const useGetUserFarmReward = () => {
       } catch (e) {}
     }
   }, [account])
-
-  const queryLpContract = useCallback(async () => {
-    if (account && provider && miningContract) {
-      const req = await miningContract.claimed(account)
-      setReceivedLpRewardAmount(eXDecimals(new BigNumber(req._hex), 18))
-    }
-  }, [account, provider, miningContract])
-
-  const queryTradeContract = useCallback(async () => {
-    if (account && provider && tradeMiningContract) {
-      const req = await tradeMiningContract.claimed(account)
-      setReceivedTradeRewardAmount(eXDecimals(new BigNumber(req._hex), 18))
-    }
-  }, [account, provider, tradeMiningContract])
 
   const claimLpRewardKrav = useCallback(
     async (isTrade: boolean) => {
@@ -113,9 +98,11 @@ export const useGetUserFarmReward = () => {
   useEffect(() => {
     let interval: NodeJS.Timer
     if (miningContract && account && provider) {
-      Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()]).then()
+      Promise.all([queryLPBackend()]).then()
       interval = setInterval(async () => {
-        await Promise.all([queryLPBackend(), queryLpContract(), queryTradeContract()])
+        await Promise.all([queryLPBackend()]).catch((e) => {
+          console.log('get user farm reward failed!', e)
+        })
       }, 15000)
     }
     return () => clearInterval(interval)
@@ -127,8 +114,6 @@ export const useGetUserFarmReward = () => {
     lpSignature: lpSignature,
     tradeSignature: tradeSignature,
     claimLpRewardKrav: claimLpRewardKrav,
-    receivedLpRewardAmount: receivedLpRewardAmount,
-    receivedTradeRewardAmount: receivedTradeRewardAmount,
     userLiquidityProvided: userLiquidityProvided,
     userTradingVolume24H: userTradingVolume24H,
     nextEpoch: nextEpoch,

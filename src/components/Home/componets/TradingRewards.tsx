@@ -2,16 +2,16 @@
 import KRAVTab from '../../KravUIKit/KravTab'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
-import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
-import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
-import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { KravRewardCard } from './KravRewardCard'
-import { Box, css, Popover, Tooltip, useTheme } from '@mui/material'
-import { align } from '../../../globalStyle'
+import { Box, css, Popover, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
-import { useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
+import { align } from '../../../globalStyle'
+import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
+import { useNavigate } from 'react-router-dom'
+import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
+import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 
 type TradingRewardsProps = {
   lpRewardAmount: BigNumber
@@ -21,6 +21,7 @@ type TradingRewardsProps = {
   userTradingVolume24H: number
   tradeBooster: BigNumber
   nextEpoch: number
+  tradeReward: number
 }
 export const TradingRewards = ({
   lpRewardAmount,
@@ -30,8 +31,10 @@ export const TradingRewards = ({
   userTradingVolume24H,
   tradeBooster,
   nextEpoch,
+  tradeReward,
 }: TradingRewardsProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = useState(null)
 
@@ -68,13 +71,23 @@ export const TradingRewards = ({
           background: ${theme.background.primary};
         `}
       >
-        <div>
+        <div
+          css={css`
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '16px' : 'unset'};
+            margin-bottom: ${isMobile ? '16px' : 'unset'};
+          `}
+        >
           <KRAVTab>Total Trading Volume</KRAVTab>
           <p className="data gt">{formatNumber(overviewData.tradingVolume, 2, true)}</p>
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '16px' : 'unset'};
+            padding-left: ${isMobile ? '0px' : '32px'};
+            margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
           <KRAVTab>24h Trading Volume</KRAVTab>
@@ -82,7 +95,11 @@ export const TradingRewards = ({
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+            padding-bottom: ${isMobile ? '16px' : 'unset'};
+            padding-left: ${isMobile ? '0px' : '32px'};
+            margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
           <Box
@@ -116,7 +133,7 @@ export const TradingRewards = ({
           >
             <div
               css={css`
-                width: 360px;
+                width: ${isMobile ? '220px' : '360px'};
                 padding: 12px 16px;
                 border-radius: 8px;
               `}
@@ -184,7 +201,8 @@ export const TradingRewards = ({
         </div>
         <div
           css={css`
-            border-left: ${theme.splitLine.primary};
+            border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+            padding-left: ${isMobile ? '0px' : '32px'};
           `}
         >
           <Tooltip
@@ -231,7 +249,7 @@ export const TradingRewards = ({
       </div>
       <div
         css={css`
-          width: 50%;
+          width: ${isMobile ? '100%' : '50%'};
         `}
       >
         <KravRewardCard
@@ -240,6 +258,7 @@ export const TradingRewards = ({
           contractAmount={contractAmount}
           claimMethod={claimTradingRewardKrav}
           nextEpoch={nextEpoch}
+          tradeReward={tradeReward}
         />
       </div>
     </>

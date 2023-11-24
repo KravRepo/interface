@@ -8,6 +8,9 @@ export const header = css`
   margin: 0 auto;
   padding: 0 32px 0 25px;
   background: transparent;
+  @media screen and (max-width: 1200px) {
+    padding: 0 10px 0 16px;
+  }
 `
 
 export const setting = css`
@@ -91,6 +94,9 @@ export const headerBtn = css`
   padding: 10px 16px;
   height: 40px;
   font-size: 14px;
+  @media screen and (max-width: 1200px) {
+    padding: 10px 6px;
+  }
 `
 
 export const notifyBtn = css`

@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import { useEffect, useState } from 'react'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
-import { ReactComponent as DogeIcon } from 'assets/imgs/tokens/doge.svg'
+import { ReactComponent as KRAVIcon } from 'assets/imgs/tokens/KRAV.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { stake } from './style'
 import { align } from '../../globalStyle'
@@ -99,7 +99,7 @@ export const Stake = () => {
               </div>
               <div className="grid-layout">
                 <div css={align}>
-                  <DogeIcon />
+                  <KRAVIcon height="40" width="40" />
                   <div
                     css={css`
                       margin-left: 12px;

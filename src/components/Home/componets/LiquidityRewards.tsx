@@ -2,19 +2,19 @@
 import KRAVTab from '../../KravUIKit/KravTab'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
-import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ArrowLeft } from '../../../assets/imgs/arrowLeft.svg'
 import { ReactComponent as ArrowLeftDark } from '../../../assets/imgs/darkModel/arrow_left_dark.svg'
-import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
-import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { align } from '../../../globalStyle'
 import { KravRewardCard } from './KravRewardCard'
-import { Box, css, Popover, Tooltip, useTheme } from '@mui/material'
+import { Box, css, Popover, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { useGetAllLpReward } from '../../../hook/hookV8/useGetLpReward'
 import { useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
+import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
+import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
+import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 
 type LiquidityRewardsProps = {
   lpRewardAmount: BigNumber
@@ -24,6 +24,7 @@ type LiquidityRewardsProps = {
   LpBooster: BigNumber
   nextEpoch: number
   userLiquidityProvided: number
+  liquidityReward: number
 }
 export const LiquidityRewards = ({
   lpRewardAmount,
@@ -33,8 +34,10 @@ export const LiquidityRewards = ({
   LpBooster,
   nextEpoch,
   userLiquidityProvided,
+  liquidityReward,
 }: LiquidityRewardsProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const navigate = useNavigate()
   const { userFeesRewardList } = useGetAllLpReward()
   const [anchorEl, setAnchorEl] = useState(null)
@@ -67,13 +70,23 @@ export const LiquidityRewards = ({
             background: ${theme.background.primary};
           `}
         >
-          <div>
+          <div
+            css={css`
+              border-left: unset;
+              border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+              padding-bottom: ${isMobile ? '16px' : 'unset'};
+              margin-bottom: ${isMobile ? '16px' : 'unset'};
+            `}
+          >
             <KRAVTab>Total Liquidity Provider</KRAVTab>
             <p className="data gt">{formatNumber(overviewData.liquiditySupply, 2, true)}</p>
           </div>
           <div
             css={css`
-              border-left: ${theme.splitLine.primary};
+              border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+              border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+              padding-bottom: ${isMobile ? '16px' : 'unset'};
+              margin-bottom: ${isMobile ? '16px' : 'unset'};
             `}
           >
             <Box
@@ -107,7 +120,7 @@ export const LiquidityRewards = ({
             >
               <div
                 css={css`
-                  width: 360px;
+                  width: ${isMobile ? '220px' : '360px'};
                   padding: 12px 16px;
                   border-radius: 8px;
                 `}
@@ -170,7 +183,10 @@ export const LiquidityRewards = ({
           </div>
           <div
             css={css`
-              border-left: ${theme.splitLine.primary};
+              border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
+              border-bottom: ${isMobile ? theme.splitLine.primary : 'unset'};
+              padding-bottom: ${isMobile ? '16px' : 'unset'};
+              margin-bottom: ${isMobile ? '16px' : 'unset'};
             `}
           >
             <KRAVTab>Share of pool</KRAVTab>
@@ -178,7 +194,7 @@ export const LiquidityRewards = ({
           </div>
           <div
             css={css`
-              border-left: ${theme.splitLine.primary};
+              border-left: ${isMobile ? 'unset' : theme.splitLine.primary};
             `}
           >
             <Tooltip
@@ -234,6 +250,7 @@ export const LiquidityRewards = ({
           contractAmount={contractAmount}
           claimMethod={claimLpRewardKrav}
           nextEpoch={nextEpoch}
+          liquidityReward={liquidityReward}
         />
         <div
           className="fees-rewards"

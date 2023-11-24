@@ -9,48 +9,39 @@ import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.s
 import { align } from '../../globalStyle'
 import { formatNumber } from '../../utils'
 import { useGetUserKravLock } from '../../hook/hookV8/useGetUserKravLock'
-import { useEffect } from 'react'
-// import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
+import { useEffect, useMemo } from 'react'
 import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { useWeb3React } from '@web3-react/core'
-import BigNumber from 'bignumber.js'
-// import { getBooster, getTradeBooster } from '../../utils/math'
+import { useInterval } from '../../hook/hookV8/useInterval'
+import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
+import { getBooster, getTradeBooster } from '../../utils/math'
 
 export const NewStake = () => {
   const theme = useTheme()
   const { account } = useWeb3React()
-  const {
-    userKravBalance,
-    userLockPosition,
-    userFeesRewardList,
-    totalKravLock,
-    userVeKravAmount,
-    totalVeKravAmount,
-    unLockPosition,
-  } = useGetUserKravLock()
+  const { userKravBalance, userLockPosition, userFeesRewardList, totalKravLock, userVeKravAmount, totalVeKravAmount } =
+    useGetUserKravLock()
   const { getOverView, overviewData } = useGetTotalMarketOverview()
-  // const { userLiquidityProvided, userTradingVolume24H } = useGetUserFarmReward()
-  // const currentUserBooster = useMemo(() => {
-  //   return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
-  //
-  // const tradeBooster = useMemo(() => {
-  //   return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
-  //
-  // const LpBooster = useMemo(() => {
-  //   return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
-  // }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
+  const { userLiquidityProvided, userTradingVolume24H } = useGetUserFarmReward()
+  const currentUserBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
+  const tradeBooster = useMemo(() => {
+    return getTradeBooster(userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [userTradingVolume24H, overviewData, userVeKravAmount, totalVeKravAmount])
+
+  const lpBooster = useMemo(() => {
+    return getBooster(userLiquidityProvided, overviewData, userVeKravAmount, totalVeKravAmount)
+  }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
+
+  useInterval(getOverView, 30000)
 
   useEffect(() => {
-    let interval: NodeJS.Timer
     if (account) {
       getOverView().then()
-      interval = setInterval(async () => {
-        await getOverView()
-      }, 60000)
     }
-    return () => clearInterval(interval)
   }, [account])
 
   return (
@@ -90,7 +81,16 @@ export const NewStake = () => {
             `,
           ]}
         >
-          <div css={align}>
+          <div
+            css={[
+              align,
+              css`
+                @media screen and (max-width: 1200px) {
+                  padding-bottom: 16px;
+                }
+              `,
+            ]}
+          >
             <KravToken />
             <span
               css={css`
@@ -112,6 +112,14 @@ export const NewStake = () => {
             padding: 0 32px;
             border-left: ${theme.splitLine.primary};
             border-right: ${theme.splitLine.primary};
+            @media screen and (max-width: 1200px) {
+              width: 100%;
+              border-left: unset;
+              border-right: unset;
+              padding: 0 0 16px 0;
+              margin-bottom: 16px;
+              border-bottom: ${theme.splitLine.primary};
+            }
           `}
         >
           <KRAVTab>Total Governance Reward Pool </KRAVTab>
@@ -120,6 +128,9 @@ export const NewStake = () => {
         <div
           css={css`
             padding-left: 32px;
+            @media screen and (max-width: 1200px) {
+              padding: 0;
+            }
           `}
         >
           <KRAVTab>Total Stake</KRAVTab>
@@ -138,10 +149,23 @@ export const NewStake = () => {
             css`
               display: grid;
               grid-template-columns: 1fr 1fr;
+              @media screen and (max-width: 1200px) {
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+              }
             `,
           ]}
         >
-          <div css={align}>
+          <div
+            css={[
+              align,
+              css`
+                @media screen and (max-width: 1200px) {
+                  padding-bottom: 16px;
+                }
+              `,
+            ]}
+          >
             <VeKravToken />
             <span
               css={css`
@@ -163,6 +187,15 @@ export const NewStake = () => {
             padding: 0 32px;
             border-left: ${theme.splitLine.primary};
             border-right: ${theme.splitLine.primary};
+            @media screen and (max-width: 1200px) {
+              width: 100%;
+              border-bottom: unset;
+              border-left: unset;
+              border-right: unset;
+              padding: 16px 0 0 0;
+              margin-top: 16px;
+              border-top: ${theme.splitLine.primary};
+            }
           `}
         >
           <KRAVTab>You veKRAV Supply</KRAVTab>
@@ -181,13 +214,18 @@ export const NewStake = () => {
         className="action"
         css={css`
           background: ${theme.background.primary};
+          @media screen and (max-width: 1200px) {
+            display: block !important;
+            > div:first-of-type {
+              margin-bottom: 36px;
+            }
+          }
         `}
       >
-        {/*TODO: update booster after Online new farm*/}
         <LockAction
           userKravBalance={userKravBalance}
           userLockPosition={userLockPosition}
-          currentUserBooster={new BigNumber(0)}
+          currentUserBooster={currentUserBooster}
           overviewData={overviewData}
           userLiquidityProvided={0}
           userVeKravAmount={userVeKravAmount}
@@ -196,9 +234,8 @@ export const NewStake = () => {
         <MyLocked
           userLockPosition={userLockPosition}
           userFeesRewardList={userFeesRewardList}
-          tradeBooster={new BigNumber(0)}
-          LpBooster={new BigNumber(0)}
-          unLockPosition={unLockPosition}
+          tradeBooster={tradeBooster}
+          LpBooster={lpBooster}
         />
       </div>
     </div>

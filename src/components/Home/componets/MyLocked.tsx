@@ -1,11 +1,8 @@
 /** @jsxImportSource @emotion/react */
-// import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
-// import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as ToVoteIcon } from '../../../assets/imgs/to_vote.svg'
 import KRAVButton from '../../KravUIKit/KravButton'
 import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
-import { css, Link, useTheme } from '@mui/material'
-// import { align } from '../../../globalStyle'
+import { css, Link, Tooltip, useTheme } from '@mui/material'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
 import { formatNumber, getBigNumberStr } from '../../../utils'
 import moment from 'moment'
@@ -13,22 +10,18 @@ import { FeesRewardList } from '../../../hook/hookV8/useGetClaimableTokensFee'
 import { useMemo } from 'react'
 import { useClaimFeesReward } from '../../../hook/hookV8/useClaimFeesReward'
 import BigNumber from 'bignumber.js'
+import { align } from '../../../globalStyle'
+import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
+import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 
 type MyLockedProp = {
   userLockPosition: UserLockPosition
   userFeesRewardList: FeesRewardList[]
   LpBooster: BigNumber
   tradeBooster: BigNumber
-  unLockPosition: () => Promise<void>
 }
 
-export const MyLocked = ({
-  userLockPosition,
-  userFeesRewardList,
-  LpBooster,
-  tradeBooster,
-  unLockPosition,
-}: MyLockedProp) => {
+export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, tradeBooster }: MyLockedProp) => {
   const theme = useTheme()
   const claimFeesReward = useClaimFeesReward()
   const unlockButtonEnable = useMemo(() => {
@@ -72,7 +65,6 @@ export const MyLocked = ({
                 .format('MMM DD, YYYY HH:mm A')}
           &nbsp;UTC
         </span>
-        {/*<span>Sep 21, 2021 08:30 AM UTC </span>*/}
       </div>
       <div
         css={css`
@@ -82,19 +74,19 @@ export const MyLocked = ({
           margin-bottom: 12px;
         `}
       >
-        {/*<Tooltip*/}
-        {/*  title={*/}
-        {/*    'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'*/}
-        {/*  }*/}
-        {/*>*/}
-        {/*  <div css={align}>*/}
-        {/*    <BoostIcon />*/}
-        {/*    <span>&nbsp;My current trade boost :&nbsp;</span>*/}
-        {/*    <QuestionIcon />*/}
-        {/*  </div>*/}
-        {/*</Tooltip>*/}
+        <Tooltip
+          title={
+            'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
+          }
+        >
+          <div css={align}>
+            <BoostIcon />
+            <span>&nbsp;My current trade boost :&nbsp;</span>
+            <QuestionIcon />
+          </div>
+        </Tooltip>
 
-        {/*<div>{getBigNumberStr(tradeBooster, 4)}</div>*/}
+        <div>{getBigNumberStr(tradeBooster, 4)}</div>
       </div>
       <div
         css={css`
@@ -104,28 +96,28 @@ export const MyLocked = ({
           margin-bottom: 32px;
         `}
       >
-        {/*<Tooltip*/}
-        {/*  title={*/}
-        {/*    'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'*/}
-        {/*  }*/}
-        {/*>*/}
-        {/*  <div css={align}>*/}
-        {/*    <BoostIcon />*/}
-        {/*    <span>&nbsp;My current Liquidity Provider boost :&nbsp;</span>*/}
-        {/*    <QuestionIcon />*/}
-        {/*  </div>*/}
-        {/*</Tooltip>*/}
-        {/*<div>{getBigNumberStr(LpBooster, 4)}</div>*/}
+        <Tooltip
+          title={
+            'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
+          }
+        >
+          <div css={align}>
+            <BoostIcon />
+            <span>&nbsp;My current Liquidity Provider boost :&nbsp;</span>
+            <QuestionIcon />
+          </div>
+        </Tooltip>
+        <div>{getBigNumberStr(LpBooster, 4)}</div>
       </div>
-      <KRAVButton disabled={!unlockButtonEnable} onClick={() => unLockPosition()} sx={{ mb: '32px' }}>
+      <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
         Unlock
       </KRAVButton>
       <div className="title gt">My Rewards</div>
       <div className="my-reward">
-        {userFeesRewardList.map((item) => {
+        {userFeesRewardList.map((item, index) => {
           return (
             <div
-              key={item.pool.tradingT}
+              key={index}
               css={css`
                 background: ${theme.background.second};
               `}
@@ -140,7 +132,7 @@ export const MyLocked = ({
                 width="40"
               />
               <span>
-                &nbsp;&nbsp;{getBigNumberStr(item.amount, 2)} {item.pool.symbol}
+                &nbsp;&nbsp;{getBigNumberStr(item.amount, 2)} {item?.pool?.symbol}
               </span>
             </div>
           )

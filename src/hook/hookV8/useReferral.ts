@@ -1,6 +1,6 @@
 import { useWeb3React } from '@web3-react/core'
 import { creatCall, decodeCallResult, useFactoryWithProvider } from './useContract'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRootStore } from '../../store/root'
 import { Contract } from 'ethers'
 import multicall2 from '../../abi/multicall2.json'
@@ -13,6 +13,8 @@ import { TransactionAction, TransactionState } from '../../store/TransactionSlic
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { getGasLimit } from '../../utils'
+import { CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
+import { useInterval } from './useInterval'
 
 type UseRewardInfo = {
   pool: PoolParams
@@ -20,11 +22,10 @@ type UseRewardInfo = {
 }
 
 export const useReferral = () => {
-  const { account, provider } = useWeb3React()
+  const { account, provider, chainId } = useWeb3React()
   const [useRewardInfo, setUserRewardInfo] = useState([] as UseRewardInfo[])
   const [buttonEnable, setButtonEnable] = useState(false)
-  const referralRef = useRef<null | NodeJS.Timer>(null)
-  const factory = useFactoryWithProvider()
+  const factory = useFactoryWithProvider(provider)
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
@@ -33,7 +34,7 @@ export const useReferral = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
 
   const claimRewards = useCallback(async () => {
-    if (factory && account && provider && allPoolParams.length > 0) {
+    if (factory && account && provider && allPoolParams.length > 0 && chainId) {
       try {
         const tokenAddresses: string[] = []
         allPoolParams.forEach((pool) => {
@@ -60,16 +61,29 @@ export const useReferral = () => {
         updateError(TransactionAction.CLAIM_REFERRAL_REWARD)
       }
     }
-  }, [account, provider, factory, allPoolParams])
+  }, [account, provider, factory, allPoolParams, chainId])
 
   const getRewardsReferral = useCallback(async () => {
-    if (factory && account && provider && allPoolParams.length > 0) {
+    if (factory && account && provider && allPoolParams.length > 0 && chainId) {
       try {
-        const multicall = new Contract(multicall2.address, multicall2.abi, provider)
+        const multicall = new Contract(
+          chainId && SUPPORT_CHAIN.includes(chainId)
+            ? CONTRACT_CONFIG[chainId].multicall
+            : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall,
+          multicall2.abi,
+          provider
+        )
         const factoryInterface = new Interface(factory_abi.abi)
         const task: any[] = []
         allPoolParams.forEach((pool) => {
-          task.push(creatCall(factory_abi.address, factoryInterface, 'rewardsReferral', [account, pool.tokenT]))
+          task.push(
+            creatCall(
+              CONTRACT_CONFIG[chainId && SUPPORT_CHAIN.includes(chainId) ? chainId : DEFAULT_CHAIN].factory,
+              factoryInterface,
+              'rewardsReferral',
+              [account, pool.tokenT]
+            )
+          )
         })
         const data = await multicall.callStatic.aggregate(task)
         let rewardInfos = data.returnData
@@ -87,17 +101,12 @@ export const useReferral = () => {
         console.log('getRewardsReferral failed!', e)
       }
     }
-  }, [account, provider, factory, allPoolParams])
+  }, [account, provider, factory, allPoolParams, chainId])
+
+  useInterval(getRewardsReferral, 30000)
 
   useEffect(() => {
     getRewardsReferral().then()
-    if (referralRef.current) clearInterval(referralRef.current)
-    referralRef.current = setInterval(async () => {
-      await getRewardsReferral()
-    }, 30000)
-    return () => {
-      if (referralRef.current) clearInterval(referralRef.current)
-    }
   }, [getRewardsReferral])
 
   return { useRewardInfo: useRewardInfo, claimRewards: claimRewards, buttonEnable: buttonEnable }

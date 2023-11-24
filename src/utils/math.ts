@@ -22,13 +22,6 @@ export const getLongOrShortUSD = (
   return inputAmount.minus(fees).times(leverage).div(tokenToBTC)
 }
 
-/*contract publicity
-  // int liqPriceDistance = int(openPrice) * (
-  //   int(collateral * LIQ_THRESHOLD_P / 100)
-  //   - int(rolloverFee) - fundingFee
-  // ) / int(collateral) / int(leverage);
-*/
-
 export const getLiqPrice = (
   openPrice: BigNumber,
   collateral: BigNumber,
@@ -47,15 +40,6 @@ export const getFees = (positionDAI: BigNumber, leverage: number) => {
   return positionDAI.times(leverage).times(OPEN_FEES).times(2)
 }
 
-//    function currentPercentProfit(uint openPrice, uint currentPrice, bool buy, uint leverage) private pure returns(int p){
-//         int diff = buy ? int(currentPrice) - int(openPrice) : int(openPrice) - int(currentPrice);
-//         int maxPnlP = int(MAX_GAIN_P) * int(PRECISION);
-//     currentPrice = openPrice -  diff
-//     diff = p *  openPrice / 100 * int(PRECISION) * int(leverage)
-//     currentPrice = openPrice - p *  openPrice / 100 * int(PRECISION) * int(leverage)
-//         p = diff * 100 * int(PRECISION) * int(leverage) / int(openPrice);
-//         p = p > maxPnlP ? maxPnlP : p;
-//     }
 export const getReachPrice = (leverage: number, isBuy: boolean, percentProfit: number, openPrice: BigNumber) => {
   if (isBuy) {
     const index = openPrice.times(percentProfit).div(100 * leverage)
@@ -107,16 +91,7 @@ export const getBooster = (
     const params1 = lpAmount
       .times(0.4)
       .plus(lpAmount.plus(overviewData.liquiditySupply).times(0.6).times(userVeKravAmount.div(totalVeKravAmount)))
-    // console.log('lp balance total', overviewData.liquiditySupply)
-    // console.log('lp balance', lpAmount.toFixed(2))
-    // console.log('workingLpSupply', overviewData.workingLPSupply.toFixed(2))
     const workingLpBalance = params1.isGreaterThan(lpAmount) ? lpAmount : params1
-    // const t1 = workingLpBalance.div(overviewData.workingLPSupply.plus(workingLpBalance))
-    // const t2 = lpAmount.times(0.4).div(lpAmount.times(0.4).plus(overviewData.workingLPSupply))
-    // console.log('workingLpBalance', workingLpBalance.toFixed(4))
-    // console.log('(workinglpBalance / (workingLPSupply + workinglpBalance))', t1.toString())
-    // console.log('(0.4 * lpBalance / (workingLPSupply + 0.4*lpBalance))', t2.toString())
-    // console.log('res', t1.div(t2).toString())
     const booster = new BigNumber(workingLpBalance)
       .div(overviewData.workingLPSupply.plus(workingLpBalance))
       .div(lpAmount.times(0.4).div(overviewData.workingLPSupply.plus(lpAmount.times(0.4))))
@@ -131,6 +106,8 @@ export const getTradeBooster = (
   userVeKravAmount: BigNumber,
   totalVeKravAmount: BigNumber
 ) => {
+  console.log('OverviewData', overviewData)
+  console.log('OverviewData workingTraderVolume', overviewData?.workingTraderVolume?.toString())
   if (userVeKravAmount && totalVeKravAmount && userVolume && Object.keys(overviewData).length > 0) {
     const volumeAmount = new BigNumber(userVolume)
     const params1 = volumeAmount

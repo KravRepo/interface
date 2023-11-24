@@ -15,6 +15,9 @@ export const dialogContent = css`
   }
   .select-token-header {
     padding: 0 24px 24px;
+    @media screen and (max-width: 1200px) {
+      padding: 0 24px;
+    }
     > div:first-of-type {
       display: flex;
       align-items: center;
@@ -178,7 +181,6 @@ export const snackbar = css`
 
 export const errorDialog = css`
   padding: 24px 0;
-  width: 440px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
@@ -188,11 +190,17 @@ export const errorDialog = css`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 20px;
     padding: 0 24px 24px 64px;
+    @media screen and (max-width: 1200px) {
+      padding: 0 24px 24px 24px;
+    }
     > span {
       padding-left: 15px;
       padding-right: 45px;
+      @media screen and (max-width: 1200px) {
+        text-align: start;
+        padding: 0;
+      }
     }
   }
   .error-dialog-content {

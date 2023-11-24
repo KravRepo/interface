@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { Referral } from '../../components/Home/Referral'
 import { HomeLayout } from './HomeLayout'
+import { Referral } from '../../components/Home/Referral'
 
 export const HomeReferral = () => {
   return (
