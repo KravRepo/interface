@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { Select } from '@mui/material'
 import { Trans } from '@lingui/macro'
 

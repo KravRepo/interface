@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useMemo } from 'react'
-import { stake } from './style'
+import { farm } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { FarmItem } from './FarmItem'
@@ -12,7 +12,7 @@ import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 export const Farm = () => {
   const theme = useTheme()
@@ -20,6 +20,7 @@ export const Farm = () => {
   const { account, provider } = useWeb3React()
   const navigate = useNavigate()
   const { aprList } = useGetApr()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
 
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -40,7 +41,7 @@ export const Farm = () => {
     if (allPoolParams.length > 0 && account && provider) {
       backInterval = setInterval(() => {
         userBackend().then()
-      }, 1000)
+      }, 10000)
     }
     return () => {
       if (backInterval) clearInterval(backInterval)
@@ -48,7 +49,7 @@ export const Farm = () => {
   }, [account, allPoolParams, provider])
 
   return (
-    <div css={stake}>
+    <div css={farm}>
       <div
         className="title"
         css={css`
@@ -65,7 +66,12 @@ export const Farm = () => {
           {/*    <span>≈ $246,556,893.30</span>*/}
           {/*  </div>*/}
           {/*</div>*/}
-          <div>
+          <div
+            css={css` overflow: ${isMobile ? 'auto' : ''};
+            &::-webkit-scrollbar {
+            display: none
+            },`}
+          >
             <div
               css={css`
                 margin-top: 24px;

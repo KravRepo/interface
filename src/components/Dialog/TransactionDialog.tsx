@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, useTheme } from '@mui/material'
+import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { errorDialog } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../store/root'
@@ -15,6 +15,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 
 export const TransactionDialog = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const transactionState = useRootStore((state) => state.transactionState)
   const transactionDialogVisibility = useRootStore((state) => state.transactionDialogVisibility)
   const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
@@ -22,7 +23,8 @@ export const TransactionDialog = () => {
     <Dialog
       sx={{
         '.MuiDialog-paper': {
-          width: '440px',
+          maxWidth: '440px',
+          // width: isMobile ? 'calc(100vw - 32px)' : '440px',
           borderRadius: '8px',
           background: theme.background.primary,
           // backgroundColor: theme.palette.mode === 'dark' ? '#1B1E24' : '',
@@ -44,6 +46,7 @@ export const TransactionDialog = () => {
               className="error-dialog-title"
               css={css`
                 border-bottom: ${theme.splitLine.primary};
+                font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
               <span
@@ -93,6 +96,7 @@ export const TransactionDialog = () => {
               className="error-dialog-title"
               css={css`
                 border-bottom: ${theme.splitLine.primary};
+                font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
               <span
@@ -142,6 +146,7 @@ export const TransactionDialog = () => {
               className="error-dialog-title"
               css={css`
                 border-bottom: ${theme.splitLine.primary};
+                font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
               <span>Krav waiting for transaction settlement</span>

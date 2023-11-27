@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from '../constant/math'
 import { getBigNumberStr } from './index'
+import { OverviewData } from '../hook/hookV8/useGetTotalMarketOverview'
 
 export const eXDecimals = (value: BigNumber | string, decimals: number) => {
   return new BigNumber(value).div(new BigNumber(10).pow(decimals))
@@ -21,13 +22,6 @@ export const getLongOrShortUSD = (
   return inputAmount.minus(fees).times(leverage).div(tokenToBTC)
 }
 
-/*contract publicity
-  // int liqPriceDistance = int(openPrice) * (
-  //   int(collateral * LIQ_THRESHOLD_P / 100)
-  //   - int(rolloverFee) - fundingFee
-  // ) / int(collateral) / int(leverage);
-*/
-
 export const getLiqPrice = (
   openPrice: BigNumber,
   collateral: BigNumber,
@@ -46,15 +40,6 @@ export const getFees = (positionDAI: BigNumber, leverage: number) => {
   return positionDAI.times(leverage).times(OPEN_FEES).times(2)
 }
 
-//    function currentPercentProfit(uint openPrice, uint currentPrice, bool buy, uint leverage) private pure returns(int p){
-//         int diff = buy ? int(currentPrice) - int(openPrice) : int(openPrice) - int(currentPrice);
-//         int maxPnlP = int(MAX_GAIN_P) * int(PRECISION);
-//     currentPrice = openPrice -  diff
-//     diff = p *  openPrice / 100 * int(PRECISION) * int(leverage)
-//     currentPrice = openPrice - p *  openPrice / 100 * int(PRECISION) * int(leverage)
-//         p = diff * 100 * int(PRECISION) * int(leverage) / int(openPrice);
-//         p = p > maxPnlP ? maxPnlP : p;
-//     }
 export const getReachPrice = (leverage: number, isBuy: boolean, percentProfit: number, openPrice: BigNumber) => {
   if (isBuy) {
     const index = openPrice.times(percentProfit).div(100 * leverage)
@@ -88,4 +73,49 @@ export const getBorrowFees = (fundingFeePerBlockP?: BigNumber) => {
   if (fundingFeePerBlockP) {
     return getBigNumberStr(eXDecimals(fundingFeePerBlockP, 10).div(100).times(BASE_ONE_HOUR_BLOCK), 6)
   } else return 0
+}
+
+export const getBooster = (
+  userLiquidityProvided: number | BigNumber,
+  overviewData: OverviewData,
+  userVeKravAmount: BigNumber,
+  totalVeKravAmount: BigNumber
+) => {
+  //lpBalance (mining)
+  //lpBalanceTotal  (overview)
+  //workingLPSupply （overview）
+  //workinglpBalance = min(0.4 * lpBalance + 0.6 * (lpBalanceTotal + lpBalance) * (veBalance/ veSupply), lpBalance)
+  //Booster = (workinglpBalance / (workingLPSupply + workinglpBalance)) / (0.4 * lpBalance / (workingLPSupply + 0.4*lpBalance))
+  if (userVeKravAmount && totalVeKravAmount && userLiquidityProvided && Object.keys(overviewData).length > 0) {
+    const lpAmount = new BigNumber(userLiquidityProvided)
+    const params1 = lpAmount
+      .times(0.4)
+      .plus(lpAmount.plus(overviewData.liquiditySupply).times(0.6).times(userVeKravAmount.div(totalVeKravAmount)))
+    const workingLpBalance = params1.isGreaterThan(lpAmount) ? lpAmount : params1
+    const booster = new BigNumber(workingLpBalance)
+      .div(overviewData.workingLPSupply.plus(workingLpBalance))
+      .div(lpAmount.times(0.4).div(overviewData.workingLPSupply.plus(lpAmount.times(0.4))))
+    // console.log('booster', booster.toFixed(4))
+    return booster
+  } else return new BigNumber(0)
+}
+
+export const getTradeBooster = (
+  userVolume: number | BigNumber,
+  overviewData: OverviewData,
+  userVeKravAmount: BigNumber,
+  totalVeKravAmount: BigNumber
+) => {
+  if (userVeKravAmount && totalVeKravAmount && userVolume && Object.keys(overviewData).length > 0) {
+    const volumeAmount = new BigNumber(userVolume)
+    const params1 = volumeAmount
+      .times(0.4)
+      .plus(volumeAmount.plus(overviewData.tradingVolume).times(0.6).times(userVeKravAmount.div(totalVeKravAmount)))
+    const workingTradeBalance = params1.isGreaterThan(volumeAmount) ? volumeAmount : params1
+    const booster = new BigNumber(workingTradeBalance)
+      .div(overviewData.workingTraderVolume.plus(workingTradeBalance))
+      .div(volumeAmount.times(0.4).div(overviewData.workingTraderVolume.plus(volumeAmount.times(0.4))))
+    // console.log('booster', booster.toFixed(4))
+    return booster
+  } else return new BigNumber(0)
 }

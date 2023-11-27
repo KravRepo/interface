@@ -1,13 +1,13 @@
 import BigNumber from 'bignumber.js'
 import { Tuple } from '../../../components/Trades/type'
 import { eXDecimals } from '../../../utils/math'
-// import {
-//   FOUR_YEAR_TIMESTAMP,
-//   HALF_YEAR_TIMESTAMP,
-//   ONE_WEEK_TIMESTAMP,
-//   ONE_YEAR_TIMESTAMP,
-//   TOW_YEAR_TIMESTAMP,
-// } from '../../../constant/math'
+import {
+  FOUR_YEAR_TIMESTAMP,
+  HALF_YEAR_TIMESTAMP,
+  ONE_WEEK_TIMESTAMP,
+  ONE_YEAR_TIMESTAMP,
+  TOW_YEAR_TIMESTAMP,
+} from '../../../constant/math'
 
 export const forMatterOpenTrades = (
   res: any[],
@@ -54,23 +54,23 @@ export const isBeingMarketClosed = (marketOrders: Tuple[], pendingMarketOrders: 
   })
 }
 
-// export const getLockTime = (lockTime: number) => {
-//   let forMatterLockTime = 0
-//   switch (lockTime) {
-//     case 1:
-//       forMatterLockTime = Math.floor(HALF_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
-//       break
-//     case 2:
-//       forMatterLockTime = Math.floor(ONE_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
-//       break
-//     case 3:
-//       forMatterLockTime = Math.floor(TOW_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
-//       break
-//     case 4:
-//       forMatterLockTime = Math.floor(FOUR_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
-//       break
-//     default:
-//       forMatterLockTime = 0
-//   }
-//   return forMatterLockTime
-// }
+export const getLockTime = (lockTime: number) => {
+  let forMatterLockTime = 0
+  switch (lockTime) {
+    case 1:
+      forMatterLockTime = Math.floor(HALF_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
+      break
+    case 2:
+      forMatterLockTime = Math.floor(ONE_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
+      break
+    case 3:
+      forMatterLockTime = Math.floor(TOW_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
+      break
+    case 4:
+      forMatterLockTime = Math.floor(FOUR_YEAR_TIMESTAMP / ONE_WEEK_TIMESTAMP) * ONE_WEEK_TIMESTAMP
+      break
+    default:
+      forMatterLockTime = 0
+  }
+  return forMatterLockTime
+}

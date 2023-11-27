@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, useTheme } from '@mui/material'
+import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { errorDialog } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../store/root'
@@ -8,9 +8,11 @@ import { ReactComponent as ErrorLogo } from '../../assets/imgs/error_logo.svg'
 import { ReactComponent as ErrorDarkLogo } from '../../assets/imgs/darkModel/error_logo_dark.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TransactionAction } from '../../store/TransactionSlice'
+import { css } from '@emotion/react'
 
 export const ErrorDialog = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const errorContent = useRootStore((store) => store.errorContent)
   const setErrorContent = useRootStore((store) => store.setErrorContent)
   return (
@@ -29,7 +31,13 @@ export const ErrorDialog = () => {
         <div css={errorDialog}>
           <div className="error-dialog-title">
             <ErrorIcon />
-            <span>Something went wrong... </span>
+            <span
+              css={css`
+                font-size: ${isMobile ? '18px' : '20px'};
+              `}
+            >
+              Something went wrong...{' '}
+            </span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
               onClick={() => {

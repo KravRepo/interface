@@ -65,12 +65,13 @@ export const ProfitConfirmTrade = ({
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
   const tradePool = useRootStore((store) => store.tradePool)
+  const pairConfig = useRootStore((store) => store.pairConfig)
   const [slUsePercentage, setUseSlPercentage] = useState(BigNumber(openTrade.tp).gt(0) ? false : true)
   const [tpUsePercentage, setTpUsePercentage] = useState(BigNumber(openTrade.sl).gt(0) ? false : true)
   const [tpSetting, setTpSetting] = useState(0)
   const [slSetting, setSlSetting] = useState(0)
-  const [slPrice, setSlPrice] = useState<BigNumber | string>(openTrade.sl)
-  const [tpPrice, setTpPrice] = useState<BigNumber | string>(openTrade.tp)
+  const [slPrice, setSlPrice] = useState<BigNumber | string | number>(openTrade.sl)
+  const [tpPrice, setTpPrice] = useState<BigNumber | string | number>(openTrade.tp)
 
   const activeTab = useMemo(() => {
     return css`
@@ -79,29 +80,33 @@ export const ProfitConfirmTrade = ({
     `
   }, [theme])
 
+  const tradePair = useMemo(() => {
+    return pairConfig[openTrade.pairIndex]
+  }, [openTrade, pairConfig])
+
   const targetSl = useMemo(() => {
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, btcPrice)
+        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(slPrice)
-  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, btcPrice, slPrice])
+  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, slPrice])
 
   const targetTp = useMemo(() => {
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, btcPrice)
+        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(tpPrice)
-  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, btcPrice, tpPrice])
+  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, tpPrice])
 
   const slPercentage = useMemo(() => {
-    return getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
-  }, [btcPrice, openTrade.buy, openTrade.leverage, targetSl])
+    return getTakeProfit(new BigNumber(openTrade.openPrice), targetSl, openTrade.buy, openTrade.leverage, true)
+  }, [openTrade.buy, openTrade.leverage, targetSl])
 
   const tpPercentage = useMemo(() => {
-    return getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
-  }, [btcPrice, openTrade.buy, openTrade.leverage, targetTp])
+    return getTakeProfit(new BigNumber(openTrade.openPrice), targetTp, openTrade.buy, openTrade.leverage, false)
+  }, [openTrade.buy, openTrade.leverage, targetTp])
 
   const handleTpSLSetting = (isSl: boolean, value: number) => {
     if (isSl) {
@@ -121,7 +126,13 @@ export const ProfitConfirmTrade = ({
   )
 
   const slLimit = useMemo(() => {
-    const percentage = getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
+    const percentage = getTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetSl,
+      openTrade.buy,
+      openTrade.leverage,
+      true
+    )
     if (new BigNumber(targetSl).isGreaterThanOrEqualTo(openTrade.openPrice) && openTrade.buy && !targetSl.isEqualTo(0))
       return SlLimitState.SL_GT_OPEN_PRICE
     if (new BigNumber(targetSl).isLessThanOrEqualTo(openTrade.openPrice) && !openTrade.buy && !targetSl.isEqualTo(0))
@@ -132,7 +143,13 @@ export const ProfitConfirmTrade = ({
   }, [slPercentage, targetSl, slPrice, slUsePercentage, btcPrice, openTrade.buy, openTrade.leverage])
 
   const tpLimit = useMemo(() => {
-    const percentage = getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
+    const percentage = getTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetTp,
+      openTrade.buy,
+      openTrade.leverage,
+      false
+    )
     if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
     if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
     if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
@@ -170,7 +187,12 @@ export const ProfitConfirmTrade = ({
     >
       <DialogContent sx={{ padding: 0, color: theme.text.primary }}>
         <div css={dialogContent}>
-          <div className="dialog-header ">
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
             <span>BTC/USDT(Update SL/TP)</span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
@@ -206,7 +228,7 @@ export const ProfitConfirmTrade = ({
                         >
                           (
                           {slUsePercentage
-                            ? '$' + getBigNumberStr(targetSl, 2)
+                            ? '$' + getBigNumberStr(targetSl, tradePair.fixDecimals)
                             : getBigNumberStr(slPercentage, 2) + '%'}
                           )
                         </span>
@@ -294,7 +316,7 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={slPrice}
                       onChange={(event) => {
-                        setSlPrice(new BigNumber(event.target.value))
+                        setSlPrice(Number(event.target.value))
                       }}
                       onClick={() => setUseSlPercentage(false)}
                       sx={{
@@ -346,7 +368,7 @@ export const ProfitConfirmTrade = ({
                         >
                           (
                           {tpUsePercentage
-                            ? '$' + getBigNumberStr(targetTp, 2)
+                            ? '$' + getBigNumberStr(targetTp, tradePair.fixDecimals)
                             : getBigNumberStr(tpPercentage, 2) + '%'}
                           )
                         </span>
@@ -434,7 +456,7 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={tpPrice}
                       onChange={(event) => {
-                        setTpPrice(new BigNumber(event.target.value))
+                        setTpPrice(Number(event.target.value))
                       }}
                       onClick={() => setTpUsePercentage(false)}
                       sx={{
@@ -478,11 +500,19 @@ export const ProfitConfirmTrade = ({
             <div className="confirm-content-info">
               <p>
                 <span>Current price</span>
-                <span>${btcPrice.toFixed(2)}</span>
+                <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
+              </p>
+              <p>
+                <span>Current TP</span>
+                <span>${new BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}</span>
+              </p>
+              <p>
+                <span>Current SL</span>
+                <span>${new BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
                 <span>Liquidation price</span>
-                <span>${lqPrice.toFixed(2)}</span>
+                <span>${lqPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
             </div>
           </div>

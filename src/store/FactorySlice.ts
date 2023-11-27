@@ -2,6 +2,8 @@ import { UserData } from '../hook/hookV8/useUserPosition'
 import { StateCreator } from 'zustand'
 import { RootStore } from './root'
 import BigNumber from 'bignumber.js'
+import { DEFAULT_CHAIN } from '../constant/chain'
+import { EXCHANGE_CONFIG, ExchangeConfig } from '../constant/exchange'
 
 export type PoolParams = {
   tokenT: string
@@ -22,6 +24,7 @@ export type PoolParams = {
   utilization: BigNumber
   maxWithdrawP: BigNumber
   accDaiPerDai: BigNumber
+  minPositionLev: BigNumber
   fundingFeePerBlockP: BigNumber
   poolTotalSupply?: BigNumber
   poolCurrentBalance?: BigNumber
@@ -30,10 +33,16 @@ export type PoolParams = {
 export interface FactorySlice {
   isLoadingFactory: boolean
   setIsLoadingFactory: (isLoadingFactory: boolean) => void
+  factoryLock: boolean
+  setFactoryLock: (factoryLock: boolean) => void
   allPoolParams: PoolParams[]
   setAllPoolParams: (allPoolInfo: PoolParams[]) => void
   userPositionDatas: UserData[]
   setUserPositionDatas: (userPositionDatas: UserData[]) => void
+  expectChainId: number
+  setExpectChainId: (expectChainId: number) => void
+  pairConfig: ExchangeConfig
+  setPairConfig: (pairConfig: ExchangeConfig) => void
 }
 
 export const createFactorySlice: StateCreator<
@@ -45,6 +54,9 @@ export const createFactorySlice: StateCreator<
   isLoadingFactory: true,
   allPoolParams: [],
   userPositionDatas: [],
+  expectChainId: DEFAULT_CHAIN,
+  factoryLock: true,
+  pairConfig: EXCHANGE_CONFIG,
   setAllPoolParams(allPoolParams) {
     set({ allPoolParams: allPoolParams })
   },
@@ -53,5 +65,14 @@ export const createFactorySlice: StateCreator<
   },
   setIsLoadingFactory(isLoadingFactory) {
     set({ isLoadingFactory: isLoadingFactory })
+  },
+  setExpectChainId(expectChainId) {
+    set({ expectChainId: expectChainId })
+  },
+  setFactoryLock(factoryLock) {
+    set({ factoryLock: factoryLock })
+  },
+  setPairConfig(pairConfig) {
+    set({ pairConfig: pairConfig })
   },
 })

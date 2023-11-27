@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import { Farm } from '../../components/Home/Farm'
+import { NewFarm } from '../../components/Home/NewFarm'
 import { HomeLayout } from './HomeLayout'
 
 export const HomeFarm = () => {
   return (
     <HomeLayout>
-      <Farm />
+      <NewFarm />
     </HomeLayout>
   )
 }

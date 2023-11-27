@@ -24,7 +24,7 @@ type HistoryItemProps = {
 
 export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   const tradePool = useRootStore((state) => state.tradePool)
-
+  const pairConfig = useRootStore((state) => state.pairConfig)
   const pnlValue = useMemo(() => {
     if (history) {
       return new BigNumber(history.percentProfit).isEqualTo(0)
@@ -35,6 +35,10 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
           )
     } else return new BigNumber(0)
   }, [history])
+
+  const tradeSymbol = useMemo(() => {
+    return pairConfig[history.tradePairIndex].titleSymbol
+  }, [history, pairConfig])
 
   const tradeType = useMemo(() => {
     switch (history.limitOrderType.toString()) {
@@ -54,7 +58,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
   }, [history])
 
   return (
-    <div className="position-layout">
+    <div className="history-layout">
       <div>{history.createTime.split(' ')[0]}</div>
       <div css={align}>
         <BTCIcon height="20" width="20" />
@@ -63,7 +67,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
             margin-left: 8px;
           `}
         >
-          {pool ? pool.symbol : tradePool.symbol} / BTC
+          {tradeSymbol}
         </span>
       </div>
       <div
@@ -75,7 +79,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
       </div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>
-      <div>{eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals).toFixed(2)}</div>
+      <div>{eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals || 18).toFixed(2)}</div>
       <div
         css={css`
           color: ${pnlValue.isGreaterThan(0) ? '#009B72' : '#DB4C40'};

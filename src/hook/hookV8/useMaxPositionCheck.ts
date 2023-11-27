@@ -7,15 +7,16 @@ import { eXDecimals } from '../../utils/math'
 
 export const useMaxPositionCheck = () => {
   const tradePool = useRootStore((state) => state.tradePool)
+  const tradePairIndex = useRootStore((state) => state.tradePairIndex)
   const { provider } = useWeb3React()
-  const pairStorageContract = usePairStorageContract(tradePool.pairStorageT)
+  const pairStorageContract = usePairStorageContract(tradePool?.pairStorageT)
 
   return useCallback(
     async (positionAmount: BigNumber, leverage: number) => {
       if (pairStorageContract && tradePool.poolCurrentBalance) {
         const pairsInfo = await Promise.all([
-          pairStorageContract.pairsBackend(0),
-          pairStorageContract.groupCollateral(0, true),
+          pairStorageContract.pairsBackend(tradePairIndex),
+          pairStorageContract.groupCollateral(tradePairIndex, true),
         ])
         const pairsBackend = pairsInfo[0]
         const groupCollateral = pairsInfo[1]
@@ -36,6 +37,6 @@ export const useMaxPositionCheck = () => {
           maxAmount: new BigNumber(0),
         }
     },
-    [tradePool, provider]
+    [tradePool, provider, tradePairIndex]
   )
 }

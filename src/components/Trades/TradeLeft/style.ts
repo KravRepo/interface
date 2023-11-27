@@ -5,11 +5,18 @@ export const myTrade = css`
   background: #fff;
   border-radius: 8px;
   min-height: 371px;
+  @media screen and (max-width: 1200px) {
+    min-height: 170px;
+  }
   .position-layout {
     align-items: center;
     display: grid;
-    padding: 12px 24px 0px;
+    padding: 12px 24px;
+    margin: 0 12px;
     grid-template-columns: 120px minmax(200px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
     font-size: 12px;
     .loading {
       width: 22px;
@@ -28,12 +35,25 @@ export const myTrade = css`
       }
     }
   }
+  .history-layout {
+    align-items: center;
+    display: grid;
+    padding: 12px 24px 0px;
+    grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    font-size: 12px;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
+  }
   .order-layout {
     align-items: center;
     display: grid;
     padding: 12px 24px 0px;
     grid-template-columns: 80px minmax(140px, 2fr) 1fr 1fr 1fr 1fr 1fr;
     font-size: 12px;
+    @media screen and (max-width: 1200px) {
+      min-width: 1200px;
+    }
   }
   .no-data {
     padding-top: 103px;
@@ -43,5 +63,16 @@ export const myTrade = css`
     font-size: 16px;
     font-weight: 500;
     color: #757575;
+    @media screen and (max-width: 1200px) {
+      padding-top: 30px;
+    }
+  }
+`
+
+export const historyOverflow = css`
+  max-height: 400px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `

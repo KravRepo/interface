@@ -23,6 +23,7 @@ export const LeftMenu = () => {
       background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#f6f6f6'};
     `
   }, [theme])
+
   return (
     <div
       css={[

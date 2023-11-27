@@ -15,107 +15,15 @@ import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
-import { MINI_POSITION_SIZE, POSITION_LIMITS } from '../../../constant/math'
+import { POSITION_LIMITS } from '../../../constant/math'
 import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
 import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
-
-const marks = [
-  {
-    value: 2,
-    label: '2x',
-  },
-  {
-    value: 5,
-    label: '5x',
-  },
-  {
-    value: 10,
-    label: '10x',
-  },
-  {
-    value: 15,
-    label: '15x',
-  },
-  {
-    value: 20,
-    label: '20x',
-  },
-  {
-    value: 25,
-    label: '25x',
-  },
-  {
-    value: 30,
-    label: '30x',
-  },
-  {
-    value: 35,
-    label: '35x',
-  },
-  {
-    value: 40,
-    label: '40x',
-  },
-  {
-    value: 45,
-    label: '45x',
-  },
-  {
-    value: 50,
-    label: '50x',
-  },
-]
-
-const DegenMarks = [
-  {
-    value: 51,
-    label: '51x',
-  },
-  {
-    value: 65,
-    label: '65x',
-  },
-  {
-    value: 80,
-    label: '80x',
-  },
-  {
-    value: 95,
-    label: '95x',
-  },
-  {
-    value: 110,
-    label: '110x',
-  },
-  {
-    value: 125,
-    label: '125x',
-  },
-  {
-    value: 140,
-    label: '140x',
-  },
-  {
-    value: 155,
-    label: '155x',
-  },
-  {
-    value: 170,
-    label: '170x',
-  },
-  {
-    value: 185,
-    label: '185x',
-  },
-  {
-    value: 200,
-    label: '200x',
-  },
-]
+import { useInterval } from '../../../hook/hookV8/useInterval'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 type OrderParamsCardProps = {
   leverage: number
@@ -162,21 +70,20 @@ export const OrderParamsCard = ({
   setTradeType,
 }: OrderParamsCardProps) => {
   const theme = useTheme()
-  const { provider } = useWeb3React()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
   const [tabIndex, setTabIndex] = useState(0)
+  const { provider } = useWeb3React()
   // const [slSetting, setSlSetting] = useState(0)
   const [slUsePercentage, setUseSlPercentage] = useState(true)
   // const [tpSetting, setTpSetting] = useState(0)
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
-  const [orderLimit, setOrderLimit] = useState(new BigNumber(0))
-  const getOrderLimit = useGetOrderLimit()
+  const { orderLimit, getOrderLimit } = useGetOrderLimit()
   const {
     BTCPrice,
     transactionState,
-    loadingData,
+    isLoadingFactory,
     tradePool,
     setErrorContent,
     setWalletDialogVisibility,
@@ -185,10 +92,11 @@ export const OrderParamsCard = ({
     tradeModel,
     userPositionDatas,
     setIsOpenSelectToken,
+    tradePairIndex,
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     transactionState: state.transactionState,
-    loadingData: state.loadingData,
+    isLoadingFactory: state.isLoadingFactory,
     tradePool: state.tradePool,
     setErrorContent: state.setErrorContent,
     setWalletDialogVisibility: state.setWalletDialogVisibility,
@@ -197,6 +105,7 @@ export const OrderParamsCard = ({
     tradeModel: state.tradeModel,
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
+    tradePairIndex: state.tradePairIndex,
   }))
 
   const PoolWalletBalance = useMemo(() => {
@@ -204,30 +113,6 @@ export const OrderParamsCard = ({
       userPositionDatas.find((item) => item.pool?.tradingT === tradePool?.tradingT)?.walletBalance ?? new BigNumber(0)
     )
   }, [tradePool, userPositionDatas])
-
-  // const targetSl = useMemo(() => {
-  //   return slUsePercentage
-  //     ? slSetting === 0
-  //       ? new BigNumber(0)
-  //       : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
-  //     : new BigNumber(slPrice)
-  // }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
-
-  // const targetTp = useMemo(() => {
-  //   return tpUsePercentage
-  //     ? tpSetting === 0
-  //       ? new BigNumber(0)
-  //       : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
-  //     : new BigNumber(tpPrice)
-  // }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
-
-  // const slPercentage = useMemo(() => {
-  //   return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetSl, isBuy, leverage, true)
-  // }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetSl])
-  //
-  // const tpPercentage = useMemo(() => {
-  //   return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetTp, isBuy, leverage, false)
-  // }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
 
   const { account } = useWeb3React()
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
@@ -238,8 +123,8 @@ export const OrderParamsCard = ({
       // tp: addDecimals(targetTp, 10).toFixed(0),
       sl: '0',
       tp: '0',
-      pairIndex: 0,
-      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toString(),
+      pairIndex: tradePairIndex,
+      openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toFixed(0, 1),
       leverage: leverage,
       initialPosToken: 0,
       index: 0,
@@ -258,6 +143,7 @@ export const OrderParamsCard = ({
     // tpSetting,
     tpPrice,
     tpUsePercentage,
+    tradePairIndex,
   ])
 
   const approve = useApprove(tradePool.tokenT, tradePool.tradingT, tradePool.storageT)
@@ -332,29 +218,17 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
-  // const handleTpSLSetting = (isSl: boolean, value: number) => {
-  //   if (isSl) {
-  //     setSlSetting(value)
-  //     setUseSlPercentage(true)
-  //     setSlPrice('')
-  //   } else {
-  //     setTpSetting(value)
-  //     setTpUsePercentage(true)
-  //     setTpPrice('')
-  //   }
-  // }
-
   useEffect(() => {
     if (!account) setButtonState(ButtonText.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
       setButtonState(ButtonText.REACHED_LIMIT)
     else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
-    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(MINI_POSITION_SIZE))
+    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
       setButtonState(ButtonText.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
-  }, [account, isBuy, loadingData, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai])
+  }, [account, isBuy, isLoadingFactory, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
 
   useEffect(() => {
     if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
@@ -387,22 +261,13 @@ export const OrderParamsCard = ({
     }
   }, [])
 
+  useInterval(getOrderLimit, 15000)
+
   useEffect(() => {
-    let interval: NodeJS.Timer
-    if (tradePool && provider) {
-      getOrderLimit().then((res) => {
-        if (res) setOrderLimit(res)
-      })
-      interval = setInterval(async () => {
-        getOrderLimit().then((res) => {
-          if (res) setOrderLimit(res)
-        })
-      }, 15000)
+    if (tradePool.pairStorageT && tradePool.poolCurrentBalance && provider) {
+      getOrderLimit().then()
     }
-    return () => {
-      if (interval) clearInterval(interval)
-    }
-  }, [tradePool, provider])
+  }, [tradePool, provider, tradePairIndex])
 
   return (
     <>
@@ -552,43 +417,64 @@ export const OrderParamsCard = ({
                   />
                   <div
                     css={css`
-                      border-radius: 2px;
-                      color: ${theme.text.primary};
-                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
-                      padding: 2px 6px;
-                      font-size: 12px;
-                      cursor: pointer;
+                      display: flex;
+                      align-items: center;
                     `}
-                    onClick={handleMaxInput}
                   >
-                    MAX
-                  </div>
-                  <div
-                    onClick={() => setIsOpenSelectToken(true)}
-                    css={[
-                      align,
-                      css`
+                    <div
+                      css={css`
+                        border-radius: 2px;
+                        color: ${theme.text.primary};
+                        background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                        padding: 2px 6px;
+                        font-size: 12px;
                         cursor: pointer;
-                      `,
-                    ]}
-                  >
-                    <span
-                      css={css`
-                        margin: 0 4px;
-                        color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
                       `}
+                      onClick={handleMaxInput}
                     >
-                      {tradePool?.symbol}
-                    </span>
-                    <img
-                      css={css`
-                        border-radius: 50%;
-                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
-                      `}
-                      src={tradePool.logoSource}
-                      height="16"
-                      width="16"
-                    />
+                      MAX
+                    </div>
+                    <div
+                      onClick={() => setIsOpenSelectToken(true)}
+                      css={[
+                        align,
+                        css`
+                          cursor: pointer;
+                        `,
+                      ]}
+                    >
+                      <span
+                        css={css`
+                          margin: 0 4px;
+                          color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
+                        `}
+                      >
+                        {tradePool?.symbol}
+                      </span>
+                      <img
+                        css={css`
+                          border-radius: 50%;
+                          background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                        `}
+                        src={tradePool.logoSource}
+                        height="16"
+                        width="16"
+                      />
+                      <div
+                        css={css`
+                          background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          border-radius: 4px;
+                          height: 16px;
+                          width: 16px;
+                          margin-left: 8px;
+                        `}
+                      >
+                        <KeyboardArrowDownIcon sx={{ color: '#000', height: '16px', width: '16px' }} />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -734,36 +620,39 @@ export const OrderParamsCard = ({
               <Slider
                 defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 step={1}
-                marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
+                // marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
                 min={tradeModel === TradeMode.DEGEN ? 51 : 2}
                 max={tradeModel === TradeMode.DEGEN ? 200 : 50}
                 value={leverage}
-                disabled={loadingData}
+                disabled={isLoadingFactory}
                 onClick={handleSliderClick}
                 onChange={handleLeverageChange}
                 // color="#2832F5"
                 valueLabelDisplay="auto"
                 sx={{
-                  height: '2px',
+                  height: '12px',
                   '& .MuiSlider-root': {
                     color: '#757575',
                   },
                   '& .MuiSlider-rail': {
                     opacity: 1,
-                    backgroundColor: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                    background:
+                      theme.palette.mode === 'dark'
+                        ? 'linear-gradient(172deg, #84FF9F -6.76%, #FFE071 46.7%, #F96262 97.25%)'
+                        : 'linear-gradient(270deg, #E9FF84 0.81%, #FFE071 49.85%, #F96262 99.84%)',
                   },
                   '& .MuiSlider-track': {
                     border: 'unset',
-                    color: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
-                  },
-                  '& .MuiSlider-mark': {
-                    height: '6px',
-                    background: theme.palette.mode === 'dark' ? '#727272' : '#DADADA',
+                    background:
+                      theme.palette.mode === 'dark'
+                        ? 'linear-gradient(172deg, #84FF9F -6.76%, #FFE071 46.7%, #F96262 97.25%)'
+                        : 'linear-gradient(270deg, #E9FF84 0.81%, #FFE071 49.85%, #F96262 99.84%)',
                   },
                   '& .MuiSlider-thumb': {
-                    height: '10px',
-                    width: '10px',
-                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+                    height: '19px',
+                    width: '19px',
+                    background: '#fff',
+                    border: `4px solid ${theme.palette.mode === 'dark' ? '#2832F5' : '#2E2E2E'}`,
                   },
                   '& .MuiSlider-markActive': {
                     background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',

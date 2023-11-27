@@ -4,7 +4,7 @@ import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { ReactComponent as DAIIcon } from '../../assets/imgs/tokens/dai.svg'
+import { ReactComponent as KRAVIcon } from '../../assets/imgs/tokens/KRAV.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import BigNumber from 'bignumber.js'
 import { Dispatch, SetStateAction, useMemo, useState } from 'react'
@@ -142,7 +142,7 @@ export const StakeDialog = ({
                       >
                         KRAV
                       </span>
-                      <DAIIcon height="16" width="16" />
+                      <KRAVIcon height="16" width="16" />
                     </div>
                   </div>
                 </div>
@@ -248,7 +248,7 @@ export const StakeDialog = ({
                       >
                         KRAV
                       </span>
-                      <DAIIcon height="16" width="16" />
+                      <KRAVIcon height="16" width="16" />
                     </div>
                   </div>
                 </div>
