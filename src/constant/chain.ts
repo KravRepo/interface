@@ -269,7 +269,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
   [ChainId.BSC]: {
     factory: '0x83822f0500e6d13CB983Baac07828F86B12de5f9',
     linkAddress: '0x404460C6A5EdE2D891e8297795264fDe62ADBB75',
-    nodeAddress: ['0x404460C6A5EdE2D891e8297795264fDe62ADBB75'],
+    nodeAddress: ['0x78fb985d6628338932c2A95391EE96ADA15Fd2A0'],
     kravStake: '',
     kravAddress: '',
     kravTrading: '',

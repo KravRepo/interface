@@ -50,7 +50,7 @@ export const useOpenTrade = ({
         // gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         tx = await contract.openTrade(...params, {
           value: new BigNumber(minETHFees._hex).toString(),
-          gasLimit: 3000000,
+          // gasLimit: gasLimit.toFixed(0),
         })
       }
       setTransactionState(TransactionState.START_OPEN_TRADE)
