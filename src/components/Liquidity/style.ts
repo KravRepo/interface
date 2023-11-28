@@ -136,6 +136,38 @@ export const creatPool = css`
       }
     }
   }
+  .creat-pool-table-mobile {
+    .table-left {
+      position: relative;
+      margin: 24px 16px;
+      padding-bottom: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      .input-params {
+        padding-bottom: 32px;
+        > div:first-of-type {
+          padding-bottom: 12px;
+        }
+      }
+    }
+    .table-right {
+      margin: 24px 16px;
+      padding: 24px 16px;
+      .step {
+        > p:first-of-type {
+          font-size: 15px;
+          font-weight: 500;
+          padding-bottom: 8px;
+          margin: 0;
+        }
+        > p:last-of-type {
+          font-size: 14px;
+          margin: 0;
+          padding-bottom: 24px;
+        }
+      }
+    }
+  }
 `
 
 export const marketCard = css`

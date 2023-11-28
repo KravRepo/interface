@@ -157,7 +157,7 @@ export const NetWorkButton = () => {
         <MenuItem
           sx={{ width: '100%' }}
           onClick={async () => {
-            await handleChangeNetWork(ChainId.BSC)
+            await handleChangeNetWork(ChainId.BSC_TEST)
           }}
         >
           <div
@@ -172,7 +172,7 @@ export const NetWorkButton = () => {
               <BSC height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>BNB Smart Chain Mainnet</span>
             </div>
-            {chainId === ChainId.BSC && (
+            {chainId === ChainId.BSC_TEST && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>
@@ -180,7 +180,7 @@ export const NetWorkButton = () => {
         <MenuItem
           sx={{ width: '100%' }}
           onClick={async () => {
-            await handleChangeNetWork(ChainId.ARB)
+            await handleChangeNetWork(ChainId.ARB_TEST)
           }}
         >
           <div
@@ -195,7 +195,7 @@ export const NetWorkButton = () => {
               <ARB height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>Arbitrum One</span>
             </div>
-            {chainId === ChainId.ARB && (
+            {chainId === ChainId.ARB_TEST && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>
@@ -203,7 +203,7 @@ export const NetWorkButton = () => {
         <MenuItem
           sx={{ width: '100%' }}
           onClick={async () => {
-            await handleChangeNetWork(ChainId.OP)
+            await handleChangeNetWork(ChainId.OP_GOERLI)
           }}
         >
           <div
@@ -218,7 +218,7 @@ export const NetWorkButton = () => {
               <OP height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>Optimism</span>
             </div>
-            {chainId === ChainId.OP && (
+            {chainId === ChainId.OP_GOERLI && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>
@@ -226,7 +226,7 @@ export const NetWorkButton = () => {
         <MenuItem
           sx={{ width: '100%' }}
           onClick={async () => {
-            await handleChangeNetWork(ChainId.POLYGON)
+            await handleChangeNetWork(ChainId.MUMBAI_TEST)
           }}
         >
           <div
@@ -241,7 +241,7 @@ export const NetWorkButton = () => {
               <Polygon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>Polygon</span>
             </div>
-            {chainId === ChainId.POLYGON && (
+            {chainId === ChainId.MUMBAI_TEST && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>
@@ -249,7 +249,7 @@ export const NetWorkButton = () => {
         <MenuItem
           sx={{ width: '100%' }}
           onClick={async () => {
-            await handleChangeNetWork(ChainId.POLYGON_ZK_EVM)
+            await handleChangeNetWork(ChainId.POLYGON_ZKEVM_TEST)
           }}
         >
           <div
@@ -264,7 +264,7 @@ export const NetWorkButton = () => {
               <ZKEVM height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
               <span>Polygon zkEVM</span>
             </div>
-            {chainId === ChainId.POLYGON_ZK_EVM && (
+            {chainId === ChainId.POLYGON_ZKEVM_TEST && (
               <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
             )}
           </div>
