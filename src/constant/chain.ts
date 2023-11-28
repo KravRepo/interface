@@ -324,7 +324,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
   },
 }
 
-export const IS_PRODUCTION = true
+export const IS_PRODUCTION = false
 
 export const API_CONFIG = IS_PRODUCTION ? API_CONFIG_PRODUCTION : API_CONFIG_TEST
 
