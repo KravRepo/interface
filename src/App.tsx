@@ -28,8 +28,7 @@ import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
 import ReportImg from './assets/imgs/report.png'
 import ReportDark from './assets/imgs/darkModel/report_dark.png'
-import { useMediaQuery, useTheme } from '@mui/material'
-import VConsole from 'vconsole'
+import { useTheme } from '@mui/material'
 import { useInterval } from './hook/hookV8/useInterval'
 import { useRootStore } from './store/root'
 import { useUserPosition } from './hook/hookV8/useUserPosition'
@@ -54,7 +53,6 @@ const FullApp = () => {
   useInterval(async () => getUserPosition(), 15000)
   useBTCPrice()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
 
   useEffect(() => {
     const localChainId = localStorage.getItem('krav-chain-id')
@@ -70,10 +68,6 @@ const FullApp = () => {
   useEffect(() => {
     if (allPoolParams) getUserPosition().then()
   }, [allPoolParams])
-
-  useEffect(() => {
-    if (isMobile) new VConsole({ theme: 'dark' })
-  }, [])
 
   return (
     <Router>
