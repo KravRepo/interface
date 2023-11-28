@@ -84,7 +84,7 @@ export const KravRewardCard = ({
               font-size: 20px;
             `}
           >
-            &nbsp;{tradeReward ? tradeReward : liquidityReward}
+            &nbsp;{typeof tradeReward !== 'undefined' ? tradeReward : liquidityReward}
           </span>
         </div>
         {!account && <KRAVButton sx={{ height: '30px', minHeight: '30px', width: '129px' }}>Connect Wallet</KRAVButton>}
