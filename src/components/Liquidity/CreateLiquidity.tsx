@@ -5,10 +5,9 @@ import { ReactComponent as BackDarkIcon } from '../../assets/imgs/darkModel/back
 import { ReactComponent as RightHook } from '../../assets/imgs/rightHook.svg'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
-import { MenuItem, Select, useTheme } from '@mui/material'
+import { MenuItem, Select, useMediaQuery, useTheme } from '@mui/material'
 import KRAVTextField from '../KravUIKit/KravTextField'
 import KRAVButton from '../KravUIKit/KravButton'
-import { Trans } from '@lingui/macro'
 import { ConfirmCreatPool } from '../../components/Dialog/ConfirmCreatPool'
 import { useCallback, useEffect, useState } from 'react'
 import { CreateLiquidityProps } from './type'
@@ -17,9 +16,11 @@ import { useCheckAddressValidity } from '../../hook/hookV8/useCheckAddressValidi
 import { useContract } from '../../hook/hookV8/useContract'
 import erc_20 from '../../abi/erc20.json'
 import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
+import { Step } from './Step'
 
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [confirm, setConfirm] = useState(false)
   const [ticketSize, setTicketSize] = useState<string | number>(1)
   const [LPProvision, setLPProvision] = useState<string | number>('')
@@ -121,7 +122,8 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
             </div>
             <div />
           </div>
-          <div className="creat-pool-table">
+          <div className={!isMobile ? 'creat-pool-table' : 'creat-pool-table-mobile'}>
+            {isMobile && <Step />}
             <div className="table-left">
               <div className="input-params">
                 <div>Choose Target Market</div>
@@ -201,49 +203,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 background: ${theme.palette.mode === 'dark' ? '#4b4b4b' : '#dadada'};
               `}
             />
-            <div
-              className="table-right"
-              css={css`
-                background: ${theme.background.second};
-                color: ${theme.text.primary};
-              `}
-            >
-              <div className="step">
-                <p>
-                  <Trans>Step 1 Choose Target Market</Trans>
-                </p>
-                <p>
-                  <Trans>
-                    With BTC as the underlying asset, different assets are used as investment products for perpetual
-                    option transactions. The asset selected by the pool you created now will be used as the transaction
-                    asset.
-                  </Trans>
-                </p>
-              </div>
-              <div className="step">
-                <p>
-                  <Trans>Step 2 Select Token Collateral</Trans>
-                </p>
-                <p>
-                  <Trans>
-                    With BTC as the underlying asset, different assets are used as investment products for perpetual
-                    option transactions. The asset selected by the pool you created now will be used as the transaction
-                    asset.
-                  </Trans>
-                </p>
-              </div>
-              <div className="step">
-                <p>
-                  <Trans>Step 3 Initial LP Provision</Trans>
-                </p>
-                <p>
-                  <Trans>
-                    The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on
-                    the platform in exchange for serving as the counterparty to all trades.
-                  </Trans>
-                </p>
-              </div>
-            </div>
+            {!isMobile && <Step />}
           </div>
         </div>
       </div>
