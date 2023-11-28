@@ -119,3 +119,39 @@ export const getTradeBooster = (
     return booster
   } else return new BigNumber(0)
 }
+
+export const leftTime = (e: number) => {
+  const Time = {
+    day: '00',
+    hour: '00',
+    minutes: '00',
+    seconds: '00',
+  }
+  let Distance = e
+
+  if (Distance > 0) {
+    Time.day = Math.floor(Distance / 86400000).toString()
+    Distance -= Number(Time.day) * 86400000
+    Time.hour = Math.floor(Distance / 3600000).toString()
+    Distance -= Number(Time.hour) * 3600000
+    Time.minutes = Math.floor(Distance / 60000).toString()
+    Distance -= Number(Time.minutes) * 60000
+    Time.seconds = Math.floor(Distance / 1000).toFixed(0)
+    Distance -= Number(Time.seconds) * 1000
+    if (Number(Time.day) < 10) {
+      Time.day = '0' + Time.day
+    }
+    if (Number(Time.hour) < 10) {
+      Time.hour = '0' + Time.hour
+    }
+    if (Number(Time.minutes) < 10) {
+      Time.minutes = '0' + Time.minutes
+    }
+    if (Number(Time.seconds) < 10) {
+      Time.seconds = '0' + Time.seconds
+    }
+    return Time
+  } else {
+    return Time
+  }
+}

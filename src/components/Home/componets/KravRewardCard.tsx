@@ -7,6 +7,7 @@ import { useWeb3React } from '@web3-react/core'
 import BigNumber from 'bignumber.js'
 import { useMemo } from 'react'
 import moment from 'moment'
+import { leftTime } from '../../../utils/math'
 
 type KravRewardCardProps = {
   isTrade: boolean
@@ -29,18 +30,10 @@ export const KravRewardCard = ({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const nextDistribution = useMemo(() => {
-    const nowTime = new Date()
-    const targetTime = new Date(nextEpoch * 1000)
-    const nowSeconds = nowTime.getUTCHours() * 3600 + nowTime.getUTCMinutes() * 60 + nowTime.getUTCSeconds()
-    const targetSeconds = targetTime.getUTCHours() * 3600 + targetTime.getUTCMinutes() * 60 + targetTime.getUTCSeconds()
-    const timeInterval = targetSeconds > nowSeconds ? targetSeconds - nowSeconds : 0
-    const disHour = new BigNumber(timeInterval).div(60 * 60).toFixed(0, 1)
-    const disMinut = new BigNumber(timeInterval)
-      .minus(Number(disHour) * 3600)
-      .div(60)
-      .toFixed(0, 0)
-    return { disHour: disHour, disMinut: disMinut }
-  }, [backendAmount])
+    const now = new Date().getTime()
+    const dis = leftTime(nextEpoch * 1000 - now)
+    return { disHour: dis.hour, disMinut: dis.minutes }
+  }, [backendAmount, nextEpoch])
   const { account } = useWeb3React()
   // const kravRewardInfo = useMemo(() => {
   //   if (backendAmount.isGreaterThan(contractAmount)) return { amount: backendAmount, claimEnable: true }
