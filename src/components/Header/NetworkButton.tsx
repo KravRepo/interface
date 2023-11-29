@@ -157,6 +157,29 @@ export const NetWorkButton = () => {
         <MenuItem
           sx={{ width: '100%' }}
           onClick={async () => {
+            await handleChangeNetWork(ChainId.BASE_TEST)
+          }}
+        >
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+            `}
+          >
+            <div css={align}>
+              <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
+              <span>Base Goerli</span>
+            </div>
+            {chainId === ChainId.BASE_TEST && (
+              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+            )}
+          </div>
+        </MenuItem>
+        <MenuItem
+          sx={{ width: '100%' }}
+          onClick={async () => {
             await handleChangeNetWork(ChainId.BSC_TEST)
           }}
         >
