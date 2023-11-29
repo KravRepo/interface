@@ -83,11 +83,16 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
                 text-decoration: underline;
               `}
             >
-              <span>
-                {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
-                {pool ? pool.symbol : tradePool.symbol}
-              </span>
-              <span>({positionTp.toFixed(2)} %)</span>
+              {BTCPrice.isEqualTo(0) && <span>----</span>}
+              {BTCPrice.isGreaterThan(0) && (
+                <>
+                  <span>
+                    {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
+                    {pool ? pool.symbol : tradePool.symbol}
+                  </span>
+                  <span>({positionTp.toFixed(2)} %)</span>
+                </>
+              )}
             </p>
           </div>
           <div>
