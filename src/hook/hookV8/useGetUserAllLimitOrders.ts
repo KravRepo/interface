@@ -133,7 +133,7 @@ export const useGetUserAllLimitOrders = () => {
 
         userLimitOrders.forEach((data: any, index) => {
           useAllLimits.push({
-            pool: getOpenLimitOrderCall.details[index],
+            pool: getOpenLimitOrderCall.details[index].pool,
             tuple: [data],
           })
         })

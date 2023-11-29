@@ -23,7 +23,7 @@ export const LimitOrderItem = ({ limit, pool }: LimitOrderItemProps) => {
     leverage: number,
     symbol: string
   ) => {
-    return positionSize.times(leverage).toFixed(2) + '' + symbol
+    return positionSize.times(leverage).toFixed(2) + ' ' + symbol
   }
   return (
     <div className="order-layout">
