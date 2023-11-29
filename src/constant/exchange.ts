@@ -117,14 +117,4 @@ export const COIN_BASE_TEST_CONFIG = {
     logoSource: require('../assets/imgs/tokens/bitcoin.svg'),
     useDataFeed: false,
   },
-  1: {
-    symbol: 'Coinbase',
-    chartSymbol: 'NASDAQ:COIN',
-    apiSymbol: 'COIN',
-    titleSymbol: 'Coinbase/USD',
-    pairIndex: 1,
-    fixDecimals: 4,
-    logoSource: require('../assets/imgs/tokens/coinbase.svg'),
-    useDataFeed: true,
-  },
 }
