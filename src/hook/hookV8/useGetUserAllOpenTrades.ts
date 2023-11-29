@@ -75,8 +75,6 @@ export const useGetUserAllOpenTrades = () => {
           }
         })
         const openTradesData = await multicall1.sendCall()
-        console.log('openTradesData', openTradesData)
-        // const userAllOpenTrades:Tuple[] = []
         const filterIndex: number[] = []
         openTradesData.returnData = openTradesData.returnData.filter((data: openTradeRawData, index: number) => {
           if (new BigNumber(data.leverage._hex).isEqualTo(0)) {
@@ -89,10 +87,13 @@ export const useGetUserAllOpenTrades = () => {
         openTradesData.details = openTradesData.details.filter((data: any, index: number) => {
           if (!filterIndex.includes(index)) return data
         })
-        console.log('openTradesData', openTradesData)
-        const test = forMatterOpenTrades(openTradesData.returnData, openTradesData.returnData.length, account, false)
-        console.log('forMatterOpenTrades', test)
-        test.forEach((data, index) => {
+        const forMatter = forMatterOpenTrades(
+          openTradesData.returnData,
+          openTradesData.returnData.length,
+          account,
+          false
+        )
+        forMatter.forEach((data, index) => {
           allOpenTrades.push({
             pool: openTradesData.details[index].pool,
             tuple: [data],
