@@ -44,20 +44,22 @@ export const useGetUserOpenTrade = () => {
           })
           const userPendingOrderDetails = await Promise.all(userPendingOrderTask)
           userPendingOrderDetails.forEach((details, index) => {
-            const inPending = new BigNumber(blockNumber).isGreaterThan(
-              new BigNumber(details.block._hex).plus(
-                TIME_OUT_CONFIG.includes(chainId) ? ARB_TIME_OUT : DEFAULT_TIME_OUT
+            if (new BigNumber(details.trade.pairIndex._hex).toNumber() === tradePairIndex) {
+              const inPending = new BigNumber(blockNumber).isGreaterThan(
+                new BigNumber(details.block._hex).plus(
+                  TIME_OUT_CONFIG.includes(chainId) ? ARB_TIME_OUT : DEFAULT_TIME_OUT
+                )
               )
-            )
-            const res = forMatterOpenTrades(
-              details,
-              1,
-              account,
-              true,
-              new BigNumber(userPendingOrder[index]._hex),
-              !inPending
-            )
-            userPendingMarketOrder.push(res[0])
+              const res = forMatterOpenTrades(
+                details,
+                1,
+                account,
+                true,
+                new BigNumber(userPendingOrder[index]._hex),
+                !inPending
+              )
+              userPendingMarketOrder.push(res[0])
+            }
           })
           isBeingMarketClosed(openTrades, userPendingMarketOrder)
           userPendingMarketOrder = userPendingMarketOrder.filter((order) => order.leverage > 0)
