@@ -8,9 +8,29 @@ import {
   ONE_YEAR_TIMESTAMP,
   TOW_YEAR_TIMESTAMP,
 } from '../../../constant/math'
+import { creatCall, CreatCall, decodeCallResult } from '../useContract'
+import { Contract } from 'ethers'
+
+export type EthersBigNumber = {
+  _hex: string
+  _isBigNumber: boolean
+}
+
+export type openTradeRawData = {
+  buy: boolean
+  index: EthersBigNumber
+  initialPosToken: EthersBigNumber
+  trader: string
+  sl: EthersBigNumber
+  tp: EthersBigNumber
+  pairIndex: EthersBigNumber
+  openPrice: EthersBigNumber
+  leverage: EthersBigNumber
+  positionSizeDai: EthersBigNumber
+}
 
 export const forMatterOpenTrades = (
-  res: any[],
+  res: openTradeRawData[],
   trades: number,
   account: string,
   isPendingOrder: boolean,
@@ -33,7 +53,6 @@ export const forMatterOpenTrades = (
       sl: eXDecimals(res[i].sl._hex, 10),
       tp: eXDecimals(res[i].tp._hex, 10),
       pairIndex: new BigNumber(res[i].pairIndex._hex).toNumber(),
-      //TODO open price decimals is 10?
       openPrice: eXDecimals(res[i].openPrice._hex, 10),
       leverage: new BigNumber(res[i].leverage._hex).toNumber(),
       positionSizeDai: eXDecimals(res[i].positionSizeDai._hex, 18),
@@ -73,4 +92,53 @@ export const getLockTime = (lockTime: number) => {
       forMatterLockTime = 0
   }
   return forMatterLockTime
+}
+
+export type Task = {
+  call: CreatCall[]
+  method: string[]
+  contractIns: Contract[]
+  withDetails: any[]
+}
+export class Multicall {
+  public muticall: Contract
+  public task = {} as Task
+  public call: CreatCall[] = []
+  public method: string[] = []
+  public contractIns: Contract[] = []
+  public withDetails: any[] = []
+  constructor(multicall: Contract) {
+    this.muticall = multicall
+    this.task = {
+      call: [],
+      method: [],
+      contractIns: [],
+      withDetails: [],
+    }
+  }
+  public addTask(func: string, params: any[], contract: Contract, withDetails: any) {
+    this.task.call.push(creatCall(contract.address, contract.interface, func, params))
+    this.task.method.push(func)
+    this.task.contractIns.push(contract)
+    this.task.withDetails.push(withDetails)
+  }
+  public async sendCall() {
+    const send = await this.muticall.callStatic.aggregate(this.task.call)
+    let returnData = send.returnData
+    returnData = returnData.map((data: string, index: number) => {
+      return decodeCallResult(this.task.contractIns[index].interface, this.task.method[index], data)
+    })
+    return {
+      returnData: returnData,
+      details: this.task.withDetails,
+    }
+  }
+  public clear() {
+    this.task = {
+      call: [],
+      method: [],
+      contractIns: [],
+      withDetails: [],
+    }
+  }
 }
