@@ -44,7 +44,7 @@ const TestNetworkLogo = ({ targetChain }: { targetChain?: number }) => {
   switch (targetChain ? targetChain : chainId) {
     case ChainId.MAINNET:
       return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.BSC:
+    case ChainId.BSC_TEST:
       return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     case ChainId.OP_GOERLI:
       return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
