@@ -15,12 +15,13 @@ import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined'
 import React, { useMemo, useState } from 'react'
 import { ReactComponent as EthIcon } from '../../assets/imgs/tokens/Ehter.svg'
 import { useWeb3React } from '@web3-react/core'
-import { ChainId } from '../../constant/chain'
+import { ChainId, IS_PRODUCTION, SUPPORT_CHAIN } from '../../constant/chain'
 import { useConnect } from '../../hook/hookV8/useConnect'
+import { CHAINS } from '../../connectors/chain'
 
-const NetWorkerLogo = () => {
+const MainnetLogo = ({ targetChain }: { targetChain?: number }) => {
   const { chainId } = useWeb3React()
-  switch (chainId) {
+  switch (targetChain ? targetChain : chainId) {
     case ChainId.MAINNET:
       return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     case ChainId.BSC:
@@ -36,6 +37,30 @@ const NetWorkerLogo = () => {
     default:
       return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
   }
+}
+
+const TestNetworkLogo = ({ targetChain }: { targetChain?: number }) => {
+  const { chainId } = useWeb3React()
+  switch (targetChain ? targetChain : chainId) {
+    case ChainId.MAINNET:
+      return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.BSC:
+      return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.OP_GOERLI:
+      return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.MUMBAI_TEST:
+      return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.ARB_TEST:
+      return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    case ChainId.POLYGON_ZKEVM_TEST:
+      return <ZKEVM height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    default:
+      return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+  }
+}
+
+const NetworkLogo = ({ targetChain }: { targetChain?: number }) => {
+  return IS_PRODUCTION ? <MainnetLogo targetChain={targetChain} /> : <TestNetworkLogo targetChain={targetChain} />
 }
 
 export const NetWorkButton = () => {
@@ -86,7 +111,7 @@ export const NetWorkButton = () => {
         aria-expanded={networkOpen ? 'true' : undefined}
         onClick={handleNetWorkClick}
       >
-        <NetWorkerLogo />
+        <NetworkLogo />
       </Button>
       <Menu
         sx={{
@@ -102,196 +127,40 @@ export const NetWorkButton = () => {
           'aria-labelledby': 'network-button',
         }}
       >
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.BASE)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>Base</span>
-            </div>
-            {chainId === ChainId.BASE && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.MAINNET)
-          }}
-          sx={{ width: '100%' }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <EthIcon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span
+        {SUPPORT_CHAIN.map((chain, index) => {
+          return (
+            <MenuItem
+              key={index}
+              sx={{ width: '100%' }}
+              onClick={async () => {
+                await handleChangeNetWork(chain)
+              }}
+            >
+              <div
                 css={css`
-                  color: ${theme.text.primary};
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  width: 100%;
                 `}
               >
-                Ethereum
-              </span>
-            </div>
-            {chainId === ChainId.MAINNET && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.BASE_TEST)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <Base height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>Base Goerli</span>
-            </div>
-            {chainId === ChainId.BASE_TEST && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.BSC_TEST)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <BSC height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>BNB Smart Chain Mainnet</span>
-            </div>
-            {chainId === ChainId.BSC_TEST && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.ARB_TEST)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <ARB height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>Arbitrum One</span>
-            </div>
-            {chainId === ChainId.ARB_TEST && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.OP_GOERLI)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <OP height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>Optimism</span>
-            </div>
-            {chainId === ChainId.OP_GOERLI && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.MUMBAI_TEST)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <Polygon height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>Polygon</span>
-            </div>
-            {chainId === ChainId.MUMBAI_TEST && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
-        <MenuItem
-          sx={{ width: '100%' }}
-          onClick={async () => {
-            await handleChangeNetWork(ChainId.POLYGON_ZKEVM_TEST)
-          }}
-        >
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              width: 100%;
-            `}
-          >
-            <div css={align}>
-              <ZKEVM height="24" width="24" style={{ marginRight: '12px', borderRadius: '50%' }} />
-              <span>Polygon zkEVM</span>
-            </div>
-            {chainId === ChainId.POLYGON_ZKEVM_TEST && (
-              <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
-            )}
-          </div>
-        </MenuItem>
+                <div css={align}>
+                  <NetworkLogo targetChain={chain} />
+                  <span
+                    css={css`
+                      margin-left: 12px;
+                    `}
+                  >
+                    {CHAINS[chain].name}
+                  </span>
+                </div>
+                {chainId === chain && (
+                  <DoneOutlinedIcon sx={{ color: theme.palette.mode === 'dark' ? '#dedede' : '' }} />
+                )}
+              </div>
+            </MenuItem>
+          )
+        })}
       </Menu>
     </>
   )
