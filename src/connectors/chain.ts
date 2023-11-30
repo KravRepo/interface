@@ -40,9 +40,9 @@ type ChainConfig = { [chainId: number]: BasicChainInformation | ExtendedChainInf
 export const MAINNET_CHAINS: ChainConfig = {
   1: {
     urls: [''],
-    name: 'Mainnet',
+    name: 'Ethereum',
     nativeCurrency: ETH,
-    blockExplorerUrls: ['https://optimistic.etherscan.io'],
+    blockExplorerUrls: ['https://etherscan.io/'],
   },
   10: {
     urls: ['https://optimism.publicnode.com'],
@@ -58,7 +58,7 @@ export const MAINNET_CHAINS: ChainConfig = {
   },
   137: {
     urls: ['https://polygon-mainnet.public.blastapi.io'],
-    name: 'Polygon Mainnet',
+    name: 'Polygon',
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://polygonscan.com'],
   },
