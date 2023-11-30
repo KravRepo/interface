@@ -65,7 +65,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
         >
           <div>
             <p>
-              {tradePair.symbol}&nbsp;
+              {tradePair?.symbol}&nbsp;
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
@@ -88,7 +88,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
                 <>
                   <span>
                     {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
-                    {pool ? pool.symbol : tradePool.symbol}
+                    {pool ? pool.symbol : tradePool?.symbol}
                   </span>
                   <span>({positionTp.toFixed(2)} %)</span>
                 </>
@@ -96,7 +96,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
             </p>
           </div>
           <div>
-            {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
+            {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool?.symbol}
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
           <div
@@ -136,7 +136,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
       {openTrade.isPendingOrder && openTrade.leverage > 0 && (
         <div className="position-layout">
           <div>
-            <p>{tradePair.symbol}</p>
+            <p>{tradePair?.symbol}</p>
             <p>
               <span>{openTrade.leverage}x</span>
               <span
@@ -157,13 +157,13 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
             >
               <span>
                 {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
-                {pool ? pool.symbol : tradePool.symbol}
+                {pool ? pool.symbol : tradePool?.symbol}
               </span>
               <span>({positionTp.toFixed(2)} %)</span>
             </p>
           </div>
           <div>
-            {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool.symbol}
+            {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool?.symbol}
           </div>
           <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
           <div

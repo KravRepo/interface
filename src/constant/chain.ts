@@ -342,7 +342,7 @@ export const TRADE_HISTORY_API = 'https://multi-dev.krav.trade/krav/v1/list/mark
 
 export const DASHBOARD_OVERVIEW_API = 'https://multi-dev.krav.trade/krav/v1/overview'
 
-export const BTC_PRICE_API = 'https://multi-dev.krav.trade/krav/v1/ticker?symbol='
+export const BTC_PRICE_API = 'https://api.krav.trade/krav/v1/ticker?symbol='
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 

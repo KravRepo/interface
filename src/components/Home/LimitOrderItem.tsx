@@ -37,8 +37,8 @@ export const LimitOrderItem = ({ limit, pool }: LimitOrderItemProps) => {
       <div>
         {getOrderContent(limit.buy, limit.minPrice, new BigNumber(limit.positionSize), limit.leverage, pool.symbol)}
       </div>
-      <div>{pairConfig[limit.pairIndex].symbol}</div>
-      <div>${limit.minPrice.toFixed(pairConfig[limit.pairIndex].fixDecimals)}</div>
+      <div>{pairConfig[limit.pairIndex]?.symbol}</div>
+      <div>${limit.minPrice.toFixed(pairConfig[limit.pairIndex]?.fixDecimals ?? 0)}</div>
       <div>{limit.leverage}</div>
       <div>{new BigNumber(limit.positionSize).toFixed(2)}</div>
       <div
@@ -46,7 +46,7 @@ export const LimitOrderItem = ({ limit, pool }: LimitOrderItemProps) => {
           cursor: pointer;
           text-decoration: underline;
         `}
-        onClick={() => cancelOpenLimitOrder(limit.index)}
+        onClick={() => cancelOpenLimitOrder(limit.index, limit.pairIndex)}
       >
         Cancel
       </div>

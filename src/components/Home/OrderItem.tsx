@@ -34,7 +34,7 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
   return (
     <div className="position-layout">
       <div>
-        <p>{pairConfig[openTrade.pairIndex].symbol}</p>
+        <p>{pairConfig[openTrade.pairIndex]?.symbol}</p>
         <p>
           <span>{openTrade.leverage}x</span>
           <span
@@ -73,9 +73,9 @@ export const PositionsItem = ({ openTrade, pool }: PositionsItemProps) => {
       <div>
         {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool.symbol}
       </div>
-      <div>${new BigNumber(openTrade.openPrice).toFixed(pairConfig[openTrade.pairIndex].fixDecimals)}</div>
+      <div>${new BigNumber(openTrade.openPrice).toFixed(pairConfig[openTrade.pairIndex]?.fixDecimals ?? 2)}</div>
       {/*<div>${BTCPrice.toFixed(2)}</div>*/}
-      <div>${liqPrice.toFixed(pairConfig[openTrade.pairIndex].fixDecimals)}</div>
+      <div>${liqPrice.toFixed(pairConfig[openTrade.pairIndex]?.fixDecimals ?? 2)}</div>
       <div>
         <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
       </div>
