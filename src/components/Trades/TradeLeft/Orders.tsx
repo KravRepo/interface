@@ -68,7 +68,7 @@ export const Orders = () => {
                   cursor: pointer;
                   text-decoration: underline;
                 `}
-                onClick={() => cancelOpenLimitOrder(limit.index)}
+                onClick={() => cancelOpenLimitOrder(limit.index, limit.pairIndex)}
               >
                 Cancel
               </div>
