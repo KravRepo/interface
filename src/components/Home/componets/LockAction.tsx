@@ -91,10 +91,14 @@ export const LockAction = ({
   }, [lockAmount, userKravBalance])
 
   const newLockTime = useMemo(() => {
-    const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
-    const forMatterTime = getLockTime(lockTime) / 1000
-    return nowTimestamp + forMatterTime
-  }, [lockTime])
+    if (!increaseUnlockTime) {
+      return userLockPosition.end
+    } else {
+      const nowTimestamp = (Math.floor(new Date().getTime() / ONE_DAY_TIMESTAMP) * ONE_DAY_TIMESTAMP) / 1000
+      const forMatterTime = getLockTime(lockTime) / 1000
+      return nowTimestamp + forMatterTime
+    }
+  }, [lockTime, increaseUnlockTime])
 
   const lockPeriod = useMemo(() => {
     switch (lockTime) {
