@@ -14,7 +14,7 @@ export const ExchangeOverview = () => {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 40px;
-        border-radius: 8px;
+        border-radius: 0 0 8px 8px;
         background: ${theme.background.primary};
         font-family: 'GT-Flexa-Bold-Trial';
         margin-bottom: 24px;

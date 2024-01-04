@@ -12,6 +12,7 @@ export const Title = () => {
         css`
           border-bottom: ${theme.splitLine.primary};
           background: ${theme.background.primary};
+          border-radius: 8px 8px 0 0;
         `,
       ]}
     >
