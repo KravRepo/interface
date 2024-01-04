@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import BigNumber from 'bignumber.js'
 import { historyGrid } from './style'
-import { useTheme } from '@mui/material'
+import { Pagination, useTheme } from '@mui/material'
 
 const HistoryTitle = () => {
   return (
@@ -126,6 +126,15 @@ export const MintHistory = () => {
           />
         )
       })}
+      <div
+        css={css`
+          padding: 24px 0;
+          display: flex;
+          justify-content: center;
+        `}
+      >
+        <Pagination count={10} size="small" />
+      </div>
     </div>
   )
 }
