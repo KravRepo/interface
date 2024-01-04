@@ -6,8 +6,10 @@ import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
 import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.svg'
 import { ReactComponent as TipDark } from '../../assets/imgs/darkModel/exchange_tip_dark.svg'
 import { ReactComponent as Tip } from '../../assets/imgs/exchange_tip.svg'
+import { useState } from 'react'
 
 export const ExchangeAction = () => {
+  const [showMint, setShowMint] = useState(false)
   const theme = useTheme()
   return (
     <div
@@ -140,6 +142,7 @@ export const ExchangeAction = () => {
           </div>
         </div>
         <div
+          onClick={() => setShowMint(!showMint)}
           css={css`
             padding: 24px 48px;
             border: ${theme.splitLine.primary};
@@ -153,88 +156,118 @@ export const ExchangeAction = () => {
             }
           `}
         >
-          <p>
-            <span>Your staked :</span>
-            <span>10 XXA</span>
-          </p>
-          <p
-            css={css`
-              font-size: 14px;
-            `}
-          >
-            <span>Amount</span>
-            <span>Available: 235,258.96 XXA</span>
-          </p>
-          <div
-            css={css`
-              margin-bottom: 18px;
-            `}
-          >
-            <div
-              css={css`
-                background: ${theme.background.second};
-                border-radius: 8px;
-                padding: 8px 12px;
-                display: flex;
-                align-items: center;
-              `}
-            >
-              <KravToken />
-              <TextField
-                variant="standard"
-                type="number"
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{
-                  height: '28px',
-                  fontSize: '20px',
-                  minHeight: '28px',
-                  flex: 1,
-                  '& .MuiOutlinedInput-root': {
-                    height: '28px',
-                    minHeight: '28px',
-                    padding: 0,
-                  },
-                }}
-              />
-              <span
+          {!showMint && (
+            <>
+              <p>
+                <span>Your staked :</span>
+                <span>10 XXA</span>
+              </p>
+              <p
                 css={css`
-                  font-size: 16px;
-                  margin-right: 8px;
+                  font-size: 14px;
                 `}
               >
-                XXA
-              </span>
+                <span>Amount</span>
+                <span>Available: 235,258.96 XXA</span>
+              </p>
               <div
                 css={css`
-                  border-radius: 2px;
-                  color: ${theme.text.primary};
-                  background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
-                  padding: 2px 6px;
-                  font-size: 12px;
-                  cursor: pointer;
+                  margin-bottom: 18px;
                 `}
               >
-                MAX
+                <div
+                  css={css`
+                    background: ${theme.background.second};
+                    border-radius: 8px;
+                    padding: 8px 12px;
+                    display: flex;
+                    align-items: center;
+                  `}
+                >
+                  <KravToken />
+                  <TextField
+                    variant="standard"
+                    type="number"
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    sx={{
+                      height: '28px',
+                      fontSize: '20px',
+                      minHeight: '28px',
+                      flex: 1,
+                      '& .MuiOutlinedInput-root': {
+                        height: '28px',
+                        minHeight: '28px',
+                        padding: 0,
+                      },
+                    }}
+                  />
+                  <span
+                    css={css`
+                      font-size: 16px;
+                      margin-right: 8px;
+                    `}
+                  >
+                    XXA
+                  </span>
+                  <div
+                    css={css`
+                      border-radius: 2px;
+                      color: ${theme.text.primary};
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                      padding: 2px 6px;
+                      font-size: 12px;
+                      cursor: pointer;
+                    `}
+                  >
+                    MAX
+                  </div>
+                </div>
               </div>
+              <p
+                css={css`
+                  font-size: 12px;
+                `}
+              >
+                <span>Exchange ratio :</span>
+                <span>1 XXA→2.5 XXB</span>
+              </p>
+              <KRAVButton
+                sx={{
+                  mt: '4px',
+                }}
+              >
+                Stake
+              </KRAVButton>
+            </>
+          )}
+          {showMint && (
+            <div
+              css={css`
+                text-align: center;
+              `}
+            >
+              <p
+                css={css`
+                  padding-top: 24px;
+                `}
+              >
+                Amount that can be claimed
+              </p>
+              <p
+                css={css`
+                  font-size: 48px;
+                  padding-top: 16px;
+                  padding-bottom: 27px;
+                  font-family: 'GT-Flexa-Bold-Trial';
+                `}
+              >
+                200.56 XXB
+              </p>
+              <KRAVButton>Mint</KRAVButton>
             </div>
-          </div>
-          <p
-            css={css`
-              font-size: 12px;
-            `}
-          >
-            <span>Exchange ratio :</span>
-            <span>1 XXA→2.5 XXB</span>
-          </p>
-          <KRAVButton
-            sx={{
-              mt: '4px',
-            }}
-          >
-            Stake
-          </KRAVButton>
+          )}
         </div>
       </div>
     </div>
