@@ -6,6 +6,7 @@ import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
 import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.svg'
 import { ReactComponent as TipDark } from '../../assets/imgs/darkModel/exchange_tip_dark.svg'
 import { ReactComponent as Tip } from '../../assets/imgs/exchange_tip.svg'
+import { ReactComponent as Arrow } from '../../assets/imgs/mint_arrow.svg'
 import { useState } from 'react'
 
 export const ExchangeAction = () => {
@@ -54,8 +55,16 @@ export const ExchangeAction = () => {
             gap: 26px;
             font-size: 20px;
             font-weight: 600;
+            position: relative;
           `}
         >
+          <Arrow
+            css={css`
+              position: absolute;
+              left: calc(50% - 26px);
+              top: calc(50%);
+            `}
+          />
           <div>
             <p
               css={css`
