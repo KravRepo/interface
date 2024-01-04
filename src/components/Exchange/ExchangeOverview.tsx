@@ -10,7 +10,7 @@ export const ExchangeOverview = () => {
   return (
     <div
       css={css`
-        padding: 40px 64px;
+        padding: 64px 40px;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 40px;
