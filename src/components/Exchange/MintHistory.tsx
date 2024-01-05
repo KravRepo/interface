@@ -3,6 +3,10 @@ import { css } from '@emotion/react'
 import BigNumber from 'bignumber.js'
 import { historyGrid } from './style'
 import { Pagination, useTheme } from '@mui/material'
+import { useCallback, useEffect, useState } from 'react'
+import { STAKE_HISTORY_API } from '../../constant/chain'
+import { useWeb3React } from '@web3-react/core'
+import { eXDecimals } from '../../utils/math'
 
 const HistoryTitle = () => {
   return (
@@ -52,47 +56,65 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
         `,
       ]}
     >
-      <span>{ratio}</span>
-      <span>{amount.toFormat(2)}</span>
-      <span>{mintTo.toFormat(2)}</span>
-      <span>{address}</span>
+      <span>
+        {ratio} KRAV {'->'}
+        {ratio} ???
+      </span>
+      <span>{amount.toFormat(2)} KRAV</span>
+      <span>{mintTo.toFormat(2)} ???</span>
+      <span>
+        {address.substr(0, 4)}
+        ...
+        {address.substr(address.length - 2, 2)}
+      </span>
       <span>{date}</span>
     </div>
   )
 }
 
+type HistoryData = {
+  amount: string
+  chainId: number
+  createTime: string
+  id: number
+  staker: string
+  timestamp: number
+  updateTime: string
+}
+
 export const MintHistory = () => {
   const theme = useTheme()
-  const mockHistory = [
-    {
-      ratio: 1,
-      amount: new BigNumber(200258),
-      mintTo: new BigNumber(500000),
-      address: '0xCc39...780E6f',
-      date: '2022/11/16 12:19',
-    },
-    {
-      ratio: 1,
-      amount: new BigNumber(200258),
-      mintTo: new BigNumber(500000),
-      address: '0xCc39...780E6f',
-      date: '2022/11/16 12:19',
-    },
-    {
-      ratio: 1,
-      amount: new BigNumber(200258),
-      mintTo: new BigNumber(500000),
-      address: '0xCc39...780E6f',
-      date: '2022/11/16 12:19',
-    },
-    {
-      ratio: 1,
-      amount: new BigNumber(200258),
-      mintTo: new BigNumber(500000),
-      address: '0xCc39...780E6f',
-      date: '2022/11/16 12:19',
-    },
-  ]
+  const { account, chainId } = useWeb3React()
+  const [historyArray, setHistoryArray] = useState<HistoryData[]>([])
+  const [totalHistory, setTotalHistory] = useState(0)
+  const [page, setPage] = useState(1)
+
+  const getHistroy = useCallback(async () => {
+    if (account && chainId) {
+      try {
+        const req = await fetch(
+          STAKE_HISTORY_API + account + '&chainId=' + chainId + '&offset=' + (page - 1) * 10 + '&limit=' + 10
+        )
+        const history = await req.json()
+        if (history.code === 200) {
+          const historyData = history.data as HistoryData[]
+          setTotalHistory(history.total)
+          setHistoryArray(historyData)
+        }
+      } catch (e) {
+        console.log('get histroy failed!', e)
+      }
+    }
+  }, [account, chainId, page])
+
+  const handlePageChange = (event: any, value: number) => {
+    setPage(value)
+  }
+
+  useEffect(() => {
+    getHistroy().then()
+  }, [getHistroy])
+
   return (
     <div
       css={css`
@@ -113,14 +135,14 @@ export const MintHistory = () => {
         My history
       </p>
       <HistoryTitle />
-      {mockHistory.map((item, index) => {
+      {historyArray.map((item, index) => {
         return (
           <HistoryItem
-            amount={item.amount}
-            address={item.address}
-            date={item.date}
-            mintTo={item.mintTo}
-            ratio={item.ratio}
+            amount={eXDecimals(item.amount, 18)}
+            address={item.staker}
+            date={item.createTime}
+            mintTo={eXDecimals(item.amount, 18)}
+            ratio={1}
             key={index}
             index={index}
           />
@@ -133,7 +155,7 @@ export const MintHistory = () => {
           justify-content: center;
         `}
       >
-        <Pagination count={10} size="small" />
+        <Pagination count={Math.ceil(totalHistory / 10)} size="small" onChange={handlePageChange} />
       </div>
     </div>
   )

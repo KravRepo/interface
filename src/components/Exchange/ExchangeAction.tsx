@@ -96,7 +96,7 @@ export const ExchangeAction = () => {
         }
       }
     }
-  }, [chainId, account, tokenSwapContract, oldKravDetails, provider])
+  }, [chainId, account, tokenSwapContract, oldKravDetails, provider, stakeAmount])
 
   const getUserStakedAmount = useCallback(async () => {
     if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {

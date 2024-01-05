@@ -368,3 +368,5 @@ export const TRADE_REWARD_CONTRACT = '0x291182b2F0108E666e79b8fBC7c7b67C502564d7
 export const REWARD_API = 'https://api.krav.trade/krav/v1/reward/list/'
 
 export const BURN_ADDRESS = '0x000000000000000000000000000000000000dead'
+
+export const STAKE_HISTORY_API = 'https://multi-dev.krav.trade/krav/v1/staked/list?staker='
