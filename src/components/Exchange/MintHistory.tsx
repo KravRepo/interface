@@ -2,11 +2,15 @@
 import { css } from '@emotion/react'
 import BigNumber from 'bignumber.js'
 import { historyGrid } from './style'
-import { Pagination, useTheme } from '@mui/material'
+import { Pagination, Tooltip, useTheme } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
 import { STAKE_HISTORY_API } from '../../constant/chain'
 import { useWeb3React } from '@web3-react/core'
 import { eXDecimals } from '../../utils/math'
+import copy from 'copy-to-clipboard'
+import { ReactComponent as CopyDarkIcon } from '../../assets/imgs/darkModel/copy_icon_dark.svg'
+import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
+import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
 
 const HistoryTitle = () => {
   return (
@@ -41,6 +45,24 @@ type HistoryItemProps = {
 
 const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryItemProps) => {
   const theme = useTheme()
+  const [openTooltip, setOpenTooltip] = useState(false)
+  const useCopyAddress = useCallback(async () => {
+    if (address) {
+      try {
+        await navigator.clipboard.writeText(address)
+        setOpenTooltip(true)
+        setTimeout(() => {
+          setOpenTooltip(false)
+        }, 3000)
+      } catch (e) {
+        console.error('copy failed!', e)
+        copy(address)
+        setTimeout(() => {
+          setOpenTooltip(false)
+        }, 3000)
+      }
+    }
+  }, [address])
 
   return (
     <div
@@ -56,17 +78,45 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
         `,
       ]}
     >
-      <span>
-        {ratio} KRAV {'->'}
+      <span
+        css={css`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <Base height="20" width="20" style={{ borderRadius: '50%', minWidth: '24px' }} />
+        &nbsp;{ratio} KRAV {'->'}
         {ratio} ???
       </span>
-      <span>{amount.toFormat(2)} KRAV</span>
-      <span>{mintTo.toFormat(2)} ???</span>
-      <span>
-        {address.substr(0, 4)}
-        ...
-        {address.substr(address.length - 2, 2)}
+      <span
+        css={css`
+          display: flex;
+          align-items: center;
+        `}
+      >
+        <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+        &nbsp;{amount.toFormat(2)} KRAV
       </span>
+      <span>{mintTo.toFormat(2)} ???</span>
+      <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
+        <div
+          css={css`
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+          `}
+          onClick={useCopyAddress}
+        >
+          {address.substr(0, 6)}
+          ...
+          {address.substr(address.length - 6, 6)}
+          {theme.palette.mode === 'dark' ? (
+            <CopyDarkIcon onClick={useCopyAddress} />
+          ) : (
+            <CopyIcon onClick={useCopyAddress} />
+          )}
+        </div>
+      </Tooltip>
       <span>{date}</span>
     </div>
   )
@@ -135,6 +185,19 @@ export const MintHistory = () => {
         My history
       </p>
       <HistoryTitle />
+      {totalHistory === 0 && (
+        <div
+          css={css`
+            height: 300px;
+            width: 100%;
+            color: #617168;
+            text-align: center;
+            padding-top: 130px;
+          `}
+        >
+          No stake yet
+        </div>
+      )}
       {historyArray.map((item, index) => {
         return (
           <HistoryItem

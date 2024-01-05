@@ -311,6 +311,7 @@ export const ExchangeAction = () => {
                       height: '28px',
                       fontSize: '20px',
                       minHeight: '28px',
+                      marginLeft: '12px',
                       flex: 1,
                       '& .MuiOutlinedInput-root': {
                         height: '28px',
