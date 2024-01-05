@@ -156,7 +156,7 @@ export const Header = () => {
                 <Trans>Liquidity</Trans>
               </NavLink>
               <NavLink to={'/exchange'} css={[router, routerColor, pathname === '/exchange' ? routerActive : '']}>
-                <Trans>Exchange</Trans>
+                Exchange
               </NavLink>
               <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
                 <Trans>Portfolio</Trans>
