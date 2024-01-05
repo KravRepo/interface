@@ -84,7 +84,7 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
           align-items: center;
         `}
       >
-        <Base height="20" width="20" style={{ borderRadius: '50%', minWidth: '24px' }} />
+        <Base height="20" width="20" style={{ borderRadius: '50%', minWidth: '20px' }} />
         &nbsp;{ratio} KRAV {'->'}
         {ratio} ???
       </span>
@@ -94,7 +94,7 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
           align-items: center;
         `}
       >
-        <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+        <Base height="20" width="20" style={{ borderRadius: '50%', minWidth: '20px' }} />
         &nbsp;{amount.toFormat(2)} KRAV
       </span>
       <span>{mintTo.toFormat(2)} ???</span>
