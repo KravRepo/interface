@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
-import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.svg'
+import { ReactComponent as VeKravToken } from '../../assets/imgs/tokens/default_token.svg'
 import { css } from '@emotion/react'
 import KRAVTab from '../KravUIKit/KravTab'
 import { useTheme } from '@mui/material'
@@ -50,7 +50,7 @@ export const ExchangeOverview = () => {
               width: 64px;
             `}
           />
-          <span>XXA</span>
+          <span>KRAV</span>
         </div>
         <div
           css={css`
@@ -66,7 +66,7 @@ export const ExchangeOverview = () => {
               font-size: 28px;
             `}
           >
-            23,102,345.0 XXA
+            23,102,345.0 KRAV
           </p>
         </div>
       </div>
@@ -100,7 +100,7 @@ export const ExchangeOverview = () => {
               width: 64px;
             `}
           />
-          <span>XXB</span>
+          <span>???</span>
         </div>
         <div
           css={css`
@@ -116,7 +116,7 @@ export const ExchangeOverview = () => {
               font-size: 28px;
             `}
           >
-            05:12:30
+            ??:??:??
           </p>
         </div>
       </div>

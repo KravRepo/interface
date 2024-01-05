@@ -3,11 +3,11 @@ import { css } from '@emotion/react'
 import KRAVButton from '../KravUIKit/KravButton'
 import { TextField, useTheme } from '@mui/material'
 import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
-import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.svg'
+import { ReactComponent as VeKravToken } from '../../assets/imgs/tokens/default_token.svg'
 import { ReactComponent as TipDark } from '../../assets/imgs/darkModel/exchange_tip_dark.svg'
 import { ReactComponent as Tip } from '../../assets/imgs/exchange_tip.svg'
 import { ReactComponent as Arrow } from '../../assets/imgs/mint_arrow.svg'
-import { ChangeEvent, useCallback, useMemo, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
 import { formatNumber, getProviderOrSigner } from '../../utils'
@@ -18,7 +18,7 @@ import { TransactionAction, TransactionState } from '../../store/TransactionSlic
 import { MAX_UNIT_256 } from '../../constant/math'
 import { Contract } from 'ethers'
 import erc20 from '../../abi/test_erc20.json'
-import { addDecimals } from '../../utils/math'
+import { addDecimals, eXDecimals } from '../../utils/math'
 import { useUpdateError } from '../../hook/hookV8/useUpdateError'
 import { useUpdateSuccessDialog } from '../../hook/hookV8/useUpdateSuccessDialog'
 
@@ -30,6 +30,7 @@ export const ExchangeAction = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const [showMint] = useState(false)
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0))
+  const [userStakedAmount, setUserStakedAmount] = useState(new BigNumber(0))
   const theme = useTheme()
   const oldKravDetails = useMemo(() => {
     if (userPositionDatas.length > 0) {
@@ -96,6 +97,21 @@ export const ExchangeAction = () => {
     }
   }, [chainId, account, tokenSwapContract, oldKravDetails, provider])
 
+  const getUserStakedAmount = useCallback(async () => {
+    if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
+      if (account && tokenSwapContract && provider) {
+        const amountStaked = await tokenSwapContract.amountStaked(account)
+        setUserStakedAmount(eXDecimals(new BigNumber(amountStaked._hex), 18))
+      }
+    }
+  }, [account, chainId, provider, tokenSwapContract])
+
+  useEffect(() => {
+    getUserStakedAmount().then()
+    const interval = setInterval(() => getUserStakedAmount(), 15000)
+    return () => clearInterval(interval)
+  }, [getUserStakedAmount])
+
   return (
     <div
       css={css`
@@ -121,7 +137,7 @@ export const ExchangeAction = () => {
         {theme.palette.mode === 'dark' ? <TipDark /> : <Tip />}
         <span>
           &nbsp;
-          {'You need to stake XXA Token first, and the "mint" operation will not be officially started until the mint\n' +
+          {'You need to stake KRAV Token first, and the "mint" operation will not be officially started until the mint\n' +
             'start time.'}
         </span>
       </div>
@@ -176,7 +192,7 @@ export const ExchangeAction = () => {
                   `}
                 >
                   <KravToken />
-                  <span>XXA</span>
+                  <span>KRAV</span>
                 </div>
                 <p
                   css={css`
@@ -186,7 +202,7 @@ export const ExchangeAction = () => {
                     margin-top: 32px;
                   `}
                 >
-                  Ethereum Chain Network
+                  Base Chain Network
                 </p>
               </div>
             </div>
@@ -217,8 +233,13 @@ export const ExchangeAction = () => {
                     }
                   `}
                 >
-                  <VeKravToken />
-                  <span>XXB</span>
+                  <VeKravToken
+                    css={css`
+                      height: 40px;
+                      width: 40px;
+                    `}
+                  />
+                  <span>???</span>
                 </div>
                 <p
                   css={css`
@@ -228,7 +249,7 @@ export const ExchangeAction = () => {
                     margin-top: 32px;
                   `}
                 >
-                  Ethereum Chain Network
+                  Base Chain Network
                 </p>
               </div>
             </div>
@@ -252,7 +273,7 @@ export const ExchangeAction = () => {
             <>
               <p>
                 <span>Your staked :</span>
-                <span>10 XXA</span>
+                <span>{formatNumber(userStakedAmount.toString(), 4, false)} KRAV</span>
               </p>
               <p
                 css={css`
@@ -260,7 +281,7 @@ export const ExchangeAction = () => {
                 `}
               >
                 <span>Amount</span>
-                <span>Available: {formatNumber(userOldKravBalance.toString(), 4, false)} XXA</span>
+                <span>Available: {formatNumber(userOldKravBalance.toString(), 4, false)} KRAV</span>
               </p>
               <div
                 css={css`
@@ -303,7 +324,7 @@ export const ExchangeAction = () => {
                       margin-right: 8px;
                     `}
                   >
-                    XXA
+                    KRAV
                   </span>
                   <div
                     onClick={() => setStakeAmount(userOldKravBalance)}
@@ -326,7 +347,7 @@ export const ExchangeAction = () => {
                 `}
               >
                 <span>Exchange ratio :</span>
-                <span>1 XXA→ 1 XXB</span>
+                <span>1 KRAV→ 1 ???</span>
               </p>
               <KRAVButton
                 disabled={!userOldKravBalance.isGreaterThan(0) || stakeAmount.isGreaterThan(userOldKravBalance)}
@@ -360,7 +381,7 @@ export const ExchangeAction = () => {
                   font-family: 'GT-Flexa-Bold-Trial';
                 `}
               >
-                200.56 XXB
+                200.56 ???
               </p>
               <KRAVButton>Mint</KRAVButton>
             </div>
