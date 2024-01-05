@@ -30,6 +30,7 @@ export const ExchangeAction = () => {
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const [showMint] = useState(false)
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0))
+
   const [userStakedAmount, setUserStakedAmount] = useState(new BigNumber(0))
   const theme = useTheme()
   const oldKravDetails = useMemo(() => {

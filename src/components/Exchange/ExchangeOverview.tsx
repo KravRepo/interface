@@ -4,9 +4,44 @@ import { ReactComponent as VeKravToken } from '../../assets/imgs/tokens/default_
 import { css } from '@emotion/react'
 import KRAVTab from '../KravUIKit/KravTab'
 import { useTheme } from '@mui/material'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import BigNumber from 'bignumber.js'
+import { BURN_ADDRESS, ChainId } from '../../constant/chain'
+import { useWeb3React } from '@web3-react/core'
+import { eXDecimals } from '../../utils/math'
+import { formatNumber, getProviderOrSigner } from '../../utils'
+import { useRootStore } from '../../store/root'
+import { Contract } from 'ethers'
+import erc20 from '../../abi/test_erc20.json'
 
 export const ExchangeOverview = () => {
   const theme = useTheme()
+  const { account, chainId, provider } = useWeb3React()
+  const [totalStakeAmount, setTotalStakeAmount] = useState(new BigNumber(0))
+  const userPositionDatas = useRootStore((store) => store.userPositionDatas)
+  const oldKravDetails = useMemo(() => {
+    if (userPositionDatas.length > 0) {
+      const krav = userPositionDatas.find((item) => item.pool.symbol === 'KRAV')
+      if (krav) return krav
+      else return
+    } else return
+  }, [userPositionDatas])
+  const getTotalStaked = useCallback(async () => {
+    if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
+      if (account && provider && oldKravDetails) {
+        const kravContract = new Contract(oldKravDetails.pool.tokenT, erc20.abi, getProviderOrSigner(provider, account))
+        const totalStakeAmount = await kravContract.balanceOf(BURN_ADDRESS)
+        setTotalStakeAmount(eXDecimals(new BigNumber(totalStakeAmount._hex), 18))
+      }
+    }
+  }, [account, chainId, provider, oldKravDetails])
+
+  useEffect(() => {
+    getTotalStaked().then()
+    const interval = setInterval(() => getTotalStaked(), 15000)
+    return () => clearInterval(interval)
+  }, [getTotalStaked])
+
   return (
     <div
       css={css`
@@ -66,7 +101,7 @@ export const ExchangeOverview = () => {
               font-size: 28px;
             `}
           >
-            23,102,345.0 KRAV
+            {formatNumber(totalStakeAmount.toString(), 4, false)} KRAV
           </p>
         </div>
       </div>
