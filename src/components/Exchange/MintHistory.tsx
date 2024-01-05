@@ -65,28 +65,28 @@ export const MintHistory = () => {
   const theme = useTheme()
   const mockHistory = [
     {
-      ratio: 2.5,
+      ratio: 1,
       amount: new BigNumber(200258),
       mintTo: new BigNumber(500000),
       address: '0xCc39...780E6f',
       date: '2022/11/16 12:19',
     },
     {
-      ratio: 2.5,
+      ratio: 1,
       amount: new BigNumber(200258),
       mintTo: new BigNumber(500000),
       address: '0xCc39...780E6f',
       date: '2022/11/16 12:19',
     },
     {
-      ratio: 2.5,
+      ratio: 1,
       amount: new BigNumber(200258),
       mintTo: new BigNumber(500000),
       address: '0xCc39...780E6f',
       date: '2022/11/16 12:19',
     },
     {
-      ratio: 2.5,
+      ratio: 1,
       amount: new BigNumber(200258),
       mintTo: new BigNumber(500000),
       address: '0xCc39...780E6f',

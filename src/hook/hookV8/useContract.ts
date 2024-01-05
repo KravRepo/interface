@@ -10,6 +10,7 @@ import btc_price from '../../abi/bsc_price.json'
 import trading_vault from '../../abi/trading_vault_v5.json'
 import pair_storage from '../../abi/pair_storage_v6.json'
 import krav_factory from '../../abi/krav_factory.json'
+import token_swap from '../../abi/TokenSwap.json'
 import type { JsonRpcProvider } from '@ethersproject/providers'
 import { Interface } from 'ethers/lib/utils'
 import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
@@ -64,6 +65,10 @@ export const useTradingVaultContract = (address: string) => {
 
 export const usePairStorageContract = (address: string) => {
   return useContract(address, pair_storage.abi)
+}
+
+export const useTokenSwap = (chainId: number) => {
+  return useContract(CONTRACT_CONFIG[chainId].tokenSwap, token_swap.abi)
 }
 
 export const useFactoryContract = (provider: JsonRpcProvider) => {

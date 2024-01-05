@@ -7,11 +7,95 @@ import { ReactComponent as VeKravToken } from '../../assets/imgs/ve_krav_token.s
 import { ReactComponent as TipDark } from '../../assets/imgs/darkModel/exchange_tip_dark.svg'
 import { ReactComponent as Tip } from '../../assets/imgs/exchange_tip.svg'
 import { ReactComponent as Arrow } from '../../assets/imgs/mint_arrow.svg'
-import { useState } from 'react'
+import { ChangeEvent, useCallback, useMemo, useState } from 'react'
+import { useRootStore } from '../../store/root'
+import BigNumber from 'bignumber.js'
+import { formatNumber, getProviderOrSigner } from '../../utils'
+import { useWeb3React } from '@web3-react/core'
+import { ChainId } from '../../constant/chain'
+import { useTokenSwap } from '../../hook/hookV8/useContract'
+import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
+import { MAX_UNIT_256 } from '../../constant/math'
+import { Contract } from 'ethers'
+import erc20 from '../../abi/test_erc20.json'
+import { addDecimals } from '../../utils/math'
+import { useUpdateError } from '../../hook/hookV8/useUpdateError'
+import { useUpdateSuccessDialog } from '../../hook/hookV8/useUpdateSuccessDialog'
 
 export const ExchangeAction = () => {
-  const [showMint, setShowMint] = useState(false)
+  const { chainId, account, provider } = useWeb3React()
+  const userPositionDatas = useRootStore((store) => store.userPositionDatas)
+  const setTransactionState = useRootStore((state) => state.setTransactionState)
+  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
+  const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
+  const [showMint] = useState(false)
+  const [stakeAmount, setStakeAmount] = useState(new BigNumber(0))
   const theme = useTheme()
+  const oldKravDetails = useMemo(() => {
+    if (userPositionDatas.length > 0) {
+      const krav = userPositionDatas.find((item) => item.pool.symbol === 'KRAV')
+      if (krav) return krav
+      else return
+    } else return
+  }, [userPositionDatas])
+  const userOldKravBalance = useMemo(() => {
+    if (oldKravDetails) {
+      return oldKravDetails.walletBalance
+    } else return new BigNumber(0)
+  }, [oldKravDetails])
+
+  const stakeAmountInput = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const newValue = new BigNumber(event.target.value)
+    setStakeAmount(newValue)
+  }
+
+  const tokenSwapContract = useTokenSwap(chainId || ChainId.BASE_TEST)
+
+  const updateError = useUpdateError()
+
+  const updateSuccessDialog = useUpdateSuccessDialog()
+
+  const stakeOldKrav = useCallback(async () => {
+    if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
+      if (account && tokenSwapContract && oldKravDetails && provider) {
+        try {
+          setTransactionState(TransactionState.CHECK_APPROVE)
+          setTransactionDialogVisibility(true)
+          const kravContract = new Contract(
+            oldKravDetails.pool.tokenT,
+            erc20.abi,
+            getProviderOrSigner(provider, account)
+          )
+          const allowance = await kravContract.allowance(account, tokenSwapContract.address)
+          if (
+            addDecimals(stakeAmount, 18).isGreaterThan(new BigNumber(allowance.toString())) ||
+            Number(allowance) === 0
+          ) {
+            setTransactionState(TransactionState.APPROVE)
+            const approveTX = await kravContract.approve(tokenSwapContract.address, MAX_UNIT_256)
+            await approveTX.wait()
+          }
+          setTransactionState(TransactionState.INTERACTION)
+          const tx = await tokenSwapContract.burn(addDecimals(stakeAmount, 18).toString())
+          setTransactionState(TransactionState.STAKE_KRAV)
+          await tx.wait()
+          setTransactionDialogVisibility(false)
+          setTransactionState(TransactionState.START)
+          updateSuccessDialog(TransactionAction.STAKE_KRAV)
+          setSuccessSnackbarInfo({
+            snackbarVisibility: true,
+            title: 'Stake',
+            content: `Your ${stakeAmount.toFixed(2)} krav has been staked successfully`,
+          })
+          setStakeAmount(new BigNumber(0))
+        } catch (e) {
+          updateError(TransactionAction.STAKE_KRAV)
+          console.log('e', e)
+        }
+      }
+    }
+  }, [chainId, account, tokenSwapContract, oldKravDetails, provider])
+
   return (
     <div
       css={css`
@@ -29,7 +113,7 @@ export const ExchangeAction = () => {
           align-items: center;
           font-size: 12px;
           font-weight: 600;
-          color: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+          color: ${theme.palette.mode === 'dark' ? '#fff' : '#a4a8fe'};
           border-radius: 8px;
           margin-bottom: 24px;
         `}
@@ -151,7 +235,6 @@ export const ExchangeAction = () => {
           </div>
         </div>
         <div
-          onClick={() => setShowMint(!showMint)}
           css={css`
             padding: 24px 48px;
             border: ${theme.splitLine.primary};
@@ -177,7 +260,7 @@ export const ExchangeAction = () => {
                 `}
               >
                 <span>Amount</span>
-                <span>Available: 235,258.96 XXA</span>
+                <span>Available: {formatNumber(userOldKravBalance.toString(), 4, false)} XXA</span>
               </p>
               <div
                 css={css`
@@ -197,6 +280,8 @@ export const ExchangeAction = () => {
                   <TextField
                     variant="standard"
                     type="number"
+                    value={stakeAmount}
+                    onChange={stakeAmountInput}
                     InputProps={{
                       disableUnderline: true,
                     }}
@@ -221,6 +306,7 @@ export const ExchangeAction = () => {
                     XXA
                   </span>
                   <div
+                    onClick={() => setStakeAmount(userOldKravBalance)}
                     css={css`
                       border-radius: 2px;
                       color: ${theme.text.primary};
@@ -240,9 +326,10 @@ export const ExchangeAction = () => {
                 `}
               >
                 <span>Exchange ratio :</span>
-                <span>1 XXA→2.5 XXB</span>
+                <span>1 XXA→ 1 XXB</span>
               </p>
               <KRAVButton
+                onClick={() => stakeOldKrav().then()}
                 sx={{
                   mt: '4px',
                 }}

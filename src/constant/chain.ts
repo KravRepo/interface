@@ -28,6 +28,7 @@ export type ContractInfo = {
   tradeReward: string
   multicall: string
   nativeToken: string
+  tokenSwap?: string
 }
 
 type apiInfo = {
@@ -150,6 +151,7 @@ export const CONTRACT_CONFIG_TEST: { [chainId: number]: ContractInfo } = {
     tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
     multicall: '0x771D8465C2Bb5FFe6fC3Bc5F5Dc50d73bD846E1f',
     nativeToken: 'ETH',
+    tokenSwap: '0x03c8dbc458FC19CF773384C6c607f04278854980',
   },
   [ChainId.ARB_TEST]: {
     factory: '0x8F882250C6b7a5Cd21A7192BD99A9E1C1A88275A',
@@ -237,6 +239,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     tradeReward: '',
     multicall: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
     nativeToken: 'ETH',
+    tokenSwap: '',
   },
   [ChainId.BASE]: {
     factory: '0xFfD88F38025e02f9d2eB7F0875060F6B4a20980a',
@@ -324,7 +327,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
   },
 }
 
-export const IS_PRODUCTION = true
+export const IS_PRODUCTION = false
 
 export const API_CONFIG = IS_PRODUCTION ? API_CONFIG_PRODUCTION : API_CONFIG_TEST
 
