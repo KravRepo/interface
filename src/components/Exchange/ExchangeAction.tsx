@@ -329,6 +329,7 @@ export const ExchangeAction = () => {
                 <span>1 XXA→ 1 XXB</span>
               </p>
               <KRAVButton
+                disabled={!userOldKravBalance.isGreaterThan(0) || stakeAmount.isGreaterThan(userOldKravBalance)}
                 onClick={() => stakeOldKrav().then()}
                 sx={{
                   mt: '4px',
