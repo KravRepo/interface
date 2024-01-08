@@ -34,6 +34,7 @@ import { useRootStore } from './store/root'
 import { useUserPosition } from './hook/hookV8/useUserPosition'
 import { useChainIdListener } from './hook/hookV8/useChainIdListener'
 import { DEFAULT_CHAIN } from './constant/chain'
+import { Exchange } from './pages/Exchange'
 
 i18n.load({
   en: enMessages,
@@ -95,6 +96,7 @@ const FullApp = () => {
               <Route path={'/portfolio/farm'} element={<HomeFarm />} />
               <Route path={'/portfolio/referral'} element={<HomeReferral />} />
               <Route path={'/statistics'} element={<Statistics />} />
+              <Route path={'/exchange'} element={<Exchange />} />
             </Routes>
             <Footer />
           </I18nProvider>

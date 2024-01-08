@@ -155,6 +155,9 @@ export const Header = () => {
               <NavLink to={'/liquidity'} css={[router, routerColor, pathname === '/liquidity' ? routerActive : '']}>
                 <Trans>Liquidity</Trans>
               </NavLink>
+              <NavLink to={'/exchange'} css={[router, routerColor, pathname === '/exchange' ? routerActive : '']}>
+                Exchange
+              </NavLink>
               <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
                 <Trans>Portfolio</Trans>
               </NavLink>
