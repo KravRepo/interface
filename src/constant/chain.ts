@@ -239,7 +239,6 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     tradeReward: '',
     multicall: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
     nativeToken: 'ETH',
-    tokenSwap: '',
   },
   [ChainId.BASE]: {
     factory: '0xFfD88F38025e02f9d2eB7F0875060F6B4a20980a',
@@ -254,6 +253,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
     multicall: '0x01096E802a1f6798173f2b876fbc6A8D423D8bdD',
     nativeToken: 'ETH',
+    tokenSwap: '0xa3C4A04c70A93dff0D9Ad294F7F28b3cE399F023',
   },
   [ChainId.ARB]: {
     factory: '0x83822f0500e6d13CB983Baac07828F86B12de5f9',
@@ -327,7 +327,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
   },
 }
 
-export const IS_PRODUCTION = false
+export const IS_PRODUCTION = true
 
 export const API_CONFIG = IS_PRODUCTION ? API_CONFIG_PRODUCTION : API_CONFIG_TEST
 
