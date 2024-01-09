@@ -250,7 +250,7 @@ export const ExchangeAction = () => {
                     margin-top: 32px;
                   `}
                 >
-                  Base Chain Network
+                  ???? ???? ????
                 </p>
               </div>
             </div>
