@@ -272,7 +272,7 @@ export const ExchangeAction = () => {
                     margin-top: ${isMobile ? '' : '32px'};
                   `}
                 >
-                  Base Chain Network
+                  ???? ???? ????
                 </p>
               </div>
             </div>
