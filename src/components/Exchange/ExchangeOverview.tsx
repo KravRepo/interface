@@ -3,7 +3,7 @@ import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
 import { ReactComponent as VeKravToken } from '../../assets/imgs/tokens/default_token.svg'
 import { css } from '@emotion/react'
 import KRAVTab from '../KravUIKit/KravTab'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { BURN_ADDRESS, ChainId } from '../../constant/chain'
@@ -16,6 +16,7 @@ import erc20 from '../../abi/test_erc20.json'
 
 export const ExchangeOverview = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const { account, chainId, provider } = useWeb3React()
   const [totalStakeAmount, setTotalStakeAmount] = useState(new BigNumber(0))
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
@@ -45,8 +46,8 @@ export const ExchangeOverview = () => {
   return (
     <div
       css={css`
-        padding: 64px 40px;
-        display: grid;
+        padding: ${isMobile ? '32px 16px' : '64px 40px'};
+        display: ${isMobile ? 'block' : 'grid'};
         grid-template-columns: 1fr 1fr;
         gap: 40px;
         border-radius: 0 0 8px 8px;
@@ -62,10 +63,10 @@ export const ExchangeOverview = () => {
           align-items: center;
           background: ${theme.background.second};
           border-radius: 16px;
-          height: 200px;
-          padding: 18px 48px;
+          height: ${isMobile ? '110px' : '200px'};
+          padding: ${isMobile ? '14px 20px' : '18px 48px'};
           > div:last-of-type {
-            padding-left: 56px;
+            padding-left: ${isMobile ? '14px' : '56px'};
           }
         `}
       >
@@ -75,14 +76,14 @@ export const ExchangeOverview = () => {
             align-items: center;
             > span {
               margin-left: 8px;
-              font-size: 40px;
+              font-size: ${isMobile ? '20px' : '40px'};
             }
           `}
         >
           <KravToken
             css={css`
-              height: 64px;
-              width: 64px;
+              height: ${isMobile ? '32px' : '64px'};
+              width: ${isMobile ? '32px' : '64px'};
             `}
           />
           <span>KRAV</span>
@@ -98,7 +99,7 @@ export const ExchangeOverview = () => {
           <p
             css={css`
               margin-top: 10px;
-              font-size: 28px;
+              font-size: ${isMobile ? '20px' : '28px'};
             `}
           >
             {formatNumber(totalStakeAmount.toString(), 4, false)} KRAV
@@ -110,12 +111,13 @@ export const ExchangeOverview = () => {
           display: grid;
           grid-template-columns: 1fr 1px 1.52fr;
           align-items: center;
-          height: 200px;
-          padding: 18px 48px;
+          height: ${isMobile ? '110px' : '200px'};
+          padding: ${isMobile ? '14px 20px' : '18px 48px'};
           background: ${theme.background.second};
           border-radius: 16px;
+          margin-top: ${isMobile ? '24px' : ''};
           > div:last-of-type {
-            padding-left: 56px;
+            padding-left: ${isMobile ? '14px' : '56px'};
           }
         `}
       >
@@ -125,14 +127,14 @@ export const ExchangeOverview = () => {
             align-items: center;
             > span {
               margin-left: 8px;
-              font-size: 40px;
+              font-size: ${isMobile ? '20px' : '40px'};
             }
           `}
         >
           <VeKravToken
             css={css`
-              height: 64px;
-              width: 64px;
+              height: ${isMobile ? '32px' : '64px'};
+              width: ${isMobile ? '32px' : '64px'};
             `}
           />
           <span>???</span>
@@ -148,7 +150,7 @@ export const ExchangeOverview = () => {
           <p
             css={css`
               margin-top: 10px;
-              font-size: 28px;
+              font-size: ${isMobile ? '20px' : '28px'};
             `}
           >
             ??:??:??

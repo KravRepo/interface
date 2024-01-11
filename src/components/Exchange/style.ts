@@ -1,7 +1,6 @@
 import { css } from '@emotion/react'
 
 export const title = css`
-  display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 20px;

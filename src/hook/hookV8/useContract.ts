@@ -68,7 +68,7 @@ export const usePairStorageContract = (address: string) => {
 }
 
 export const useTokenSwap = (chainId: number) => {
-  return useContract(CONTRACT_CONFIG[chainId].tokenSwap, token_swap.abi)
+  return useContract(CONTRACT_CONFIG[chainId]?.tokenSwap || CONTRACT_CONFIG[ChainId.BASE].tokenSwap, token_swap.abi)
 }
 
 export const useFactoryContract = (provider: JsonRpcProvider) => {

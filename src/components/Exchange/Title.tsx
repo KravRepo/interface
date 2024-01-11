@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { title } from './style'
-import { useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 export const Title = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   return (
     <div
       css={[
@@ -13,6 +14,7 @@ export const Title = () => {
           border-bottom: ${theme.splitLine.primary};
           background: ${theme.background.primary};
           border-radius: 8px 8px 0 0;
+          display: ${isMobile ? 'block' : 'flex'};
         `,
       ]}
     >

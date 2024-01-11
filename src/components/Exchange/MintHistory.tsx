@@ -2,7 +2,7 @@
 import { css } from '@emotion/react'
 import BigNumber from 'bignumber.js'
 import { historyGrid } from './style'
-import { Pagination, Tooltip, useTheme } from '@mui/material'
+import { Pagination, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
 import { STAKE_HISTORY_API } from '../../constant/chain'
 import { useWeb3React } from '@web3-react/core'
@@ -13,15 +13,19 @@ import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
 
 const HistoryTitle = () => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   return (
     <div
       css={[
         historyGrid,
         css`
           padding: 24px;
-          margin: 0 40px;
+          margin: ${isMobile ? '0 16px' : '0 40px'};
           color: #617168;
           font-size: 12px;
+          min-width: ${isMobile ? '1024px' : ''};
+          border-top: ${theme.splitLine.primary};
         `,
       ]}
     >
@@ -45,6 +49,7 @@ type HistoryItemProps = {
 
 const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryItemProps) => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const [openTooltip, setOpenTooltip] = useState(false)
   const useCopyAddress = useCallback(async () => {
     if (address) {
@@ -71,10 +76,11 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
         css`
           background: ${(index + 1) % 2 !== 0 ? theme.background.second : ''};
           padding: 16px 24px;
-          margin: 0 40px;
+          margin: ${isMobile ? '0 16px' : '0 40px'};
           border-radius: 24px;
           font-weight: 600;
           font-size: 12px;
+          min-width: ${isMobile ? '1024px' : ''};
         `,
       ]}
     >
@@ -134,6 +140,7 @@ type HistoryData = {
 
 export const MintHistory = () => {
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const { account, chainId } = useWeb3React()
   const [historyArray, setHistoryArray] = useState<HistoryData[]>([])
   const [totalHistory, setTotalHistory] = useState(0)
@@ -170,6 +177,7 @@ export const MintHistory = () => {
       css={css`
         background: ${theme.background.primary};
         border-radius: 8px;
+        overflow: auto;
       `}
     >
       <p
@@ -178,8 +186,7 @@ export const MintHistory = () => {
           font-family: 'GT-Flexa-Bold-Trial';
           font-size: 28px;
           line-height: 1.1;
-          padding: 16px 0 12px 32px;
-          border-bottom: ${theme.splitLine.primary};
+          padding: ${isMobile ? ' 16px 0 12px 16px' : '16px 0 12px 32px'};
         `}
       >
         My history

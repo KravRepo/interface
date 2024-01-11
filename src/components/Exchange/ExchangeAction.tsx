@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import KRAVButton from '../KravUIKit/KravButton'
-import { TextField, useTheme } from '@mui/material'
+import { TextField, useMediaQuery, useTheme } from '@mui/material'
 import { ReactComponent as KravToken } from '../../assets/imgs/krav_token.svg'
 import { ReactComponent as VeKravToken } from '../../assets/imgs/tokens/default_token.svg'
 import { ReactComponent as TipDark } from '../../assets/imgs/darkModel/exchange_tip_dark.svg'
@@ -33,6 +33,7 @@ export const ExchangeAction = () => {
 
   const [userStakedAmount, setUserStakedAmount] = useState(new BigNumber(0))
   const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const oldKravDetails = useMemo(() => {
     if (userPositionDatas.length > 0) {
       const krav = userPositionDatas.find((item) => item.pool.symbol === 'KRAV')
@@ -119,7 +120,7 @@ export const ExchangeAction = () => {
         border-radius: 8px;
         background: ${theme.background.primary};
         margin-bottom: 24px;
-        padding: 15px 40px 42px;
+        padding: ${isMobile ? '24px 16px 40px' : '15px 40px 42px'};
       `}
     >
       <div
@@ -145,14 +146,14 @@ export const ExchangeAction = () => {
       <div
         css={css`
           display: grid;
-          grid-template-columns: 1fr 1.1fr;
+          grid-template-columns: ${isMobile ? '' : '1fr 1.1fr'};
           gap: 26px;
         `}
       >
         <div
           css={css`
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: ${isMobile ? '' : '1fr 1fr'};
             gap: 26px;
             font-size: 20px;
             font-weight: 600;
@@ -164,6 +165,7 @@ export const ExchangeAction = () => {
               position: absolute;
               left: calc(50% - 26px);
               top: calc(50%);
+              transform: ${isMobile ? 'rotate(0.25turn)' : ''};
             `}
           />
           <div>
@@ -177,12 +179,19 @@ export const ExchangeAction = () => {
             </p>
             <div
               css={css`
-                padding: 48px 0 72px 40px;
+                padding: ${isMobile ? '36px 20px' : '48px 0 72px 40px'};
                 background: ${theme.background.second};
                 border-radius: 16px;
+                align-items: center;
               `}
             >
-              <div>
+              <div
+                css={css`
+                  display: ${isMobile ? 'flex' : ''};
+                  align-items: center;
+                  justify-content: space-between;
+                `}
+              >
                 <div
                   css={css`
                     display: flex;
@@ -192,7 +201,12 @@ export const ExchangeAction = () => {
                     }
                   `}
                 >
-                  <KravToken />
+                  <KravToken
+                    css={css`
+                      height: ${isMobile ? '32px' : '40px'};
+                      width: ${isMobile ? '32px' : '40px'};
+                    `}
+                  />
                   <span>KRAV</span>
                 </div>
                 <p
@@ -200,7 +214,7 @@ export const ExchangeAction = () => {
                     color: ${theme.text.second};
                     font-size: 14px;
                     font-weight: 700;
-                    margin-top: 32px;
+                    margin-top: ${isMobile ? '' : '32px'};
                   `}
                 >
                   Base Chain Network
@@ -209,22 +223,30 @@ export const ExchangeAction = () => {
             </div>
           </div>
           <div>
-            <p
-              css={css`
-                padding-left: 6px;
-                margin-bottom: 16px;
-              `}
-            >
-              Mint
-            </p>
+            {!isMobile && (
+              <p
+                css={css`
+                  padding-left: 6px;
+                  margin-bottom: 16px;
+                `}
+              >
+                Mint
+              </p>
+            )}
             <div
               css={css`
-                padding: 48px 0 72px 40px;
+                padding: ${isMobile ? '36px 20px' : '48px 0 72px 40px'};
                 background: ${theme.background.second};
                 border-radius: 16px;
               `}
             >
-              <div>
+              <div
+                css={css`
+                  display: ${isMobile ? 'flex' : ''};
+                  align-items: center;
+                  justify-content: space-between;
+                `}
+              >
                 <div
                   css={css`
                     display: flex;
@@ -236,8 +258,8 @@ export const ExchangeAction = () => {
                 >
                   <VeKravToken
                     css={css`
-                      height: 40px;
-                      width: 40px;
+                      height: ${isMobile ? '32px' : '40px'};
+                      width: ${isMobile ? '32px' : '40px'};
                     `}
                   />
                   <span>???</span>
@@ -247,7 +269,7 @@ export const ExchangeAction = () => {
                     color: ${theme.text.second};
                     font-size: 14px;
                     font-weight: 700;
-                    margin-top: 32px;
+                    margin-top: ${isMobile ? '' : '32px'};
                   `}
                 >
                   Base Chain Network
@@ -258,9 +280,9 @@ export const ExchangeAction = () => {
         </div>
         <div
           css={css`
-            padding: 24px 48px;
+            padding: ${isMobile ? '24px 20px' : '24px 48px'};
             border: ${theme.splitLine.primary};
-            font-size: 20px;
+            font-size: ${isMobile ? '18px' : '20px'};
             border-radius: 16px;
             font-weight: 700;
             > p {
