@@ -35,6 +35,7 @@ import { useUserPosition } from './hook/hookV8/useUserPosition'
 import { useChainIdListener } from './hook/hookV8/useChainIdListener'
 import { DEFAULT_CHAIN } from './constant/chain'
 import { Exchange } from './pages/Exchange'
+import TermsAndAgreementDialog from './components/Dialog/TermsAndAgreementDialog'
 
 i18n.load({
   en: enMessages,
@@ -117,6 +118,7 @@ function App() {
   return (
     <AppTheme>
       <Web3Provider>
+        <TermsAndAgreementDialog />
         <FullApp />
       </Web3Provider>
     </AppTheme>
