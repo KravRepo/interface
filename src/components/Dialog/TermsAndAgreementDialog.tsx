@@ -89,11 +89,12 @@ export default function TermsAndAgreementDialog() {
             component={'div'}
             dangerouslySetInnerHTML={{ __html: text }}
             sx={{
-              maxHeight: '500px',
+              maxHeight: { xs: '400px', md: '500px' },
               overflow: 'auto',
+              overflowX: 'hidden',
               background: (theme) => theme.background.primary,
-              mx: '24px',
-              padding: '24px',
+              mx: { xs: '0', md: '24px' },
+              padding: { xs: '15px', md: '24px' },
               borderRadius: '5px',
             }}
           ></DialogContentText>
@@ -108,9 +109,10 @@ export default function TermsAndAgreementDialog() {
             }}
           >
             <FormControlLabel
-              sx={{ mt: 2, minWidth: 120 }}
+              sx={{ mt: 2, minWidth: 120, '& .MuiFormControlLabel-label': { minWidth: 'unset' } }}
               control={<Checkbox checked={agree} onChange={handleFullWidthChange} />}
               label="I Agree"
+              labelPlacement="end"
             />
             {/* <FormControl sx={{ mt: 2, minWidth: 120 }}>
               <InputLabel htmlFor="agree">Agree</InputLabel>
