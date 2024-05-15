@@ -67,11 +67,10 @@ export default function TermsAndAgreementDialog() {
           },
           '& .c0': {
             verticalAlign: 'baseline',
-            fontSize: '11pt',
             fontStyle: 'normal',
           },
-          '& .c13': {
-            height: '11pt',
+          '& ol': {
+            paddingLeft: '10px',
           },
         }}
       >
@@ -83,18 +82,19 @@ export default function TermsAndAgreementDialog() {
         >
           KRAV - Terms of Service
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ px: 0 }}>
           <DialogContentText
             id="terms-of-agreement"
             component={'div'}
             dangerouslySetInnerHTML={{ __html: text }}
             sx={{
+              fontSize: 12,
               maxHeight: { xs: '400px', md: '500px' },
               overflow: 'auto',
               overflowX: 'hidden',
-              background: (theme) => theme.background.primary,
-              mx: { xs: '0', md: '24px' },
-              padding: { xs: '15px', md: '24px' },
+              background: 'transparent',
+              mx: 0,
+              padding: { xs: '20px', md: '24px' },
               borderRadius: '5px',
             }}
           ></DialogContentText>
@@ -109,7 +109,10 @@ export default function TermsAndAgreementDialog() {
             }}
           >
             <FormControlLabel
-              sx={{ mt: 2, minWidth: 120, '& .MuiFormControlLabel-label': { minWidth: 'unset' } }}
+              sx={{
+                mt: 2,
+                '& .MuiFormControlLabel-label': { fontSize: 14 },
+              }}
               control={<Checkbox checked={agree} onChange={handleFullWidthChange} />}
               label="I Agree"
               labelPlacement="end"
@@ -119,12 +122,12 @@ export default function TermsAndAgreementDialog() {
               <CheckBox onClick={handleFullWidthChange} />
             </FormControl> */}
           </Box>
+          {agree && (
+            <DialogActions>
+              <KRAVButton onClick={handleClose as any}> Close</KRAVButton>
+            </DialogActions>
+          )}
         </DialogContent>
-        {agree && (
-          <DialogActions>
-            <KRAVButton onClick={handleClose as any}> Close</KRAVButton>
-          </DialogActions>
-        )}
       </Dialog>
     </React.Fragment>
   )
