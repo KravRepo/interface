@@ -14,7 +14,7 @@ export const input = css`
   border-radius: 4px;
   margin-bottom: 8px;
   @media screen and (max-width: 1330px) {
-    width: 262px;
+    width: 100%;
   }
   @media screen and (max-width: 1200px) {
     width: 100%;
@@ -22,14 +22,13 @@ export const input = css`
 `
 export const orderParamsTab = css`
   padding: 4px 12px;
-  border-radius: 4px;
+  border-radius: 4px 4px 0 0;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   color: #757575;
   :hover {
     color: #fff;
-    background: black;
   }
   @media screen and (max-width: 1200px) {
     :hover {

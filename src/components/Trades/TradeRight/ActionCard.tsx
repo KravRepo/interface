@@ -103,7 +103,7 @@ export const ActionsCard = ({
                 borderRadius: '4px',
                 minHeight: '30px',
                 padding: 0,
-                background: orderType === 0 ? '#009B72 !important' : '',
+                background: orderType === 0 ? '#2832F5 !important' : '',
               }}
               label="Long"
             />

@@ -5,10 +5,10 @@ import { MyTrade } from './TradeLeft/MyTrade'
 import TradingViewWidget from './TradeLeft/newTradingView'
 import { SelectToken } from '../Dialog/SelectToken'
 import BigNumber from 'bignumber.js'
-import { BasicModel } from './TradeLeft/BasicModel'
+// import { BasicModel } from './TradeLeft/BasicModel'
 import { useRootStore } from '../../store/root'
 import { css, useMediaQuery, useTheme } from '@mui/material'
-import { SecondChart } from './TradeLeft/SecondChart'
+// import { SecondChart } from './TradeLeft/SecondChart'
 import { TradeMode } from '../../store/TradeSlice'
 import KRAVButton from '../KravUIKit/KravButton'
 import { OrderParamsMobile } from '../Dialog/OrderParamsMobile'
@@ -110,17 +110,9 @@ export const TradeLeft = ({
             `,
           ]}
         >
-          {tradeModel === TradeMode.BASIC && (
-            <BasicModel
-              positionSizeDai={positionSizeDai}
-              isBuy={isBuy}
-              leverage={leverage}
-              limitPrice={limitPrice}
-              tradeType={tradeType}
-            />
-          )}
+          {tradeModel === TradeMode.BASIC && <TradingViewWidget />}
           {tradeModel === TradeMode.PRO && <TradingViewWidget />}
-          {tradeModel === TradeMode.DEGEN && <SecondChart />}
+          {tradeModel === TradeMode.DEGEN && <TradingViewWidget />}
           {isMobile && (
             <div
               css={css`

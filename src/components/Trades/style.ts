@@ -65,7 +65,7 @@ export const card = css`
 export const actionCard = css`
   background: #fff;
   border-radius: 8px;
-  padding: 16px 24px;
+  padding: 16px;
   color: black;
 `
 

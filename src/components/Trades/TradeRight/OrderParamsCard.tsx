@@ -290,9 +290,8 @@ export const OrderParamsCard = ({
           <div
             css={css`
               display: flex;
-              padding: 6px;
-              margin: 16px 0;
-              background: ${theme.background.second};
+              padding: 6px 0 0;
+              margin: 16px 0 0;
             `}
           >
             <span
@@ -300,8 +299,9 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 0 ? 'white' : ''};
-                  background: ${tabIndex === 0 ? theme.background.third : ''};
-                  margin-right: 13px;
+                  background: ${tabIndex === 0 ? theme.background.second : ''};
+                  font-size: 14px;
+                  padding: 4px 16px;
                 `,
               ]}
               onClick={() => {
@@ -316,7 +316,9 @@ export const OrderParamsCard = ({
                 orderParamsTab,
                 css`
                   color: ${tabIndex === 1 ? 'white' : ''};
-                  background: ${tabIndex === 1 ? theme.background.third : ''};
+                  background: ${tabIndex === 1 ? theme.background.second : ''};
+                  font-size: 14px;
+                  padding: 4px 16px;
                 `,
               ]}
               onClick={() => {
@@ -329,224 +331,54 @@ export const OrderParamsCard = ({
           </div>
           <div
             css={css`
-              margin-bottom: 8px;
-              color: ${theme.text.primary};
+              padding: 15px 10px;
+              background: ${theme.background.second};
+              border-radius: ${tabIndex === 1 ? '4px' : 0} 4px 4px 4px;
+              margin-top: -1px;
+              display: grid;
+              gap: 24px;
             `}
           >
-            <span
-              css={css`
-                color: #757575;
-              `}
-            >
-              Available:
-            </span>{' '}
-            {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
-          </div>
-          <div
-            css={css`
-              margin-bottom: 12px;
-            `}
-          >
-            <span
-              css={css`
-                color: #757575;
-              `}
-            >
-              Order limit:
-            </span>{' '}
-            <span
-              css={css`
-                color: #2832f5;
-              `}
-            >
-              {getBigNumberStr(orderLimit, 6) || '0'} {tradePool?.symbol}
-            </span>
-          </div>
-          <>
             <div>
               <div
-                css={[
-                  input,
-                  css`
-                    background: ${theme.background.second};
-                  `,
-                ]}
+                css={css`
+                  color: ${theme.text.primary};
+                  margin-bottom: 5px;
+                `}
               >
-                <div
+                <span
                   css={css`
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    justify-content: space-between;
+                    color: #757575;
                   `}
                 >
-                  <span
-                    css={css`
-                      color: #757575;
-                    `}
-                  >
-                    Pay
-                  </span>
-                </div>
-                <div
-                  css={css`
-                    display: flex;
-                    align-items: center;
-                    width: 100%;
-                    justify-content: space-between;
-                  `}
-                >
-                  <TextField
-                    variant="standard"
-                    type="number"
-                    value={positionSizeDai}
-                    onChange={handlePositionDAIInput}
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
-                    sx={{
-                      height: '28px',
-                      fontSize: '20px',
-                      minHeight: '28px',
-                      '& .MuiOutlinedInput-root': {
-                        height: '28px',
-                        minHeight: '28px',
-                        padding: 0,
-                      },
-                    }}
-                  />
-                  <div
-                    css={css`
-                      display: flex;
-                      align-items: center;
-                    `}
-                  >
-                    <div
-                      css={css`
-                        border-radius: 2px;
-                        color: ${theme.text.primary};
-                        background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
-                        padding: 2px 6px;
-                        font-size: 12px;
-                        cursor: pointer;
-                      `}
-                      onClick={handleMaxInput}
-                    >
-                      MAX
-                    </div>
-                    <div
-                      onClick={() => setIsOpenSelectToken(true)}
-                      css={[
-                        align,
-                        css`
-                          cursor: pointer;
-                        `,
-                      ]}
-                    >
-                      <span
-                        css={css`
-                          margin: 0 4px;
-                          color: ${theme.palette.mode === 'dark' ? '#727272' : '#000'};
-                        `}
-                      >
-                        {tradePool?.symbol}
-                      </span>
-                      <img
-                        css={css`
-                          border-radius: 50%;
-                          background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
-                        `}
-                        src={tradePool.logoSource}
-                        height="16"
-                        width="16"
-                      />
-                      <div
-                        css={css`
-                          background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
-                          display: flex;
-                          align-items: center;
-                          justify-content: center;
-                          border-radius: 4px;
-                          height: 16px;
-                          width: 16px;
-                          margin-left: 8px;
-                        `}
-                      >
-                        <KeyboardArrowDownIcon sx={{ color: '#000', height: '16px', width: '16px' }} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  Available:
+                </span>{' '}
+                {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
               </div>
-              {/*<div*/}
-              {/*  css={css`*/}
-              {/*    display: flex;*/}
-              {/*    align-items: center;*/}
-              {/*    justify-content: center;*/}
-              {/*    margin: -13px 0 -10px;*/}
-              {/*  `}*/}
-              {/*>*/}
-              {/*  /!*<ArrowDownIcon />*!/*/}
-              {/*</div>*/}
-              {/*<div css={input}>*/}
-              {/*  <div*/}
-              {/*    css={css`*/}
-              {/*      display: flex;*/}
-              {/*      align-items: center;*/}
-              {/*      justify-content: space-between;*/}
-              {/*      width: 100%;*/}
-              {/*    `}*/}
-              {/*  >*/}
-              {/*    <span*/}
-              {/*      css={css`*/}
-              {/*        color: #757575;*/}
-              {/*      `}*/}
-              {/*    >*/}
-              {/*      {isBuy ? 'Long' : 'Short'}*/}
-              {/*    </span>*/}
-              {/*    <div>*/}
-              {/*      <span>Leverage: </span>*/}
-              {/*      <span>{leverage}x</span>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*  <div*/}
-              {/*    css={css`*/}
-              {/*      display: flex;*/}
-              {/*      align-items: center;*/}
-              {/*      justify-content: space-between;*/}
-              {/*      width: 100%;*/}
-              {/*    `}*/}
-              {/*  >*/}
-              {/*    <TextField*/}
-              {/*      variant="standard"*/}
-              {/*      type="number"*/}
-              {/*      value={openBTCSize}*/}
-              {/*      InputProps={{*/}
-              {/*        disableUnderline: true,*/}
-              {/*      }}*/}
-              {/*      sx={{*/}
-              {/*        height: '28px',*/}
-              {/*        fontSize: '20px',*/}
-              {/*        minHeight: '28px',*/}
-              {/*        '& .MuiOutlinedInput-root': {*/}
-              {/*          height: '28px',*/}
-              {/*          minHeight: '28px',*/}
-              {/*          padding: 0,*/}
-              {/*        },*/}
-              {/*      }}*/}
-              {/*    />*/}
-              {/*    <div>*/}
-              {/*      <span>BTC</span>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-              {tabIndex === 1 && (
+              <div>
+                <span
+                  css={css`
+                    color: #757575;
+                  `}
+                >
+                  Order limit:
+                </span>{' '}
+                <span
+                  css={css`
+                    color: #7ba0ff;
+                  `}
+                >
+                  {getBigNumberStr(orderLimit, 6) || '0'} {tradePool?.symbol}
+                </span>
+              </div>
+            </div>
+            <>
+              <div>
                 <div
                   css={[
                     input,
                     css`
-                      background: ${theme.background.second};
-                      color: ${theme.text.primary};
+                      background: ${theme.background.third};
                     `,
                   ]}
                 >
@@ -554,8 +386,8 @@ export const OrderParamsCard = ({
                     css={css`
                       display: flex;
                       align-items: center;
-                      justify-content: space-between;
                       width: 100%;
+                      justify-content: space-between;
                     `}
                   >
                     <span
@@ -563,497 +395,689 @@ export const OrderParamsCard = ({
                         color: #757575;
                       `}
                     >
-                      Price
+                      Pay
                     </span>
-                    <div>
-                      <span
-                        css={css`
-                          color: #757575;
-                        `}
-                      >
-                        Leverage:
-                      </span>
-                      <span>{leverage}x</span>
-                    </div>
                   </div>
                   <div
                     css={css`
                       display: flex;
                       align-items: center;
-                      justify-content: space-between;
                       width: 100%;
+                      justify-content: space-between;
                     `}
                   >
                     <TextField
                       variant="standard"
                       type="number"
-                      value={limitPrice}
-                      onChange={(event) => {
-                        setLimitPrice(event.target.value)
-                      }}
+                      value={positionSizeDai}
+                      onChange={handlePositionDAIInput}
                       InputProps={{
                         disableUnderline: true,
                       }}
                       sx={{
-                        height: '28px',
-                        fontSize: '20px',
                         minHeight: '28px',
                         '& .MuiOutlinedInput-root': {
-                          height: '28px',
                           minHeight: '28px',
                           padding: 0,
+                          fontSize: '22px',
+                        },
+                        '& .MuiInputBase-root': {
+                          fontWeight: 500,
+                          fontSize: 22,
                         },
                       }}
                     />
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                      `}
+                    >
+                      <div
+                        css={css`
+                          border-radius: 2px;
+                          color: ${theme.text.primary};
+                          background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                          padding: 2px 6px;
+                          font-size: 12px;
+                          cursor: pointer;
+                          margin-right: 4px;
+                        `}
+                        onClick={handleMaxInput}
+                      >
+                        MAX
+                      </div>
+                      <div
+                        onClick={() => setIsOpenSelectToken(true)}
+                        css={[
+                          align,
+                          css`
+                            cursor: pointer;
+                            background: ${theme.background.second};
+                            height: 32px;
+                            border-radius: 40px;
+                            width: max-content;
+                            padding: 0 4px;
+                            font-weight: 500;
+                          `,
+                        ]}
+                      >
+                        <img
+                          css={css`
+                            border-radius: 50%;
+                            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                          `}
+                          src={tradePool.logoSource}
+                          height="16"
+                          width="16"
+                        />
+                        <span
+                          css={css`
+                            margin: 0 3px;
+                            color: ${theme.text.primary};
+                          `}
+                        >
+                          {tradePool?.symbol}
+                        </span>
+
+                        <div
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 4px;
+                            height: 16px;
+                            width: 16px;
+                          `}
+                        >
+                          <KeyboardArrowDownIcon sx={{ color: theme.text.primary, height: '16px', width: '16px' }} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              )}
-            </div>
-            <div>
-              <p
-                css={css`
-                  color: ${theme.text.primary};
-                `}
-              >
-                Leverage Slider
-              </p>
-              <Slider
-                defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
-                step={1}
-                // marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
-                min={tradeModel === TradeMode.DEGEN ? 51 : 2}
-                max={tradeModel === TradeMode.DEGEN ? 200 : 50}
-                value={leverage}
-                disabled={isLoadingFactory}
-                onClick={handleSliderClick}
-                onChange={handleLeverageChange}
-                // color="#2832F5"
-                valueLabelDisplay="auto"
-                sx={{
-                  height: '12px',
-                  '& .MuiSlider-root': {
-                    color: '#757575',
-                  },
-                  '& .MuiSlider-rail': {
-                    opacity: 1,
-                    background:
-                      theme.palette.mode === 'dark'
-                        ? 'linear-gradient(172deg, #84FF9F -6.76%, #FFE071 46.7%, #F96262 97.25%)'
-                        : 'linear-gradient(270deg, #E9FF84 0.81%, #FFE071 49.85%, #F96262 99.84%)',
-                  },
-                  '& .MuiSlider-track': {
-                    border: 'unset',
-                    background:
-                      theme.palette.mode === 'dark'
-                        ? 'linear-gradient(172deg, #84FF9F -6.76%, #FFE071 46.7%, #F96262 97.25%)'
-                        : 'linear-gradient(270deg, #E9FF84 0.81%, #FFE071 49.85%, #F96262 99.84%)',
-                  },
-                  '& .MuiSlider-thumb': {
-                    height: '19px',
-                    width: '19px',
-                    background: '#fff',
-                    border: `4px solid ${theme.palette.mode === 'dark' ? '#2832F5' : '#2E2E2E'}`,
-                  },
-                  '& .MuiSlider-markActive': {
-                    background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
-                  },
-                  '& .MuiSlider-markLabel': {
-                    fontSize: '12px',
-                    color: '#757575',
-                  },
-                }}
-              />
-            </div>
-            <div
-              css={css`
-                > p {
-                  padding-bottom: 8px;
-                }
-              `}
-            >
-              <p
-                css={[
-                  align,
-                  css`
-                    justify-content: space-between;
-                    color: ${theme.text.primary};
-                  `,
-                ]}
-              >
-                <span>Collateral In</span>
-                <span>
-                  {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
-                </span>
-              </p>
-              <p
-                css={[
-                  align,
-                  css`
-                    justify-content: space-between;
-                    color: ${theme.text.primary};
-                  `,
-                ]}
-              >
-                <span>Leverage</span>
-                <span>{leverage}</span>
-              </p>
-              {tradeModel === TradeMode.DEGEN && (
-                <div>
-                  <AlertIcon />
-                  <p
+                {/*<div*/}
+                {/*  css={css`*/}
+                {/*    display: flex;*/}
+                {/*    align-items: center;*/}
+                {/*    justify-content: center;*/}
+                {/*    margin: -13px 0 -10px;*/}
+                {/*  `}*/}
+                {/*>*/}
+                {/*  /!*<ArrowDownIcon />*!/*/}
+                {/*</div>*/}
+                {/*<div css={input}>*/}
+                {/*  <div*/}
+                {/*    css={css`*/}
+                {/*      display: flex;*/}
+                {/*      align-items: center;*/}
+                {/*      justify-content: space-between;*/}
+                {/*      width: 100%;*/}
+                {/*    `}*/}
+                {/*  >*/}
+                {/*    <span*/}
+                {/*      css={css`*/}
+                {/*        color: #757575;*/}
+                {/*      `}*/}
+                {/*    >*/}
+                {/*      {isBuy ? 'Long' : 'Short'}*/}
+                {/*    </span>*/}
+                {/*    <div>*/}
+                {/*      <span>Leverage: </span>*/}
+                {/*      <span>{leverage}x</span>*/}
+                {/*    </div>*/}
+                {/*  </div>*/}
+                {/*  <div*/}
+                {/*    css={css`*/}
+                {/*      display: flex;*/}
+                {/*      align-items: center;*/}
+                {/*      justify-content: space-between;*/}
+                {/*      width: 100%;*/}
+                {/*    `}*/}
+                {/*  >*/}
+                {/*    <TextField*/}
+                {/*      variant="standard"*/}
+                {/*      type="number"*/}
+                {/*      value={openBTCSize}*/}
+                {/*      InputProps={{*/}
+                {/*        disableUnderline: true,*/}
+                {/*      }}*/}
+                {/*      sx={{*/}
+                {/*        height: '28px',*/}
+                {/*        fontSize: '20px',*/}
+                {/*        minHeight: '28px',*/}
+                {/*        '& .MuiOutlinedInput-root': {*/}
+                {/*          height: '28px',*/}
+                {/*          minHeight: '28px',*/}
+                {/*          padding: 0,*/}
+                {/*        },*/}
+                {/*      }}*/}
+                {/*    />*/}
+                {/*    <div>*/}
+                {/*      <span>BTC</span>*/}
+                {/*    </div>*/}
+                {/*  </div>*/}
+                {/*</div>*/}
+                {tabIndex === 1 && (
+                  <div
+                    css={[
+                      input,
+                      css`
+                        background: ${theme.background.second};
+                        color: ${theme.text.primary};
+                      `,
+                    ]}
+                  >
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 100%;
+                      `}
+                    >
+                      <span
+                        css={css`
+                          color: #757575;
+                        `}
+                      >
+                        Price
+                      </span>
+                      <div>
+                        <span
+                          css={css`
+                            color: #757575;
+                          `}
+                        >
+                          Leverage:
+                        </span>
+                        <span>{leverage}x</span>
+                      </div>
+                    </div>
+                    <div
+                      css={css`
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 100%;
+                      `}
+                    >
+                      <TextField
+                        variant="standard"
+                        type="number"
+                        value={limitPrice}
+                        onChange={(event) => {
+                          setLimitPrice(event.target.value)
+                        }}
+                        InputProps={{
+                          disableUnderline: true,
+                        }}
+                        sx={{
+                          height: '28px',
+                          fontSize: '20px',
+                          minHeight: '28px',
+                          '& .MuiOutlinedInput-root': {
+                            height: '28px',
+                            minHeight: '28px',
+                            padding: 0,
+                          },
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div>
+                <p
+                  css={css`
+                    color: ${theme.text.primary}60;
+                  `}
+                >
+                  Leverage:{' '}
+                  <span
                     css={css`
                       color: ${theme.text.primary};
-                      padding-bottom: 8px;
                     `}
                   >
-                    A fraction of your profits(if any)is taken when you close the trade
-                  </p>
-                </div>
+                    {leverage}x
+                  </span>
+                </p>
+                <Slider
+                  defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
+                  step={1}
+                  // marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
+                  min={tradeModel === TradeMode.DEGEN ? 51 : 2}
+                  max={tradeModel === TradeMode.DEGEN ? 200 : 50}
+                  value={leverage}
+                  disabled={isLoadingFactory}
+                  onClick={handleSliderClick}
+                  onChange={handleLeverageChange}
+                  // color="#2832F5"
+                  valueLabelDisplay="auto"
+                  sx={{
+                    width: 'calc(100% - 10px)',
+                    ml: '5px',
+                    height: '6px',
+                    '& .MuiSlider-root': {
+                      color: '#757575',
+                    },
+                    '& .MuiSlider-rail': {
+                      opacity: 1,
+                      background: theme.background.third,
+                    },
+                    '& .MuiSlider-track': {
+                      border: 'unset',
+                      background: '#2832F5',
+                    },
+                    '& .MuiSlider-thumb': {
+                      height: '20px',
+                      width: '20px',
+                      background: '#fff',
+                      border: `5px solid ${theme.palette.mode === 'dark' ? '#2832F5' : '#2E2E2E'}`,
+                    },
+                    '& .MuiSlider-markActive': {
+                      background: theme.palette.mode === 'dark' ? '#2832F5' : '#000000',
+                    },
+                    '& .MuiSlider-markLabel': {
+                      fontSize: '12px',
+                      color: '#757575',
+                    },
+                  }}
+                />
+              </div>
+              <div
+                css={css`
+                  > p {
+                    padding-bottom: 8px;
+                  }
+                `}
+              >
+                <p
+                  css={[
+                    align,
+                    css`
+                      justify-content: space-between;
+                      color: ${theme.text.primary};
+                    `,
+                  ]}
+                >
+                  <span>Collateral In</span>
+                  <span>
+                    {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
+                  </span>
+                </p>
+                <p
+                  css={[
+                    align,
+                    css`
+                      justify-content: space-between;
+                      color: ${theme.text.primary};
+                    `,
+                  ]}
+                >
+                  <span>Leverage</span>
+                  <span>{leverage}</span>
+                </p>
+                {tradeModel === TradeMode.DEGEN && (
+                  <div>
+                    <AlertIcon />
+                    <p
+                      css={css`
+                        color: ${theme.text.primary};
+                        padding-bottom: 8px;
+                      `}
+                    >
+                      A fraction of your profits(if any)is taken when you close the trade
+                    </p>
+                  </div>
+                )}
+                {/*<p*/}
+                {/*  css={[*/}
+                {/*    align,*/}
+                {/*    css`*/}
+                {/*      justify-content: space-between;*/}
+                {/*    `,*/}
+                {/*  ]}*/}
+                {/*>*/}
+                {/*  <span>Entry Price</span>*/}
+                {/*  <span>${BTCPrice.toFixed(2)}</span>*/}
+                {/*</p>*/}
+                {/*<p*/}
+                {/*  css={[*/}
+                {/*    align,*/}
+                {/*    css`*/}
+                {/*      justify-content: space-between;*/}
+                {/*    `,*/}
+                {/*  ]}*/}
+                {/*>*/}
+                {/*  <span>Liq. Price</span>*/}
+                {/*  <span>${getBigNumberStr(getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage), 4)}</span>*/}
+                {/*</p>*/}
+                {/*<p*/}
+                {/*  css={[*/}
+                {/*    align,*/}
+                {/*    css`*/}
+                {/*      justify-content: space-between;*/}
+                {/*    `,*/}
+                {/*  ]}*/}
+                {/*>*/}
+                {/*  <span>Fees</span>*/}
+                {/*  <span>*/}
+                {/*    {isNaN(getFees(positionSizeDai, leverage).toNumber())*/}
+                {/*      ? '--'*/}
+                {/*      : getBigNumberStr(getFees(positionSizeDai, leverage), 2)}*/}
+                {/*  </span>*/}
+                {/*</p>*/}
+              </div>
+              {/*{tradeModel && (*/}
+              {/*  <div*/}
+              {/*    css={css`*/}
+              {/*      margin-bottom: 16px;*/}
+              {/*    `}*/}
+              {/*  >*/}
+              {/*    <div>*/}
+              {/*      {(slSetting !== 0 || !slUsePercentage) && (*/}
+              {/*        <div*/}
+              {/*          css={css`*/}
+              {/*            display: flex;*/}
+              {/*            align-items: center;*/}
+              {/*            justify-content: space-between;*/}
+              {/*            padding: 8px 0;*/}
+              {/*          `}*/}
+              {/*        >*/}
+              {/*          <div>*/}
+              {/*            StopLoss{' '}*/}
+              {/*            <span*/}
+              {/*              css={css`*/}
+              {/*                color: #db4c40;*/}
+              {/*              `}*/}
+              {/*            >*/}
+              {/*              (*/}
+              {/*              {slUsePercentage*/}
+              {/*                ? '$' + getBigNumberStr(targetSl, 2)*/}
+              {/*                : getBigNumberStr(slPercentage, 2) + '%'}*/}
+              {/*              )*/}
+              {/*            </span>*/}
+              {/*          </div>*/}
+              {/*          <span>*/}
+              {/*            {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())*/}
+              {/*              ? '--'*/}
+              {/*              : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}*/}
+              {/*            {tradePool.symbol}*/}
+              {/*          </span>*/}
+              {/*        </div>*/}
+              {/*      )}*/}
+              {/*      {slSetting === 0 && slUsePercentage && (*/}
+              {/*        <div*/}
+              {/*          css={css`*/}
+              {/*            display: flex;*/}
+              {/*            align-items: center;*/}
+              {/*            justify-content: space-between;*/}
+              {/*            padding: 8px 0;*/}
+              {/*          `}*/}
+              {/*        >*/}
+              {/*          <div>*/}
+              {/*            StopLoss{' '}*/}
+              {/*            <span*/}
+              {/*              css={css`*/}
+              {/*                color: #db4c40;*/}
+              {/*              `}*/}
+              {/*            >*/}
+              {/*              (None)*/}
+              {/*            </span>*/}
+              {/*          </div>*/}
+              {/*          <span*/}
+              {/*            css={css`*/}
+              {/*              color: #db4c40;*/}
+              {/*            `}*/}
+              {/*          >*/}
+              {/*            None*/}
+              {/*          </span>*/}
+              {/*        </div>*/}
+              {/*      )}*/}
+              {/*      <div*/}
+              {/*        css={css`*/}
+              {/*          display: flex;*/}
+              {/*          align-items: center;*/}
+              {/*          justify-content: space-between;*/}
+              {/*          background: #f7f7f7;*/}
+              {/*          > span {*/}
+              {/*            cursor: pointer;*/}
+              {/*          }*/}
+              {/*        `}*/}
+              {/*      >*/}
+              {/*        <span*/}
+              {/*          css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(true, 0)}*/}
+              {/*        >*/}
+              {/*          None*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(true, -10)}*/}
+              {/*        >*/}
+              {/*          -10%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(true, -25)}*/}
+              {/*        >*/}
+              {/*          -25%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(true, -50)}*/}
+              {/*        >*/}
+              {/*          -50%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(true, -75)}*/}
+              {/*        >*/}
+              {/*          -75%*/}
+              {/*        </span>*/}
+              {/*        <Input*/}
+              {/*          type="number"*/}
+              {/*          placeholder="Price |"*/}
+              {/*          disableUnderline={true}*/}
+              {/*          value={slPrice}*/}
+              {/*          onChange={(event) => {*/}
+              {/*            setSlPrice(new BigNumber(event.target.value))*/}
+              {/*          }}*/}
+              {/*          onClick={() => setUseSlPercentage(false)}*/}
+              {/*          sx={{*/}
+              {/*            height: '28px',*/}
+              {/*            fontSize: '14px',*/}
+              {/*            minHeight: '28px',*/}
+              {/*            width: '73px',*/}
+              {/*            '& .MuiOutlinedInput-root': {*/}
+              {/*              height: '28px',*/}
+              {/*              minHeight: '28px',*/}
+              {/*              padding: 0,*/}
+              {/*            },*/}
+              {/*            '& .MuiInputBase-input': {*/}
+              {/*              background: '#fff!important',*/}
+              {/*              padding: '0px 0px 0px 4px',*/}
+              {/*              margin: '4px 4px 5px 0',*/}
+              {/*            },*/}
+              {/*          }}*/}
+              {/*        />*/}
+              {/*      </div>*/}
+              {/*    </div>*/}
+              {/*    <div>*/}
+              {/*      {(tpSetting !== 0 || !tpUsePercentage) && (*/}
+              {/*        <div*/}
+              {/*          css={css`*/}
+              {/*            display: flex;*/}
+              {/*            align-items: center;*/}
+              {/*            justify-content: space-between;*/}
+              {/*            padding: 16px 0 8px;*/}
+              {/*          `}*/}
+              {/*        >*/}
+              {/*          <div>*/}
+              {/*            Take Profit{' '}*/}
+              {/*            <span*/}
+              {/*              css={css`*/}
+              {/*                color: #009b72;*/}
+              {/*              `}*/}
+              {/*            >*/}
+              {/*              (*/}
+              {/*              {tpUsePercentage*/}
+              {/*                ? '$' + getBigNumberStr(targetTp, 2)*/}
+              {/*                : getBigNumberStr(tpPercentage, 2) + '%'}*/}
+              {/*              )*/}
+              {/*            </span>*/}
+              {/*          </div>*/}
+              {/*          {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())*/}
+              {/*            ? '--'*/}
+              {/*            : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}*/}
+              {/*          {tradePool.symbol}*/}
+              {/*        </div>*/}
+              {/*      )}*/}
+              {/*      {tpSetting === 0 && tpUsePercentage && (*/}
+              {/*        <div*/}
+              {/*          css={css`*/}
+              {/*            display: flex;*/}
+              {/*            align-items: center;*/}
+              {/*            justify-content: space-between;*/}
+              {/*            padding: 16px 0 8px;*/}
+              {/*          `}*/}
+              {/*        >*/}
+              {/*          <div>*/}
+              {/*            Take Profit{' '}*/}
+              {/*            <span*/}
+              {/*              css={css`*/}
+              {/*                color: #009b72;*/}
+              {/*              `}*/}
+              {/*            >*/}
+              {/*              (None)*/}
+              {/*            </span>*/}
+              {/*          </div>*/}
+              {/*          <span*/}
+              {/*            css={css`*/}
+              {/*              color: #009b72;*/}
+              {/*            `}*/}
+              {/*          >*/}
+              {/*            None*/}
+              {/*          </span>*/}
+              {/*        </div>*/}
+              {/*      )}*/}
+              {/*      <div*/}
+              {/*        css={css`*/}
+              {/*          display: flex;*/}
+              {/*          align-items: center;*/}
+              {/*          background: #f7f7f7;*/}
+              {/*          justify-content: space-between;*/}
+              {/*          > span {*/}
+              {/*            cursor: pointer;*/}
+              {/*          }*/}
+              {/*        `}*/}
+              {/*      >*/}
+              {/*        <span*/}
+              {/*          css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(false, 25)}*/}
+              {/*        >*/}
+              {/*          25%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(false, 50)}*/}
+              {/*        >*/}
+              {/*          50%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(false, 100)}*/}
+              {/*        >*/}
+              {/*          100%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(false, 300)}*/}
+              {/*        >*/}
+              {/*          300%*/}
+              {/*        </span>*/}
+              {/*        <span*/}
+              {/*          css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}*/}
+              {/*          onClick={() => handleTpSLSetting(false, 900)}*/}
+              {/*        >*/}
+              {/*          900%*/}
+              {/*        </span>*/}
+              {/*        <Input*/}
+              {/*          type="number"*/}
+              {/*          placeholder="Price |"*/}
+              {/*          disableUnderline={true}*/}
+              {/*          value={tpPrice}*/}
+              {/*          onChange={(event) => {*/}
+              {/*            setTpPrice(new BigNumber(event.target.value))*/}
+              {/*          }}*/}
+              {/*          onClick={() => setTpUsePercentage(false)}*/}
+              {/*          sx={{*/}
+              {/*            height: '28px',*/}
+              {/*            fontSize: '14px',*/}
+              {/*            minHeight: '28px',*/}
+              {/*            width: '73px',*/}
+              {/*            '& .MuiOutlinedInput-root': {*/}
+              {/*              height: '28px',*/}
+              {/*              minHeight: '28px',*/}
+              {/*              padding: 0,*/}
+              {/*            },*/}
+              {/*            '& .MuiInputBase-input': {*/}
+              {/*              background: '#fff!important',*/}
+              {/*              padding: '0px 0px 0px 4px',*/}
+              {/*              margin: '4px 4px 5px 0',*/}
+              {/*            },*/}
+              {/*          }}*/}
+              {/*        />*/}
+              {/*      </div>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*)}*/}
+              {!account && (
+                <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>
+                  {ButtonText.CONNECT_WALLET}
+                </KRAVButton>
               )}
-              {/*<p*/}
-              {/*  css={[*/}
-              {/*    align,*/}
-              {/*    css`*/}
-              {/*      justify-content: space-between;*/}
-              {/*    `,*/}
-              {/*  ]}*/}
-              {/*>*/}
-              {/*  <span>Entry Price</span>*/}
-              {/*  <span>${BTCPrice.toFixed(2)}</span>*/}
-              {/*</p>*/}
-              {/*<p*/}
-              {/*  css={[*/}
-              {/*    align,*/}
-              {/*    css`*/}
-              {/*      justify-content: space-between;*/}
-              {/*    `,*/}
-              {/*  ]}*/}
-              {/*>*/}
-              {/*  <span>Liq. Price</span>*/}
-              {/*  <span>${getBigNumberStr(getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage), 4)}</span>*/}
-              {/*</p>*/}
-              {/*<p*/}
-              {/*  css={[*/}
-              {/*    align,*/}
-              {/*    css`*/}
-              {/*      justify-content: space-between;*/}
-              {/*    `,*/}
-              {/*  ]}*/}
-              {/*>*/}
-              {/*  <span>Fees</span>*/}
-              {/*  <span>*/}
-              {/*    {isNaN(getFees(positionSizeDai, leverage).toNumber())*/}
-              {/*      ? '--'*/}
-              {/*      : getBigNumberStr(getFees(positionSizeDai, leverage), 2)}*/}
-              {/*  </span>*/}
-              {/*</p>*/}
-            </div>
-            {/*{tradeModel && (*/}
-            {/*  <div*/}
-            {/*    css={css`*/}
-            {/*      margin-bottom: 16px;*/}
-            {/*    `}*/}
-            {/*  >*/}
-            {/*    <div>*/}
-            {/*      {(slSetting !== 0 || !slUsePercentage) && (*/}
-            {/*        <div*/}
-            {/*          css={css`*/}
-            {/*            display: flex;*/}
-            {/*            align-items: center;*/}
-            {/*            justify-content: space-between;*/}
-            {/*            padding: 8px 0;*/}
-            {/*          `}*/}
-            {/*        >*/}
-            {/*          <div>*/}
-            {/*            StopLoss{' '}*/}
-            {/*            <span*/}
-            {/*              css={css`*/}
-            {/*                color: #db4c40;*/}
-            {/*              `}*/}
-            {/*            >*/}
-            {/*              (*/}
-            {/*              {slUsePercentage*/}
-            {/*                ? '$' + getBigNumberStr(targetSl, 2)*/}
-            {/*                : getBigNumberStr(slPercentage, 2) + '%'}*/}
-            {/*              )*/}
-            {/*            </span>*/}
-            {/*          </div>*/}
-            {/*          <span>*/}
-            {/*            {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())*/}
-            {/*              ? '--'*/}
-            {/*              : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}*/}
-            {/*            {tradePool.symbol}*/}
-            {/*          </span>*/}
-            {/*        </div>*/}
-            {/*      )}*/}
-            {/*      {slSetting === 0 && slUsePercentage && (*/}
-            {/*        <div*/}
-            {/*          css={css`*/}
-            {/*            display: flex;*/}
-            {/*            align-items: center;*/}
-            {/*            justify-content: space-between;*/}
-            {/*            padding: 8px 0;*/}
-            {/*          `}*/}
-            {/*        >*/}
-            {/*          <div>*/}
-            {/*            StopLoss{' '}*/}
-            {/*            <span*/}
-            {/*              css={css`*/}
-            {/*                color: #db4c40;*/}
-            {/*              `}*/}
-            {/*            >*/}
-            {/*              (None)*/}
-            {/*            </span>*/}
-            {/*          </div>*/}
-            {/*          <span*/}
-            {/*            css={css`*/}
-            {/*              color: #db4c40;*/}
-            {/*            `}*/}
-            {/*          >*/}
-            {/*            None*/}
-            {/*          </span>*/}
-            {/*        </div>*/}
-            {/*      )}*/}
-            {/*      <div*/}
-            {/*        css={css`*/}
-            {/*          display: flex;*/}
-            {/*          align-items: center;*/}
-            {/*          justify-content: space-between;*/}
-            {/*          background: #f7f7f7;*/}
-            {/*          > span {*/}
-            {/*            cursor: pointer;*/}
-            {/*          }*/}
-            {/*        `}*/}
-            {/*      >*/}
-            {/*        <span*/}
-            {/*          css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(true, 0)}*/}
-            {/*        >*/}
-            {/*          None*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(true, -10)}*/}
-            {/*        >*/}
-            {/*          -10%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(true, -25)}*/}
-            {/*        >*/}
-            {/*          -25%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(true, -50)}*/}
-            {/*        >*/}
-            {/*          -50%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(true, -75)}*/}
-            {/*        >*/}
-            {/*          -75%*/}
-            {/*        </span>*/}
-            {/*        <Input*/}
-            {/*          type="number"*/}
-            {/*          placeholder="Price |"*/}
-            {/*          disableUnderline={true}*/}
-            {/*          value={slPrice}*/}
-            {/*          onChange={(event) => {*/}
-            {/*            setSlPrice(new BigNumber(event.target.value))*/}
-            {/*          }}*/}
-            {/*          onClick={() => setUseSlPercentage(false)}*/}
-            {/*          sx={{*/}
-            {/*            height: '28px',*/}
-            {/*            fontSize: '14px',*/}
-            {/*            minHeight: '28px',*/}
-            {/*            width: '73px',*/}
-            {/*            '& .MuiOutlinedInput-root': {*/}
-            {/*              height: '28px',*/}
-            {/*              minHeight: '28px',*/}
-            {/*              padding: 0,*/}
-            {/*            },*/}
-            {/*            '& .MuiInputBase-input': {*/}
-            {/*              background: '#fff!important',*/}
-            {/*              padding: '0px 0px 0px 4px',*/}
-            {/*              margin: '4px 4px 5px 0',*/}
-            {/*            },*/}
-            {/*          }}*/}
-            {/*        />*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*    <div>*/}
-            {/*      {(tpSetting !== 0 || !tpUsePercentage) && (*/}
-            {/*        <div*/}
-            {/*          css={css`*/}
-            {/*            display: flex;*/}
-            {/*            align-items: center;*/}
-            {/*            justify-content: space-between;*/}
-            {/*            padding: 16px 0 8px;*/}
-            {/*          `}*/}
-            {/*        >*/}
-            {/*          <div>*/}
-            {/*            Take Profit{' '}*/}
-            {/*            <span*/}
-            {/*              css={css`*/}
-            {/*                color: #009b72;*/}
-            {/*              `}*/}
-            {/*            >*/}
-            {/*              (*/}
-            {/*              {tpUsePercentage*/}
-            {/*                ? '$' + getBigNumberStr(targetTp, 2)*/}
-            {/*                : getBigNumberStr(tpPercentage, 2) + '%'}*/}
-            {/*              )*/}
-            {/*            </span>*/}
-            {/*          </div>*/}
-            {/*          {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())*/}
-            {/*            ? '--'*/}
-            {/*            : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}*/}
-            {/*          {tradePool.symbol}*/}
-            {/*        </div>*/}
-            {/*      )}*/}
-            {/*      {tpSetting === 0 && tpUsePercentage && (*/}
-            {/*        <div*/}
-            {/*          css={css`*/}
-            {/*            display: flex;*/}
-            {/*            align-items: center;*/}
-            {/*            justify-content: space-between;*/}
-            {/*            padding: 16px 0 8px;*/}
-            {/*          `}*/}
-            {/*        >*/}
-            {/*          <div>*/}
-            {/*            Take Profit{' '}*/}
-            {/*            <span*/}
-            {/*              css={css`*/}
-            {/*                color: #009b72;*/}
-            {/*              `}*/}
-            {/*            >*/}
-            {/*              (None)*/}
-            {/*            </span>*/}
-            {/*          </div>*/}
-            {/*          <span*/}
-            {/*            css={css`*/}
-            {/*              color: #009b72;*/}
-            {/*            `}*/}
-            {/*          >*/}
-            {/*            None*/}
-            {/*          </span>*/}
-            {/*        </div>*/}
-            {/*      )}*/}
-            {/*      <div*/}
-            {/*        css={css`*/}
-            {/*          display: flex;*/}
-            {/*          align-items: center;*/}
-            {/*          background: #f7f7f7;*/}
-            {/*          justify-content: space-between;*/}
-            {/*          > span {*/}
-            {/*            cursor: pointer;*/}
-            {/*          }*/}
-            {/*        `}*/}
-            {/*      >*/}
-            {/*        <span*/}
-            {/*          css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(false, 25)}*/}
-            {/*        >*/}
-            {/*          25%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(false, 50)}*/}
-            {/*        >*/}
-            {/*          50%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(false, 100)}*/}
-            {/*        >*/}
-            {/*          100%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(false, 300)}*/}
-            {/*        >*/}
-            {/*          300%*/}
-            {/*        </span>*/}
-            {/*        <span*/}
-            {/*          css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}*/}
-            {/*          onClick={() => handleTpSLSetting(false, 900)}*/}
-            {/*        >*/}
-            {/*          900%*/}
-            {/*        </span>*/}
-            {/*        <Input*/}
-            {/*          type="number"*/}
-            {/*          placeholder="Price |"*/}
-            {/*          disableUnderline={true}*/}
-            {/*          value={tpPrice}*/}
-            {/*          onChange={(event) => {*/}
-            {/*            setTpPrice(new BigNumber(event.target.value))*/}
-            {/*          }}*/}
-            {/*          onClick={() => setTpUsePercentage(false)}*/}
-            {/*          sx={{*/}
-            {/*            height: '28px',*/}
-            {/*            fontSize: '14px',*/}
-            {/*            minHeight: '28px',*/}
-            {/*            width: '73px',*/}
-            {/*            '& .MuiOutlinedInput-root': {*/}
-            {/*              height: '28px',*/}
-            {/*              minHeight: '28px',*/}
-            {/*              padding: 0,*/}
-            {/*            },*/}
-            {/*            '& .MuiInputBase-input': {*/}
-            {/*              background: '#fff!important',*/}
-            {/*              padding: '0px 0px 0px 4px',*/}
-            {/*              margin: '4px 4px 5px 0',*/}
-            {/*            },*/}
-            {/*          }}*/}
-            {/*        />*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*)}*/}
-            {!account && (
-              <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
-            )}
-            {account && isBuy && (
-              <KravLongButton
-                disabled={
-                  buttonState === ButtonText.INSUFFICIENT_BALANCE ||
-                  buttonState === ButtonText.REACHED_LIMIT ||
-                  buttonState === ButtonText.MIN_SIZE ||
-                  buttonState === ButtonText.ENTER_AMOUNT
-                }
-                onClick={async () => {
-                  if (buttonState === 'Connect Wallet') {
-                    setWalletDialogVisibility(true)
-                  } else {
-                    await handleButtonClick()
+              {account && isBuy && (
+                <KravLongButton
+                  disabled={
+                    buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+                    buttonState === ButtonText.REACHED_LIMIT ||
+                    buttonState === ButtonText.MIN_SIZE ||
+                    buttonState === ButtonText.ENTER_AMOUNT
                   }
-                }}
-              >
-                <Trans>{buttonState}</Trans>
-              </KravLongButton>
-            )}
-            {account && !isBuy && (
-              <KravShortButton
-                disabled={
-                  buttonState === ButtonText.INSUFFICIENT_BALANCE ||
-                  buttonState === ButtonText.REACHED_LIMIT ||
-                  buttonState === ButtonText.MIN_SIZE ||
-                  buttonState === ButtonText.ENTER_AMOUNT
-                }
-                onClick={async () => {
-                  if (buttonState === 'Connect Wallet') {
-                    setWalletDialogVisibility(true)
-                  } else {
-                    await handleButtonClick()
+                  onClick={async () => {
+                    if (buttonState === 'Connect Wallet') {
+                      setWalletDialogVisibility(true)
+                    } else {
+                      await handleButtonClick()
+                    }
+                  }}
+                >
+                  <Trans>{buttonState}</Trans>
+                </KravLongButton>
+              )}
+              {account && !isBuy && (
+                <KravShortButton
+                  disabled={
+                    buttonState === ButtonText.INSUFFICIENT_BALANCE ||
+                    buttonState === ButtonText.REACHED_LIMIT ||
+                    buttonState === ButtonText.MIN_SIZE ||
+                    buttonState === ButtonText.ENTER_AMOUNT
                   }
-                }}
-              >
-                <Trans>{buttonState}</Trans>
-              </KravShortButton>
-            )}
-          </>
+                  onClick={async () => {
+                    if (buttonState === 'Connect Wallet') {
+                      setWalletDialogVisibility(true)
+                    } else {
+                      await handleButtonClick()
+                    }
+                  }}
+                >
+                  <Trans>{buttonState}</Trans>
+                </KravShortButton>
+              )}
+            </>
+          </div>
         </div>
       )}
       {showConfirmTip && (

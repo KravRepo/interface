@@ -109,9 +109,9 @@ export const darkTheme = createTheme({
     third: '#727272',
   },
   background: {
-    primary: '#1c1e23',
-    second: '#0f1114',
-    third: '#4B4B4B',
+    primary: '#090B0D',
+    second: '#1C1E23',
+    third: '#292B32',
     fourth: '#0f1114',
   },
 })
