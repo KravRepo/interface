@@ -5,6 +5,7 @@ import { actionCard } from '../style'
 import { OrderParamsCard } from './OrderParamsCard'
 import BigNumber from 'bignumber.js'
 import { css } from '@emotion/react'
+import TradeDetails from './TradeDetails'
 
 export type ActionCardProp = {
   leverage: number
@@ -134,6 +135,7 @@ export const ActionsCard = ({
           tradeType={tradeType}
           setTradeType={setTradeType}
         />
+        <TradeDetails />
       </div>
     </ActionsCardLayout>
   )

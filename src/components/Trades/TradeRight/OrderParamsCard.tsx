@@ -53,6 +53,18 @@ enum ButtonText {
   MIN_SIZE = 'Min position size is 1500',
 }
 
+const enforceMinMax = (e: any) => {
+  const el = e.target
+  if (el.value != '') {
+    if (parseInt(el.value) < parseInt(el.min)) {
+      el.value = el.min
+    }
+    if (parseInt(el.value) > parseInt(el.max)) {
+      el.value = el.max
+    }
+  }
+}
+
 //TODO Add sl and tp setting
 export const OrderParamsCard = ({
   leverage,
@@ -180,6 +192,12 @@ export const OrderParamsCard = ({
       tradePool?.proportionBTC
     )
     setOpenBTCSize(outputAmount)
+  }
+
+  const handleLeverageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    enforceMinMax(event)
+    const newLeverage = +event.target.value
+    handleLeverageChange({} as any, newLeverage, 1)
   }
 
   const handleSliderClick = () => {
@@ -628,20 +646,50 @@ export const OrderParamsCard = ({
                 )}
               </div>
               <div>
-                <p
+                <div
                   css={css`
                     color: ${theme.text.primary}60;
+                    display: flex;
+                    align-item: center;
                   `}
                 >
-                  Leverage:{' '}
-                  <span
+                  <div
                     css={css`
+                      line-height: 30px;
+                      margin-right: 5px;
+                    `}
+                  >
+                    Leverage:{' '}
+                  </div>
+
+                  <input
+                    value={leverage}
+                    type="number"
+                    onChange={handleLeverageInputChange}
+                    css={css`
+                      background: ${theme.background.third};
+                      border: none;
+                      color: ${theme.text.primary};
+                      padding: 5px 10px;
+                      width: 60px;
+                      outline: 0;
+                      border-radius: 5px;
+                      -webkit-tap-highlight-color: transparent;
+                    `}
+                    onKeyUp={enforceMinMax}
+                    min={tradeModel === TradeMode.DEGEN ? 51 : 2}
+                    max={tradeModel === TradeMode.DEGEN ? 200 : 50}
+                  />
+                  <div
+                    css={css`
+                      line-height: 30px;
+                      margin-left: 5px;
                       color: ${theme.text.primary};
                     `}
                   >
-                    {leverage}x
-                  </span>
-                </p>
+                    x
+                  </div>
+                </div>
                 <Slider
                   defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
                   step={1}
@@ -692,7 +740,7 @@ export const OrderParamsCard = ({
                   }
                 `}
               >
-                <p
+                {/* <p
                   css={[
                     align,
                     css`
@@ -705,8 +753,8 @@ export const OrderParamsCard = ({
                   <span>
                     {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
                   </span>
-                </p>
-                <p
+                </p> */}
+                {/* <p
                   css={[
                     align,
                     css`
@@ -717,6 +765,25 @@ export const OrderParamsCard = ({
                 >
                   <span>Leverage</span>
                   <span>{leverage}</span>
+                </p> */}
+                <p
+                  css={[
+                    align,
+                    css`
+                      justify-content: space-between;
+                      color: ${theme.text.primary};
+                    `,
+                  ]}
+                >
+                  <span
+                    css={css`
+                      color: #757575;
+                    `}
+                  >
+                    Liquidation Price
+                  </span>
+                  {/* TODO Liquidation Price */}
+                  <span>$24,509,624.32</span>
                 </p>
                 {tradeModel === TradeMode.DEGEN && (
                   <div>

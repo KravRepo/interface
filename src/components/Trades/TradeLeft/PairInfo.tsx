@@ -281,7 +281,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   {showSwitch && (
                     <div
                       css={css`
-                        background: linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%);
+                        background: #2832f5;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -431,7 +431,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 background: ${tradeModel === TradeMode.BASIC
                   ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
                   : 'transparent'};
-                color: ${tradeModel === TradeMode.BASIC ? '#000' : theme.text.primary};
+                background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
+                color: ${tradeModel === TradeMode.BASIC ? theme.text.primary : theme.text.primary};
               `}
               onClick={() => setTradeModel(TradeMode.BASIC)}
             >
@@ -455,7 +456,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 background: ${tradeModel === TradeMode.PRO
                   ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
                   : 'transparent'};
-                color: ${tradeModel === TradeMode.PRO ? '#000' : theme.text.primary};
+                background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
+                color: ${tradeModel === TradeMode.PRO ? theme.text.primary : theme.text.primary};
               `}
               onClick={() => setTradeModel(TradeMode.PRO)}
             >
@@ -479,7 +481,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 background: ${tradeModel === TradeMode.DEGEN
                   ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
                   : 'transparent'};
-                color: ${tradeModel === TradeMode.DEGEN ? '#000' : theme.text.primary};
+                background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
+                color: ${tradeModel === TradeMode.DEGEN ? theme.text.primary : theme.text.primary};
               `}
               onClick={() => setTradeModel(TradeMode.DEGEN)}
             >
