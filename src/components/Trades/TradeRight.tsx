@@ -5,6 +5,7 @@ import { PositionOverView } from './TradeRight/PositionOverView'
 import { UsefulLinks } from './TradeRight/UsefulLinks'
 import React from 'react'
 import BigNumber from 'bignumber.js'
+import { DashboardTradeRight } from './TradeRight/DashboardTradeRight'
 
 export type TradeRightProps = {
   leverage: number
@@ -58,6 +59,7 @@ export const TradeRight = ({
         setTradeType={setTradeType}
       />
       <PositionOverView />
+      <DashboardTradeRight />
       <UsefulLinks />
     </div>
   )
