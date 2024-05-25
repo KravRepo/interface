@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { tradeRight } from './style'
 import { ActionsCard } from './TradeRight/ActionCard'
-import { PositionOverView } from './TradeRight/PositionOverView'
 import { UsefulLinks } from './TradeRight/UsefulLinks'
 import React from 'react'
 import BigNumber from 'bignumber.js'
@@ -58,7 +57,7 @@ export const TradeRight = ({
         tradeType={tradeType}
         setTradeType={setTradeType}
       />
-      <PositionOverView />
+      {/* <PositionOverView /> */}
       <DashboardTradeRight />
       <UsefulLinks />
     </div>
