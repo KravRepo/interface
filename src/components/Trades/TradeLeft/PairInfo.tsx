@@ -15,6 +15,7 @@ import { EXCHANGE_TRADING_T } from '../../../constant/exchange'
 import { SelectPair } from '../../Dialog/SelectPair'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
+import CoinInfo from './CoinInfo'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
@@ -99,6 +100,131 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
 
   return (
     <>
+      <div
+        css={[
+          pairInfo,
+          card,
+          css`
+            background: ${theme.background.primary};
+            position: relative;
+            margin-bottom: 16px;
+            @media screen and (max-width: 1500px) {
+              overflow: auto;
+            }
+            @media screen and (max-width: 1200px) {
+              padding: 12px;
+            }
+          `,
+        ]}
+      >
+        <div css={align}>
+          <div
+            className="info-card"
+            css={css`
+              padding: 0 12px !important;
+              border-left: ${theme.splitLine.primary};
+            `}
+          >
+            <p>
+              <Trans>Open Interest(L)</Trans>
+            </p>
+            <p
+              css={css`
+                color: ${theme.text.primary};
+                display: flex;
+                align-items: center;
+              `}
+            >
+              <span>{formatNumber(openDaiLong?.toString() || '', 2, false) || '-'}</span>
+            </p>
+          </div>
+          <div
+            className="info-card"
+            css={css`
+              padding: 0 12px !important;
+              border-left: ${theme.splitLine.primary};
+            `}
+          >
+            <p>
+              <Trans>Open Interest(S)</Trans>
+            </p>
+            <p
+              css={css`
+                color: ${theme.text.primary};
+                display: flex;
+                align-items: center;
+              `}
+            >
+              <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
+            </p>
+          </div>
+          <div
+            className="info-card"
+            css={css`
+              border-left: ${theme.splitLine.primary};
+            `}
+          >
+            <p>
+              <Trans>Borrowing(L)</Trans>
+            </p>
+            <p
+              css={css`
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? '#009b72'
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? '#000'
+                  : '#db4c40'};
+              `}
+            >
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                {openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? ''
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? ''
+                  : '-'}
+                {borrowLongVal?.abs()?.toFixed(4)}%
+              </span>
+            </p>
+          </div>
+          <div
+            className="info-card"
+            css={css`
+              border-left: ${theme.splitLine.primary};
+            `}
+          >
+            <p>
+              <Trans>Borrowing(S)</Trans>
+            </p>
+            <p
+              css={css`
+                color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
+                  ? '#db4c40'
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? '#000'
+                  : '#009b72'};
+              `}
+            >
+              <span
+                css={css`
+                  color: ${theme.text.primary};
+                `}
+              >
+                {openDaiShort && openDaiLong?.lt(openDaiShort)
+                  ? ''
+                  : openDaiLong?.toString() === openDaiShort?.toString()
+                  ? ''
+                  : '-'}
+                {borrowShortVal?.abs()?.toFixed(4)}%
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <SelectPair isOpen={choosePair} setIsOpen={() => setChoosePair(false)} />
       <div
         css={[
@@ -297,113 +423,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 </div>
               </div>
             </div>
-            <div css={align}>
-              <div
-                className="info-card"
-                css={css`
-                  padding: 0 12px !important;
-                  border-left: ${theme.splitLine.primary};
-                `}
-              >
-                <p>
-                  <Trans>Open Interest(L)</Trans>
-                </p>
-                <p
-                  css={css`
-                    color: ${theme.text.primary};
-                    display: flex;
-                    align-items: center;
-                  `}
-                >
-                  <span>{formatNumber(openDaiLong?.toString() || '', 2, false) || '-'}</span>
-                </p>
-              </div>
-              <div
-                className="info-card"
-                css={css`
-                  padding: 0 12px !important;
-                  border-left: ${theme.splitLine.primary};
-                `}
-              >
-                <p>
-                  <Trans>Open Interest(S)</Trans>
-                </p>
-                <p
-                  css={css`
-                    color: ${theme.text.primary};
-                    display: flex;
-                    align-items: center;
-                  `}
-                >
-                  <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
-                </p>
-              </div>
-              <div
-                className="info-card"
-                css={css`
-                  border-left: ${theme.splitLine.primary};
-                `}
-              >
-                <p>
-                  <Trans>Borrowing(L)</Trans>
-                </p>
-                <p
-                  css={css`
-                    color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
-                      ? '#009b72'
-                      : openDaiLong?.toString() === openDaiShort?.toString()
-                      ? '#000'
-                      : '#db4c40'};
-                  `}
-                >
-                  <span
-                    css={css`
-                      color: ${theme.text.primary};
-                    `}
-                  >
-                    {openDaiShort && openDaiLong?.gt(openDaiShort)
-                      ? ''
-                      : openDaiLong?.toString() === openDaiShort?.toString()
-                      ? ''
-                      : '-'}
-                    {borrowLongVal?.abs()?.toFixed(4)}%
-                  </span>
-                </p>
-              </div>
-              <div
-                className="info-card"
-                css={css`
-                  border-left: ${theme.splitLine.primary};
-                `}
-              >
-                <p>
-                  <Trans>Borrowing(S)</Trans>
-                </p>
-                <p
-                  css={css`
-                    color: ${openDaiShort && openDaiLong?.gt(openDaiShort)
-                      ? '#db4c40'
-                      : openDaiLong?.toString() === openDaiShort?.toString()
-                      ? '#000'
-                      : '#009b72'};
-                  `}
-                >
-                  <span
-                    css={css`
-                      color: ${theme.text.primary};
-                    `}
-                  >
-                    {openDaiShort && openDaiLong?.lt(openDaiShort)
-                      ? ''
-                      : openDaiLong?.toString() === openDaiShort?.toString()
-                      ? ''
-                      : '-'}
-                    {borrowShortVal?.abs()?.toFixed(4)}%
-                  </span>
-                </p>
-              </div>
-            </div>
           </div>
+          <CoinInfo />
           <div
             css={css`
               display: flex;

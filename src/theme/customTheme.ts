@@ -66,6 +66,12 @@ export const darkTheme = createTheme({
   },
   palette: {
     mode: 'dark',
+    success: {
+      main: '#13ba7b',
+    },
+    error: {
+      main: '#f53c58',
+    },
   },
   button: {
     defaultBg: '#2832F5',
@@ -85,7 +91,7 @@ export const darkTheme = createTheme({
     hoverText: '#f6f6f6',
   },
   longButton: {
-    background: '#009B72',
+    background: '#13ba7b',
     text: '#ffffff',
     hoverBg: '#077054',
     disableBg: '#393D46',
@@ -93,7 +99,7 @@ export const darkTheme = createTheme({
     hoverText: '#ffffff',
   },
   shortButton: {
-    background: '#DB4C40',
+    background: '#f53c58',
     text: '#ffffff',
     hoverBg: '#C3352A',
     disableBg: '#393D46',

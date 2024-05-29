@@ -53,6 +53,30 @@ enum ButtonText {
   MIN_SIZE = 'Min position size is 1500',
 }
 
+const sliderLimit = {
+  min: { [TradeMode.BASIC]: 2, [TradeMode.DEGEN]: 51, [TradeMode.PRO]: 2 },
+  max: {
+    [TradeMode.BASIC]: 50,
+    [TradeMode.DEGEN]: 200,
+    [TradeMode.PRO]: 100,
+  },
+}
+
+const marks = {
+  [TradeMode.BASIC]: [2, 10, 20, 30, 40, 50].map((num) => ({
+    value: num,
+    label: num + 'x',
+  })),
+  [TradeMode.DEGEN]: [51, 80, 110, 140, 170, 200].map((num) => ({
+    value: num,
+    label: num + 'x',
+  })),
+  [TradeMode.PRO]: [2, 25, 50, 75, 100].map((num) => ({
+    value: num,
+    label: num + 'x',
+  })),
+}
+
 const enforceMinMax = (e: any) => {
   const el = e.target
   if (el.value != '') {
@@ -651,6 +675,7 @@ export const OrderParamsCard = ({
                     color: ${theme.text.primary}60;
                     display: flex;
                     align-item: center;
+                    justify-content: space-between;
                   `}
                 >
                   <div
@@ -659,7 +684,14 @@ export const OrderParamsCard = ({
                       margin-right: 5px;
                     `}
                   >
-                    Leverage:{' '}
+                    <span
+                      css={css`
+                        color: #ffffff70;
+                      `}
+                    >
+                      Leverage
+                    </span>
+                    ({sliderLimit.min[tradeModel]}x-{sliderLimit.max[tradeModel]}x):{' '}
                   </div>
 
                   <input
@@ -671,8 +703,9 @@ export const OrderParamsCard = ({
                       border: none;
                       color: ${theme.text.primary};
                       padding: 5px 10px;
-                      width: 60px;
+                      width: 120px;
                       outline: 0;
+                      text-align: center;
                       border-radius: 5px;
                       -webkit-tap-highlight-color: transparent;
                     `}
@@ -680,22 +713,14 @@ export const OrderParamsCard = ({
                     min={tradeModel === TradeMode.DEGEN ? 51 : 2}
                     max={tradeModel === TradeMode.DEGEN ? 200 : 50}
                   />
-                  <div
-                    css={css`
-                      line-height: 30px;
-                      margin-left: 5px;
-                      color: ${theme.text.primary};
-                    `}
-                  >
-                    x
-                  </div>
                 </div>
                 <Slider
-                  defaultValue={tradeModel === TradeMode.DEGEN ? 51 : 2}
+                  defaultValue={sliderLimit.min[tradeModel]}
                   step={1}
                   // marks={tradeModel === TradeMode.DEGEN ? DegenMarks : marks}
-                  min={tradeModel === TradeMode.DEGEN ? 51 : 2}
-                  max={tradeModel === TradeMode.DEGEN ? 200 : 50}
+                  marks={marks[tradeModel]}
+                  min={sliderLimit.min[tradeModel]}
+                  max={sliderLimit.max[tradeModel]}
                   value={leverage}
                   disabled={isLoadingFactory}
                   onClick={handleSliderClick}
@@ -729,6 +754,10 @@ export const OrderParamsCard = ({
                     '& .MuiSlider-markLabel': {
                       fontSize: '12px',
                       color: '#757575',
+                    },
+                    '& .MuiSlider-mark': {
+                      height: '10px',
+                      backgroundColor: '#757575',
                     },
                   }}
                 />

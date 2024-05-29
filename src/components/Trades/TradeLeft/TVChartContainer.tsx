@@ -63,7 +63,7 @@ export const TVChartContainer = ({ symbol }: { symbol: string }) => {
       interval: defaultProps.interval,
       container: chartContainerRef.current,
       library_path: defaultProps.libraryPath,
-      theme: theme.palette.mode === 'dark' ? 'Dark' : 'Light',
+      theme: theme.palette.mode === 'dark' ? 'Dark' : 'Dark',
       locale: getLanguageFromURL() || 'en',
       disabled_features: disabledFeatures,
       enabled_features: ['study_templates', 'iframe_loading_compatibility_mode', 'hide_left_toolbar_by_default'],
