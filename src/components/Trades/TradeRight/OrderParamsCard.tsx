@@ -353,7 +353,7 @@ export const OrderParamsCard = ({
             >
               Market
             </span>
-            <span
+            {/* <span
               css={[
                 orderParamsTab,
                 css`
@@ -369,7 +369,7 @@ export const OrderParamsCard = ({
               }}
             >
               Limit
-            </span>
+            </span> */}
           </div>
           <div
             css={css`

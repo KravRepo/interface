@@ -62,7 +62,11 @@ export const Header = () => {
   }, [theme])
 
   const isHomePath = useMemo(() => {
-    const pathList = ['/portfolio', '/portfolio/stake', '/portfolio/farm', '/portfolio/referral', '/portfolio/reward']
+    const pathList = [
+      '/portfolio',
+      '/portfolio/stake',
+      /*'/portfolio/farm', '/portfolio/referral',*/ '/portfolio/reward',
+    ]
     return pathList.includes(pathname)
   }, [pathname])
 

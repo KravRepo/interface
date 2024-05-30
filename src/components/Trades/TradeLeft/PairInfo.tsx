@@ -11,8 +11,8 @@ import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 import { formatNumber } from '../../../utils'
 // import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import { TradeMode } from '../../../store/TradeSlice'
-import { EXCHANGE_TRADING_T } from '../../../constant/exchange'
-import { SelectPair } from '../../Dialog/SelectPair'
+// import { EXCHANGE_TRADING_T } from '../../../constant/exchange'
+// import { SelectPair } from '../../Dialog/SelectPair'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import CoinInfo from './CoinInfo'
@@ -26,7 +26,7 @@ type PairInfoProps = {
 export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
-  const [choosePair, setChoosePair] = useState(false)
+  // const [choosePair, setChoosePair] = useState(false)
   const {
     BTCPrice,
     isBTCRise,
@@ -49,16 +49,16 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     pairConfig: state.pairConfig,
   }))
 
-  const { openDaiLong, openDaiShort, borrowLongVal, borrowShortVal } = useGetMarketStats(
+  const { openDaiLong, openDaiShort /*, borrowLongVal, borrowShortVal */ } = useGetMarketStats(
     tradePool?.storageT || '',
     tradePool?.decimals || 18,
     tradePool.pairInfoT || '',
     tradePairIndex
   )
 
-  const showSwitch = useMemo(() => {
-    return EXCHANGE_TRADING_T.includes(tradePool.tradingT) || Object.keys(pairConfig).length > 0
-  }, [tradePool])
+  // const showSwitch = useMemo(() => {
+  //   return EXCHANGE_TRADING_T.includes(tradePool.tradingT) || Object.keys(pairConfig).length > 0
+  // }, [tradePool])
 
   const tradePair = useMemo(() => {
     return pairConfig[tradePairIndex]
@@ -84,10 +84,15 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     setModeAnchorEl(null)
   }
 
-  useEffect(() => {
-    setTradePairIndex(0)
-    return () => setTradePairIndex(0)
-  }, [showSwitch])
+  useEffect(
+    () => {
+      setTradePairIndex(0)
+      return () => setTradePairIndex(0)
+    },
+    [
+      /*showSwitch*/
+    ]
+  )
 
   useEffect(() => {
     if (allPoolParams.length > 0) {
@@ -158,7 +163,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
             </p>
           </div>
-          <div
+          {/* <div
             className="info-card"
             css={css`
               border-left: ${theme.splitLine.primary};
@@ -221,11 +226,98 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 {borrowShortVal?.abs()?.toFixed(4)}%
               </span>
             </p>
-          </div>
+          </div> */}
         </div>
+        {!isMobile && (
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
+              padding: 4px;
+              border-radius: 8px;
+            `}
+          >
+            <div
+              css={css`
+                font-family: 'Inter';
+                font-size: 12px;
+                font-weight: 600;
+                font-style: normal;
+                line-height: 130%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 30px;
+                width: 83px;
+                text-align: center;
+                cursor: pointer;
+                border-radius: 8px;
+                background: ${tradeModel === TradeMode.BASIC
+                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                  : 'transparent'};
+                background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
+                color: ${tradeModel === TradeMode.BASIC ? theme.text.primary : theme.text.primary};
+              `}
+              onClick={() => setTradeModel(TradeMode.BASIC)}
+            >
+              Basic
+            </div>
+            <div
+              css={css`
+                font-family: 'Inter';
+                font-size: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-style: normal;
+                text-align: center;
+                height: 30px;
+                line-height: 130%;
+                border-radius: 8px;
+                cursor: pointer;
+                width: 83px;
+                font-weight: 600;
+                background: ${tradeModel === TradeMode.PRO
+                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                  : 'transparent'};
+                background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
+                color: ${tradeModel === TradeMode.PRO ? theme.text.primary : theme.text.primary};
+              `}
+              onClick={() => setTradeModel(TradeMode.PRO)}
+            >
+              Pro
+            </div>
+            <div
+              css={css`
+                font-family: 'Inter';
+                font-size: 12px;
+                font-style: normal;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 83px;
+                height: 30px;
+                border-radius: 8px;
+                line-height: 130%;
+                text-align: center;
+                cursor: pointer;
+                font-weight: 600;
+                background: ${tradeModel === TradeMode.DEGEN
+                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                  : 'transparent'};
+                background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
+                color: ${tradeModel === TradeMode.DEGEN ? theme.text.primary : theme.text.primary};
+              `}
+              onClick={() => setTradeModel(TradeMode.DEGEN)}
+            >
+              Degen
+            </div>
+          </div>
+        )}
       </div>
 
-      <SelectPair isOpen={choosePair} setIsOpen={() => setChoosePair(false)} />
+      {/* <SelectPair isOpen={choosePair} setIsOpen={() => setChoosePair(false)} /> */}
       <div
         css={[
           pairInfo,
@@ -235,6 +327,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             position: relative;
             @media screen and (max-width: 1500px) {
               overflow: auto;
+              overflow-y: hidden;
               &::-webkit-scrollbar {
                 width: 5px;
                 height: 8px;
@@ -382,14 +475,26 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                     align-items: center;
                   `}
                 >
+                  <img
+                    css={css`
+                      border-radius: 50%;
+                      background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                      margin-left: 10px;
+                      margin-right: 5px;
+                    `}
+                    src={tradePair.logoSource.default}
+                    height="15"
+                    width="15"
+                  />
+
                   {tradePair.titleSymbol}
                 </div>
                 <div
-                  onClick={() => {
-                    if (showSwitch) {
-                      setChoosePair(true)
-                    } else return
-                  }}
+                  // onClick={() => {
+                  //   if (showSwitch) {
+                  //     setChoosePair(true)
+                  //   } else return
+                  // }}
                   css={css`
                     display: flex;
                     align-items: center;
@@ -404,7 +509,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   >
                     {BTCPrice.toFixed(tradePair.fixDecimals)}
                   </span>
-                  {showSwitch && (
+                  {/* {showSwitch && (
                     <div
                       css={css`
                         background: #2832f5;
@@ -419,97 +524,12 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                     >
                       <KeyboardArrowDownIcon sx={{ color: '#000', height: '24px', width: '24px' }} />
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
           </div>
           <CoinInfo />
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
-              padding: 4px;
-              border-radius: 8px;
-            `}
-          >
-            <div
-              css={css`
-                font-family: 'Inter';
-                font-size: 12px;
-                font-weight: 600;
-                font-style: normal;
-                line-height: 130%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 30px;
-                width: 83px;
-                text-align: center;
-                cursor: pointer;
-                border-radius: 8px;
-                background: ${tradeModel === TradeMode.BASIC
-                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                  : 'transparent'};
-                background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
-                color: ${tradeModel === TradeMode.BASIC ? theme.text.primary : theme.text.primary};
-              `}
-              onClick={() => setTradeModel(TradeMode.BASIC)}
-            >
-              Basic
-            </div>
-            <div
-              css={css`
-                font-family: 'Inter';
-                font-size: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-style: normal;
-                text-align: center;
-                height: 30px;
-                line-height: 130%;
-                border-radius: 8px;
-                cursor: pointer;
-                width: 83px;
-                font-weight: 600;
-                background: ${tradeModel === TradeMode.PRO
-                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                  : 'transparent'};
-                background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
-                color: ${tradeModel === TradeMode.PRO ? theme.text.primary : theme.text.primary};
-              `}
-              onClick={() => setTradeModel(TradeMode.PRO)}
-            >
-              Pro
-            </div>
-            <div
-              css={css`
-                font-family: 'Inter';
-                font-size: 12px;
-                font-style: normal;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 83px;
-                height: 30px;
-                border-radius: 8px;
-                line-height: 130%;
-                text-align: center;
-                cursor: pointer;
-                font-weight: 600;
-                background: ${tradeModel === TradeMode.DEGEN
-                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                  : 'transparent'};
-                background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
-                color: ${tradeModel === TradeMode.DEGEN ? theme.text.primary : theme.text.primary};
-              `}
-              onClick={() => setTradeModel(TradeMode.DEGEN)}
-            >
-              Degen
-            </div>
-          </div>
         </div>
       </div>
     </>

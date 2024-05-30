@@ -2,12 +2,12 @@
 import { leftMenu } from './style'
 import { ReactComponent as DashboardIcon } from '../../assets/imgs/dashboardIcon.svg'
 import { ReactComponent as StakingIcon } from '../../assets/imgs/kravStakeIcon.svg'
-import { ReactComponent as FarmIcon } from '../../assets/imgs/farm.svg'
-import { ReactComponent as ReferralIcon } from '../../assets/imgs/referral.svg'
+// import { ReactComponent as FarmIcon } from '../../assets/imgs/farm.svg'
+// import { ReactComponent as ReferralIcon } from '../../assets/imgs/referral.svg'
 import { ReactComponent as DashboardDarkIcon } from '../../assets/imgs/darkModel/dashboard_icon_dark.svg'
 import { ReactComponent as StakingDarkIcon } from '../../assets/imgs/darkModel/krav_stake_icon_dark.svg'
-import { ReactComponent as FarmDarkIcon } from '../../assets/imgs/darkModel/farm_icon_dark.svg'
-import { ReactComponent as ReferralDarkIcon } from '../../assets/imgs/darkModel/referral_icon_dark.svg'
+// import { ReactComponent as FarmDarkIcon } from '../../assets/imgs/darkModel/farm_icon_dark.svg'
+// import { ReactComponent as ReferralDarkIcon } from '../../assets/imgs/darkModel/referral_icon_dark.svg'
 import KRAVMenuButton from '../../components/KravUIKit/KravMenuButton'
 import { css } from '@emotion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -66,7 +66,7 @@ export const LeftMenu = () => {
           KRAV Staking
         </span>
       </KRAVMenuButton>
-      <KRAVMenuButton
+      {/* <KRAVMenuButton
         sx={{ color: theme.text.primary }}
         onClick={() => {
           navigate('/portfolio/farm')
@@ -98,7 +98,7 @@ export const LeftMenu = () => {
         >
           Referral
         </span>
-      </KRAVMenuButton>
+      </KRAVMenuButton> */}
     </div>
   )
 }

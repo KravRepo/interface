@@ -18,8 +18,8 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import { TransactionDialog } from './components/Dialog/TransactionDialog'
 import { Home } from './pages/Home'
 import { HomeStake } from './pages/home/HomeStake'
-import { HomeReferral } from './pages/home/HomeReferral'
-import { HomeFarm } from './pages/home/HomeFarm'
+// import { HomeReferral } from './pages/home/HomeReferral'
+// import { HomeFarm } from './pages/home/HomeFarm'
 import { css } from '@emotion/react'
 import DashboardBg from './assets/imgs/dashboard_bg.png'
 import DashboardDarkBg from './assets/imgs/darkModel/dashboard_bg_dark.png'
@@ -36,6 +36,7 @@ import { useChainIdListener } from './hook/hookV8/useChainIdListener'
 import { DEFAULT_CHAIN } from './constant/chain'
 import { Exchange } from './pages/Exchange'
 import TermsAndAgreementDialog from './components/Dialog/TermsAndAgreementDialog'
+import MuiThemeProvider from './theme/muiTheme'
 
 i18n.load({
   en: enMessages,
@@ -94,8 +95,8 @@ const FullApp = () => {
               <Route path={'/liquidity'} element={<Liquidity />} />
               <Route path={'/portfolio'} element={<Home />} />
               <Route path={'/portfolio/stake'} element={<HomeStake />} />
-              <Route path={'/portfolio/farm'} element={<HomeFarm />} />
-              <Route path={'/portfolio/referral'} element={<HomeReferral />} />
+              {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
+              {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}
               <Route path={'/statistics'} element={<Statistics />} />
               <Route path={'/exchange'} element={<Exchange />} />
             </Routes>
@@ -116,12 +117,14 @@ const FullApp = () => {
 
 function App() {
   return (
-    <AppTheme>
-      <Web3Provider>
-        <TermsAndAgreementDialog />
-        <FullApp />
-      </Web3Provider>
-    </AppTheme>
+    <MuiThemeProvider>
+      <AppTheme>
+        <Web3Provider>
+          <TermsAndAgreementDialog />
+          <FullApp />
+        </Web3Provider>
+      </AppTheme>
+    </MuiThemeProvider>
   )
 }
 

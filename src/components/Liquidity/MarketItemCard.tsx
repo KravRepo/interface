@@ -53,7 +53,7 @@ export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketI
                 margin-right: 8px;
               `}
             >
-              UTILIZATION
+              Utilization
             </span>
             <span
               css={css`
@@ -78,11 +78,11 @@ export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketI
       </div>
       <div className="card-content">
         <div className="data">
-          <p>TOTAL LIQUIDITY SUPPLY</p>
-          <p>{poolParams.poolTotalSupply?.toFixed(2)}</p>
+          <p>Total Liquidity Supply</p>
+          <p>{poolParams.poolTotalSupply?.toFormat(2, 3)}</p>
         </div>
         <div className="data">
-          <p>YOUR LIQUIDITY SUPPLY</p>
+          <p>Your Liquidity Supply</p>
           <p
             css={css`
               color: #2832f5;

@@ -16,7 +16,10 @@ import { MarketItem } from './MarketItem'
 
 export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList, isTable }: TargetMarketProps) => {
   const theme = useTheme()
-  const allPoolParams = useRootStore((store) => store.allPoolParams)
+  const { allPoolParams, setWalletDialogVisibility } = useRootStore((store) => ({
+    allPoolParams: store.allPoolParams,
+    setWalletDialogVisibility: store.setWalletDialogVisibility,
+  }))
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
   const [aprSortBy, setAprSortBy] = useState<'asc' | 'desc'>('asc')
@@ -76,14 +79,20 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
       </div>
       <div className="liquidity-search">
         {/* <KARVSearchTextField placeholder="Search name or paste address" adornment={'start'} sx={{ height: '40px' }} /> */}
-        {account && (
-          <KRAVButton
-            sx={{ width: '132px', marginLeft: '20px', display: 'flex' }}
-            onClick={() => setCreateLiquidityPool(true)}
-          >
-            Create Liquidity
-          </KRAVButton>
-        )}
+        {/* {account && ( */}
+        <KRAVButton
+          sx={{ width: '132px', marginLeft: '20px', display: 'flex' }}
+          onClick={() => {
+            if (account) {
+              setCreateLiquidityPool(true)
+            } else {
+              setWalletDialogVisibility(true)
+            }
+          }}
+        >
+          Create Liquidity
+        </KRAVButton>
+        {/* )} */}
       </div>
       {isTable && (
         <div>
