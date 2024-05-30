@@ -113,6 +113,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             background: ${theme.background.primary};
             position: relative;
             margin-bottom: 16px;
+            width: ${tradeModel === TradeMode.BASIC ? 'max-content!important' : '100%'};
+            margin-left: auto;
             @media screen and (max-width: 1500px) {
               overflow: hidden;
             }
@@ -123,7 +125,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
         ]}
       >
         <div>
-          {tradePool.tokenT && <CoinInfo pool={tradePool} />}
+          {tradePool.tokenT && tradeModel !== TradeMode.BASIC && <CoinInfo pool={tradePool} />}
           {/* <div
             className="info-card"
             css={css`
