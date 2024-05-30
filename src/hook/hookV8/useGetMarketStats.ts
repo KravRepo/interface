@@ -19,7 +19,6 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
     ;(async () => {
       try {
         if (allPoolParams.length > 0 && provider && typeof paiIndex !== 'undefined') {
-          console.log('-------useGetMarketStats------------')
           const contract = new Contract(address, trading_storage.abi, provider)
           const pairInfoContract = new Contract(pairInfoAddress, pair_info.abi, provider)
           const [longRes, shortRes, infoRes] = await Promise.all([

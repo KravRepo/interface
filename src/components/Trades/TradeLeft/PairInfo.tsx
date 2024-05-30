@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Trans } from '@lingui/macro'
+// import { Trans } from '@lingui/macro'
 import { card, pairInfo } from '../style'
 import { align } from '../../../globalStyle'
 import { css } from '@emotion/react'
@@ -7,8 +7,8 @@ import { Button, Menu, MenuItem, useMediaQuery, useTheme } from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useRootStore } from '../../../store/root'
 import React, { useEffect, useMemo, useState } from 'react'
-import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
-import { formatNumber } from '../../../utils'
+// import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
+// import { formatNumber } from '../../../utils'
 // import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import { TradeMode } from '../../../store/TradeSlice'
 // import { EXCHANGE_TRADING_T } from '../../../constant/exchange'
@@ -49,12 +49,12 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     pairConfig: state.pairConfig,
   }))
 
-  const { openDaiLong, openDaiShort /*, borrowLongVal, borrowShortVal */ } = useGetMarketStats(
-    tradePool?.storageT || '',
-    tradePool?.decimals || 18,
-    tradePool.pairInfoT || '',
-    tradePairIndex
-  )
+  // const { openDaiLong, openDaiShort /*, borrowLongVal, borrowShortVal */ } = useGetMarketStats(
+  //   tradePool?.storageT || '',
+  //   tradePool?.decimals || 18,
+  //   tradePool.pairInfoT || '',
+  //   tradePairIndex
+  // )
 
   // const showSwitch = useMemo(() => {
   //   return EXCHANGE_TRADING_T.includes(tradePool.tradingT) || Object.keys(pairConfig).length > 0
@@ -114,7 +114,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             position: relative;
             margin-bottom: 16px;
             @media screen and (max-width: 1500px) {
-              overflow: auto;
+              overflow: hidden;
             }
             @media screen and (max-width: 1200px) {
               padding: 12px;
@@ -122,8 +122,9 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
           `,
         ]}
       >
-        <div css={align}>
-          <div
+        <div>
+          {tradePool.tokenT && <CoinInfo pool={tradePool} />}
+          {/* <div
             className="info-card"
             css={css`
               padding: 0 12px !important;
@@ -162,7 +163,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
             >
               <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
             </p>
-          </div>
+          </div> */}
           {/* <div
             className="info-card"
             css={css`
@@ -528,8 +529,8 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 </div>
               </div>
             </div>
+            <CoinInfo isBTC />
           </div>
-          <CoinInfo />
         </div>
       </div>
     </>

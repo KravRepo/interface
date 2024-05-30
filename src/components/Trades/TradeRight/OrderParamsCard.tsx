@@ -704,6 +704,7 @@ export const OrderParamsCard = ({
                       color: ${theme.text.primary};
                       padding: 5px 10px;
                       width: 120px;
+                      max-height: 30px;
                       outline: 0;
                       text-align: center;
                       border-radius: 5px;

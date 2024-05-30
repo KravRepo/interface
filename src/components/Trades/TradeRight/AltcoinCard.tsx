@@ -15,20 +15,20 @@ const data = {
   marketCap: '$22,549,928,057',
 }
 
-export const Anchor = ({ changeInString }: { changeInString: string }) => {
-  if (!changeInString) return null
-  if (changeInString.includes('-')) {
+export const Anchor = ({ changeInString }: { changeInString?: number | string }) => {
+  if (changeInString === undefined) return <>-</>
+  if ((changeInString + '').includes('-')) {
     return (
       <div className="down">
         <ArrowDropDown />
-        {changeInString}
+        {changeInString}%
       </div>
     )
   } else {
     return (
       <div className="up">
         <ArrowDropUp />
-        {changeInString}
+        {changeInString}%
       </div>
     )
   }
