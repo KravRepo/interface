@@ -26,8 +26,8 @@ import DashboardDarkBg from './assets/imgs/darkModel/dashboard_bg_dark.png'
 import { SuccessSnackbar } from './components/Dialog/SuccessSnackbar'
 import { SuccessDialog } from './components/Dialog/SuccessDialog'
 import { Statistics } from './pages/Statistics'
-import ReportImg from './assets/imgs/report.png'
-import ReportDark from './assets/imgs/darkModel/report_dark.png'
+// import ReportImg from './assets/imgs/report.png'
+// import ReportDark from './assets/imgs/darkModel/report_dark.png'
 import { useTheme } from '@mui/material'
 import { useInterval } from './hook/hookV8/useInterval'
 import { useRootStore } from './store/root'
@@ -103,13 +103,13 @@ const FullApp = () => {
             <Footer />
           </I18nProvider>
         </div>
-        <img
+        {/* <img
           src={theme.palette.mode === 'dark' ? ReportDark : ReportImg}
           width={64}
           style={{ position: 'fixed', right: '20px', bottom: '21px', cursor: 'pointer' }}
           onClick={() => window.open('https://forms.gle/yASELgYTzR1KTGbU8', '_blank')}
           alt="report bugs"
-        />
+        /> */}
       </div>
     </Router>
   )
