@@ -80,6 +80,15 @@ function Bar({ openLong, openShort }: { openLong: BigNumber | undefined; openSho
     if (!openLong || !openShort) return undefined
     const total = openLong.plus(openShort)
 
+    if (total.isZero()) {
+      return {
+        longPercent: '-',
+        shortPercent: '-',
+        long: '-',
+        short: '-',
+      }
+    }
+
     return {
       longPercent: openLong.dividedBy(total).multipliedBy('100').toFixed(3),
       shortPercent: openShort.dividedBy(total).multipliedBy('100').toFixed(3),
