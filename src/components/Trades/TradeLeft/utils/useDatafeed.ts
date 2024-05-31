@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef } from 'react'
 import { ONE_WEEK_TIMESTAMP } from '../../../../constant/math'
 
 export const SUPPORTED_RESOLUTIONS = { 1: '1s' }
@@ -139,50 +139,8 @@ export const useDatafeed = (pair: string) => {
             }
           }
         },
-        unsubscribeBars: () => {},
+        unsubscribeBars: () => { },
       },
     }
   }, [tickerKlineApi, wssSymbol])
-}
-interface PriceData {
-  '24h_change': number
-  '24h_volume': number
-  market_cap: number
-  price: number
-}
-let id: any
-export const usePriceData = (address?: string) => {
-  const [priceData, setPriceData] = useState<undefined | PriceData>(undefined)
-
-  useEffect(() => {
-    if (id) clearInterval(id)
-    if (!address) return
-    const fetchFn = async () => {
-      try {
-        const res = await fetch(`https://api.krav.trade/krav/v1/price/${address}`, {
-          mode: 'cors',
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-
-        const data = await res.json()
-        if (data.data) {
-          setPriceData(data.data[address])
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    }
-    fetchFn()
-    id = setInterval(fetchFn, 3000)
-    return () => {
-      clearInterval(id)
-    }
-  }, [address])
-
-  return useMemo(() => {
-    return { priceData }
-  }, [priceData])
 }

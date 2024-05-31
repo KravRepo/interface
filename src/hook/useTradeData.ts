@@ -17,7 +17,7 @@ export function useTradeData({
   tradeType?: number
   limitPrice?: string | BigNumber
   isBuy: boolean
-  leverage: number
+  leverage?: number
 }) {
   const { BTCPrice, tradePool, tradePairIndex } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
