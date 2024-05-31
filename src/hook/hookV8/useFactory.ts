@@ -126,7 +126,7 @@ export const useFactory = () => {
             accDaiPerDai: new BigNumber(0),
           })
         })
-        console.log(res)
+
         const pairStorageInterface = new Interface(pair_storage.abi)
         const pairInfoInterface = new Interface(pair_info.abi)
         const tokenInterface = new Interface(test_erc20.abi)
@@ -165,7 +165,7 @@ export const useFactory = () => {
         ])
 
         const factoryCall = factoryReturn.returnData
-        console.log({ factoryCall })
+
         forMatter.forEach((item, index) => {
           item.symbol = decodeCallResult(tokenInterface, TaskFunc.SYMBOL, factoryCall[index])
           item.decimals = decodeCallResult(
@@ -253,6 +253,7 @@ export const useFactory = () => {
         })
         forMatter = forMatter.filter((pool) => pool.symbol !== 'MAG')
         setAllPoolParams(forMatter)
+
         if (isLoadingFactory) {
           if (forMatter.length === 0) {
             const nullTradePool = {

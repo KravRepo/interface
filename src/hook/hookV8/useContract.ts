@@ -3,7 +3,6 @@ import { Contract } from 'ethers'
 import { useMemo } from 'react'
 import { getContract } from '../../utils'
 import trading_v6 from '../../abi/trading_v6_1.json'
-import trading_v6_eth from '../../abi/trading_v6_eth.json'
 import trading_storage from '../../abi/trading_storage_v5.json'
 import test_erc20 from '../../abi/test_erc20.json'
 import btc_price from '../../abi/bsc_price.json'
@@ -11,9 +10,10 @@ import trading_vault from '../../abi/trading_vault_v5.json'
 import pair_storage from '../../abi/pair_storage_v6.json'
 import krav_factory from '../../abi/krav_factory.json'
 import token_swap from '../../abi/TokenSwap.json'
+import multicall2 from '../../abi/uni_multicall.json'
 import type { JsonRpcProvider } from '@ethersproject/providers'
 import { Interface } from 'ethers/lib/utils'
-import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
+import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, MULTICALL_ADDRESS, SUPPORT_CHAIN } from '../../constant/chain'
 import { useRootStore } from '../../store/root'
 
 export function useContract<T extends Contract = Contract>(
@@ -38,12 +38,7 @@ export function useContract<T extends Contract = Contract>(
 }
 
 export const useTradingV6Contract = (tradingAddress: string) => {
-  const { chainId } = useWeb3React()
-  return useContract(
-    tradingAddress,
-    chainId === ChainId.BASE || chainId === ChainId.BASE_TEST ? trading_v6.abi : trading_v6_eth.abi,
-    true
-  )
+  return useContract(tradingAddress, trading_v6.abi, true)
 }
 
 export const useTradingStoreContract = (storageAddress: string) => {
@@ -77,7 +72,7 @@ export const useFactoryContract = (provider: JsonRpcProvider) => {
     return new Contract(
       CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
       krav_factory.abi,
-      provider
+      provider as any
     )
   }, [expectChainId])
 }
@@ -112,4 +107,18 @@ export const decodeCallResult = (contractInterface: Interface, func: string, ret
   const result = contractInterface.decodeFunctionResult(func, returnData)
   if (result.length === 1) return result[0]
   else return result
+}
+
+export function useInterfaceMulticall() {
+  // const { chainId, provider } = useWeb3React()
+  // return useMemo(() => {
+  //   const address =
+  //     chainId && SUPPORT_CHAIN.includes(chainId)
+  //       ? CONTRACT_CONFIG[chainId].multicall2
+  //       : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall2
+  //   if (!address) return null
+  //   const multicall = new Contract(address, multicall2.abi, provider)
+  //   return multicall
+  // }, [])
+  return useContract(MULTICALL_ADDRESS, multicall2.abi)
 }

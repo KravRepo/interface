@@ -15,6 +15,8 @@ export enum ChainId {
   POLYGON_ZKEVM_TEST = 1442,
 }
 
+export const SUPPORT_NETWORK_CHAIN_IDS = Object.values(ChainId)
+
 export type ContractInfo = {
   factory: string
   linkAddress: string
@@ -29,6 +31,7 @@ export type ContractInfo = {
   multicall: string
   nativeToken: string
   tokenSwap?: string
+  multicall2?: string
 }
 
 type apiInfo = {
@@ -254,6 +257,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     multicall: '0x01096E802a1f6798173f2b876fbc6A8D423D8bdD',
     nativeToken: 'ETH',
     tokenSwap: '0xa3C4A04c70A93dff0D9Ad294F7F28b3cE399F023',
+    multicall2: '0xD8fB0e889cadBD58b1feD1db6A1F0dbC64F616aa',
   },
   [ChainId.ARB]: {
     factory: '0x83822f0500e6d13CB983Baac07828F86B12de5f9',
@@ -326,6 +330,14 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     nativeToken: 'ETH',
   },
 }
+export const MULTICALL_ADDRESS = Object.keys(CONTRACT_CONFIG_PRODUCTION).reduce((acc, key) => {
+  const address = CONTRACT_CONFIG_PRODUCTION[parseInt(key)].multicall2
+  if (address) {
+    acc[parseInt(key)] = address
+  }
+
+  return acc
+}, {} as { [key: number]: string })
 
 export const IS_PRODUCTION = true
 

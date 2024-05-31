@@ -9,7 +9,7 @@ import { useRootStore } from '../../store/root'
 import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
-import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
+// import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 
 export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
@@ -84,7 +84,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         </Tooltip>
       </div>
 
-      <div>
+      {/* <div>
         <Tooltip title={`Current block: ${position.pool.blockNumber}`}>
           <span>
             {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
@@ -92,7 +92,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
               : '0'}
           </span>
         </Tooltip>
-      </div>
+      </div> */}
       <div
         css={css`
           display: flex;
@@ -119,7 +119,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
           <AddIcon height="17" width="17" />
         </Button>
         <Button
-          disabled={position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)}
+          // disabled={position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)}
           onClick={() => {
             setLiquidityInfo(position.pool)
             setRemoveLiquidity(true)

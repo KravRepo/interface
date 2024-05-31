@@ -100,7 +100,17 @@ export const TradeLeft = ({
           `,
         ]}
       >
-        <PairInfo tradeModel={tradeModel} setIsOpenSelectToken={setIsOpenSelectToken} setTradeModel={setTradeModel} />
+        <PairInfo
+          tradeModel={tradeModel}
+          setIsOpenSelectToken={setIsOpenSelectToken}
+          setTradeModel={setTradeModel}
+          tradeData={{
+            tradeType,
+            limitPrice,
+            isBuy,
+            leverage,
+          }}
+        />
         <div
           css={[
             chart,

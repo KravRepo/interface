@@ -50,7 +50,6 @@ export const useCreatePool = () => {
           }
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
           // const tx = await factory.createQuanto(...params, { gasLimit: gasLimit.toFixed(0) })
-          console.log(999, factory)
           const tx = await factory.createQuanto(
             tokenAddress,
             // CONTRACT_CONFIG[chainId].linkAddress,

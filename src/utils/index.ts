@@ -19,8 +19,11 @@ function getSigner(provider: JsonRpcProvider, account: string): JsonRpcSigner {
   return provider.getSigner(account).connectUnchecked()
 }
 
-export function getProviderOrSigner(provider: JsonRpcProvider, account?: string): JsonRpcProvider | JsonRpcSigner {
-  return account ? getSigner(provider, account) : provider
+export function getProviderOrSigner(
+  provider: JsonRpcProvider,
+  account?: string
+): JsonRpcProvider | JsonRpcSigner | any {
+  return account ? (getSigner(provider, account) as any) : (provider as any)
 }
 
 export function getContract(address: string, ABI: any, provider: JsonRpcProvider, account?: string): Contract {
@@ -99,4 +102,8 @@ export const formatNumber = (val: string | number, decimals: number, isDollar = 
   if (val === '0' || val === 0) return isDollar ? '$0' : '0'
   const forMatterStr = isDollar ? '$0,0.00' : '0,0.00'
   return numeral(Number(val).toFixed(decimals)).format(forMatterStr)
+}
+
+export const withDecimals = (value: BigNumber | string, decimals: number, isAdd = true) => {
+  return new BigNumber(value).div(new BigNumber(isAdd ? 1 / 10 : 10).pow(decimals))
 }

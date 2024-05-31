@@ -136,7 +136,13 @@ export const ActionsCard = ({
           tradeType={tradeType}
           setTradeType={setTradeType}
         />
-        <TradeDetails leverage={leverage} positionSizeDai={positionSizeDai} />
+        <TradeDetails
+          leverage={leverage}
+          positionSizeDai={positionSizeDai}
+          tradeType={tradeType}
+          limitPrice={limitPrice}
+          isBuy={isBuy}
+        />
         {/* <AltcoinCard /> */}
       </div>
     </ActionsCardLayout>

@@ -4,6 +4,7 @@ import { create, StoreApi, UseBoundStore } from 'zustand'
 import { createTransactionSlice, TransactionSlice } from './TransactionSlice'
 import { createFactorySlice, FactorySlice } from './FactorySlice'
 import { createTradeSlice, TradeSlice } from './TradeSlice'
+import { reducer } from '../state'
 
 export type RootStore = WalletSlice & TransactionSlice & FactorySlice & TradeSlice
 
@@ -15,6 +16,7 @@ export const useRootStore = create<RootStore>()(
         ...createTransactionSlice(...args),
         ...createFactorySlice(...args),
         ...createTradeSlice(...args),
+        ...reducer,
       }
     })
   )

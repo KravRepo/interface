@@ -16,14 +16,21 @@ import { TradeMode } from '../../../store/TradeSlice'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import CoinInfo from './CoinInfo'
+import BigNumber from 'bignumber.js'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
   tradeModel: TradeMode
   setTradeModel: (tradeModel: TradeMode) => void
+  tradeData?: {
+    tradeType: number
+    limitPrice: string | BigNumber
+    isBuy?: boolean
+    leverage: number
+  }
 }
 
-export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
+export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel, tradeData }: PairInfoProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   // const [choosePair, setChoosePair] = useState(false)
@@ -126,7 +133,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
           ]}
         >
           <div>
-            {<CoinInfo pool={tradePool} />}
+            {<CoinInfo pool={tradePool} {...tradeData} />}
             {/* <div
             className="info-card"
             css={css`

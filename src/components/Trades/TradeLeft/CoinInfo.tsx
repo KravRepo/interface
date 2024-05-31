@@ -5,10 +5,34 @@ import { Anchor } from '../TradeRight/AltcoinCard'
 import { PoolParams } from '../../../store/FactorySlice'
 import { align } from '../../../globalStyle'
 import { usePriceData } from './utils/useDatafeed'
+import { useTradeData } from '../../../hook/useTradeData'
+import BigNumber from 'bignumber.js'
 
-export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: PoolParams }) {
+export default function CoinInfo({
+  isBTC,
+  pool,
+  tradeType,
+  limitPrice,
+  isBuy,
+  leverage,
+}: {
+  isBTC?: boolean
+  pool?: PoolParams
+  tradeType?: number
+  limitPrice?: string | BigNumber
+  isBuy?: boolean
+  leverage: number
+}) {
   const theme = useTheme()
   const { priceData } = usePriceData(isBTC ? '0x321162Cd933E2Be498Cd2267a90534A804051b11' : pool?.tokenT)
+
+  const { fundingFee } = useTradeData({
+    tradeType,
+    limitPrice,
+    isBuy: !!isBuy,
+    leverage,
+  })
+
   if (!pool && !isBTC) return null
 
   return (
@@ -86,7 +110,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
             <td>
               {priceData ? priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) + '' : '-'}
             </td>
-            {!isBTC && <td> -</td>}
+            {!isBTC && <td> {fundingFee}</td>}
           </tr>
         </tbody>
       </table>

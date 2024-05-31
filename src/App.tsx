@@ -37,6 +37,10 @@ import { DEFAULT_CHAIN } from './constant/chain'
 import { Exchange } from './pages/Exchange'
 import TermsAndAgreementDialog from './components/Dialog/TermsAndAgreementDialog'
 import MuiThemeProvider from './theme/muiTheme'
+import { MulticallUpdater } from './state/multicall'
+import { Provider as ReduxProvider } from 'react-redux'
+import { store } from './state'
+import { Provider as BlockNumberProvider } from './hook/useBlockNumber'
 
 i18n.load({
   en: enMessages,
@@ -83,6 +87,8 @@ const FullApp = () => {
       >
         <div className="fullApp">
           <I18nProvider i18n={i18n}>
+            <MulticallUpdater />
+            <TermsAndAgreementDialog />
             <ErrorDialog />
             <SuccessDialog />
             <SuccessSnackbar />
@@ -117,14 +123,18 @@ const FullApp = () => {
 
 function App() {
   return (
-    <MuiThemeProvider>
-      <AppTheme>
-        <Web3Provider>
-          <TermsAndAgreementDialog />
-          <FullApp />
-        </Web3Provider>
-      </AppTheme>
-    </MuiThemeProvider>
+    <ReduxProvider store={store}>
+      <MuiThemeProvider>
+        <AppTheme>
+          <Web3Provider>
+            <BlockNumberProvider>
+              <TermsAndAgreementDialog />
+              <FullApp />
+            </BlockNumberProvider>
+          </Web3Provider>
+        </AppTheme>
+      </MuiThemeProvider>
+    </ReduxProvider>
   )
 }
 

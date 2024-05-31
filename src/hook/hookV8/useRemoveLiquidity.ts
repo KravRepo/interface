@@ -5,11 +5,9 @@ import { useRootStore } from '../../store/root'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { eXDecimals } from '../../utils/math'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
-import { ChainId } from '../../constant/chain'
 import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'ethers'
-import trading_vault from '../../abi/trading_vault_v5.json'
-import trading_vault_eth from '../../abi/trading_vault_v5_eth.json'
+import k_token from '../../abi/k_token.json'
 import { getProviderOrSigner } from '../../utils'
 
 export const useRemoveLiquidity = (vaultAddress: string) => {
@@ -22,15 +20,11 @@ export const useRemoveLiquidity = (vaultAddress: string) => {
   return useCallback(
     async (amount: BigNumber, symbol: string, decimals: number) => {
       try {
-        const isBase = chainId === ChainId.BASE || chainId === ChainId.BASE_TEST
-        const trading_vault_contract = new Contract(
-          vaultAddress,
-          isBase ? trading_vault.abi : trading_vault_eth.abi,
-          getProviderOrSigner(provider!, account)
-        )
+        const kTokenContract = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
+
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
-        const tx = await trading_vault_contract[isBase ? 'withdrawDai' : 'withdraw'](amount.toString())
+        const tx = await kTokenContract['makeWithdrawRequest'](amount.toString())
         setTransactionState(TransactionState.REMOVE_LIQUIDITY)
         await tx.wait()
         setTransactionState(TransactionState.START)
@@ -39,13 +33,13 @@ export const useRemoveLiquidity = (vaultAddress: string) => {
         setSuccessSnackbarInfo({
           snackbarVisibility: true,
           title: 'Withdraw',
-          content: `Your ${eXDecimals(amount, decimals).toFixed(2)} ${symbol} has been withdraw successfully`,
+          content: `Your ${eXDecimals(amount, decimals).toFixed(2)} ${symbol} request has been sent`,
         })
       } catch (e) {
         setTransactionDialogVisibility(false)
         setTransactionState(TransactionState.START)
         updateError(TransactionAction.REMOVE_LIQUIDITY)
-        console.log('deposit failed!', e)
+        console.log('remove request failed!', e)
       }
     },
     [vaultAddress, chainId]

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, Stack, TextField, Typography, useTheme } from '@mui/material'
+import { Box, Stack, TextField, Typography, useTheme, styled } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { css } from '@emotion/react'
@@ -16,6 +16,19 @@ import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { DialogLayout } from './DialogLayout'
+import { useSingleCallResult, useSingleContractMultipleData } from '../../hook/multicall'
+import { useContract } from '../../hook/hookV8/useContract'
+import k_token from '../../abi/k_token.json'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import KravButtonHollow from '../KravUIKit/KravButtonHollow'
+import { withDecimals } from '../../utils'
+import { PoolParams } from '../../store/FactorySlice'
+
+const StyledBox = styled(Box)(() => ({
+  borderBottom: '1px solid var(--ps-text-20)',
+  my: '24px',
+}))
 
 export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => {
   const theme = useTheme()
@@ -52,166 +65,399 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
 
   return (
     <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen}>
-      <div css={dialogContent}>
-        <div
-          className="dialog-header"
-          css={css`
-            border-bottom: ${theme.splitLine.primary};
-          `}
-        >
-          <span>Remove Liquidity</span>
-          <CloseSharpIcon
-            sx={{ cursor: 'pointer' }}
-            onClick={() => {
-              setWithdrawAmount('')
-              setIsOpen(false)
+      <>
+        <div css={dialogContent}>
+          <div
+            className="dialog-header"
+            css={css`
+              border-bottom: ${theme.splitLine.primary};
+            `}
+          >
+            <span>Remove Liquidity</span>
+            <CloseSharpIcon
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                setWithdrawAmount('')
+                setIsOpen(false)
+              }}
+            />
+          </div>
+          <Box
+            padding={'24px'}
+            sx={{
+              borderBottom: theme.splitLine.primary,
             }}
-          />
-        </div>
-        <Box
-          padding={'24px'}
-          sx={{
-            borderBottom: theme.splitLine.primary,
-          }}
-        >
-          <Stack direction={'row'}>
-            <WarningIcon />
+          >
+            <Stack direction={'row'}>
+              <WarningIcon />
+              <Typography
+                fontFamily={'Inter'}
+                fontSize={16}
+                fontWeight={500}
+                lineHeight={'150%'}
+                sx={{ marginLeft: '8px !important' }}
+              >
+                Liquidity Remove Limit
+              </Typography>
+            </Stack>
             <Typography
               fontFamily={'Inter'}
-              fontSize={16}
-              fontWeight={500}
+              fontSize={14}
+              fontWeight={400}
               lineHeight={'150%'}
-              sx={{ marginLeft: '8px !important' }}
+              sx={{ marginTop: '16px !important' }}
             >
-              Liquidity Remove Limit
+              <span style={{ fontWeight: 600 }}>Reminder: </span>
+              <span>When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time.</span>
             </Typography>
-          </Stack>
-          <Typography
-            fontFamily={'Inter'}
-            fontSize={14}
-            fontWeight={400}
-            lineHeight={'150%'}
-            sx={{ marginTop: '16px !important' }}
-          >
-            <span style={{ fontWeight: 600 }}>Reminder: </span>
-            <span>
-              When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
-              there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure a
-              stable and fair trading environment on our platform.
-            </span>
-          </Typography>
-        </Box>
-        <div
-          css={css`
-            padding: 24px;
-          `}
-        >
+          </Box>
           <div
-            className="confirm-content-input3"
             css={css`
-              background: ${theme.background.second};
-              color: ${theme.text.primary};
+              padding: 24px;
             `}
           >
             <div
+              className="confirm-content-input3"
               css={css`
-                display: flex;
-                align-items: center;
-                width: 100%;
-                justify-content: space-between;
-                margin-bottom: 20px;
+                background: ${theme.background.second};
+                color: ${theme.text.primary};
               `}
             >
-              <span>Amount</span>
-              <span>
-                Available: {maxWithdrawAmount.toFixed(2)} {liquidityInfo.symbol}
-              </span>
-            </div>
-            <div
-              css={css`
-                display: flex;
-                align-items: center;
-                width: 100%;
-                justify-content: space-between;
-              `}
-            >
-              <TextField
-                variant="standard"
-                type="number"
-                value={withdrawAmount}
-                onChange={(e) => setWithdrawAmount(e.target.value)}
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                sx={{
-                  background: theme.background.second,
-                  color: theme.text.primary,
-                  height: '28px',
-                  fontSize: '20px',
-                  minHeight: '28px',
-                  '& .MuiOutlinedInput-root': {
+              <div
+                css={css`
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+                  justify-content: space-between;
+                  margin-bottom: 20px;
+                `}
+              >
+                <span>Amount</span>
+                <span>
+                  Available: {maxWithdrawAmount.toFixed(2)} {liquidityInfo.symbol}
+                </span>
+              </div>
+              <div
+                css={css`
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+                  justify-content: space-between;
+                `}
+              >
+                <TextField
+                  variant="standard"
+                  type="number"
+                  value={withdrawAmount}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                  sx={{
+                    background: theme.background.second,
+                    color: theme.text.primary,
                     height: '28px',
+                    fontSize: '20px',
                     minHeight: '28px',
-                    padding: 0,
-                  },
-                }}
-              />
-              <div css={align}>
-                <div
-                  css={css`
-                    border-radius: 2px;
-                    background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
-                    padding: 2px 6px;
-                    font-size: 12px;
-                    cursor: pointer;
-                  `}
-                  onClick={handleMaxInput}
-                >
-                  MAX
-                </div>
+                    '& .MuiOutlinedInput-root': {
+                      height: '28px',
+                      minHeight: '28px',
+                      padding: 0,
+                    },
+                  }}
+                />
                 <div css={align}>
-                  <span
+                  <div
                     css={css`
-                      margin: 0 6px;
+                      border-radius: 2px;
+                      background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
+                      padding: 2px 6px;
+                      font-size: 12px;
+                      cursor: pointer;
                     `}
+                    onClick={handleMaxInput}
                   >
-                    {liquidityInfo.symbol}
-                  </span>
-                  <img
-                    css={css`
-                      border-radius: 50%;
-                      background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
-                    `}
-                    src={liquidityInfo.logoSource}
-                    height="16"
-                    width="16"
-                  />
+                    MAX
+                  </div>
+                  <div css={align}>
+                    <span
+                      css={css`
+                        margin: 0 6px;
+                      `}
+                    >
+                      {liquidityInfo.symbol}
+                    </span>
+                    <img
+                      css={css`
+                        border-radius: 50%;
+                        background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                      `}
+                      src={liquidityInfo.logoSource}
+                      height="16"
+                      width="16"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
+            <KRAVButton
+              disabled={
+                addDecimals(withdrawAmount.toString(), liquidityInfo.decimals).isGreaterThan(
+                  addDecimals(maxWithdrawAmount.toString(), liquidityInfo.decimals)
+                ) || !new BigNumber(withdrawAmount).isGreaterThan(0)
+              }
+              onClick={async () => {
+                setIsOpen(false)
+                await removeLiquidity(
+                  addDecimals(withdrawAmount.toString(), liquidityInfo.decimals),
+                  liquidityInfo.symbol,
+                  liquidityInfo.decimals
+                )
+                await Promise.all([updateFactory(), getUserPosition()])
+                setWithdrawAmount('')
+              }}
+              sx={{ mt: '24px' }}
+            >
+              Remove
+            </KRAVButton>
           </div>
-          <KRAVButton
-            disabled={
-              addDecimals(withdrawAmount.toString(), liquidityInfo.decimals).isGreaterThan(
-                addDecimals(maxWithdrawAmount.toString(), liquidityInfo.decimals)
-              ) || !new BigNumber(withdrawAmount).isGreaterThan(0)
-            }
-            onClick={async () => {
-              setIsOpen(false)
-              await removeLiquidity(
-                addDecimals(withdrawAmount.toString(), liquidityInfo.decimals),
-                liquidityInfo.symbol,
-                liquidityInfo.decimals
-              )
-              await Promise.all([updateFactory(), getUserPosition()])
-              setWithdrawAmount('')
-            }}
-            sx={{ mt: '24px' }}
-          >
-            Remove
-          </KRAVButton>
+          <ExistingRequest
+            kToken={targetPool?.pool.vaultT}
+            daiDeposited={targetPool?.daiDeposited}
+            pool={targetPool?.pool}
+          />
         </div>
-      </div>
+      </>
     </DialogLayout>
+  )
+}
+
+function ExistingRequest({
+  kToken,
+  daiDeposited = new BigNumber(0),
+  pool,
+}: {
+  kToken?: string
+  daiDeposited?: BigNumber
+  pool?: PoolParams
+}) {
+  const { account } = useWeb3React()
+  const [showExistingRequest, setShowExistingRequest] = useState(false)
+
+  const kTokenContract = useContract(kToken, k_token.abi)
+
+  const getUpdateEpoch = useSingleCallResult(kTokenContract, 'updateEpoch', [])
+
+  const getEpochDuration = useSingleCallResult(kTokenContract, 'epochDuration', [])
+
+  const getCurrentEpoch = useSingleCallResult(kTokenContract, 'epochCurrent', [])
+
+  const updateEpoch = useMemo(() => {
+    if (getUpdateEpoch?.result?.[0]) return new BigNumber(getUpdateEpoch.result?.[0]._hex)
+    else return new BigNumber(0)
+  }, [getUpdateEpoch])
+
+  const epochDuration = useMemo(() => {
+    if (getEpochDuration?.result) {
+      return new BigNumber(getEpochDuration.result[0]._hex).toNumber()
+    } else return 0
+  }, [getEpochDuration])
+
+  const lastEpoch = useMemo(() => {
+    if (getUpdateEpoch?.result?.[1]) return new BigNumber(getUpdateEpoch.result?.[1]._hex)
+    else return new BigNumber(0)
+  }, [getUpdateEpoch])
+
+  const currentEpoch = useMemo(() => {
+    if (getCurrentEpoch?.result?.[0]) return new BigNumber(getCurrentEpoch.result?.[0]._hex)
+    else return new BigNumber(0)
+  }, [getCurrentEpoch])
+
+  const getRequestEc = useSingleContractMultipleData(
+    kTokenContract,
+    'reqWithdrawals',
+    Array.from(Array(3).keys()).map((index) => [account, updateEpoch.plus(index).toString()])
+  )
+
+  const requestEc = useMemo<{ epoch: number; amount: BigNumber }[]>(() => {
+    if (getRequestEc[0]?.result && updateEpoch && daiDeposited) {
+      return getRequestEc.map((ec, index) => {
+        return {
+          epoch: updateEpoch.plus(index).toNumber(),
+          amount: new BigNumber(ec?.result?.[0]._hex),
+        }
+      })
+    } else
+      return [
+        {
+          epoch: 0,
+          amount: new BigNumber(0),
+        },
+        {
+          epoch: 0,
+          amount: new BigNumber(0),
+        },
+        {
+          epoch: 0,
+          amount: new BigNumber(0),
+        },
+      ]
+  }, [getRequestEc, updateEpoch, daiDeposited])
+
+  const existingRequestLength = useMemo(() => {
+    return requestEc.filter((req) => req.amount.isGreaterThan(0) && daiDeposited?.isGreaterThan(0)).length
+  }, [requestEc, daiDeposited])
+
+  const remainingTime = useMemo(() => {
+    if (lastEpoch.isGreaterThan(0) && epochDuration > 0) {
+      const now = new Date().getTime()
+      const diff = (lastEpoch.plus(epochDuration).toNumber() * 1000 - now) / 1000
+      const disD = Math.floor(diff / 86400).toString()
+      const disHour = Math.floor(diff / 3600).toString()
+      const disM = Math.floor(diff / 60).toString()
+      return `${disD}d ${disHour}h ${disM}m`
+    } else return '--d --h --m'
+  }, [lastEpoch, epochDuration])
+
+  return (
+    <Box p={'20px'}>
+      <Box>
+        <Stack
+          flexDirection={'row'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+          onClick={() => setShowExistingRequest(!showExistingRequest)}
+        >
+          <Typography
+            sx={{
+              fontSize: '14px',
+
+              lineHeight: '140%',
+            }}
+          >
+            Existing Request ({existingRequestLength})
+          </Typography>
+          {!showExistingRequest ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+        </Stack>
+      </Box>
+
+      {showExistingRequest && (
+        <Box>
+          <Box
+            sx={{
+              p: '16px',
+              my: '20px',
+              borderRadius: '12px',
+              background: 'var(--Neutral-2, #282828)',
+              '& .MuiStack-root': { margin: 0 },
+              '& .MuiTypography-root': {
+                fontSize: '12px',
+              },
+            }}
+          >
+            <Stack flexDirection={'row'} justifyContent={'space-between'} rowGap={'10px'}>
+              <Typography
+                sx={{
+                  color: 'var(--ps-neutral3)',
+                  fontWeight: '500',
+                  lineHeight: '100%',
+                }}
+              >
+                Now Epoch
+              </Typography>
+              <Typography>{updateEpoch.toString()}</Typography>
+            </Stack>
+            <StyledBox />
+            <Stack flexDirection={'row'} justifyContent={'space-between'}>
+              <Typography>Remaining</Typography>
+              <Typography>
+                <span>{remainingTime}</span>
+              </Typography>
+            </Stack>
+            <StyledBox />
+            <Stack flexDirection={'row'} justifyContent={'space-between'}>
+              <Typography>Start</Typography>
+              <Typography>{new Date(lastEpoch.toNumber() * 1000).toLocaleString()}</Typography>
+            </Stack>
+            <StyledBox />
+            <Stack flexDirection={'row'} justifyContent={'space-between'}>
+              <Typography>End</Typography>
+              <Typography>{new Date((lastEpoch.toNumber() + epochDuration) * 1000).toLocaleString()}</Typography>
+            </Stack>
+            <StyledBox />
+          </Box>
+          <Typography
+            component={'div'}
+            sx={{
+              mt: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontSize: '12px',
+            }}
+          >
+            <span>Amount</span>
+            <span>Withdraw Status</span>
+          </Typography>
+          <Box>
+            {requestEc
+              .filter((item) => item.amount.isGreaterThan(0))
+              .map((ec, index) => {
+                return (
+                  <Box key={index}>
+                    <Stack my={12} alignItems={'center'} flexDirection={'row'} justifyContent={'space-between'}>
+                      <Typography
+                        sx={{
+                          fontSize: '15px',
+
+                          lineHeight: '140%',
+                        }}
+                      >
+                        {ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
+                          ? daiDeposited.toFormat(8)
+                          : withDecimals(ec.amount, pool?.decimals ?? 18, false).toFormat(8)}
+                        &nbsp;{pool?.symbol}
+                      </Typography>
+                      {ec.epoch === currentEpoch.toNumber() ? (
+                        <KravButtonHollow
+                          onClick={async () => {
+                            await withdraw.runWithModal([
+                              ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
+                                ? withDecimals(daiDeposited, pool?.decimals ?? 18).toString()
+                                : ec.amount.toString(),
+                              account,
+                              account,
+                            ])
+                            // control.hide('RemoveLiquidity')
+                          }}
+                          sx={{
+                            padding: '6px 16px',
+                            backgroundColor: 'var(--ps-text-100)',
+                            width: 62,
+                            height: 29,
+                            borderRadius: '100px',
+                          }}
+                        >
+                          Claim
+                        </KravButtonHollow>
+                      ) : (
+                        <Typography
+                          sx={{
+                            fontSize: '15px',
+
+                            lineHeight: '140%',
+                          }}
+                        >
+                          Pending
+                        </Typography>
+                      )}
+                    </Stack>
+                    <StyledBox />
+                  </Box>
+                )
+              })}
+          </Box>
+        </Box>
+      )}
+    </Box>
   )
 }
