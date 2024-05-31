@@ -48,11 +48,10 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
         >
           <tr>
             <td>Price</td>
-            <td>5m</td>
-            <td>1h</td>
             <td>24h</td>
             <td>24h Volume</td>
             <td>Market Cap</td>
+            {!isBTC && <td>Funding Rate</td>}
           </tr>
         </thead>
         <tbody
@@ -78,12 +77,6 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
               {priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 6 }) + '' : '-'}
             </td>
             <td>
-              <Anchor changeInString={priceData?.['5m_change']} />
-            </td>
-            <td>
-              <Anchor changeInString={priceData?.['1h_change']} />
-            </td>
-            <td>
               <Anchor changeInString={priceData?.['24h_change']} />
             </td>
 
@@ -93,6 +86,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
             <td>
               {priceData ? priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) + '' : '-'}
             </td>
+            {!isBTC && <td> -</td>}
           </tr>
         </tbody>
       </table>

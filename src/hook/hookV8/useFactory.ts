@@ -9,11 +9,11 @@ import test_erc20 from '../../abi/test_erc20.json'
 import pair_storage from '../../abi/pair_storage_v6.json'
 import pair_info from '../../abi/pair_info_v6_1.json'
 import multicall2 from '../../abi/multicall2.json'
-import trading_vault from '../../abi/trading_vault_v5.json'
 import { eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { Interface } from 'ethers/lib/utils'
 import krav_factory from '../../abi/krav_factory.json'
+import k_token from '../../abi/k_token.json'
 
 enum Task {
   tokenTask = 0,
@@ -34,11 +34,11 @@ enum TaskFunc {
   DECIMALS = 'decimals',
   PAIRS = 'pairs',
   CURRENT_BALANCE_DAI = 'currentBalanceDai',
-  MAX_BALANCE_DAI = 'maxBalanceDai',
+  MAX_BALANCE_DAI = 'totalSupply',
   GROUP_COLLATERAL = 'groupCollateral',
   MAX_WITHDRAW_P = 'maxWithdrawP',
   PAIR_PARAMS = 'pairParams',
-  ACC_DAI_PER_DAI = 'accDaiPerDai',
+  ACC_DAI_PER_DAI = 'accPnlPerToken',
   POSITION_MIN_LEV = 'pairMinLevPosDai',
 }
 
@@ -112,7 +112,7 @@ export const useFactory = () => {
             tradingT: item.tradingT,
             callbackT: item.callbackT,
             rewardT: item.rewardT,
-            vaultT: item.vaultT,
+            vaultT: item.kTokenT,
             priceAggregatorT: item.priceAggregatorT,
             symbol: '',
             proportionBTC: 0,
@@ -126,11 +126,12 @@ export const useFactory = () => {
             accDaiPerDai: new BigNumber(0),
           })
         })
-
+        console.log(res)
         const pairStorageInterface = new Interface(pair_storage.abi)
         const pairInfoInterface = new Interface(pair_info.abi)
         const tokenInterface = new Interface(test_erc20.abi)
-        const vaultInterface = new Interface(trading_vault.abi)
+        const vaultInterface = new Interface(k_token.abi)
+
         forMatter.forEach((item) => {
           tokenTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.SYMBOL, []))
           decimalsTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.DECIMALS, []))
@@ -162,8 +163,9 @@ export const useFactory = () => {
           ...accDaiPerDaiTask,
           ...minPositionTask,
         ])
-        const factoryCall = factoryReturn.returnData
 
+        const factoryCall = factoryReturn.returnData
+        console.log({ factoryCall })
         forMatter.forEach((item, index) => {
           item.symbol = decodeCallResult(tokenInterface, TaskFunc.SYMBOL, factoryCall[index])
           item.decimals = decodeCallResult(
@@ -171,13 +173,13 @@ export const useFactory = () => {
             TaskFunc.DECIMALS,
             factoryCall[Task.decimalsTask * totalPools + index]
           )
-          item.proportionBTC = Number(
-            decodeCallResult(
-              pairStorageInterface,
-              TaskFunc.PAIRS,
-              factoryCall[Task.pairStorageTask * totalPools + index]
-            ).proportionBTC._hex
-          )
+          // item.proportionBTC = Number(
+          //   decodeCallResult(
+          //     pairStorageInterface,
+          //     TaskFunc.PAIRS,
+          //     factoryCall[Task.pairStorageTask * totalPools + index]
+          //   )._hex
+          // )
           item.fundingFeePerBlockP = new BigNumber(
             decodeCallResult(
               pairInfoInterface,

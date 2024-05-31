@@ -36,7 +36,7 @@ export const useOpenTrade = ({
     try {
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
-      const params = [tuple, tradeType, spreadReductionId, slippageP, referral] as any
+      const params = [tuple, slippageP] as any
       let gasLimit: BigNumber
       let tx: any
       if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {

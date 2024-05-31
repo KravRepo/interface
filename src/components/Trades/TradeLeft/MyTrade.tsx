@@ -7,7 +7,7 @@ import { HistoryData, TradeHistory } from './TradeHistory'
 import { myTrade } from './style'
 import { useRootStore } from '../../../store/root'
 import { useGetUserOpenTrade } from '../../../hook/hookV8/useGetUserOpenTrade'
-import { useGetUserOpenLimitOrders } from '../../../hook/hookV8/useGetUserOpenLimitOrders'
+// import { useGetUserOpenLimitOrders } from '../../../hook/hookV8/useGetUserOpenLimitOrders'
 import { useInterval } from '../../../hook/hookV8/useInterval'
 import { useWeb3React } from '@web3-react/core'
 
@@ -26,19 +26,19 @@ export const MyTrade = () => {
     setInfoType(newValue)
   }
   const { getUserOpenTrade } = useGetUserOpenTrade()
-  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
+  // const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   useInterval(async () => {
     await getUserOpenTrade(tradePool.storageT, true)
   }, 15000)
-  useInterval(async () => {
-    await getUserOpenLimitOrders(tradePool.storageT, true)
-  }, 15000)
+  // useInterval(async () => {
+  //   await getUserOpenLimitOrders(tradePool.storageT, true)
+  // }, 15000)
 
-  useEffect(() => {
-    if (provider && account && tradePool.storageT && expectChainId === chainId) {
-      getUserOpenLimitOrders(tradePool.storageT, true).then()
-    }
-  }, [provider, account, tradePairIndex, tradePool, expectChainId, chainId])
+  // useEffect(() => {
+  //   if (provider && account && tradePool.storageT && expectChainId === chainId) {
+  //     getUserOpenLimitOrders(tradePool.storageT, true).then()
+  //   }
+  // }, [provider, account, tradePairIndex, tradePool, expectChainId, chainId])
 
   useEffect(() => {
     if (provider && account && tradePool.storageT && expectChainId === chainId) {

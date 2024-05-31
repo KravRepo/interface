@@ -26,9 +26,9 @@ export const useCreatePool = () => {
       if (provider && account && chainId) {
         const params = [
           tokenAddress,
-          CONTRACT_CONFIG[chainId].linkAddress,
-          CONTRACT_CONFIG[chainId].nodeAddress,
-          proportionBTC,
+          // CONTRACT_CONFIG[chainId].linkAddress,
+          // CONTRACT_CONFIG[chainId].nodeAddress,
+          // proportionBTC,
           depositAmount.toString(),
         ] as any
         try {
@@ -50,11 +50,12 @@ export const useCreatePool = () => {
           }
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
           // const tx = await factory.createQuanto(...params, { gasLimit: gasLimit.toFixed(0) })
+          console.log(999, factory)
           const tx = await factory.createQuanto(
             tokenAddress,
-            CONTRACT_CONFIG[chainId].linkAddress,
-            ...[CONTRACT_CONFIG[chainId].nodeAddress],
-            proportionBTC,
+            // CONTRACT_CONFIG[chainId].linkAddress,
+            // ...[CONTRACT_CONFIG[chainId].nodeAddress],
+            // proportionBTC,
             depositAmount.toString(),
             {
               gasLimit: gasLimit.toFixed(0),

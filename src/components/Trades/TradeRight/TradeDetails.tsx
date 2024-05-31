@@ -5,17 +5,15 @@ import BigNumber from 'bignumber.js'
 import { useMemo } from 'react'
 import { useRootStore } from '../../../store/root'
 import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
+import { TradeMode } from '../../../store/TradeSlice'
 
 export default function TradeDetails({ positionSizeDai, leverage }: { leverage: number; positionSizeDai: BigNumber }) {
   const theme = useTheme()
 
-  const {
-    tradePool,
-
-    tradePairIndex,
-  } = useRootStore((state) => ({
+  const { tradePool, tradeModel, tradePairIndex } = useRootStore((state) => ({
     tradePool: state.tradePool,
     tradePairIndex: state.tradePairIndex,
+    tradeModel: state.tradeModel,
   }))
 
   const { openDaiLong, openDaiShort } = useGetMarketStats(
@@ -30,12 +28,12 @@ export default function TradeDetails({ positionSizeDai, leverage }: { leverage: 
       ['Net Exposure']: positionSizeDai && leverage ? positionSizeDai.multipliedBy(leverage + '').toFormat(2, 3) : '-',
       ['Open Interest (L/S)']: <Bar openLong={openDaiLong} openShort={openDaiShort} />,
       ['Price Impact']: <>$65,272.61</>,
-      ['Entry Price']: <>$65,272.61</>,
+      ...(tradeModel === TradeMode.BASIC ? {} : { ['Entry Price']: <>$65,272.61</> }),
       ['Liquidation Price']: <>$24,509,624.32</>,
-      ['Funding Rate']: '-',
     }
   }, [positionSizeDai, leverage, openDaiLong, openDaiShort])
 
+  if (tradeModel === TradeMode.BASIC) return null
   return (
     <div
       css={css`

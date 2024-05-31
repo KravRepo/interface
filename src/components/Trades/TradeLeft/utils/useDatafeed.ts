@@ -144,13 +144,9 @@ export const useDatafeed = (pair: string) => {
     }
   }, [tickerKlineApi, wssSymbol])
 }
-
 interface PriceData {
-  '1h_change': number
   '24h_change': number
   '24h_volume': number
-  '5m_change': number
-  last_updated: number
   market_cap: number
   price: number
 }

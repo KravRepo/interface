@@ -58,7 +58,7 @@ export const useGetUserOpenLimitOrders = () => {
           else setUserLimitOrders(userOpenLimit)
         }
       } catch (e) {
-        console.log('get user open Limit orders failed! failed!', e)
+        console.error('get user open Limit orders failed! failed!', e)
       }
     },
     [provider, account, tradePairIndex]

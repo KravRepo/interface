@@ -248,17 +248,17 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
-  const handleMaxInput = () => {
-    setPositionSizeDai(PoolWalletBalance)
-    const outputAmount = getLongOrShortUSD(
-      leverage,
-      PoolWalletBalance,
-      getFees(PoolWalletBalance, leverage),
-      BTCPrice,
-      tradePool?.proportionBTC
-    )
-    setOpenBTCSize(outputAmount)
-  }
+  // const handleMaxInput = () => {
+  //   setPositionSizeDai(PoolWalletBalance)
+  //   const outputAmount = getLongOrShortUSD(
+  //     leverage,
+  //     PoolWalletBalance,
+  //     getFees(PoolWalletBalance, leverage),
+  //     BTCPrice,
+  //     tradePool?.proportionBTC
+  //   )
+  //   setOpenBTCSize(outputAmount)
+  // }
 
   useEffect(() => {
     if (!account) setButtonState(ButtonText.CONNECT_WALLET)
@@ -475,7 +475,7 @@ export const OrderParamsCard = ({
                         align-items: center;
                       `}
                     >
-                      <div
+                      {/* <div
                         css={css`
                           border-radius: 2px;
                           color: ${theme.text.primary};
@@ -488,7 +488,7 @@ export const OrderParamsCard = ({
                         onClick={handleMaxInput}
                       >
                         MAX
-                      </div>
+                      </div> */}
                       <div
                         onClick={() => setIsOpenSelectToken(true)}
                         css={[
@@ -504,22 +504,25 @@ export const OrderParamsCard = ({
                           `,
                         ]}
                       >
-                        <img
-                          css={css`
-                            border-radius: 50%;
-                            background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
-                          `}
-                          src={tradePool.logoSource}
-                          height="16"
-                          width="16"
-                        />
+                        {!!tradePool?.symbol && (
+                          <img
+                            css={css`
+                              border-radius: 50%;
+                              background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
+                            `}
+                            src={tradePool.logoSource}
+                            height="16"
+                            width="16"
+                          />
+                        )}
                         <span
                           css={css`
                             margin: 0 3px;
                             color: ${theme.text.primary};
+                            padding: 0 3px;
                           `}
                         >
-                          {tradePool?.symbol}
+                          {!!tradePool?.symbol ? tradePool?.symbol : 'Select'}
                         </span>
 
                         <div
@@ -796,35 +799,59 @@ export const OrderParamsCard = ({
                   <span>Leverage</span>
                   <span>{leverage}</span>
                 </p> */}
-                <p
-                  css={[
-                    align,
-                    css`
-                      justify-content: space-between;
-                      color: ${theme.text.primary};
-                    `,
-                  ]}
-                >
-                  <span
-                    css={css`
-                      color: #757575;
-                    `}
-                  >
-                    Liquidation Price
-                  </span>
-                  {/* TODO Liquidation Price */}
-                  <span>$24,509,624.32</span>
-                </p>
+                {tradeModel === TradeMode.BASIC && (
+                  <>
+                    <p
+                      css={[
+                        align,
+                        css`
+                          justify-content: space-between;
+                          color: ${theme.text.primary};
+                        `,
+                      ]}
+                    >
+                      <span
+                        css={css`
+                          color: #757575;
+                        `}
+                      >
+                        Liquidation Price
+                      </span>
+                      {/* TODO Liquidation Price */}
+                      <span>$24,509,624.32</span>
+                    </p>
+                    <p
+                      css={[
+                        align,
+                        css`
+                          justify-content: space-between;
+                          color: ${theme.text.primary};
+                        `,
+                      ]}
+                    >
+                      <span
+                        css={css`
+                          color: #757575;
+                        `}
+                      >
+                        Entry Price
+                      </span>
+                      {/* TODO Liquidation Price */}
+                      <span>$24,509,624.32</span>
+                    </p>
+                  </>
+                )}
+
                 {tradeModel === TradeMode.DEGEN && (
-                  <div>
-                    <AlertIcon />
+                  <div css={[align]}>
                     <p
                       css={css`
                         color: ${theme.text.primary};
                         padding-bottom: 8px;
                       `}
                     >
-                      A fraction of your profits(if any)is taken when you close the trade
+                      <AlertIcon style={{ margin: '0 3px -3px 0' }} /> A fraction of your profits (if any) is taken when
+                      you close the trade
                     </p>
                   </div>
                 )}

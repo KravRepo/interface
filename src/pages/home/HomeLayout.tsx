@@ -54,7 +54,7 @@ export const HomeLayout = ({ children }: { children: JSX.Element }) => {
           >
             KRAV Staking
           </div>
-          <div
+          {/* <div
             css={[pathname === '/portfolio/farm' ? menuActive : '', mobileNav]}
             onClick={() => {
               navigate('/portfolio/farm')
@@ -69,7 +69,7 @@ export const HomeLayout = ({ children }: { children: JSX.Element }) => {
             }}
           >
             Referral
-          </div>
+          </div> */}
         </div>
       )}
       <div className="home-content">{children}</div>

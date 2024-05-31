@@ -105,28 +105,29 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
 
   return (
     <>
-      <div
-        css={[
-          pairInfo,
-          card,
-          css`
-            background: ${theme.background.primary};
-            position: relative;
-            margin-bottom: 16px;
-            width: ${tradeModel === TradeMode.BASIC ? 'max-content!important' : '100%'};
-            margin-left: auto;
-            @media screen and (max-width: 1500px) {
-              overflow: hidden;
-            }
-            @media screen and (max-width: 1200px) {
-              padding: 12px;
-            }
-          `,
-        ]}
-      >
-        <div>
-          {tradePool.tokenT && tradeModel !== TradeMode.BASIC && <CoinInfo pool={tradePool} />}
-          {/* <div
+      {
+        <div
+          css={[
+            pairInfo,
+            card,
+            css`
+              background: ${theme.background.primary};
+              position: relative;
+              margin-bottom: 16px;
+              width: ${'100%'};
+              margin-left: auto;
+              @media screen and (max-width: 1500px) {
+                overflow: hidden;
+              }
+              @media screen and (max-width: 1200px) {
+                padding: 12px;
+              }
+            `,
+          ]}
+        >
+          <div>
+            {<CoinInfo pool={tradePool} />}
+            {/* <div
             className="info-card"
             css={css`
               padding: 0 12px !important;
@@ -166,7 +167,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               <span>{formatNumber(openDaiShort?.toString() || '', 2, false) || '-'}</span>
             </p>
           </div> */}
-          {/* <div
+            {/* <div
             className="info-card"
             css={css`
               border-left: ${theme.splitLine.primary};
@@ -230,95 +231,96 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               </span>
             </p>
           </div> */}
-        </div>
-        {!isMobile && (
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
-              padding: 4px;
-              border-radius: 8px;
-            `}
-          >
-            <div
-              css={css`
-                font-family: 'Inter';
-                font-size: 12px;
-                font-weight: 600;
-                font-style: normal;
-                line-height: 130%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 30px;
-                width: 83px;
-                text-align: center;
-                cursor: pointer;
-                border-radius: 8px;
-                background: ${tradeModel === TradeMode.BASIC
-                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                  : 'transparent'};
-                background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
-                color: ${tradeModel === TradeMode.BASIC ? theme.text.primary : theme.text.primary};
-              `}
-              onClick={() => setTradeModel(TradeMode.BASIC)}
-            >
-              Basic
-            </div>
-            <div
-              css={css`
-                font-family: 'Inter';
-                font-size: 12px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-style: normal;
-                text-align: center;
-                height: 30px;
-                line-height: 130%;
-                border-radius: 8px;
-                cursor: pointer;
-                width: 83px;
-                font-weight: 600;
-                background: ${tradeModel === TradeMode.PRO
-                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                  : 'transparent'};
-                background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
-                color: ${tradeModel === TradeMode.PRO ? theme.text.primary : theme.text.primary};
-              `}
-              onClick={() => setTradeModel(TradeMode.PRO)}
-            >
-              Pro
-            </div>
-            <div
-              css={css`
-                font-family: 'Inter';
-                font-size: 12px;
-                font-style: normal;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 83px;
-                height: 30px;
-                border-radius: 8px;
-                line-height: 130%;
-                text-align: center;
-                cursor: pointer;
-                font-weight: 600;
-                background: ${tradeModel === TradeMode.DEGEN
-                  ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
-                  : 'transparent'};
-                background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
-                color: ${tradeModel === TradeMode.DEGEN ? theme.text.primary : theme.text.primary};
-              `}
-              onClick={() => setTradeModel(TradeMode.DEGEN)}
-            >
-              Degen
-            </div>
           </div>
-        )}
-      </div>
+          {
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                background: ${theme.palette.mode === 'dark' ? '#0f1114' : '#f6f7f9'};
+                padding: 4px;
+                border-radius: 8px;
+              `}
+            >
+              <div
+                css={css`
+                  font-family: 'Inter';
+                  font-size: 12px;
+                  font-weight: 600;
+                  font-style: normal;
+                  line-height: 130%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  height: 30px;
+                  width: 83px;
+                  text-align: center;
+                  cursor: pointer;
+                  border-radius: 8px;
+                  background: ${tradeModel === TradeMode.BASIC
+                    ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                    : 'transparent'};
+                  background: ${tradeModel === TradeMode.BASIC ? '#2832f5' : 'transparent'};
+                  color: ${tradeModel === TradeMode.BASIC ? theme.text.primary : theme.text.primary};
+                `}
+                onClick={() => setTradeModel(TradeMode.BASIC)}
+              >
+                Basic
+              </div>
+              <div
+                css={css`
+                  font-family: 'Inter';
+                  font-size: 12px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-style: normal;
+                  text-align: center;
+                  height: 30px;
+                  line-height: 130%;
+                  border-radius: 8px;
+                  cursor: pointer;
+                  width: 83px;
+                  font-weight: 600;
+                  background: ${tradeModel === TradeMode.PRO
+                    ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                    : 'transparent'};
+                  background: ${tradeModel === TradeMode.PRO ? '#2832f5' : 'transparent'};
+                  color: ${tradeModel === TradeMode.PRO ? theme.text.primary : theme.text.primary};
+                `}
+                onClick={() => setTradeModel(TradeMode.PRO)}
+              >
+                Pro
+              </div>
+              <div
+                css={css`
+                  font-family: 'Inter';
+                  font-size: 12px;
+                  font-style: normal;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 83px;
+                  height: 30px;
+                  border-radius: 8px;
+                  line-height: 130%;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 600;
+                  background: ${tradeModel === TradeMode.DEGEN
+                    ? 'linear-gradient(180deg, #84ff9f 0%, #ffe071 49.53%, #f96262 96.35%)'
+                    : 'transparent'};
+                  background: ${tradeModel === TradeMode.DEGEN ? '#2832f5' : 'transparent'};
+                  color: ${tradeModel === TradeMode.DEGEN ? theme.text.primary : theme.text.primary};
+                `}
+                onClick={() => setTradeModel(TradeMode.DEGEN)}
+              >
+                Degen
+              </div>
+            </div>
+          }
+        </div>
+      }
 
       {/* <SelectPair isOpen={choosePair} setIsOpen={() => setChoosePair(false)} /> */}
       <div

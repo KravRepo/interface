@@ -21,15 +21,13 @@ export const useGetUserOpenTrade = () => {
   const getUserOpenTrade = useCallback(
     async (storageAddress: string, setStore: boolean) => {
       try {
-        if (account && provider && storageAddress && chainId) {
-          // console.log('start useGetUserOpenTrade')
-          //TODO current pairIndex only one , change in next update
+        if (account && provider && storageAddress && chainId !== undefined) {
           const contract = new Contract(storageAddress, trading_storage.abi, provider)
           const userTotalTrade = await contract.openTradesCount(account, tradePairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
           const task = []
           if (trades > 0) {
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < trades; i++) {
               task.push(contract.openTrades(account, tradePairIndex, i))
             }
           }
@@ -61,17 +59,19 @@ export const useGetUserOpenTrade = () => {
               userPendingMarketOrder.push(res[0])
             }
           })
+
           isBeingMarketClosed(openTrades, userPendingMarketOrder)
           userPendingMarketOrder = userPendingMarketOrder.filter((order) => order.leverage > 0)
+
           if (setStore) setUserOpenTradeList(openTrades.concat(userPendingMarketOrder))
           else setUserOpenTrades(openTrades)
         }
       } catch (e) {
-        console.log('get user open trades failed!', e)
+        console.error('get user open trades failed!', e)
       }
     },
     [account, provider, tradePairIndex, chainId]
   )
 
-  return { userOpenTrades: userOpenTrades, getUserOpenTrade: getUserOpenTrade }
+  return { userOpenTrades, getUserOpenTrade }
 }
