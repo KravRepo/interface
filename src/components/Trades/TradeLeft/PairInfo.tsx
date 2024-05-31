@@ -533,7 +533,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                 </div>
               </div>
             </div>
-            <CoinInfo isBTC />
+            <CoinInfo isBTC={true} />
           </div>
         </div>
       </div>

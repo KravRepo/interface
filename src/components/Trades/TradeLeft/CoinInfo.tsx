@@ -4,12 +4,72 @@ import { useTheme } from '@mui/material'
 import { Anchor } from '../TradeRight/AltcoinCard'
 import { PoolParams } from '../../../store/FactorySlice'
 import { align } from '../../../globalStyle'
-import { usePriceData } from './utils/useDatafeed'
+import { useState, useEffect } from 'react';
+
+interface PriceData {
+  '24h_change': number;
+  '24h_volume': number;
+  market_cap: number;
+  price: number;
+}
 
 export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: PoolParams }) {
-  const theme = useTheme()
-  const { priceData } = usePriceData(isBTC ? '0x321162Cd933E2Be498Cd2267a90534A804051b11' : pool?.tokenT)
-  if (!pool && !isBTC) return null
+  const theme = useTheme();
+  const [priceData, setPriceData] = useState<PriceData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const url = `https://api.krav.trade/krav/v1/price/${isBTC ? '0x321162Cd933E2Be498Cd2267a90534A804051b11' : pool?.tokenT}`;
+
+  useEffect(() => {
+    if ((pool == undefined || !pool || pool == null) && !isBTC) return;
+
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        console.log('Fetching data from URL:', url);
+        const response = await fetch(url, {
+          mode: 'cors',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          console.log('Error fetching data:', response.statusText);
+          setIsLoading(false);
+          return;
+        }
+
+        const data = await response.json();
+        console.log('Data fetched:', data);
+
+        if (isBTC) {
+          console.log('Bitcoin data:', data.data['0x321162Cd933E2Be498Cd2267a90534A804051b11']);
+          setPriceData(data.data['0x321162Cd933E2Be498Cd2267a90534A804051b11']);
+        } else {
+          const tokenData = data.data[pool?.tokenT?.toLowerCase() || ''];
+          setPriceData(tokenData);
+        }
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [pool, isBTC, url]);
+
+  if (!pool && !isBTC) return null;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!priceData) {
+    return <div>No data available</div>;
+  }
 
   return (
     <div css={[align]}>
@@ -25,8 +85,9 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
             src={pool.logoSource}
             height="15"
             width="15"
+            alt={`${pool.symbol} logo`}
           />
-          {pool?.symbol}
+          {pool.symbol}
         </div>
       )}
       <table
@@ -74,22 +135,21 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
         >
           <tr>
             <td>
-              {priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 6 }) + '' : '-'}
+              {priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 5 }) : '-'}
             </td>
             <td>
-              <Anchor changeInString={priceData?.['24h_change']} />
-            </td>
-
-            <td>
-              {priceData ? priceData?.['24h_volume']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) + '' : '-'}
+              <Anchor changeInString={priceData?.['24h_change'].toFixed(4)} />
             </td>
             <td>
-              {priceData ? priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) + '' : '-'}
+              {priceData ? priceData?.['24h_volume']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
+            </td>
+            <td>
+              {priceData ? priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
             </td>
             {!isBTC && <td> -</td>}
           </tr>
         </tbody>
       </table>
     </div>
-  )
+  );
 }
