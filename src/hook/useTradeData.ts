@@ -58,14 +58,14 @@ export function useTradeData({
   const liquidationPrice = useSingleCallResult(pairContract, 'getTradeLiquidationPrice', liquidationPriceArgs as any[])
 
   const priceImpact = useSingleCallResult(pairContract, 'getTradePriceImpact', priceImpactArgs as any[])
-
+  console.log({ priceImpact, liquidationPrice })
   return useMemo(() => {
     return {
       fundingFee: tradePool.fundingFeePerBlockP ? tradePool.fundingFeePerBlockP.toFixed() : '-',
-      liquidationPrice: liquidationPrice?.result ?? '-',
+      liquidationPrice: liquidationPrice?.result ? liquidationPrice?.result?.toString() : '-',
       openDaiLong,
       openDaiShort,
-      priceImpact,
+      priceImpact: priceImpact.result ? priceImpact.result?.toString() : '-',
     }
   }, [])
 }
