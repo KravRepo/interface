@@ -20,7 +20,6 @@ export const useGetOrderLimit = () => {
           pairStorageContract.pairsBackend(tradePairIndex),
           pairStorageContract.groupCollateral(tradePairIndex, true),
         ])
-        const pairsBackend = pairsInfo[0]
         const groupCollateral = pairsInfo[1]
         const MaxPos = tradePool.poolCurrentBalance?.times(MAX_COLLATERAL_P).div(100)
         const curPos = eXDecimals(new BigNumber(groupCollateral._hex), tradePool.decimals)

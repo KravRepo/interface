@@ -19,7 +19,6 @@ export const useMaxPositionCheck = () => {
           pairStorageContract.pairsBackend(tradePairIndex),
           pairStorageContract.groupCollateral(tradePairIndex, true),
         ])
-        const pairsBackend = pairsInfo[0]
         const groupCollateral = pairsInfo[1]
         console.log('groupCollateral', groupCollateral)
         const MaxPos = tradePool.poolCurrentBalance?.times(MAX_COLLATERAL_P).div(100)
