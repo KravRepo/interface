@@ -24,7 +24,11 @@ export const useAddLiquidity = (tokenAddress: string) => {
     async (amount: BigNumber, vaultAddress: string, symbol: string, decimals: number) => {
       try {
         if (tokenContract) {
+        
           const kTokenContract = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
+          console.log(kTokenContract.address)
+          console.log('vaultAddress', vaultAddress)
+          console.log(amount.toString())
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
           const allowance = await kTokenContract.allowance(account, vaultAddress)

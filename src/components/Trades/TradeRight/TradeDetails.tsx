@@ -22,7 +22,8 @@ export default function TradeDetails({
 }) {
   const theme = useTheme()
 
-  const { tradeModel } = useRootStore((state) => ({
+  const { BTCPrice, tradeModel } = useRootStore((state) => ({
+    BTCPrice: state.BTCPrice,
     tradePool: state.tradePool,
     tradePairIndex: state.tradePairIndex,
     tradeModel: state.tradeModel,
@@ -41,7 +42,7 @@ export default function TradeDetails({
       ['Net Exposure']: positionSizeDai && leverage ? positionSizeDai.multipliedBy(leverage).toFormat(2, 3) : '-',
       ['Open Interest (L/S)']: <Bar openLong={openDaiLong} openShort={openDaiShort} />,
       ['Price After Impact']: <>{priceImpact}</>,
-      ...(tradeModel === TradeMode.BASIC ? {} : { ['Entry Price']: <>$65,272.61</> }),
+      ...(tradeModel === TradeMode.BASIC ? {} : { ['Entry Price']: <>${Number(BTCPrice).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</> }),
       ['Liquidation Price']: <>{liquidationPrice}</>,
     }
   }, [positionSizeDai, leverage, openDaiLong, openDaiShort])

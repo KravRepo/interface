@@ -11,6 +11,9 @@ interface PriceData {
   '24h_volume': number
   market_cap: number
   price: number
+  usd_24h_change: number
+  usd_24h_vol: number
+  usd_market_cap: number
 }
 
 export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: PoolParams }) {
@@ -21,7 +24,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
   const [isPoolLoading, setIsPoolLoading] = useState<boolean>(true)
   const [retryCount, setRetryCount] = useState<number>(0)
 
-  const btcUrl = `https://api.krav.trade/krav/v1/price/0x321162Cd933E2Be498Cd2267a90534A804051b11`
+  const btcUrl = `https://krav-oracle.onrender.com/btc`
   const poolUrl = pool ? `https://api.krav.trade/krav/v1/price/${pool.tokenT?.toLowerCase()}` : ''
 
   useEffect(() => {
@@ -42,7 +45,8 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
           }
 
           const data = await response.json()
-          const fetchedData = data.data['0x321162Cd933E2Be498Cd2267a90534A804051b11'.toLowerCase()]
+          const fetchedData = data.bitcoin
+          console.log('fetchedData:', fetchedData)
 
           if (!fetchedData) {
             throw new Error('Fetched data is undefined')
@@ -183,15 +187,15 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
               <td>{priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 5 }) : '-'}</td>
             )}
             <td>
-              <Anchor changeInString={priceData?.['24h_change'].toFixed(2)} />
+              <Anchor changeInString={(priceData ? priceData[isBTC ? 'usd_24h_change' : '24h_change'] : 0).toFixed(2)} />
             </td>
             <td>
-              {priceData ? '$' + priceData?.['24h_volume']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
+              {'$' + (priceData ? priceData[isBTC ? 'usd_24h_vol' : '24h_volume'] : 0)?.toLocaleString('en-US', { maximumFractionDigits: 2 }) || '-'}
             </td>
             <td>
-              {priceData ? '$' + priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
+              {'$' + (priceData ? priceData[isBTC ? 'usd_market_cap' : 'market_cap'] : 0)?.toLocaleString('en-US', { maximumFractionDigits: 2 }) || '-'}
             </td>
-            {!isBTC && <td> {pool?.fundingFeePerBlockP ? pool?.fundingFeePerBlockP.toFixed() : '-'}</td>}
+            {!isBTC && <td>{pool?.fundingFeePerBlockP ? pool.fundingFeePerBlockP.toFixed() : '-'}</td>}
           </tr>
         </tbody>
       </table>

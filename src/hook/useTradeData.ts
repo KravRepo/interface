@@ -6,6 +6,8 @@ import { useRootStore } from '../store/root'
 import { addDecimals } from '../utils/math'
 import { useGetMarketStats } from './hookV8/useGetMarketStats'
 import { useWeb3React } from '@web3-react/core'
+import { FEE_RATES } from '../constant/feeRate'
+import { EXPONENTS } from '../constant/exponents'
 
 const MAX_RETRIES = 10
 
@@ -55,16 +57,6 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     return [...Object.values(args)]
   }, [account, tradePairIndex, openPrice, isBuy, leverage, positionSizeDai])
 
-  const priceImpactArgs = useMemo(() => {
-    let openDaiPrecision
-    if (isBuy) {
-      openDaiPrecision = openDaiLong?.times(1e18)
-    } else {
-      openDaiPrecision = openDaiShort?.times(1e18)
-    }
-    return [openPrice, tradePairIndex, isBuy, openDaiPrecision?.toString()]
-  }, [openPrice, tradePairIndex, isBuy, openDaiLong, openDaiShort])
-
   useEffect(() => {
     const fetchLiquidationPrice = async () => {
       if (
@@ -86,28 +78,46 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     }
 
     fetchLiquidationPrice()
-  }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort])
+  }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    const fetchPriceImpact = async () => {
-      if (pairContract && priceImpactArgs.every((arg) => arg !== undefined)) {
-        try {
-          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
-          setPriceImpact(
-            '$' +
-              (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })
-          )
-        } catch (error) {
-          console.error('Error fetching price impact:', error)
-        }
-      }
+    if (!Object.keys(FEE_RATES).includes(pairContract?.address || '')) {
+      FEE_RATES[pairContract?.address || ''] = 0.1
     }
+    const baseFeeRate = FEE_RATES[pairContract?.address || '']
+    const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
+    
+    if (!Object.keys(EXPONENTS).includes(pairContract?.address || '')) {
+      EXPONENTS[pairContract?.address || ''] = 1
+    }
+    const priceImpactExponent = EXPONENTS[pairContract?.address || '']
+    const longTotal = parseFloat(openDaiLong?.toString() || '')
+    const shortTotal = parseFloat(openDaiShort?.toString() || '')
+    const openInterest = parseFloat(positionSizeDai.times(leverage).toString() || '')
+    const nextLongTotal = longTotal + (isBuy ? openInterest : 0)
+    const nextShortTotal = shortTotal + (isBuy ? 0 : openInterest)
+    const delta = Math.abs(longTotal - shortTotal)
+    const deltaNext = Math.abs(nextLongTotal - nextShortTotal)
+    
+    if (deltaNext > delta) {
+      const imbalanceRatio = deltaNext / totalLiquidity
+      if (imbalanceRatio > 1) return setPriceImpact('Invalid Order Size')
+      const afterPow = Math.pow(1 - imbalanceRatio, priceImpactExponent)
+      const priceImpact = (baseFeeRate * (deltaNext - delta)) / afterPow
+      const priceImpactP = priceImpact / parseFloat(BTCPrice.toString() || '')
+      const priceAfterImpact = isBuy ? parseFloat(BTCPrice.toString() || '') * (1 + priceImpactP) : parseFloat(BTCPrice.toString() || '') * (1 - priceImpactP)
+      setPriceImpact(
+        '$' +
+          priceAfterImpact.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+      )
+    } else {
+      setPriceImpact('-')
+    }
+  }, [pairContract, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
-    fetchPriceImpact()
-  }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort])
 
   return useMemo(() => {
     return {
@@ -117,5 +127,5 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       openDaiShort,
       priceImpact,
     }
-  }, [tradePool.fundingFeePerBlockP, liquidationPrice, openDaiLong, openDaiShort, priceImpact])
+  }, [tradePool.fundingFeePerBlockP, liquidationPrice, openDaiLong, openDaiShort, priceImpact, positionSizeDai, leverage])
 }
