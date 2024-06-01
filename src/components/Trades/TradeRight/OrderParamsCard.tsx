@@ -24,6 +24,7 @@ import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { useInterval } from '../../../hook/hookV8/useInterval'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { useTradeData } from '../../../hook/useTradeData';
 
 type OrderParamsCardProps = {
   leverage: number
@@ -182,6 +183,14 @@ export const OrderParamsCard = ({
     tpUsePercentage,
     tradePairIndex,
   ])
+
+  const { liquidationPrice } = useTradeData({
+    tradeType,
+    limitPrice,
+    isBuy,
+    positionSizeDai,
+    leverage,
+  })
 
   const approve = useApprove(tradePool.tokenT, tradePool.tradingT, tradePool.storageT)
   const maxPositionCheck = useMaxPositionCheck()
@@ -822,7 +831,7 @@ export const OrderParamsCard = ({
                         Liquidation Price
                       </span>
                       {/* TODO Liquidation Price */}
-                      <span>$24,509,624.32</span>
+                      <span>{liquidationPrice}</span>
                     </p>
                     <p
                       css={[
@@ -841,7 +850,7 @@ export const OrderParamsCard = ({
                         Entry Price
                       </span>
                       {/* TODO Liquidation Price */}
-                      <span>$24,509,624.32</span>
+                      <span>${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </p>
                   </>
                 )}
