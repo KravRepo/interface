@@ -4,6 +4,7 @@ import { usePairStorageContract } from './useContract'
 import { useCallback, useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
+import { MAX_COLLATERAL_P } from '../../constant/contractConstants'
 
 export const useGetOrderLimit = () => {
   const tradePool = useRootStore((state) => state.tradePool)
@@ -21,8 +22,7 @@ export const useGetOrderLimit = () => {
         ])
         const pairsBackend = pairsInfo[0]
         const groupCollateral = pairsInfo[1]
-        const maxCollateralP = new BigNumber(pairsBackend[1].maxCollateralP._hex)
-        const MaxPos = tradePool.poolCurrentBalance?.times(maxCollateralP).div(100)
+        const MaxPos = tradePool.poolCurrentBalance?.times(MAX_COLLATERAL_P).div(100)
         const curPos = eXDecimals(new BigNumber(groupCollateral._hex), tradePool.decimals)
         setOrderLimit(MaxPos?.minus(curPos))
       }

@@ -1,0 +1,1 @@
+export const MAX_COLLATERAL_P = 30
