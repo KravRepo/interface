@@ -195,7 +195,7 @@ export const marketCard = css`
     .data {
       > p:first-of-type {
         font-size: 12px;
-        margin-bottom: 8px;
+        margin-bottom: 0px;
       }
       > p:nth-of-type(2) {
         font-size: 20px;
@@ -203,7 +203,7 @@ export const marketCard = css`
       }
       > div {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         font-size: 20px;
         font-weight: 900;
       }

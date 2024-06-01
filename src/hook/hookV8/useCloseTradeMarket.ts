@@ -55,6 +55,7 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
         })
         console.log('close tx ', close)
       } catch (e) {
+        console.error('close error', e)
         updateError(TransactionAction.CANCEL_MARKET_ORDER)
       }
     },

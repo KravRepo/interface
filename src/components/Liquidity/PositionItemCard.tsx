@@ -4,24 +4,23 @@ import { Button, css, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { getBigNumberStr } from '../../utils'
 import { PositionItemProps } from './type'
 import { useRootStore } from '../../store/root'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
 import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
 import { ReactComponent as SubIcon } from '../../assets/imgs/subIcon.svg'
 import { align } from '../../globalStyle'
-import KRAVButton from '../KravUIKit/KravButton'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
-import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
+// import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 
 export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-  const getLpReward = useGetLpReward(position.pool.vaultT, position.pool.decimals)
+
   const [lpReward, setLpReward] = useState(new BigNumber(0))
-  const claimLp = useHarvestLpReward(position.pool.vaultT)
+  // const claimLp = useHarvestLpReward(position.pool.vaultT)
 
   const poolSupply = useMemo(() => {
     const supply =
@@ -49,11 +48,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
     else return new BigNumber(0)
   }, [aprList])
 
-  useEffect(() => {
-    if (poolSupply.isGreaterThan(0)) {
-      getLpReward(setLpReward).then()
-    }
-  }, [poolSupply])
+  useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
 
   return (
     <div
@@ -80,7 +75,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 margin-right: 8px;
               `}
             >
-              UTILIZATION
+              Utilization
             </span>
             <span
               css={css`
@@ -105,11 +100,16 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
       </div>
       <div className="card-content">
         <div className="data">
-          <p>TOTAL LIQUIDITY SUPPLY</p>
+          <p>Total Liquidity Supply</p>
           <p>{position.pool.poolTotalSupply?.toFixed(2)}</p>
         </div>
-        <div className="data">
-          <p>YOUR LIQUIDITY SUPPLY</p>
+        <div
+          className="data"
+          css={css`
+            margin-top: 10px;
+          `}
+        >
+          <p>Your Liquidity Supply</p>
           <div>
             <span
               css={css`
@@ -178,7 +178,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 color: ${theme.text.second};
               `}
             >
-              YOUR POOL STAKE
+              Your Pool Stake
             </span>
             <span>0.025%</span>
           </div>
@@ -188,12 +188,10 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 color: ${theme.text.second};
               `}
             >
-              YOUR WITHDRAW LIMIT
+              Your Withdraw Limit
             </span>
             <Tooltip
-              title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
-                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
-                a stable and fair trading environment on our platform.`}
+              title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time.`}
             >
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
@@ -204,22 +202,6 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                   {position.pool.symbol}
                 </span>
               </>
-            </Tooltip>
-          </div>
-          <div>
-            <span
-              css={css`
-                color: ${theme.text.second};
-              `}
-            >
-              WITHDRAW_BLOCK
-            </span>
-            <Tooltip title={`Current block: ${position.pool.blockNumber}`}>
-              <span>
-                {position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)
-                  ? position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).minus(position.pool.blockNumber).toFixed(0)
-                  : '0'}
-              </span>
             </Tooltip>
           </div>
         </div>
@@ -252,25 +234,25 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             <p
               css={css`
                 color: ${theme.text.second};
+                margin-top: 10px;
               `}
             >
-              TRANSACTION FEE REWARD
+              Transaction Fee Reward
             </p>
             <div>
               <span>
-                {' '}
-                {getBigNumberStr(lpReward, 2)} {position.pool.symbol}
+                {getBigNumberStr(lpReward, 6)} {position.pool.symbol}
               </span>
-              <KRAVButton
+              {/* <KRAVButton
                 disabled={lpReward.isEqualTo(0)}
                 onClick={async () => {
                   await claimLp(lpReward, position.pool.symbol)
-                  await getLpReward(setLpReward)
+                  // await getLpReward(setLpReward)
                 }}
                 sx={{ width: '70px', height: '32px' }}
               >
                 Claim
-              </KRAVButton>
+              </KRAVButton> */}
             </div>
           </div>
         </div>

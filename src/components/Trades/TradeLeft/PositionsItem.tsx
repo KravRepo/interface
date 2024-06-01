@@ -69,7 +69,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
-                  color: ${openTrade.buy ? '#009B72' : '#DB4C40'};
+                  color: ${openTrade.buy ? theme.longButton.background : theme.shortButton.background};
                 `}
               >
                 {openTrade.buy ? ' Long' : ' Short'}
@@ -79,7 +79,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             <p
               css={css`
-                color: ${positionTp.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
+                color: ${positionTp.isGreaterThan(0) ? theme.longButton.background : theme.shortButton.background};
                 text-decoration: underline;
               `}
             >
@@ -141,7 +141,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               <span>{openTrade.leverage}x</span>
               <span
                 css={css`
-                  color: ${openTrade.buy ? '#009B72' : '#DB4C40'};
+                  color: ${openTrade.buy ? theme.longButton.background : theme.shortButton.background};
                 `}
               >
                 {openTrade.buy ? ' Long' : ' Short'}
@@ -151,7 +151,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             <p
               css={css`
-                color: ${positionTp.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
+                color: ${positionTp.isGreaterThan(0) ? theme.longButton.background : theme.shortButton.background};
                 text-decoration: underline;
               `}
             >

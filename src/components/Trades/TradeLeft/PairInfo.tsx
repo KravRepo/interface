@@ -49,17 +49,6 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     pairConfig: state.pairConfig,
   }))
 
-  // const { openDaiLong, openDaiShort /*, borrowLongVal, borrowShortVal */ } = useGetMarketStats(
-  //   tradePool?.storageT || '',
-  //   tradePool?.decimals || 18,
-  //   tradePool.pairInfoT || '',
-  //   tradePairIndex
-  // )
-
-  // const showSwitch = useMemo(() => {
-  //   return EXCHANGE_TRADING_T.includes(tradePool.tradingT) || Object.keys(pairConfig).length > 0
-  // }, [tradePool])
-
   const tradePair = useMemo(() => {
     return pairConfig[tradePairIndex]
   }, [tradePairIndex, pairConfig])
@@ -84,15 +73,10 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
     setModeAnchorEl(null)
   }
 
-  useEffect(
-    () => {
-      setTradePairIndex(0)
-      return () => setTradePairIndex(0)
-    },
-    [
-      /*showSwitch*/
-    ]
-  )
+  useEffect(() => {
+    setTradePairIndex(0)
+    return () => setTradePairIndex(0)
+  }, [])
 
   useEffect(() => {
     if (allPoolParams.length > 0) {

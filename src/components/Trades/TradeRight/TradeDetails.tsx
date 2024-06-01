@@ -134,9 +134,9 @@ function Bar({ openLong, openShort }: { openLong: BigNumber | undefined; openSho
       <div
         css={css`
           width: ${data?.longPercent ?? 50}%;
-          background-color: #13ba7b40;
+          background-color: ${theme.longButton.background}40;
           height: 100%;
-          color: #13ba7b;
+          color: ${theme.longButton.background};
           border-radius: ${data?.shortPercent === '0' ? '5px' : '5px 0 0 5px'};
           display: flex;
           justify-content: center;
@@ -147,9 +147,9 @@ function Bar({ openLong, openShort }: { openLong: BigNumber | undefined; openSho
       <div
         css={css`
           width: ${data?.shortPercent ?? 50}%;
-          background-color: #f53c5840;
+          background-color: ${theme.shortButton.background}40;
           height: 100%;
-          color: #f53c58;
+          color: ${theme.shortButton.background};
           border-radius: ${data?.shortPercent === '0' ? '5px' : '0 5px 5px 0'};
           display: flex;
           justify-content: center;

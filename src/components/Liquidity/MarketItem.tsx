@@ -4,7 +4,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { MarketItemProps } from './type'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { css } from '@emotion/react'
@@ -16,7 +16,6 @@ import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
   const { account } = useWeb3React()
-  const getLpReward = useGetLpReward(poolParams.vaultT, poolParams.decimals)
   const [lpReward, setLpReward] = useState(new BigNumber(0))
 
   // TODO: Withdraw the balance when the dialog box is opened?
@@ -35,11 +34,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
     else return new BigNumber(0)
   }, [aprList])
 
-  useEffect(() => {
-    if (poolSupply.isGreaterThan(0)) {
-      getLpReward(setLpReward).then()
-    }
-  }, [poolSupply])
+  useGetLpReward(poolParams.vaultT, poolParams.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
 
   return (
     <div className="liquidity-table">

@@ -1,5 +1,5 @@
 import { useContract } from './useContract'
-import trading_vault from '../../abi/trading_vault_v5.json'
+import trading_vault from '../../abi/k_token.json'
 import { useWeb3React } from '@web3-react/core'
 import React, { Dispatch, useCallback, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
@@ -7,25 +7,48 @@ import { eXDecimals } from '../../utils/math'
 import { useRootStore } from '../../store/root'
 import { Contract } from 'ethers'
 import { UserData } from './useUserPosition'
+import { useSingleCallResult } from '../multicall'
 
-export const useGetLpReward = (vaultAddress: string, decimals: number) => {
+export const useGetLpReward = (
+  vaultAddress: string,
+  decimals: number,
+  setLpReward?: Dispatch<React.SetStateAction<BigNumber>>
+) => {
   const { account } = useWeb3React()
   const vaultContract = useContract(vaultAddress, trading_vault.abi)
-  return useCallback(
-    async (setLpReward: Dispatch<React.SetStateAction<BigNumber>>) => {
-      try {
-        if (vaultContract) {
-          const lpReward = await vaultContract.pendingRewardDai.call({
-            from: account,
-          })
-          setLpReward(eXDecimals(new BigNumber(lpReward._hex), decimals))
-        }
-      } catch (e) {
-        console.log('get lp reward failed!', e)
-      }
-    },
-    [account, vaultContract]
-  )
+  const pnlPerToken = useSingleCallResult(vaultContract, 'accPnlPerToken')
+  const args = useMemo(() => {
+    return [account]
+  }, [account])
+
+  const balance = useSingleCallResult(vaultContract, 'balanceOf', args)
+
+  useEffect(() => {
+    if (setLpReward && balance.result && pnlPerToken.result) {
+      setLpReward(
+        eXDecimals(new BigNumber(pnlPerToken.result[0]._hex), decimals).multipliedBy(
+          eXDecimals(new BigNumber(balance.result[0]._hex), decimals)
+        )
+      )
+    }
+  }, [balance?.result, pnlPerToken?.result])
+
+  // console.log(2222122, { pnlPerToken, balance })
+  // return useCallback(
+  //   async (setLpReward: Dispatch<React.SetStateAction<BigNumber>>) => {
+  //     try {
+  //       if (vaultContract) {
+  //         const lpReward = await vaultContract.pendingRewardDai.call({
+  //           from: account,
+  //         })
+  //         setLpReward(eXDecimals(new BigNumber(lpReward._hex), decimals))
+  //       }
+  //     } catch (e) {
+  //       console.log('get lp reward failed!', e)
+  //     }
+  //   },
+  //   [account, vaultContract]
+  // )
 }
 
 export type UserFeesRewardList = {

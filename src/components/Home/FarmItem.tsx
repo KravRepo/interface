@@ -3,12 +3,11 @@ import { align } from '../../globalStyle'
 import { css } from '@emotion/react'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../KravUIKit/KravButton'
 import { getBigNumberStr } from '../../utils'
-import { useWeb3React } from '@web3-react/core'
 import { AprList } from '../../hook/hookV8/useGetApr'
 import { eXDecimals } from '../../utils/math'
 import { useTheme } from '@mui/material'
@@ -19,21 +18,16 @@ type FarmItemProps = {
 }
 
 export const FarmItem = ({ position, aprList }: FarmItemProps) => {
-  const theme = useTheme()
-  const { account } = useWeb3React()
-  const getLpReward = useGetLpReward(position.pool.vaultT, position.pool.decimals)
-  const claimLp = useHarvestLpReward(position.pool.vaultT)
   const [lpReward, setLpReward] = useState(new BigNumber(0))
+  const theme = useTheme()
+  useGetLpReward(position.pool.vaultT, position.pool.decimals, setLpReward)
+  const claimLp = useHarvestLpReward(position.pool.vaultT)
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
   }, [aprList])
-
-  useEffect(() => {
-    getLpReward(setLpReward).then()
-  }, [account])
 
   return (
     <div className="liquidity">
@@ -88,7 +82,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
           className="more"
           onClick={async () => {
             await claimLp(lpReward, position.pool.symbol)
-            await getLpReward(setLpReward)
+            // await getLpReward(setLpReward)
           }}
         >
           Claim

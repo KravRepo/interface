@@ -26,10 +26,8 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
           ])
 
           const long = new BigNumber(longRes._hex).div(Number(`1e${decimals}`))
-          console.log('long', long.toString())
           setOpenDaiLong(long)
           const short = new BigNumber(shortRes._hex).div(Number(`1e${decimals}`))
-          console.log('short', short.toString())
           setOpenDaiShort(short)
         }
       } catch (e) {
@@ -39,15 +37,6 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
       }
     })()
   }, [allPoolParams, provider, address, paiIndex, decimals, pairInfoAddress])
-
-  // useEffect to log the state values when they change
-  useEffect(() => {
-    console.log('Updated long', openDaiLong?.toString())
-  }, [openDaiLong])
-
-  useEffect(() => {
-    console.log('Updated short', openDaiShort?.toString())
-  }, [openDaiShort])
 
   return {
     openDaiLong: openDaiLong,

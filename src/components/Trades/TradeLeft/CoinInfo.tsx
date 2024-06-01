@@ -79,11 +79,11 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
           })
 
           if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`)
+            throw new Error(`Network response error: ${response.statusText}`)
           }
 
           const data = await response.json()
-          const fetchedData = data.data[pool.tokenT?.toLowerCase() || '']
+          const fetchedData = data?.data?.[pool.tokenT?.toLowerCase() || '']
 
           if (!fetchedData) {
             throw new Error('Fetched data is undefined')
@@ -191,7 +191,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
             <td>
               {priceData ? '$' + priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
             </td>
-            {!isBTC && <td> -</td>}
+            {!isBTC && <td> {pool?.fundingFeePerBlockP ? pool?.fundingFeePerBlockP.toFixed() : '-'}</td>}
           </tr>
         </tbody>
       </table>

@@ -6,7 +6,7 @@ import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
 import KRAVButton from '../KravUIKit/KravButton'
 import { RemoveLiquidityProps } from '../Liquidity/type'
-import { useRemoveLiquidity } from '../../hook/hookV8/useRemoveLiquidity'
+import { useRedeemLiquidity, useRemoveLiquidity } from '../../hook/hookV8/useRemoveLiquidity'
 import { useRootStore } from '../../store/root'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
@@ -24,6 +24,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 // import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { withDecimals } from '../../utils'
 import { PoolParams } from '../../store/FactorySlice'
+import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 
 const StyledBox = styled(Box)(() => ({
   borderBottom: '1px solid var(--ps-text-20)',
@@ -225,6 +226,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
             kToken={targetPool?.pool.vaultT}
             daiDeposited={targetPool?.daiDeposited}
             pool={targetPool?.pool}
+            vaultAddress={liquidityInfo.vaultT}
           />
         </div>
       </>
@@ -236,21 +238,23 @@ function ExistingRequest({
   kToken,
   daiDeposited = new BigNumber(0),
   pool,
+  vaultAddress,
 }: {
   kToken?: string
   daiDeposited?: BigNumber
   pool?: PoolParams
+  vaultAddress: string
 }) {
   const { account } = useWeb3React()
   const [showExistingRequest, setShowExistingRequest] = useState(false)
-
+  const redeemLiquidity = useRedeemLiquidity(vaultAddress)
   const kTokenContract = useContract(kToken, k_token.abi)
 
   const getUpdateEpoch = useSingleCallResult(kTokenContract, 'updateEpoch', [])
 
   const getEpochDuration = useSingleCallResult(kTokenContract, 'epochDuration', [])
 
-  // const getCurrentEpoch = useSingleCallResult(kTokenContract, 'epochCurrent', [])
+  const getCurrentEpoch = useSingleCallResult(kTokenContract, 'epochCurrent', [])
 
   const updateEpoch = useMemo(() => {
     if (getUpdateEpoch?.result?.[0]) return new BigNumber(getUpdateEpoch.result?.[0]._hex)
@@ -263,15 +267,15 @@ function ExistingRequest({
     } else return 0
   }, [getEpochDuration])
 
+  const currentEpoch = useMemo(() => {
+    if (getCurrentEpoch?.result?.[0]) return new BigNumber(getCurrentEpoch.result?.[0]._hex)
+    else return new BigNumber(0)
+  }, [getCurrentEpoch])
+
   const lastEpoch = useMemo(() => {
     if (getUpdateEpoch?.result?.[1]) return new BigNumber(getUpdateEpoch.result?.[1]._hex)
     else return new BigNumber(0)
   }, [getUpdateEpoch])
-
-  // const currentEpoch = useMemo(() => {
-  //   if (getCurrentEpoch?.result?.[0]) return new BigNumber(getCurrentEpoch.result?.[0]._hex)
-  //   else return new BigNumber(0)
-  // }, [getCurrentEpoch])
 
   const getRequestEc = useSingleContractMultipleData(
     kTokenContract,
@@ -404,7 +408,13 @@ function ExistingRequest({
               .map((ec, index) => {
                 return (
                   <Box key={index}>
-                    <Stack my={12} alignItems={'center'} flexDirection={'row'} justifyContent={'space-between'}>
+                    <Stack
+                      my={12}
+                      alignItems={'center'}
+                      flexDirection={'row'}
+                      justifyContent={'space-between'}
+                      margin={0}
+                    >
                       <Typography
                         sx={{
                           fontSize: '15px',
@@ -417,16 +427,17 @@ function ExistingRequest({
                           : withDecimals(ec.amount, pool?.decimals ?? 18, false).toFormat(8)}
                         &nbsp;{pool?.symbol}
                       </Typography>
-                      {/* {ec.epoch === currentEpoch.toNumber() ? (
+                      {ec.epoch === currentEpoch.toNumber() ? (
                         <KravButtonHollow
                           onClick={async () => {
-                            await withdraw.runWithModal([
+                            await redeemLiquidity(
                               ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
                                 ? withDecimals(daiDeposited, pool?.decimals ?? 18).toString()
                                 : ec.amount.toString(),
-                              account,
-                              account,
-                            ])
+                              ec.amount,
+                              pool?.decimals,
+                              pool?.symbol
+                            )
                             // control.hide('RemoveLiquidity')
                           }}
                           sx={{
@@ -449,7 +460,7 @@ function ExistingRequest({
                         >
                           Pending
                         </Typography>
-                      )} */}
+                      )}
                     </Stack>
                     <StyledBox />
                   </Box>

@@ -81,7 +81,12 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
           <p>Total Liquidity Supply</p>
           <p>{poolParams.poolTotalSupply?.toFormat(2, 3)}</p>
         </div>
-        <div className="data">
+        <div
+          className="data"
+          css={css`
+            margin-top: 10px;
+          `}
+        >
           <p>Your Liquidity Supply</p>
           <p
             css={css`
