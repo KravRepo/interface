@@ -24,6 +24,7 @@ import { FaucetDialog } from '../Dialog/FaucetDialog'
 import { useFactory } from '../../hook/hookV8/useFactory'
 
 export const Header = () => {
+  
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const walletDialogVisibility = useRootStore((store) => store.walletDialogVisibility)
   const { account, chainId, connector, provider } = useWeb3React()
@@ -60,6 +61,10 @@ export const Header = () => {
       },
     `
   }, [theme])
+
+  const isGreetingPath = useMemo(() => {
+    return pathname === '/'
+  }, [pathname])
 
   const isHomePath = useMemo(() => {
     const pathList = [
@@ -117,7 +122,7 @@ export const Header = () => {
         css={[
           header,
           css`
-            background: ${isHomePath ? theme.background.fourth : ''};
+            background: ${isHomePath ? theme.background.fourth : isGreetingPath ? 'linear-gradient(to right, #434343 0%, black 100%)' : ''};
           `,
         ]}
       >
@@ -138,7 +143,7 @@ export const Header = () => {
               )}
             </NavLink>
           </div>
-          {!isMobile && (
+          {(!isMobile && !isGreetingPath) && (
             <Box
               sx={{
                 '& a:hover': {
@@ -171,6 +176,8 @@ export const Header = () => {
             </Box>
           )}
         </div>
+        {!isGreetingPath && (
+        <>
         <div css={align}>
           <WalletButton
             chainId={chainId}
@@ -186,6 +193,8 @@ export const Header = () => {
           walletDialogVisibility={walletDialogVisibility}
           setWalletDialogVisibility={setWalletDialogVisibility}
         />
+        </>
+        )}
       </header>
       {chainId && !SUPPORT_CHAIN.includes(chainId) && account && (
         <div css={UnSupport}>

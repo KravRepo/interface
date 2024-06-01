@@ -66,7 +66,7 @@ export const API_CONFIG_TEST: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: 'https://mainnet.base.org',
+    rpcNode: 'https://base-mainnet.g.alchemy.com/v2/_OuNq54nQcsiddaP9Mq1Gf4GFzCi9GTP',
   },
   [ChainId.BSC_TEST]: {
     rpcNode: 'https://bsc-testnet.publicnode.com',
@@ -93,7 +93,7 @@ export const API_CONFIG_PRODUCTION: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: 'https://mainnet.base.org',
+    rpcNode: 'https://base-mainnet.g.alchemy.com/v2/_OuNq54nQcsiddaP9Mq1Gf4GFzCi9GTP',
   },
   [ChainId.BSC]: {
     rpcNode: 'https://bsc.publicnode.com',

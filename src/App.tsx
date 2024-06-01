@@ -14,10 +14,11 @@ import { useEffect } from 'react'
 import { useFactory } from './hook/hookV8/useFactory'
 import { useBTCPrice } from './hook/hookV8/useBTCPrice'
 import { ErrorDialog } from './components/Dialog/ErrorDialog'
-import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { TransactionDialog } from './components/Dialog/TransactionDialog'
 import { Home } from './pages/Home'
 import { HomeStake } from './pages/home/HomeStake'
+import { Greeting } from './pages/Greeting'
 // import { HomeReferral } from './pages/home/HomeReferral'
 // import { HomeFarm } from './pages/home/HomeFarm'
 import { css } from '@emotion/react'
@@ -95,7 +96,7 @@ const FullApp = () => {
             <TransactionDialog />
             <Header />
             <Routes>
-              <Route path="/" element={<Navigate to={'/trade'} replace />} />
+              <Route path="/" element={<Greeting />} />
               <Route path={'/trade'} element={<Trade />} />
               <Route path={'/trade/:referral'} element={<Trade />} />
               <Route path={'/liquidity'} element={<Liquidity />} />

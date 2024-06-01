@@ -5,12 +5,18 @@ import { doc, mobileTabs } from './style'
 import { css } from '@emotion/react'
 import { Link, useMediaQuery, useTheme } from '@mui/material'
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { Copyright } from './Copyright'
 
 export const Footer = () => {
+  
+  const { pathname } = useLocation()
+  const isGreetingPath = useMemo(() => {
+    return pathname === '/'
+  }, [pathname])
+
   const theme = useTheme()
   const footer = useMemo(() => {
     return css`
@@ -61,7 +67,7 @@ export const Footer = () => {
   const [showSup, setShowSup] = useState(false)
 
   return (
-    <>
+    !isGreetingPath ? <>
       {!isMobile && (
         <div css={footer}>
           <div className="footer-content">
@@ -190,6 +196,6 @@ export const Footer = () => {
           <Copyright />
         </div>
       )}
-    </>
+    </> : null
   )
 }

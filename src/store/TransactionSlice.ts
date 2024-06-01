@@ -6,7 +6,7 @@ export enum TransactionState {
   START = 'Start transaction',
   CHECK_APPROVE = 'Check approve',
   APPROVE = 'Approve...',
-  INTERACTION = 'Interaction...',
+  INTERACTION = 'Executing...',
   START_OPEN_TRADE = 'Start open trade',
   APPROVE_SUCCESS = 'Approve success',
   OPEN_TRADE_SUCCESS = 'Open trade success',

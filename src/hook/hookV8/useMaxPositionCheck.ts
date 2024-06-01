@@ -20,12 +20,10 @@ export const useMaxPositionCheck = () => {
           pairStorageContract.groupCollateral(tradePairIndex, true),
         ])
         const groupCollateral = pairsInfo[1]
-        console.log('groupCollateral', groupCollateral)
         const MaxPos = tradePool.poolCurrentBalance?.times(MAX_COLLATERAL_P).div(100)
         const curPos = eXDecimals(new BigNumber(groupCollateral._hex), tradePool.decimals)
         // require(maxPos>=curPos+positionAmount)
-
-        console.log('positionAmount', positionAmount.toFixed(2))
+        
         return {
           state: !positionAmount.times(leverage)?.isGreaterThan(MaxPos?.minus(curPos)),
           maxAmount: MaxPos?.minus(curPos),

@@ -46,7 +46,6 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
 
           const data = await response.json()
           const fetchedData = data.bitcoin
-          console.log('fetchedData:', fetchedData)
 
           if (!fetchedData) {
             throw new Error('Fetched data is undefined')
