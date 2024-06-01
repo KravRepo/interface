@@ -32,14 +32,15 @@ export default function TradeDetails({
     tradeType,
     limitPrice,
     isBuy,
+    positionSizeDai,
     leverage,
   })
 
   const data = useMemo(() => {
     return {
-      ['Net Exposure']: positionSizeDai && leverage ? positionSizeDai.multipliedBy(leverage + '').toFormat(2, 3) : '-',
+      ['Net Exposure']: positionSizeDai && leverage ? positionSizeDai.multipliedBy(leverage).toFormat(2, 3) : '-',
       ['Open Interest (L/S)']: <Bar openLong={openDaiLong} openShort={openDaiShort} />,
-      ['Price Impact']: <>{priceImpact}</>,
+      ['Price After Impact']: <>{priceImpact}</>,
       ...(tradeModel === TradeMode.BASIC ? {} : { ['Entry Price']: <>$65,272.61</> }),
       ['Liquidation Price']: <>{liquidationPrice}</>,
     }
@@ -100,8 +101,8 @@ function Bar({ openLong, openShort }: { openLong: BigNumber | undefined; openSho
     }
 
     return {
-      longPercent: openLong.dividedBy(total).multipliedBy('100').toFixed(3),
-      shortPercent: openShort.dividedBy(total).multipliedBy('100').toFixed(3),
+      longPercent: openLong.dividedBy(total).multipliedBy('100').toFixed(0),
+      shortPercent: openShort.dividedBy(total).multipliedBy('100').toFixed(0),
       long: openLong.toFixed(2),
       short: openShort.toFixed(2),
     }
