@@ -24,7 +24,7 @@ import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { useInterval } from '../../../hook/hookV8/useInterval'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import { useTradeData } from '../../../hook/useTradeData';
+import { useTradeData } from '../../../hook/useTradeData'
 
 type OrderParamsCardProps = {
   leverage: number
@@ -246,8 +246,8 @@ export const OrderParamsCard = ({
   }
 
   const handlePositionDAIInput = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const nDecimals = event.target.value.split('.')[1]?.length || 0;
-    setInputDAIDecimals(nDecimals);
+    const nDecimals = event.target.value.split('.')[1]?.length || 0
+    setInputDAIDecimals(nDecimals)
 
     const newValue = new BigNumber(event.target.value)
     setPositionSizeDai(newValue)
@@ -850,7 +850,13 @@ export const OrderParamsCard = ({
                         Entry Price
                       </span>
                       {/* TODO Liquidation Price */}
-                      <span>${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span>
+                        $
+                        {Number(BTCPrice).toLocaleString('en-US', {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </span>
                     </p>
                   </>
                 )}

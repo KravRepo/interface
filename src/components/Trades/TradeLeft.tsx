@@ -104,12 +104,12 @@ export const TradeLeft = ({
           tradeModel={tradeModel}
           setIsOpenSelectToken={setIsOpenSelectToken}
           setTradeModel={setTradeModel}
-        // tradeData={{
-        //   tradeType,
-        //   limitPrice,
-        //   isBuy,
-        //   leverage,
-        // }}
+          // tradeData={{
+          //   tradeType,
+          //   limitPrice,
+          //   isBuy,
+          //   leverage,
+          // }}
         />
         <div
           css={[

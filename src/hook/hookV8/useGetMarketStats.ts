@@ -13,7 +13,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
   const allPoolParams = useRootStore((store) => store.allPoolParams)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       try {
         if (allPoolParams.length > 0 && provider && typeof paiIndex !== 'undefined') {
           const contract = new Contract(address, trading_storage.abi, provider)

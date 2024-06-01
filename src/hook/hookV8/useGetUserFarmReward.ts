@@ -53,7 +53,7 @@ export const useGetUserFarmReward = () => {
           setUserTradingVolume24H(Number(lpRewardInfo.trdingVolume24H) / API_DECIMALS)
           setNextEpoch(Number(lpRewardInfo.nextEpoch))
         }
-      } catch (e) { }
+      } catch (e) {}
     }
   }, [account])
 

@@ -139,7 +139,7 @@ export const useDatafeed = (pair: string) => {
             }
           }
         },
-        unsubscribeBars: () => { },
+        unsubscribeBars: () => {},
       },
     }
   }, [tickerKlineApi, wssSymbol])

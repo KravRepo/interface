@@ -62,7 +62,7 @@ export const useGetAllLpReward = () => {
                     rewardAmount: eXDecimals(new BigNumber(lpReward._hex), positionData.pool.decimals),
                   })
                 }
-              } catch (e) { }
+              } catch (e) {}
             }
             return await asyncWorker()
           })

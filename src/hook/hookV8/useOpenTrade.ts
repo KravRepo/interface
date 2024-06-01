@@ -23,7 +23,6 @@ export const useOpenTrade = ({
   tradingAddress,
   storageAddress,
 }: OpenTradeParams) => {
-
   const contract = useTradingV6Contract(tradingAddress)!
   const tokenContract = useTokenContract(tokenAddress)!
   const { chainId } = useWeb3React()
@@ -37,7 +36,6 @@ export const useOpenTrade = ({
   const setOpenTradeCard = useRootStore((state) => state.setOpenTradeCard)
   return useCallback(async () => {
     try {
-
       setTransactionState(TransactionState.APPROVE)
       const approveTX = await tokenContract.approve(storageAddress, MAX_UNIT_256)
       await approveTX.wait()
@@ -55,16 +53,16 @@ export const useOpenTrade = ({
 
         tx = await contract.openTrade(
           {
-            "trader": params[0].trader,
-            "sl": params[0].sl,
-            "tp": params[0].tp,
-            "pairIndex": params[0].pairIndex,
-            "openPrice": params[0].openPrice,
-            "leverage": params[0].leverage,
-            "initialPosToken": params[0].initialPosToken,
-            "index": params[0].index,
-            "buy": params[0].buy,
-            "positionSizeDai": params[0].positionSizeDai
+            trader: params[0].trader,
+            sl: params[0].sl,
+            tp: params[0].tp,
+            pairIndex: params[0].pairIndex,
+            openPrice: params[0].openPrice,
+            leverage: params[0].leverage,
+            initialPosToken: params[0].initialPosToken,
+            index: params[0].index,
+            buy: params[0].buy,
+            positionSizeDai: params[0].positionSizeDai,
           },
           params[1],
           { gasLimit: 10000000 }
@@ -76,16 +74,16 @@ export const useOpenTrade = ({
         // gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         tx = await contract.openTrade(
           {
-            "trader": params[0].trader,
-            "sl": params[0].sl,
-            "tp": params[0].tp,
-            "pairIndex": params[0].pairIndex,
-            "openPrice": params[0].openPrice,
-            "leverage": params[0].leverage,
-            "initialPosToken": params[0].initialPosToken,
-            "index": params[0].index,
-            "buy": params[0].buy,
-            "positionSizeDai": params[0].positionSizeDai
+            trader: params[0].trader,
+            sl: params[0].sl,
+            tp: params[0].tp,
+            pairIndex: params[0].pairIndex,
+            openPrice: params[0].openPrice,
+            leverage: params[0].leverage,
+            initialPosToken: params[0].initialPosToken,
+            index: params[0].index,
+            buy: params[0].buy,
+            positionSizeDai: params[0].positionSizeDai,
           },
           params[1],
           {
