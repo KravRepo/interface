@@ -11,7 +11,7 @@ export const useInterval = (callback: () => Promise<any>, delay: number | undefi
   useEffect(() => {
     if (typeof delay !== 'number' || delay < 0) return
     if (intervalRef.current) {
-      clearInterval(intervalRef.current)
+      clearInterval(intervalRef.current as any)
     }
     if (chainId && !SUPPORT_CHAIN.includes(chainId)) return
     try {
@@ -25,7 +25,7 @@ export const useInterval = (callback: () => Promise<any>, delay: number | undefi
       console.error(e)
     }
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current)
+      if (intervalRef.current) clearInterval(intervalRef.current as any)
     }
   }, [delay, timerCallback, chainId])
 }

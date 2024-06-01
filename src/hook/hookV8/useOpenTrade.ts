@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { OpenTradeParams } from '../../components/Trades/type'
 import { ZERO_ADDRESS } from '../../constant/math'
 import { useCallback } from 'react'
-import { getGasLimit } from '../../utils'
+// import { getGasLimit } from '../../utils'
 import { useTradingV6Contract } from './useContract'
 import { useGetUserOpenLimitOrders } from './useGetUserOpenLimitOrders'
 import { useGetUserOpenTrade } from './useGetUserOpenTrade'
@@ -22,6 +22,7 @@ export const useOpenTrade = ({
   tradingAddress,
   storageAddress,
 }: OpenTradeParams) => {
+  // const contract = useTradingV6Contract("0x8d0d027bC501422Cac838e536dff6CF1404830ee")!
   const contract = useTradingV6Contract(tradingAddress)!
   const { chainId } = useWeb3React()
   const { getUserOpenTrade } = useGetUserOpenTrade()
@@ -33,25 +34,61 @@ export const useOpenTrade = ({
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const setOpenTradeCard = useRootStore((state) => state.setOpenTradeCard)
   return useCallback(async () => {
+    console.log('tradingAddress', tradingAddress)
+    console.log('storageAddress', storageAddress)
+    console.log(contract)
     try {
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
       const params = [tuple, slippageP] as any
-      let gasLimit: BigNumber
+      console.log(params)
+      // let gasLimit: BigNumber
       let tx: any
       if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
-        gasLimit = await getGasLimit(contract, 'openTrade', params)
-        gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
-        tx = await contract.openTrade(...params, { gasLimit: gasLimit.toFixed(0) })
+        // gasLimit = await getGasLimit(contract, 'openTrade', params)
+        // gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+        // convert all number params to numbers
+
+        tx = await contract.openTrade(
+          {
+            "trader": params[0].trader,
+            "sl": params[0].sl,
+            "tp": params[0].tp,
+            "pairIndex": params[0].pairIndex,
+            "openPrice": params[0].openPrice,
+            "leverage": params[0].leverage,
+            "initialPosToken": params[0].initialPosToken,
+            "index": params[0].index,
+            "buy": params[0].buy,
+            "positionSizeDai": params[0].positionSizeDai
+          },
+          params[1],
+          { gasLimit: 228680 }
+        )
       } else {
         const minETHFees = await contract.minExecutionFee()
         console.log('minETHFees', minETHFees)
         // gasLimit = await getGasLimit(contract, 'openTrade', params, new BigNumber(minETHFees._hex).toString())
         // gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
-        tx = await contract.openTrade(...params, {
-          value: new BigNumber(minETHFees._hex).toString(),
-          // gasLimit: gasLimit.toFixed(0),
-        })
+        tx = await contract.openTrade(
+          {
+            "trader": params[0].trader,
+            "sl": params[0].sl,
+            "tp": params[0].tp,
+            "pairIndex": params[0].pairIndex,
+            "openPrice": params[0].openPrice,
+            "leverage": params[0].leverage,
+            "initialPosToken": params[0].initialPosToken,
+            "index": params[0].index,
+            "buy": params[0].buy,
+            "positionSizeDai": params[0].positionSizeDai
+          },
+          params[1],
+          {
+            value: new BigNumber(minETHFees._hex).toString(),
+            gasLimit: 228680,
+          }
+        )
       }
       setTransactionState(TransactionState.START_OPEN_TRADE)
       console.log('tx', await tx.wait())
@@ -71,7 +108,7 @@ export const useOpenTrade = ({
       setOpenTradeCard(false)
     } catch (e: any) {
       updateError(TransactionAction.OPEN_TRADE)
-      console.error('Open Trade failed!', e)
+      console.log('Open Trade failed!', e)
     }
   }, [contract, tuple, tradeType, slippageP, referral, spreadReductionId, tradingAddress, storageAddress, chainId])
 }

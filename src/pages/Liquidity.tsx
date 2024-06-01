@@ -64,12 +64,12 @@ export const Liquidity = () => {
               > svg {
                 > rect {
                   fill: ${!isTable
-                    ? theme.palette.mode === 'light'
-                      ? '#757575'
-                      : '#dadada'
-                    : theme.palette.mode === 'light'
-                    ? '#dadada'
-                    : '#757575'};
+                ? theme.palette.mode === 'light'
+                  ? '#757575'
+                  : '#dadada'
+                : theme.palette.mode === 'light'
+                  ? '#dadada'
+                  : '#757575'};
                 }
               }
             `}
@@ -82,12 +82,12 @@ export const Liquidity = () => {
               > svg {
                 > path {
                   fill: ${isTable
-                    ? theme.palette.mode === 'light'
-                      ? '#757575'
-                      : '#dadada'
-                    : theme.palette.mode === 'light'
-                    ? '#dadada'
-                    : '#757575'};
+                ? theme.palette.mode === 'light'
+                  ? '#757575'
+                  : '#dadada'
+                : theme.palette.mode === 'light'
+                  ? '#dadada'
+                  : '#757575'};
                 }
               }
             `}
@@ -110,6 +110,7 @@ export const Liquidity = () => {
         <TargetMarket
           setCreateLiquidityPool={setCreateLiquidityPool}
           setAddLiquidity={setAddLiquidity}
+          setRemoveLiquidity={setRemoveLiquidity}
           aprList={aprList}
           isTable={isTable}
         />

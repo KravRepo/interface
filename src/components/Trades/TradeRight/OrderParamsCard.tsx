@@ -108,6 +108,7 @@ export const OrderParamsCard = ({
   const theme = useTheme()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
+  const [inputDAIDecimals, setInputDAIDecimals] = useState(1)
   const [tabIndex, setTabIndex] = useState(0)
   const { provider } = useWeb3React()
   // const [slSetting, setSlSetting] = useState(0)
@@ -236,6 +237,9 @@ export const OrderParamsCard = ({
   }
 
   const handlePositionDAIInput = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const nDecimals = event.target.value.split('.')[1]?.length || 0;
+    setInputDAIDecimals(nDecimals);
+
     const newValue = new BigNumber(event.target.value)
     setPositionSizeDai(newValue)
     const outputAmount = getLongOrShortUSD(
@@ -451,7 +455,7 @@ export const OrderParamsCard = ({
                     <TextField
                       variant="standard"
                       type="number"
-                      value={positionSizeDai}
+                      value={positionSizeDai.toFormat(inputDAIDecimals)}
                       onChange={handlePositionDAIInput}
                       InputProps={{
                         disableUnderline: true,

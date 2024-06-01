@@ -30,7 +30,7 @@ export const useBTCPrice = () => {
   }, [tradePairIndex, pairConfig])
 
   useEffect(() => {
-    if (priceRef.current) clearInterval(priceRef.current)
+    if (priceRef.current) clearInterval(priceRef.current as any)
     getPrice().then()
     priceRef.current = setInterval(
       async () => {
@@ -39,7 +39,7 @@ export const useBTCPrice = () => {
       tradePairIndex === 3 ? 6000 : 8000
     )
     return () => {
-      if (priceRef.current) clearInterval(priceRef.current)
+      if (priceRef.current) clearInterval(priceRef.current as any)
     }
   }, [getPrice, tradePairIndex, chainId])
 }

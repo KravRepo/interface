@@ -16,6 +16,7 @@ export type YourPositionProps = {
 export type TargetMarketProps = {
   setCreateLiquidityPool: Dispatch<SetStateAction<boolean>>
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
+  setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   aprList: AprList[]
   isTable: boolean
 }
@@ -57,6 +58,7 @@ export type PositionItemProps = {
 
 export type MarketItemProps = {
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
+  setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   poolParams: PoolParams
   aprList: AprList[]
 }

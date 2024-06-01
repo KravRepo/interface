@@ -34,8 +34,10 @@ export const useAddLiquidity = (tokenAddress: string) => {
             const approveTX = await kTokenContract.approve(vaultAddress, MAX_UNIT_256)
             await approveTX.wait()
           }
+
           setTransactionState(TransactionState.INTERACTION)
           const tx = await kTokenContract['deposit'](amount.toString(), account)
+
           setTransactionState(TransactionState.ADD_LIQUIDITY)
           await tx.wait()
           setTransactionDialogVisibility(false)

@@ -133,7 +133,7 @@ export const CONTRACT_CONFIG_TEST: { [chainId: number]: ContractInfo } = {
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
     kravAddress: '0xbE3111856e4acA828593274eA6872f27968C8DD6',
-    kravTrading: '0x5976a1c7A0a2aF46f6c92060BCF3209442357E57',
+    kravTrading: '0x8d0d027bC501422Cac838e536dff6CF1404830ee',
     veKrav: '0xDeE06ff0dBE3eBFD05b9E54B4ea228eC0FbD7f71',
     feeDistrbutor: '0x37170e7f0045C3DDe99F8884d9B6E2322697CC74',
     lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',

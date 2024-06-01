@@ -21,7 +21,7 @@ import { useContract } from '../../hook/hookV8/useContract'
 import k_token from '../../abi/k_token.json'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import KravButtonHollow from '../KravUIKit/KravButtonHollow'
+// import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { withDecimals } from '../../utils'
 import { PoolParams } from '../../store/FactorySlice'
 
@@ -51,7 +51,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
         lockedAmount?.isGreaterThan(0) ? res : targetPool?.daiDeposited,
         targetPool?.pool?.decimals
       ).toNumber()
-      setMaxWithdrawAmount(maxAmount)
+      setMaxWithdrawAmount(maxAmount || 0)
     }
   }, [provider, liquidityInfo])
 
@@ -250,7 +250,7 @@ function ExistingRequest({
 
   const getEpochDuration = useSingleCallResult(kTokenContract, 'epochDuration', [])
 
-  const getCurrentEpoch = useSingleCallResult(kTokenContract, 'epochCurrent', [])
+  // const getCurrentEpoch = useSingleCallResult(kTokenContract, 'epochCurrent', [])
 
   const updateEpoch = useMemo(() => {
     if (getUpdateEpoch?.result?.[0]) return new BigNumber(getUpdateEpoch.result?.[0]._hex)
@@ -268,10 +268,10 @@ function ExistingRequest({
     else return new BigNumber(0)
   }, [getUpdateEpoch])
 
-  const currentEpoch = useMemo(() => {
-    if (getCurrentEpoch?.result?.[0]) return new BigNumber(getCurrentEpoch.result?.[0]._hex)
-    else return new BigNumber(0)
-  }, [getCurrentEpoch])
+  // const currentEpoch = useMemo(() => {
+  //   if (getCurrentEpoch?.result?.[0]) return new BigNumber(getCurrentEpoch.result?.[0]._hex)
+  //   else return new BigNumber(0)
+  // }, [getCurrentEpoch])
 
   const getRequestEc = useSingleContractMultipleData(
     kTokenContract,
@@ -417,7 +417,7 @@ function ExistingRequest({
                           : withDecimals(ec.amount, pool?.decimals ?? 18, false).toFormat(8)}
                         &nbsp;{pool?.symbol}
                       </Typography>
-                      {ec.epoch === currentEpoch.toNumber() ? (
+                      {/* {ec.epoch === currentEpoch.toNumber() ? (
                         <KravButtonHollow
                           onClick={async () => {
                             await withdraw.runWithModal([
@@ -449,7 +449,7 @@ function ExistingRequest({
                         >
                           Pending
                         </Typography>
-                      )}
+                      )} */}
                     </Stack>
                     <StyledBox />
                   </Box>

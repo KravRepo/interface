@@ -10,7 +10,7 @@ import { MarketItemProps } from './type'
 import { useWeb3React } from '@web3-react/core'
 import { getBigNumberStr } from '../../utils'
 
-export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
+export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
   const { account } = useWeb3React()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -122,6 +122,18 @@ export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketI
             Add Liquidity
           </KravButtonHollow>
         )}
+        {/* {account && (
+          <KravButtonHollow
+            style={{ marginTop: '10px' }}
+            // disabled={position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)}
+            onClick={() => {
+              setRemoveLiquidity(true)
+              setLiquidityInfo(poolParams)
+            }}
+          >
+            Remove Liquidity
+          </KravButtonHollow>
+        )} */}
         {!account && (
           <KravButtonHollow
             onClick={() => {

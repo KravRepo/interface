@@ -4,99 +4,117 @@ import { useTheme } from '@mui/material'
 import { Anchor } from '../TradeRight/AltcoinCard'
 import { PoolParams } from '../../../store/FactorySlice'
 import { align } from '../../../globalStyle'
-import { usePriceData } from './utils/useDatafeed'
-import { useTradeData } from '../../../hook/useTradeData'
-import BigNumber from 'bignumber.js'
-
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface PriceData {
-  '24h_change': number
-  '24h_volume': number
-  market_cap: number
-  price: number
+  '24h_change': number;
+  '24h_volume': number;
+  market_cap: number;
+  price: number;
 }
 
-export default function CoinInfo({
-  isBTC,
-  pool,
-  tradeType,
-  limitPrice,
-  isBuy,
-  leverage,
-}: {
-  isBTC?: boolean
-  pool?: PoolParams
-  tradeType?: number
-  limitPrice?: string | BigNumber
-  isBuy?: boolean
-  leverage?: number
-}) {
-  const theme = useTheme()
-  const [priceData, setPriceData] = useState<PriceData | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: PoolParams }) {
+  const theme = useTheme();
+  const [btcPriceData, setBtcPriceData] = useState<PriceData | null>(null);
+  const [poolPriceData, setPoolPriceData] = useState<PriceData | null>(null);
+  const [isBtcLoading, setIsBtcLoading] = useState<boolean>(true);
+  const [isPoolLoading, setIsPoolLoading] = useState<boolean>(true);
+  const [retryCount, setRetryCount] = useState<number>(0);
 
-  const url = `https://api.krav.trade/krav/v1/price/${
-    isBTC ? '0x321162Cd933E2Be498Cd2267a90534A804051b11' : pool?.tokenT
-  }`
-
-  const { fundingFee } = useTradeData({
-    tradeType,
-    limitPrice,
-    isBuy: !!isBuy,
-    leverage,
-  })
+  const btcUrl = `https://api.krav.trade/krav/v1/price/0x321162Cd933E2Be498Cd2267a90534A804051b11`;
+  const poolUrl = pool ? `https://api.krav.trade/krav/v1/price/${pool.tokenT?.toLowerCase()}` : '';
 
   useEffect(() => {
-    if ((pool == undefined || !pool || pool == null) && !isBTC) return
+    if (isBTC) {
+      const fetchBtcData = async () => {
+        setIsBtcLoading(true);
+        try {
+          const response = await fetch(btcUrl, {
+            mode: 'cors',
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
 
-    const fetchData = async () => {
-      setIsLoading(true)
-      try {
-        console.log('Fetching data from URL:', url)
-        const response = await fetch(url, {
-          mode: 'cors',
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+          }
 
-        if (!response.ok) {
-          console.log('Error fetching data:', response.statusText)
-          setIsLoading(false)
-          return
+          const data = await response.json();
+          const fetchedData = data.data['0x321162Cd933E2Be498Cd2267a90534A804051b11'.toLowerCase()];
+
+          if (!fetchedData) {
+            throw new Error('Fetched data is undefined');
+          }
+
+          setBtcPriceData(fetchedData);
+        } catch (error) {
+          console.log('Error fetching BTC data:', error);
+          if (retryCount < 10) {
+            setRetryCount(retryCount + 1);
+          } else {
+            setBtcPriceData(null);
+          }
+        } finally {
+          setIsBtcLoading(false);
         }
+      };
 
-        const data = await response.json()
-        console.log('Data fetched:', data)
-
-        if (isBTC) {
-          console.log('Bitcoin data:', data.data['0x321162Cd933E2Be498Cd2267a90534A804051b11'])
-          setPriceData(data.data['0x321162Cd933E2Be498Cd2267a90534A804051b11'])
-        } else {
-          const tokenData = data.data[pool?.tokenT?.toLowerCase() || '']
-          setPriceData(tokenData)
-        }
-      } catch (error) {
-        console.log('Error fetching data:', error)
-      } finally {
-        setIsLoading(false)
-      }
+      fetchBtcData();
     }
+  }, [isBTC, btcUrl, retryCount]);
 
-    fetchData()
-  }, [pool, isBTC, url])
+  useEffect(() => {
+    if (!isBTC && pool) {
+      const fetchPoolData = async () => {
+        setIsPoolLoading(true);
+        try {
+          const response = await fetch(poolUrl, {
+            mode: 'cors',
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
 
-  if (!pool && !isBTC) return null
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+          }
 
-  if (isLoading) {
-    return <div>Loading...</div>
+          const data = await response.json();
+          const fetchedData = data.data[pool.tokenT?.toLowerCase() || ''];
+
+          if (!fetchedData) {
+            throw new Error('Fetched data is undefined');
+          }
+
+          setPoolPriceData(fetchedData);
+        } catch (error) {
+          console.log('Error fetching pool data:', error);
+          if (retryCount < 10) {
+            setRetryCount(retryCount + 1);
+          } else {
+            setPoolPriceData(null);
+          }
+        } finally {
+          setIsPoolLoading(false);
+        }
+      };
+
+      fetchPoolData();
+    }
+  }, [isBTC, pool, poolUrl, retryCount]);
+
+  if (isBTC && isBtcLoading) {
+    return <div>Loading BTC data...</div>;
   }
 
-  if (!priceData) {
-    return <div>No data available</div>
+  if (!isBTC && isPoolLoading) {
+    return <div>Loading pool data...</div>;
   }
+
+  const priceData = isBTC ? btcPriceData : poolPriceData;
 
   return (
     <div css={[align]}>
@@ -135,7 +153,7 @@ export default function CoinInfo({
           `}
         >
           <tr>
-            <td>Price</td>
+            {!isBTC && <td>Price</td>}
             <td>24h</td>
             <td>24h Volume</td>
             <td>Market Cap</td>
@@ -161,20 +179,25 @@ export default function CoinInfo({
           `}
         >
           <tr>
-            <td>{priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 5 }) : '-'}</td>
+            {!isBTC && <td>
+              {priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 5 }) : '-'}
+            </td>}
             <td>
-              <Anchor changeInString={priceData?.['24h_change'].toFixed(4)} />
+              <Anchor changeInString={priceData?.['24h_change'].toFixed(2)} />
             </td>
             <td>
-              {priceData ? priceData?.['24h_volume']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
+              {priceData ? '$' + priceData?.['24h_volume']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
             </td>
             <td>
-              {priceData ? priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
+              {priceData ? '$' + priceData?.['market_cap']?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-'}
             </td>
-            {!isBTC && <td> {fundingFee}</td>}
+            {!isBTC && <td> -</td>}
           </tr>
         </tbody>
       </table>
     </div>
-  )
+  );
 }
+
+
+

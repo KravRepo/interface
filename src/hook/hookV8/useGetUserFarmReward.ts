@@ -53,7 +53,7 @@ export const useGetUserFarmReward = () => {
           setUserTradingVolume24H(Number(lpRewardInfo.trdingVolume24H) / API_DECIMALS)
           setNextEpoch(Number(lpRewardInfo.nextEpoch))
         }
-      } catch (e) {}
+      } catch (e) { }
     }
   }, [account])
 
@@ -104,7 +104,7 @@ export const useGetUserFarmReward = () => {
         })
       }, 15000)
     }
-    return () => clearInterval(interval)
+    return () => clearInterval(interval as any)
   }, [miningContract, account, provider])
 
   return {

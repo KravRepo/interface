@@ -16,21 +16,14 @@ import { TradeMode } from '../../../store/TradeSlice'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import CoinInfo from './CoinInfo'
-import BigNumber from 'bignumber.js'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
   tradeModel: TradeMode
   setTradeModel: (tradeModel: TradeMode) => void
-  tradeData?: {
-    tradeType: number
-    limitPrice: string | BigNumber
-    isBuy?: boolean
-    leverage: number
-  }
 }
 
-export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel, tradeData }: PairInfoProps) => {
+export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: PairInfoProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   // const [choosePair, setChoosePair] = useState(false)
@@ -133,7 +126,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel, trad
           ]}
         >
           <div>
-            {<CoinInfo pool={tradePool} {...tradeData} />}
+            {<CoinInfo pool={tradePool} />}
             {/* <div
             className="info-card"
             css={css`
@@ -519,7 +512,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel, trad
                       line-height: 1.4;
                     `}
                   >
-                    {BTCPrice.toFixed(tradePair.fixDecimals)}
+                    ${Number(BTCPrice).toLocaleString('en-US', { maximumFractionDigits: 2 })}
                   </span>
                   {/* {showSwitch && (
                     <div

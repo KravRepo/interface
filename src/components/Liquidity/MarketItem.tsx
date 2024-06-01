@@ -13,7 +13,7 @@ import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 import { useTheme } from '@mui/material'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 
-export const MarketItem = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
+export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
   const { account } = useWeb3React()
   const getLpReward = useGetLpReward(poolParams.vaultT, poolParams.decimals)

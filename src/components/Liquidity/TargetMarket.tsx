@@ -14,7 +14,7 @@ import { css } from '@emotion/react'
 import { MarketItemCard } from './MarketItemCard'
 import { MarketItem } from './MarketItem'
 
-export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList, isTable }: TargetMarketProps) => {
+export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, setRemoveLiquidity, aprList, isTable }: TargetMarketProps) => {
   const theme = useTheme()
   const { allPoolParams, setWalletDialogVisibility } = useRootStore((store) => ({
     allPoolParams: store.allPoolParams,
@@ -136,8 +136,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
                           ? '#fff'
                           : '#000'
                         : theme.palette.mode === 'dark'
-                        ? '#4B4B4B'
-                        : '#757575',
+                          ? '#4B4B4B'
+                          : '#757575',
                     },
                   }}
                 />
@@ -149,8 +149,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
                           ? '#4B4B4B'
                           : '#757575'
                         : theme.palette.mode === 'dark'
-                        ? '#fff'
-                        : '#000',
+                          ? '#fff'
+                          : '#000',
                     },
                   }}
                 />
@@ -195,8 +195,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
                           ? '#fff'
                           : '#000'
                         : theme.palette.mode === 'dark'
-                        ? '#4B4B4B'
-                        : '#757575',
+                          ? '#4B4B4B'
+                          : '#757575',
                     },
                   }}
                 />
@@ -208,8 +208,8 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
                           ? '#4B4B4B'
                           : '#757575'
                         : theme.palette.mode === 'dark'
-                        ? '#fff'
-                        : '#000',
+                          ? '#fff'
+                          : '#000',
                     },
                   }}
                 />
@@ -228,6 +228,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
               return (
                 <MarketItem
                   setAddLiquidity={setAddLiquidity}
+                  setRemoveLiquidity={setRemoveLiquidity}
                   poolParams={pool}
                   aprList={aprList}
                   key={pool.tokenT + index}
@@ -244,6 +245,7 @@ export const TargetMarket = ({ setCreateLiquidityPool, setAddLiquidity, aprList,
                 <MarketItemCard
                   key={pool.tradingT + index}
                   setAddLiquidity={setAddLiquidity}
+                  setRemoveLiquidity={setRemoveLiquidity}
                   poolParams={pool}
                   aprList={aprList}
                 />

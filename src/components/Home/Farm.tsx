@@ -44,7 +44,7 @@ export const Farm = () => {
       }, 10000)
     }
     return () => {
-      if (backInterval) clearInterval(backInterval)
+      if (backInterval) clearInterval(backInterval as any)
     }
   }, [account, allPoolParams, provider])
 

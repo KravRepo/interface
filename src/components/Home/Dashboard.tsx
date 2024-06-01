@@ -60,7 +60,7 @@ export const Dashboard = () => {
         await getUserAllLimitOrders()
       }, 15000)
     }
-    return () => clearInterval(interval)
+    return () => clearInterval(interval as any)
   }, [account])
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const Dashboard = () => {
       }, 10000)
     }
     return () => {
-      if (interval) clearInterval(interval)
+      if (interval) clearInterval(interval as any)
     }
   }, [allPoolParams, account, provider])
 

@@ -62,7 +62,7 @@ export const useGetAllLpReward = () => {
                     rewardAmount: eXDecimals(new BigNumber(lpReward._hex), positionData.pool.decimals),
                   })
                 }
-              } catch (e) {}
+              } catch (e) { }
             }
             return await asyncWorker()
           })
@@ -81,7 +81,7 @@ export const useGetAllLpReward = () => {
         await getAllLpReward()
       }, 15000)
     }
-    return () => clearInterval(interval)
+    return () => clearInterval(interval as any)
   }, [account, positionDatas, provider])
 
   return { userFeesRewardList: userFeesRewardList }

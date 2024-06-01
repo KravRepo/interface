@@ -47,7 +47,7 @@ export const NewFarm = () => {
         setTotalVeKravAmount(eXDecimals(rewardInfo.veTotalSupply, 18))
         setTradeReward(Number(rewardInfo.trader))
         setLiquidityReward(Number(rewardInfo.lp))
-      } catch (e) {}
+      } catch (e) { }
     }
   }, [account])
 
@@ -67,7 +67,7 @@ export const NewFarm = () => {
         await Promise.all([getOverView(), getRewardList()])
       }, 15000)
     }
-    return () => clearInterval(interval)
+    return () => clearInterval(interval as any)
   }, [account, provider])
 
   return (
