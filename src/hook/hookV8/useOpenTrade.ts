@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js'
 import { OpenTradeParams } from '../../components/Trades/type'
-import { ZERO_ADDRESS } from '../../constant/math'
+import { MAX_UNIT_256, ZERO_ADDRESS } from '../../constant/math'
 import { useCallback } from 'react'
 // import { getGasLimit } from '../../utils'
-import { useTradingV6Contract } from './useContract'
+import { useTradingV6Contract, useTokenContract } from './useContract'
 import { useGetUserOpenLimitOrders } from './useGetUserOpenLimitOrders'
 import { useGetUserOpenTrade } from './useGetUserOpenTrade'
 import { useRootStore } from '../../store/root'
@@ -19,11 +19,13 @@ export const useOpenTrade = ({
   slippageP,
   referral = ZERO_ADDRESS,
   spreadReductionId = 0,
+  tokenAddress,
   tradingAddress,
   storageAddress,
 }: OpenTradeParams) => {
-  // const contract = useTradingV6Contract("0x8d0d027bC501422Cac838e536dff6CF1404830ee")!
+
   const contract = useTradingV6Contract(tradingAddress)!
+  const tokenContract = useTokenContract(tokenAddress)!
   const { chainId } = useWeb3React()
   const { getUserOpenTrade } = useGetUserOpenTrade()
   const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
@@ -34,10 +36,12 @@ export const useOpenTrade = ({
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const setOpenTradeCard = useRootStore((state) => state.setOpenTradeCard)
   return useCallback(async () => {
-    console.log('tradingAddress', tradingAddress)
-    console.log('storageAddress', storageAddress)
-    console.log(contract)
     try {
+
+      setTransactionState(TransactionState.APPROVE)
+      const approveTX = await tokenContract.approve(storageAddress, MAX_UNIT_256)
+      await approveTX.wait()
+
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
       const params = [tuple, slippageP] as any
@@ -63,7 +67,7 @@ export const useOpenTrade = ({
             "positionSizeDai": params[0].positionSizeDai
           },
           params[1],
-          { gasLimit: 228680 }
+          { gasLimit: 10000000 }
         )
       } else {
         const minETHFees = await contract.minExecutionFee()
@@ -86,7 +90,7 @@ export const useOpenTrade = ({
           params[1],
           {
             value: new BigNumber(minETHFees._hex).toString(),
-            gasLimit: 228680,
+            gasLimit: 10000000,
           }
         )
       }

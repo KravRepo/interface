@@ -44,6 +44,7 @@ export type OpenTradeParams = {
   referral: string
   tradingAddress: string
   storageAddress: string
+  tokenAddress: string
 }
 
 export type UpdateOpenLimitOrderParams = {

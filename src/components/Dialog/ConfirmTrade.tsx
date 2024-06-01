@@ -58,6 +58,7 @@ export const ConfirmTrade = ({
     referral: referralAddress,
     tradingAddress: tradePool.tradingT,
     storageAddress: tradePool.storageT,
+    tokenAddress: tradePool.tokenT
   })
 
   useEffect(() => {
