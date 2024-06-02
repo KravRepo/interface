@@ -203,7 +203,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
         css={[
           align,
           css`
-            justifycontent: flex-start;
+            justify-content: flex-start;
             margin-right: 10px;
             @media screen and (max-width: 960px) {
               grid-column-start: span 5;

@@ -205,7 +205,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             </Tooltip>
           </div>
         </div>
-        <div className="action">
+        {apr.isGreaterThan(0) && <div className="action">
           <div
             css={css`
               background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
@@ -249,7 +249,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
               </span>
             </div>
           </div> */}
-        </div>
+        </div>}
       </div>
     </div>
   )

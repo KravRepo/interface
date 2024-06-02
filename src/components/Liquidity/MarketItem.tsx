@@ -60,7 +60,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
       {/*<div>*/}
       {/*  1 BTC={poolParams.proportionBTC} {poolParams.symbol}*/}
       {/*</div>*/}
-      <div>{apr.toFixed(2)}%</div>
+      {apr.isGreaterThan(0) ? <div>{apr.toFixed(2)}%</div> : <div>-</div>}
       <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>
         <p>
