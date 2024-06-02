@@ -28,7 +28,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const btcUrl = `https://krav-oracle.onrender.com/btc`
-  const poolUrl = pool ? `https://api.krav.trade/krav/v1/price/${pool.tokenT?.toLowerCase()}` : ''
+  const poolUrl = pool ? `https://v1-api.krav.trade/krav/v1/price/${pool.tokenT?.toLowerCase()}` : ''
 
   const { BTCPrice, isBTCRise, tradePairIndex, pairConfig } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
@@ -156,7 +156,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
                 }),
           }),
     }
-  }, [pool, isBTC, isMobile])
+  }, [pool, isBTC, isMobile, btcPriceData, poolPriceData, BTCPrice])
 
   if (isBTC && isBtcLoading) {
     return <div>Loading BTC data...</div>
