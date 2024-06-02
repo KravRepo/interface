@@ -78,7 +78,7 @@ export const Greeting = () => {
                     fontSize: '16px',
                     letterSpacing: '1px',
                     marginTop: '20px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                 }}>
                     Start Trading
                 </button>
@@ -114,7 +114,9 @@ export const Greeting = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    border: 'none'
+                    border: 'none',
+                    outline: 'none',
+                    padding: '0px',
                 }}>
                     <img src={Preview} alt="dashboard preview" style={{
                         width: "100%",
