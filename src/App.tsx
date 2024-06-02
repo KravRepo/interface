@@ -129,7 +129,6 @@ function App() {
         <AppTheme>
           <Web3Provider>
             <BlockNumberProvider>
-              <TermsAndAgreementDialog />
               <FullApp />
             </BlockNumberProvider>
           </Web3Provider>

@@ -9,10 +9,13 @@ import text from '../../constant/TermsAndAgreement'
 import KRAVButton from '../KravUIKit/KravButton'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import { useLocation } from 'react-router-dom'
 
 export default function TermsAndAgreementDialog() {
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
   const [agree, setAgree] = React.useState(false)
+  const { pathname } = useLocation()
+  console.log({ pathname })
 
   const handleClose = (e: any, reason: any) => {
     if (reason && reason === 'backdropClick') return
@@ -37,10 +40,10 @@ export default function TermsAndAgreementDialog() {
 
   React.useEffect(() => {
     const agree = localStorage.getItem('KRAV_AGREEMENT')
-    if (agree === 'true') {
-      setOpen(false)
+    if (agree !== 'true' && (pathname === '/trade' || pathname === '/liquidity')) {
+      setOpen(true)
     }
-  }, [])
+  }, [pathname])
 
   return (
     <React.Fragment>
