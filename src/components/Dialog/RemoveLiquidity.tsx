@@ -109,7 +109,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               sx={{ marginTop: '16px !important' }}
             >
               <span style={{ fontWeight: 600 }}>Reminder: </span>
-              <span>When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time.</span>
+              <span>When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.</span>
             </Typography>
           </Box>
           <div

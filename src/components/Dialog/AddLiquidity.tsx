@@ -75,7 +75,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
             <span style={{ fontWeight: 600 }}>Reminder: </span>
             <span>
               When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
-              there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure a
+              there must be a minimum of 2 epochs in between two consecutive withdrawals. These rules help ensure a
               stable and fair trading environment on our platform.
             </span>
           </Typography>

@@ -70,9 +70,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
       </div>
       <div>
         <Tooltip
-          title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
-                there must be a minimum of 43,200 blocks in between two consecutive withdrawals. These rules help ensure
-                a stable and fair trading environment on our platform.`}
+          title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
         >
           <span css={align}>
             {lockAmount.isGreaterThan(0)
