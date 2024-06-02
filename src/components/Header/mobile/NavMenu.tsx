@@ -34,7 +34,7 @@ export const NavMenu = ({ isOpen, setIsOpen }: NavMenuProps) => {
     `
   }, [theme])
   return (
-    <SwipeableDrawer anchor={'top'} open={isOpen} onOpen={() => console.log('open')} onClose={setIsOpen}>
+    <SwipeableDrawer anchor={'top'} open={isOpen} onClose={setIsOpen}>
       <div
         css={css`
           padding: 16px;

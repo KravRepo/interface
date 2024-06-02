@@ -26,7 +26,7 @@ export const useCancelOpenLimitOrder = (tradingAddress: string, storageAddress: 
         setTransactionDialogVisibility(true)
         const tx = await contract.cancelOpenLimitOrder(...params, { gasLimit: gasLimit.toFixed(0) })
         setTransactionState(TransactionState.CANCEL_LIMIT_ORDER)
-        console.log('tx', await tx.wait())
+        await tx.wait()
         setTransactionDialogVisibility(false)
         setTransactionState(TransactionState.START)
         const close = await getUserOpenLimitOrders(storageAddress, true)
@@ -36,7 +36,7 @@ export const useCancelOpenLimitOrder = (tradingAddress: string, storageAddress: 
           title: 'Cancel Limit order',
           content: `Limit order canceled successfully`,
         })
-        console.log('close tx', close)
+        console.log('close', close)
       } catch (e: any) {
         if (e.reason.includes('LIMIT_TIMELOCK')) {
           updateError(

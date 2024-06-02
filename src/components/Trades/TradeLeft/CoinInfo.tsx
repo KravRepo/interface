@@ -67,7 +67,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
 
           setBtcPriceData(fetchedData)
         } catch (error) {
-          console.log('Error fetching BTC data:', error)
+          // console.log('Error fetching BTC data:', error)
           if (retryCount < 10) {
             setRetryCount(retryCount + 1)
           } else {
@@ -108,7 +108,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
 
           setPoolPriceData(fetchedData)
         } catch (error) {
-          console.log('Error fetching pool data:', error)
+          // console.log('Error fetching pool data:', error)
           if (retryCount < 10) {
             setRetryCount(retryCount + 1)
           } else {

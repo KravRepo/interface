@@ -70,16 +70,16 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
   const getTradeHistory = useCallback(async () => {
     try {
       const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
-      console.log('quantosRequest', quantosRequest)
+      // console.log('quantosRequest', quantosRequest)
       const quantos = await quantosRequest.json()
-      console.log('quantos', quantos)
+      // console.log('quantos', quantos)
       if (quantos.code == 200) {
         const target = quantos.data.find((quanto: Quanto) => quanto?.tradingT === tradePool?.tradingT)
-        console.log('target', target)
+        // console.log('target', target)
         const historyRequest = await fetch(
           TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
         )
-        console.log('historyRequest', historyRequest)
+        // console.log('historyRequest', historyRequest)
         const history = await historyRequest.json()
         if (history.code === 200) {
           const data: HistoryData[] = history.data

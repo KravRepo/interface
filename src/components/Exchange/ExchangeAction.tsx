@@ -93,7 +93,7 @@ export const ExchangeAction = () => {
           setStakeAmount(new BigNumber(0))
         } catch (e) {
           updateError(TransactionAction.STAKE_KRAV)
-          console.log('e', e)
+          // console.log('e', e)
         }
       }
     }
