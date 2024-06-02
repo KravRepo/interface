@@ -27,11 +27,11 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
     }
   }, [position])
 
-  const apr = useMemo(() => {
-    const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
-    if (res) return res.apr
-    else return new BigNumber(0)
-  }, [aprList])
+  // const apr = useMemo(() => {
+  //   const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
+  //   if (res) return res.apr
+  //   else return new BigNumber(0)
+  // }, [aprList])
 
   return (
     <div className="liquidity-table">
@@ -57,7 +57,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
       {/*<div>*/}
       {/*  1 BTC={position.pool.proportionBTC} {position.pool.symbol}*/}
       {/*</div>*/}
-      <div>{apr.toFixed(2)}%</div>
+      {/* <div>{apr.toFixed(2)}%</div> */}
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>
         <p>

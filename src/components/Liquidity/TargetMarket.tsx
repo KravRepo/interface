@@ -28,9 +28,9 @@ export const TargetMarket = ({
   }))
   const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
   const { account } = useWeb3React()
-  const [aprSortBy, setAprSortBy] = useState<'asc' | 'desc'>('asc')
+  // const [aprSortBy, setAprSortBy] = useState<'asc' | 'desc'>('asc')
   const [totalSortBy, setTotalSortBy] = useState<'asc' | 'desc'>('asc')
-  const [aprAsc, setAprAsc] = useState<boolean>(false)
+  // const [aprAsc, setAprAsc] = useState<boolean>(false)
   const [totalAsc, setTotalAsc] = useState<boolean>(false)
 
   const tableData = useMemo(() => {
@@ -104,7 +104,7 @@ export const TargetMarket = ({
         <div>
           <div className="liquidity-table grey nowrap">
             <div>ASSET</div>
-            <Stack direction={'row'} alignItems={'center'}>
+            {/* <Stack direction={'row'} alignItems={'center'}>
               <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>
                 APR
               </Typography>
@@ -161,7 +161,7 @@ export const TargetMarket = ({
                   }}
                 />
               </Stack>
-            </Stack>
+            </Stack> */}
             <div>UTILIZATION</div>
             <Stack direction={'row'} alignItems={'center'}>
               <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>

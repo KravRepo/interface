@@ -23,11 +23,11 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
     return eXDecimals(supply, poolParams.decimals)
   }, [poolParams, userPositionDatas])
 
-  const apr = useMemo(() => {
-    const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
-    if (res) return res.apr
-    else return new BigNumber(0)
-  }, [aprList])
+  // const apr = useMemo(() => {
+  //   const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
+  //   if (res) return res.apr
+  //   else return new BigNumber(0)
+  // }, [aprList])
   return (
     <div
       css={[
@@ -96,7 +96,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
             {getBigNumberStr(poolSupply, 2)}
           </p>
         </div>
-        <div
+        {/* <div
           css={css`
             background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
           `}
@@ -116,7 +116,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
           >
             {apr.toFixed(2)}%
           </span>
-        </div>
+        </div> */}
         {account && (
           <KravButtonHollow
             onClick={() => {

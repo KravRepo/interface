@@ -19,9 +19,9 @@ export const useDatafeed = (pair: string) => {
 
   const tickerKlineApi = useMemo(() => {
     if (pair === 'NDX100') {
-      return 'https://multi-dev.krav.trade/krav/v1/I:NDX/1/minute/'
+      return 'https://multi-dev.krav.trade/krav/I:NDX/1/minute/'
     } else {
-      return 'https://multi-dev.krav.trade/krav/v1/COIN/1/minute/'
+      return 'https://multi-dev.krav.trade/krav/COIN/1/minute/'
     }
   }, [])
 
@@ -109,7 +109,7 @@ export const useDatafeed = (pair: string) => {
           }
           intervalRef.current && clearInterval(intervalRef.current)
           resetCacheRef.current = onResetCacheNeededCallback
-          const ws1D = new WebSocket('wss://sdk-wsapi.krav.trade:8800')
+          const ws1D = new WebSocket('wss://sdk-wsv1-api.krav.trade:8800')
           ws1D.onmessage = async function (msg) {
             try {
               if (msg.data) {
