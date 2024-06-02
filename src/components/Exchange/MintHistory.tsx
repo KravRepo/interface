@@ -159,7 +159,7 @@ export const MintHistory = () => {
           setHistoryArray(historyData)
         }
       } catch (e) {
-        console.log('get histroy failed!', e)
+        // console.log('get histroy failed!', e)
       }
     }
   }, [account, chainId, page])

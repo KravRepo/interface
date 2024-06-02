@@ -92,19 +92,19 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    console.log(priceImpactArgs)
+    // console.log(priceImpactArgs)
 
     const fetchPriceImpact = async () => {
       if (pairContract && priceImpactArgs.every((arg) => arg !== undefined)) {
         try {
           const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
-          console.log('trading storage', tradePool.storageT)
-          console.log('pairs storage', tradePool.pairStorageT)
-          console.log('pair infos', tradePool.pairInfoT)
-          console.log('price impact p', result.priceImpactP.toString())
-          console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toString())
-          console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
-          console.log('btc price', BTCPrice.toString())
+          // console.log('trading storage', tradePool.storageT)
+          // console.log('pairs storage', tradePool.pairStorageT)
+          // console.log('pair infos', tradePool.pairInfoT)
+          // console.log('price impact p', result.priceImpactP.toString())
+          // console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toString())
+          // console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
+          // console.log('btc price', BTCPrice.toString())
           setPriceImpact(
             '$' +
               (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {

@@ -24,8 +24,8 @@ export const useAddLiquidity = (tokenAddress: string) => {
     async (amount: BigNumber, vaultAddress: string, symbol: string, decimals: number) => {
       try {
         if (tokenContract) {
-          console.log('tokenAddress', tokenAddress)
-          console.log('vaultAddress', vaultAddress)
+          // console.log('tokenAddress', tokenAddress)
+          // console.log('vaultAddress', vaultAddress)
 // const krav = await ethers.getContractAt(`KToken`, tokenAddress)
 // await (await krav.approve(vaultAddress, ethers.constants.MaxUint256)).wait()
 // const kToken = await ethers.getContractAt(`KToken`, vaultAddress)
@@ -60,7 +60,7 @@ export const useAddLiquidity = (tokenAddress: string) => {
             title: 'Deposit',
             content: `Your ${eXDecimals(amount, decimals).toFixed(2)} ${symbol} has been deposited successfully`,
           })
-          console.log('tx', tx)
+          // console.log('tx', tx)
         }
       } catch (e) {
         setTransactionDialogVisibility(false)

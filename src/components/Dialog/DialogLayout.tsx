@@ -34,7 +34,7 @@ export const DialogLayout = ({ isOpen, setIsOpen, children }: DialogLayoutProps)
               borderRadius: '8px 8px 0px 0px',
             },
           }}
-          onOpen={() => console.log('open')}
+          // onOpen={() => console.log('open')}
           anchor={'bottom'}
           open={isOpen}
           onClose={() => setIsOpen(false)}

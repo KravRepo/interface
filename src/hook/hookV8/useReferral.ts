@@ -47,7 +47,7 @@ export const useReferral = () => {
         gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         const tx = await factory.claimReward(...params, { gasLimit: gasLimit.toFixed(0) })
         setTransactionState(TransactionState.CLAIM_REFERRAL_REWARD)
-        console.log('tx', await tx.wait())
+        await tx.wait()
         setTransactionDialogVisibility(false)
         setTransactionState(TransactionState.START)
         updateSuccessDialog(TransactionAction.CLAIM_REFERRAL_REWARD)

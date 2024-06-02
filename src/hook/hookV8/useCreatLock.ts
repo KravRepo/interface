@@ -47,20 +47,20 @@ export const useCreatLock = () => {
           //   console.log('3 approveTX', approveTX)
           // }
           setTransactionState(TransactionState.APPROVE)
-          console.log('2 approve', lockAmount.toString())
+          // console.log('2 approve', lockAmount.toString())
           const approveTX = await kravTokenContract.approve(config.veKrav, MAX_UNIT_256)
           await approveTX.wait()
-          console.log('3 approveTX', approveTX)
+          // console.log('3 approveTX', approveTX)
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
           const params = [lockAmount.toString(), forMatterLockTime / 1000 + nowTimestamp] as any
           let gasLimit = await getGasLimit(veContract, 'create_lock', params)
 
           gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
-          console.log('gasLimit', gasLimit.toFixed(0))
+          // console.log('gasLimit', gasLimit.toFixed(0))
           const tx = await veContract.create_lock(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.LOCK_KRAV)
-          console.log('tx', await tx.wait())
+          await tx.wait()
           setTransactionState(TransactionState.START)
           updateSuccessDialog(TransactionAction.LOCK_KRAV)
           setSuccessSnackbarInfo({

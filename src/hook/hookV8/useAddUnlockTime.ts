@@ -35,7 +35,7 @@ export const useAddUnlockTime = () => {
 
           const tx = await veContract.increase_unlock_time(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.INCREASE_UNLOCK_TIME)
-          console.log('tx', await tx.wait())
+          // console.log('tx', await tx.wait())
           setTransactionState(TransactionState.START)
           updateSuccessDialog(TransactionAction.INCREASE_UNLOCK_TIME)
           setSuccessSnackbarInfo({

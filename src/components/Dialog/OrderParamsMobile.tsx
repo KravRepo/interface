@@ -57,7 +57,7 @@ export const OrderParamsMobile = ({
     <SwipeableDrawer
       anchor={'bottom'}
       open={isOpen}
-      onOpen={() => console.log('open')}
+      // onOpen={() => console.log('open')}
       onClose={setIsOpen}
       PaperProps={{
         sx: {

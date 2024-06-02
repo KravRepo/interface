@@ -28,9 +28,9 @@ export const useGetApr = () => {
             const currentTime = new Date().getTime()
             const timeDiff = currentTime - creatTime
             //APR = accDaiPerDai / timeDiff * 1 year / 1e18 * 100%
-            console.log('pool.accDaiPerDai', pool.accDaiPerDai.toString())
-            console.log('timeDiff', timeDiff)
-            console.log('ONE_YEAR_TIMESTAMP', ONE_YEAR_TIMESTAMP)
+            // console.log('pool.accDaiPerDai', pool.accDaiPerDai.toString())
+            // console.log('timeDiff', timeDiff)
+            // console.log('ONE_YEAR_TIMESTAMP', ONE_YEAR_TIMESTAMP)
 
             const APR = pool.accDaiPerDai
               .div(timeDiff)

@@ -44,7 +44,7 @@ export const useAddLockAmount = () => {
 
           const tx = await veContract.increase_amount(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.INCREASE_AMOUNT)
-          console.log('tx', await tx.wait())
+          // console.log('tx', await tx.wait())
           if (showSuccess) {
             setTransactionState(TransactionState.START)
             updateSuccessDialog(TransactionAction.INCREASE_AMOUNT)
