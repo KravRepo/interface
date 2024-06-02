@@ -156,7 +156,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
                 }),
           }),
     }
-  }, [pool, isBTC])
+  }, [pool, isBTC, isMobile])
 
   if (isBTC && isBtcLoading) {
     return <div>Loading BTC data...</div>
@@ -179,10 +179,6 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
           @media screen and (max-width: 960px) {
             flex-wrap: wrap;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-          }
-          ${theme.breakpoints.down('sm')} {
-            flex-wrap: wrap;
-            grid-template-columns: 1fr 1fr 1fr;
           }
           .up {
             color: ${theme.palette.success.main};
