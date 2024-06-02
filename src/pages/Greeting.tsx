@@ -1,4 +1,4 @@
-import Preview from '../assets/imgs/dashboard.png';
+import Preview from '../assets/imgs/dashboard.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 export const Greeting = () => {
@@ -120,7 +120,7 @@ export const Greeting = () => {
                         width: "100%",
                         height: "auto",
                         borderRadius: '10px',
-                        border: '4px solid rgba(255,255,255, 0.8)'
+                        // border: '4px solid rgba(255,255,255, 0.8)'
                     }} />
                 </button>
             </div>
