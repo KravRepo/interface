@@ -25,6 +25,7 @@ import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { useInterval } from '../../../hook/hookV8/useInterval'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useTradeData } from '../../../hook/useTradeData'
+import NoticePopup from '../../Dialog/NoticePopup'
 
 type OrderParamsCardProps = {
   leverage: number
@@ -427,8 +428,13 @@ export const OrderParamsCard = ({
                 </span>
               </div>
             </div>
+            <NoticePopup />
             <>
-              <div>
+              <div
+                css={css`
+                  position: relative;
+                `}
+              >
                 <div
                   css={[
                     input,
@@ -554,68 +560,7 @@ export const OrderParamsCard = ({
                     </div>
                   </div>
                 </div>
-                {/*<div*/}
-                {/*  css={css`*/}
-                {/*    display: flex;*/}
-                {/*    align-items: center;*/}
-                {/*    justify-content: center;*/}
-                {/*    margin: -13px 0 -10px;*/}
-                {/*  `}*/}
-                {/*>*/}
-                {/*  /!*<ArrowDownIcon />*!/*/}
-                {/*</div>*/}
-                {/*<div css={input}>*/}
-                {/*  <div*/}
-                {/*    css={css`*/}
-                {/*      display: flex;*/}
-                {/*      align-items: center;*/}
-                {/*      justify-content: space-between;*/}
-                {/*      width: 100%;*/}
-                {/*    `}*/}
-                {/*  >*/}
-                {/*    <span*/}
-                {/*      css={css`*/}
-                {/*        color: #757575;*/}
-                {/*      `}*/}
-                {/*    >*/}
-                {/*      {isBuy ? 'Long' : 'Short'}*/}
-                {/*    </span>*/}
-                {/*    <div>*/}
-                {/*      <span>Leverage: </span>*/}
-                {/*      <span>{leverage}x</span>*/}
-                {/*    </div>*/}
-                {/*  </div>*/}
-                {/*  <div*/}
-                {/*    css={css`*/}
-                {/*      display: flex;*/}
-                {/*      align-items: center;*/}
-                {/*      justify-content: space-between;*/}
-                {/*      width: 100%;*/}
-                {/*    `}*/}
-                {/*  >*/}
-                {/*    <TextField*/}
-                {/*      variant="standard"*/}
-                {/*      type="number"*/}
-                {/*      value={openBTCSize}*/}
-                {/*      InputProps={{*/}
-                {/*        disableUnderline: true,*/}
-                {/*      }}*/}
-                {/*      sx={{*/}
-                {/*        height: '28px',*/}
-                {/*        fontSize: '20px',*/}
-                {/*        minHeight: '28px',*/}
-                {/*        '& .MuiOutlinedInput-root': {*/}
-                {/*          height: '28px',*/}
-                {/*          minHeight: '28px',*/}
-                {/*          padding: 0,*/}
-                {/*        },*/}
-                {/*      }}*/}
-                {/*    />*/}
-                {/*    <div>*/}
-                {/*      <span>BTC</span>*/}
-                {/*    </div>*/}
-                {/*  </div>*/}
-                {/*</div>*/}
+
                 {tabIndex === 1 && (
                   <div
                     css={[
@@ -1244,19 +1189,16 @@ export const OrderParamsCard = ({
               <span>Attention</span>
             </div>
             <div className="content order-limit">
-              <p>1. Order Limit</p>
+              <p>1. Disclaimer</p>
               <p>
-                When placing orders, be aware that the total quantity of your position, inclusive of leverage, should
-                not exceed 20% of the total market liquidity. Please review the available liquidity before placing your
-                orders to maintain seamless trading operations.
+                Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should
+                understand these risks before engaging in such trades
               </p>
             </div>
             <div className="content">
-              <p>2. Position Reduction</p>
+              <p>2. Fees</p>
               <p>
-                When placing orders, be aware that the total quantity of your position, inclusive of leverage, should
-                not exceed 20% of the total market liquidity. Please review the available liquidity before placing your
-                orders to maintain seamless trading operations.
+                Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each.
               </p>
             </div>
           </div>
