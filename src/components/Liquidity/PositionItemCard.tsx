@@ -33,6 +33,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
   const maxWithdrawAmount = useMemo(() => {
     return position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
   }, [position])
+
   const lockAmount = useMemo(() => {
     if (position) {
       const lockedAmount = position.daiDeposited.minus(maxWithdrawAmount)
@@ -205,32 +206,33 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             </Tooltip>
           </div>
         </div>
-        {apr.isGreaterThan(0) && <div className="action">
-          <div
-            css={css`
-              background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              margin: 0px;
-            `}
-          >
-            <span
+        {apr.isGreaterThan(0) && (
+          <div className="action">
+            <div
               css={css`
-                color: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#757575'};
+                background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0px;
               `}
             >
-              APR
-            </span>
-            <span
-              css={css`
-                color: #009b72;
-              `}
-            >
-              {apr.toFixed(2)}%
-            </span>
-          </div>
-          {/* <div
+              <span
+                css={css`
+                  color: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#757575'};
+                `}
+              >
+                APR
+              </span>
+              <span
+                css={css`
+                  color: #009b72;
+                `}
+              >
+                {apr.toFixed(2)}%
+              </span>
+            </div>
+            {/* <div
             css={css`
               background: ${theme.background.second};
             `}
@@ -249,7 +251,8 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
               </span>
             </div>
           </div> */}
-        </div>}
+          </div>
+        )}
       </div>
     </div>
   )

@@ -45,7 +45,7 @@ export const useUserPosition = () => {
         const vaultInterface = new Interface(trading_vault.abi)
         allPoolParams.forEach((pool) => {
           task.push(creatCall(pool.vaultT, vaultInterface, 'balanceOf', [account]))
-          supplyTask.push(creatCall(pool.vaultT, tokenInterface, 'totalSupply', []))
+          supplyTask.push(creatCall(pool.vaultT, tokenInterface, 'balanceOf', [account]))
           balanceTask.push(creatCall(pool.tokenT, tokenInterface, 'balanceOf', [account]))
         })
         const res = await multicall.callStatic.aggregate([...task, ...balanceTask])
