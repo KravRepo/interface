@@ -28,11 +28,11 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
     return eXDecimals(supply, poolParams.decimals)
   }, [poolParams, userPositionDatas])
 
-  // const apr = useMemo(() => {
-  //   const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
-  //   if (res) return res.apr
-  //   else return new BigNumber(0)
-  // }, [aprList])
+  const apr = useMemo(() => {
+    const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
+    if (res) return res.apr
+    else return new BigNumber(0)
+  }, [aprList])
 
   useGetLpReward(poolParams.vaultT, poolParams.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
 
@@ -60,7 +60,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
       {/*<div>*/}
       {/*  1 BTC={poolParams.proportionBTC} {poolParams.symbol}*/}
       {/*</div>*/}
-      {/* <div>{apr.toFixed(2)}%</div> */}
+      <div>{apr.toFixed(2)}%</div>
       <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>
         <p>

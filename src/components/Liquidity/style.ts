@@ -239,7 +239,6 @@ export const marketCard = css`
         }
       }
       > div:last-of-type {
-        padding: 0px 12px 8px;
         > p {
           font-size: 12px;
           font-weight: 700;

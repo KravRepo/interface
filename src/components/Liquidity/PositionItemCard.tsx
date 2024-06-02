@@ -42,11 +42,11 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
     }
   }, [position])
 
-  // const apr = useMemo(() => {
-  //   const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
-  //   if (res) return res.apr
-  //   else return new BigNumber(0)
-  // }, [aprList])
+  const apr = useMemo(() => {
+    const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
+    if (res) return res.apr
+    else return new BigNumber(0)
+  }, [aprList])
 
   // useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
 
@@ -191,7 +191,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
               Your Withdraw Limit
             </span>
             <Tooltip
-              title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time.`}
+              title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
             >
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
@@ -205,10 +205,14 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             </Tooltip>
           </div>
         </div>
-        {/* <div className="action">
+        <div className="action">
           <div
             css={css`
               background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0px;
             `}
           >
             <span
@@ -226,7 +230,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
               {apr.toFixed(2)}%
             </span>
           </div>
-          <div
+          {/* <div
             css={css`
               background: ${theme.background.second};
             `}
@@ -244,8 +248,8 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 {getBigNumberStr(lpReward, 6)} {position.pool.symbol}
               </span>
             </div>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
       </div>
     </div>
   )

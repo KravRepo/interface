@@ -31,7 +31,7 @@ export const useGetApr = () => {
             console.log('pool.accDaiPerDai', pool.accDaiPerDai.toString())
             console.log('timeDiff', timeDiff)
             console.log('ONE_YEAR_TIMESTAMP', ONE_YEAR_TIMESTAMP)
-            
+
             const APR = pool.accDaiPerDai
               .div(timeDiff)
               .times(ONE_YEAR_TIMESTAMP)
@@ -39,7 +39,7 @@ export const useGetApr = () => {
               .times(100)
             allPoolApr.push({
               tradingT: pool.tradingT,
-              apr: APR,
+              apr: APR.times(-1),
             })
           })
           setAprList(allPoolApr)
