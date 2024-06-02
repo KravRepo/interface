@@ -10,6 +10,7 @@ import { VALIDITY_ADDRESS_LENGTH } from '../constant/math'
 import { decodeReferral } from '../utils'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { MyTrade } from '../components/Trades/TradeLeft/MyTrade'
+import TradeTop from '../components/Trades/TradeTop'
 
 export const Trade = () => {
   const [leverage, setLeverage] = useState(2)
@@ -37,45 +38,51 @@ export const Trade = () => {
   return (
     <div
       css={css`
-        display: ${isMobile ? 'block' : 'flex'};
-        padding: ${isMobile ? '14px 16px' : '16px 32px 0'};
-        width: 100%;
-        font-family: 'Inter';
+        padding: ${isMobile ? '14px 16px' : '16px 32px'};
       `}
     >
-      <TradeLeft
-        tradeType={tradeType}
-        isBuy={isBuy}
-        positionSizeDai={positionSizeDai}
-        leverage={leverage}
-        limitPrice={limitPrice}
-        setLeverage={setLeverage}
-        setPositionSizeDai={setPositionSizeDai}
-        setSlPrice={setSlPrice}
-        setTpPrice={setTpPrice}
-        slPrice={slPrice}
-        tpPrice={tpPrice}
-        setLimitPrice={setLimitPrice}
-        setTradeType={setTradeType}
-        setIsBuy={setIsBuy}
-      />
-      <TradeRight
-        leverage={leverage}
-        setLeverage={setLeverage}
-        positionSizeDai={positionSizeDai}
-        setPositionSizeDai={setPositionSizeDai}
-        isBuy={isBuy}
-        setIsBuy={setIsBuy}
-        tpPrice={tpPrice}
-        setTpPrice={setTpPrice}
-        slPrice={slPrice}
-        setSlPrice={setSlPrice}
-        limitPrice={limitPrice}
-        setLimitPrice={setLimitPrice}
-        tradeType={tradeType}
-        setTradeType={setTradeType}
-      />
-      {isMobile && <MyTrade />}
+      <TradeTop />
+      <div
+        css={css`
+          display: ${isMobile ? 'block' : 'flex'};
+          width: 100%;
+          font-family: 'Inter';
+        `}
+      >
+        <TradeLeft
+          tradeType={tradeType}
+          isBuy={isBuy}
+          positionSizeDai={positionSizeDai}
+          leverage={leverage}
+          limitPrice={limitPrice}
+          setLeverage={setLeverage}
+          setPositionSizeDai={setPositionSizeDai}
+          setSlPrice={setSlPrice}
+          setTpPrice={setTpPrice}
+          slPrice={slPrice}
+          tpPrice={tpPrice}
+          setLimitPrice={setLimitPrice}
+          setTradeType={setTradeType}
+          setIsBuy={setIsBuy}
+        />
+        <TradeRight
+          leverage={leverage}
+          setLeverage={setLeverage}
+          positionSizeDai={positionSizeDai}
+          setPositionSizeDai={setPositionSizeDai}
+          isBuy={isBuy}
+          setIsBuy={setIsBuy}
+          tpPrice={tpPrice}
+          setTpPrice={setTpPrice}
+          slPrice={slPrice}
+          setSlPrice={setSlPrice}
+          limitPrice={limitPrice}
+          setLimitPrice={setLimitPrice}
+          tradeType={tradeType}
+          setTradeType={setTradeType}
+        />
+        {isMobile && <MyTrade />}
+      </div>
     </div>
   )
 }

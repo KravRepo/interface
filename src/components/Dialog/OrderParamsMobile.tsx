@@ -54,7 +54,17 @@ export const OrderParamsMobile = ({
   }, [])
 
   return (
-    <SwipeableDrawer anchor={'bottom'} open={isOpen} onOpen={() => console.log('open')} onClose={setIsOpen}>
+    <SwipeableDrawer
+      anchor={'bottom'}
+      open={isOpen}
+      onOpen={() => console.log('open')}
+      onClose={setIsOpen}
+      PaperProps={{
+        sx: {
+          background: theme.background.primary,
+        },
+      }}
+    >
       <Box sx={{ padding: '16px 24px 32px' }}>
         <Box
           sx={{

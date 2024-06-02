@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { PairInfo } from './TradeLeft/PairInfo'
 import { chart, tradeLeft } from './style'
 import { MyTrade } from './TradeLeft/MyTrade'
 import TradingViewWidget from './TradeLeft/newTradingView'
@@ -50,7 +49,6 @@ export const TradeLeft = ({
 }: TradeLeftProps) => {
   const {
     tradeModel,
-    setTradeModel,
     isOpenSelectToken,
     setIsOpenSelectToken,
     setWalletDialogVisibility,
@@ -58,7 +56,6 @@ export const TradeLeft = ({
     setOpenTradeCard,
   } = useRootStore((state) => ({
     tradeModel: state.tradeModel,
-    setTradeModel: state.setTradeModel,
     isOpenSelectToken: state.isOpenSelectToken,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
     setWalletDialogVisibility: state.setWalletDialogVisibility,
@@ -100,17 +97,6 @@ export const TradeLeft = ({
           `,
         ]}
       >
-        <PairInfo
-          tradeModel={tradeModel}
-          setIsOpenSelectToken={setIsOpenSelectToken}
-          setTradeModel={setTradeModel}
-          // tradeData={{
-          //   tradeType,
-          //   limitPrice,
-          //   isBuy,
-          //   leverage,
-          // }}
-        />
         <div
           css={[
             chart,

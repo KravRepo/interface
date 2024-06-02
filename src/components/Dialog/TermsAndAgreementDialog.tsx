@@ -15,7 +15,6 @@ export default function TermsAndAgreementDialog() {
   const [open, setOpen] = React.useState(false)
   const [agree, setAgree] = React.useState(false)
   const { pathname } = useLocation()
-  console.log({ pathname })
 
   const handleClose = (e: any, reason: any) => {
     if (reason && reason === 'backdropClick') return

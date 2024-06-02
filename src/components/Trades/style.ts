@@ -2,15 +2,17 @@ import { css } from '@emotion/react'
 
 export const tradeLeft = css`
   flex: 1;
+  flex-grow: 1;
   > div {
     width: 100%;
   }
 `
 
 export const tradeRight = css`
-  width: 358px;
+  width: 100%;
+  max-width: 358px;
   @media screen and (max-width: 1330px) {
-    width: 310px;
+    max-width: 310px;
   }
   @media screen and (max-width: 1200px) {
     width: 100%;
@@ -18,38 +20,18 @@ export const tradeRight = css`
 `
 
 export const pairInfo = css`
-  height: 64px;
+  min-height: 64px;
   justify-content: space-between;
-  > div:first-of-type {
-    display: flex;
-    align-items: center;
+  position: relative;
+  margin-bottom: 16px;
+  width: 100%;
+  margin-left: auto;
+  justify-content: flex-start;
+  @media screen and (max-width: 1500px) {
+    overflow: hidden;
   }
-  .info-card {
-    white-space: nowrap;
-    min-width: 96px;
-    height: 40px;
-    padding: 0 12px;
-    color: #757575;
-    font-size: 12px;
-    > p {
-      white-space: nowrap;
-      margin: 0 0 5px 0;
-    }
-  }
-  .symbol {
-    font-family: 'GT-Flexa-Bold-Trial';
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 900;
-    line-height: 130%;
-    margin-right: 12px;
-    padding-top: 2px;
-  }
-  .rise {
-    color: #db4c40;
-  }
-  .fall {
-    color: #009b72;
+  @media screen and (max-width: 1200px) {
+    padding: 12px;
   }
 `
 
