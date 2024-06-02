@@ -24,24 +24,32 @@ export const useAddLiquidity = (tokenAddress: string) => {
     async (amount: BigNumber, vaultAddress: string, symbol: string, decimals: number) => {
       try {
         if (tokenContract) {
-        
-          const kTokenContract = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
-          console.log(kTokenContract.address)
+          console.log('tokenAddress', tokenAddress)
           console.log('vaultAddress', vaultAddress)
-          console.log(amount.toString())
+// const krav = await ethers.getContractAt(`KToken`, tokenAddress)
+// await (await krav.approve(vaultAddress, ethers.constants.MaxUint256)).wait()
+// const kToken = await ethers.getContractAt(`KToken`, vaultAddress)
+// await kToken.deposit(ethers.utils.parseEther(`1`), account)          
+        
+          const contractA = new Contract(tokenAddress, k_token.abi, getProviderOrSigner(provider!, account))
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
-          const allowance = await kTokenContract.allowance(account, vaultAddress)
 
-          if (amount.isGreaterThan(new BigNumber(allowance._hex))) {
-            setTransactionState(TransactionState.APPROVE)
-            const approveTX = await kTokenContract.approve(vaultAddress, MAX_UNIT_256)
-            await approveTX.wait()
-          }
+          // const allowance = await kTokenContract.allowance(account, vaultAddress)
+          // if (amount.isGreaterThan(new BigNumber(allowance._hex))) {
+          //   setTransactionState(TransactionState.APPROVE)
+          //   const approveTX = await kTokenContract.approve(vaultAddress, MAX_UNIT_256)
+          //   await approveTX.wait()
+          // }
 
+          setTransactionState(TransactionState.APPROVE)
+          const approveTx = await contractA.approve(vaultAddress, MAX_UNIT_256)
+          await approveTx.wait()
+          
+          const contractB = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
           setTransactionState(TransactionState.INTERACTION)
-          const tx = await kTokenContract['deposit'](amount.toString(), account)
-
+          const tx = await contractB.deposit(amount.toString(), account)
+      
           setTransactionState(TransactionState.ADD_LIQUIDITY)
           await tx.wait()
           setTransactionDialogVisibility(false)
