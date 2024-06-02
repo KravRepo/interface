@@ -262,7 +262,7 @@ export const ExchangeAction = () => {
                       width: ${isMobile ? '32px' : '40px'};
                     `}
                   />
-                  <span>???</span>
+                  <span>Coming Soon</span>
                 </div>
                 <p
                   css={css`
@@ -272,7 +272,7 @@ export const ExchangeAction = () => {
                     margin-top: ${isMobile ? '' : '32px'};
                   `}
                 >
-                  ???? ???? ????
+                  Coming Soon
                 </p>
               </div>
             </div>
@@ -371,7 +371,7 @@ export const ExchangeAction = () => {
                 `}
               >
                 <span>Exchange ratio :</span>
-                <span>1 KRAV→ 1 ???</span>
+                <span>1 KRAV → Coming Soon</span>
               </p>
               <KRAVButton
                 disabled={
@@ -410,7 +410,7 @@ export const ExchangeAction = () => {
                   font-family: 'GT-Flexa-Bold-Trial';
                 `}
               >
-                200.56 ???
+                Coming Soon
               </p>
               <KRAVButton>Mint</KRAVButton>
             </div>

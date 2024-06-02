@@ -4,7 +4,8 @@ import { useTheme } from '@mui/material'
 import { Anchor } from '../TradeRight/AltcoinCard'
 import { PoolParams } from '../../../store/FactorySlice'
 import { align } from '../../../globalStyle'
-import { useEffect, useState } from 'react'
+import { useRootStore } from '../../../store/root'
+import { useEffect, useState, useMemo } from 'react'
 
 interface PriceData {
   '24h_change': number
@@ -26,6 +27,22 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
 
   const btcUrl = `https://krav-oracle.onrender.com/btc`
   const poolUrl = pool ? `https://api.krav.trade/krav/v1/price/${pool.tokenT?.toLowerCase()}` : ''
+
+  const {
+    BTCPrice, 
+    isBTCRise,
+    tradePairIndex,
+    pairConfig,
+  } = useRootStore((state) => ({
+    BTCPrice: state.BTCPrice,
+    isBTCRise: state.isBTCRise,
+    tradePairIndex: state.tradePairIndex,
+    pairConfig: state.pairConfig,
+  }))
+
+  const tradePair = useMemo(() => {
+    return pairConfig[tradePairIndex]
+  }, [tradePairIndex, pairConfig])
 
   useEffect(() => {
     if (isBTC) {
@@ -121,83 +138,216 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
 
   return (
     <div css={[align]}>
-      {pool && (
-        <div css={[align]}>
+        <div className="symbol" css={[align]} style={{
+          justifyContent: 'flex-start', 
+          minWidth: '100px'
+        }}>
           <img
             css={css`
               border-radius: 50%;
               background: ${theme.palette.mode === 'dark' ? '#fff' : ''};
-              margin-left: 10px;
               margin-right: 5px;
+              font-weight: 800;
             `}
-            src={pool.logoSource}
+            src={isBTC ? tradePair.logoSource.default : pool?.logoSource}
             height="15"
             width="15"
-            alt={`${pool.symbol} logo`}
+            alt={`${pool?.symbol} logo`}
           />
-          {pool.symbol}
-        </div>
-      )}
-      <table
-        css={css`
-          font-size: 12px;
-          border-spacing: 20px 2px;
-          text-align: right;
-          width: 100%;
-          padding: 10px;
-        `}
-      >
-        <thead
+          {isBTC ? tradePair.titleSymbol : pool?.symbol}
+        </div> 
+        <div
           css={css`
-            color: #757575;
-            td {
-              white-space: nowrap;
-            }
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 100px;
           `}
         >
-          <tr>
-            {!isBTC && <td>Price</td>}
-            <td>24h</td>
-            <td>24h Volume</td>
-            <td>Market Cap</td>
-            {!isBTC && <td>Funding Rate</td>}
-          </tr>
-        </thead>
-        <tbody
+          <span
+            css={css`
+              font-size: 12px;
+              margin-bottom: 5px;
+              line-height: 1.4;
+            `}
+          >
+            Price
+          </span>
+          <span
+            css={css`
+              font-size: 14px;
+              line-height: 1.4;
+              color: ${isBTC ? (isBTCRise ? '#009b72' : '#db4c40') : "#fff"};                         
+            `}
+          >
+            {isBTC ? '$' + Number(BTCPrice).toLocaleString('en-US', { maximumFractionDigits: 2 }) : (priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 2 }) : '-')}
+          </span>
+        </div>               
+        <div
           css={css`
-            td > div {
-              display: flex;
-              align-items: center;
-              justify-content: flex-end;
-              > svg {
-                margin: -10px 0px -10px -5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 100px;
+          `}
+        >
+          <span
+            css={css`
+              font-size: 12px;
+              margin-bottom: 5px;
+              line-height: 1.4;
+            `}
+          >
+            24h Change
+          </span>
+          <span
+            css={css`
+              font-size: 14px;
+              line-height: 1.4;
+              div {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+              svg {
+                  margin: -10px 0px -10px -5px;
+                }
+              }              
+              .up {
+                color: ${theme.palette.success.main};
               }
-            }
-            .up {
-              color: ${theme.palette.success.main};
-            }
-            .down {
-              color: ${theme.palette.error.main};
-            }
+              .down {
+                color: ${theme.palette.error.main};
+              }              
+            `}
+          >
+            <Anchor changeInString={(priceData ? priceData[isBTC ? 'usd_24h_change' : '24h_change'] : 0).toFixed(2)} />
+          </span>
+        </div> 
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 150px;
           `}
         >
-          <tr>
-            {!isBTC && (
-              <td>{priceData ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 5 }) : '-'}</td>
-            )}
-            <td>
-              <Anchor changeInString={(priceData ? priceData[isBTC ? 'usd_24h_change' : '24h_change'] : 0).toFixed(2)} />
-            </td>
-            <td>
-              {'$' + (priceData ? priceData[isBTC ? 'usd_24h_vol' : '24h_volume'] : 0)?.toLocaleString('en-US', { maximumFractionDigits: 2 }) || '-'}
-            </td>
-            <td>
-              {'$' + (priceData ? priceData[isBTC ? 'usd_market_cap' : 'market_cap'] : 0)?.toLocaleString('en-US', { maximumFractionDigits: 2 }) || '-'}
-            </td>
-            {!isBTC && <td>{pool?.fundingFeePerBlockP ? pool.fundingFeePerBlockP.toFixed() : '-'}</td>}
-          </tr>
-        </tbody>
-      </table>
+          <span
+            css={css`
+              font-size: 12px;
+              margin-bottom: 5px;
+              line-height: 1.4;
+            `}
+          >
+            24h Volume
+          </span>
+          <span
+            css={css`
+              font-size: 14px;
+              line-height: 1.4;
+              div {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+              svg {
+                  margin: -10px 0px -10px -5px;
+                }
+              }              
+              .up {
+                color: ${theme.palette.success.main};
+              }
+              .down {
+                color: ${theme.palette.error.main};
+              }              
+            `}
+          >
+            {'$' + (priceData ? priceData[isBTC ? 'usd_24h_vol' : '24h_volume'] : 0)?.toLocaleString('en-US', { maximumFractionDigits: 2 }) || '-'}
+          </span>
+        </div>
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 150px;
+          `}
+        >
+          <span
+            css={css`
+              font-size: 12px;
+              margin-bottom: 5px;
+              line-height: 1.4;
+            `}
+          >
+            Market Cap
+          </span>
+          <span
+            css={css`
+              font-size: 14px;
+              line-height: 1.4;
+              div {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+              svg {
+                  margin: -10px 0px -10px -5px;
+                }
+              }              
+              .up {
+                color: ${theme.palette.success.main};
+              }
+              .down {
+                color: ${theme.palette.error.main};
+              }              
+            `}
+          >
+            {'$' + (priceData ? priceData[isBTC ? 'usd_market_cap' : 'market_cap'] : 0)?.toLocaleString('en-US', { maximumFractionDigits: 2 }) || '-'}
+          </span>
+        </div>
+        {
+          !isBTC && (
+          <div
+            css={css`
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              min-width: 100px;
+              margin-right: 20px;
+            `}
+          >
+            <span
+              css={css`
+                font-size: 12px;
+                margin-bottom: 5px;
+                line-height: 1.4;
+              `}
+            >
+              Funding Fee
+            </span>
+            <span
+              css={css`
+                font-size: 14px;
+                line-height: 1.4;
+                div {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                svg {
+                    margin: -10px 0px -10px -5px;
+                  }
+                }              
+                .up {
+                  color: ${theme.palette.success.main};
+                }
+                .down {
+                  color: ${theme.palette.error.main};
+                }              
+              `}
+            >
+              {pool?.fundingFeePerBlockP ? pool.fundingFeePerBlockP.toFixed() : '-'}
+            </span>
+          </div>            
+          )
+        }                                
     </div>
   )
 }

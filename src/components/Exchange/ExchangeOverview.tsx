@@ -137,7 +137,7 @@ export const ExchangeOverview = () => {
               width: ${isMobile ? '32px' : '64px'};
             `}
           />
-          <span>???</span>
+          <span style={{fontSize: '26px'}}>Coming Soon</span>
         </div>
         <div
           css={css`
@@ -153,7 +153,7 @@ export const ExchangeOverview = () => {
               font-size: ${isMobile ? '20px' : '28px'};
             `}
           >
-            ??:??:??
+            Coming Summer 2024
           </p>
         </div>
       </div>

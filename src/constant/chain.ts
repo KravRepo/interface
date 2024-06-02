@@ -50,13 +50,13 @@ export const SUPPORT_CHAIN_TEST = [
 ]
 
 export const SUPPORT_CHAIN_PRODUCTION = [
-  ChainId.MAINNET,
+  // ChainId.MAINNET,
   ChainId.BASE,
-  ChainId.BSC,
-  ChainId.POLYGON,
-  ChainId.ARB,
-  ChainId.OP,
-  ChainId.POLYGON_ZK_EVM,
+  // ChainId.BSC,
+  // ChainId.POLYGON,
+  // ChainId.ARB,
+  // ChainId.OP,
+  // ChainId.POLYGON_ZK_EVM,
 ]
 
 export const DEFAULT_CHAIN = ChainId.BASE
@@ -66,7 +66,7 @@ export const API_CONFIG_TEST: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: 'https://base-mainnet.g.alchemy.com/v2/_OuNq54nQcsiddaP9Mq1Gf4GFzCi9GTP',
+    rpcNode: process.env.REACT_APP_ALCHEMY_BASE_ENDPOINT || '',
   },
   [ChainId.BSC_TEST]: {
     rpcNode: 'https://bsc-testnet.publicnode.com',
@@ -93,22 +93,22 @@ export const API_CONFIG_PRODUCTION: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: 'https://base-mainnet.g.alchemy.com/v2/_OuNq54nQcsiddaP9Mq1Gf4GFzCi9GTP',
+    rpcNode: "https://mainnet.base.org",
   },
   [ChainId.BSC]: {
     rpcNode: 'https://bsc.publicnode.com',
   },
   [ChainId.OP]: {
-    rpcNode: 'https://opt-mainnet.g.alchemy.com/v2/oB5aEK18AWZaY9W_L8IhuqRx5pIFYsdQ',
+    rpcNode: "https://mainnet.optimism.io/",
   },
   [ChainId.ARB]: {
-    rpcNode: 'https://arb-mainnet.g.alchemy.com/v2/mwtFvWS1EjUHkU-pFTBDqakpLZTn2kN1',
+    rpcNode: "https://mainnet.optimism.io/",
   },
   [ChainId.POLYGON]: {
-    rpcNode: 'https://polygon-mainnet.g.alchemy.com/v2/mJ8yErW75AGxNl5bk50DJK-8hV37xUOc',
+    rpcNode: "https://polygon-rpc.com",
   },
   [ChainId.POLYGON_ZK_EVM]: {
-    rpcNode: 'https://polygonzkevm-mainnet.g.alchemy.com/v2/hgPVJ9u__bH3XrIBngdm2BAKSm21zOcC',
+    rpcNode: "https://zkevm-rpc.com",
   },
 }
 
@@ -347,17 +347,17 @@ export const CONTRACT_CONFIG = IS_PRODUCTION ? CONTRACT_CONFIG_PRODUCTION : CONT
 
 export const SUPPORT_CHAIN = IS_PRODUCTION ? SUPPORT_CHAIN_PRODUCTION : SUPPORT_CHAIN_TEST
 
-export const TEST_RPC_NODE = 'https://base-goerli.g.alchemy.com/v2/pjZ1AFp1o4cKAxlaTFre52frhKOxy-nH'
+export const TEST_RPC_NODE = process.env.TEST_RPC_NODE || 'https://base-goerli.publicnode.com'
 
-export const K_LINE_API = 'https://v1-api.krav.trade/krav/klines?symbol=BTCUSDT&interval=1d'
+export const K_LINE_API = 'https://v1-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
 
-export const QUANTO_API = 'https://v1-api.krav.trade/krav/list/quanto'
+export const QUANTO_API = 'https://v1-api.krav.trade/krav/v1/list/quanto'
 
-export const TRADE_HISTORY_API = 'https://v1-api.krav.trade/krav/list/market'
+export const TRADE_HISTORY_API = 'https://v1-api.krav.trade/krav/v1/list/market'
 
-export const DASHBOARD_OVERVIEW_API = 'https://v1-api.krav.trade/krav/overview'
+export const DASHBOARD_OVERVIEW_API = 'https://v1-api.krav.trade/krav/v1/overview'
 
-export const BTC_PRICE_API = 'https://v1-api.krav.trade/krav/ticker?symbol='
+export const BTC_PRICE_API = 'https://v1-api.krav.trade/krav/v1/price?symbol=BTCUSDT'
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
@@ -365,20 +365,20 @@ export const KRAV_ADDRESS = '0x593C951BFF6519E56435367eD302688728963523'
 
 export const VE_KRAV = '0x8b81153Ad24869F54B32bf60B4303142E38A10b5'
 
-export const DashBoard_USER_OVERVIEW_API = 'https://v1-api.krav.trade/krav/user/asset/amount?account='
+export const DashBoard_USER_OVERVIEW_API = 'https://v1-api.krav.trade/krav/v1/user/asset/amount?account='
 
 export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D94b1'
 
 export const FEE_DISTRBUTOR = '0x345bCD94ac3aBe5C7d9a5Cbe4647dF6cF449d01d'
 
-export const LP_REWARD_API = 'https://v1-api.krav.trade/krav/miner/'
+export const LP_REWARD_API = 'https://v1-api.krav.trade/krav/v1/miner/'
 
 export const LP_REWARD_CONTRACT = '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19'
 
 export const TRADE_REWARD_CONTRACT = '0x291182b2F0108E666e79b8fBC7c7b67C502564d7'
 
-export const REWARD_API = 'https://v1-api.krav.trade/krav/reward/list/'
+export const REWARD_API = 'https://v1-api.krav.trade/krav/v1/reward/list/'
 
 export const BURN_ADDRESS = '0x000000000000000000000000000000000000dead'
 
-export const STAKE_HISTORY_API = 'https://v1-api.krav.trade/krav/staked/list?staker='
+export const STAKE_HISTORY_API = 'https://v1-api.krav.trade/krav/v1/staked/list?staker='

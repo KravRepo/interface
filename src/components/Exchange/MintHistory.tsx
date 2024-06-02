@@ -92,7 +92,7 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
       >
         <Base height="20" width="20" style={{ borderRadius: '50%', minWidth: '20px' }} />
         &nbsp;{ratio} KRAV {'->'}
-        {ratio} ???
+        Coming Soon
       </span>
       <span
         css={css`
@@ -103,7 +103,7 @@ const HistoryItem = ({ ratio, amount, address, date, mintTo, index }: HistoryIte
         <Base height="20" width="20" style={{ borderRadius: '50%', minWidth: '20px' }} />
         &nbsp;{amount.toFormat(2)} KRAV
       </span>
-      <span>{mintTo.toFormat(2)} ???</span>
+      <span>{mintTo.toFormat(2)} Coming Soon</span>
       <Tooltip placement="top" sx={{ color: '#009B72' }} open={openTooltip} title="Copied to clipboard!">
         <div
           css={css`

@@ -21,7 +21,7 @@ export const Title = () => {
       <span>Token Exchange</span>
       <div>
         <span>Exchange ratio :</span>
-        <span>1 KRAV → 1 ???</span>
+        <span>1 KRAV → Coming Soon</span>
       </div>
     </div>
   )

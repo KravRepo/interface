@@ -98,21 +98,21 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
           </div>
-          <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
+          <div>${Number(openTrade.openPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}</div>
           <div
             css={css`
               color: #ffb800;
             `}
           >
-            ${BTCPrice.toFixed(tradePair.fixDecimals)}
+            ${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}
           </div>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             {openTrade.sl.toString() === '0'
-              ? `$${liqPrice.toFixed(tradePair.fixDecimals)}`
-              : `$${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}`}
+              ? `$${Number(liqPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`
+              : `$${Number(openTrade.sl).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`}
           </div>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
-            ${BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}
+            ${Number(openTrade.tp).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}
           </div>
           <div>
             {openTrade.beingMarketClosed && (
@@ -165,20 +165,20 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool.symbol}
           </div>
-          <div>${new BigNumber(openTrade.openPrice).toFixed(tradePair.fixDecimals)}</div>
+          <div>${Number(openTrade.openPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}</div>
           <div
             css={css`
               color: #ffb800;
             `}
           >
-            ${BTCPrice.toFixed(tradePair.fixDecimals)}
+            ${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}
           </div>
           <div>
             {openTrade.sl.toString() === '0'
-              ? `$${liqPrice.toFixed(tradePair.fixDecimals)}`
-              : `$${BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}`}
+              ? `$${Number(liqPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`
+              : `$${Number(openTrade.sl).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`}
           </div>
-          <div>${BigNumber(openTrade.tp).toFixed(2)}</div>
+          <div>${Number(openTrade.tp).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}</div>
           {openTrade?.isInPending && (
             <div>
               <div
@@ -198,40 +198,6 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           )}
         </div>
       )}
-      {/*{openTrade.isPendingOrder && openTrade.leverage === 0 && !openTrade?.isInPending && (*/}
-      {/*  <div className="position-layout">*/}
-      {/*    <div>*/}
-      {/*      <p>BTC</p>*/}
-      {/*      <p>*/}
-      {/*        <span>{openTrade.leverage}x</span>*/}
-      {/*        <span*/}
-      {/*          css={css`*/}
-      {/*            color: ${openTrade.buy ? '#009B72' : '#DB4C40'};*/}
-      {/*          `}*/}
-      {/*        >*/}
-      {/*          {openTrade.buy ? ' Long' : ' Short'}*/}
-      {/*        </span>*/}
-      {/*      </p>*/}
-      {/*    </div>*/}
-      {/*    <div>*/}
-      {/*      <p*/}
-      {/*        css={css`*/}
-      {/*          text-decoration: underline;*/}
-      {/*        `}*/}
-      {/*      >*/}
-      {/*        --*/}
-      {/*      </p>*/}
-      {/*    </div>*/}
-      {/*    <div>--</div>*/}
-      {/*    <div>--</div>*/}
-      {/*    <div>---</div>*/}
-      {/*    <div>--</div>*/}
-      {/*    <div>--</div>*/}
-      {/*    <div>*/}
-      {/*      <KRAVButton onClick={() => claimPosition(openTrade.orderId!, true)}>Claim</KRAVButton>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*)}*/}
       {!openTrade.isPendingOrder && (
         <ProfitConfirmTrade
           isOpen={isOpen}
