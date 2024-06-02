@@ -137,7 +137,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
   const priceData = isBTC ? btcPriceData : poolPriceData
 
   return (
-    <div css={[align]} style={{maxWidth: '800px'}}>
+    <div css={[align]} style={{maxWidth: '80vw'}}>
         <div className="symbol" css={[align]} style={{
           justifyContent: 'flex-start', 
           minWidth: '100px'

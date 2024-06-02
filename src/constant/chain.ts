@@ -128,7 +128,7 @@ export const CONTRACT_CONFIG_TEST: { [chainId: number]: ContractInfo } = {
     nativeToken: 'ETH',
   },
   [ChainId.BASE]: {
-    factory: '0x26C7eFe3f5ea70cE5B6a3ff366C193d03315A407',
+    factory: '0xDF76a808F1DEAa0F013460c078dc5A09544c7960',
     linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
@@ -244,7 +244,7 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     nativeToken: 'ETH',
   },
   [ChainId.BASE]: {
-    factory: '0x26C7eFe3f5ea70cE5B6a3ff366C193d03315A407',
+    factory: '0xDF76a808F1DEAa0F013460c078dc5A09544c7960',
     linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
