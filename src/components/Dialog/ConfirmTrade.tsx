@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { Checkbox, Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
+import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
 import { css } from '@emotion/react'
 import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
-import { eXDecimals, getBorrowFees, getFees, getLiqPrice } from '../../utils/math'
+import { addDecimals, eXDecimals, getBorrowFees, getFees, getLiqPrice } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { decodeReferral } from '../../utils'
@@ -38,13 +38,14 @@ export const ConfirmTrade = ({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((store) => store.tradePool)
+  const slippagePercent = useRootStore((store) => store.slippagePercent)
   const tradeModel = useRootStore((store) => store.tradeModel)
   const pairConfig = useRootStore((state) => state.pairConfig)
-  const [checked, setChecked] = useState(false)
+  // const [checked, setChecked] = useState(false)
   const [referralAddress, setReferralAddress] = useState('0x0000000000000000000000000000000000000000')
-  const handleSlippagePChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked)
-  }
+  // const handleSlippagePChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setChecked(event.target.checked)
+  // }
 
   const tradePair = useMemo(() => {
     return pairConfig[tuple.pairIndex]
@@ -54,7 +55,7 @@ export const ConfirmTrade = ({
     tuple: tuple,
     tradeType: tradeType,
     spreadReductionId: 0,
-    slippageP: checked ? '10400000000' : '3399999999',
+    slippageP: addDecimals(slippagePercent + '', 10).toFixed(),
     referral: referralAddress,
     tradingAddress: tradePool.tradingT,
     storageAddress: tradePool.storageT,
@@ -180,10 +181,11 @@ export const ConfirmTrade = ({
               {/*</p>*/}
               <p>
                 <span>Allowed Slippage</span>
-                <span>0.30%</span>
+                <span>{slippagePercent}%</span>
+                {/* <span>0.30%</span> */}
               </p>
               <p>
-                <span>Allow up to 1% Slippage </span>
+                {/* <span>Allow up to 1% Slippage </span>
                 <Checkbox
                   checked={checked}
                   onChange={handleSlippagePChecked}
@@ -193,7 +195,7 @@ export const ConfirmTrade = ({
                       color: theme.palette.mode === 'dark' ? '#2832f5' : '#000',
                     },
                   }}
-                />
+                /> */}
               </p>
             </div>
             {/*{transactionState !== TransactionState.START_OPEN_TRADE && (*/}

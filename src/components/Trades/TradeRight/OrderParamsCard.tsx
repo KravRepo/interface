@@ -81,11 +81,11 @@ const marks = {
 
 const enforceMinMax = (e: any) => {
   const el = e.target
-  if (el.value != '') {
-    if (parseInt(el.value) < parseInt(el.min)) {
+  if (!!+el.value) {
+    if (+el.value < +el.min) {
       el.value = el.min
     }
-    if (parseInt(el.value) > parseInt(el.max)) {
+    if (+el.value > +el.max) {
       el.value = el.max
     }
   }
@@ -132,6 +132,8 @@ export const OrderParamsCard = ({
     userPositionDatas,
     setIsOpenSelectToken,
     tradePairIndex,
+    slippagePercent,
+    setSlippagePercent,
   } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
     transactionState: state.transactionState,
@@ -145,6 +147,8 @@ export const OrderParamsCard = ({
     userPositionDatas: state.userPositionDatas,
     setIsOpenSelectToken: state.setIsOpenSelectToken,
     tradePairIndex: state.tradePairIndex,
+    setSlippagePercent: state.setSlippagePercent,
+    slippagePercent: state.slippagePercent,
   }))
 
   const PoolWalletBalance = useMemo(() => {
@@ -229,10 +233,11 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
-  const handleLeverageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSlippageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     enforceMinMax(event)
     const newLeverage = +event.target.value
-    handleLeverageChange({} as any, newLeverage, 1)
+    event.target.value = newLeverage + ''
+    setSlippagePercent(newLeverage)
   }
 
   const handleSliderClick = () => {
@@ -636,7 +641,7 @@ export const OrderParamsCard = ({
                     color: ${theme.text.primary}60;
                     display: flex;
                     align-item: center;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                   `}
                 >
                   <div
@@ -652,29 +657,16 @@ export const OrderParamsCard = ({
                     >
                       Leverage
                     </span>
-                    ({sliderLimit.min[tradeModel]}x-{sliderLimit.max[tradeModel]}x):{' '}
+                    :{' '}
                   </div>
-
-                  <input
-                    value={leverage}
-                    type="number"
-                    onChange={handleLeverageInputChange}
+                  <span
                     css={css`
-                      background: ${theme.background.third};
-                      border: none;
-                      color: ${theme.text.primary};
-                      padding: 5px 10px;
-                      width: 120px;
-                      max-height: 30px;
-                      outline: 0;
-                      text-align: center;
-                      border-radius: 5px;
-                      -webkit-tap-highlight-color: transparent;
+                      color: #ffffff;
+                      line-height: 30px;
                     `}
-                    onKeyUp={enforceMinMax}
-                    min={tradeModel === TradeMode.DEGEN ? 51 : 2}
-                    max={tradeModel === TradeMode.DEGEN ? 200 : 50}
-                  />
+                  >
+                    {leverage}x
+                  </span>
                 </div>
                 <Slider
                   defaultValue={sliderLimit.min[tradeModel]}
@@ -723,6 +715,40 @@ export const OrderParamsCard = ({
                     },
                   }}
                 />
+              </div>
+              <div
+                css={[
+                  align,
+                  css`
+                    justify-content: space-between;
+                    color: #ffffff70;
+                  `,
+                ]}
+              >
+                <p>Slippage</p>
+                <div css={[align]}>
+                  <input
+                    value={slippagePercent}
+                    type="number"
+                    onChange={handleSlippageInputChange}
+                    css={css`
+                      background: ${theme.background.third};
+                      border: none;
+                      color: ${theme.text.primary};
+                      padding: 5px 10px;
+                      width: 100px;
+                      max-height: 30px;
+                      outline: 0;
+                      text-align: center;
+                      border-radius: 5px;
+                      -webkit-tap-highlight-color: transparent;
+                    `}
+                    onBlur={enforceMinMax}
+                    min={0.01}
+                    max={3}
+                  />
+                  <span>%</span>
+                </div>
               </div>
               <div
                 css={css`

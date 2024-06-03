@@ -28,6 +28,8 @@ export interface TradeSlice {
   setTradePairIndex: (tradePairIndex: number) => void
   openTradeCard: boolean
   setOpenTradeCard: (openTradeCard: boolean) => void
+  slippagePercent: number //0.01-1
+  setSlippagePercent: (slippage: number) => void
 }
 
 export const createTradeSlice: StateCreator<
@@ -41,6 +43,10 @@ export const createTradeSlice: StateCreator<
   isOpenSelectToken: false,
   tradePairIndex: 0,
   openTradeCard: false,
+  slippagePercent: 0.03,
+  setSlippagePercent(slippagePercent: number) {
+    set({ slippagePercent })
+  },
   setTradePool(tradePool) {
     set({ tradePool: tradePool })
   },
