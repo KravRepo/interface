@@ -41,11 +41,17 @@ export default function TradeDetails({
     return {
       ['Net Exposure']: positionSizeDai && leverage ? positionSizeDai.multipliedBy(leverage).toFormat(2, 3) : '-',
       ['Open Interest (L/S)']: <Bar openLong={openDaiLong} openShort={openDaiShort} />,
-      ...(tradeModel === TradeMode.BASIC ? {} : { ['Market Price']: <>${Number(BTCPrice).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</> }),
+      ...(tradeModel === TradeMode.BASIC
+        ? {}
+        : {
+            ['Market Price']: (
+              <>${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</>
+            ),
+          }),
       ['Entry Price']: <>{priceImpact}</>,
       ['Liquidation Price']: <>{liquidationPrice}</>,
     }
-  }, [positionSizeDai, leverage, openDaiLong, openDaiShort])
+  }, [positionSizeDai, leverage, openDaiLong, openDaiShort, priceImpact, BTCPrice])
 
   if (tradeModel === TradeMode.BASIC) return null
   return (

@@ -127,7 +127,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   //   }
   //   const baseFeeRate = FEE_RATES[pairContract?.address || '']
   //   const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
-    
+
   //   if (!Object.keys(EXPONENTS).includes(pairContract?.address || '')) {
   //     EXPONENTS[pairContract?.address || ''] = 1
   //   }
@@ -139,7 +139,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   //   const nextShortTotal = shortTotal + (isBuy ? 0 : openInterest)
   //   const delta = Math.abs(longTotal - shortTotal)
   //   const deltaNext = Math.abs(nextLongTotal - nextShortTotal)
-    
+
   //   if (deltaNext > delta) {
   //     const imbalanceRatio = deltaNext / totalLiquidity
   //     if (imbalanceRatio > 1) return setPriceImpact('Invalid Order Size')
@@ -159,7 +159,6 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   //   }
   // }, [pairContract, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
-
   return useMemo(() => {
     return {
       fundingFee: tradePool.fundingFeePerBlockP ? tradePool.fundingFeePerBlockP.toFixed() : '-',
@@ -168,5 +167,13 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       openDaiShort,
       priceImpact,
     }
-  }, [tradePool.fundingFeePerBlockP, liquidationPrice, openDaiLong, openDaiShort, priceImpact, positionSizeDai, leverage])
+  }, [
+    tradePool.fundingFeePerBlockP,
+    liquidationPrice,
+    openDaiLong,
+    openDaiShort,
+    priceImpact,
+    positionSizeDai,
+    leverage,
+  ])
 }
