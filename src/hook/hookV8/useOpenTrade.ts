@@ -37,7 +37,7 @@ export const useOpenTrade = ({
   return useCallback(async () => {
     try {
       setTransactionState(TransactionState.APPROVE)
-      // console.log(tradingAddress, tokenAddress, storageAddress) // 0x8524098Ef6cc858c796D1067c8C35B46ae0634BB 0xbE3111856e4acA828593274eA6872f27968C8DD6 0xB7095F2e5672c060fE37d781Fe3cB431E89fBb0a
+      
       const approveTX = await tokenContract.approve(storageAddress, MAX_UNIT_256)
       await approveTX.wait()
 

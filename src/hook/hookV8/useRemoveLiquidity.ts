@@ -7,7 +7,7 @@ import { eXDecimals } from '../../utils/math'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
 import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'ethers'
-import k_token from '../../abi/k_token.json'
+import { KTokenABI } from '../../abi/deployed/KTokenABI'
 import { getProviderOrSigner } from '../../utils'
 
 export const useRemoveLiquidity = (vaultAddress: string) => {
@@ -20,7 +20,7 @@ export const useRemoveLiquidity = (vaultAddress: string) => {
   return useCallback(
     async (amount: BigNumber, symbol: string, decimals: number) => {
       try {
-        const kTokenContract = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
+        const kTokenContract = new Contract(vaultAddress, KTokenABI, getProviderOrSigner(provider!, account))
 
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
@@ -56,7 +56,7 @@ export const useRedeemLiquidity = (vaultAddress: string) => {
   return useCallback(
     async (shares: string, amount: BigNumber, decimals?: number, symbol?: string) => {
       try {
-        const kTokenContract = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
+        const kTokenContract = new Contract(vaultAddress, KTokenABI, getProviderOrSigner(provider!, account))
 
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)

@@ -1,5 +1,5 @@
 import { useContract } from './useContract'
-import trading_vault from '../../abi/k_token.json'
+import { KTokenABI } from '../../abi/deployed/KTokenABI'
 import { useWeb3React } from '@web3-react/core'
 import React, { Dispatch, useCallback, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
@@ -15,7 +15,7 @@ export const useGetLpReward = (
   setLpReward?: Dispatch<React.SetStateAction<BigNumber>>
 ) => {
   const { account } = useWeb3React()
-  const vaultContract = useContract(vaultAddress, trading_vault.abi)
+  const vaultContract = useContract(vaultAddress, KTokenABI)
   const pnlPerToken = useSingleCallResult(vaultContract, 'accPnlPerToken')
   const args = useMemo(() => {
     return [account]
@@ -76,7 +76,7 @@ export const useGetAllLpReward = () => {
           positionDatas.map(async (positionData, index) => {
             const asyncWorker = async () => {
               try {
-                const contract = new Contract(positionData.pool.vaultT, trading_vault.abi, provider)
+                const contract = new Contract(positionData.pool.vaultT, KTokenABI, provider)
                 const lpReward = await contract.pendingRewardDaiByAccount(account)
                 const amount = new BigNumber(lpReward._hex)
                 if (amount.isGreaterThan(0)) {

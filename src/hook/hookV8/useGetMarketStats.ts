@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useRootStore } from '../../store/root'
 import { Contract } from 'ethers'
-import trading_storage from '../../abi/trading_storage_v5.json'
-import pair_info from '../../abi/pair_info_v6_1.json'
+import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
+import { PairInfosABI } from '../../abi/deployed/PairInfosABI'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 
@@ -16,8 +16,8 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
     ;(async () => {
       try {
         if (allPoolParams.length > 0 && provider && typeof paiIndex !== 'undefined') {
-          const contract = new Contract(address, trading_storage.abi, provider)
-          const pairInfoContract = new Contract(pairInfoAddress, pair_info.abi, provider)
+          const contract = new Contract(address, TradingStorageABI, provider)
+          const pairInfoContract = new Contract(pairInfoAddress, PairInfosABI, provider)
 
           const [longRes, shortRes] = await Promise.all([
             contract.openInterestDai(paiIndex, 0),

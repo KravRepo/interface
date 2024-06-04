@@ -1,3 +1,5 @@
+import { baseAddresses } from './deployedBase'
+
 export enum ChainId {
   MAINNET = 1,
   OP = 10,
@@ -66,7 +68,7 @@ export const API_CONFIG_TEST: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: process.env.REACT_APP_ALCHEMY_BASE_ENDPOINT || '',
+    rpcNode: "https://mainnet.base.org",
   },
   [ChainId.BSC_TEST]: {
     rpcNode: 'https://bsc-testnet.publicnode.com',
@@ -128,18 +130,20 @@ export const CONTRACT_CONFIG_TEST: { [chainId: number]: ContractInfo } = {
     nativeToken: 'ETH',
   },
   [ChainId.BASE]: {
-    factory: '0xDF76a808F1DEAa0F013460c078dc5A09544c7960',
+    factory: baseAddresses['KravFactory'],
     linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
     kravAddress: '0xbE3111856e4acA828593274eA6872f27968C8DD6',
-    kravTrading: '0x8d0d027bC501422Cac838e536dff6CF1404830ee',
+    kravTrading: baseAddresses['Trading'],
     veKrav: '0xDeE06ff0dBE3eBFD05b9E54B4ea228eC0FbD7f71',
     feeDistrbutor: '0x37170e7f0045C3DDe99F8884d9B6E2322697CC74',
     lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',
     tradeReward: '0x291182b2F0108E666e79b8fBC7c7b67C502564d7',
     multicall: '0x01096E802a1f6798173f2b876fbc6A8D423D8bdD',
     nativeToken: 'ETH',
+    tokenSwap: '0xa3C4A04c70A93dff0D9Ad294F7F28b3cE399F023',
+    multicall2: '0xD8fB0e889cadBD58b1feD1db6A1F0dbC64F616aa',
   },
   [ChainId.BASE_TEST]: {
     factory: '0xF9d56982944b344FF3632B4eE6105C2Ea6E5e931',
@@ -244,12 +248,12 @@ export const CONTRACT_CONFIG_PRODUCTION: { [chainId: number]: ContractInfo } = {
     nativeToken: 'ETH',
   },
   [ChainId.BASE]: {
-    factory: '0xDF76a808F1DEAa0F013460c078dc5A09544c7960',
+    factory: baseAddresses['KravFactory'],
     linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
     kravAddress: '0xbE3111856e4acA828593274eA6872f27968C8DD6',
-    kravTrading: '0x5976a1c7A0a2aF46f6c92060BCF3209442357E57',
+    kravTrading: baseAddresses['Trading'],
     veKrav: '0xDeE06ff0dBE3eBFD05b9E54B4ea228eC0FbD7f71',
     feeDistrbutor: '0x37170e7f0045C3DDe99F8884d9B6E2322697CC74',
     lpReward: '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19',

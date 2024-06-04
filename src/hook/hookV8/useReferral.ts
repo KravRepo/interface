@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRootStore } from '../../store/root'
 import { Contract } from 'ethers'
 import multicall2 from '../../abi/multicall2.json'
-import factory_abi from '../../abi/krav_factory.json'
+import { KravFactoryABI } from '../../abi/deployed/KravFactoryABI'
 import { Interface } from 'ethers/lib/utils'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
@@ -73,7 +73,7 @@ export const useReferral = () => {
           multicall2.abi,
           provider
         )
-        const factoryInterface = new Interface(factory_abi.abi)
+        const factoryInterface = new Interface(KravFactoryABI)
         const task: any[] = []
         allPoolParams.forEach((pool) => {
           task.push(

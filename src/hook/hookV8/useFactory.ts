@@ -6,14 +6,14 @@ import { useCallback } from 'react'
 import { useRootStore } from '../../store/root'
 import { PoolParams } from '../../store/FactorySlice'
 import test_erc20 from '../../abi/test_erc20.json'
-import pair_storage from '../../abi/pair_storage_v6.json'
-import pair_info from '../../abi/pair_info_v6_1.json'
+import { PairsStorageABI } from '../../abi/deployed/PairsStorageABI'
+import { PairInfosABI } from '../../abi/deployed/PairInfosABI'
 import multicall2 from '../../abi/multicall2.json'
 import { eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { Interface } from 'ethers/lib/utils'
-import krav_factory from '../../abi/krav_factory.json'
-import k_token from '../../abi/k_token.json'
+import { KravFactoryABI } from '../../abi/deployed/KravFactoryABI'
+import { KTokenABI } from '../../abi/deployed/KTokenABI'
 
 enum Task {
   tokenTask = 0,
@@ -59,7 +59,7 @@ export const useFactory = () => {
 
         if (localChainId && SUPPORT_CHAIN.includes(localChainId)) {
           provider = new ethers.providers.JsonRpcProvider(API_CONFIG[localChainId].rpcNode) as JsonRpcProvider
-          factory = new Contract(CONTRACT_CONFIG[localChainId].factory, krav_factory.abi, provider)
+          factory = new Contract(CONTRACT_CONFIG[localChainId].factory, KravFactoryABI, provider)
           multicall = new Contract(CONTRACT_CONFIG[localChainId].multicall, multicall2.abi, provider)
         } else {
           provider = new ethers.providers.JsonRpcProvider(
@@ -71,7 +71,7 @@ export const useFactory = () => {
             CONTRACT_CONFIG[
               expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN
             ].factory,
-            krav_factory.abi,
+            KravFactoryABI,
             provider
           )
           multicall = new Contract(
@@ -127,10 +127,10 @@ export const useFactory = () => {
           })
         })
 
-        const pairStorageInterface = new Interface(pair_storage.abi)
-        const pairInfoInterface = new Interface(pair_info.abi)
+        const pairStorageInterface = new Interface(PairsStorageABI)
+        const pairInfoInterface = new Interface(PairInfosABI)
         const tokenInterface = new Interface(test_erc20.abi)
-        const vaultInterface = new Interface(k_token.abi)
+        const vaultInterface = new Interface(KTokenABI)
 
         forMatter.forEach((item) => {
           tokenTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.SYMBOL, []))

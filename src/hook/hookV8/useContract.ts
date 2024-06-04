@@ -2,13 +2,13 @@ import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'ethers'
 import { useMemo } from 'react'
 import { getContract } from '../../utils'
-import trading_v6 from '../../abi/trading_v6_1.json'
-import trading_storage from '../../abi/trading_storage_v5.json'
+import { TradingABI } from '../../abi/deployed/TradingABI'
+import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
 import test_erc20 from '../../abi/test_erc20.json'
 import btc_price from '../../abi/bsc_price.json'
 import trading_vault from '../../abi/trading_vault_v5.json'
-import pair_storage from '../../abi/pair_storage_v6.json'
-import krav_factory from '../../abi/krav_factory.json'
+import { PairsStorageABI } from '../../abi/deployed/PairsStorageABI'
+import { KravFactoryABI } from '../../abi/deployed/KravFactoryABI'
 import token_swap from '../../abi/TokenSwap.json'
 import multicall2 from '../../abi/uni_multicall.json'
 import type { JsonRpcProvider } from '@ethersproject/providers'
@@ -38,11 +38,11 @@ export function useContract<T extends Contract = Contract>(
 }
 
 export const useTradingV6Contract = (tradingAddress: string) => {
-  return useContract(tradingAddress, trading_v6.abi, true)
+  return useContract(tradingAddress, TradingABI, true)
 }
 
 export const useTradingStoreContract = (storageAddress: string) => {
-  return useContract(storageAddress, trading_storage.abi)
+  return useContract(storageAddress, TradingStorageABI)
 }
 
 // TODO: it just a test, update over finish factory contract
@@ -59,7 +59,7 @@ export const useTradingVaultContract = (address: string) => {
 }
 
 export const usePairStorageContract = (address: string) => {
-  return useContract(address, pair_storage.abi)
+  return useContract(address, PairsStorageABI)
 }
 
 export const useTokenSwap = (chainId: number) => {
@@ -71,7 +71,7 @@ export const useFactoryContract = (provider: JsonRpcProvider) => {
   return useMemo(() => {
     return new Contract(
       CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
-      krav_factory.abi,
+      KravFactoryABI,
       provider as any
     )
   }, [expectChainId])
@@ -83,7 +83,7 @@ export const useFactoryWithProvider = (provider: any) => {
     return CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN]
       .factory
   }, [expectChainId])
-  return useContract(address, krav_factory.abi)
+  return useContract(address, KravFactoryABI)
 }
 
 export type CreatCall = {

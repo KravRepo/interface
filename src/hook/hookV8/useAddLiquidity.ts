@@ -10,7 +10,7 @@ import { useRootStore } from '../../store/root'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { eXDecimals } from '../../utils/math'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
-import k_token from '../../abi/k_token.json'
+import { KTokenABI } from '../../abi/deployed/KTokenABI'
 
 export const useAddLiquidity = (tokenAddress: string) => {
   const { provider, account, chainId } = useWeb3React()
@@ -31,7 +31,7 @@ export const useAddLiquidity = (tokenAddress: string) => {
 // const kToken = await ethers.getContractAt(`KToken`, vaultAddress)
 // await kToken.deposit(ethers.utils.parseEther(`1`), account)          
         
-          const contractA = new Contract(tokenAddress, k_token.abi, getProviderOrSigner(provider!, account))
+          const contractA = new Contract(tokenAddress, KTokenABI, getProviderOrSigner(provider!, account))
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
 
@@ -46,7 +46,7 @@ export const useAddLiquidity = (tokenAddress: string) => {
           const approveTx = await contractA.approve(vaultAddress, MAX_UNIT_256)
           await approveTx.wait()
           
-          const contractB = new Contract(vaultAddress, k_token.abi, getProviderOrSigner(provider!, account))
+          const contractB = new Contract(vaultAddress, KTokenABI, getProviderOrSigner(provider!, account))
           setTransactionState(TransactionState.INTERACTION)
           const tx = await contractB.deposit(amount.toString(), account)
       

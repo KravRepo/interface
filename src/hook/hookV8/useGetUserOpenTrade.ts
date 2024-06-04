@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { forMatterOpenTrades, isBeingMarketClosed } from './utils/utils'
 import { Contract } from 'ethers'
-import trading_storage from '../../abi/trading_storage_v5.json'
+import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
 import { Tuple } from '../../components/Trades/type'
 import { ChainId } from '../../constant/chain'
 
@@ -22,7 +22,7 @@ export const useGetUserOpenTrade = () => {
     async (storageAddress: string, setStore: boolean) => {
       try {
         if (account && provider && storageAddress && chainId !== undefined) {
-          const contract = new Contract(storageAddress, trading_storage.abi, provider)
+          const contract = new Contract(storageAddress, TradingStorageABI, provider)
           const userTotalTrade = await contract.openTradesCount(account, tradePairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
         

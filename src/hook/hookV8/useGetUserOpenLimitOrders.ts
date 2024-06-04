@@ -5,7 +5,7 @@ import { TupleLimitOrder } from '../../components/Trades/type'
 import { eXDecimals } from '../../utils/math'
 import { useWeb3React } from '@web3-react/core'
 import { Contract } from 'ethers'
-import trading_storage from '../../abi/trading_storage_v5.json'
+import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
 
 export const useGetUserOpenLimitOrders = () => {
   const { account, provider } = useWeb3React()
@@ -18,7 +18,7 @@ export const useGetUserOpenLimitOrders = () => {
       try {
         if (provider && account && storageAddress) {
           //TODO current pairIndex only one , change in next update
-          const contract = new Contract(storageAddress, trading_storage.abi, provider)
+          const contract = new Contract(storageAddress, TradingStorageABI, provider)
           const userTotalTrade = await contract.openLimitOrdersCount(account, tradePairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
           const task = []

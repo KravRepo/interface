@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { Tuple } from '../../components/Trades/type'
 import { PoolParams } from '../../store/FactorySlice'
 import { Contract } from 'ethers'
-import trading_storage from '../../abi/trading_storage_v5.json'
+import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
 import BigNumber from 'bignumber.js'
 import { forMatterOpenTrades } from './utils/utils'
 import { BASE_PAIR_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
@@ -37,7 +37,7 @@ export const useGetUserAllOpenTrades = () => {
             storageList.map(async (address, index) => {
               const asyncWorker = async () => {
                 //TODO current pairIndex only one , change in next update
-                const contract = new Contract(address, trading_storage.abi, provider)
+                const contract = new Contract(address, TradingStorageABI, provider)
                 if (EXCHANGE_STORAGE_T.includes(address) || pairConfig === BASE_PAIR_CONFIG) {
                   const userTotalTradesTask: CreatCall[] = []
                   const config = Object.keys(pairConfig).map((key) => {

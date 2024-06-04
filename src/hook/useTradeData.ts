@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import pair_info from '../abi/pair_info_v6_1.json'
+import { PairInfosABI } from '../abi/deployed/PairInfosABI'
 import { useContract } from './hookV8/useContract'
 import { useRootStore } from '../store/root'
 // import BigNumber from 'bignumber.js';
@@ -28,7 +28,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     tradePairIndex: state.tradePairIndex,
   }))
   const { account } = useWeb3React()
-  const pairContract = useContract(tradePool?.pairInfoT ?? null, pair_info.abi)
+  const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
 
   const [liquidationPrice, setLiquidationPrice] = useState('-')
   const [priceImpact, setPriceImpact] = useState('-')

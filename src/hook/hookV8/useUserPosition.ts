@@ -2,7 +2,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
 import { useCallback } from 'react'
 import { Contract } from 'ethers'
-import trading_vault from '../../abi/k_token.json'
+import { KTokenABI } from '../../abi/deployed/KTokenABI'
 import { PoolParams } from '../../store/FactorySlice'
 import BigNumber from 'bignumber.js'
 import test_erc20 from '../../abi/test_erc20.json'
@@ -42,7 +42,7 @@ export const useUserPosition = () => {
         const balanceTask: any[] = []
         const supplyTask: any[] = []
         const tokenInterface = new Interface(test_erc20.abi)
-        const vaultInterface = new Interface(trading_vault.abi)
+        const vaultInterface = new Interface(KTokenABI)
         allPoolParams.forEach((pool) => {
           task.push(creatCall(pool.vaultT, vaultInterface, 'balanceOf', [account]))
           supplyTask.push(creatCall(pool.vaultT, tokenInterface, 'balanceOf', [account]))

@@ -4,7 +4,7 @@ import { useRootStore } from '../../store/root'
 import { PoolParams } from '../../store/FactorySlice'
 import { TupleLimitOrder } from '../../components/Trades/type'
 import { Contract } from 'ethers'
-import trading_storage from '../../abi/trading_storage_v5.json'
+import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { BASE_PAIR_CONFIG, EXCHANGE_STORAGE_T } from '../../constant/exchange'
@@ -37,7 +37,7 @@ export const useGetUserAllLimitOrders = () => {
           return await Promise.all(
             storageList.map(async (address, index) => {
               const asyncWorker = async () => {
-                const contract = new Contract(address, trading_storage.abi, provider)
+                const contract = new Contract(address, TradingStorageABI, provider)
                 if (EXCHANGE_STORAGE_T.includes(address) || pairConfig === BASE_PAIR_CONFIG) {
                   const userTotalLimitTask: CreatCall[] = []
                   const config = Object.keys(pairConfig).map((key) => {

@@ -18,7 +18,7 @@ import { useFactory } from '../../hook/hookV8/useFactory'
 import { DialogLayout } from './DialogLayout'
 import { useSingleCallResult, useSingleContractMultipleData } from '../../hook/multicall'
 import { useContract } from '../../hook/hookV8/useContract'
-import k_token from '../../abi/k_token.json'
+import { KTokenABI } from '../../abi/deployed/KTokenABI'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 // import KravButtonHollow from '../KravUIKit/KravButtonHollow'
@@ -248,7 +248,7 @@ function ExistingRequest({
   const { account } = useWeb3React()
   const [showExistingRequest, setShowExistingRequest] = useState(false)
   const redeemLiquidity = useRedeemLiquidity(vaultAddress)
-  const kTokenContract = useContract(kToken, k_token.abi)
+  const kTokenContract = useContract(kToken, KTokenABI)
 
   const getUpdateEpoch = useSingleCallResult(kTokenContract, 'updateEpoch', [])
 

@@ -172,7 +172,7 @@ export const ConfirmTrade = ({
               {/*  <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>*/}
               {/*</p>*/}
               <p>
-                <span>Borrow Fee</span>
+                <span>Funding Fee</span>
                 <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
               </p>
               {/*<p>*/}
