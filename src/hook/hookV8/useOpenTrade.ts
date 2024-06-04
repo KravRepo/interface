@@ -1,9 +1,9 @@
 import BigNumber from 'bignumber.js'
 import { OpenTradeParams } from '../../components/Trades/type'
-import { MAX_UNIT_256, ZERO_ADDRESS } from '../../constant/math'
+// import { MAX_UNIT_256, ZERO_ADDRESS } from '../../constant/math'
 import { useCallback } from 'react'
 // import { getGasLimit } from '../../utils'
-import { useTradingV6Contract, useTokenContract } from './useContract'
+import { useTradingV6Contract } from './useContract'
 import { useGetUserOpenLimitOrders } from './useGetUserOpenLimitOrders'
 import { useGetUserOpenTrade } from './useGetUserOpenTrade'
 import { useRootStore } from '../../store/root'
@@ -17,14 +17,14 @@ export const useOpenTrade = ({
   tuple,
   tradeType,
   slippageP,
-  referral = ZERO_ADDRESS,
+  // referral = ZERO_ADDRESS,
   spreadReductionId = 0,
   tokenAddress,
   tradingAddress,
   storageAddress,
 }: OpenTradeParams) => {
   const contract = useTradingV6Contract(tradingAddress)!
-  const tokenContract = useTokenContract(tokenAddress)!
+  // const tokenContract = useTokenContract(tokenAddress)!
   const { chainId } = useWeb3React()
   const { getUserOpenTrade } = useGetUserOpenTrade()
   const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
@@ -35,11 +35,11 @@ export const useOpenTrade = ({
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const setOpenTradeCard = useRootStore((state) => state.setOpenTradeCard)
   return useCallback(async () => {
+
     try {
-      setTransactionState(TransactionState.APPROVE)
-      
-      const approveTX = await tokenContract.approve(storageAddress, MAX_UNIT_256)
-      await approveTX.wait()
+      // setTransactionState(TransactionState.APPROVE)
+      // const approveTX = await tokenContract.approve(storageAddress, MAX_UNIT_256)
+      // await approveTX.wait()
 
       setTransactionState(TransactionState.INTERACTION)
       setTransactionDialogVisibility(true)
@@ -93,6 +93,7 @@ export const useOpenTrade = ({
           }
         )
       }
+
       setTransactionState(TransactionState.START_OPEN_TRADE)
       await tx.wait()
       setTransactionDialogVisibility(false)
@@ -113,5 +114,5 @@ export const useOpenTrade = ({
       updateError(TransactionAction.OPEN_TRADE)
       console.log('Open Trade failed!', e)
     }
-  }, [contract, tuple, tradeType, slippageP, referral, spreadReductionId, tradingAddress, storageAddress, chainId])
+  }, [contract, tuple, tradeType, slippageP, spreadReductionId, tradingAddress, storageAddress, chainId])
 }
