@@ -23,6 +23,7 @@ export type ConfirmTradeDialogProp = {
   setPositionSizeDai: Dispatch<React.SetStateAction<BigNumber>>
   setOpenBTCSize: Dispatch<React.SetStateAction<BigNumber>>
   setLeverage: Dispatch<React.SetStateAction<number>>
+  entryPrice: string
 }
 
 export const ConfirmTrade = ({
@@ -34,6 +35,7 @@ export const ConfirmTrade = ({
   setPositionSizeDai,
   setOpenBTCSize,
   setLeverage,
+  entryPrice,
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -128,7 +130,10 @@ export const ConfirmTrade = ({
               </p>
               <p>
                 <span>Entry Price</span>
-                <span>${eXDecimals(tuple.openPrice, 10).toFixed(tradePair.fixDecimals)}</span>
+                <span>
+                  {/* ${eXDecimals(tuple.openPrice, 10).toFixed(tradePair.fixDecimals)} */}
+                  {entryPrice}
+                </span>
               </p>
               <p>
                 <span>Liq. Price</span>

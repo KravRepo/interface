@@ -189,7 +189,7 @@ export const OrderParamsCard = ({
     tradePairIndex,
   ])
 
-  const { liquidationPrice } = useTradeData({
+  const { liquidationPrice, priceImpact } = useTradeData({
     tradeType,
     limitPrice,
     isBuy,
@@ -341,6 +341,7 @@ export const OrderParamsCard = ({
         setPositionSizeDai={setPositionSizeDai}
         setOpenBTCSize={setOpenBTCSize}
         setLeverage={setLeverage}
+        entryPrice={priceImpact}
       />
       {!showConfirmTip && (
         <div
