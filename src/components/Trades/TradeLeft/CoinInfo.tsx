@@ -156,12 +156,12 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
               ? {}
               : {
                   ['Funding Rate (L)']: (
-                    <p style={{ color: openDaiShort && openDaiLong ? openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800).isLessThan(0) ? '#f53c58' : '#13ba7b' : '' }}>
+                    <p style={{ color: (openDaiShort && openDaiLong && !isNaN(parseFloat(openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800).toString()))) ? openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800).isLessThan(0) ? '#f53c58' : '#13ba7b' : '' }}>
                       {openDaiShort && openDaiLong ? (openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800)).toFixed(3) + '%' : '-'}
                     </p>
                   ),
                   ['Funding Rate (S)']: (
-                    <p style={{ color: openDaiShort && openDaiLong ? openDaiLong.minus(openDaiShort).times(0.000002).div(openDaiShort).times(1800).isLessThan(0) ? '#f53c58' : '#13ba7b' : '' }}>
+                    <p style={{ color: (openDaiShort && openDaiLong && !isNaN(parseFloat(openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800).toString()))) ? openDaiLong.minus(openDaiShort).times(0.000002).div(openDaiShort).times(1800).isLessThan(0) ? '#f53c58' : '#13ba7b' : '' }}>
                       {openDaiShort && openDaiLong ? (openDaiLong.minus(openDaiShort).times(0.000002).div(openDaiShort).times(1800)).toFixed(3) + '%' : '-'}
                     </p>
                   ),

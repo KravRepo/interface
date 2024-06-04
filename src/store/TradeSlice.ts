@@ -43,7 +43,7 @@ export const createTradeSlice: StateCreator<
   isOpenSelectToken: false,
   tradePairIndex: 0,
   openTradeCard: false,
-  slippagePercent: 0.03,
+  slippagePercent: 0.3,
   setSlippagePercent(slippagePercent: number) {
     set({ slippagePercent })
   },

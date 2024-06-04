@@ -64,7 +64,14 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
                 font-weight: 600;
               `}
             >
-              {!openDaiLong || !openDaiShort || isNaN((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any) ? 0.00 : (openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any}%
+              {
+                !openDaiLong ||
+                !openDaiShort ||
+                isNaN((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any) ||
+                !isFinite((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any)
+                  ? 0.00
+                  : (openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any
+              }%              
             </span>
           </div>
         </div>

@@ -2,11 +2,11 @@
 import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { css } from '@emotion/react'
 import { TupleWithTrade } from '../Trades/type'
 import { useOpenTrade } from '../../hook/hookV8/useOpenTrade'
-import { addDecimals, eXDecimals, getBorrowFees, getFees, getLiqPrice } from '../../utils/math'
+import { addDecimals, eXDecimals, getFees, getLiqPrice } from '../../utils/math'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../store/root'
 import { decodeReferral } from '../../utils'
@@ -36,22 +36,23 @@ export const ConfirmTrade = ({
   setOpenBTCSize,
   setLeverage,
   entryPrice,
+  
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const tradePool = useRootStore((store) => store.tradePool)
   const slippagePercent = useRootStore((store) => store.slippagePercent)
   const tradeModel = useRootStore((store) => store.tradeModel)
-  const pairConfig = useRootStore((state) => state.pairConfig)
+  // const pairConfig = useRootStore((state) => state.pairConfig)
   // const [checked, setChecked] = useState(false)
   const [referralAddress, setReferralAddress] = useState('0x0000000000000000000000000000000000000000')
   // const handleSlippagePChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setChecked(event.target.checked)
   // }
 
-  const tradePair = useMemo(() => {
-    return pairConfig[tuple.pairIndex]
-  }, [tuple, pairConfig])
+  // const tradePair = useMemo(() => {
+  //   return pairConfig[tuple.pairIndex]
+  // }, [tuple, pairConfig])
 
   const openTrade = useOpenTrade({
     tuple: tuple,
@@ -139,12 +140,12 @@ export const ConfirmTrade = ({
                 <span>Liq. Price</span>
                 <span>
                   $
-                  {getLiqPrice(
+                  {parseFloat(getLiqPrice(
                     eXDecimals(tuple.openPrice, 10),
                     eXDecimals(tuple.positionSizeDai, 18),
                     tuple.buy,
                     tuple.leverage
-                  ).toFixed(tradePair.fixDecimals)}
+                  ).toString()).toLocaleString('en-US', { maximumFractionDigits: 2 })}
                 </span>
               </p>
               {tuple.leverage <= 50 && (
@@ -176,10 +177,10 @@ export const ConfirmTrade = ({
               {/*  <span>Entry Price</span>*/}
               {/*  <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>*/}
               {/*</p>*/}
-              <p>
+              {/* <p>
                 <span>Funding Fee</span>
                 <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/hr</span>
-              </p>
+              </p> */}
               {/*<p>*/}
               {/*  <span>Execution Fee</span>*/}
               {/*  <span>-{tradePool.symbol}</span>*/}

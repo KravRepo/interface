@@ -82,7 +82,7 @@ export const useFactory = () => {
             provider
           )
         }
-
+        
         const totalPools = await factory.quantosCount()
         const blockNumber = await provider.getBlockNumber()
         const poolsParams = []

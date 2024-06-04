@@ -69,6 +69,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [openPrice, tradePairIndex, isBuy, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
+    console.log('liqudiation price args', liquidationPriceArgs)
     const fetchLiquidationPrice = async () => {
       if (
         pairContract &&
@@ -92,7 +93,6 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    // console.log(priceImpactArgs)
 
     const fetchPriceImpact = async () => {
       if (pairContract && priceImpactArgs.every((arg) => arg !== undefined)) {
@@ -105,6 +105,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
           // console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toString())
           // console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
           // console.log('btc price', BTCPrice.toString())
+          console.log((result.priceAfterImpact / 10**10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
           setPriceImpact(
             '$' +
               (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {

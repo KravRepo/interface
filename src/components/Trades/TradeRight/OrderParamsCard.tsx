@@ -79,17 +79,6 @@ const marks = {
   })),
 }
 
-const enforceMinMax = (e: any) => {
-  const el = e.target
-  if (!!+el.value) {
-    if (+el.value < +el.min) {
-      el.value = el.min
-    }
-    if (+el.value > +el.max) {
-      el.value = el.max
-    }
-  }
-}
 
 //TODO Add sl and tp setting
 export const OrderParamsCard = ({
@@ -234,11 +223,22 @@ export const OrderParamsCard = ({
   }
 
   const handleSlippageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    enforceMinMax(event)
-    const newLeverage = +event.target.value
-    event.target.value = newLeverage + ''
-    setSlippagePercent(newLeverage)
-  }
+    // Regex to match values between 0.3 and 3 (inclusive)
+    
+    const regex = /^(0(\.[3-9][0-9]*)?|[1-2](\.\d+)?|3(\.0+)?)$/;
+    if (event.target.value === '' || regex.test(event.target.value)) {
+      setSlippagePercent(parseFloat(event?.target?.value));
+    } else {
+      setSlippagePercent(0.3);
+    }
+  };
+
+  const handleSlippageInputBlur = (event: any) => {
+    const numericValue = parseFloat(event.target.value);
+    if (numericValue < 0.3 || numericValue > 3) {
+      setSlippagePercent(0.3);
+    }
+  };
 
   const handleSliderClick = () => {
     const outputAmount = getLongOrShortUSD(
@@ -744,9 +744,8 @@ export const OrderParamsCard = ({
                       border-radius: 5px;
                       -webkit-tap-highlight-color: transparent;
                     `}
-                    onBlur={enforceMinMax}
-                    min={0.01}
-                    max={3}
+                    onBlur={handleSlippageInputBlur}
+                    pattern="^(0\.[3-9]|[1-2](\.\d+)?|3(\.0+)?)$"
                   />
                   <span>%</span>
                 </div>
