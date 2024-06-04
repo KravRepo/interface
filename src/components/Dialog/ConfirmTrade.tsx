@@ -173,7 +173,7 @@ export const ConfirmTrade = ({
               {/*</p>*/}
               <p>
                 <span>Funding Fee</span>
-                <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/1h</span>
+                <span>{getBorrowFees(tradePool.fundingFeePerBlockP)}%/hr</span>
               </p>
               {/*<p>*/}
               {/*  <span>Execution Fee</span>*/}
