@@ -29,6 +29,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
           setOpenDaiLong(long)
           const short = new BigNumber(shortRes._hex).div(Number(`1e${decimals}`))
           setOpenDaiShort(short)
+          
         }
       } catch (e) {
         setOpenDaiLong(undefined)

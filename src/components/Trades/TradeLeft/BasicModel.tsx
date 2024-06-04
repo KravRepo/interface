@@ -23,6 +23,7 @@ export const BasicModel = ({ positionSizeDai, leverage, isBuy, limitPrice, trade
   const liquidityPrice = useMemo(() => {
     return getLiqPrice(BTCPrice, positionSizeDai, isBuy, leverage)
   }, [positionSizeDai, leverage, isBuy, BTCPrice])
+  
   return (
     <div>
       <div

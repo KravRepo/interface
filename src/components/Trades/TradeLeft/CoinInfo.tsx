@@ -6,6 +6,7 @@ import { PoolParams } from '../../../store/FactorySlice'
 import { align } from '../../../globalStyle'
 import { useRootStore } from '../../../store/root'
 import { useEffect, useState, useMemo } from 'react'
+import { useGetMarketStats } from '../../../hook/hookV8/useGetMarketStats'
 
 interface PriceData {
   '24h_change': number
@@ -36,6 +37,8 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
     tradePairIndex: state.tradePairIndex,
     pairConfig: state.pairConfig,
   }))
+
+  const { openDaiLong, openDaiShort } = useGetMarketStats(pool?.storageT as any, pool?.decimals as any, pool?.pairInfoT as any, 0)
 
   const tradePair = useMemo(() => {
     return pairConfig[tradePairIndex]
@@ -124,7 +127,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
   }, [isBTC, pool, poolUrl, retryCount])
 
   const data = useMemo(() => {
-    const priceData = isBTC ? btcPriceData : poolPriceData
+    const priceData = isBTC ? btcPriceData : poolPriceData;
     return {
       ['Price']: isBTC
         ? '$' + BTCPrice.toFormat(2, 3)
@@ -152,11 +155,20 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
             ...(isBTC
               ? {}
               : {
-                  ['Funding Fee']: pool?.fundingFeePerBlockP ? pool.fundingFeePerBlockP.toFixed() : '-',
+                  ['Funding Rate (L)']: (
+                    <p style={{ color: openDaiShort && openDaiLong ? openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800).isLessThan(0) ? '#f53c58' : '#13ba7b' : '' }}>
+                      {openDaiShort && openDaiLong ? (openDaiShort.minus(openDaiLong).times(0.000002).div(openDaiLong).times(1800)).toFixed(3) + '%' : '-'}
+                    </p>
+                  ),
+                  ['Funding Rate (S)']: (
+                    <p style={{ color: openDaiShort && openDaiLong ? openDaiLong.minus(openDaiShort).times(0.000002).div(openDaiShort).times(1800).isLessThan(0) ? '#f53c58' : '#13ba7b' : '' }}>
+                      {openDaiShort && openDaiLong ? (openDaiLong.minus(openDaiShort).times(0.000002).div(openDaiShort).times(1800)).toFixed(3) + '%' : '-'}
+                    </p>
+                  ),
                 }),
           }),
-    }
-  }, [pool, isBTC, isMobile, btcPriceData, poolPriceData, BTCPrice])
+    };
+  }, [pool, isBTC, isMobile, btcPriceData, poolPriceData, BTCPrice]);
 
   if (isBTC && isBtcLoading) {
     return <div>Loading BTC data...</div>
@@ -175,7 +187,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
           max-width: 800px;
           width: max-content;
           gap: 10px;
-          grid-template-columns: 100px 120px 100px 100px 150px 150px 100px;
+          grid-template-columns: 100px 120px 100px 100px 150px 150px 125px 125px;
           @media screen and (max-width: 960px) {
             flex-wrap: wrap;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;

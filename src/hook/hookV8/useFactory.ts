@@ -136,8 +136,8 @@ export const useFactory = () => {
           tokenTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.SYMBOL, []))
           decimalsTask.push(creatCall(item.tokenT, tokenInterface, TaskFunc.DECIMALS, []))
           pairStorageTask.push(creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.PAIRS, [0]))
-          vaultBalanceTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.CURRENT_BALANCE_DAI, []))
           vaultSupplyTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.MAX_BALANCE_DAI, []))
+          vaultBalanceTask.push(creatCall(item.vaultT, vaultInterface, TaskFunc.CURRENT_BALANCE_DAI, []))
           groupCollateralLong.push(
             creatCall(item.pairStorageT, pairStorageInterface, TaskFunc.GROUP_COLLATERAL, [0, true])
           )
@@ -211,7 +211,7 @@ export const useFactory = () => {
               factoryCall[Task.groupCollateralLong * totalPools + index]
             )._hex
           )
-            .minus(
+            .plus(
               decodeCallResult(
                 pairStorageInterface,
                 TaskFunc.GROUP_COLLATERAL,

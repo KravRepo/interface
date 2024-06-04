@@ -160,8 +160,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   // }, [pairContract, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   return useMemo(() => {
-    console.log('pairstorage', tradePool.storageT)
-    console.log('pairinfo', tradePool.pairInfoT)
+    // console.log(tradePool)
     return {
       fundingFee: tradePool.fundingFeePerBlockP ? tradePool.fundingFeePerBlockP.toFixed() : '-',
       liquidationPrice,

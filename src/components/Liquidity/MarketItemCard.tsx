@@ -9,6 +9,7 @@ import { eXDecimals } from '../../utils/math'
 import { MarketItemProps } from './type'
 import { useWeb3React } from '@web3-react/core'
 import { getBigNumberStr } from '../../utils'
+import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
 
 export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
@@ -22,6 +23,8 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
       userPositionDatas.find((item) => item.pool?.tradingT === poolParams?.tradingT)?.daiDeposited ?? new BigNumber(0)
     return eXDecimals(supply, poolParams.decimals)
   }, [poolParams, userPositionDatas])
+
+  const { openDaiLong, openDaiShort } = useGetMarketStats(poolParams.storageT, poolParams.decimals, poolParams.pairInfoT, 0)
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
@@ -61,7 +64,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
                 font-weight: 600;
               `}
             >
-              {isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%
+              {!openDaiLong || !openDaiShort || isNaN((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any) ? 0.00 : (openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any}%
             </span>
           </div>
         </div>
