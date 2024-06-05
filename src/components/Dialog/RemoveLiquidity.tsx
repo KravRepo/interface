@@ -108,8 +108,12 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               lineHeight={'150%'}
               sx={{ marginTop: '16px !important' }}
             >
-              <span style={{ fontWeight: 600 }}>Reminder: </span>
-              <span>When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.</span>
+              <span style={{ fontWeight: 600 }}>Note: </span>
+              <span>
+                when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and
+                the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity
+                environment. 25% of deposited liquidity may be removed at a time.
+              </span>
             </Typography>
           </Box>
           <div

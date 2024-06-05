@@ -72,11 +72,11 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
             lineHeight={'150%'}
             sx={{ marginTop: '16px !important' }}
           >
-            <span style={{ fontWeight: 600 }}>Reminder: </span>
+            <span style={{ fontWeight: 600 }}>Note: </span>
             <span>
-              When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Furthermore,
-              there must be a minimum of 2 epochs in between two consecutive withdrawals. These rules help ensure a
-              stable and fair trading environment on our platform.
+              When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the
+              balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity
+              environment. 25% of deposited liquidity may be removed at a time.
             </span>
           </Typography>
         </Box>
