@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { PairInfosABI } from '../abi/deployed/PairInfosABI'
 import { useContract } from './hookV8/useContract'
 import { useRootStore } from '../store/root'
-// import BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js';
 import { addDecimals } from '../utils/math'
 import { useGetMarketStats } from './hookV8/useGetMarketStats'
 import { useWeb3React } from '@web3-react/core'
@@ -45,17 +45,25 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   )
 
   const liquidationPriceArgs = useMemo(() => {
+    
+    const cleanedPriceImpact = priceImpact.replace('$', '').replace(/,/g, '').replace(',', '');
+    const [integerPart, decimalPart] = cleanedPriceImpact.split('.');
+    const fullNumberStr = integerPart + (decimalPart || '');
+    const decimalPlaces = decimalPart ? decimalPart.length : 0;
+    const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces);
+    const openPriceAfterImpact = (new BigNumber(bigNumberStr)).toString();
+
     const args = {
       trader: account,
       pairIndex: tradePairIndex,
       index: 0,
-      openPrice,
+      openPrice: openPriceAfterImpact,
       long: isBuy,
       collateral: positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
       leverage,
     }
     return [...Object.values(args)]
-  }, [account, tradePairIndex, openPrice, isBuy, leverage, positionSizeDai])
+  }, [account, tradePairIndex, openPrice, priceImpact, isBuy, leverage, positionSizeDai])
 
   const priceImpactArgs = useMemo(() => {
     const openInterest = positionSizeDai.times(1e18).times(leverage).toString()
@@ -69,7 +77,10 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [openPrice, tradePairIndex, isBuy, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    // console.log('liqudiation price args', liquidationPriceArgs)
+    if (liquidationPriceArgs[4] == 'Insufficient Liquidity') {
+      setLiquidationPrice('Insufficient Liquidity')
+      return
+    }
     const fetchLiquidationPrice = async () => {
       if (
         pairContract &&
