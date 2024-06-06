@@ -818,7 +818,7 @@ export const OrderParamsCard = ({
                           color: #757575;
                         `}
                       >
-                        Entry Price
+                        Market Price
                       </span>
                       {/* TODO Liquidation Price */}
                       <span>
