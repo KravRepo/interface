@@ -69,7 +69,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [openPrice, tradePairIndex, isBuy, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    console.log('liqudiation price args', liquidationPriceArgs)
+    // console.log('liqudiation price args', liquidationPriceArgs)
     const fetchLiquidationPrice = async () => {
       if (
         pairContract &&
@@ -93,22 +93,35 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
+    
+    const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
+    const netExposure = positionSizeDai.times(leverage).toString();
+
+    if (netExposure >= totalLiquidity) {
+      setPriceImpact('Insufficient Liquidity')
+      return
+    }
 
     const fetchPriceImpact = async () => {
-      if (pairContract && priceImpactArgs.every((arg) => arg !== undefined)) {
+      if (pairContract && priceImpactArgs.every((arg: any) => arg !== undefined)) {
         try {
           const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
-          // console.log('trading storage', tradePool.storageT)
-          // console.log('pairs storage', tradePool.pairStorageT)
-          // console.log('pair infos', tradePool.pairInfoT)
-          // console.log('price impact p', result.priceImpactP.toString())
-          // console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toString())
-          // console.log('price after impact', (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
-          // console.log('btc price', BTCPrice.toString())
-          console.log((result.priceAfterImpact / 10**10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }))
+    
+          const priceImpactPercentDecimal = parseFloat(result.priceImpactP.toString())/1e8;
+          let priceAfterImpact;
+          if (priceImpactPercentDecimal > 0) {
+            if (priceImpactArgs[2]) {
+              priceAfterImpact = parseFloat(BTCPrice.toString() || '') * (1 + priceImpactPercentDecimal)
+            } else {
+              priceAfterImpact = parseFloat(BTCPrice.toString() || '') * (1 - priceImpactPercentDecimal)
+            }
+          } else {
+            priceAfterImpact = parseFloat(BTCPrice.toString() || '')
+          }
+          
           setPriceImpact(
             '$' +
-              (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
+              (new Number(priceAfterImpact)).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })
@@ -121,44 +134,6 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
 
     fetchPriceImpact()
   }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
-
-  // useEffect(() => {
-  //   if (!Object.keys(FEE_RATES).includes(pairContract?.address || '')) {
-  //     FEE_RATES[pairContract?.address || ''] = 0.1
-  //   }
-  //   const baseFeeRate = FEE_RATES[pairContract?.address || '']
-  //   const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
-
-  //   if (!Object.keys(EXPONENTS).includes(pairContract?.address || '')) {
-  //     EXPONENTS[pairContract?.address || ''] = 1
-  //   }
-  //   const priceImpactExponent = EXPONENTS[pairContract?.address || '']
-  //   const longTotal = parseFloat(openDaiLong?.toString() || '')
-  //   const shortTotal = parseFloat(openDaiShort?.toString() || '')
-  //   const openInterest = parseFloat(positionSizeDai.times(leverage).toString() || '')
-  //   const nextLongTotal = longTotal + (isBuy ? openInterest : 0)
-  //   const nextShortTotal = shortTotal + (isBuy ? 0 : openInterest)
-  //   const delta = Math.abs(longTotal - shortTotal)
-  //   const deltaNext = Math.abs(nextLongTotal - nextShortTotal)
-
-  //   if (deltaNext > delta) {
-  //     const imbalanceRatio = deltaNext / totalLiquidity
-  //     if (imbalanceRatio > 1) return setPriceImpact('Invalid Order Size')
-  //     const afterPow = Math.pow(1 - imbalanceRatio, priceImpactExponent)
-  //     const priceImpact = (baseFeeRate * (deltaNext - delta)) / afterPow
-  //     const priceImpactP = priceImpact / parseFloat(BTCPrice.toString() || '')
-  //     const priceAfterImpact = isBuy ? parseFloat(BTCPrice.toString() || '') * (1 + priceImpactP) : parseFloat(BTCPrice.toString() || '') * (1 - priceImpactP)
-  //     setPriceImpact(
-  //       '$' +
-  //         priceAfterImpact.toLocaleString('en-US', {
-  //           minimumFractionDigits: 2,
-  //           maximumFractionDigits: 2,
-  //         })
-  //     )
-  //   } else {
-  //     setPriceImpact('-')
-  //   }
-  // }, [pairContract, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   return useMemo(() => {
     // console.log(tradePool)

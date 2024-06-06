@@ -55,7 +55,7 @@ const FullApp = () => {
   const factoryLock = useRootStore((store) => store.factoryLock)
   const getUserPosition = useUserPosition()
   const factory = useFactory()
-
+  
   useChainIdListener()
   useInterval(factory, 60000)
   useInterval(async () => getUserPosition(), 15000)

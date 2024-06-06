@@ -17,34 +17,61 @@ export const PairInfos_ImplementationABI = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "int256",
         "name": "x",
-        "type": "uint256"
+        "type": "int256"
       }
     ],
-    "name": "PRBMathUD60x18__Exp2InputTooBig",
+    "name": "PRBMathSD59x18__Exp2InputTooBig",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "x",
+        "type": "int256"
+      }
+    ],
+    "name": "PRBMathSD59x18__FromIntOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "x",
+        "type": "int256"
+      }
+    ],
+    "name": "PRBMathSD59x18__FromIntUnderflow",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "x",
+        "type": "int256"
+      }
+    ],
+    "name": "PRBMathSD59x18__LogInputTooSmall",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "PRBMathSD59x18__MulInputTooSmall",
     "type": "error"
   },
   {
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "x",
+        "name": "rAbs",
         "type": "uint256"
       }
     ],
-    "name": "PRBMathUD60x18__FromUintOverflow",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "x",
-        "type": "uint256"
-      }
-    ],
-    "name": "PRBMathUD60x18__LogInputTooSmall",
+    "name": "PRBMathSD59x18__MulOverflow",
     "type": "error"
   },
   {
@@ -181,6 +208,25 @@ export const PairInfos_ImplementationABI = [
       }
     ],
     "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "label",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Log",
     "type": "event"
   },
   {
