@@ -77,7 +77,10 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [openPrice, tradePairIndex, isBuy, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    if (liquidationPriceArgs[4] == 'Insufficient Liquidity') {
+    const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
+    const netExposure = positionSizeDai.times(leverage).toString();
+
+    if (netExposure >= totalLiquidity) {
       setLiquidationPrice('Insufficient Liquidity')
       return
     }
@@ -104,7 +107,9 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
 
   useEffect(() => {
-    
+    // console.log('ktoken', tradePool.vaultT);
+    // console.log('trading', tradePool.tradingT);
+    // console.log('storage', tradePool.storageT);
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
     const netExposure = positionSizeDai.times(leverage).toString();
 
@@ -116,23 +121,11 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     const fetchPriceImpact = async () => {
       if (pairContract && priceImpactArgs.every((arg: any) => arg !== undefined)) {
         try {
-          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
-    
-          const priceImpactPercentDecimal = parseFloat(result.priceImpactP.toString())/1e8;
-          let priceAfterImpact;
-          if (priceImpactPercentDecimal > 0) {
-            if (priceImpactArgs[2]) {
-              priceAfterImpact = parseFloat(BTCPrice.toString() || '') * (1 + priceImpactPercentDecimal)
-            } else {
-              priceAfterImpact = parseFloat(BTCPrice.toString() || '') * (1 - priceImpactPercentDecimal)
-            }
-          } else {
-            priceAfterImpact = parseFloat(BTCPrice.toString() || '')
-          }
+          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)  
           
           setPriceImpact(
             '$' +
-              (new Number(priceAfterImpact)).toLocaleString('en-US', {
+              (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })
