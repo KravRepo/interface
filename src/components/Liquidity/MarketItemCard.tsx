@@ -24,7 +24,12 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
     return eXDecimals(supply, poolParams.decimals)
   }, [poolParams, userPositionDatas])
 
-  const { openDaiLong, openDaiShort } = useGetMarketStats(poolParams.storageT, poolParams.decimals, poolParams.pairInfoT, 0)
+  const { openDaiLong, openDaiShort } = useGetMarketStats(
+    poolParams.storageT,
+    poolParams.decimals,
+    poolParams.pairInfoT,
+    0
+  )
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
@@ -64,14 +69,29 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
                 font-weight: 600;
               `}
             >
-              {
-                !openDaiLong ||
-                !openDaiShort ||
-                isNaN((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any) ||
-                !isFinite((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any)
-                  ? 0.00
-                  : (openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any
-              }%              
+              {!openDaiLong ||
+              !openDaiShort ||
+              isNaN(
+                (openDaiLong as any)
+                  .plus(openDaiShort as any)
+                  .div(poolParams.poolTotalSupply ?? '1')
+                  .times(100)
+                  .toFixed(2) as any
+              ) ||
+              !isFinite(
+                (openDaiLong as any)
+                  .plus(openDaiShort as any)
+                  .div(poolParams.poolTotalSupply ?? '1')
+                  .times(100)
+                  .toFixed(2) as any
+              )
+                ? 0.0
+                : ((openDaiLong as any)
+                    .plus(openDaiShort as any)
+                    .div(poolParams.poolTotalSupply ?? '1')
+                    .times(100)
+                    .toFixed(2) as any)}
+              %
             </span>
           </div>
         </div>
@@ -106,27 +126,29 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
             {getBigNumberStr(poolSupply, 2)}
           </p>
         </div>
-        {apr.isGreaterThan(0) && <div
-          css={css`
-            background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
-          `}
-          className="apr"
-        >
-          <span
+        {apr.isGreaterThan(0) && (
+          <div
             css={css`
-              color: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#757575'};
+              background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
             `}
+            className="apr"
           >
-            APR
-          </span>
-          <span
-            css={css`
-              color: #009b72;
-            `}
-          >
-            {apr.toFixed(2)}%
-          </span>
-        </div>}
+            <span
+              css={css`
+                color: ${theme.palette.mode === 'dark' ? '#1c1e23' : '#757575'};
+              `}
+            >
+              APR
+            </span>
+            <span
+              css={css`
+                color: #009b72;
+              `}
+            >
+              {apr.toFixed(2)}%
+            </span>
+          </div>
+        )}
         {account && (
           <KravButtonHollow
             onClick={() => {

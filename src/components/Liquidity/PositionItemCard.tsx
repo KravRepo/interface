@@ -22,15 +22,12 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
 
   // const [setLpReward] = useState(new BigNumber(0))
   // const claimLp = useHarvestLpReward(position.pool.vaultT)
-
-
   const poolSupply = useMemo(() => {
     const supply =
       userPositionDatas.find((item) => item.pool?.tradingT === position.pool?.tradingT)?.daiDeposited ??
       new BigNumber(0)
     return eXDecimals(supply, position.pool.decimals)
   }, [position, userPositionDatas])
-
 
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
   const maxWithdrawAmount = useMemo(() => {
@@ -53,7 +50,12 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
   }, [aprList])
 
   // useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
-  const { openDaiLong, openDaiShort } = useGetMarketStats(position.pool.storageT, position.pool.decimals, position.pool.pairInfoT, 0)
+  const { openDaiLong, openDaiShort } = useGetMarketStats(
+    position.pool.storageT,
+    position.pool.decimals,
+    position.pool.pairInfoT,
+    0
+  )
 
   return (
     <div
@@ -88,14 +90,29 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 font-weight: 600;
               `}
             >
-              {
-                !openDaiLong ||
-                !openDaiShort ||
-                isNaN((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any) ||
-                !isFinite((openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any)
-                  ? 0.00
-                  : (openDaiLong as any).plus(openDaiShort as any).div(poolSupply).times(100).toFixed(2) as any
-              }%
+              {!openDaiLong ||
+              !openDaiShort ||
+              isNaN(
+                (openDaiLong as any)
+                  .plus(openDaiShort as any)
+                  .div(position.pool.poolTotalSupply ?? '1')
+                  .times(100)
+                  .toFixed(2) as any
+              ) ||
+              !isFinite(
+                (openDaiLong as any)
+                  .plus(openDaiShort as any)
+                  .div(position.pool.poolTotalSupply ?? '1')
+                  .times(100)
+                  .toFixed(2) as any
+              )
+                ? 0.0
+                : ((openDaiLong as any)
+                    .plus(openDaiShort as any)
+                    .div(position.pool.poolTotalSupply ?? '1')
+                    .times(100)
+                    .toFixed(2) as any)}
+              %
             </span>
           </div>
         </div>
@@ -192,7 +209,14 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             >
               Your Pool Stake
             </span>
-            <span>{((parseFloat(getBigNumberStr(poolSupply, 2)) / parseFloat(position.pool.poolTotalSupply?.toFixed(2) as any))*100).toFixed(2)}%</span>
+            <span>
+              {(
+                (parseFloat(getBigNumberStr(poolSupply, 2)) /
+                  parseFloat(position.pool.poolTotalSupply?.toFixed(2) as any)) *
+                100
+              ).toFixed(2)}
+              %
+            </span>
           </div>
           <div>
             <span
