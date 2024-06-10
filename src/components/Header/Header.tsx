@@ -170,10 +170,12 @@ export const Header = () => {
 
         <div css={align}>
           <ButtonGroup
+            disableElevation
             variant="contained"
             sx={{
               mr: '10px',
               height: '40px',
+              border: '1px solid #4b4b4b!important',
             }}
           >
             <Button
@@ -183,6 +185,7 @@ export const Header = () => {
                 borderColor: 'transparent!important',
                 fontFamily: 'Inter',
                 fontSize: 14,
+                borderRight: 'none!important',
                 border: '1px solid #4b4b4b',
                 '&:hover': {
                   backgroundColor: '#2832F5',
@@ -191,21 +194,24 @@ export const Header = () => {
             >
               Beta
             </Button>
-            <Button
-              sx={{
-                background: '#121212',
-                color: theme.text.primary,
-                fontFamily: 'Inter',
-                fontSize: 14,
-                border: '1px solid #4b4b4b',
-                '&:hover': {
+
+            <a target="_blank" href="https://app.krav.trade/trade" rel="noreferrer">
+              <Button
+                sx={{
                   background: '#121212',
-                  color: '#2832F5',
-                },
-              }}
-            >
-              V1
-            </Button>
+                  color: theme.text.primary,
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+
+                  '&:hover': {
+                    background: '#121212',
+                    color: '#2832F5',
+                  },
+                }}
+              >
+                V1
+              </Button>
+            </a>
           </ButtonGroup>
           <WalletButton
             chainId={chainId}
