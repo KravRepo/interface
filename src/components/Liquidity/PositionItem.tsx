@@ -2,7 +2,7 @@
 import { align } from '../../globalStyle'
 import { css } from '@emotion/react'
 import { Button, Tooltip, useTheme } from '@mui/material'
-import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
+// import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
 import { ReactComponent as SubIcon } from '../../assets/imgs/subIcon.svg'
 import { PositionItemProps } from './type'
 import { useRootStore } from '../../store/root'
@@ -100,7 +100,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
           justify-content: end;
         `}
       >
-        <Button
+        {/* <Button
           onClick={() => {
             setLiquidityInfo(position.pool)
             setAddLiquidity(true)
@@ -117,7 +117,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
           }}
         >
           <AddIcon height="17" width="17" />
-        </Button>
+        </Button> */}
         <Button
           disabled={position.withdrawBlock.plus(WITHDRAW_BLOCK_DIFF).isGreaterThan(position.pool.blockNumber)}
           onClick={() => {

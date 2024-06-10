@@ -10,24 +10,24 @@ import { ReactComponent as Arrow } from '../../assets/imgs/mint_arrow.svg'
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
-import { formatNumber, getProviderOrSigner } from '../../utils'
+import { formatNumber /*, getProviderOrSigner*/ } from '../../utils'
 import { useWeb3React } from '@web3-react/core'
 import { ChainId } from '../../constant/chain'
 import { useTokenSwap } from '../../hook/hookV8/useContract'
-import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
-import { MAX_UNIT_256 } from '../../constant/math'
-import { Contract } from 'ethers'
-import erc20 from '../../abi/test_erc20.json'
-import { addDecimals, eXDecimals } from '../../utils/math'
-import { useUpdateError } from '../../hook/hookV8/useUpdateError'
-import { useUpdateSuccessDialog } from '../../hook/hookV8/useUpdateSuccessDialog'
+// import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
+// import { MAX_UNIT_256 } from '../../constant/math'
+// import { Contract } from 'ethers'
+// import erc20 from '../../abi/test_erc20.json'
+import { eXDecimals } from '../../utils/math'
+// import { useUpdateError } from '../../hook/hookV8/useUpdateError'
+// import { useUpdateSuccessDialog } from '../../hook/hookV8/useUpdateSuccessDialog'
 
 export const ExchangeAction = () => {
   const { chainId, account, provider } = useWeb3React()
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-  const setTransactionState = useRootStore((state) => state.setTransactionState)
-  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
-  const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
+  // const setTransactionState = useRootStore((state) => state.setTransactionState)
+  // const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
+  // const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const [showMint] = useState(false)
   const [stakeAmount, setStakeAmount] = useState(new BigNumber(0))
 
@@ -54,50 +54,50 @@ export const ExchangeAction = () => {
 
   const tokenSwapContract = useTokenSwap(chainId || ChainId.BASE_TEST)
 
-  const updateError = useUpdateError()
+  // const updateError = useUpdateError()
 
-  const updateSuccessDialog = useUpdateSuccessDialog()
+  // const updateSuccessDialog = useUpdateSuccessDialog()
 
-  const stakeOldKrav = useCallback(async () => {
-    if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
-      if (account && tokenSwapContract && oldKravDetails && provider) {
-        try {
-          setTransactionState(TransactionState.CHECK_APPROVE)
-          setTransactionDialogVisibility(true)
-          const kravContract = new Contract(
-            oldKravDetails.pool.tokenT,
-            erc20.abi,
-            getProviderOrSigner(provider, account)
-          )
-          const allowance = await kravContract.allowance(account, tokenSwapContract.address)
-          if (
-            addDecimals(stakeAmount, 18).isGreaterThan(new BigNumber(allowance.toString())) ||
-            Number(allowance) === 0
-          ) {
-            setTransactionState(TransactionState.APPROVE)
-            const approveTX = await kravContract.approve(tokenSwapContract.address, MAX_UNIT_256)
-            await approveTX.wait()
-          }
-          setTransactionState(TransactionState.INTERACTION)
-          const tx = await tokenSwapContract.burn(addDecimals(stakeAmount, 18).toString())
-          setTransactionState(TransactionState.STAKE_KRAV)
-          await tx.wait()
-          setTransactionDialogVisibility(false)
-          setTransactionState(TransactionState.START)
-          updateSuccessDialog(TransactionAction.STAKE_KRAV)
-          setSuccessSnackbarInfo({
-            snackbarVisibility: true,
-            title: 'Stake',
-            content: `Your ${stakeAmount.toFixed(2)} krav has been staked successfully`,
-          })
-          setStakeAmount(new BigNumber(0))
-        } catch (e) {
-          updateError(TransactionAction.STAKE_KRAV)
-          console.log('e', e)
-        }
-      }
-    }
-  }, [chainId, account, tokenSwapContract, oldKravDetails, provider, stakeAmount])
+  // const stakeOldKrav = useCallback(async () => {
+  //   if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
+  //     if (account && tokenSwapContract && oldKravDetails && provider) {
+  //       try {
+  //         setTransactionState(TransactionState.CHECK_APPROVE)
+  //         setTransactionDialogVisibility(true)
+  //         const kravContract = new Contract(
+  //           oldKravDetails.pool.tokenT,
+  //           erc20.abi,
+  //           getProviderOrSigner(provider, account)
+  //         )
+  //         const allowance = await kravContract.allowance(account, tokenSwapContract.address)
+  //         if (
+  //           addDecimals(stakeAmount, 18).isGreaterThan(new BigNumber(allowance.toString())) ||
+  //           Number(allowance) === 0
+  //         ) {
+  //           setTransactionState(TransactionState.APPROVE)
+  //           const approveTX = await kravContract.approve(tokenSwapContract.address, MAX_UNIT_256)
+  //           await approveTX.wait()
+  //         }
+  //         setTransactionState(TransactionState.INTERACTION)
+  //         const tx = await tokenSwapContract.burn(addDecimals(stakeAmount, 18).toString())
+  //         setTransactionState(TransactionState.STAKE_KRAV)
+  //         await tx.wait()
+  //         setTransactionDialogVisibility(false)
+  //         setTransactionState(TransactionState.START)
+  //         updateSuccessDialog(TransactionAction.STAKE_KRAV)
+  //         setSuccessSnackbarInfo({
+  //           snackbarVisibility: true,
+  //           title: 'Stake',
+  //           content: `Your ${stakeAmount.toFixed(2)} krav has been staked successfully`,
+  //         })
+  //         setStakeAmount(new BigNumber(0))
+  //       } catch (e) {
+  //         updateError(TransactionAction.STAKE_KRAV)
+  //         console.log('e', e)
+  //       }
+  //     }
+  //   }
+  // }, [chainId, account, tokenSwapContract, oldKravDetails, provider, stakeAmount])
 
   const getUserStakedAmount = useCallback(async () => {
     if (chainId === ChainId.BASE || chainId === ChainId.BASE_TEST) {
@@ -375,12 +375,13 @@ export const ExchangeAction = () => {
               </p>
               <KRAVButton
                 disabled={
-                  !userOldKravBalance.isGreaterThan(0) ||
-                  stakeAmount.isGreaterThan(userOldKravBalance) ||
-                  stakeAmount.isEqualTo(0) ||
-                  stakeAmount.isNaN()
+                  true
+                  // !userOldKravBalance.isGreaterThan(0) ||
+                  // stakeAmount.isGreaterThan(userOldKravBalance) ||
+                  // stakeAmount.isEqualTo(0) ||
+                  // stakeAmount.isNaN()
                 }
-                onClick={() => stakeOldKrav().then()}
+                // onClick={() => stakeOldKrav().then()}
                 sx={{
                   mt: '4px',
                 }}

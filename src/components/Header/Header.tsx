@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, ButtonGroup, useMediaQuery, useTheme } from '@mui/material'
 import { Trans } from '@lingui/macro'
 import { header, router, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
@@ -167,7 +167,46 @@ export const Header = () => {
             </Box>
           )}
         </div>
+
         <div css={align}>
+          <ButtonGroup
+            variant="contained"
+            sx={{
+              mr: '10px',
+              height: '40px',
+            }}
+          >
+            <Button
+              sx={{
+                background: '#2832F5',
+                color: theme.text.primary,
+                borderColor: 'transparent!important',
+                fontFamily: 'Inter',
+                fontSize: 14,
+                border: '1px solid #4b4b4b',
+                '&:hover': {
+                  backgroundColor: '#2832F5',
+                },
+              }}
+            >
+              Beta
+            </Button>
+            <Button
+              sx={{
+                background: '#121212',
+                color: theme.text.primary,
+                fontFamily: 'Inter',
+                fontSize: 14,
+                border: '1px solid #4b4b4b',
+                '&:hover': {
+                  background: '#121212',
+                  color: '#2832F5',
+                },
+              }}
+            >
+              V1
+            </Button>
+          </ButtonGroup>
           <WalletButton
             chainId={chainId}
             connector={connector}

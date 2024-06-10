@@ -1,21 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { marketCard } from './style'
 import { css, useMediaQuery, useTheme } from '@mui/material'
-import KravButtonHollow from '../KravUIKit/KravButtonHollow'
+// import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { useRootStore } from '../../store/root'
 import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { MarketItemProps } from './type'
-import { useWeb3React } from '@web3-react/core'
+// import { useWeb3React } from '@web3-react/core'
 import { getBigNumberStr } from '../../utils'
 
 export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
-  const { account } = useWeb3React()
+  // const { account } = useWeb3React()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
-  const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
-  const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
+  // const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
+  // const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const poolSupply = useMemo(() => {
     const supply =
@@ -112,7 +112,7 @@ export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketI
             {apr.toFixed(2)}%
           </span>
         </div>
-        {account && (
+        {/* {account && (
           <KravButtonHollow
             onClick={() => {
               setAddLiquidity(true)
@@ -130,7 +130,7 @@ export const MarketItemCard = ({ setAddLiquidity, poolParams, aprList }: MarketI
           >
             Connect Wallet
           </KravButtonHollow>
-        )}
+        )} */}
       </div>
     </div>
   )

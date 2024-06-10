@@ -43,7 +43,7 @@ export const Dashboard = () => {
   const { getOverView, overviewData } = useGetTotalMarketOverview()
 
   useEffect(() => {
-    let interval: NodeJS.Timer
+    let interval: NodeJS.Timeout
     if (account) {
       Promise.all([
         // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
@@ -64,7 +64,7 @@ export const Dashboard = () => {
   }, [account])
 
   useEffect(() => {
-    let interval: NodeJS.Timer
+    let interval: NodeJS.Timeout
     if (allPoolParams.length > 0 && account && provider) {
       getUserAllOpenTrades().then()
       interval = setInterval(async () => {

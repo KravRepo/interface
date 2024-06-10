@@ -37,7 +37,7 @@ export const Farm = () => {
 
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   useEffect(() => {
-    let backInterval: NodeJS.Timer
+    let backInterval: NodeJS.Timeout
     if (allPoolParams.length > 0 && account && provider) {
       backInterval = setInterval(() => {
         userBackend().then()

@@ -4,7 +4,7 @@ import { SUPPORT_CHAIN } from '../../constant/chain'
 import useMemoizedFn from './useMemoizedFn'
 
 export const useInterval = (callback: () => Promise<any>, delay: number | undefined) => {
-  const intervalRef = useRef<NodeJS.Timer | null>(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const timerCallback = useMemoizedFn(callback)
   const { chainId } = useWeb3React()
 

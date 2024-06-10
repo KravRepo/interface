@@ -1,25 +1,24 @@
 /** @jsxImportSource @emotion/react */
 import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
-import { Trans } from '@lingui/macro'
+// import { Trans } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab } from './style'
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
-import { useApprove } from '../../../hook/hookV8/useApprove'
+// import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
-import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
-import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
-import { POSITION_LIMITS } from '../../../constant/math'
+// import { TransactionAction } from '../../../store/TransactionSlice'
+// import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
 import { getBigNumberStr } from '../../../utils'
 import { useGetOrderLimit } from '../../../hook/hookV8/useGetOrderLimt'
-import KravLongButton from '../../KravUIKit/KravLongButton'
-import KravShortButton from '../../KravUIKit/KravShortButton'
+// import KravLongButton from '../../KravUIKit/KravLongButton'
+// import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
 import { useInterval } from '../../../hook/hookV8/useInterval'
@@ -61,7 +60,6 @@ export const OrderParamsCard = ({
   setPositionSizeDai,
   tpPrice,
   setTpPrice,
-  slPrice,
   setSlPrice,
   isBuy,
   limitPrice,
@@ -82,14 +80,11 @@ export const OrderParamsCard = ({
   const { orderLimit, getOrderLimit } = useGetOrderLimit()
   const {
     BTCPrice,
-    transactionState,
     isLoadingFactory,
     tradePool,
-    setErrorContent,
-    setWalletDialogVisibility,
-    userOpenLimitList,
-    userOpenTradeList,
+    // setErrorContent,
     tradeModel,
+    setWalletDialogVisibility,
     userPositionDatas,
     setIsOpenSelectToken,
     tradePairIndex,
@@ -115,7 +110,7 @@ export const OrderParamsCard = ({
   }, [tradePool, userPositionDatas])
 
   const { account } = useWeb3React()
-  const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
+
   const testTuple = useMemo(() => {
     return {
       trader: account!,
@@ -146,28 +141,28 @@ export const OrderParamsCard = ({
     tradePairIndex,
   ])
 
-  const approve = useApprove(tradePool.tokenT, tradePool.tradingT, tradePool.storageT)
-  const maxPositionCheck = useMaxPositionCheck()
+  // const approve = useApprove(tradePool.tokenT, tradePool.tradingT, tradePool.storageT)
+  // const maxPositionCheck = useMaxPositionCheck()
 
-  const handleButtonClick = async () => {
-    try {
-      const passCheck = await maxPositionCheck(positionSizeDai, leverage)
-      if (!passCheck.state) {
-        setErrorContent({
-          dialogVisibility: true,
-          action: TransactionAction.OPEN_TRADE,
-          reason: 'Maximum position limit exceeded! max amount : ' + passCheck.maxAmount?.toFixed(2),
-        })
-        return
-      }
-      await approve(setOpenConfirmDialog, addDecimals(positionSizeDai, tradePool.decimals))
-    } catch (e) {
-      setErrorContent({
-        dialogVisibility: true,
-        action: TransactionAction.OPEN_TRADE,
-      })
-    }
-  }
+  // const handleButtonClick = async () => {
+  //   try {
+  //     const passCheck = await maxPositionCheck(positionSizeDai, leverage)
+  //     if (!passCheck.state) {
+  //       setErrorContent({
+  //         dialogVisibility: true,
+  //         action: TransactionAction.OPEN_TRADE,
+  //         reason: 'Maximum position limit exceeded! max amount : ' + passCheck.maxAmount?.toFixed(2),
+  //       })
+  //       return
+  //     }
+  //     await approve(setOpenConfirmDialog, addDecimals(positionSizeDai, tradePool.decimals))
+  //   } catch (e) {
+  //     setErrorContent({
+  //       dialogVisibility: true,
+  //       action: TransactionAction.OPEN_TRADE,
+  //     })
+  //   }
+  // }
 
   const handleLeverageChange = (event: Event, value: number | number[], activeThumb: number) => {
     const newLeverage = value as number
@@ -218,25 +213,25 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
-  useEffect(() => {
-    if (!account) setButtonState(ButtonText.CONNECT_WALLET)
-    else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
-      setButtonState(ButtonText.REACHED_LIMIT)
-    else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
-    else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
-      setButtonState(ButtonText.MIN_SIZE)
-    else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
-    else if (isBuy) setButtonState(ButtonText.LONG)
-    else if (!isBuy) setButtonState(ButtonText.SHORT)
-  }, [account, isBuy, isLoadingFactory, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
+  // useEffect(() => {
+  //   if (!account) setButtonState(ButtonText.CONNECT_WALLET)
+  //   else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
+  //     setButtonState(ButtonText.REACHED_LIMIT)
+  //   else if (positionSizeDai.isGreaterThan(PoolWalletBalance)) setButtonState(ButtonText.INSUFFICIENT_BALANCE)
+  //   else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
+  //     setButtonState(ButtonText.MIN_SIZE)
+  //   else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
+  //   else if (isBuy) setButtonState(ButtonText.LONG)
+  //   else if (!isBuy) setButtonState(ButtonText.SHORT)
+  // }, [account, isBuy, isLoadingFactory, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
 
-  useEffect(() => {
-    if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
-    if (transactionState === TransactionState.APPROVE) setButtonState(ButtonText.APPROVE)
-    if (transactionState === TransactionState.APPROVE_SUCCESS) {
-      isBuy ? setButtonState(ButtonText.LONG) : setButtonState(ButtonText.SHORT)
-    }
-  }, [transactionState])
+  // useEffect(() => {
+  //   if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
+  //   if (transactionState === TransactionState.APPROVE) setButtonState(ButtonText.APPROVE)
+  //   if (transactionState === TransactionState.APPROVE_SUCCESS) {
+  //     isBuy ? setButtonState(ButtonText.LONG) : setButtonState(ButtonText.SHORT)
+  //   }
+  // }, [transactionState])
 
   useEffect(() => {
     setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
@@ -1012,10 +1007,14 @@ export const OrderParamsCard = ({
             {/*    </div>*/}
             {/*  </div>*/}
             {/*)}*/}
-            {!account && (
+            {account ? (
+              <a target="_blank" href="https://app.krav.trade/trade" rel="noreferrer">
+                <KRAVButton>Migrate to V1</KRAVButton>
+              </a>
+            ) : (
               <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>{ButtonText.CONNECT_WALLET}</KRAVButton>
             )}
-            {account && isBuy && (
+            {/* {account && isBuy && (
               <KravLongButton
                 disabled={
                   buttonState === ButtonText.INSUFFICIENT_BALANCE ||
@@ -1052,7 +1051,7 @@ export const OrderParamsCard = ({
               >
                 <Trans>{buttonState}</Trans>
               </KravShortButton>
-            )}
+            )} */}
           </>
         </div>
       )}

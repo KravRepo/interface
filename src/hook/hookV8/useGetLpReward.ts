@@ -74,7 +74,7 @@ export const useGetAllLpReward = () => {
   }, [positionDatas, account, provider, chainId])
 
   useEffect(() => {
-    let interval: NodeJS.Timer
+    let interval: NodeJS.Timeout
     if (account && provider && positionDatas.length > 0) {
       getAllLpReward().then()
       interval = setInterval(async () => {

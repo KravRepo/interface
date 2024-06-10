@@ -60,7 +60,7 @@ export const NewFarm = () => {
   }, [overviewData, userLiquidityProvided, userVeKravAmount, totalVeKravAmount])
 
   useEffect(() => {
-    let interval: NodeJS.Timer
+    let interval: NodeJS.Timeout
     if (provider && account) {
       Promise.all([getOverView().then(), getRewardList().then()]).then()
       interval = setInterval(async () => {

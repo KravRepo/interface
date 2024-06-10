@@ -14,7 +14,7 @@ export const useBTCPrice = () => {
     tradePairIndex: state.tradePairIndex,
     pairConfig: state.pairConfig,
   }))
-  const priceRef = useRef<NodeJS.Timer | null>(null)
+  const priceRef = useRef<NodeJS.Timeout | null>(null)
 
   const getPrice = useCallback(async () => {
     try {

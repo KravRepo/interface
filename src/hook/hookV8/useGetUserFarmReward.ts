@@ -95,7 +95,7 @@ export const useGetUserFarmReward = () => {
   )
 
   useEffect(() => {
-    let interval: NodeJS.Timer
+    let interval: NodeJS.Timeout
     if (miningContract && account && provider) {
       Promise.all([queryLPBackend()]).then()
       interval = setInterval(async () => {

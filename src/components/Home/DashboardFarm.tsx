@@ -10,7 +10,7 @@ import { ReactComponent as ArrowRight } from '../../assets/imgs/arrowRight.svg'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { useInterval } from '../../hook/hookV8/useInterval'
@@ -23,7 +23,7 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userBackend = useUserPosition()
   const { account, provider } = useWeb3React()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const { aprList } = useGetApr()
 
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
@@ -80,9 +80,9 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
         `}
       >
         <div>My Liquidity Pools</div>
-        <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
+        {/* <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
           + Provider liquidity
-        </KRAVButton>
+        </KRAVButton> */}
       </div>
       {positionDatas.length > 0 && (
         <div>
@@ -138,9 +138,9 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
           {account && (
             <>
               <p>You have no liquidity</p>
-              <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
+              {/* <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
                 Add Liquidity
-              </KRAVButton>
+              </KRAVButton> */}
               <p>
                 <span
                   css={css`
