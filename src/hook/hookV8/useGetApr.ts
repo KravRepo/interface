@@ -39,7 +39,7 @@ export const useGetApr = () => {
               .times(100)
             allPoolApr.push({
               tradingT: pool.tradingT,
-              apr: APR.times(-1),
+              apr: APR.isGreaterThan(0) ? BigNumber(0) : APR.times(-1),
             })
           })
           setAprList(allPoolApr)

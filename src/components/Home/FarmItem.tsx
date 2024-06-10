@@ -4,9 +4,9 @@ import { css } from '@emotion/react'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 import { useMemo, useState } from 'react'
-import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
+// import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import BigNumber from 'bignumber.js'
-import KRAVButton from '../KravUIKit/KravButton'
+// import KRAVButton from '../KravUIKit/KravButton'
 import { getBigNumberStr } from '../../utils'
 import { AprList } from '../../hook/hookV8/useGetApr'
 import { eXDecimals } from '../../utils/math'
@@ -21,7 +21,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
   const [lpReward, setLpReward] = useState(new BigNumber(0))
   const theme = useTheme()
   useGetLpReward(position.pool.vaultT, position.pool.decimals, setLpReward)
-  const claimLp = useHarvestLpReward(position.pool.vaultT)
+  // const claimLp = useHarvestLpReward(position.pool.vaultT)
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
@@ -69,7 +69,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
       <div>
         {getBigNumberStr(lpReward, 2)} {position.pool.symbol}
       </div>
-      <div
+      {/* <div
         css={css`
           display: flex;
           align-items: center;
@@ -87,7 +87,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
         >
           Claim
         </KRAVButton>
-      </div>
+      </div> */}
     </div>
   )
 }

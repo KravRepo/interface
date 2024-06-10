@@ -126,7 +126,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
             {getBigNumberStr(poolSupply, 2)}
           </p>
         </div>
-        {apr.isGreaterThan(0) && (
+        {
           <div
             css={css`
               background: ${theme.palette.mode === 'dark' ? '#bde0ba' : '#e7fae5'};
@@ -145,10 +145,10 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
                 color: #009b72;
               `}
             >
-              {apr.toFixed(2)}%
+              {apr.isGreaterThan(0) ? apr.toFixed(2) : '0.00'}%
             </span>
           </div>
-        )}
+        }
         {account && (
           <KravButtonHollow
             onClick={() => {

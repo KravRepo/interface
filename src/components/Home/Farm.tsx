@@ -84,7 +84,7 @@ export const Farm = () => {
               <span>UTILIZATION</span>
               <span>YOUR LIQUIDITY SUPPLY</span>
               <span>LP REWARD</span>
-              <span />
+              {/* <span /> */}
             </div>
             {positionDatas.map((position) => {
               return <FarmItem key={position.pool.tradingT} position={position} aprList={aprList} />

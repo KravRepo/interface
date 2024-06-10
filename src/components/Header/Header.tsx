@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Button, ButtonGroup, useMediaQuery, useTheme } from '@mui/material'
 import { Trans } from '@lingui/macro'
 import { header, router, UnSupport } from './sytle'
 import { align } from '../../globalStyle'
@@ -24,7 +24,6 @@ import { FaucetDialog } from '../Dialog/FaucetDialog'
 import { useFactory } from '../../hook/hookV8/useFactory'
 
 export const Header = () => {
-  
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const walletDialogVisibility = useRootStore((store) => store.walletDialogVisibility)
   const { account, chainId, connector, provider } = useWeb3React()
@@ -122,7 +121,11 @@ export const Header = () => {
         css={[
           header,
           css`
-            background: ${isHomePath ? theme.background.fourth : isGreetingPath ? 'linear-gradient(to right, #434343 0%, black 100%)' : ''};
+            background: ${isHomePath
+              ? theme.background.fourth
+              : isGreetingPath
+              ? 'linear-gradient(to right, #434343 0%, black 100%)'
+              : ''};
           `,
         ]}
       >
@@ -143,7 +146,7 @@ export const Header = () => {
               )}
             </NavLink>
           </div>
-          {(!isMobile && !isGreetingPath) && (
+          {!isMobile && !isGreetingPath && (
             <Box
               sx={{
                 '& a:hover': {
@@ -177,23 +180,65 @@ export const Header = () => {
           )}
         </div>
         {!isGreetingPath && (
-        <>
-        <div css={align}>
-          <WalletButton
-            chainId={chainId}
-            connector={connector}
-            ethBalance={ethBalance}
-            toggleTheme={toggleTheme}
-            account={account}
-            setOpenFaucet={() => setOpenFa(true)}
-          />
-          {isMobile && <DehazeIcon onClick={() => setOpenMobileNav(true)} height="24" width="24" />}
-        </div>
-        <ConnectWalletDialog
-          walletDialogVisibility={walletDialogVisibility}
-          setWalletDialogVisibility={setWalletDialogVisibility}
-        />
-        </>
+          <>
+            <div css={align}>
+              <ButtonGroup
+                disableElevation
+                variant="contained"
+                sx={{
+                  mr: '10px',
+                  height: '40px',
+                  border: '1px solid #4b4b4b!important',
+                }}
+              >
+                <a target="_blank" href="https://beta.krav.trade/trade" rel="noreferrer">
+                  <Button
+                    sx={{
+                      background: '#121212',
+                      color: theme.text.primary,
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      borderRight: 'none!important',
+                      '&:hover': {
+                        background: '#121212',
+                        color: '#2832F5',
+                      },
+                    }}
+                  >
+                    Beta
+                  </Button>
+                </a>
+                <Button
+                  sx={{
+                    background: '#2832F5',
+                    color: theme.text.primary,
+                    borderColor: 'transparent!important',
+                    fontFamily: 'Inter',
+                    fontSize: 14,
+                    border: '1px solid #4b4b4b',
+                    '&:hover': {
+                      backgroundColor: '#2832F5',
+                    },
+                  }}
+                >
+                  V1
+                </Button>
+              </ButtonGroup>
+              <WalletButton
+                chainId={chainId}
+                connector={connector}
+                ethBalance={ethBalance}
+                toggleTheme={toggleTheme}
+                account={account}
+                setOpenFaucet={() => setOpenFa(true)}
+              />
+              {isMobile && <DehazeIcon onClick={() => setOpenMobileNav(true)} height="24" width="24" />}
+            </div>
+            <ConnectWalletDialog
+              walletDialogVisibility={walletDialogVisibility}
+              setWalletDialogVisibility={setWalletDialogVisibility}
+            />
+          </>
         )}
       </header>
       {chainId && !SUPPORT_CHAIN.includes(chainId) && account && (

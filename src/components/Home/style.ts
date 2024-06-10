@@ -402,9 +402,7 @@ export const farm = css`
     @media screen and (max-width: 1200px) {
       min-width: 1200px;
     }
-    grid-template-columns:
-      1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr)
-      80px;
+    grid-template-columns: 1.7fr minmax(100px, 1.8fr) minmax(60px, 1.3fr) minmax(120px, 2.5fr) minmax(120px, 1.7fr);
     font-size: 14px;
     line-height: 1.4;
     .more {
