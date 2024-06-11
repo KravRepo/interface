@@ -3,29 +3,29 @@ import { ReactComponent as PointsLogo } from '../../assets/imgs/dashboard_logo.s
 import { ReactComponent as PointsDarkLogo } from '../../assets/imgs/darkModel/dashboard_logo_dark.svg'
 import { ReactComponent as ArrowLeft } from '../../assets/imgs/arrowLeft.svg'
 import { ReactComponent as ArrowLeftDark } from '../../assets/imgs/darkModel/arrow_left_dark.svg'
-import DashboardBg from '../../assets/imgs/dashboard_bg.png'
-import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
+// import DashboardBg from '../../assets/imgs/dashboard_bg.png'
+// import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { css } from '@emotion/react'
 import { dashboard } from './style'
-import { DashboardCard } from './DashboardCard'
+// import { DashboardCard } from './DashboardCard'
 import { useEffect, useState } from 'react'
-import { formatNumber, getBigNumberStr } from '../../utils'
+// import { getBigNumberStr } from '../../utils'
 import { useGetUserAllOpenTrades } from '../../hook/hookV8/useGetUserAllOpenTrades'
 import { MyOrder } from './MyOrder'
-import { align } from '../../globalStyle'
+// import { align } from '../../globalStyle'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 // import BigNumber from 'bignumber.js'
 // import { useGetKravStake } from '../../hook/hookV8/useGetKravStake'
 // import { eXDecimals } from '../../utils/math'
 import { useGetUserAssetOverview } from '../../hook/hookV8/useGetUserAssetOverview'
-import BigNumber from 'bignumber.js'
+// import BigNumber from 'bignumber.js'
 import { useGetUserAllLimitOrders } from '../../hook/hookV8/useGetUserAllLimitOrders'
 import { DashboardFarm } from './DashboardFarm'
 import { useNavigate } from 'react-router-dom'
-import { API_DECIMALS } from '../../constant/math'
+// import { API_DECIMALS } from '../../constant/math'
 import { useMediaQuery, useTheme } from '@mui/material'
-import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
+// import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { EarningInfoMobile } from './componets/EarningInfoMobile'
 
 export const Dashboard = () => {
@@ -40,20 +40,20 @@ export const Dashboard = () => {
   // const { getUserStake } = useGetKravStake()
   const { userAssetOverview, getUserAssetOverview } = useGetUserAssetOverview()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
-  const { getOverView, overviewData } = useGetTotalMarketOverview()
+  // const { getOverView, overviewData } = useGetTotalMarketOverview()
 
   useEffect(() => {
     let interval: NodeJS.Timer
     if (account) {
       Promise.all([
         // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
-        getOverView().then(),
+        // getOverView().then(),
         getUserAssetOverview(),
       ]).then()
       getUserAllLimitOrders().then()
       interval = setInterval(async () => {
         await Promise.all([
-          getOverView(),
+          // getOverView(),
           // getUserStake().then((stakeAmount) => setUserStake(eXDecimals(stakeAmount, 18))),
           getUserAssetOverview(),
         ])
@@ -78,7 +78,7 @@ export const Dashboard = () => {
 
   return (
     <div css={dashboard}>
-      <div
+      {/* <div
         css={css`
           background: url(${theme.palette.mode === 'dark' ? DashboardDarkBg : DashboardBg}), no-repeat,
             ${theme.palette.mode === 'dark' ? '#0f1114' : '#f1f1f1'};
@@ -94,13 +94,8 @@ export const Dashboard = () => {
         </p>
         <p css={align}>
           <span>{formatNumber(Number(userAssetOverview?.lpRewardBalance) / API_DECIMALS, 2)}</span>
-          {/*<ArrowLeft*/}
-          {/*  css={css`*/}
-          {/*    margin-left: 16px;*/}
-          {/*  `}*/}
-          {/*/>*/}
         </p>
-      </div>
+      </div> */}
       <div
         css={css`
           color: ${theme.text.primary};
@@ -115,7 +110,7 @@ export const Dashboard = () => {
                 background: ${theme.background.primary};
               `}
             >
-              <div className="provided card">
+              <div className="provided card" >
                 <p
                   className="tabs"
                   css={css`
@@ -127,7 +122,7 @@ export const Dashboard = () => {
                   Liquidity being provided
                 </p>
                 <div className="details">
-                  <div className="total">
+                  {/* <div className="total">
                     <div>Total Value</div>
                     <div>{formatNumber(Number(userAssetOverview?.balance) / API_DECIMALS, 2)}</div>
                   </div>
@@ -137,7 +132,7 @@ export const Dashboard = () => {
                       border-bottom: ${isMobile ? theme.splitLine.primary : ''};
                       margin: ${isMobile ? '24px 0' : '30px 0 0 0'};
                     `}
-                  />
+                  /> */}
                   <div className="my-pool">
                     <div>
                       <p>My Pool</p>
@@ -172,12 +167,12 @@ export const Dashboard = () => {
                         )}
                       </p>
                     </div>
-                    {theme.palette.mode === 'dark' ? <PointsDarkLogo /> : <PointsLogo />}
+                    {theme.palette.mode === 'dark' ? <PointsDarkLogo style={{marginLeft: '100px'}} /> : <PointsLogo style={{marginLeft: '100px'}} />}
                   </div>
                 </div>
               </div>
             </div>
-            <div
+            {/* <div
               css={css`
                 background: ${theme.background.primary};
                 border-radius: 8px;
@@ -223,12 +218,12 @@ export const Dashboard = () => {
                   />
                 )}
               </p>
-            </div>
+            </div> */}
           </div>
         )}
         {isMobile && <EarningInfoMobile userPoolLength={userPoolLength} userAssetOverview={userAssetOverview} />}
       </div>
-      <div>
+      {/* <div>
         <p className="title">Trading Information</p>
         <div
           className="data"
@@ -240,7 +235,7 @@ export const Dashboard = () => {
           <DashboardCard title={'Liquidity Supply'} content={`${formatNumber(overviewData.liquiditySupply, 2)}`} />
           <DashboardCard title={'Trading Volume'} content={`${formatNumber(overviewData.tradingVolume, 2)}`} />
         </div>
-      </div>
+      </div> */}
       <MyOrder />
       <DashboardFarm setUserPoolLength={setUserPoolLength} />
     </div>
