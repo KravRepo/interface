@@ -67,7 +67,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
         {/*</p>*/}
       </div>
       <div>
-        {getBigNumberStr(lpReward, 2)} {position.pool.symbol}
+        {!lpReward.isLessThanOrEqualTo(0) ? getBigNumberStr(lpReward, 2) : "0.00"} {position.pool.symbol}
       </div>
       {/* <div
         css={css`
