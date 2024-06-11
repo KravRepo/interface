@@ -98,22 +98,42 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {pool ? pool.symbol : tradePool.symbol}
           </div>
-          <div>${Number(openTrade.openPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}</div>
+          <div>
+            $
+            {Number(openTrade.openPrice).toLocaleString('en-US', {
+              minimumFractionDigits: tradePair.fixDecimals,
+              maximumFractionDigits: tradePair.fixDecimals,
+            })}
+          </div>
           <div
             css={css`
               color: #ffb800;
             `}
           >
-            ${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}
+            $
+            {Number(BTCPrice).toLocaleString('en-US', {
+              minimumFractionDigits: tradePair.fixDecimals,
+              maximumFractionDigits: tradePair.fixDecimals,
+            })}
           </div>
           <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             {openTrade.sl.toString() === '0'
-              ? `$${Number(liqPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`
-              : `$${Number(openTrade.sl).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`}
+              ? `$${Number(liqPrice).toLocaleString('en-US', {
+                  minimumFractionDigits: tradePair.fixDecimals,
+                  maximumFractionDigits: tradePair.fixDecimals,
+                })}`
+              : `$${Number(openTrade.sl).toLocaleString('en-US', {
+                  minimumFractionDigits: tradePair.fixDecimals,
+                  maximumFractionDigits: tradePair.fixDecimals,
+                })}`}
           </div>
-          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
-            ${Number(openTrade.tp).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}
-          </div>
+          {/* <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
+            $
+            {Number(openTrade.tp).toLocaleString('en-US', {
+              minimumFractionDigits: tradePair.fixDecimals,
+              maximumFractionDigits: tradePair.fixDecimals,
+            })}
+          </div> */}
           <div>
             {openTrade.beingMarketClosed && (
               <div>
@@ -165,20 +185,42 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             {new BigNumber(openTrade.initialPosToken).toFixed(2)} {tradePool.symbol}
           </div>
-          <div>${Number(openTrade.openPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}</div>
+          <div>
+            $
+            {Number(openTrade.openPrice).toLocaleString('en-US', {
+              minimumFractionDigits: tradePair.fixDecimals,
+              maximumFractionDigits: tradePair.fixDecimals,
+            })}
+          </div>
           <div
             css={css`
               color: #ffb800;
             `}
           >
-            ${Number(BTCPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}
+            $
+            {Number(BTCPrice).toLocaleString('en-US', {
+              minimumFractionDigits: tradePair.fixDecimals,
+              maximumFractionDigits: tradePair.fixDecimals,
+            })}
           </div>
           <div>
             {openTrade.sl.toString() === '0'
-              ? `$${Number(liqPrice).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`
-              : `$${Number(openTrade.sl).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}`}
+              ? `$${Number(liqPrice).toLocaleString('en-US', {
+                  minimumFractionDigits: tradePair.fixDecimals,
+                  maximumFractionDigits: tradePair.fixDecimals,
+                })}`
+              : `$${Number(openTrade.sl).toLocaleString('en-US', {
+                  minimumFractionDigits: tradePair.fixDecimals,
+                  maximumFractionDigits: tradePair.fixDecimals,
+                })}`}
           </div>
-          <div>${Number(openTrade.tp).toLocaleString('en-US', { minimumFractionDigits: tradePair.fixDecimals, maximumFractionDigits: tradePair.fixDecimals })}</div>
+          {/* <div>
+            $
+            {Number(openTrade.tp).toLocaleString('en-US', {
+              minimumFractionDigits: tradePair.fixDecimals,
+              maximumFractionDigits: tradePair.fixDecimals,
+            })}
+          </div> */}
           {openTrade?.isInPending && (
             <div>
               <div

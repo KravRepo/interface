@@ -27,7 +27,7 @@ export const TradeHistory = () => {
     try {
       const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
       const quantos = await quantosRequest.json()
-      
+
       const res: any[] = []
       quantos.data.map(async (quanto: Quanto) => {
         const historyRequest = await fetch(
@@ -73,7 +73,7 @@ export const TradeHistory = () => {
         <span>Price</span>
         <span>Leverage</span>
         <span>Coll</span>
-        <span>PnL</span>
+        <span>PnL: -90 to +900</span>
         <span>%</span>
       </div>
       {allHistoryData.length === 0 && <div className="no-data">No trade history</div>}

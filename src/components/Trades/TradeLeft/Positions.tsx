@@ -21,13 +21,13 @@ export const Positions = () => {
         `}
       >
         <span>Position</span>
-        <span>PnL</span>
+        <span>PnL: -90 to +900</span>
         {/* <span>Size</span> */}
         <span>Collateral</span>
         <span>Entry price</span>
         <span>Mark price</span>
         <span>Liq.price</span>
-        <span>Take profit</span>
+        {/* <span>Take profit</span> */}
         <span>Close</span>
       </div>
       {userOpenTradeList.length === 0 && account && <div className="no-data">No open position</div>}

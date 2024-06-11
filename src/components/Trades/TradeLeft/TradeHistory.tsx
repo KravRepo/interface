@@ -112,7 +112,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         <span>Price</span>
         <span>Leverage</span>
         <span>Coll</span>
-        <span>PnL</span>
+        <span>PnL: -90 to +900</span>
         <span>%</span>
       </div>
       {historyList.length === 0 && account && <div className="no-data">No trade history</div>}
