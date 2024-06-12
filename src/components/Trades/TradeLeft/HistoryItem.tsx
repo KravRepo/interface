@@ -72,7 +72,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
       </div>
       <div
         css={css`
-          color: ${history.tradeBuy ? '#009B72' : '#DB4C40'};
+          color: ${history.tradeBuy && tradeType !== 'Liquidate' ? '#009B72' : '#DB4C40'};
         `}
       >
         {tradeType}
