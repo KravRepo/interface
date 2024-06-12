@@ -2,8 +2,8 @@ import { useState, useEffect, useMemo } from 'react'
 import { PairInfosABI } from '../abi/deployed/PairInfosABI'
 import { useContract } from './hookV8/useContract'
 import { useRootStore } from '../store/root'
-import BigNumber from 'bignumber.js';
-import { addDecimals } from '../utils/math'
+import BigNumber from 'bignumber.js'
+import { addDecimals, eXDecimals, getLiqPrice } from '../utils/math'
 import { useGetMarketStats } from './hookV8/useGetMarketStats'
 import { useWeb3React } from '@web3-react/core'
 // import { FEE_RATES } from '../constant/feeRate'
@@ -45,13 +45,12 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   )
 
   const liquidationPriceArgs = useMemo(() => {
-    
-    const cleanedPriceImpact = priceImpact.replace('$', '').replace(/,/g, '').replace(',', '');
-    const [integerPart, decimalPart] = cleanedPriceImpact.split('.');
-    const fullNumberStr = integerPart + (decimalPart || '');
-    const decimalPlaces = decimalPart ? decimalPart.length : 0;
-    const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces);
-    const openPriceAfterImpact = (new BigNumber(bigNumberStr)).toString();
+    const cleanedPriceImpact = priceImpact.replace('$', '').replace(/,/g, '').replace(',', '')
+    const [integerPart, decimalPart] = cleanedPriceImpact.split('.')
+    const fullNumberStr = integerPart + (decimalPart || '')
+    const decimalPlaces = decimalPart ? decimalPart.length : 0
+    const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces)
+    const openPriceAfterImpact = new BigNumber(bigNumberStr).toString()
 
     const args = {
       trader: account,
@@ -63,7 +62,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       leverage,
     }
     return [...Object.values(args)]
-  }, [account, tradePairIndex, openPrice, priceImpact, isBuy, leverage, positionSizeDai])
+  }, [account, tradePairIndex, priceImpact, isBuy, leverage, positionSizeDai])
 
   const priceImpactArgs = useMemo(() => {
     const openInterest = positionSizeDai.times(1e18).times(leverage).toString()
@@ -74,11 +73,11 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     //   openDaiPrecision = openDaiShort?.times(1e18)
     // }
     return [openPrice, tradePairIndex, isBuy, openInterest]
-  }, [openPrice, tradePairIndex, isBuy, openDaiLong, openDaiShort, positionSizeDai, leverage])
+  }, [openPrice, tradePairIndex, isBuy,positionSizeDai, leverage])
 
   useEffect(() => {
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
-    const netExposure = positionSizeDai.times(leverage).toString();
+    const netExposure = positionSizeDai.times(leverage).toString()
 
     if (netExposure >= totalLiquidity) {
       setLiquidationPrice('Insufficient Liquidity')
@@ -90,28 +89,33 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
         liquidationPriceArgs.every((arg) => arg !== undefined) &&
         positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0] !== '0'
       ) {
-        try {
-          const result = await retryAsync(pairContract.getTradeLiquidationPrice, liquidationPriceArgs)
-          setLiquidationPrice(
-            '$' + (result / 10 ** 10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-          )
-        } catch (error) {
-          console.error('Error fetching liquidation price:', error)
-        }
+       const liqPrice= parseFloat(
+          getLiqPrice(eXDecimals(openPrice, 10), eXDecimals(positionSizeDai, 18), isBuy, leverage).toString()
+       ).toLocaleString('en-US', { maximumFractionDigits: 2 })
+        
+       setLiquidationPrice(liqPrice)
+        // try {
+        //   const result = await retryAsync(pairContract.getTradeLiquidationPrice, liquidationPriceArgs)
+        //   setLiquidationPrice(
+        //     '$' + (result / 10 ** 10).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        //   )
+        // } catch (error) {
+        //   console.error('Error fetching liquidation price:', error)
+        // }
       } else {
         setLiquidationPrice('-')
       }
     }
 
     fetchLiquidationPrice()
-  }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
+  }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage, isBuy, openPrice , tradePool.poolTotalSupply])
 
   useEffect(() => {
     // console.log('ktoken', tradePool.vaultT);
     // console.log('trading', tradePool.tradingT);
     // console.log('storage', tradePool.storageT);
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
-    const netExposure = positionSizeDai.times(leverage).toString();
+    const netExposure = positionSizeDai.times(leverage).toString()
 
     if (netExposure >= totalLiquidity) {
       setPriceImpact('Insufficient Liquidity')
@@ -121,8 +125,8 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     const fetchPriceImpact = async () => {
       if (pairContract && priceImpactArgs.every((arg: any) => arg !== undefined)) {
         try {
-          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)  
-          
+          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
+
           setPriceImpact(
             '$' +
               (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
@@ -148,13 +152,5 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       openDaiShort,
       priceImpact,
     }
-  }, [
-    tradePool.fundingFeePerBlockP,
-    liquidationPrice,
-    openDaiLong,
-    openDaiShort,
-    priceImpact,
-    positionSizeDai,
-    leverage,
-  ])
+  }, [tradePool.fundingFeePerBlockP, openDaiLong, openDaiShort, priceImpact, liquidationPrice])
 }
