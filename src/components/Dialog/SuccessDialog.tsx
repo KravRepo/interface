@@ -53,7 +53,15 @@ export const SuccessDialog = () => {
             />
           </div>
           <div className="error-dialog-content">
-            <p>{successContent.action} successfully.</p>
+            {successContent.action === TransactionAction.REMOVE_LIQUIDITY ? (
+              <p style={{ textAlign: 'center' }}>
+                Withdraw request confirmed
+                <br />
+                Please wait 24 hours to remove liquidity
+              </p>
+            ) : (
+              <p>{successContent.action} successfully.</p>
+            )}
             {theme.palette.mode === 'dark' ? <SuccessDarkLogo /> : <SuccessLogo />}
             <KRAVButton
               onClick={() => {
