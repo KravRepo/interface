@@ -284,7 +284,7 @@ function ExistingRequest({
   const getRequestEc = useSingleContractMultipleData(
     kTokenContract,
     'reqWithdrawals',
-    Array.from(Array(3).keys()).map((index) => [account, updateEpoch.plus(index).toString()])
+    Array.from(Array(3).keys()).map((index) => [account, updateEpoch.plus((+index+1).toString()).toString()])
   )
 
   const requestEc = useMemo<{ epoch: number; amount: BigNumber }[]>(() => {
