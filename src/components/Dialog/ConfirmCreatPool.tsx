@@ -130,12 +130,12 @@ export const ConfirmCreatPool = ({
             </div>
           </div>
           <div className="confirm-content-info">
-            <p>
+            {/* <p>
               <span>Set Ticket Size</span>
               <span>
                 1 BTC={ticketSize} {tokenSymbol}
               </span>
-            </p>
+            </p> */}
             <p>
               <span>Deposit Amount/Initial LP Provision</span>
               <span>
