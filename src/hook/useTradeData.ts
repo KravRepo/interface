@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { PairInfosABI } from '../abi/deployed/PairInfosABI'
 import { useContract } from './hookV8/useContract'
 import { useRootStore } from '../store/root'
-import BigNumber from 'bignumber.js';
+import BigNumber from 'bignumber.js'
 import { addDecimals } from '../utils/math'
 import { useGetMarketStats } from './hookV8/useGetMarketStats'
 import { useWeb3React } from '@web3-react/core'
@@ -45,13 +45,12 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   )
 
   const liquidationPriceArgs = useMemo(() => {
-    
-    const cleanedPriceImpact = priceImpact.replace('$', '').replace(/,/g, '').replace(',', '');
-    const [integerPart, decimalPart] = cleanedPriceImpact.split('.');
-    const fullNumberStr = integerPart + (decimalPart || '');
-    const decimalPlaces = decimalPart ? decimalPart.length : 0;
-    const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces);
-    const openPriceAfterImpact = (new BigNumber(bigNumberStr)).toString();
+    const cleanedPriceImpact = priceImpact.replace('$', '').replace(/,/g, '').replace(',', '')
+    const [integerPart, decimalPart] = cleanedPriceImpact.split('.')
+    const fullNumberStr = integerPart + (decimalPart || '')
+    const decimalPlaces = decimalPart ? decimalPart.length : 0
+    const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces)
+    const openPriceAfterImpact = new BigNumber(bigNumberStr).toString()
 
     const args = {
       trader: account,
@@ -78,7 +77,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
 
   useEffect(() => {
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
-    const netExposure = positionSizeDai.times(leverage).toString();
+    const netExposure = positionSizeDai.times(leverage).toString()
 
     if (netExposure >= totalLiquidity) {
       setLiquidationPrice('Insufficient Liquidity')
@@ -111,7 +110,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     // console.log('trading', tradePool.tradingT);
     // console.log('storage', tradePool.storageT);
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
-    const netExposure = positionSizeDai.times(leverage).toString();
+    const netExposure = positionSizeDai.times(leverage).toString()
 
     if (netExposure >= totalLiquidity) {
       setPriceImpact('Insufficient Liquidity')
@@ -121,8 +120,8 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     const fetchPriceImpact = async () => {
       if (pairContract && priceImpactArgs.every((arg: any) => arg !== undefined)) {
         try {
-          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)  
-          
+          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
+
           setPriceImpact(
             '$' +
               (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
