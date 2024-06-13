@@ -801,7 +801,10 @@ export const OrderParamsCard = ({
                         Liquidation Price
                       </span>
                       {/* TODO Liquidation Price */}
-                      <span>${liquidationPrice}</span>
+                      <span>
+                        {liquidationPrice != '-' && '$'}
+                        {liquidationPrice}
+                      </span>
                     </p>
                     <p
                       css={[
