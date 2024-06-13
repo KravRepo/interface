@@ -79,7 +79,6 @@ const marks = {
   })),
 }
 
-
 //TODO Add sl and tp setting
 export const OrderParamsCard = ({
   leverage,
@@ -224,21 +223,21 @@ export const OrderParamsCard = ({
 
   const handleSlippageInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     // Regex to match values between 0.3 and 3 (inclusive)
-    
-    const regex = /^(0(\.[3-9][0-9]*)?|[1-2](\.\d+)?|3(\.0+)?)$/;
+
+    const regex = /^(0(\.[3-9][0-9]*)?|[1-2](\.\d+)?|3(\.0+)?)$/
     if (event.target.value === '' || regex.test(event.target.value)) {
-      setSlippagePercent(parseFloat(event?.target?.value));
+      setSlippagePercent(parseFloat(event?.target?.value))
     } else {
-      setSlippagePercent(0.3);
+      setSlippagePercent(0.3)
     }
-  };
+  }
 
   const handleSlippageInputBlur = (event: any) => {
-    const numericValue = parseFloat(event.target.value);
+    const numericValue = parseFloat(event.target.value)
     if (numericValue < 0.3 || numericValue > 3) {
-      setSlippagePercent(0.3);
+      setSlippagePercent(0.3)
     }
-  };
+  }
 
   const handleSliderClick = () => {
     const outputAmount = getLongOrShortUSD(
@@ -802,7 +801,7 @@ export const OrderParamsCard = ({
                         Liquidation Price
                       </span>
                       {/* TODO Liquidation Price */}
-                      <span>{liquidationPrice}</span>
+                      <span>${liquidationPrice}</span>
                     </p>
                     <p
                       css={[

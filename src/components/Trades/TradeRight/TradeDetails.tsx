@@ -49,7 +49,7 @@ export default function TradeDetails({
             ),
           }),
       ['Entry Price']: <>{priceImpact}</>,
-      ['Liquidation Price']: <>{liquidationPrice}</>,
+      ['Liquidation Price']: <>${liquidationPrice}</>,
     }
   }, [positionSizeDai, leverage, openDaiLong, openDaiShort, priceImpact, BTCPrice])
 
