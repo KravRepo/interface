@@ -36,7 +36,6 @@ export const ConfirmTrade = ({
   setOpenBTCSize,
   setLeverage,
   entryPrice,
-  
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -140,12 +139,14 @@ export const ConfirmTrade = ({
                 <span>Liq. Price</span>
                 <span>
                   $
-                  {parseFloat(getLiqPrice(
-                    eXDecimals(tuple.openPrice, 10),
-                    eXDecimals(tuple.positionSizeDai, 18),
-                    tuple.buy,
-                    tuple.leverage
-                  ).toString()).toLocaleString('en-US', { maximumFractionDigits: 2 })}
+                  {parseFloat(
+                    getLiqPrice(
+                      eXDecimals(tuple.openPrice, 10),
+                      eXDecimals(tuple.positionSizeDai, 18),
+                      tuple.buy,
+                      tuple.leverage
+                    ).toString()
+                  ).toLocaleString('en-US', { maximumFractionDigits: 2 })}
                 </span>
               </p>
               {tuple.leverage <= 50 && (
@@ -169,10 +170,6 @@ export const ConfirmTrade = ({
             `}
           >
             <div className="confirm-content-info">
-              <p>
-                <span>Spread</span>
-                <span>0.00%</span>
-              </p>
               {/*<p>*/}
               {/*  <span>Entry Price</span>*/}
               {/*  <span>${eXDecimals(tuple.openPrice, 10).toFixed(2)}</span>*/}
