@@ -29,7 +29,7 @@ export const useCreatePool = () => {
           // CONTRACT_CONFIG[chainId].linkAddress,
           // CONTRACT_CONFIG[chainId].nodeAddress,
           // proportionBTC,
-          depositAmount.toString(),
+          depositAmount.toFixed(),
         ] as any
         try {
           setTransactionDialogVisibility(true)

@@ -4,7 +4,7 @@ import { Button, css, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { getBigNumberStr } from '../../utils'
 import { PositionItemProps } from './type'
 import { useRootStore } from '../../store/root'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
@@ -14,12 +14,22 @@ import { align } from '../../globalStyle'
 // import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 // import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
+import { PNL_API } from '../../constant/chain'
+import { useWeb3React } from '@web3-react/core'
 
-export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
+export const PositionItemCard = ({
+  position,
+  setAddLiquidity,
+  setRemoveLiquidity,
+  aprList,
+  kTokenAddress,
+}: PositionItemProps) => {
+  const { account } = useWeb3React()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-
+  const [pnl, setPnl] = useState(0)
+  const [tokenAmount, setTokenAmount] = useState<BigNumber>(BigNumber('0'))
   // const [setLpReward] = useState(new BigNumber(0))
   // const claimLp = useHarvestLpReward(position.pool.vaultT)
   const poolSupply = useMemo(() => {
@@ -48,6 +58,22 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
     if (res) return res.apr
     else return new BigNumber(0)
   }, [aprList])
+
+  useEffect(() => {
+    if (!account || !kTokenAddress) return
+    const fetchPnl = async () => {
+      try {
+        const res = await fetch(PNL_API + `/${account}/${kTokenAddress}`)
+        const r = await res.json()
+        if (!r.data) throw Error('Get Pnl Error')
+        setPnl(Number(r.data.PNL) * 100)
+        setTokenAmount(eXDecimals(r.data.tokenAmount, 18))
+      } catch (e) {
+        console.error(e)
+      }
+    }
+    fetchPnl()
+  }, [account, kTokenAddress, pnl, setPnl])
 
   // useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
   const { openDaiLong, openDaiShort } = useGetMarketStats(
@@ -195,12 +221,37 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             </div>
           </div>
         </div>
+
         <div
           css={css`
             background: ${theme.background.second};
+            margin-top: 10px;
           `}
           className="stake-info"
         >
+          <div>
+            <span
+              css={css`
+                color: ${theme.text.second};
+              `}
+            >
+              PnL
+            </span>
+            <span>{pnl.toFixed(2)}%</span>
+          </div>
+          <div>
+            <span
+              css={css`
+                color: ${theme.text.second};
+              `}
+            >
+              Yield Earned
+            </span>
+            <span>
+              {tokenAmount.toFormat(4, 3)}
+              {position.pool.symbol}
+            </span>
+          </div>
           <div>
             <span
               css={css`

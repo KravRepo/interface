@@ -357,6 +357,8 @@ export const K_LINE_API = 'https://v1-api.krav.trade/krav/v1/klines?symbol=BTCUS
 
 export const QUANTO_API = 'https://v1-api.krav.trade/krav/v1/list/quanto'
 
+export const PNL_API='https://v1-api.krav.trade/krav/v1/pnl'
+
 export const TRADE_HISTORY_API = 'https://v1-api.krav.trade/krav/v1/list/market'
 
 export const DASHBOARD_OVERVIEW_API = 'https://v1-api.krav.trade/krav/v1/overview'

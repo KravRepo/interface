@@ -54,6 +54,7 @@ export type PositionItemProps = {
   setAddLiquidity: Dispatch<SetStateAction<boolean>>
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   aprList: AprList[]
+  kTokenAddress?: string
 }
 
 export type MarketItemProps = {

@@ -107,6 +107,7 @@ export const YourPosition = ({
                   setAddLiquidity={setAddLiquidity}
                   setRemoveLiquidity={setRemoveLiquidity}
                   aprList={aprList}
+                  kTokenAddress={position?.pool?.vaultT}
                 />
               )
             })}
