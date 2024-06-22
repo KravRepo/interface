@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-06-22 14:16+0900\n"
+"POT-Creation-Date: 2024-06-22 21:18+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,6 +16,9 @@ msgstr ""
 msgid "Disconnect"
 msgstr ""
 
+msgid "1 year"
+msgstr ""
+
 msgid "Total Liquidity Provider"
 msgstr ""
 
@@ -23,6 +26,9 @@ msgid "Come create one!"
 msgstr ""
 
 msgid "Type"
+msgstr ""
+
+msgid ""
 msgstr ""
 
 msgid "Target Market"
@@ -88,6 +94,12 @@ msgstr ""
 msgid "Pro"
 msgstr ""
 
+msgid "MARKET"
+msgstr ""
+
+msgid "Updated stop loss"
+msgstr ""
+
 msgid "Pay"
 msgstr ""
 
@@ -103,10 +115,16 @@ msgstr ""
 msgid "24h Trading Volume"
 msgstr ""
 
+msgid "The maximum percentage cannot exceed 900%"
+msgstr ""
+
 msgid "Collateral"
 msgstr ""
 
 msgid "YOUR STAKED"
+msgstr ""
+
+msgid "wallet"
 msgstr ""
 
 msgid "Loading BTC data..."
@@ -130,7 +148,13 @@ msgstr ""
 msgid "Navigate to the 'dashboard' page to claim your fee earnings"
 msgstr ""
 
+msgid "Lock & Mint"
+msgstr ""
+
 msgid "Confirm"
+msgstr ""
+
+msgid "Claim liquidity provider rewards"
 msgstr ""
 
 msgid "To trade"
@@ -196,6 +220,9 @@ msgstr ""
 msgid "Learn more about Staking Krav"
 msgstr ""
 
+msgid "OPEN"
+msgstr ""
+
 msgid "Your Pool Stake"
 msgstr ""
 
@@ -214,10 +241,6 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#. js-lingui-explicit-id
-#~ msgid "Collateral"
-#~ msgstr ""
-
 msgid "Connect Wallet"
 msgstr ""
 
@@ -227,10 +250,16 @@ msgstr ""
 msgid "Current price"
 msgstr ""
 
+msgid "Your locked reward has been claimed successfully"
+msgstr ""
+
 msgid "Current TP"
 msgstr ""
 
 msgid "Address"
+msgstr ""
+
+msgid "Redeem liquidity"
 msgstr ""
 
 msgid "TOTAL LIQUIDITY SUPPLY"
@@ -245,6 +274,9 @@ msgstr ""
 msgid "Your Liquidity Supply"
 msgstr ""
 
+msgid "Claim locked Reward"
+msgstr ""
+
 msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
 msgstr ""
 
@@ -254,16 +286,14 @@ msgstr ""
 msgid "Next distribution"
 msgstr ""
 
+msgid "Claim position"
+msgstr ""
+
 msgid "Please change network."
 msgstr ""
 
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr ""
-
-#~ msgid ""
-#~ "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
-#~ "potential by up to 2.5x"
-#~ msgstr ""
 
 msgid "Open Interest (L/S)"
 msgstr ""
@@ -274,13 +304,22 @@ msgstr ""
 msgid "Actual trading volume"
 msgstr ""
 
+msgid "Removed liquidity"
+msgstr ""
+
 msgid "No Orders"
+msgstr ""
+
+msgid "Stop loss less then open price"
 msgstr ""
 
 msgid "Confirm Long"
 msgstr ""
 
 msgid "Awaiting..."
+msgstr ""
+
+msgid "Min lock period one week"
 msgstr ""
 
 msgid "Earning Information"
@@ -290,9 +329,6 @@ msgid "WITHDRAW_BLOCK"
 msgstr ""
 
 msgid "Enter Asset contract or select Asset"
-msgstr ""
-
-msgid "{0}"
 msgstr ""
 
 msgid "Trade"
@@ -325,9 +361,6 @@ msgstr ""
 msgid "My history"
 msgstr ""
 
-msgid "tradeType"
-msgstr ""
-
 msgid "Mint will start after"
 msgstr ""
 
@@ -349,6 +382,9 @@ msgstr ""
 msgid "Burn"
 msgstr ""
 
+msgid "Take Profit great then open price"
+msgstr ""
+
 msgid "Allowed Slippage"
 msgstr ""
 
@@ -361,16 +397,16 @@ msgstr ""
 msgid "Total Stake"
 msgstr ""
 
-#~ msgid "Order limit:"
-#~ msgstr ""
-
-msgid "{slButtonText}"
+msgid "Withdraw"
 msgstr ""
 
 msgid "Features"
 msgstr ""
 
 msgid "Earn"
+msgstr ""
+
+msgid "Claim lp reward"
 msgstr ""
 
 msgid "Trading guide"
@@ -397,9 +433,6 @@ msgstr ""
 msgid "Liq. Price"
 msgstr ""
 
-#~ msgid "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
-#~ msgstr ""
-
 msgid "Net Exposure"
 msgstr ""
 
@@ -409,11 +442,8 @@ msgstr ""
 msgid "Share of pool"
 msgstr ""
 
-#~ msgid ""
-#~ "when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and\n"
-#~ "the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-#~ "environment. 25% of deposited liquidity may be removed at a time."
-#~ msgstr ""
+msgid "Market order closed"
+msgstr ""
 
 msgid "WITH ANY ALTCOIN"
 msgstr ""
@@ -433,14 +463,14 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
+msgid "Claim reward"
+msgstr ""
+
 msgid "+ Provider liquidity"
 msgstr ""
 
 msgid "Unlock"
 msgstr ""
-
-#~ msgid "Connect wallet"
-#~ msgstr ""
 
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr ""
@@ -457,7 +487,16 @@ msgstr ""
 msgid "Сongratulations!"
 msgstr ""
 
+msgid "Limit order canceled"
+msgstr ""
+
 msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
+msgstr ""
+
+msgid "Staked Krav"
+msgstr ""
+
+msgid "Invalid number"
 msgstr ""
 
 msgid "Actual Liquidity Provider"
@@ -466,13 +505,22 @@ msgstr ""
 msgid "Locked until"
 msgstr ""
 
+msgid "Added liquidity"
+msgstr ""
+
 msgid "Available Liquidity"
+msgstr ""
+
+msgid "Faucet token"
 msgstr ""
 
 msgid "Support"
 msgstr ""
 
-msgid "You veKRAV Supply"
+msgid "Your veKRAV Supply"
+msgstr ""
+
+msgid "update"
 msgstr ""
 
 msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
@@ -487,13 +535,22 @@ msgstr ""
 msgid "Confirm Short"
 msgstr ""
 
-#~ msgid "Stay tuned! This feature will be launched soon."
-#~ msgstr ""
+msgid "Approve"
+msgstr ""
 
 msgid "Trades"
 msgstr ""
 
+msgid "Locked Krav"
+msgstr ""
+
 msgid "Remaining"
+msgstr ""
+
+msgid "Stop loss great then open price"
+msgstr ""
+
+msgid "Increase locked Krav amount"
 msgstr ""
 
 msgid "My Boost"
@@ -511,13 +568,16 @@ msgstr ""
 msgid "Lock Period"
 msgstr ""
 
-msgid "{buttonText}"
+msgid "6 months"
 msgstr ""
 
 msgid "Unsupported network!"
 msgstr ""
 
 msgid "Action"
+msgstr ""
+
+msgid "Claim referral reward"
 msgstr ""
 
 msgid "Order limit"
@@ -604,13 +664,13 @@ msgstr ""
 msgid "Select a network"
 msgstr ""
 
-msgid "{buttonStr}"
-msgstr ""
-
 msgid "No trade history"
 msgstr ""
 
 msgid "PERPETUAL FUTURES"
+msgstr ""
+
+msgid "Take Profit less then open price"
 msgstr ""
 
 msgid "REMOVE LIMIT"
@@ -619,13 +679,16 @@ msgstr ""
 msgid "Staking Krav"
 msgstr ""
 
-#~ msgid "Liquidation price"
-#~ msgstr ""
+msgid "4 years"
+msgstr ""
 
 msgid "Now Epoch"
 msgstr ""
 
-msgid "{tpButtonText}"
+msgid "Withdraw Krav"
+msgstr ""
+
+msgid "BTC/USDT(Update SL/TP)"
 msgstr ""
 
 msgid "Deposit Amount/Initial LP Provision"
@@ -676,16 +739,14 @@ msgstr ""
 msgid "Developers"
 msgstr ""
 
+msgid "Existing Request"
+msgstr ""
+
 msgid "Loading pool data..."
 msgstr ""
 
 msgid "My Rewards"
 msgstr ""
-
-#~ msgid ""
-#~ "A fraction of your profits (if any) is taken when\n"
-#~ "you close the trade"
-#~ msgstr ""
 
 msgid "StopLoss"
 msgstr ""
@@ -711,8 +772,8 @@ msgstr ""
 msgid "My Liquidity Pools"
 msgstr ""
 
-#~ msgid "{key}"
-#~ msgstr ""
+msgid "Updated take profit"
+msgstr ""
 
 msgid "Connect to a wallet to view your positions."
 msgstr ""
@@ -729,13 +790,16 @@ msgstr ""
 msgid "Liquidity Provider Rewards"
 msgstr ""
 
-#~ msgid ""
-#~ "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
-#~ "balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-#~ "environment. 25% of deposited liquidity may be removed at a time."
-#~ msgstr ""
+msgid "claim Krav reward"
+msgstr ""
+
+msgid "Open trade"
+msgstr ""
 
 msgid "Entry Price"
+msgstr ""
+
+msgid "Enter a mount"
 msgstr ""
 
 msgid "24h Change"
@@ -783,6 +847,12 @@ msgstr ""
 msgid "Daily Trading Rewards"
 msgstr ""
 
+msgid "2 years"
+msgstr ""
+
+msgid "Token address check"
+msgstr ""
+
 msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
 msgstr ""
 
@@ -792,11 +862,14 @@ msgstr ""
 msgid "24h Volume"
 msgstr ""
 
+msgid "Create pool"
+msgstr ""
+
 msgid "End"
 msgstr ""
 
-#~ msgid "{buttonState}"
-#~ msgstr ""
+msgid "Liquidate"
+msgstr ""
 
 msgid "Limit"
 msgstr ""
@@ -813,8 +886,14 @@ msgstr ""
 msgid "Your Liquidity Provider"
 msgstr ""
 
+msgid "Claim trading rewards"
+msgstr ""
+
 msgid "Exchange ratio :"
 msgstr ""
 
 msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
+msgstr ""
+
+msgid "The maximum percentage cannot exceed 75%"
 msgstr ""

@@ -10,6 +10,7 @@ import { getGasLimit } from '../../utils'
 import BigNumber from 'bignumber.js'
 import { FeesRewardList } from './useGetClaimableTokensFee'
 import { useConfig } from './useConfig'
+import { t } from '@lingui/macro'
 
 export const useClaimFeesReward = () => {
   const { account, provider } = useWeb3React()
@@ -40,8 +41,8 @@ export const useClaimFeesReward = () => {
           updateSuccessDialog(TransactionAction.CLAIM_LOCK_REWARD)
           setSuccessSnackbarInfo({
             snackbarVisibility: true,
-            title: 'Claim reward',
-            content: 'Your locked reward has been claimed successfully',
+            title: t`Claim reward`,
+            content: t`Your locked reward has been claimed successfully`,
           })
         } catch (e) {
           updateError(TransactionAction.CLAIM_LOCK_REWARD)

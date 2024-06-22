@@ -1,12 +1,14 @@
 import { i18n } from '@lingui/core'
 import { messages as enMessages } from '../../locales/en/messages'
 import { messages as csMessages } from '../../locales/zh/messages'
+import { messages as krMessages } from '../../locales/kr/messages'
+import { messages as ruMessages } from '../../locales/ru/messages'
 
 export const locales = {
   'en-US': enMessages,
   'zh-CN': csMessages,
-  'ko-KR': csMessages,
-  'ru-RU': csMessages,
+  'ko-KR': krMessages,
+  'ru-RU': ruMessages,
 }
 
 export async function activateLocale(locale: string) {

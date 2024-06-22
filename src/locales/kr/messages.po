@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2024-06-22 14:16+0900\n"
+"POT-Creation-Date: 2024-06-22 21:18+0900\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,807 +14,886 @@ msgstr ""
 "Plural-Forms: \n"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "연결 끊기"
+
+msgid "1 year"
+msgstr "1 년"
 
 msgid "Total Liquidity Provider"
-msgstr ""
+msgstr "총 유동성 제공자"
 
 msgid "Come create one!"
-msgstr ""
+msgstr "하나 만들어 보세요!"
 
 msgid "Type"
+msgstr "유형"
+
+msgid ""
 msgstr ""
 
 msgid "Target Market"
-msgstr ""
+msgstr "타겟 마켓"
 
 msgid "Create Liquidity"
-msgstr ""
+msgstr "유동성 생성"
 
 msgid "Stay tuned"
-msgstr ""
+msgstr "기다려 주세요"
 
 msgid "Liq.price"
-msgstr ""
+msgstr "유동성 가격"
 
 msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
-msgstr ""
+msgstr "수익을 실제로 분배할 때는, 부스트 이후의 거래량에 따라 비율을 계산하세요"
 
 msgid "Fees"
-msgstr ""
+msgstr "수수료"
 
 msgid "pair"
-msgstr ""
+msgstr "페어"
 
 msgid "Withdraw request confirmed"
-msgstr ""
+msgstr "출금 요청 확인됨"
 
 msgid "Basic"
-msgstr ""
+msgstr "기본"
 
 msgid "Positions"
-msgstr ""
+msgstr "포지션"
 
 msgid "POOL TOTAL STAKED"
-msgstr ""
+msgstr "총 스테이크된 POOL"
 
 msgid "Orders"
-msgstr ""
+msgstr "주문"
 
 msgid "Confirm Limit Order"
-msgstr ""
+msgstr "한도 주문 확인"
 
 msgid "Please wait 24 hours to remove liquidity"
-msgstr ""
+msgstr "유동성을 제거하려면 24시간 기다려주세요"
 
 msgid "Statistics"
-msgstr ""
+msgstr "통계"
 
 msgid "Earn Yield"
-msgstr ""
+msgstr "수익률 얻기"
 
 msgid "Increase unlock time"
-msgstr ""
+msgstr "잠금 해제 시간 증가"
 
 msgid "My Pool"
-msgstr ""
+msgstr "내 풀"
 
 msgid "Token Collateral"
-msgstr ""
+msgstr "토큰 담보"
 
 msgid "Krav requests wallet interaction"
-msgstr ""
+msgstr "Krav가 지갑 상호 작용을 요청합니다"
 
 msgid "Pro"
-msgstr ""
+msgstr "전문가"
+
+msgid "MARKET"
+msgstr "시장"
+
+msgid "Updated stop loss"
+msgstr "업데이트된 손절가"
 
 msgid "Pay"
-msgstr ""
+msgstr "지불"
 
 msgid "Fees Rewards"
-msgstr ""
+msgstr "수수료 보상"
 
 msgid "Mint"
-msgstr ""
+msgstr "발행"
 
 msgid "Market Cap"
-msgstr ""
+msgstr "시가총액"
 
 msgid "24h Trading Volume"
-msgstr ""
+msgstr "24시간 거래량"
+
+msgid "The maximum percentage cannot exceed 900%"
+msgstr "최대 비율은 900%를 초과할 수 없습니다"
 
 msgid "Collateral"
-msgstr ""
+msgstr "담보"
 
 msgid "YOUR STAKED"
-msgstr ""
+msgstr "귀하의 스테이크"
+
+msgid "wallet"
+msgstr "지갑"
 
 msgid "Loading BTC data..."
-msgstr ""
+msgstr "BTC 데이터 로드 중..."
 
 msgid "Exchange ratio"
-msgstr ""
+msgstr "교환 비율"
 
 msgid "Liquidity"
-msgstr ""
+msgstr "유동성"
 
 msgid "Coming Summer 2024"
-msgstr ""
+msgstr "2024년 여름 출시 예정"
 
 msgid "APR"
-msgstr ""
+msgstr "연간 비율"
 
 msgid "Liquidity being provided"
-msgstr ""
+msgstr "제공 중인 유동성"
 
 msgid "Navigate to the 'dashboard' page to claim your fee earnings"
-msgstr ""
+msgstr "'대시보드' 페이지로 이동하여 수수료 수익을 청구하세요"
+
+msgid "Lock & Mint"
+msgstr "잠금 및 발행"
 
 msgid "Confirm"
-msgstr ""
+msgstr "확인"
+
+msgid "Claim liquidity provider rewards"
+msgstr "유동성 공급자 보상 청구"
 
 msgid "To trade"
-msgstr ""
+msgstr "거래하기 위해"
 
 msgid "Dashboard"
-msgstr ""
+msgstr "대시보드"
 
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
-msgstr ""
+msgstr "KRAV 잠금 기간을 연장하여 보상을 극대화하세요. 잠금 금액이나 기간을 늘려 veKRAV 누적을 증가시키세요. 시간이 지나면서 veKRAV는 천천히 감소하여 결국 KRAV와 같아집니다."
 
 msgid "REWARD"
-msgstr ""
+msgstr "보상"
 
 msgid "Withdraw Status"
-msgstr ""
+msgstr "출금 상태"
 
 msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
-msgstr ""
+msgstr "KRAV 잠금 기간을 연장하거나 KRAV를 추가하여 veKRAV 보상을 극대화하세요"
 
 msgid "Your Withdraw Limit"
-msgstr ""
+msgstr "귀하의 출금 한도"
 
 msgid "Notice..."
-msgstr ""
+msgstr "청산은 담보 토큰의 가격에 따라 결정되지 않습니다 - 오직 BTC의 가격 움직임에 따라 결정됩니다. 거래 즐기세요!"
 
 msgid "Utilization"
-msgstr ""
+msgstr "활용"
 
 msgid "Market Price"
-msgstr ""
+msgstr "시장 가격"
 
 msgid "Rewards will be refreshed on"
-msgstr ""
+msgstr "보상은 다음에 새로 고침됩니다"
 
 msgid "VIEW MORE"
-msgstr ""
+msgstr "더 보기"
 
 msgid "Pair"
-msgstr ""
+msgstr "페어"
 
 msgid "ASSET"
-msgstr ""
+msgstr "자산"
 
 msgid "KRAV Locking Amount"
-msgstr ""
+msgstr "KRAV 잠금 금액"
 
 msgid "Initial LP Provision"
-msgstr ""
+msgstr "초기 LP 제공"
 
 msgid "Invite Friends Now!"
-msgstr ""
+msgstr "지금 친구 초대하기!"
 
 msgid "Invite your friends"
-msgstr ""
+msgstr "친구를 초대하세요"
 
 msgid "Approve ..."
-msgstr ""
+msgstr "승인 ..."
 
 msgid "Faucet"
-msgstr ""
+msgstr "흐름"
 
 msgid "Learn more about Staking Krav"
-msgstr ""
+msgstr "KRAV 스테이킹에 대해 더 알아보기"
+
+msgid "OPEN"
+msgstr "열기"
 
 msgid "Your Pool Stake"
-msgstr ""
+msgstr "귀하의 풀 스테이크"
 
 msgid "Go back"
-msgstr ""
+msgstr "뒤로 가기"
 
 msgid "Locking Period"
-msgstr ""
+msgstr "잠금 기간"
 
 msgid "Slippage"
-msgstr ""
+msgstr "슬리피지"
 
 msgid "Exchange"
-msgstr ""
+msgstr "거래소"
 
 msgid "Size"
-msgstr ""
-
-#. js-lingui-explicit-id
-#~ msgid "Collateral"
-#~ msgstr ""
+msgstr "크기"
 
 msgid "Connect Wallet"
-msgstr ""
+msgstr "지갑 연결"
 
 msgid "1 KRAV → Coming Soon"
-msgstr ""
+msgstr "1 KRAV → 곧 출시"
 
 msgid "Current price"
-msgstr ""
+msgstr "현재 가격"
+
+msgid "Your locked reward has been claimed successfully"
+msgstr "귀하의 잠금 보상이 성공적으로 청구되었습니다"
 
 msgid "Current TP"
-msgstr ""
+msgstr "현재 TP"
 
 msgid "Address"
-msgstr ""
+msgstr "주소"
+
+msgid "Redeem liquidity"
+msgstr "유동성 교환"
 
 msgid "TOTAL LIQUIDITY SUPPLY"
-msgstr ""
+msgstr "총 유동성 공급"
 
 msgid "Total Trading Volume"
-msgstr ""
+msgstr "총 거래량"
 
 msgid "My Asset"
-msgstr ""
+msgstr "내 자산"
 
 msgid "Your Liquidity Supply"
-msgstr ""
+msgstr "귀하의 유동성 공급"
+
+msgid "Claim locked Reward"
+msgstr "잠금 보상 청구"
 
 msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
-msgstr ""
+msgstr "주문을 처리하려면 지갑을 열고 거래 활동에서 확인하세요"
 
 msgid "None"
-msgstr ""
+msgstr "없음"
 
 msgid "Next distribution"
-msgstr ""
+msgstr "다음 분배"
+
+msgid "Claim position"
+msgstr "포지션 청구"
 
 msgid "Please change network."
-msgstr ""
+msgstr "네트워크를 변경하세요."
 
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
-msgstr ""
-
-#~ msgid ""
-#~ "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
-#~ "potential by up to 2.5x"
-#~ msgstr ""
+msgstr "수수료: KRAV 거래는 각 거래의 개장 및 폐장에서 기준점 수수료를 부과하며, 각각 0.07%를 초과하지 않습니다."
 
 msgid "Open Interest (L/S)"
-msgstr ""
+msgstr "개장 이자 (L/S)"
 
 msgid "No open position"
-msgstr ""
+msgstr "개장된 포지션이 없습니다"
 
 msgid "Actual trading volume"
-msgstr ""
+msgstr "실제 거래량"
+
+msgid "Removed liquidity"
+msgstr "제거된 유동성"
 
 msgid "No Orders"
-msgstr ""
+msgstr "주문 없음"
+
+msgid "Stop loss less then open price"
+msgstr "손절가가 개장 가격보다 낮음"
 
 msgid "Confirm Long"
-msgstr ""
+msgstr "롱 거래 확인"
 
 msgid "Awaiting..."
-msgstr ""
+msgstr "대기 중..."
+
+msgid "Min lock period one week"
+msgstr "최소 잠금 기간은 1주일입니다"
 
 msgid "Earning Information"
-msgstr ""
+msgstr "수익 정보"
 
 msgid "WITHDRAW_BLOCK"
-msgstr ""
+msgstr "출금 차단"
 
 msgid "Enter Asset contract or select Asset"
-msgstr ""
-
-msgid "{0}"
-msgstr ""
+msgstr "자산 계약을 입력하거나 자산을 선택하세요"
 
 msgid "Trade"
-msgstr ""
+msgstr "거래"
 
 msgid "Stake"
-msgstr ""
+msgstr "스테이크"
 
 msgid "Liquidity Remove Limit"
-msgstr ""
+msgstr "유동성 제거 한도"
 
 msgid "2. Fees"
-msgstr ""
+msgstr "2. 수수료"
 
 msgid "You have no Staked Krav"
-msgstr ""
+msgstr "스테이크된 Krav가 없습니다"
 
 msgid "Leverage"
-msgstr ""
+msgstr "레버리지"
 
 msgid "Note"
-msgstr ""
+msgstr "노트"
 
 msgid "Reached max positions limit"
-msgstr ""
+msgstr "최대 포지션 한도에 도달했습니다"
 
 msgid "Market"
-msgstr ""
+msgstr "시장"
 
 msgid "My history"
-msgstr ""
-
-msgid "tradeType"
-msgstr ""
+msgstr "내 기록"
 
 msgid "Mint will start after"
-msgstr ""
+msgstr "발행은 다음에 시작됩니다"
 
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
-msgstr ""
+msgstr "언제든지 잠금을 연장하고 $CRV를 추가할 수 있지만, $CRV에는 다른 만료일이 없습니다."
 
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
-msgstr ""
+msgstr "입금한 자산은 유동성 풀의 일부가 되며, 플랫폼에 거래마다 수수료를 받으며 모든 거래의 상대방으로 작동합니다."
 
 msgid "short withdraw notice..."
-msgstr ""
+msgstr "유동성을 인출할 때 한 번에 제공한 유동성의 25%만 인출할 수 있습니다. 일부 인출 요청은 최대 48시간이 걸릴 수 있음을 참고하세요."
 
 msgid "Portfolio"
-msgstr ""
+msgstr "포트폴리오"
 
 msgid "Insufficient Balance"
-msgstr ""
+msgstr "잔액 부족"
 
 msgid "Burn"
-msgstr ""
+msgstr "소각"
+
+msgid "Take Profit great then open price"
+msgstr "익절가가 개장 가격보다 큼"
 
 msgid "Allowed Slippage"
-msgstr ""
+msgstr "슬리피지 허용"
 
 msgid "Amount that can be claimed"
-msgstr ""
+msgstr "청구할 수 있는 금액"
 
 msgid "Add Liquidity"
-msgstr ""
+msgstr "유동성 추가"
 
 msgid "Total Stake"
-msgstr ""
+msgstr "총 스테이크"
 
-#~ msgid "Order limit:"
-#~ msgstr ""
-
-msgid "{slButtonText}"
-msgstr ""
+msgid "Withdraw"
+msgstr "출금"
 
 msgid "Features"
-msgstr ""
+msgstr "기능"
 
 msgid "Earn"
-msgstr ""
+msgstr "수익"
+
+msgid "Claim lp reward"
+msgstr "LP 보상 청구"
 
 msgid "Trading guide"
-msgstr ""
+msgstr "거래 가이드"
 
 msgid "Learn more about Liquidity Pool"
-msgstr ""
+msgstr "유동성 풀에 대해 더 알아보기"
 
 msgid "Your 24h Trading Volume"
-msgstr ""
+msgstr "귀하의 24시간 거래량"
 
 msgid "Liquidity Provider after boost"
-msgstr ""
+msgstr "부스트 이후의 유동성 제공자"
 
 msgid "Short"
-msgstr ""
+msgstr "숏"
 
 msgid "My current Liquidity Provider boost"
-msgstr ""
+msgstr "내 현재 유동성 제공자 부스트"
 
 msgid "Liquidity Creation"
-msgstr ""
+msgstr "유동성 생성"
 
 msgid "Liq. Price"
-msgstr ""
-
-#~ msgid "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
-#~ msgstr ""
+msgstr "유동성 가격"
 
 msgid "Net Exposure"
-msgstr ""
+msgstr "순 노출"
 
 msgid "View Details"
-msgstr ""
+msgstr "세부 정보 보기"
 
 msgid "Share of pool"
-msgstr ""
+msgstr "풀의 일부"
 
-#~ msgid ""
-#~ "when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and\n"
-#~ "the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-#~ "environment. 25% of deposited liquidity may be removed at a time."
-#~ msgstr ""
+msgid "Market order closed"
+msgstr "시장 주문 종료"
 
 msgid "WITH ANY ALTCOIN"
-msgstr ""
+msgstr "어떤 알트코인으로도"
 
 msgid "Documentation"
-msgstr ""
+msgstr "문서"
 
 msgid "Take Profit"
-msgstr ""
+msgstr "익절"
 
 msgid "Mint to"
-msgstr ""
+msgstr "발행 대상"
 
 msgid "Order"
-msgstr ""
+msgstr "주문"
 
 msgid "Pending"
-msgstr ""
+msgstr "보류 중"
+
+msgid "Claim reward"
+msgstr "보상 청구"
 
 msgid "+ Provider liquidity"
-msgstr ""
+msgstr "+ 유동성 제공"
 
 msgid "Unlock"
-msgstr ""
-
-#~ msgid "Connect wallet"
-#~ msgstr ""
+msgstr "잠금 해제"
 
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
-msgstr ""
+msgstr "기본 자산으로 BTC를 사용하여, 옵션 거래를 위한 여러 자산을 투자 상품으로 사용합니다. 현재 생성한 풀에서 선택한 자산이 거래 자산으로 사용됩니다."
 
 msgid "Coming Soon"
-msgstr ""
+msgstr "곧 출시"
 
 msgid "successfully."
-msgstr ""
+msgstr "성공적으로."
 
 msgid "Total Liquidity Supply"
-msgstr ""
+msgstr "총 유동성 공급"
 
 msgid "Сongratulations!"
-msgstr ""
+msgstr "축하합니다!"
+
+msgid "Limit order canceled"
+msgstr "한도 주문 취소됨"
 
 msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
-msgstr ""
+msgstr "지갑과 직접 상호 작용하세요. Krav에게 토큰 접근 권한을 부여하세요."
+
+msgid "Staked Krav"
+msgstr "스테이크된 Krav"
+
+msgid "Invalid number"
+msgstr "유효하지 않은 숫자"
 
 msgid "Actual Liquidity Provider"
-msgstr ""
+msgstr "실제 유동성 제공자"
 
 msgid "Locked until"
-msgstr ""
+msgstr "잠금 해제 예정"
+
+msgid "Added liquidity"
+msgstr "추가된 유동성"
 
 msgid "Available Liquidity"
-msgstr ""
+msgstr "사용 가능한 유동성"
+
+msgid "Faucet token"
+msgstr "흐름 토큰"
 
 msgid "Support"
-msgstr ""
+msgstr "지원"
 
-msgid "You veKRAV Supply"
-msgstr ""
+msgid "Your veKRAV Supply"
+msgstr "귀하의 veKRAV 공급"
+
+msgid "update"
+msgstr "업데이트"
 
 msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
-msgstr ""
+msgstr "지금 친구를 초대하세요! 지금 친구를 초대하세요! 지금 친구를 초대하세요! 지금 친구를 초대하세요!"
 
 msgid "UTILIZATION"
-msgstr ""
+msgstr "활용"
 
 msgid "Referrals"
-msgstr ""
+msgstr "추천"
 
 msgid "Confirm Short"
-msgstr ""
+msgstr "숏 거래 확인"
 
-#~ msgid "Stay tuned! This feature will be launched soon."
-#~ msgstr ""
+msgid "Approve"
+msgstr "승인"
 
 msgid "Trades"
-msgstr ""
+msgstr "거래"
+
+msgid "Locked Krav"
+msgstr "잠금된 Krav"
 
 msgid "Remaining"
-msgstr ""
+msgstr "남은"
+
+msgid "Stop loss great then open price"
+msgstr "손절가가 개장 가격보다 큼"
+
+msgid "Increase locked Krav amount"
+msgstr "잠금된 Krav 금액 증가"
 
 msgid "My Boost"
-msgstr ""
+msgstr "내 부스트"
 
 msgid "YOUR LIQUIDITY SUPPLY"
-msgstr ""
+msgstr "귀하의 유동성 공급"
 
 msgid "Degen"
-msgstr ""
+msgstr "Degen"
 
 msgid "Price"
-msgstr ""
+msgstr "가격"
 
 msgid "Lock Period"
-msgstr ""
+msgstr "잠금 기간"
 
-msgid "{buttonText}"
-msgstr ""
+msgid "6 months"
+msgstr "6 개월"
 
 msgid "Unsupported network!"
-msgstr ""
+msgstr "지원되지 않는 네트워크입니다!"
 
 msgid "Action"
-msgstr ""
+msgstr "액션"
+
+msgid "Claim referral reward"
+msgstr "추천 보상 청구"
 
 msgid "Order limit"
-msgstr ""
+msgstr "주문 제한"
 
 msgid "Light Mode"
-msgstr ""
+msgstr "라이트 모드"
 
 msgid "Total assets"
-msgstr ""
+msgstr "총 자산"
 
 msgid "Mark price"
-msgstr ""
+msgstr "마크 가격"
 
 msgid "Useful Links"
-msgstr ""
+msgstr "유용한 링크"
 
 msgid "Available"
-msgstr ""
+msgstr "사용 가능"
 
 msgid "Stake&Burn Amount"
-msgstr ""
+msgstr "스테이크 및 버닝 금액"
 
 msgid "Current SL"
-msgstr ""
+msgstr "현재 손절가"
 
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 msgid "Learn more about Liquidity Pools"
-msgstr ""
+msgstr "유동성 풀에 대해 더 알아보기"
 
 msgid "Funding Rate (L)"
-msgstr ""
+msgstr "자금 비율 (L)"
 
 msgid "Total Value"
-msgstr ""
+msgstr "총 가치"
 
 msgid "Coll"
-msgstr ""
+msgstr "담보"
 
 msgid "Krav requests wallet approval"
-msgstr ""
+msgstr "Krav 지갑 승인 요청"
 
 msgid "LP REWARD"
-msgstr ""
+msgstr "LP 보상"
 
 msgid "Expected earnings"
-msgstr ""
+msgstr "예상 수익"
 
 msgid "Yield Earned"
-msgstr ""
+msgstr "획득 수익"
 
 msgid "Token Exchange"
-msgstr ""
+msgstr "토큰 교환"
 
 msgid "Collateral in"
-msgstr ""
+msgstr "담보물 내"
 
 msgid "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
-msgstr ""
+msgstr "레버리지를 이용한 영구 선물 거래는 청산 가격을 포함한 위험을 내포합니다. 거래자는 이러한 위험을 잘 이해한 후에 거래에 참여해야 합니다"
 
 msgid "Step 2 Select Token Collateral"
-msgstr ""
+msgstr "단계 2 토큰 담보물 선택"
 
 msgid "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
-msgstr ""
+msgstr "먼저 KRAV 토큰을 스테이킹해야 하며, \"발행\" 작업은 발행 시작 시간까지 공식적으로 시작되지 않습니다."
 
 msgid "To Vote"
-msgstr ""
+msgstr "투표하려면"
 
 msgid "Amount"
-msgstr ""
+msgstr "금액"
 
 msgid "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
-msgstr ""
+msgstr "KRAV 잠금은 Krav 수익과 veKRAV 권리 및 이익을 얻을 수 있으며, 수익을 최대 2.5배까지 증가시킬 수 있습니다"
 
 msgid "Claim"
-msgstr ""
+msgstr "청구"
 
 msgid "Enter an amount"
-msgstr ""
+msgstr "금액을 입력하세요"
 
 msgid "Select a network"
-msgstr ""
-
-msgid "{buttonStr}"
-msgstr ""
+msgstr "네트워크 선택"
 
 msgid "No trade history"
-msgstr ""
+msgstr "거래 기록 없음"
 
 msgid "PERPETUAL FUTURES"
-msgstr ""
+msgstr "영구 선물"
+
+msgid "Take Profit less then open price"
+msgstr "익절가가 개장 가격보다 낮음"
 
 msgid "REMOVE LIMIT"
-msgstr ""
+msgstr "한도 제거"
 
 msgid "Staking Krav"
-msgstr ""
+msgstr "Krav 스테이킹"
 
-#~ msgid "Liquidation price"
-#~ msgstr ""
+msgid "4 years"
+msgstr "4년"
 
 msgid "Now Epoch"
-msgstr ""
+msgstr "현재 에포크"
 
-msgid "{tpButtonText}"
-msgstr ""
+msgid "Withdraw Krav"
+msgstr "Krav 인출"
+
+msgid "BTC/USDT(Update SL/TP)"
+msgstr "BTC/USDT(손절가/익절가 업데이트)"
 
 msgid "Deposit Amount/Initial LP Provision"
-msgstr ""
+msgstr "입금 금액/초기 LP 공급"
 
 msgid "long withdraw notice..."
-msgstr ""
+msgstr "유동성을 인출할 때는 인출 요청 후 지갑으로 잔고가 전송되기까지 48시간의 대기 기간이 있습니다. 이 대기 기간은 안정된 유동성 환경을 유지하기 위해 존재합니다. 한 번에 예치한 유동성의 25%를 인출할 수 있습니다."
 
 msgid "Total Governance Reward Pool"
-msgstr ""
+msgstr "총 거버넌스 보상 풀"
 
 msgid "Boost"
-msgstr ""
+msgstr "부스트"
 
 msgid "Funding Rate (S)"
-msgstr ""
+msgstr "자금 비율 (S)"
 
 msgid "Step 3 Initial LP Provision"
-msgstr ""
+msgstr "단계 3 초기 LP 공급"
 
 msgid "A fraction of your profits..."
-msgstr ""
+msgstr "거래를 종료할 때 (이익이 있다면) 일부 이익이 공제됩니다."
 
 msgid "Deposit and create"
-msgstr ""
+msgstr "입금 및 생성"
 
 msgid "Step 1 Choose Target Market"
-msgstr ""
+msgstr "단계 1 대상 시장 선택"
 
 msgid "PnL: -90 to +900"
-msgstr ""
+msgstr "손익: -90에서 +900"
 
 msgid "Add"
-msgstr ""
+msgstr "추가"
 
 msgid "Check approve"
-msgstr ""
+msgstr "승인 확인"
 
 msgid "Date"
-msgstr ""
+msgstr "날짜"
 
 msgid "Krav waiting for transaction settlement"
-msgstr ""
+msgstr "Krav가 거래 정산을 기다리는 중"
 
 msgid "Start Trading"
-msgstr ""
+msgstr "거래 시작"
 
 msgid "Developers"
-msgstr ""
+msgstr "개발자"
+
+msgid "Existing Request"
+msgstr "기존 요청"
 
 msgid "Loading pool data..."
-msgstr ""
+msgstr "풀 데이터 로드 중..."
 
 msgid "My Rewards"
-msgstr ""
-
-#~ msgid ""
-#~ "A fraction of your profits (if any) is taken when\n"
-#~ "you close the trade"
-#~ msgstr ""
+msgstr "내 보상"
 
 msgid "StopLoss"
-msgstr ""
+msgstr "손절가"
 
 msgid "Dark Mode"
-msgstr ""
+msgstr "다크 모드"
 
 msgid "No Position yet"
-msgstr ""
+msgstr "아직 포지션이 없습니다"
 
 msgid "Long"
-msgstr ""
+msgstr "롱"
 
 msgid "Position"
-msgstr ""
+msgstr "포지션"
 
 msgid "Liquidation Price"
-msgstr ""
+msgstr "청산 가격"
 
 msgid "No Fees Reward"
-msgstr ""
+msgstr "수수료 없는 보상"
 
 msgid "My Liquidity Pools"
-msgstr ""
+msgstr "내 유동성 풀"
 
-#~ msgid "{key}"
-#~ msgstr ""
+msgid "Updated take profit"
+msgstr "업데이트된 익절가"
 
 msgid "Connect to a wallet to view your positions."
-msgstr ""
+msgstr "지갑에 연결하여 포지션을 확인하세요."
 
 msgid "Select Token Collateral"
-msgstr ""
+msgstr "토큰 담보물 선택"
 
 msgid "Choose Target Market"
-msgstr ""
+msgstr "대상 시장 선택"
 
 msgid "KRAV Staking"
-msgstr ""
+msgstr "KRAV 스테이킹"
 
 msgid "Liquidity Provider Rewards"
-msgstr ""
+msgstr "유동성 제공자 보상"
 
-#~ msgid ""
-#~ "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
-#~ "balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-#~ "environment. 25% of deposited liquidity may be removed at a time."
-#~ msgstr ""
+msgid "claim Krav reward"
+msgstr "Krav 보상 청구"
+
+msgid "Open trade"
+msgstr "거래 열기"
 
 msgid "Entry Price"
-msgstr ""
+msgstr "진입 가격"
+
+msgid "Enter a mount"
+msgstr "금액 입력"
 
 msgid "24h Change"
-msgstr ""
+msgstr "24시간 변동"
 
 msgid "Remove"
-msgstr ""
+msgstr "제거"
 
 msgid "You have no liquidity"
-msgstr ""
+msgstr "유동성이 없습니다"
 
 msgid "Ask Price"
-msgstr ""
+msgstr "매도 가격"
 
 msgid "Start"
-msgstr ""
+msgstr "시작"
 
 msgid "My current trade boost"
-msgstr ""
+msgstr "내 현재 거래 부스트"
 
 msgid "Your staked :"
-msgstr ""
+msgstr "귀하의 스테이크된:"
 
 msgid "Can not find the target asset you want to trade?"
-msgstr ""
+msgstr "원하는 거래 대상 자산을 찾을 수 없습니까?"
 
 msgid "Locked amount"
-msgstr ""
+msgstr "잠긴 금액"
 
 msgid "My Order"
-msgstr ""
+msgstr "내 주문"
 
 msgid "KRAV - Terms of Service"
-msgstr ""
+msgstr "KRAV - 서비스 약관"
 
 msgid "Min position size is 1500"
-msgstr ""
+msgstr "최소 포지션 크기는 1500입니다"
 
 msgid "Entry price"
-msgstr ""
+msgstr "진입 가격"
 
 msgid "No stake yet"
-msgstr ""
+msgstr "아직 스테이킹하지 않았습니다"
 
 msgid "Daily Trading Rewards"
-msgstr ""
+msgstr "일일 거래 보상"
+
+msgid "2 years"
+msgstr "2년"
+
+msgid "Token address check"
+msgstr "토큰 주소 확인"
 
 msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
-msgstr ""
+msgstr "KRAV에서 거래하고 매일 거래 보상을 받으세요. 계산 및 분배는 매일 한 번 이루어집니다."
 
 msgid "1. Disclaimer"
-msgstr ""
+msgstr "1. 면책 조항"
 
 msgid "24h Volume"
-msgstr ""
+msgstr "24시간 거래량"
+
+msgid "Create pool"
+msgstr "풀 생성"
 
 msgid "End"
-msgstr ""
+msgstr "종료"
 
-#~ msgid "{buttonState}"
-#~ msgstr ""
+msgid "Liquidate"
+msgstr "청산"
 
 msgid "Limit"
-msgstr ""
+msgstr "한도"
 
 msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
-msgstr ""
+msgstr "Krav 수익을 안전하게 보호하고 veKRAV 혜택을 얻기 위해 잠금 기능을 활성화하세요. 최대 2.5배의 수익 가능성을 높이세요"
 
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
-msgstr ""
+msgstr "Krav가 블록체인 거래와 상호작용 중입니다. 온체인 거래 정산을 기다려 주세요."
 
 msgid "Close"
-msgstr ""
+msgstr "닫기"
 
 msgid "Your Liquidity Provider"
-msgstr ""
+msgstr "귀하의 유동성 제공자"
+
+msgid "Claim trading rewards"
+msgstr "거래 보상 청구"
 
 msgid "Exchange ratio :"
-msgstr ""
+msgstr "환전 비율:"
 
 msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
-msgstr ""
+msgstr "MEMES, GAMEFI, 및 다른 ALTCOIN으로 BTC에 베팅"
+
+msgid "The maximum percentage cannot exceed 75%"
+msgstr "최대 비율은 75%를 초과할 수 없습니다"

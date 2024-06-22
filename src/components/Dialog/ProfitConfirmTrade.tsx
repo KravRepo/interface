@@ -13,7 +13,8 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
-import { Trans, t } from '@lingui/macro'
+import { Trans, msg, t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -40,20 +41,20 @@ enum TpLimitState {
   'INVALID',
 }
 
-enum TpButtonText {
-  'UPDATE' = 'update',
-  'TP_GT_OPEN_PRICE' = 'Take Profit great then open price',
-  'TP_LT_OPEN_PRICE' = 'Take Profit less then open price',
-  'MAX_TP_LIMIT' = 'The maximum percentage cannot exceed 900%',
-  'INVALID' = 'Invalid number',
+const TpButtonText = {
+  UPDATE: msg`update`,
+  TP_GT_OPEN_PRICE: msg`Take Profit great then open price`,
+  TP_LT_OPEN_PRICE: msg`Take Profit less then open price`,
+  MAX_TP_LIMIT: msg`The maximum percentage cannot exceed 900%`,
+  INVALID: msg`Invalid number`,
 }
 
-enum SlButtonText {
-  'UPDATE' = 'update',
-  'SL_GT_OPEN_PRICE' = 'Stop loss great then open price',
-  'SL_LT_OPEN_PRICE' = 'Stop loss less then open price',
-  'MAX_SL_LIMIT' = 'The maximum percentage cannot exceed 75%',
-  'INVALID' = 'Invalid number',
+const SlButtonText = {
+  UPDATE: msg`update`,
+  SL_GT_OPEN_PRICE: msg`Stop loss great then open price`,
+  SL_LT_OPEN_PRICE: msg`Stop loss less then open price`,
+  MAX_SL_LIMIT: msg`The maximum percentage cannot exceed 75%`,
+  INVALID: msg`Invalid number`,
 }
 
 export const ProfitConfirmTrade = ({
@@ -65,6 +66,7 @@ export const ProfitConfirmTrade = ({
   pool,
 }: ConfirmTradeDialogProp) => {
   const theme = useTheme()
+  const { i18n } = useLingui()
   const tradePool = useRootStore((store) => store.tradePool)
   const pairConfig = useRootStore((store) => store.pairConfig)
   const [slUsePercentage, setUseSlPercentage] = useState(true)
@@ -194,7 +196,9 @@ export const ProfitConfirmTrade = ({
               border-bottom: ${theme.splitLine.primary};
             `}
           >
-            <span>BTC/USDT(Update SL/TP)</span>
+            <span>
+              <Trans>BTC/USDT(Update SL/TP)</Trans>
+            </span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
           <div
@@ -347,7 +351,7 @@ export const ProfitConfirmTrade = ({
                     }}
                     sx={{ marginTop: '20px' }}
                   >
-                    <Trans> {slButtonText}</Trans>
+                    {i18n.t(slButtonText)}
                   </KRAVButton>
                 </div>
                 <div>
@@ -487,7 +491,7 @@ export const ProfitConfirmTrade = ({
                     }}
                     sx={{ marginTop: '20px' }}
                   >
-                    <Trans>{tpButtonText}</Trans>
+                    {i18n._(tpButtonText)}
                   </KRAVButton>
                 </div>
               </div>

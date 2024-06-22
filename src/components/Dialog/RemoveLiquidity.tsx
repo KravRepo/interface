@@ -342,7 +342,7 @@ function ExistingRequest({
               lineHeight: '140%',
             }}
           >
-            Existing Request ({existingRequestLength})
+            <Trans>Existing Request</Trans> ({existingRequestLength})
           </Typography>
           {!showExistingRequest ? <ExpandMoreIcon /> : <ExpandLessIcon />}
         </Stack>

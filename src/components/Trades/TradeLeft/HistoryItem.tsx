@@ -8,7 +8,8 @@ import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
 import { PoolParams } from '../../../store/FactorySlice'
-import { t } from '@lingui/macro'
+import { msg } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 type HistoryItemProps = {
   history: HistoryData
@@ -23,7 +24,16 @@ type HistoryItemProps = {
 //   OPEN,
 // }
 
+const tradeTypeMsg = {
+  MARKET: msg`MARKET`,
+  'Take Profit': msg`Take Profit`,
+  StopLoss: msg`StopLoss`,
+  Liquidate: msg`Liquidate`,
+  OPEN: msg`OPEN`,
+}
+
 export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
+  const { i18n } = useLingui()
   const tradePool = useRootStore((state) => state.tradePool)
   const pairConfig = useRootStore((state) => state.pairConfig)
   const pnlValue = useMemo(() => {
@@ -76,7 +86,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
           color: ${history.tradeBuy && tradeType !== 'Liquidate' ? '#009B72' : '#DB4C40'};
         `}
       >
-        {t`tradeType`}
+        {i18n.t(tradeTypeMsg[tradeType])}
       </div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>

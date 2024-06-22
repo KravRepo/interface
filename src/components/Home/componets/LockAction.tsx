@@ -16,7 +16,8 @@ import moment from 'moment'
 import { getLockTime } from '../../../hook/hookV8/utils/utils'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { FOUR_YEAR_TIMESTAMP, ONE_DAY_TIMESTAMP } from '../../../constant/math'
-import { Trans, t } from '@lingui/macro'
+import { Trans, msg, t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 const marks = [
   {
@@ -47,10 +48,10 @@ type LockActionProp = {
   totalVeKravAmount: BigNumber
 }
 
-enum LockButtonText {
-  LOCK = 'Lock & Mint',
-  INSUFFICIENT_BALANCE = 'Insufficient Balance',
-  INVALID = 'Invalid number',
+const LockButtonText = {
+  LOCK: msg`Lock & Mint`,
+  INSUFFICIENT_BALANCE: msg`Insufficient Balance`,
+  INVALID: msg`Invalid number`,
 }
 
 export const LockAction = ({
@@ -63,6 +64,7 @@ export const LockAction = ({
   totalVeKravAmount,
 }: LockActionProp) => {
   const theme = useTheme()
+  const { i18n } = useLingui()
   const [showTip] = useState(false)
   const [lockTime, setLockTime] = useState(1)
   const [lockAmount, setLockAmount] = useState(new BigNumber(0))
@@ -104,15 +106,15 @@ export const LockAction = ({
   const lockPeriod = useMemo(() => {
     switch (lockTime) {
       case 1:
-        return '6 months'
+        return msg`6 months`
       case 2:
-        return '1 year'
+        return msg`1 year`
       case 3:
-        return '2 years'
+        return msg`2 years`
       case 4:
-        return '4 years'
+        return msg`4 years`
       default:
-        return '6 months'
+        return msg`6 months`
     }
   }, [lockTime])
 
@@ -335,7 +337,7 @@ export const LockAction = ({
               >
                 <Trans>Lock Period</Trans>
               </span>
-              <span>{lockPeriod}</span>
+              <span>{i18n._(lockPeriod)}</span>
             </div>
             <Slider
               defaultValue={1}
@@ -427,7 +429,7 @@ export const LockAction = ({
           onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)}
           sx={{ mt: '20px' }}
         >
-          <Trans>{buttonText}</Trans>
+          {i18n._(buttonText)}
         </KRAVButton>
       )}
       {!increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
@@ -436,7 +438,7 @@ export const LockAction = ({
           onClick={() => addLockAmount(addDecimals(lockAmount, 18))}
           sx={{ mt: '20px' }}
         >
-          <Trans>{buttonText}</Trans>
+          {i18n._(buttonText)}
         </KRAVButton>
       )}
       {increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (

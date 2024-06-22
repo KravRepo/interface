@@ -198,7 +198,7 @@ export const NewStake = () => {
             }
           `}
         >
-          <KRAVTab>{t`You veKRAV Supply`}</KRAVTab>
+          <KRAVTab>{t`Your veKRAV Supply`}</KRAVTab>
           <p className="data gt">{formatNumber(userVeKravAmount.toNumber(), 2, false)} veKRAV</p>
         </div>
         {/*<div*/}

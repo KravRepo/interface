@@ -3,16 +3,18 @@ import { Dialog, DialogContent, useMediaQuery, useTheme } from '@mui/material'
 import { errorDialog } from './sytle'
 import { ReactComponent as SuccessIcon } from '../../assets/imgs/success_icon.svg'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import { TransactionAction } from '../../store/TransactionSlice'
+import { TransactionAction, TransactionActionMsg } from '../../store/TransactionSlice'
 import { ReactComponent as SuccessLogo } from '../../assets/imgs/success_logo.svg'
 import { ReactComponent as SuccessDarkLogo } from '../../assets/imgs/darkModel/success_logo_dark.svg'
 import KRAVButton from '../KravUIKit/KravButton'
 import { useRootStore } from '../../store/root'
 import { css } from '@emotion/react'
 import { Trans } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 export const SuccessDialog = () => {
   const theme = useTheme()
+  const { i18n } = useLingui()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const successContent = useRootStore((state) => state.successContent)
   const setSuccessContent = useRootStore((state) => state.setSuccessContent)
@@ -62,7 +64,7 @@ export const SuccessDialog = () => {
               </p>
             ) : (
               <p>
-                <Trans>{successContent.action}</Trans> <Trans>successfully.</Trans>
+                {i18n._(TransactionActionMsg[successContent.action])} <Trans>successfully.</Trans>
               </p>
             )}
             {theme.palette.mode === 'dark' ? <SuccessDarkLogo /> : <SuccessLogo />}
