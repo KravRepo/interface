@@ -6,6 +6,7 @@ import { OrderParamsCard } from './OrderParamsCard'
 import BigNumber from 'bignumber.js'
 import { css } from '@emotion/react'
 import TradeDetails from './TradeDetails'
+import { t } from '@lingui/macro'
 // import AltcoinCard from './AltcoinCard'
 
 export type ActionCardProp = {
@@ -107,7 +108,7 @@ export const ActionsCard = ({
                 padding: 0,
                 background: orderType === 0 ? '#2832F5 !important' : '',
               }}
-              label="Long"
+              label={t`Long`}
             />
             <Tab
               sx={{
@@ -117,7 +118,7 @@ export const ActionsCard = ({
                 padding: 0,
                 background: orderType === 1 ? '#DB4C40 !important' : '',
               }}
-              label="Short"
+              label={t`Short`}
             />
           </Tabs>
         </Box>

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
-import { Trans, t } from '@lingui/macro'
+import { Trans, msg, t } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab } from './style'
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
@@ -26,6 +26,7 @@ import { useInterval } from '../../../hook/hookV8/useInterval'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useTradeData } from '../../../hook/useTradeData'
 import NoticePopup from '../../Dialog/NoticePopup'
+import { useLingui } from '@lingui/react'
 
 type OrderParamsCardProps = {
   leverage: number
@@ -44,15 +45,27 @@ type OrderParamsCardProps = {
 }
 
 enum ButtonText {
-  CONNECT_WALLET = 'Connect Wallet',
-  ENTER_AMOUNT = 'Enter an amount',
-  APPROVE = 'Approve ...',
-  CHECK_APPROVE = 'Check approve',
-  LONG = 'Long',
-  SHORT = 'Short',
-  INSUFFICIENT_BALANCE = 'Insufficient Balance',
-  REACHED_LIMIT = 'Reached max positions limit',
-  MIN_SIZE = 'Min position size is 1500',
+  CONNECT_WALLET = 'CONNECT_WALLET',
+  ENTER_AMOUNT = 'ENTER_AMOUNT',
+  APPROVE = 'APPROVE',
+  CHECK_APPROVE = 'CHECK_APPROVE',
+  LONG = 'LONG',
+  SHORT = 'SHORT',
+  INSUFFICIENT_BALANCE = 'INSUFFICIENT_BALANCE',
+  REACHED_LIMIT = 'REACHED_LIMIT',
+  MIN_SIZE = 'MIN_SIZE',
+}
+
+const ButtonTextMsg = {
+  CONNECT_WALLET: msg`Connect Wallet`,
+  ENTER_AMOUNT: msg`Enter an amount`,
+  APPROVE: msg`Approve ...`,
+  CHECK_APPROVE: msg`Check approve`,
+  LONG: msg`Long`,
+  SHORT: msg`Short`,
+  INSUFFICIENT_BALANCE: msg`Insufficient Balance`,
+  REACHED_LIMIT: msg`Reached max positions limit`,
+  MIN_SIZE: msg`Min position size is 1500`,
 }
 
 const sliderLimit = {
@@ -101,6 +114,7 @@ export const OrderParamsCard = ({
   const [inputDAIDecimals, setInputDAIDecimals] = useState(1)
   const [tabIndex, setTabIndex] = useState(0)
   const { provider } = useWeb3React()
+  const { i18n } = useLingui()
   // const [slSetting, setSlSetting] = useState(0)
   const [slUsePercentage, setUseSlPercentage] = useState(true)
   // const [tpSetting, setTpSetting] = useState(0)
@@ -422,7 +436,7 @@ export const OrderParamsCard = ({
                     color: #757575;
                   `}
                 >
-                  Order limit:
+                  <Trans>Order limit</Trans>:
                 </span>{' '}
                 <span
                   css={css`
@@ -589,7 +603,7 @@ export const OrderParamsCard = ({
                           color: #757575;
                         `}
                       >
-                        Price
+                        <Trans>Price</Trans>
                       </span>
                       <div>
                         <span
@@ -597,7 +611,7 @@ export const OrderParamsCard = ({
                             color: #757575;
                           `}
                         >
-                          Leverage:
+                          <Trans>Leverage</Trans>:
                         </span>
                         <span>{leverage}x</span>
                       </div>
@@ -655,7 +669,7 @@ export const OrderParamsCard = ({
                         color: #ffffff70;
                       `}
                     >
-                      Leverage
+                      <Trans>Leverage</Trans>
                     </span>
                     :{' '}
                   </div>
@@ -725,7 +739,9 @@ export const OrderParamsCard = ({
                   `,
                 ]}
               >
-                <p>Slippage</p>
+                <p>
+                  <Trans>Slippage</Trans>
+                </p>
                 <div css={[align]}>
                   <input
                     value={slippagePercent}
@@ -756,32 +772,6 @@ export const OrderParamsCard = ({
                   }
                 `}
               >
-                {/* <p
-                  css={[
-                    align,
-                    css`
-                      justify-content: space-between;
-                      color: ${theme.text.primary};
-                    `,
-                  ]}
-                >
-                  <span>Collateral In</span>
-                  <span>
-                    {isNaN(positionSizeDai.toNumber()) ? '--' : getBigNumberStr(positionSizeDai, 6)} {tradePool?.symbol}
-                  </span>
-                </p> */}
-                {/* <p
-                  css={[
-                    align,
-                    css`
-                      justify-content: space-between;
-                      color: ${theme.text.primary};
-                    `,
-                  ]}
-                >
-                  <span>Leverage</span>
-                  <span>{leverage}</span>
-                </p> */}
                 {tradeModel === TradeMode.BASIC && (
                   <>
                     <p
@@ -798,9 +788,9 @@ export const OrderParamsCard = ({
                           color: #757575;
                         `}
                       >
-                        Liquidation Price
+                        {t`Liquidation Price`}
                       </span>
-                      {/* TODO Liquidation Price */}
+
                       <span>
                         {liquidationPrice != '-' && '$'}
                         {liquidationPrice}
@@ -822,7 +812,6 @@ export const OrderParamsCard = ({
                       >
                         {t`Market Price`}
                       </span>
-                      {/* TODO Liquidation Price */}
                       <span>
                         $
                         {Number(BTCPrice).toLocaleString('en-US', {
@@ -842,9 +831,7 @@ export const OrderParamsCard = ({
                         padding-bottom: 8px;
                       `}
                     >
-                      <AlertIcon style={{ margin: '0 3px -3px 0' }} />{' '}
-                      {t`A fraction of your profits (if any) is taken when
-                      you close the trade`}
+                      <AlertIcon style={{ margin: '0 3px -3px 0' }} /> {t`A fraction of your profits...`}
                     </p>
                   </div>
                 )}
@@ -886,273 +873,10 @@ export const OrderParamsCard = ({
                 {/*  </span>*/}
                 {/*</p>*/}
               </div>
-              {/*{tradeModel && (*/}
-              {/*  <div*/}
-              {/*    css={css`*/}
-              {/*      margin-bottom: 16px;*/}
-              {/*    `}*/}
-              {/*  >*/}
-              {/*    <div>*/}
-              {/*      {(slSetting !== 0 || !slUsePercentage) && (*/}
-              {/*        <div*/}
-              {/*          css={css`*/}
-              {/*            display: flex;*/}
-              {/*            align-items: center;*/}
-              {/*            justify-content: space-between;*/}
-              {/*            padding: 8px 0;*/}
-              {/*          `}*/}
-              {/*        >*/}
-              {/*          <div>*/}
-              {/*            StopLoss{' '}*/}
-              {/*            <span*/}
-              {/*              css={css`*/}
-              {/*                color: #db4c40;*/}
-              {/*              `}*/}
-              {/*            >*/}
-              {/*              (*/}
-              {/*              {slUsePercentage*/}
-              {/*                ? '$' + getBigNumberStr(targetSl, 2)*/}
-              {/*                : getBigNumberStr(slPercentage, 2) + '%'}*/}
-              {/*              )*/}
-              {/*            </span>*/}
-              {/*          </div>*/}
-              {/*          <span>*/}
-              {/*            {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())*/}
-              {/*              ? '--'*/}
-              {/*              : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}*/}
-              {/*            {tradePool.symbol}*/}
-              {/*          </span>*/}
-              {/*        </div>*/}
-              {/*      )}*/}
-              {/*      {slSetting === 0 && slUsePercentage && (*/}
-              {/*        <div*/}
-              {/*          css={css`*/}
-              {/*            display: flex;*/}
-              {/*            align-items: center;*/}
-              {/*            justify-content: space-between;*/}
-              {/*            padding: 8px 0;*/}
-              {/*          `}*/}
-              {/*        >*/}
-              {/*          <div>*/}
-              {/*            StopLoss{' '}*/}
-              {/*            <span*/}
-              {/*              css={css`*/}
-              {/*                color: #db4c40;*/}
-              {/*              `}*/}
-              {/*            >*/}
-              {/*              (None)*/}
-              {/*            </span>*/}
-              {/*          </div>*/}
-              {/*          <span*/}
-              {/*            css={css`*/}
-              {/*              color: #db4c40;*/}
-              {/*            `}*/}
-              {/*          >*/}
-              {/*            None*/}
-              {/*          </span>*/}
-              {/*        </div>*/}
-              {/*      )}*/}
-              {/*      <div*/}
-              {/*        css={css`*/}
-              {/*          display: flex;*/}
-              {/*          align-items: center;*/}
-              {/*          justify-content: space-between;*/}
-              {/*          background: #f7f7f7;*/}
-              {/*          > span {*/}
-              {/*            cursor: pointer;*/}
-              {/*          }*/}
-              {/*        `}*/}
-              {/*      >*/}
-              {/*        <span*/}
-              {/*          css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(true, 0)}*/}
-              {/*        >*/}
-              {/*          None*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(true, -10)}*/}
-              {/*        >*/}
-              {/*          -10%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(true, -25)}*/}
-              {/*        >*/}
-              {/*          -25%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(true, -50)}*/}
-              {/*        >*/}
-              {/*          -50%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(true, -75)}*/}
-              {/*        >*/}
-              {/*          -75%*/}
-              {/*        </span>*/}
-              {/*        <Input*/}
-              {/*          type="number"*/}
-              {/*          placeholder="Price |"*/}
-              {/*          disableUnderline={true}*/}
-              {/*          value={slPrice}*/}
-              {/*          onChange={(event) => {*/}
-              {/*            setSlPrice(new BigNumber(event.target.value))*/}
-              {/*          }}*/}
-              {/*          onClick={() => setUseSlPercentage(false)}*/}
-              {/*          sx={{*/}
-              {/*            height: '28px',*/}
-              {/*            fontSize: '14px',*/}
-              {/*            minHeight: '28px',*/}
-              {/*            width: '73px',*/}
-              {/*            '& .MuiOutlinedInput-root': {*/}
-              {/*              height: '28px',*/}
-              {/*              minHeight: '28px',*/}
-              {/*              padding: 0,*/}
-              {/*            },*/}
-              {/*            '& .MuiInputBase-input': {*/}
-              {/*              background: '#fff!important',*/}
-              {/*              padding: '0px 0px 0px 4px',*/}
-              {/*              margin: '4px 4px 5px 0',*/}
-              {/*            },*/}
-              {/*          }}*/}
-              {/*        />*/}
-              {/*      </div>*/}
-              {/*    </div>*/}
-              {/*    <div>*/}
-              {/*      {(tpSetting !== 0 || !tpUsePercentage) && (*/}
-              {/*        <div*/}
-              {/*          css={css`*/}
-              {/*            display: flex;*/}
-              {/*            align-items: center;*/}
-              {/*            justify-content: space-between;*/}
-              {/*            padding: 16px 0 8px;*/}
-              {/*          `}*/}
-              {/*        >*/}
-              {/*          <div>*/}
-              {/*            Take Profit{' '}*/}
-              {/*            <span*/}
-              {/*              css={css`*/}
-              {/*                color: #009b72;*/}
-              {/*              `}*/}
-              {/*            >*/}
-              {/*              (*/}
-              {/*              {tpUsePercentage*/}
-              {/*                ? '$' + getBigNumberStr(targetTp, 2)*/}
-              {/*                : getBigNumberStr(tpPercentage, 2) + '%'}*/}
-              {/*              )*/}
-              {/*            </span>*/}
-              {/*          </div>*/}
-              {/*          {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())*/}
-              {/*            ? '--'*/}
-              {/*            : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}*/}
-              {/*          {tradePool.symbol}*/}
-              {/*        </div>*/}
-              {/*      )}*/}
-              {/*      {tpSetting === 0 && tpUsePercentage && (*/}
-              {/*        <div*/}
-              {/*          css={css`*/}
-              {/*            display: flex;*/}
-              {/*            align-items: center;*/}
-              {/*            justify-content: space-between;*/}
-              {/*            padding: 16px 0 8px;*/}
-              {/*          `}*/}
-              {/*        >*/}
-              {/*          <div>*/}
-              {/*            Take Profit{' '}*/}
-              {/*            <span*/}
-              {/*              css={css`*/}
-              {/*                color: #009b72;*/}
-              {/*              `}*/}
-              {/*            >*/}
-              {/*              (None)*/}
-              {/*            </span>*/}
-              {/*          </div>*/}
-              {/*          <span*/}
-              {/*            css={css`*/}
-              {/*              color: #009b72;*/}
-              {/*            `}*/}
-              {/*          >*/}
-              {/*            None*/}
-              {/*          </span>*/}
-              {/*        </div>*/}
-              {/*      )}*/}
-              {/*      <div*/}
-              {/*        css={css`*/}
-              {/*          display: flex;*/}
-              {/*          align-items: center;*/}
-              {/*          background: #f7f7f7;*/}
-              {/*          justify-content: space-between;*/}
-              {/*          > span {*/}
-              {/*            cursor: pointer;*/}
-              {/*          }*/}
-              {/*        `}*/}
-              {/*      >*/}
-              {/*        <span*/}
-              {/*          css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(false, 25)}*/}
-              {/*        >*/}
-              {/*          25%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(false, 50)}*/}
-              {/*        >*/}
-              {/*          50%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(false, 100)}*/}
-              {/*        >*/}
-              {/*          100%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(false, 300)}*/}
-              {/*        >*/}
-              {/*          300%*/}
-              {/*        </span>*/}
-              {/*        <span*/}
-              {/*          css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}*/}
-              {/*          onClick={() => handleTpSLSetting(false, 900)}*/}
-              {/*        >*/}
-              {/*          900%*/}
-              {/*        </span>*/}
-              {/*        <Input*/}
-              {/*          type="number"*/}
-              {/*          placeholder="Price |"*/}
-              {/*          disableUnderline={true}*/}
-              {/*          value={tpPrice}*/}
-              {/*          onChange={(event) => {*/}
-              {/*            setTpPrice(new BigNumber(event.target.value))*/}
-              {/*          }}*/}
-              {/*          onClick={() => setTpUsePercentage(false)}*/}
-              {/*          sx={{*/}
-              {/*            height: '28px',*/}
-              {/*            fontSize: '14px',*/}
-              {/*            minHeight: '28px',*/}
-              {/*            width: '73px',*/}
-              {/*            '& .MuiOutlinedInput-root': {*/}
-              {/*              height: '28px',*/}
-              {/*              minHeight: '28px',*/}
-              {/*              padding: 0,*/}
-              {/*            },*/}
-              {/*            '& .MuiInputBase-input': {*/}
-              {/*              background: '#fff!important',*/}
-              {/*              padding: '0px 0px 0px 4px',*/}
-              {/*              margin: '4px 4px 5px 0',*/}
-              {/*            },*/}
-              {/*          }}*/}
-              {/*        />*/}
-              {/*      </div>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*)}*/}
+
               {!account && (
                 <KRAVButton onClick={async () => setWalletDialogVisibility(true)}>
-                  {ButtonText.CONNECT_WALLET}
+                  {i18n._(ButtonTextMsg[buttonState as keyof typeof ButtonTextMsg])}
                 </KRAVButton>
               )}
               {account && isBuy && (
@@ -1164,14 +888,14 @@ export const OrderParamsCard = ({
                     buttonState === ButtonText.ENTER_AMOUNT
                   }
                   onClick={async () => {
-                    if (buttonState === 'Connect Wallet') {
+                    if (buttonState === ButtonText.CONNECT_WALLET) {
                       setWalletDialogVisibility(true)
                     } else {
                       await handleButtonClick()
                     }
                   }}
                 >
-                  <Trans>{buttonState}</Trans>
+                  {i18n._(ButtonTextMsg[buttonState as keyof typeof ButtonTextMsg])}
                 </KravLongButton>
               )}
               {account && !isBuy && (
@@ -1183,14 +907,14 @@ export const OrderParamsCard = ({
                     buttonState === ButtonText.ENTER_AMOUNT
                   }
                   onClick={async () => {
-                    if (buttonState === 'Connect Wallet') {
+                    if (buttonState === ButtonText.CONNECT_WALLET) {
                       setWalletDialogVisibility(true)
                     } else {
                       await handleButtonClick()
                     }
                   }}
                 >
-                  <Trans>{buttonState}</Trans>
+                  {i18n._(ButtonTextMsg[buttonState as keyof typeof ButtonTextMsg])}
                 </KravShortButton>
               )}
             </>

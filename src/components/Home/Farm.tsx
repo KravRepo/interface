@@ -107,7 +107,7 @@ export const Farm = () => {
                 sx={{ width: '160px', mt: '32px', mb: '25px' }}
                 onClick={() => setWalletDialogVisibility(true)}
               >
-                {t`Connect wallet`}
+                {t`Connect Wallet`}
               </KRAVButton>
             </>
           )}

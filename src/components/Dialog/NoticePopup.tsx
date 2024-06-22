@@ -52,9 +52,7 @@ export default function TermsAndAgreementDialog() {
               <CloseIcon sx={{ height: 14, width: 14 }} />
             </IconButton>
             <DialogContent sx={{ p: '14px 24px 14px 14px', fontSize: '12px' }}>
-              <b>{t`Note`}:</b>{' '}
-              {t`Liquidations are never based on the collateral token's price - only BTC price movements
-              in USDT. Happy Trading!`}
+              <b>{t`Note`}:</b> {t`Notice...`}
             </DialogContent>
           </div>
         </div>

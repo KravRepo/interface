@@ -44,7 +44,7 @@ export const Orders = () => {
         <div>{t`Action`}</div>
       </div>
       {userOpenLimitList.length === 0 && account && <div className="no-data">{t`No Orders`}</div>}
-      {!account && <div className="no-data">{t`Connect wallet`}</div>}
+      {!account && <div className="no-data">{t`Connect Wallet`}</div>}
       {userOpenLimitList.length > 0 &&
         account &&
         userOpenLimitList.map((limit, index) => {

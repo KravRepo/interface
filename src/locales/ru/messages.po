@@ -1,0 +1,775 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-06-22 14:16+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ru\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+msgid "Disconnect"
+msgstr ""
+
+msgid "Total Liquidity Provider"
+msgstr ""
+
+msgid "Come create one!"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "Target Market"
+msgstr ""
+
+msgid "Create Liquidity"
+msgstr ""
+
+msgid "Liq.price"
+msgstr ""
+
+msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
+msgstr ""
+
+msgid "Fees"
+msgstr ""
+
+msgid "pair"
+msgstr ""
+
+msgid "Withdraw request confirmed"
+msgstr ""
+
+msgid "Positions"
+msgstr ""
+
+msgid "POOL TOTAL STAKED"
+msgstr ""
+
+msgid "Orders"
+msgstr ""
+
+msgid "Confirm Limit Order"
+msgstr ""
+
+msgid "Please wait 24 hours to remove liquidity"
+msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+msgid "Earn Yield"
+msgstr ""
+
+msgid "Increase unlock time"
+msgstr ""
+
+msgid "My Pool"
+msgstr ""
+
+msgid "Krav requests wallet interaction"
+msgstr ""
+
+msgid "Pay"
+msgstr ""
+
+msgid "Fees Rewards"
+msgstr ""
+
+msgid "Mint"
+msgstr ""
+
+msgid "Market Cap"
+msgstr ""
+
+msgid "24h Trading Volume"
+msgstr ""
+
+msgid "Collateral"
+msgstr ""
+
+msgid "YOUR STAKED"
+msgstr ""
+
+msgid "Loading BTC data..."
+msgstr ""
+
+msgid "Exchange ratio"
+msgstr ""
+
+msgid "Liquidity"
+msgstr ""
+
+msgid "APR"
+msgstr ""
+
+msgid "Liquidity being provided"
+msgstr ""
+
+msgid "Navigate to the 'dashboard' page to claim your fee earnings"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "To trade"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
+msgstr ""
+
+msgid "REWARD"
+msgstr ""
+
+msgid "Withdraw Status"
+msgstr ""
+
+msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
+msgstr ""
+
+msgid "Your Withdraw Limit"
+msgstr ""
+
+msgid "Notice..."
+msgstr ""
+
+msgid "Utilization"
+msgstr ""
+
+msgid "Market Price"
+msgstr ""
+
+msgid "Rewards will be refreshed on"
+msgstr ""
+
+msgid "VIEW MORE"
+msgstr ""
+
+msgid "Pair"
+msgstr ""
+
+msgid "ASSET"
+msgstr ""
+
+msgid "KRAV Locking Amount"
+msgstr ""
+
+msgid "Initial LP Provision"
+msgstr ""
+
+msgid "Invite Friends Now!"
+msgstr ""
+
+msgid "Invite your friends"
+msgstr ""
+
+msgid "Approve ..."
+msgstr ""
+
+msgid "Faucet"
+msgstr ""
+
+msgid "Learn more about Staking Krav"
+msgstr ""
+
+msgid "Your Pool Stake"
+msgstr ""
+
+msgid "Go back"
+msgstr ""
+
+msgid "Locking Period"
+msgstr ""
+
+msgid "Slippage"
+msgstr ""
+
+msgid "Exchange"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+#. js-lingui-explicit-id
+#~ msgid "Collateral"
+#~ msgstr ""
+
+msgid "Connect Wallet"
+msgstr ""
+
+msgid "1 KRAV → Coming Soon"
+msgstr ""
+
+msgid "Current price"
+msgstr ""
+
+msgid "Current TP"
+msgstr ""
+
+msgid "Address"
+msgstr ""
+
+msgid "TOTAL LIQUIDITY SUPPLY"
+msgstr ""
+
+msgid "Total Trading Volume"
+msgstr ""
+
+msgid "My Asset"
+msgstr ""
+
+msgid "Your Liquidity Supply"
+msgstr ""
+
+msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Next distribution"
+msgstr ""
+
+msgid "Please change network."
+msgstr ""
+
+msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
+msgstr ""
+
+msgid ""
+"Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
+"potential by up to 2.5x"
+msgstr ""
+
+msgid "Open Interest (L/S)"
+msgstr ""
+
+msgid "Actual trading volume"
+msgstr ""
+
+msgid "No Orders"
+msgstr ""
+
+msgid "Confirm Long"
+msgstr ""
+
+msgid "Awaiting..."
+msgstr ""
+
+msgid "Earning Information"
+msgstr ""
+
+msgid "WITHDRAW_BLOCK"
+msgstr ""
+
+msgid "{0}"
+msgstr ""
+
+msgid "Trade"
+msgstr ""
+
+msgid "Stake"
+msgstr ""
+
+msgid "Liquidity Remove Limit"
+msgstr ""
+
+msgid "2. Fees"
+msgstr ""
+
+msgid "You have no Staked Krav"
+msgstr ""
+
+msgid "Leverage"
+msgstr ""
+
+msgid "Note"
+msgstr ""
+
+msgid "Reached max positions limit"
+msgstr ""
+
+msgid "Market"
+msgstr ""
+
+msgid "My history"
+msgstr ""
+
+msgid "tradeType"
+msgstr ""
+
+msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
+msgstr ""
+
+msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+msgstr ""
+
+msgid "short withdraw notice..."
+msgstr ""
+
+msgid "Portfolio"
+msgstr ""
+
+msgid "Insufficient Balance"
+msgstr ""
+
+msgid "Burn"
+msgstr ""
+
+msgid "Allowed Slippage"
+msgstr ""
+
+msgid "Amount that can be claimed"
+msgstr ""
+
+msgid "Add Liquidity"
+msgstr ""
+
+msgid "Total Stake"
+msgstr ""
+
+#~ msgid "Order limit:"
+#~ msgstr ""
+
+msgid "{slButtonText}"
+msgstr ""
+
+msgid "Features"
+msgstr ""
+
+msgid "Earn"
+msgstr ""
+
+msgid "Learn more about Liquidity Pool"
+msgstr ""
+
+msgid "Your 24h Trading Volume"
+msgstr ""
+
+msgid "Liquidity Provider after boost"
+msgstr ""
+
+msgid "Short"
+msgstr ""
+
+msgid "My current Liquidity Provider boost"
+msgstr ""
+
+msgid "Liquidity Creation"
+msgstr ""
+
+msgid "Liq. Price"
+msgstr ""
+
+#~ msgid "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
+#~ msgstr ""
+
+msgid "Net Exposure"
+msgstr ""
+
+msgid "View Details"
+msgstr ""
+
+msgid "Share of pool"
+msgstr ""
+
+#~ msgid ""
+#~ "when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and\n"
+#~ "the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
+#~ "environment. 25% of deposited liquidity may be removed at a time."
+#~ msgstr ""
+
+msgid "WITH ANY ALTCOIN"
+msgstr ""
+
+msgid "Documentation"
+msgstr ""
+
+msgid "Take Profit"
+msgstr ""
+
+msgid "Mint to"
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Pending"
+msgstr ""
+
+msgid "+ Provider liquidity"
+msgstr ""
+
+msgid "Unlock"
+msgstr ""
+
+#~ msgid "Connect wallet"
+#~ msgstr ""
+
+msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
+msgstr ""
+
+msgid "Coming Soon"
+msgstr ""
+
+msgid "successfully."
+msgstr ""
+
+msgid "Total Liquidity Supply"
+msgstr ""
+
+msgid "Сongratulations!"
+msgstr ""
+
+msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
+msgstr ""
+
+msgid "Actual Liquidity Provider"
+msgstr ""
+
+msgid "Locked until"
+msgstr ""
+
+msgid "Available Liquidity"
+msgstr ""
+
+msgid "Support"
+msgstr ""
+
+msgid "You veKRAV Supply"
+msgstr ""
+
+msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
+msgstr ""
+
+msgid "UTILIZATION"
+msgstr ""
+
+msgid "Referrals"
+msgstr ""
+
+msgid "Confirm Short"
+msgstr ""
+
+msgid "Stay tuned! This feature will be launched soon."
+msgstr ""
+
+msgid "Trades"
+msgstr ""
+
+msgid "Remaining"
+msgstr ""
+
+msgid "My Boost"
+msgstr ""
+
+msgid "YOUR LIQUIDITY SUPPLY"
+msgstr ""
+
+msgid "Price"
+msgstr ""
+
+msgid "Lock Period"
+msgstr ""
+
+msgid "{buttonText}"
+msgstr ""
+
+msgid "Unsupported network!"
+msgstr ""
+
+msgid "Action"
+msgstr ""
+
+msgid "Order limit"
+msgstr ""
+
+msgid "Light Mode"
+msgstr ""
+
+msgid "Total assets"
+msgstr ""
+
+msgid "Mark price"
+msgstr ""
+
+msgid "Available"
+msgstr ""
+
+msgid "Stake&Burn Amount"
+msgstr ""
+
+msgid "Current SL"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Learn more about Liquidity Pools"
+msgstr ""
+
+msgid "Funding Rate (L)"
+msgstr ""
+
+msgid "Total Value"
+msgstr ""
+
+msgid "Coll"
+msgstr ""
+
+msgid "Krav requests wallet approval"
+msgstr ""
+
+msgid "LP REWARD"
+msgstr ""
+
+msgid "Expected earnings"
+msgstr ""
+
+msgid "Yield Earned"
+msgstr ""
+
+msgid "Token Exchange"
+msgstr ""
+
+msgid "Collateral in"
+msgstr ""
+
+msgid "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
+msgstr ""
+
+msgid "Step 2 Select Token Collateral"
+msgstr ""
+
+msgid "To Vote"
+msgstr ""
+
+msgid "Amount"
+msgstr ""
+
+msgid "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
+msgstr ""
+
+msgid "Claim"
+msgstr ""
+
+msgid "Enter an amount"
+msgstr ""
+
+msgid "Select a network"
+msgstr ""
+
+msgid "{buttonStr}"
+msgstr ""
+
+msgid "No trade history"
+msgstr ""
+
+msgid "PERPETUAL FUTURES"
+msgstr ""
+
+msgid "REMOVE LIMIT"
+msgstr ""
+
+msgid "Staking Krav"
+msgstr ""
+
+#~ msgid "Liquidation price"
+#~ msgstr ""
+
+msgid "Now Epoch"
+msgstr ""
+
+msgid "{tpButtonText}"
+msgstr ""
+
+msgid "Deposit Amount/Initial LP Provision"
+msgstr ""
+
+msgid "long withdraw notice..."
+msgstr ""
+
+msgid "Total Governance Reward Pool"
+msgstr ""
+
+msgid "Boost"
+msgstr ""
+
+msgid "Funding Rate (S)"
+msgstr ""
+
+msgid "Step 3 Initial LP Provision"
+msgstr ""
+
+msgid "A fraction of your profits..."
+msgstr ""
+
+msgid "Deposit and create"
+msgstr ""
+
+msgid "Step 1 Choose Target Market"
+msgstr ""
+
+msgid "PnL: -90 to +900"
+msgstr ""
+
+msgid "Check approve"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+msgid "Krav waiting for transaction settlement"
+msgstr ""
+
+msgid "Start Trading"
+msgstr ""
+
+msgid "Developers"
+msgstr ""
+
+msgid "Loading pool data..."
+msgstr ""
+
+msgid "My Rewards"
+msgstr ""
+
+#~ msgid ""
+#~ "A fraction of your profits (if any) is taken when\n"
+#~ "you close the trade"
+#~ msgstr ""
+
+msgid "StopLoss"
+msgstr ""
+
+msgid "Dark Mode"
+msgstr ""
+
+msgid "No Position yet"
+msgstr ""
+
+msgid "Long"
+msgstr ""
+
+msgid "Position"
+msgstr ""
+
+msgid "Liquidation Price"
+msgstr ""
+
+msgid "No Fees Reward"
+msgstr ""
+
+msgid "My Liquidity Pools"
+msgstr ""
+
+#~ msgid "{key}"
+#~ msgstr ""
+
+msgid "Connect to a wallet to view your positions."
+msgstr ""
+
+msgid "Select Token Collateral"
+msgstr ""
+
+msgid "Choose Target Market"
+msgstr ""
+
+msgid "KRAV Staking"
+msgstr ""
+
+msgid "Liquidity Provider Rewards"
+msgstr ""
+
+#~ msgid ""
+#~ "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
+#~ "balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
+#~ "environment. 25% of deposited liquidity may be removed at a time."
+#~ msgstr ""
+
+msgid "Entry Price"
+msgstr ""
+
+msgid "24h Change"
+msgstr ""
+
+msgid "You have no liquidity"
+msgstr ""
+
+msgid "Ask Price"
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "My current trade boost"
+msgstr ""
+
+msgid "Your staked :"
+msgstr ""
+
+msgid "Can not find the target asset you want to trade?"
+msgstr ""
+
+msgid "Locked amount"
+msgstr ""
+
+msgid "My Order"
+msgstr ""
+
+msgid "KRAV - Terms of Service"
+msgstr ""
+
+msgid "Min position size is 1500"
+msgstr ""
+
+msgid "Entry price"
+msgstr ""
+
+msgid "No stake yet"
+msgstr ""
+
+msgid "Daily Trading Rewards"
+msgstr ""
+
+msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
+msgstr ""
+
+msgid "1. Disclaimer"
+msgstr ""
+
+msgid "24h Volume"
+msgstr ""
+
+msgid "End"
+msgstr ""
+
+#~ msgid "{buttonState}"
+#~ msgstr ""
+
+msgid "Limit"
+msgstr ""
+
+msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
+msgstr ""
+
+msgid "Close"
+msgstr ""
+
+msgid "Your Liquidity Provider"
+msgstr ""
+
+msgid "Exchange ratio :"
+msgstr ""
+
+msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
+msgstr ""

@@ -163,7 +163,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
               <div className="input-params">
                 <div>{t`Select Token Collateral`}</div>
                 <KRAVTextField
-                  label="Enter Asset contract or select Asset"
+                  label={t`Enter Asset contract or select Asset`}
                   // InputProps={{
                   //   endAdornment: <KRAVButton sx={{ width: '92px' }}>My asset</KRAVButton>,
                   // }}

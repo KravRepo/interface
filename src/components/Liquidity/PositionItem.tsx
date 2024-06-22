@@ -70,9 +70,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         {/*</p>*/}
       </div>
       <div>
-        <Tooltip
-          title={t`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
-        >
+        <Tooltip title={t`short withdraw notice...`}>
           <span css={align}>
             {lockAmount.isGreaterThan(0)
               ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFixed(2)

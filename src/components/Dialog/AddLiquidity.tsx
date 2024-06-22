@@ -15,7 +15,7 @@ import BigNumber from 'bignumber.js'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 import { DialogLayout } from './DialogLayout'
-import { t } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 
 export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
   const theme = useTheme()
@@ -73,12 +73,8 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
             lineHeight={'150%'}
             sx={{ marginTop: '16px !important' }}
           >
-            <span style={{ fontWeight: 600 }}>Note: </span>
-            <span>
-              {t`When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the
-              balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity
-              environment. 25% of deposited liquidity may be removed at a time.`}
-            </span>
+            <span style={{ fontWeight: 600 }}>{t`Note`}: </span>
+            <span>{t`long withdraw notice...`}</span>
           </Typography>
         </Box>
         <div
@@ -189,7 +185,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
             }}
             sx={{ mt: '24px' }}
           >
-            Add
+            <Trans>Add</Trans>
           </KRAVButton>
         </div>
       </div>

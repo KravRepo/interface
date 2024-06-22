@@ -25,7 +25,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import { withDecimals } from '../../utils'
 import { PoolParams } from '../../store/FactorySlice'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
-import { t } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 
 const StyledBox = styled(Box)(() => ({
   borderBottom: '1px solid var(--ps-text-20)',
@@ -110,11 +110,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               sx={{ marginTop: '16px !important' }}
             >
               <span style={{ fontWeight: 600 }}>{t`Note`}: </span>
-              <span>
-                {t`when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and
-                the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity
-                environment. 25% of deposited liquidity may be removed at a time.`}
-              </span>
+              <span>{t`long withdraw notice...`}</span>
             </Typography>
           </Box>
           <div
@@ -138,9 +134,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   margin-bottom: 20px;
                 `}
               >
-                <span>Amount</span>
                 <span>
-                  Available: {maxWithdrawAmount.toFixed(2)} {liquidityInfo.symbol}
+                  <Trans>Pay</Trans>
+                </span>
+                <span>
+                  <Trans>Available</Trans>: {maxWithdrawAmount.toFixed(2)} {liquidityInfo.symbol}
                 </span>
               </div>
               <div
@@ -224,7 +222,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               }}
               sx={{ mt: '24px' }}
             >
-              Remove
+              <Trans>Remove</Trans>
             </KRAVButton>
           </div>
           <ExistingRequest

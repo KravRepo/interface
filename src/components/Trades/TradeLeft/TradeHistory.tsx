@@ -117,7 +117,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         <span>%</span>
       </div>
       {historyList.length === 0 && account && <div className="no-data">{t`No trade history`}</div>}
-      {!account && <div className="no-data">{t`Connect wallet`}</div>}
+      {!account && <div className="no-data">{t`Connect Wallet`}</div>}
       {historyList.length > 0 &&
         account &&
         historyList.map((history, index) => {

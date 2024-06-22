@@ -82,7 +82,7 @@ export const MyOrder = () => {
                 mr: '16px',
                 color: '#757575',
               }}
-              label={`Positions ${useAllOpenTradesCount > 0 ? '(' + useAllOpenTradesCount + ')' : ''}`}
+              label={`${t`Positions`} ${useAllOpenTradesCount > 0 ? '(' + useAllOpenTradesCount + ')' : ''}`}
             />
             <Tab
               sx={{
@@ -92,7 +92,7 @@ export const MyOrder = () => {
                 padding: '12px 0',
                 color: '#757575',
               }}
-              label={`Orders ${userAllOpenLimitCount > 0 ? '(' + userAllOpenLimitCount + ')' : ''}`}
+              label={`${t`Orders`} ${userAllOpenLimitCount > 0 ? '(' + userAllOpenLimitCount + ')' : ''}`}
             />
             <Tab
               sx={{
@@ -101,7 +101,7 @@ export const MyOrder = () => {
                 padding: '12px 0',
                 color: '#757575',
               }}
-              label="Trades"
+              label={t`Trades`}
             />
           </Tabs>
         </div>

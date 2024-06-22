@@ -512,7 +512,7 @@ export const ProfitConfirmTrade = ({
                 <span>${new BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
-                <span>{t`Liquidation price`}</span>
+                <span>{t`Liquidation Price`}</span>
                 <span>${lqPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
             </div>

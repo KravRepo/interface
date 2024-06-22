@@ -16,55 +16,39 @@ msgstr ""
 #~ msgid "Come"
 #~ msgstr "Come"
 
-#: src/components/Header/SettingMenuContent.tsx
 msgid "Disconnect"
 msgstr "Disconnect"
 
 #~ msgid "1 year"
 #~ msgstr "1 year"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Total Liquidity Provider"
 msgstr "Total Liquidity Provider"
 
-#: src/components/Dialog/SelectToken.tsx
 msgid "Come create one!"
 msgstr "Come create one!"
 
-#: src/components/Home/LimitOrder.tsx
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "Type"
 msgstr "Type"
 
-#: src/components/Dialog/ConfirmCreatPool.tsx
-#: src/components/Liquidity/TargetMarket.tsx
 msgid "Target Market"
 msgstr "Target Market"
 
-#: src/components/Liquidity/TargetMarket.tsx
 msgid "Create Liquidity"
 msgstr "Create Liquidity"
 
-#: src/components/Home/MarketOrder.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
 msgid "Liq.price"
 msgstr "Liq.price"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
 msgstr "When actually distributing income, calculate your ratio according to your trading volume after boost"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Fees"
 msgstr "Fees"
 
-#: src/components/Home/LimitOrder.tsx
 msgid "pair"
 msgstr "pair"
 
-#: src/components/Dialog/SuccessDialog.tsx
 msgid "Withdraw request confirmed"
 msgstr "Withdraw request confirmed"
 
@@ -74,39 +58,30 @@ msgstr "Withdraw request confirmed"
 #~ msgid "Basic"
 #~ msgstr "Basic"
 
-#~ msgid "Positions"
-#~ msgstr "Positions"
+msgid "Positions"
+msgstr "Positions"
 
-#: src/components/Home/Stake.tsx
 msgid "POOL TOTAL STAKED"
 msgstr "POOL TOTAL STAKED"
 
-#~ msgid "Orders"
-#~ msgstr "Orders"
+msgid "Orders"
+msgstr "Orders"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Confirm Limit Order"
 msgstr "Confirm Limit Order"
 
-#: src/components/Dialog/SuccessDialog.tsx
 msgid "Please wait 24 hours to remove liquidity"
 msgstr "Please wait 24 hours to remove liquidity"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
 msgid "Statistics"
 msgstr "Statistics"
 
-#: src/pages/Greeting.tsx
 msgid "Earn Yield"
 msgstr "Earn Yield"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "Increase unlock time"
 msgstr "Increase unlock time"
 
-#: src/components/Home/componets/EarningInfoMobile.tsx
-#: src/components/Home/Dashboard.tsx
 msgid "My Pool"
 msgstr "My Pool"
 
@@ -116,7 +91,6 @@ msgstr "My Pool"
 #~ msgid "Token Collateral"
 #~ msgstr "Token Collateral"
 
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Krav requests wallet interaction"
 msgstr "Krav requests wallet interaction"
 
@@ -144,25 +118,18 @@ msgstr "Krav requests wallet interaction"
 #~ msgid "Rewards"
 #~ msgstr "Rewards"
 
-#: src/components/Dialog/AddLiquidity.tsx
-#: src/components/Dialog/ConfirmTrade.tsx
-#: src/components/Dialog/StakeDialog.tsx
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "Pay"
 msgstr "Pay"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Fees Rewards"
 msgstr "Fees Rewards"
 
-#: src/components/Exchange/ExchangeAction.tsx
 msgid "Mint"
 msgstr "Mint"
 
-#~ msgid "Market Cap"
-#~ msgstr "Market Cap"
+msgid "Market Cap"
+msgstr "Market Cap"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "24h Trading Volume"
 msgstr "24h Trading Volume"
 
@@ -175,11 +142,6 @@ msgstr "24h Trading Volume"
 #~ msgid "Contract Specifications"
 #~ msgstr "Contract Specifications"
 
-#: src/components/Dialog/ConfirmTrade.tsx
-#: src/components/Home/LimitOrder.tsx
-#: src/components/Home/MarketOrder.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
 msgid "Collateral"
 msgstr "Collateral"
 
@@ -190,38 +152,27 @@ msgstr "Collateral"
 #~ "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint\n"
 #~ "start time."
 
-#: src/components/Home/Stake.tsx
 msgid "YOUR STAKED"
 msgstr "YOUR STAKED"
 
-#: src/components/Trades/TradeLeft/CoinInfo.tsx
 msgid "Loading BTC data..."
 msgstr "Loading BTC data..."
 
-#: src/components/Exchange/MintHistory.tsx
 msgid "Exchange ratio"
 msgstr "Exchange ratio"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
 msgid "Liquidity"
 msgstr "Liquidity"
 
 #~ msgid "Coming Summer 2024"
 #~ msgstr "Coming Summer 2024"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
-#: src/components/Home/Stake.tsx
 msgid "APR"
 msgstr "APR"
 
-#: src/components/Home/componets/EarningInfoMobile.tsx
-#: src/components/Home/Dashboard.tsx
 msgid "Liquidity being provided"
 msgstr "Liquidity being provided"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Navigate to the 'dashboard' page to claim your fee earnings"
 msgstr "Navigate to the 'dashboard' page to claim your fee earnings"
 
@@ -231,133 +182,96 @@ msgstr "Navigate to the 'dashboard' page to claim your fee earnings"
 #~ msgid "Lock & Mint"
 #~ msgstr "Lock & Mint"
 
-#: src/components/Dialog/ConfirmCreatPool.tsx
-#: src/components/Dialog/ConfirmCreatPool.tsx
 msgid "Confirm"
 msgstr "Confirm"
 
-#: src/components/Home/MyOrder.tsx
 msgid "To trade"
 msgstr "To trade"
 
-#: src/components/Home/LeftMenu.tsx
 msgid "Dashboard"
 msgstr "Dashboard"
 
 #~ msgid "krav has been staked successfully"
 #~ msgstr "krav has been staked successfully"
 
-#~ msgid "Liquidations are never based on the collateral token's price - only BTC price movements in USDT. Happy Trading!"
-#~ msgstr "Liquidations are never based on the collateral token's price - only BTC price movements in USDT. Happy Trading!"
-
-#: src/components/Dialog/NoticePopup.tsx
-msgid ""
-"Liquidations are never based on the collateral token's price - only BTC price movements\n"
-"in USDT. Happy Trading!"
-msgstr ""
-"Liquidations are never based on the collateral token's price - only BTC price movements\n"
-"in USDT. Happy Trading!"
-
-#: src/components/Home/componets/MyLocked.tsx
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 
 #~ msgid "Invite Chain"
 #~ msgstr "Invite Chain"
 
-#: src/components/Home/Stake.tsx
 msgid "REWARD"
 msgstr "REWARD"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Withdraw Status"
 msgstr "Withdraw Status"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
 msgstr "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
 
 #~ msgid "When the price reaches"
 #~ msgstr "When the price reaches"
 
-#: src/components/Liquidity/PositionItemCard.tsx
 msgid "Your Withdraw Limit"
 msgstr "Your Withdraw Limit"
 
 #~ msgid "Total value"
 #~ msgstr "Total value"
 
-#: src/components/Liquidity/MarketItemCard.tsx
-#: src/components/Liquidity/PositionItemCard.tsx
+msgid "Notice..."
+msgstr "Liquidations are never based on the collateral token's price - only BTC price movements in USDT. Happy Trading!"
+
 msgid "Utilization"
 msgstr "Utilization"
 
-#: src/components/Trades/TradeLeft/Orders.tsx
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "Market Price"
 msgstr "Market Price"
 
 #~ msgid "Something went wrong..."
 #~ msgstr "Something went wrong..."
 
-#: src/components/Home/componets/KravRewardCard.tsx
 msgid "Rewards will be refreshed on"
 msgstr "Rewards will be refreshed on"
 
 #~ msgid "Invite Rewards"
 #~ msgstr "Invite Rewards"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "VIEW MORE"
 msgstr "VIEW MORE"
 
-#: src/components/Header/Header.tsx
 #~ msgid "DashBoard"
 #~ msgstr "DashBoard"
 
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "Pair"
 msgstr "Pair"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
-#: src/components/Home/Stake.tsx
-#: src/components/Liquidity/TargetMarket.tsx
-#: src/components/Liquidity/YourPosition.tsx
 msgid "ASSET"
 msgstr "ASSET"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "KRAV Locking Amount"
 msgstr "KRAV Locking Amount"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Initial LP Provision"
 msgstr "Initial LP Provision"
 
-#: src/components/Home/Referral.tsx
 msgid "Invite Friends Now!"
 msgstr "Invite Friends Now!"
 
-#: src/components/Home/Referral.tsx
 msgid "Invite your friends"
 msgstr "Invite your friends"
 
-#: src/components/Dialog/FaucetDialog.tsx
-#: src/components/Dialog/FaucetDialog.tsx
-#: src/components/Header/WalletButton.tsx
+msgid "Approve ..."
+msgstr "Approve ..."
+
 msgid "Faucet"
 msgstr "Faucet"
 
-#: src/components/Home/Stake.tsx
 msgid "Learn more about Staking Krav"
 msgstr "Learn more about Staking Krav"
 
 #~ msgid "OPEN"
 #~ msgstr "OPEN"
 
-#: src/components/Liquidity/PositionItemCard.tsx
 msgid "Your Pool Stake"
 msgstr "Your Pool Stake"
 
@@ -367,96 +281,73 @@ msgstr "Your Pool Stake"
 #~ msgid "Share On Social Media"
 #~ msgstr "Share On Social Media"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Go back"
 msgstr "Go back"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "Locking Period"
 msgstr "Locking Period"
 
-#~ msgid "Slippage"
-#~ msgstr "Slippage"
+msgid "Slippage"
+msgstr "Slippage"
 
-#: src/components/Header/Header.tsx
 msgid "Exchange"
 msgstr "Exchange"
 
-#: src/components/Home/MarketOrder.tsx
 msgid "Size"
 msgstr "Size"
 
-#: src/components/Header/WalletButton.tsx
-#: src/components/Home/Stake.tsx
-#: src/components/Liquidity/MarketItemCard.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
+#. js-lingui-explicit-id
+#~ msgid "Collateral"
+#~ msgstr "Collateral"
+
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-#: src/components/Exchange/ExchangeAction.tsx
-#: src/components/Exchange/Title.tsx
 msgid "1 KRAV → Coming Soon"
 msgstr "1 KRAV → Coming Soon"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "Current price"
 msgstr "Current price"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "Current TP"
 msgstr "Current TP"
 
-#: src/components/Exchange/MintHistory.tsx
 msgid "Address"
 msgstr "Address"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Liquidity/TargetMarket.tsx
 msgid "TOTAL LIQUIDITY SUPPLY"
 msgstr "TOTAL LIQUIDITY SUPPLY"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "Total Trading Volume"
 msgstr "Total Trading Volume"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "My Asset"
 msgstr "My Asset"
 
-#: src/components/Liquidity/MarketItemCard.tsx
-#: src/components/Liquidity/PositionItemCard.tsx
 msgid "Your Liquidity Supply"
 msgstr "Your Liquidity Supply"
 
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
 msgstr "Please open your wallet and confirm in the transaction activity to proceed your order."
 
 #~ msgid "TOKEN"
 #~ msgstr "TOKEN"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
-#: src/components/Dialog/ProfitConfirmTrade.tsx
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "None"
 msgstr "None"
 
-#: src/components/Home/componets/KravRewardCard.tsx
 msgid "Next distribution"
 msgstr "Next distribution"
 
-#: src/components/Header/Header.tsx
 msgid "Please change network."
 msgstr "Please change network."
 
 #~ msgid "My current trade boost :"
 #~ msgstr "My current trade boost :"
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 
-#: src/components/Home/NewStake.tsx
 msgid ""
 "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
 "potential by up to 2.5x"
@@ -464,171 +355,138 @@ msgstr ""
 "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
 "potential by up to 2.5x"
 
+msgid "Open Interest (L/S)"
+msgstr "Open Interest (L/S)"
+
 #~ msgid "No open position"
 #~ msgstr "No open position"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "Actual trading volume"
 msgstr "Actual trading volume"
 
 #~ msgid "There is a problem with "
 #~ msgstr "There is a problem with "
 
-#: src/components/Trades/TradeLeft/Orders.tsx
 msgid "No Orders"
 msgstr "No Orders"
 
 #~ msgid "Stop loss less then open price"
 #~ msgstr "Stop loss less then open price"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Confirm Long"
 msgstr "Confirm Long"
 
-#: src/components/Dialog/TransactionDialog.tsx
-#: src/components/Dialog/TransactionDialog.tsx
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Awaiting..."
 msgstr "Awaiting..."
 
 #~ msgid "Min lock period one week"
 #~ msgstr "Min lock period one week"
 
-#: src/components/Home/Dashboard.tsx
 msgid "Earning Information"
 msgstr "Earning Information"
 
-#: src/components/Liquidity/YourPosition.tsx
 msgid "WITHDRAW_BLOCK"
 msgstr "WITHDRAW_BLOCK"
 
-#: src/components/Dialog/SuccessDialog.tsx
 msgid "{0}"
 msgstr "{0}"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
 msgid "Trade"
 msgstr "Trade"
 
 #~ msgid "BTC"
 #~ msgstr "BTC"
 
-#: src/components/Dialog/StakeDialog.tsx
 msgid "Stake"
 msgstr "Stake"
 
-#: src/components/Dialog/AddLiquidity.tsx
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Liquidity Remove Limit"
 msgstr "Liquidity Remove Limit"
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "2. Fees"
 msgstr "2. Fees"
 
-#: src/components/Home/Stake.tsx
 msgid "You have no Staked Krav"
 msgstr "You have no Staked Krav"
 
 #~ msgid "Total Staked"
 #~ msgstr "Total Staked"
 
-#: src/components/Dialog/ConfirmTrade.tsx
-#: src/components/Home/LimitOrder.tsx
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "Leverage"
 msgstr "Leverage"
 
-#: src/components/Dialog/NoticePopup.tsx
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Note"
 msgstr "Note"
 
-#~ msgid "Reached max positions limit"
-#~ msgstr "Reached max positions limit"
+msgid "Reached max positions limit"
+msgstr "Reached max positions limit"
 
 #~ msgid "V1"
 #~ msgstr "V1"
 
+msgid "Market"
+msgstr "Market"
+
 #~ msgid "The profit will be"
 #~ msgstr "The profit will be"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
 #~ msgid "24H Low"
 #~ msgstr "24H Low"
 
 #~ msgid "Your positions"
 #~ msgstr "Your positions"
 
-#: src/components/Exchange/MintHistory.tsx
 msgid "My history"
 msgstr "My history"
 
-#: src/components/Trades/TradeLeft/HistoryItem.tsx
 msgid "tradeType"
 msgstr "tradeType"
 
 #~ msgid "Mint will start after"
 #~ msgstr "Mint will start after"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 msgstr "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 
 #~ msgid "Stake Krav"
 #~ msgstr "Stake Krav"
 
-#: src/components/Liquidity/Step.tsx
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 msgstr "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+msgid "short withdraw notice..."
+msgstr "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
+
 msgid "Portfolio"
 msgstr "Portfolio"
 
 #~ msgid "AMOUNT"
 #~ msgstr "AMOUNT"
 
-#~ msgid "Insufficient Balance"
-#~ msgstr "Insufficient Balance"
+msgid "Insufficient Balance"
+msgstr "Insufficient Balance"
 
-#: src/components/Exchange/ExchangeAction.tsx
 msgid "Burn"
 msgstr "Burn"
 
 #~ msgid "Take Profit great then open price"
 #~ msgstr "Take Profit great then open price"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Allowed Slippage"
 msgstr "Allowed Slippage"
 
-#: src/components/Exchange/ExchangeAction.tsx
 msgid "Amount that can be claimed"
 msgstr "Amount that can be claimed"
 
-#: src/components/Header/Header.tsx
 #~ msgid "Base"
 #~ msgstr "Base"
 
 #~ msgid "Hash"
 #~ msgstr "Hash"
 
-#: src/components/Dialog/AddLiquidity.tsx
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
-#: src/components/Liquidity/MarketItem.tsx
-#: src/components/Liquidity/MarketItemCard.tsx
 msgid "Add Liquidity"
 msgstr "Add Liquidity"
 
-#: src/components/Home/NewStake.tsx
 msgid "Total Stake"
 msgstr "Total Stake"
 
@@ -641,20 +499,15 @@ msgstr "Total Stake"
 #~ msgid "Withdraw"
 #~ msgstr "Withdraw"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "{slButtonText}"
 msgstr "{slButtonText}"
 
 #~ msgid "Available Liquidity:"
 #~ msgstr "Available Liquidity:"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
 msgid "Features"
 msgstr "Features"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
 msgid "Earn"
 msgstr "Earn"
 
@@ -664,175 +517,117 @@ msgstr "Earn"
 #~ msgid "closing..."
 #~ msgstr "closing..."
 
-#: src/components/Home/DashboardFarm.tsx
 msgid "Learn more about Liquidity Pool"
 msgstr "Learn more about Liquidity Pool"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "Your 24h Trading Volume"
 msgstr "Your 24h Trading Volume"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Liquidity Provider after boost"
 msgstr "Liquidity Provider after boost"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Short"
 msgstr "Short"
 
-#: src/components/Home/componets/MyLocked.tsx
 msgid "My current Liquidity Provider boost"
 msgstr "My current Liquidity Provider boost"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Liquidity Creation"
 msgstr "Liquidity Creation"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Liq. Price"
 msgstr "Liq. Price"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
 #~ msgid "Borrowing(S)"
 #~ msgstr "Borrowing(S)"
 
 #~ msgid "No Fees Rewards"
 #~ msgstr "No Fees Rewards"
 
-#: src/components/Liquidity/PositionItem.tsx
-#: src/components/Liquidity/PositionItemCard.tsx
-msgid "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
-msgstr "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
-
-#: src/components/Trades/TradeLeft/PairInfo.tsx
 #~ msgid "Borrowing(L)"
 #~ msgstr "Borrowing(L)"
 
-#: src/components/Home/componets/EarningInfoMobile.tsx
-#: src/components/Home/Dashboard.tsx
+msgid "Net Exposure"
+msgstr "Net Exposure"
+
 msgid "View Details"
 msgstr "View Details"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Share of pool"
 msgstr "Share of pool"
 
 #~ msgid "Telegram"
 #~ msgstr "Telegram"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
-msgid ""
-"when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and\n"
-"the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-"environment. 25% of deposited liquidity may be removed at a time."
-msgstr ""
-"when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and\n"
-"the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-"environment. 25% of deposited liquidity may be removed at a time."
-
 #~ msgid "Select a token"
 #~ msgstr "Select a token"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 #~ msgid "Step 4 Initial LP Provision"
 #~ msgstr "Step 4 Initial LP Provision"
 
 #~ msgid "Select a pair"
 #~ msgstr "Select a pair"
 
-#~ msgid "when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
-#~ msgstr "when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
-
-#: src/pages/Greeting.tsx
 msgid "WITH ANY ALTCOIN"
 msgstr "WITH ANY ALTCOIN"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
 msgid "Documentation"
 msgstr "Documentation"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "Take Profit"
 msgstr "Take Profit"
 
-#: src/components/Exchange/MintHistory.tsx
 msgid "Mint to"
 msgstr "Mint to"
 
-#: src/components/Home/LimitOrder.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
 msgid "Order"
 msgstr "Order"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Pending"
 msgstr "Pending"
 
-#: src/components/Home/DashboardFarm.tsx
 msgid "+ Provider liquidity"
 msgstr "+ Provider liquidity"
 
-#: src/components/Home/componets/MyLocked.tsx
 msgid "Unlock"
 msgstr "Unlock"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
-msgid "Connect wallet"
-msgstr "Connect wallet"
+#~ msgid "Connect wallet"
+#~ msgstr "Connect wallet"
 
-#: src/components/Liquidity/Step.tsx
-#: src/components/Liquidity/Step.tsx
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 
-#: src/components/Exchange/ExchangeAction.tsx
 msgid "Coming Soon"
 msgstr "Coming Soon"
 
-#: src/components/Dialog/SuccessDialog.tsx
 msgid "successfully."
 msgstr "successfully."
 
-#: src/components/Liquidity/MarketItemCard.tsx
-#: src/components/Liquidity/PositionItemCard.tsx
 msgid "Total Liquidity Supply"
 msgstr "Total Liquidity Supply"
 
-#: src/components/Dialog/SuccessDialog.tsx
 msgid "Сongratulations!"
 msgstr "Сongratulations!"
 
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
 msgstr "Please manually interact with your wallet. Please enable Krav to access your tokens."
 
 #~ msgid "Invalid number"
 #~ msgstr "Invalid number"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Actual Liquidity Provider"
 msgstr "Actual Liquidity Provider"
 
-#: src/components/Home/componets/LockAction.tsx
-#: src/components/Home/componets/MyLocked.tsx
 msgid "Locked until"
 msgstr "Locked until"
 
-#: src/components/Trades/TradeRight/PositionOverView.tsx
 msgid "Available Liquidity"
 msgstr "Available Liquidity"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
 msgid "Support"
 msgstr "Support"
 
-#: src/components/Home/NewStake.tsx
 msgid "You veKRAV Supply"
 msgstr "You veKRAV Supply"
 
@@ -848,37 +643,27 @@ msgstr "You veKRAV Supply"
 #~ msgid "Copyright © 2023 KRAV. All rights reserved"
 #~ msgstr "Copyright © 2023 KRAV. All rights reserved"
 
-#: src/components/Home/Referral.tsx
 msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
 msgstr "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
-#: src/components/Liquidity/TargetMarket.tsx
-#: src/components/Liquidity/YourPosition.tsx
 msgid "UTILIZATION"
 msgstr "UTILIZATION"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
 msgid "Referrals"
 msgstr "Referrals"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Confirm Short"
 msgstr "Confirm Short"
 
-#: src/components/Home/ComingSoon.tsx
 msgid "Stay tuned! This feature will be launched soon."
 msgstr "Stay tuned! This feature will be launched soon."
 
 #~ msgid "Spread"
 #~ msgstr "Spread"
 
-#~ msgid "Trades"
-#~ msgstr "Trades"
+msgid "Trades"
+msgstr "Trades"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Remaining"
 msgstr "Remaining"
 
@@ -888,26 +673,18 @@ msgstr "Remaining"
 #~ msgid "opening..."
 #~ msgstr "opening..."
 
-#: src/components/Home/componets/LiquidityRewards.tsx
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "My Boost"
 msgstr "My Boost"
 
-#: src/components/Home/Farm.tsx
-#: src/components/Liquidity/TargetMarket.tsx
-#: src/components/Liquidity/YourPosition.tsx
 msgid "YOUR LIQUIDITY SUPPLY"
 msgstr "YOUR LIQUIDITY SUPPLY"
 
 #~ msgid "Degen"
 #~ msgstr "Degen"
 
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "Price"
 msgstr "Price"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "Lock Period"
 msgstr "Lock Period"
 
@@ -920,336 +697,251 @@ msgstr "Lock Period"
 #~ msgid "Take Proft"
 #~ msgstr "Take Proft"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
 #~ msgid "24H High"
 #~ msgstr "24H High"
 
-#: src/components/Home/componets/IncreaseUnlockTimeButton.tsx
-#: src/components/Home/componets/LockAction.tsx
-#: src/components/Home/componets/LockAction.tsx
 msgid "{buttonText}"
 msgstr "{buttonText}"
 
-#: src/components/Header/Header.tsx
 msgid "Unsupported network!"
 msgstr "Unsupported network!"
 
-#: src/components/Home/LimitOrder.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
 msgid "Action"
 msgstr "Action"
 
-#: src/components/Header/SettingMenuContent.tsx
+msgid "Order limit"
+msgstr "Order limit"
+
 msgid "Light Mode"
 msgstr "Light Mode"
 
-#: src/components/Header/SettingMenuContent.tsx
 msgid "Total assets"
 msgstr "Total assets"
 
-#: src/components/Trades/TradeLeft/Positions.tsx
 msgid "Mark price"
 msgstr "Mark price"
 
 #~ msgid "Useful Links"
 #~ msgstr "Useful Links"
 
-#: src/components/Dialog/AddLiquidity.tsx
-#: src/components/Dialog/StakeDialog.tsx
-#: src/components/Dialog/StakeDialog.tsx
-#: src/components/Exchange/ExchangeAction.tsx
-#: src/components/Home/componets/LockAction.tsx
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "Available"
 msgstr "Available"
 
-#: src/components/Exchange/MintHistory.tsx
 msgid "Stake&Burn Amount"
 msgstr "Stake&Burn Amount"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "Current SL"
 msgstr "Current SL"
 
-#: src/components/Trades/TradeLeft/Orders.tsx
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/Home/Farm.tsx
 msgid "Learn more about Liquidity Pools"
 msgstr "Learn more about Liquidity Pools"
 
-#~ msgid "Funding Rate (L)"
-#~ msgstr "Funding Rate (L)"
+msgid "Funding Rate (L)"
+msgstr "Funding Rate (L)"
 
-#: src/components/Home/componets/EarningInfoMobile.tsx
 msgid "Total Value"
 msgstr "Total Value"
 
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "Coll"
 msgstr "Coll"
 
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Krav requests wallet approval"
 msgstr "Krav requests wallet approval"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
-#: src/components/Liquidity/TargetMarket.tsx
 msgid "LP REWARD"
 msgstr "LP REWARD"
 
 #~ msgid "Your"
 #~ msgstr "Your"
 
-#: src/components/Home/componets/LockAction.tsx
 msgid "Expected earnings"
 msgstr "Expected earnings"
 
-#: src/components/Liquidity/PositionItemCard.tsx
 msgid "Yield Earned"
 msgstr "Yield Earned"
 
 #~ msgid "Bitcoin"
 #~ msgstr "Bitcoin"
 
-#: src/components/Exchange/Title.tsx
 msgid "Token Exchange"
 msgstr "Token Exchange"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Collateral in"
 msgstr "Collateral in"
 
 #~ msgid "create"
 #~ msgstr "create"
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
 msgstr "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
 
-#: src/components/Liquidity/Step.tsx
 msgid "Step 2 Select Token Collateral"
 msgstr "Step 2 Select Token Collateral"
 
-#: src/components/Home/componets/MyLocked.tsx
 msgid "To Vote"
 msgstr "To Vote"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
-#: src/components/Dialog/StakeDialog.tsx
-#: src/components/Exchange/ExchangeAction.tsx
 msgid "Amount"
 msgstr "Amount"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
-#: src/components/Home/componets/MyLocked.tsx
 msgid "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
 msgstr "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
-#: src/components/Home/componets/MyLocked.tsx
 msgid "Claim"
 msgstr "Claim"
 
 #~ msgid "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
 #~ msgstr "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
 
-#: src/components/Header/SelectNetwork.tsx
+msgid "Enter an amount"
+msgstr "Enter an amount"
+
 msgid "Select a network"
 msgstr "Select a network"
 
-#: src/components/Dialog/StakeDialog.tsx
-#: src/components/Dialog/StakeDialog.tsx
 msgid "{buttonStr}"
 msgstr "{buttonStr}"
 
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "No trade history"
 msgstr "No trade history"
 
 #~ msgid "Krav coin"
 #~ msgstr "Krav coin"
 
-#: src/pages/Greeting.tsx
 msgid "PERPETUAL FUTURES"
 msgstr "PERPETUAL FUTURES"
 
-#: src/components/Liquidity/YourPosition.tsx
 msgid "REMOVE LIMIT"
 msgstr "REMOVE LIMIT"
 
-#: src/components/Home/Stake.tsx
 msgid "Staking Krav"
 msgstr "Staking Krav"
 
 #~ msgid "4 years"
 #~ msgstr "4 years"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
-msgid "Liquidation price"
-msgstr "Liquidation price"
-
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Now Epoch"
 msgstr "Now Epoch"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "{tpButtonText}"
 msgstr "{tpButtonText}"
 
 #~ msgid "BTC/USDT(Update SL/TP)"
 #~ msgstr "BTC/USDT(Update SL/TP)"
 
-#: src/components/Dialog/ConfirmCreatPool.tsx
 msgid "Deposit Amount/Initial LP Provision"
 msgstr "Deposit Amount/Initial LP Provision"
 
-#: src/components/Home/NewStake.tsx
+msgid "long withdraw notice..."
+msgstr "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
+
 msgid "Total Governance Reward Pool"
 msgstr "Total Governance Reward Pool"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "Boost"
 msgstr "Boost"
 
-#~ msgid "Funding Rate (S)"
-#~ msgstr "Funding Rate (S)"
+msgid "Funding Rate (S)"
+msgstr "Funding Rate (S)"
 
-#: src/components/Liquidity/Step.tsx
 msgid "Step 3 Initial LP Provision"
 msgstr "Step 3 Initial LP Provision"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "A fraction of your profits..."
+msgstr ""
+"A fraction of your profits (if any) is taken when\n"
+" you close the trade"
+
 msgid "Deposit and create"
 msgstr "Deposit and create"
 
-#: src/components/Liquidity/Step.tsx
 msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "PnL: -90 to +900"
 msgstr "PnL: -90 to +900"
 
 #~ msgid "Add"
 #~ msgstr "Add"
 
-#~ msgid "Check approve"
-#~ msgstr "Check approve"
+msgid "Check approve"
+msgstr "Check approve"
 
-#: src/components/Exchange/MintHistory.tsx
-#: src/components/Home/TradeHistory.tsx
-#: src/components/Trades/TradeLeft/TradeHistory.tsx
 msgid "Date"
 msgstr "Date"
 
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Krav waiting for transaction settlement"
 msgstr "Krav waiting for transaction settlement"
 
-#: src/pages/Greeting.tsx
 msgid "Start Trading"
 msgstr "Start Trading"
 
-#: src/components/Footer/Footer.tsx
-#: src/components/Footer/Footer.tsx
 msgid "Developers"
 msgstr "Developers"
 
 #~ msgid "Existing Request"
 #~ msgstr "Existing Request"
 
-#: src/components/Trades/TradeLeft/CoinInfo.tsx
 msgid "Loading pool data..."
 msgstr "Loading pool data..."
 
-#: src/components/Home/componets/MyLocked.tsx
 msgid "My Rewards"
 msgstr "My Rewards"
 
 #~ msgid "EditOrder"
 #~ msgstr "Edit Order"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
 #~ msgid "Open Interest(L)"
 #~ msgstr "Open Interest(L)"
-
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-msgid ""
-"A fraction of your profits (if any) is taken when\n"
-"you close the trade"
-msgstr ""
-"A fraction of your profits (if any) is taken when\n"
-"you close the trade"
 
 #~ msgid "Base Chain Network"
 #~ msgstr "Base Chain Network"
 
-#: src/components/Dialog/ProfitConfirmTrade.tsx
-#: src/components/Dialog/ProfitConfirmTrade.tsx
 msgid "StopLoss"
 msgstr "StopLoss"
 
-#: src/components/Header/SettingMenuContent.tsx
 msgid "Dark Mode"
 msgstr "Dark Mode"
 
-#: src/components/Liquidity/YourPosition.tsx
-#: src/components/Liquidity/YourPosition.tsx
 msgid "No Position yet"
 msgstr "No Position yet"
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Long"
 msgstr "Long"
 
-#: src/components/Home/MarketOrder.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
 msgid "Position"
 msgstr "Position"
 
-#~ msgid "A fraction of your profits (if any) is taken when you close the trade"
-#~ msgstr "A fraction of your profits (if any) is taken when you close the trade"
+msgid "Liquidation Price"
+msgstr "Liquidation Price"
 
 #~ msgid "Attention"
 #~ msgstr "Attention"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "No Fees Reward"
 msgstr "No Fees Reward"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
 msgid "My Liquidity Pools"
 msgstr "My Liquidity Pools"
 
-#: src/components/Trades/TradeRight/TradeDetails.tsx
-msgid "{key}"
-msgstr "{key}"
+#~ msgid "{key}"
+#~ msgstr "{key}"
 
-#: src/components/Liquidity/YourPosition.tsx
 msgid "Connect to a wallet to view your positions."
 msgstr "Connect to a wallet to view your positions."
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Select Token Collateral"
 msgstr "Select Token Collateral"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "Choose Target Market"
 msgstr "Choose Target Market"
 
-#: src/components/Home/LeftMenu.tsx
 msgid "KRAV Staking"
 msgstr "KRAV Staking"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Liquidity Provider Rewards"
 msgstr "Liquidity Provider Rewards"
 
@@ -1259,56 +951,45 @@ msgstr "Liquidity Provider Rewards"
 #~ msgid "FRIENDS INVITED"
 #~ msgstr "FRIENDS INVITED"
 
-#: src/components/Dialog/AddLiquidity.tsx
-msgid ""
-"When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
-"balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-"environment. 25% of deposited liquidity may be removed at a time."
-msgstr ""
-"When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
-"balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
-"environment. 25% of deposited liquidity may be removed at a time."
+#~ msgid ""
+#~ "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
+#~ "balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
+#~ "environment. 25% of deposited liquidity may be removed at a time."
+#~ msgstr ""
+#~ "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the\n"
+#~ "balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity\n"
+#~ "environment. 25% of deposited liquidity may be removed at a time."
 
-#: src/components/Dialog/ConfirmTrade.tsx
 msgid "Entry Price"
 msgstr "Entry Price"
 
 #~ msgid "Enter a mount"
 #~ msgstr "Enter a mount"
 
-#~ msgid "24h Change"
-#~ msgstr "24h Change"
+msgid "24h Change"
+msgstr "24h Change"
 
 #~ msgid "Remove"
 #~ msgstr "Remove"
 
-#: src/components/Home/DashboardFarm.tsx
-#: src/components/Home/Farm.tsx
 msgid "You have no liquidity"
 msgstr "You have no liquidity"
 
-#: src/components/Home/LimitOrder.tsx
-#: src/components/Trades/TradeLeft/Orders.tsx
 msgid "Ask Price"
 msgstr "Ask Price"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 #~ msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
 #~ msgstr "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
 
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "Start"
 msgstr "Start"
 
-#: src/components/Home/componets/MyLocked.tsx
 msgid "My current trade boost"
 msgstr "My current trade boost"
 
-#: src/components/Exchange/ExchangeAction.tsx
 msgid "Your staked :"
 msgstr "Your staked :"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
 #~ msgid "Step 3 Set Ticket Size"
 #~ msgstr "Step 3 Set Ticket Size"
 
@@ -1318,74 +999,60 @@ msgstr "Your staked :"
 #~ msgid "Copy referral link"
 #~ msgstr "Copy referral link"
 
-#: src/components/Dialog/SelectToken.tsx
 msgid "Can not find the target asset you want to trade?"
 msgstr "Can not find the target asset you want to trade?"
 
-#: src/components/Home/componets/MyLocked.tsx
 msgid "Locked amount"
 msgstr "Locked amount"
 
-#: src/components/Home/MyOrder.tsx
 msgid "My Order"
 msgstr "My Order"
 
 #~ msgid "Your Referral Link"
 #~ msgstr "Your Referral Link"
 
-#: src/components/Dialog/TermsAndAgreementDialog.tsx
 msgid "KRAV - Terms of Service"
 msgstr "KRAV - Terms of Service"
 
-#~ msgid "Min position size is 1500"
-#~ msgstr "Min position size is 1500"
+msgid "Min position size is 1500"
+msgstr "Min position size is 1500"
 
 #~ msgid "Referral"
 #~ msgstr "Referral"
 
-#: src/components/Home/MarketOrder.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
 msgid "Entry price"
 msgstr "Entry price"
 
-#: src/components/Exchange/MintHistory.tsx
 msgid "No stake yet"
 msgstr "No stake yet"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "Daily Trading Rewards"
 msgstr "Daily Trading Rewards"
 
 #~ msgid "2 years"
 #~ msgstr "2 years"
 
-#: src/components/Home/componets/TradingRewards.tsx
 msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
 msgstr "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
 msgid "1. Disclaimer"
 msgstr "1. Disclaimer"
 
 #~ msgid "COPY REFERRAL LINK"
 #~ msgstr "COPY REFERRAL LINK"
 
-#~ msgid "24h Volume"
-#~ msgstr "24h Volume"
+msgid "24h Volume"
+msgstr "24h Volume"
 
 #~ msgid "Leverage:"
 #~ msgstr "Leverage:"
 
-#: src/components/Dialog/RemoveLiquidity.tsx
 msgid "End"
 msgstr "End"
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-msgid "{buttonState}"
-msgstr "{buttonState}"
+#~ msgid "{buttonState}"
+#~ msgstr "{buttonState}"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
 #~ msgid "Open Interest(S)"
 #~ msgstr "Open Interest(S)"
 
@@ -1395,7 +1062,6 @@ msgstr "{buttonState}"
 #~ msgid "Your have no Staked Krav"
 #~ msgstr "Your have no Staked Krav"
 
-#: src/components/Trades/TradeLeft/Orders.tsx
 msgid "Limit"
 msgstr "Limit"
 
@@ -1405,25 +1071,18 @@ msgstr "Limit"
 #~ msgid "Note:"
 #~ msgstr "Note:"
 
-#: src/components/Dialog/TransactionDialog.tsx
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 
-#: src/components/Home/MarketOrder.tsx
-#: src/components/Trades/TradeLeft/Positions.tsx
 msgid "Close"
 msgstr "Close"
 
-#: src/components/Home/componets/LiquidityRewards.tsx
 msgid "Your Liquidity Provider"
 msgstr "Your Liquidity Provider"
 
-#: src/components/Exchange/ExchangeAction.tsx
-#: src/components/Exchange/Title.tsx
 msgid "Exchange ratio :"
 msgstr "Exchange ratio :"
 
-#: src/pages/Greeting.tsx
 msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
 msgstr "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
 

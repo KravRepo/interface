@@ -278,7 +278,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
           }
         `}
       >
-        {isBTC ? i18n._(msg`Market`) : i18n._(`Collateral`)}
+        {isBTC ? i18n._(msg`Market`) : i18n._(msg`Collateral`)}
       </div>
       <div
         className="symbol"
@@ -310,96 +310,46 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
         />
         {isBTC ? tradePair.titleSymbol : pool?.symbol}
       </div>
-      {
-        // isMobile ? (
-        // <div
-        //   css={css`
-        //     display: grid;
-        //   `}
-        // >
-        //   {Object.keys(data).map((key) => {
-        //     return (
-        //       <div
-        //         key={key}
-        //         css={css`
-        //           display: flex;
-        //           align-items: center;
-        //           justify-content: center;
-        //         `}
-        //       >
-        //         <span
-        //           css={css`
-        //             font-size: 12px;
-        //             margin-bottom: 5px;
-        //             line-height: 1.4;
-        //             white-space: nowrap;
-        //           `}
-        //         >
-        //           {key}
-        //         </span>
-        //         <span
-        //           css={css`
-        //             font-size: 14px;
-        //             line-height: 1.4;
-        //             color: ${isBTC && key === 'Price' ? (isBTCRise ? '#009b72' : '#db4c40') : '#fff'};
-        //             div {
-        //               display: flex;
-        //               align-items: center;
-        //               justify-content: flex-start;
-        //               svg {
-        //                 margin: -10px 0px -10px -5px;
-        //               }
-        //             }
-        //           `}
-        //         >
-        //           {data[key as keyof typeof data]}
-        //         </span>
-        //       </div>
-        //     )
-        //   })}
-        // </div>
-        // ) :
-        Object.keys(data).map((key) => {
-          return (
-            <div
-              key={key}
+      {Object.keys(data).map((key) => {
+        return (
+          <div
+            key={key}
+            css={css`
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            `}
+          >
+            <span
               css={css`
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+                font-size: 12px;
+                margin-bottom: 5px;
+                line-height: 1.4;
+                white-space: nowrap;
               `}
             >
-              <span
-                css={css`
-                  font-size: 12px;
-                  margin-bottom: 5px;
-                  line-height: 1.4;
-                  white-space: nowrap;
-                `}
-              >
-                {i18n._(PriceDataTitle[key as keyof typeof PriceDataTitle])}
-              </span>
-              <span
-                css={css`
-                  font-size: 14px;
-                  line-height: 1.4;
-                  color: ${isBTC && key === 'Price' ? (isBTCRise ? '#009b72' : '#db4c40') : '#fff'};
-                  div {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    svg {
-                      margin: -10px 0px -10px -5px;
-                    }
+              {i18n._(PriceDataTitle[key as keyof typeof PriceDataTitle])}
+            </span>
+            <span
+              css={css`
+                font-size: 14px;
+                line-height: 1.4;
+                color: ${isBTC && key === 'Price' ? (isBTCRise ? '#009b72' : '#db4c40') : '#fff'};
+                div {
+                  display: flex;
+                  align-items: center;
+                  justify-content: flex-start;
+                  svg {
+                    margin: -10px 0px -10px -5px;
                   }
-                `}
-              >
-                {data[key as keyof typeof data]}
-              </span>
-            </div>
-          )
-        })
-      }
+                }
+              `}
+            >
+              {data[key as keyof typeof data]}
+            </span>
+          </div>
+        )
+      })}
     </div>
   )
 }

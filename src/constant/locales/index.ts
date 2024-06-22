@@ -5,6 +5,8 @@ import { messages as csMessages } from '../../locales/zh/messages'
 export const locales = {
   'en-US': enMessages,
   'zh-CN': csMessages,
+  'ko-KR': csMessages,
+  'ru-RU': csMessages,
 }
 
 export async function activateLocale(locale: string) {
@@ -16,4 +18,6 @@ export async function activateLocale(locale: string) {
 export const LOCALES = {
   'en-US': 'English',
   'zh-CN': '简体中文',
+  'ko-KR': '한국어',
+  'ru-RU': 'русский',
 }

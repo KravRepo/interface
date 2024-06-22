@@ -14,7 +14,7 @@ import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { addDecimals } from '../../utils/math'
 import { DialogLayout } from './DialogLayout'
-import { t } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 
 export const ConfirmCreatPool = ({
   isOpen,
@@ -106,7 +106,9 @@ export const ConfirmCreatPool = ({
               background: ${theme.background.second};
             `}
           >
-            <p>Token Collateral</p>
+            <p>
+              <Trans>Token Collateral</Trans>
+            </p>
             <div css={align}>
               <img
                 css={css`

@@ -19,7 +19,12 @@ export function LocaleSwitch() {
   }, [localeAnchorEl])
 
   useEffect(() => {
-    activateLocale('en-US')
+    const locale = localStorage.getItem('LOCALE')
+    if (locale && Object.keys(locales).includes(locale)) {
+      activateLocale(locale)
+    } else {
+      activateLocale('en-US')
+    }
   }, [])
 
   const handleLocaleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,6 +37,7 @@ export function LocaleSwitch() {
 
   const changeLocale = async (locale: string) => {
     await activateLocale(locale)
+    localStorage.setItem('LOCALE', locale)
     handleLocaleClose()
   }
 

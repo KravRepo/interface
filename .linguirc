@@ -2,6 +2,8 @@
   "locales": [
     "en",
     "zh",
+    "kr",
+    "ru"
   ],
   "catalogs": [
     {
@@ -14,7 +16,7 @@
   ],
   "format": "po",
   "formatOptions": {
-    "origins": true,
+    "origins": false,
     "lineNumbers": false
   },
   "orderBy": "messageId",

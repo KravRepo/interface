@@ -278,9 +278,7 @@ export const PositionItemCard = ({
             >
               {t`Your Withdraw Limit`}
             </span>
-            <Tooltip
-              title={t`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
-            >
+            <Tooltip title={t`short withdraw notice...`}>
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
                 <span css={align}>
