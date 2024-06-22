@@ -140,8 +140,7 @@ export const ExchangeAction = () => {
         {theme.palette.mode === 'dark' ? <TipDark /> : <Tip />}
         <span>
           &nbsp;
-          {'You need to stake KRAV Token first, and the "mint" operation will not be officially started until the mint\n' +
-            'start time.'}
+          {t`You need to stake KRAV Token first, and the "mint" operation will not be officially started until the mint start time.`}
         </span>
       </div>
       <div
@@ -231,7 +230,7 @@ export const ExchangeAction = () => {
                   margin-bottom: 16px;
                 `}
               >
-                Mint
+                {t`Mint`}
               </p>
             )}
             <div

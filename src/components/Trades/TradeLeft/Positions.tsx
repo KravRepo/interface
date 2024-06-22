@@ -31,7 +31,7 @@ export const Positions = () => {
         {/* <span>Take profit</span> */}
         <span>{t`Close`}</span>
       </div>
-      {userOpenTradeList.length === 0 && account && <div className="no-data">No open position</div>}
+      {userOpenTradeList.length === 0 && account && <div className="no-data">{t`No open position`}</div>}
       {!account && (
         <div className="no-data">
           <KRAVButton

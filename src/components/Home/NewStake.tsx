@@ -63,8 +63,7 @@ export const NewStake = () => {
             padding-bottom: 40px;
           `}
         >
-          {t`Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield
-          potential by up to 2.5x`}
+          {t`Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x`}
         </p>
       </div>
       <div

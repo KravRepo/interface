@@ -384,7 +384,7 @@ export const OrderParamsCard = ({
                 setTradeType(0)
               }}
             >
-              Market
+              <Trans> Market</Trans>
             </span>
             {/* <span
               css={[

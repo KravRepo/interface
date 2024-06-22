@@ -13,6 +13,7 @@ import { formatNumber, getProviderOrSigner } from '../../utils'
 import { useRootStore } from '../../store/root'
 import { Contract } from 'ethers'
 import erc20 from '../../abi/test_erc20.json'
+import { Trans } from '@lingui/macro'
 
 export const ExchangeOverview = () => {
   const theme = useTheme()
@@ -95,7 +96,9 @@ export const ExchangeOverview = () => {
           `}
         />
         <div>
-          <KRAVTab>Total Stake</KRAVTab>
+          <KRAVTab>
+            <Trans>Total Stake</Trans>
+          </KRAVTab>
           <p
             css={css`
               margin-top: 10px;
@@ -137,7 +140,9 @@ export const ExchangeOverview = () => {
               width: ${isMobile ? '32px' : '64px'};
             `}
           />
-          <span style={{fontSize: '26px'}}>Coming Soon</span>
+          <span style={{ fontSize: '26px' }}>
+            <Trans>Coming Soon</Trans>
+          </span>
         </div>
         <div
           css={css`
@@ -146,14 +151,16 @@ export const ExchangeOverview = () => {
           `}
         />
         <div>
-          <KRAVTab>Mint will start after</KRAVTab>
+          <KRAVTab>
+            <Trans>Mint will start after</Trans>
+          </KRAVTab>
           <p
             css={css`
               margin-top: 10px;
               font-size: ${isMobile ? '20px' : '28px'};
             `}
           >
-            Coming Summer 2024
+            <Trans>Coming Summer 2024</Trans>
           </p>
         </div>
       </div>

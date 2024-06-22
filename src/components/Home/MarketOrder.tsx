@@ -23,7 +23,7 @@ export const MarketOrder = () => {
         <span>{t`Liq.price`}</span>
         <span>{t`Close`}</span>
       </div>
-      {useAllOpenTrades.length === 0 && <div className="no-data">No open position</div>}
+      {useAllOpenTrades.length === 0 && <div className="no-data">{t`No open position`}</div>}
       {useAllOpenTrades.length > 0 &&
         useAllOpenTrades.map((openTrade, index) => {
           return openTrade.tuple.map((pool, tradeIndex) => {

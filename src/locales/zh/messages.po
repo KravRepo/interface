@@ -35,6 +35,9 @@ msgstr "目标市场"
 msgid "Create Liquidity"
 msgstr "创建流动性"
 
+msgid "Stay tuned"
+msgstr "敬请期待！此功能即将推出。"
+
 msgid "Liq.price"
 msgstr "清算价格"
 
@@ -53,8 +56,8 @@ msgstr "提现请求已确认"
 #~ msgid "Twitter"
 #~ msgstr "Twitter"
 
-#~ msgid "Basic"
-#~ msgstr "基础"
+msgid "Basic"
+msgstr "基础"
 
 msgid "Positions"
 msgstr "仓位"
@@ -86,8 +89,8 @@ msgstr "我的资金池"
 #~ msgid "Your Referral stats"
 #~ msgstr "您的推荐统计"
 
-#~ msgid "Token Collateral"
-#~ msgstr "代币抵押"
+msgid "Token Collateral"
+msgstr "代币抵押"
 
 msgid "Krav requests wallet interaction"
 msgstr "Krav 请求钱包交互"
@@ -98,8 +101,8 @@ msgstr "Krav 请求钱包交互"
 #~ msgid "please connect wallet"
 #~ msgstr "请连接钱包"
 
-#~ msgid "Pro"
-#~ msgstr "专业"
+msgid "Pro"
+msgstr "专业"
 
 #~ msgid "MARKET"
 #~ msgstr "现价"
@@ -143,11 +146,6 @@ msgstr "24小时交易量"
 msgid "Collateral"
 msgstr "抵押品"
 
-#~ msgid ""
-#~ "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint\n"
-#~ "start time."
-#~ msgstr "您需要首先质押 KRAV 代币，并且\"铸造\"操作将在铸造开始时间之前不会正式开始。"
-
 msgid "YOUR STAKED"
 msgstr "您的质押"
 
@@ -160,8 +158,8 @@ msgstr "兑换比率"
 msgid "Liquidity"
 msgstr "流动性"
 
-#~ msgid "Coming Summer 2024"
-#~ msgstr "2024年夏季推出"
+msgid "Coming Summer 2024"
+msgstr "2024年夏季推出"
 
 msgid "APR"
 msgstr "年化收益率"
@@ -185,7 +183,7 @@ msgid "To trade"
 msgstr "进行交易"
 
 msgid "Dashboard"
-msgstr "仪表板"
+msgstr "主页"
 
 #~ msgid "krav has been staked successfully"
 #~ msgstr "krav 已成功质押"
@@ -341,16 +339,16 @@ msgstr "请更改网络。"
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr "费用：KRAV Trade 从每笔交易的开盘和平仓中收取基点费用，每笔交易费用不超过0.07%。"
 
-msgid ""
-"Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
-"potential by up to 2.5x"
-msgstr ""
+#~ msgid ""
+#~ "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
+#~ "potential by up to 2.5x"
+#~ msgstr ""
 
 msgid "Open Interest (L/S)"
 msgstr "未平仓合约(多/空)"
 
-#~ msgid "No open position"
-#~ msgstr "没有未平仓仓位"
+msgid "No open position"
+msgstr "没有未平仓仓位"
 
 msgid "Actual trading volume"
 msgstr "实际交易量"
@@ -377,6 +375,9 @@ msgid "Earning Information"
 msgstr "收益信息"
 
 msgid "WITHDRAW_BLOCK"
+msgstr ""
+
+msgid "Enter Asset contract or select Asset"
 msgstr ""
 
 msgid "{0}"
@@ -430,8 +431,8 @@ msgstr "我的历史"
 msgid "tradeType"
 msgstr ""
 
-#~ msgid "Mint will start after"
-#~ msgstr "铸造将在之后开始"
+msgid "Mint will start after"
+msgstr "铸造将在之后开始"
 
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 msgstr "您可以随时延长锁定时间并添加 $CRV，但不能使用具有不同到期日期的 $CRV。"
@@ -496,8 +497,8 @@ msgstr "特性"
 msgid "Earn"
 msgstr "赚取"
 
-#~ msgid "Trading guide"
-#~ msgstr "交易指南"
+msgid "Trading guide"
+msgstr "交易指南"
 
 #~ msgid "closing..."
 #~ msgstr "关闭中..."
@@ -631,9 +632,6 @@ msgstr "推荐"
 msgid "Confirm Short"
 msgstr "确认做空"
 
-msgid "Stay tuned! This feature will be launched soon."
-msgstr "敬请期待！此功能即将推出。"
-
 #~ msgid "Spread"
 #~ msgstr "差价"
 
@@ -655,8 +653,8 @@ msgstr "我的加速"
 msgid "YOUR LIQUIDITY SUPPLY"
 msgstr "您的流动性供应"
 
-#~ msgid "Degen"
-#~ msgstr "极速"
+msgid "Degen"
+msgstr "投机"
 
 msgid "Price"
 msgstr "价格"
@@ -694,8 +692,8 @@ msgstr ""
 msgid "Mark price"
 msgstr "市场价格"
 
-#~ msgid "Useful Links"
-#~ msgstr "有用链接"
+msgid "Useful Links"
+msgstr "有用链接"
 
 msgid "Available"
 msgstr "余额"
@@ -753,6 +751,9 @@ msgstr "使用杠杆进行永续期货交易存在风险，包括清算价格。
 
 msgid "Step 2 Select Token Collateral"
 msgstr "步骤2 选择代币抵押"
+
+msgid "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
+msgstr "您需要先质押KRAV代币，‘铸币’操作将在铸币开始时间正式启动。"
 
 msgid "To Vote"
 msgstr "投票"
@@ -838,8 +839,8 @@ msgstr "步骤1 选择目标市场"
 msgid "PnL: -90 to +900"
 msgstr "损益：-90 到 +900"
 
-#~ msgid "Add"
-#~ msgstr "添加"
+msgid "Add"
+msgstr "添加"
 
 msgid "Check approve"
 msgstr "检查授权"
@@ -942,8 +943,8 @@ msgstr "入场价格"
 msgid "24h Change"
 msgstr "24小时变动"
 
-#~ msgid "Remove"
-#~ msgstr "移除"
+msgid "Remove"
+msgstr "移除"
 
 msgid "You have no liquidity"
 msgstr "您没有提供流动性"
@@ -1029,8 +1030,8 @@ msgstr "结束"
 msgid "Limit"
 msgstr "限价"
 
-#~ msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
-#~ msgstr "使用锁定功能保障您的 Krav 收益并获取 veKRAV 特权。最多可将您的收益潜力提高 2.5 倍"
+msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+msgstr "使用锁定功能保障您的 Krav 收益并获取 veKRAV 特权。最多可将您的收益潜力提高 2.5 倍"
 
 #~ msgid "Note:"
 #~ msgstr "注意："

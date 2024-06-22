@@ -23,7 +23,7 @@ export const LimitOrder = () => {
         <span>{t`Collateral`}</span>
         <div>{t`Action`}</div>
       </div>
-      {userAllOpenLimitList.length === 0 && <div className="no-data">No open position</div>}
+      {userAllOpenLimitList.length === 0 && <div className="no-data">{t`No open position`}</div>}
       {userAllOpenLimitList.length > 0 &&
         userAllOpenLimitList.map((limitOrder, index) => {
           return limitOrder.tuple.map((limit, limitIndex) => {

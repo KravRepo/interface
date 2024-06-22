@@ -37,6 +37,9 @@ msgstr "Target Market"
 msgid "Create Liquidity"
 msgstr "Create Liquidity"
 
+msgid "Stay tuned"
+msgstr "Stay tuned! This feature will be launched soon."
+
 msgid "Liq.price"
 msgstr "Liq.price"
 
@@ -55,8 +58,8 @@ msgstr "Withdraw request confirmed"
 #~ msgid "Twitter"
 #~ msgstr "Twitter"
 
-#~ msgid "Basic"
-#~ msgstr "Basic"
+msgid "Basic"
+msgstr "Basic"
 
 msgid "Positions"
 msgstr "Positions"
@@ -88,8 +91,8 @@ msgstr "My Pool"
 #~ msgid "Your Referral stats"
 #~ msgstr "Your Referral stats"
 
-#~ msgid "Token Collateral"
-#~ msgstr "Token Collateral"
+msgid "Token Collateral"
+msgstr "Token Collateral"
 
 msgid "Krav requests wallet interaction"
 msgstr "Krav requests wallet interaction"
@@ -100,8 +103,8 @@ msgstr "Krav requests wallet interaction"
 #~ msgid "please connect wallet"
 #~ msgstr "please connect wallet"
 
-#~ msgid "Pro"
-#~ msgstr "Pro"
+msgid "Pro"
+msgstr "Pro"
 
 #~ msgid "MARKET"
 #~ msgstr "MARKET"
@@ -145,13 +148,6 @@ msgstr "24h Trading Volume"
 msgid "Collateral"
 msgstr "Collateral"
 
-#~ msgid ""
-#~ "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint\n"
-#~ "start time."
-#~ msgstr ""
-#~ "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint\n"
-#~ "start time."
-
 msgid "YOUR STAKED"
 msgstr "YOUR STAKED"
 
@@ -164,8 +160,8 @@ msgstr "Exchange ratio"
 msgid "Liquidity"
 msgstr "Liquidity"
 
-#~ msgid "Coming Summer 2024"
-#~ msgstr "Coming Summer 2024"
+msgid "Coming Summer 2024"
+msgstr "Coming Summer 2024"
 
 msgid "APR"
 msgstr "APR"
@@ -348,18 +344,11 @@ msgstr "Please change network."
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 
-msgid ""
-"Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
-"potential by up to 2.5x"
-msgstr ""
-"Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield\n"
-"potential by up to 2.5x"
-
 msgid "Open Interest (L/S)"
 msgstr "Open Interest (L/S)"
 
-#~ msgid "No open position"
-#~ msgstr "No open position"
+msgid "No open position"
+msgstr "No open position"
 
 msgid "Actual trading volume"
 msgstr "Actual trading volume"
@@ -387,6 +376,9 @@ msgstr "Earning Information"
 
 msgid "WITHDRAW_BLOCK"
 msgstr "WITHDRAW_BLOCK"
+
+msgid "Enter Asset contract or select Asset"
+msgstr "Enter Asset contract or select Asset"
 
 msgid "{0}"
 msgstr "{0}"
@@ -442,8 +434,8 @@ msgstr "My history"
 msgid "tradeType"
 msgstr "tradeType"
 
-#~ msgid "Mint will start after"
-#~ msgstr "Mint will start after"
+msgid "Mint will start after"
+msgstr "Mint will start after"
 
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 msgstr "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
@@ -511,8 +503,8 @@ msgstr "Features"
 msgid "Earn"
 msgstr "Earn"
 
-#~ msgid "Trading guide"
-#~ msgstr "Trading guide"
+msgid "Trading guide"
+msgstr "Trading guide"
 
 #~ msgid "closing..."
 #~ msgstr "closing..."
@@ -655,9 +647,6 @@ msgstr "Referrals"
 msgid "Confirm Short"
 msgstr "Confirm Short"
 
-msgid "Stay tuned! This feature will be launched soon."
-msgstr "Stay tuned! This feature will be launched soon."
-
 #~ msgid "Spread"
 #~ msgstr "Spread"
 
@@ -679,8 +668,8 @@ msgstr "My Boost"
 msgid "YOUR LIQUIDITY SUPPLY"
 msgstr "YOUR LIQUIDITY SUPPLY"
 
-#~ msgid "Degen"
-#~ msgstr "Degen"
+msgid "Degen"
+msgstr "Degen"
 
 msgid "Price"
 msgstr "Price"
@@ -721,8 +710,8 @@ msgstr "Total assets"
 msgid "Mark price"
 msgstr "Mark price"
 
-#~ msgid "Useful Links"
-#~ msgstr "Useful Links"
+msgid "Useful Links"
+msgstr "Useful Links"
 
 msgid "Available"
 msgstr "Available"
@@ -780,6 +769,9 @@ msgstr "Perpetual futures trading with leverage carries risks, including liquida
 
 msgid "Step 2 Select Token Collateral"
 msgstr "Step 2 Select Token Collateral"
+
+msgid "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
+msgstr "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
 
 msgid "To Vote"
 msgstr "To Vote"
@@ -864,8 +856,8 @@ msgstr "Step 1 Choose Target Market"
 msgid "PnL: -90 to +900"
 msgstr "PnL: -90 to +900"
 
-#~ msgid "Add"
-#~ msgstr "Add"
+msgid "Add"
+msgstr "Add"
 
 msgid "Check approve"
 msgstr "Check approve"
@@ -969,8 +961,8 @@ msgstr "Entry Price"
 msgid "24h Change"
 msgstr "24h Change"
 
-#~ msgid "Remove"
-#~ msgstr "Remove"
+msgid "Remove"
+msgstr "Remove"
 
 msgid "You have no liquidity"
 msgstr "You have no liquidity"
@@ -1065,8 +1057,8 @@ msgstr "End"
 msgid "Limit"
 msgstr "Limit"
 
-#~ msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
-#~ msgstr "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+msgstr "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
 
 #~ msgid "Note:"
 #~ msgstr "Note:"
