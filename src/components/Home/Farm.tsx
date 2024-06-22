@@ -13,6 +13,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { t } from '@lingui/macro'
 
 export const Farm = () => {
   const theme = useTheme()
@@ -56,7 +57,7 @@ export const Farm = () => {
           color: ${theme.text.primary};
         `}
       >
-        My Liquidity Pools
+        {t`My Liquidity Pools`}
       </div>
       {positionDatas.length > 0 && (
         <div>
@@ -78,12 +79,12 @@ export const Farm = () => {
               `}
               className="liquidity grey nowrap"
             >
-              <span>ASSET</span>
+              <span>{t`ASSET`}</span>
               {/*<span>PER TICKET SIZE</span>*/}
-              <span>APR</span>
-              <span>UTILIZATION</span>
-              <span>YOUR LIQUIDITY SUPPLY</span>
-              <span>LP REWARD</span>
+              <span>{t`APR`}</span>
+              <span>{t`UTILIZATION`}</span>
+              <span>{t`YOUR LIQUIDITY SUPPLY`}</span>
+              <span>{t`LP REWARD`}</span>
               {/* <span /> */}
             </div>
             {positionDatas.map((position) => {
@@ -106,7 +107,7 @@ export const Farm = () => {
                 sx={{ width: '160px', mt: '32px', mb: '25px' }}
                 onClick={() => setWalletDialogVisibility(true)}
               >
-                Connect wallet
+                {t`Connect wallet`}
               </KRAVButton>
             </>
           )}
@@ -116,9 +117,9 @@ export const Farm = () => {
                 color: ${theme.text.primary};
               `}
             >
-              <p>You have no liquidity</p>
+              <p>{t`You have no liquidity`}</p>
               <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
-                Add Liquidity
+                {t`Add Liquidity`}
               </KRAVButton>
               <p>
                 <span
@@ -134,7 +135,7 @@ export const Farm = () => {
                     }
                   `}
                 >
-                  Learn more about Liquidity Pools&nbsp; <ArrowRight />
+                  {t`Learn more about Liquidity Pools`}&nbsp; <ArrowRight />
                 </span>
               </p>
             </div>

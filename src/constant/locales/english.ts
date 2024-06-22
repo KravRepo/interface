@@ -26,6 +26,7 @@ export const ENGLISH = {
   'Allowed Slippage': 'Allowed Slippage',
   Long: 'Long',
   Short: 'Short',
+
   EditOrder: 'Edit Order',
   'There is a problem with ': 'There is a problem with ',
   Ok: 'Ok',
@@ -122,6 +123,7 @@ export const ENGLISH = {
   Features: 'Features',
   Trade: 'Trade',
   Earn: 'Earn',
+
   Referrals: 'Referrals',
   Portfolio: 'Portfolio',
   Statistics: 'Statistics',
@@ -175,6 +177,7 @@ export const ENGLISH = {
   'Locked amount': 'Locked amount',
   'My current trade boost :': 'My current trade boost :',
   'To Vote': 'To Vote',
+
   'Daily Trading Rewards': 'Daily Trading Rewards',
   'Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day.':
     'Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day.',
@@ -253,6 +256,7 @@ export const ENGLISH = {
   'Initial LP Provision': 'Initial LP Provision',
   'Deposit and create': 'Deposit and create',
   Utilization: 'Utilization',
+
   'Your Liquidity Supply': 'Your Liquidity Supply',
   'Total Liquidity Supply': 'Total Liquidity Supply',
   'When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.':

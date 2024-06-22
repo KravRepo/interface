@@ -9,6 +9,7 @@ import { ReactComponent as PointsLogo } from '../../../assets/imgs/dashboard_log
 import { formatNumber } from '../../../utils'
 import { API_DECIMALS } from '../../../constant/math'
 import { UserAssetOverview } from '../../../hook/hookV8/useGetUserAssetOverview'
+import { t } from '@lingui/macro'
 
 export const EarningInfoMobile = ({
   userPoolLength,
@@ -37,7 +38,7 @@ export const EarningInfoMobile = ({
           color: #fff;
         `}
       >
-        Liquidity being provided
+        {t`Liquidity being provided`}
       </p>
       <div>
         <div
@@ -45,7 +46,7 @@ export const EarningInfoMobile = ({
             border-bottom: ${theme.splitLine.primary};
           `}
         >
-          <p>Total Value</p>
+          <p>{t`Total Value`}</p>
           <p
             css={css`
               padding-bottom: 24px;
@@ -75,10 +76,10 @@ export const EarningInfoMobile = ({
               padding: 0 !important;
             `}
           >
-            <p>My Pool</p>
+            <p>{t`My Pool`}</p>
             <p>
               <span>{userPoolLength}</span>
-              <span>View Details</span>
+              <span>{t`View Details`}</span>
               {/*ArrowLeftDark*/}
               {theme.palette.mode === 'dark' ? (
                 <ArrowLeftDark

@@ -22,6 +22,7 @@ import { getAddChainParameters } from '../../connectors/chain'
 import { DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
 import { FaucetDialog } from '../Dialog/FaucetDialog'
 import { useFactory } from '../../hook/hookV8/useFactory'
+import { LocaleSwitch } from './LocaleSwitch'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -168,7 +169,7 @@ export const Header = () => {
                 <Trans>Liquidity</Trans>
               </NavLink>
               <NavLink to={'/exchange'} css={[router, routerColor, pathname === '/exchange' ? routerActive : '']}>
-                Exchange
+                <Trans>Exchange</Trans>
               </NavLink>
               <NavLink to={'/portfolio'} css={[router, routerColor, isHomePath ? routerActive : '']}>
                 <Trans>Portfolio</Trans>
@@ -182,6 +183,7 @@ export const Header = () => {
         {!isGreetingPath && (
           <>
             <div css={align}>
+              <LocaleSwitch />
               <ButtonGroup
                 disableElevation
                 variant="contained"
@@ -243,7 +245,7 @@ export const Header = () => {
       </header>
       {chainId && !SUPPORT_CHAIN.includes(chainId) && account && (
         <div css={UnSupport}>
-          Unsupported network! &nbsp;
+          <Trans>Unsupported network!</Trans> &nbsp;
           <span
             onClick={async () => {
               try {
@@ -254,7 +256,7 @@ export const Header = () => {
               }
             }}
           >
-            Please change network.
+            <Trans>Please change network.</Trans>
           </span>
         </div>
       )}

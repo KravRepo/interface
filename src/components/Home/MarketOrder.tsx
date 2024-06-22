@@ -2,6 +2,7 @@
 import { css } from '@mui/material'
 import { PositionsItem } from './OrderItem'
 import { useRootStore } from '../../store/root'
+import { t } from '@lingui/macro'
 
 export const MarketOrder = () => {
   const useAllOpenTrades = useRootStore((state) => state.userAllOpenTradeList)
@@ -13,14 +14,14 @@ export const MarketOrder = () => {
           color: #617168;
         `}
       >
-        <span>Position</span>
+        <span>{t`Position`}</span>
         {/*<span>PnL</span>*/}
-        <span>Size</span>
-        <span>Collateral</span>
-        <span>Entry price</span>
+        <span>{t`Size`}</span>
+        <span>{t`Collateral`}</span>
+        <span>{t`Entry price`}</span>
         {/*<span>Mark price</span>*/}
-        <span>Liq.price</span>
-        <span>Close</span>
+        <span>{t`Liq.price`}</span>
+        <span>{t`Close`}</span>
       </div>
       {useAllOpenTrades.length === 0 && <div className="no-data">No open position</div>}
       {useAllOpenTrades.length > 0 &&

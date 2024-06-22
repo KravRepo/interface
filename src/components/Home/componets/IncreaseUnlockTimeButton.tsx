@@ -6,6 +6,7 @@ import { useCallback, useMemo } from 'react'
 import { useAddLockAmount } from '../../../hook/hookV8/useAddLockAmount'
 import { getLockTime } from '../../../hook/hookV8/utils/utils'
 import { ONE_WEEK_TIMESTAMP } from '../../../constant/math'
+import { Trans } from '@lingui/macro'
 
 type IncreaseUnlockTimeButtonProps = {
   lockAmount: BigNumber
@@ -54,7 +55,7 @@ export const IncreaseUnlockTimeButton = ({
       onClick={() => updatePosition().then()}
       sx={{ mt: '20px' }}
     >
-      {buttonText}
+      <Trans>{buttonText}</Trans>
     </KRAVButton>
   )
 }

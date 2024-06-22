@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
 import { useMemo } from 'react'
 import { PoolParams } from '../../../store/FactorySlice'
+import { t } from '@lingui/macro'
 
 type HistoryItemProps = {
   history: HistoryData
@@ -75,7 +76,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
           color: ${history.tradeBuy && tradeType !== 'Liquidate' ? '#009B72' : '#DB4C40'};
         `}
       >
-        {tradeType}
+        {t`tradeType`}
       </div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
       <div>{history.tradeLeverage}</div>

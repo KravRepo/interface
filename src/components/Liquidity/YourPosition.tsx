@@ -8,6 +8,7 @@ import { useMemo } from 'react'
 import { MarketSkeleton } from './MarketSkeleton'
 import { useTheme } from '@mui/material'
 import { PositionItemCard } from './PositionItemCard'
+import { t } from '@lingui/macro'
 
 export const YourPosition = ({
   setAddLiquidity,
@@ -57,18 +58,18 @@ export const YourPosition = ({
               margin-top: 24px;
             `}
           >
-            <div>ASSET</div>
+            <div>{t`ASSET`}</div>
             {/*<div>PER TICKET PRICE</div>*/}
             <div>APR</div>
-            <div>UTILIZATION</div>
-            <div>YOUR LIQUIDITY SUPPLY</div>
-            <div>REMOVE LIMIT</div>
-            <div>WITHDRAW_BLOCK</div>
+            <div>{t`UTILIZATION`}</div>
+            <div>{t`YOUR LIQUIDITY SUPPLY`}</div>
+            <div>{t`REMOVE LIMIT`}</div>
+            <div>{t`WITHDRAW_BLOCK`}</div>
           </div>
-          {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
+          {!account && <div className="no-data">{t`Connect to a wallet to view your positions.`}</div>}
           {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
           {account && !isLoadingUserPosition && positionDatas.length === 0 && (
-            <div className="no-data">No Position yet</div>
+            <div className="no-data">{t`No Position yet`}</div>
           )}
           {account &&
             positionDatas.length > 0 &&
@@ -95,7 +96,7 @@ export const YourPosition = ({
           {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
           {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
           {account && !isLoadingUserPosition && positionDatas.length === 0 && (
-            <div className="no-data">No Position yet</div>
+            <div className="no-data">{t`No Position yet`}</div>
           )}
           {account &&
             positionDatas.length > 0 &&

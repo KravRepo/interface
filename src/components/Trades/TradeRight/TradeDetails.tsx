@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import { useRootStore } from '../../../store/root'
 import { TradeMode } from '../../../store/TradeSlice'
 import { useTradeData } from '../../../hook/useTradeData'
+import { Trans } from '@lingui/macro'
 
 export default function TradeDetails({
   positionSizeDai,
@@ -86,7 +87,7 @@ export default function TradeDetails({
                 color: #757575;
               `}
             >
-              {key}
+              <Trans>{key}</Trans>
             </div>
             <div>{data[key as keyof typeof data]}</div>
           </div>

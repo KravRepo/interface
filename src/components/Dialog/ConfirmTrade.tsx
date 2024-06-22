@@ -13,6 +13,7 @@ import { decodeReferral } from '../../utils'
 import KRAVLongButton from '../KravUIKit/KravLongButton'
 import KRAVShortButton from '../KravUIKit/KravShortButton'
 import { TradeMode } from '../../store/TradeSlice'
+import { t } from '@lingui/macro'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -91,7 +92,7 @@ export const ConfirmTrade = ({
                 font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
-              {tradeType === 0 ? (tuple.buy ? 'Confirm Long' : 'Confirm Short') : 'Confirm Limit Order'}
+              {tradeType === 0 ? (tuple.buy ? t`Confirm Long` : t`Confirm Short`) : t`Confirm Limit Order`}
             </span>
             <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
           </div>
@@ -115,28 +116,28 @@ export const ConfirmTrade = ({
                     font-size: 32px;
                   `}
                 >
-                  Pay {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
+                  {t`Pay`} {eXDecimals(tuple.positionSizeDai, 18).toFixed(2)} {tradePool.symbol}
                 </p>
               </div>
             </div>
             <div className="confirm-content-info">
               <p>
-                <span>Collateral in</span>
+                <span>{t`Collateral in`}</span>
                 <span>{tradePool.symbol}</span>
               </p>
               <p>
-                <span>Leverage</span>
+                <span>{t`Leverage`}</span>
                 <span>{tuple.leverage}x</span>
               </p>
               <p>
-                <span>Entry Price</span>
+                <span>{t`Entry Price`}</span>
                 <span>
                   {/* ${eXDecimals(tuple.openPrice, 10).toFixed(tradePair.fixDecimals)} */}
                   {entryPrice}
                 </span>
               </p>
               <p>
-                <span>Liq. Price</span>
+                <span>{t`Liq. Price`}</span>
                 <span>
                   $
                   {parseFloat(
@@ -151,7 +152,7 @@ export const ConfirmTrade = ({
               </p>
               {tuple.leverage <= 50 && (
                 <p>
-                  <span>Fees</span>
+                  <span>{t`Fees`}</span>
                   <span>
                     {eXDecimals(getFees(new BigNumber(tuple.positionSizeDai), tuple.leverage), 18).toFixed(2)}{' '}
                     {tradePool.symbol}
@@ -159,7 +160,7 @@ export const ConfirmTrade = ({
                 </p>
               )}
               <p>
-                <span>Collateral</span>
+                <span>{t`Collateral`}</span>
                 <span>{eXDecimals(tuple.positionSizeDai, 18).toFixed(2)}</span>
               </p>
             </div>
@@ -183,7 +184,7 @@ export const ConfirmTrade = ({
               {/*  <span>-{tradePool.symbol}</span>*/}
               {/*</p>*/}
               <p>
-                <span>Allowed Slippage</span>
+                <span>{t`Allowed Slippage`}</span>
                 <span>{slippagePercent}%</span>
                 {/* <span>0.30%</span> */}
               </p>
@@ -226,7 +227,7 @@ export const ConfirmTrade = ({
                 }}
                 sx={{ marginTop: '20px' }}
               >
-                Long
+                {t`Long`}
               </KRAVLongButton>
             ) : (
               <KRAVShortButton
@@ -239,7 +240,7 @@ export const ConfirmTrade = ({
                 }}
                 sx={{ marginTop: '20px' }}
               >
-                Short
+                {t`Short`}
               </KRAVShortButton>
             )}
           </div>

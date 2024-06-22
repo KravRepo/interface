@@ -18,6 +18,7 @@ import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/mod
 import { KravModeSwitch } from '../KravUIKit/KravModeSwitch'
 import BigNumber from 'bignumber.js'
 import { CONTRACT_CONFIG } from '../../constant/chain'
+import { Trans, t } from '@lingui/macro'
 
 export type SettingMenuContentProps = {
   toggleTheme: () => void
@@ -110,7 +111,7 @@ export const SettingMenuContent = ({
               color: #757575;
             `}
           >
-            Total assets
+            <Trans>Total assets</Trans>
           </p>
           <p
             css={css`
@@ -132,7 +133,7 @@ export const SettingMenuContent = ({
         }}
       >
         {theme.palette.mode === 'dark' ? <DisconnectDarkIcon2 /> : <DisconnectIcon2 />}
-        Disconnect
+        <Trans>Disconnect</Trans>
       </div>
       <div
         className="action"
@@ -147,7 +148,7 @@ export const SettingMenuContent = ({
               margin-left: 12px;
             `}
           >
-            {theme.palette.mode === 'light' ? 'Light Mode' : 'Dark Mode'}
+            {theme.palette.mode === 'light' ? t`Light Mode` : t`Dark Mode`}
           </span>
         </div>
         <KravModeSwitch checked={true} onClick={toggleTheme} />

@@ -13,6 +13,7 @@ import BigNumber from 'bignumber.js'
 import { align } from '../../../globalStyle'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
+import { Trans, t } from '@lingui/macro'
 
 type MyLockedProp = {
   userLockPosition: UserLockPosition
@@ -48,15 +49,21 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
           padding: 24px 0 42px;
         `}
       >
-        Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked
-        amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV.
+        <Trans>
+          Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the
+          locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV.
+        </Trans>
       </div>
       <div className="overview">
-        <span>Locked amount</span>
+        <span>
+          <Trans>Locked amount</Trans>
+        </span>
         <span>{formatNumber(userLockPosition.amount.toNumber(), 2, false)} KRAV</span>
       </div>
       <div className="overview">
-        <span>Locked until</span>
+        <span>
+          <Trans>Locked until</Trans>
+        </span>
         <span>
           {userLockPosition.end === 0
             ? '--'
@@ -75,13 +82,13 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         `}
       >
         <Tooltip
-          title={
-            'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
-          }
+          title={t`Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x`}
         >
           <div css={align}>
             <BoostIcon />
-            <span>&nbsp;My current trade boost :&nbsp;</span>
+            <span>
+              &nbsp;<Trans>My current trade boost</Trans> :&nbsp;
+            </span>
             <QuestionIcon />
           </div>
         </Tooltip>
@@ -103,16 +110,20 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         >
           <div css={align}>
             <BoostIcon />
-            <span>&nbsp;My current Liquidity Provider boost :&nbsp;</span>
+            <span>
+              &nbsp;<Trans>My current Liquidity Provider boost</Trans> :&nbsp;
+            </span>
             <QuestionIcon />
           </div>
         </Tooltip>
         <div>{getBigNumberStr(LpBooster, 4)}</div>
       </div>
       <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
-        Unlock
+        <Trans>Unlock</Trans>
       </KRAVButton>
-      <div className="title gt">My Rewards</div>
+      <div className="title gt">
+        <Trans>My Rewards</Trans>
+      </div>
       <div className="my-reward">
         {userFeesRewardList.map((item, index) => {
           return (
@@ -145,11 +156,11 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         }}
         sx={{ mb: '12px' }}
       >
-        Claim
+        <Trans>Claim</Trans>
       </KRAVButton>
       <Link underline="none" sx={{ color: theme.text.primary }} href="https://snapshot.org/#/krav.eth">
         <KravButtonHollow>
-          To Vote <ToVoteIcon />
+          <Trans>To Vote</Trans> <ToVoteIcon />
         </KravButtonHollow>
       </Link>
     </div>

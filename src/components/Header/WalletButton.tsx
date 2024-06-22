@@ -7,7 +7,7 @@ import { css } from '@emotion/react'
 import { ReactComponent as AccountIcon } from '../../assets/imgs/account_logo.svg'
 import { Menu, useMediaQuery, useTheme } from '@mui/material'
 import { SettingMenuContent } from './SettingMenuContent'
-import { Trans } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Connector } from '@web3-react/types'
 import { useRootStore } from '../../store/root'
@@ -96,7 +96,7 @@ export const WalletButton = ({
       {account && showFaucet && (
         <KRAVButton onClick={setOpenFaucet}>
           <InvertColorsOutlinedIcon />
-          Faucet
+          {t`Faucet`}
         </KRAVButton>
       )}
       {account ? (

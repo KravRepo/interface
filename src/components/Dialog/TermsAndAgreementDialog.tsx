@@ -10,6 +10,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import { useLocation } from 'react-router-dom'
+import { Trans } from '@lingui/macro'
 
 export default function TermsAndAgreementDialog() {
   const [open, setOpen] = React.useState(false)
@@ -82,7 +83,7 @@ export default function TermsAndAgreementDialog() {
             textAlign: 'center',
           }}
         >
-          KRAV - Terms of Service
+          <Trans>KRAV - Terms of Service</Trans>
         </DialogTitle>
         <DialogContent sx={{ px: 0 }}>
           <DialogContentText

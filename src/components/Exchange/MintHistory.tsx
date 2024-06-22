@@ -11,6 +11,7 @@ import copy from 'copy-to-clipboard'
 import { ReactComponent as CopyDarkIcon } from '../../assets/imgs/darkModel/copy_icon_dark.svg'
 import { ReactComponent as CopyIcon } from '../../assets/imgs/copy_icon.svg'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
+import { t } from '@lingui/macro'
 
 const HistoryTitle = () => {
   const theme = useTheme()
@@ -29,11 +30,11 @@ const HistoryTitle = () => {
         `,
       ]}
     >
-      <span>Exchange ratio</span>
-      <span>Stake&Burn Amount</span>
-      <span>Mint to</span>
-      <span>Address</span>
-      <span>Date</span>
+      <span>{t`Exchange ratio`}</span>
+      <span>{t`Stake&Burn Amount`}</span>
+      <span>{t`Mint to`}</span>
+      <span>{t`Address`}</span>
+      <span>{t`Date`}</span>
     </div>
   )
 }
@@ -189,7 +190,7 @@ export const MintHistory = () => {
           padding: ${isMobile ? ' 16px 0 12px 16px' : '16px 0 12px 32px'};
         `}
       >
-        My history
+        {t`My history`}
       </p>
       <HistoryTitle />
       {totalHistory === 0 && (
@@ -202,7 +203,7 @@ export const MintHistory = () => {
             padding-top: 130px;
           `}
         >
-          No stake yet
+          {t`No stake yet`}
         </div>
       )}
       {historyArray.map((item, index) => {

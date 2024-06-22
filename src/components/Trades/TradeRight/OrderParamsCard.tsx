@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
-import { Trans } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab } from './style'
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
@@ -412,7 +412,7 @@ export const OrderParamsCard = ({
                     color: #757575;
                   `}
                 >
-                  Available:
+                  {t`Available`}:
                 </span>{' '}
                 {getBigNumberStr(PoolWalletBalance, 6) || '0'} {tradePool?.symbol}
               </div>
@@ -461,7 +461,7 @@ export const OrderParamsCard = ({
                         color: #757575;
                       `}
                     >
-                      Pay
+                      {t`Pay`}
                     </span>
                   </div>
                   <div
@@ -820,7 +820,7 @@ export const OrderParamsCard = ({
                           color: #757575;
                         `}
                       >
-                        Market Price
+                        {t`Market Price`}
                       </span>
                       {/* TODO Liquidation Price */}
                       <span>
@@ -842,8 +842,9 @@ export const OrderParamsCard = ({
                         padding-bottom: 8px;
                       `}
                     >
-                      <AlertIcon style={{ margin: '0 3px -3px 0' }} /> A fraction of your profits (if any) is taken when
-                      you close the trade
+                      <AlertIcon style={{ margin: '0 3px -3px 0' }} />{' '}
+                      {t`A fraction of your profits (if any) is taken when
+                      you close the trade`}
                     </p>
                   </div>
                 )}
@@ -1217,16 +1218,25 @@ export const OrderParamsCard = ({
               <span>Attention</span>
             </div>
             <div className="content order-limit">
-              <p>1. Disclaimer</p>
               <p>
-                Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should
-                understand these risks before engaging in such trades
+                <Trans>1. Disclaimer</Trans>
+              </p>
+              <p>
+                <Trans>
+                  Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should
+                  understand these risks before engaging in such trades
+                </Trans>
               </p>
             </div>
             <div className="content">
-              <p>2. Fees</p>
               <p>
-                Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each.
+                <Trans>2. Fees</Trans>
+              </p>
+              <p>
+                <Trans>
+                  Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for
+                  each.
+                </Trans>
               </p>
             </div>
           </div>

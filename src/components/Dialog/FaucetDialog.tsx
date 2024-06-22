@@ -6,6 +6,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { align } from '../../globalStyle'
 import { useFaucet } from '../../hook/hookV8/useFaucet'
 import KRAVButton from '../KravUIKit/KravButton'
+import { t } from '@lingui/macro'
 
 type FaucetDialogProps = {
   isOpen: boolean
@@ -29,7 +30,7 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
         <div css={dialogContent}>
           <div className="select-token-header">
             <div>
-              <span>Faucet</span>
+              <span>{t`Faucet`}</span>
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
             </div>
           </div>
@@ -58,7 +59,7 @@ export const FaucetDialog = ({ isOpen, setIsOpen }: FaucetDialogProps) => {
                 setIsOpen(false)
               }}
             >
-              <div css={align}>Faucet</div>
+              <div css={align}>{t`Faucet`}</div>
             </KRAVButton>
           </div>
         </div>

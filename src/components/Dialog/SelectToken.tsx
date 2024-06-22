@@ -7,6 +7,7 @@ import { css } from '@emotion/react'
 import { NavLink } from 'react-router-dom'
 import { SelectTokenItem } from './SelectTokenItem'
 import { DialogLayout } from './DialogLayout'
+import { t } from '@lingui/macro'
 
 type SelectTokenProps = {
   isOpen: boolean
@@ -55,16 +56,15 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
             text-align: center;
           `}
         >
-          <span>Can not find the target asset you want to trade? Come &nbsp;</span>
+          <span>{t`Can not find the target asset you want to trade?`} &nbsp;</span>
           <NavLink
             to={'/liquidity'}
             css={css`
               color: ${theme.palette.mode === 'dark' ? theme.text.primary : ''};
             `}
           >
-            <span>create </span>
+            <span>{t`Come create one!`}</span>
           </NavLink>
-          <span>one!</span>
         </div>
       </div>
     </DialogLayout>

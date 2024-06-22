@@ -11,6 +11,7 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import { useGetKravStake } from '../../hook/hookV8/useGetKravStake'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import { getBigNumberStr } from '../../utils'
+import { Trans, t } from '@lingui/macro'
 
 type StakeDialogProps = {
   isOpen: boolean
@@ -91,8 +92,10 @@ export const StakeDialog = ({
                     margin-bottom: 20px;
                   `}
                 >
-                  <span>Pay</span>
-                  <span>Available:{useStakeAmount.toFixed(4)} KRAV</span>
+                  <span>{t`Pay`}</span>
+                  <span>
+                    {t`Available`}:{useStakeAmount.toFixed(4)} KRAV
+                  </span>
                 </div>
                 <div
                   css={css`
@@ -164,7 +167,7 @@ export const StakeDialog = ({
                 }}
                 sx={{ mt: '24px' }}
               >
-                {buttonStr}
+                <Trans>{buttonStr}</Trans>
               </KRAVButton>
             </div>
           </div>
@@ -172,7 +175,7 @@ export const StakeDialog = ({
         {isStake && (
           <div css={dialogContent}>
             <div className="dialog-header ">
-              <span>Stake Krav</span>
+              <span>{t`Stake`} Krav</span>
               <CloseSharpIcon
                 sx={{ cursor: 'pointer' }}
                 onClick={() => {
@@ -197,8 +200,10 @@ export const StakeDialog = ({
                     margin-bottom: 20px;
                   `}
                 >
-                  <span>Amount</span>
-                  <span>Available: {getBigNumberStr(userKravBalance, 2)} KRAV</span>
+                  <span>{t`Amount`}</span>
+                  <span>
+                    {t`Available`}: {getBigNumberStr(userKravBalance, 2)} KRAV
+                  </span>
                 </div>
                 <div
                   css={css`
@@ -270,7 +275,7 @@ export const StakeDialog = ({
                 }}
                 sx={{ mt: '24px' }}
               >
-                {buttonStr}
+                <Trans> {buttonStr}</Trans>
               </KRAVButton>
             </div>
           </div>

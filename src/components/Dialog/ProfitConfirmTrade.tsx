@@ -13,6 +13,7 @@ import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
+import { Trans, t } from '@lingui/macro'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -220,7 +221,7 @@ export const ProfitConfirmTrade = ({
                       `}
                     >
                       <div>
-                        StopLoss{' '}
+                        {t`StopLoss`}{' '}
                         <span
                           css={css`
                             color: #db4c40;
@@ -251,13 +252,13 @@ export const ProfitConfirmTrade = ({
                       `}
                     >
                       <div>
-                        StopLoss{' '}
+                        {t`StopLoss`}{' '}
                         <span
                           css={css`
                             color: #db4c40;
                           `}
                         >
-                          (None)
+                          ({t`None`})
                         </span>
                       </div>
                       <span
@@ -265,7 +266,7 @@ export const ProfitConfirmTrade = ({
                           color: #db4c40;
                         `}
                       >
-                        None
+                        {t`None`}
                       </span>
                     </div>
                   )}
@@ -346,7 +347,7 @@ export const ProfitConfirmTrade = ({
                     }}
                     sx={{ marginTop: '20px' }}
                   >
-                    {slButtonText}
+                    <Trans> {slButtonText}</Trans>
                   </KRAVButton>
                 </div>
                 <div>
@@ -360,7 +361,7 @@ export const ProfitConfirmTrade = ({
                       `}
                     >
                       <div>
-                        Take Profit{' '}
+                        {t`Take Profit`}{' '}
                         <span
                           css={css`
                             color: #009b72;
@@ -390,7 +391,7 @@ export const ProfitConfirmTrade = ({
                         `}
                       >
                         <div>
-                          Take Profit{' '}
+                          {t`Take Profit`}{' '}
                           <span
                             css={css`
                               color: #009b72;
@@ -404,7 +405,7 @@ export const ProfitConfirmTrade = ({
                             color: #009b72;
                           `}
                         >
-                          None
+                          {t`None`}
                         </span>
                       </div>
                     </>
@@ -486,7 +487,7 @@ export const ProfitConfirmTrade = ({
                     }}
                     sx={{ marginTop: '20px' }}
                   >
-                    {tpButtonText}
+                    <Trans>{tpButtonText}</Trans>
                   </KRAVButton>
                 </div>
               </div>
@@ -499,19 +500,19 @@ export const ProfitConfirmTrade = ({
           >
             <div className="confirm-content-info">
               <p>
-                <span>Current price</span>
+                <span>{t`Current price`}</span>
                 <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
-                <span>Current TP</span>
+                <span>{t`Current TP`}</span>
                 <span>${new BigNumber(openTrade.tp).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
-                <span>Current SL</span>
+                <span>{t`Current SL`}</span>
                 <span>${new BigNumber(openTrade.sl).toFixed(tradePair.fixDecimals)}</span>
               </p>
               <p>
-                <span>Liquidation price</span>
+                <span>{t`Liquidation price`}</span>
                 <span>${lqPrice.toFixed(tradePair.fixDecimals)}</span>
               </p>
             </div>

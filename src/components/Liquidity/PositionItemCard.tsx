@@ -16,6 +16,7 @@ import { align } from '../../globalStyle'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
 import { PNL_API } from '../../constant/chain'
 import { useWeb3React } from '@web3-react/core'
+import { t } from '@lingui/macro'
 
 export const PositionItemCard = ({
   position,
@@ -108,7 +109,7 @@ export const PositionItemCard = ({
                 margin-right: 8px;
               `}
             >
-              Utilization
+              {t`Utilization`}
             </span>
             <span
               css={css`
@@ -155,7 +156,7 @@ export const PositionItemCard = ({
       </div>
       <div className="card-content">
         <div className="data">
-          <p>Total Liquidity Supply</p>
+          <p>{t`Total Liquidity Supply`}</p>
           <p>{position.pool.poolTotalSupply?.toFixed(2)}</p>
         </div>
         <div
@@ -164,7 +165,7 @@ export const PositionItemCard = ({
             margin-top: 10px;
           `}
         >
-          <p>Your Liquidity Supply</p>
+          <p>{t`Your Liquidity Supply`}</p>
           <div>
             <span
               css={css`
@@ -245,7 +246,7 @@ export const PositionItemCard = ({
                 color: ${theme.text.second};
               `}
             >
-              Yield Earned
+              {t`Yield Earned`}
             </span>
             <span>
               {tokenAmount.toFormat(4, 3)}
@@ -258,7 +259,7 @@ export const PositionItemCard = ({
                 color: ${theme.text.second};
               `}
             >
-              Your Pool Stake
+              {t`Your Pool Stake`}
             </span>
             <span>
               {(
@@ -275,10 +276,10 @@ export const PositionItemCard = ({
                 color: ${theme.text.second};
               `}
             >
-              Your Withdraw Limit
+              {t`Your Withdraw Limit`}
             </span>
             <Tooltip
-              title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
+              title={t`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
             >
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />

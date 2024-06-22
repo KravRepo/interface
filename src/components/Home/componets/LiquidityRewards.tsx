@@ -15,6 +15,7 @@ import { useMemo, useState } from 'react'
 import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
+import { Trans, t } from '@lingui/macro'
 
 type LiquidityRewardsProps = {
   lpRewardAmount: BigNumber
@@ -62,7 +63,7 @@ export const LiquidityRewards = ({
           `}
           className="title gt"
         >
-          Liquidity Provider Rewards
+          <Trans>Liquidity Provider Rewards</Trans>
         </div>
         <div
           className="overview-card"
@@ -78,7 +79,9 @@ export const LiquidityRewards = ({
               margin-bottom: ${isMobile ? '16px' : 'unset'};
             `}
           >
-            <KRAVTab>Total Liquidity Provider</KRAVTab>
+            <KRAVTab>
+              <Trans>Total Liquidity Provider</Trans>
+            </KRAVTab>
             <p className="data gt">{formatNumber(overviewData.liquiditySupply, 2, true)}</p>
           </div>
           <div
@@ -96,7 +99,9 @@ export const LiquidityRewards = ({
               onMouseEnter={handlePopoverOpen}
               onMouseLeave={handlePopoverClose}
             >
-              <KRAVTab>Your Liquidity Provider</KRAVTab>
+              <KRAVTab>
+                <Trans>Your Liquidity Provider</Trans>
+              </KRAVTab>
               &nbsp;&nbsp;
               <AlertIcon />
             </Box>
@@ -131,7 +136,9 @@ export const LiquidityRewards = ({
                     padding-bottom: 16px;
                   `}
                 >
-                  When actually distributing income, calculate your ratio according to your trading volume after boost
+                  <Trans>
+                    When actually distributing income, calculate your ratio according to your trading volume after boost
+                  </Trans>
                 </div>
                 <div
                   css={css`
@@ -142,7 +149,9 @@ export const LiquidityRewards = ({
                     justify-content: space-between;
                   `}
                 >
-                  <div>Actual Liquidity Provider</div>
+                  <div>
+                    <Trans>Actual Liquidity Provider</Trans>
+                  </div>
                   <span
                     css={css`
                       font-size: 16px;
@@ -161,7 +170,9 @@ export const LiquidityRewards = ({
                     justify-content: space-between;
                   `}
                 >
-                  <span>Liquidity Provider after boost</span>
+                  <span>
+                    <Trans>Liquidity Provider after boost</Trans>
+                  </span>
                   <span
                     css={css`
                       font-size: 16px;
@@ -189,7 +200,9 @@ export const LiquidityRewards = ({
               margin-bottom: ${isMobile ? '16px' : 'unset'};
             `}
           >
-            <KRAVTab>Share of pool</KRAVTab>
+            <KRAVTab>
+              <Trans>Share of pool</Trans>
+            </KRAVTab>
             <p className="data gt">{formatNumber(userLiquidityProvided / overviewData.liquiditySupply, 2, false)} %</p>
           </div>
           <div
@@ -198,12 +211,12 @@ export const LiquidityRewards = ({
             `}
           >
             <Tooltip
-              title={
-                'Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x'
-              }
+              title={t`Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x`}
             >
               <div css={[align]}>
-                <KRAVTab>My Boost</KRAVTab>
+                <KRAVTab>
+                  <Trans>My Boost</Trans>
+                </KRAVTab>
                 &nbsp;&nbsp;
                 <QuestionIcon />
               </div>
@@ -259,7 +272,9 @@ export const LiquidityRewards = ({
           `}
         >
           <div className="flex">
-            <div className="title gt">Fees Rewards</div>
+            <div className="title gt">
+              <Trans>Fees Rewards</Trans>
+            </div>
             <div css={align}>
               {/*<span>What is this?&nbsp;&nbsp;</span>*/}
               {/*<QuestionIcon />*/}
@@ -309,7 +324,7 @@ export const LiquidityRewards = ({
                   color: ${theme.text.second};
                 `}
               >
-                No Fees Reward
+                <Trans>No Fees Reward</Trans>
               </div>
             )}
           </div>
@@ -319,7 +334,7 @@ export const LiquidityRewards = ({
                 padding-right: 36px;
               `}
             >
-              {"Navigate to the 'dashboard' page to claim your fee earnings"}
+              {t`Navigate to the 'dashboard' page to claim your fee earnings`}
             </div>
             <div css={align}>
               <span
@@ -330,7 +345,7 @@ export const LiquidityRewards = ({
                   margin-right: 8px;
                 `}
               >
-                VIEW MORE
+                <Trans>VIEW MORE</Trans>
               </span>
               {theme.palette.mode === 'dark' ? (
                 <ArrowLeftDark

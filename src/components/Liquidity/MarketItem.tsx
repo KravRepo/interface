@@ -12,6 +12,7 @@ import { getBigNumberStr } from '../../utils'
 import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 import { useTheme } from '@mui/material'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
+import { t } from '@lingui/macro'
 
 export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
@@ -82,7 +83,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
               setLiquidityInfo(poolParams)
             }}
           >
-            Add Liquidity
+            {t`Add Liquidity`}
           </KravButtonHollow>
         )}
 

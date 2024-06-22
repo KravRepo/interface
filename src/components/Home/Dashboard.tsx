@@ -27,6 +27,7 @@ import { useNavigate } from 'react-router-dom'
 import { useMediaQuery, useTheme } from '@mui/material'
 // import { useGetTotalMarketOverview } from '../../hook/hookV8/useGetTotalMarketOverview'
 import { EarningInfoMobile } from './componets/EarningInfoMobile'
+import { Trans, t } from '@lingui/macro'
 
 export const Dashboard = () => {
   const theme = useTheme()
@@ -102,7 +103,9 @@ export const Dashboard = () => {
         `}
         className="earning"
       >
-        <p className="title">Earning Information</p>
+        <p className="title">
+          <Trans>Earning Information</Trans>
+        </p>
         {!isMobile && (
           <div>
             <div
@@ -110,7 +113,7 @@ export const Dashboard = () => {
                 background: ${theme.background.primary};
               `}
             >
-              <div className="provided card" >
+              <div className="provided card">
                 <p
                   className="tabs"
                   css={css`
@@ -119,7 +122,7 @@ export const Dashboard = () => {
                     background: ${theme.palette.mode === 'dark' ? '#2832f5' : '#a4a8fe'};
                   `}
                 >
-                  Liquidity being provided
+                  {t`Liquidity being provided`}
                 </p>
                 <div className="details">
                   {/* <div className="total">
@@ -135,10 +138,10 @@ export const Dashboard = () => {
                   /> */}
                   <div className="my-pool">
                     <div>
-                      <p>My Pool</p>
+                      <p>{t`My Pool`}</p>
                       <p>
                         <span>{userPoolLength}</span>
-                        <span>View Details</span>
+                        <span>{t`View Details`}</span>
                         {/*ArrowLeftDark*/}
                         {theme.palette.mode === 'dark' ? (
                           <ArrowLeftDark
@@ -167,7 +170,11 @@ export const Dashboard = () => {
                         )}
                       </p>
                     </div>
-                    {theme.palette.mode === 'dark' ? <PointsDarkLogo style={{marginLeft: '100px'}} /> : <PointsLogo style={{marginLeft: '100px'}} />}
+                    {theme.palette.mode === 'dark' ? (
+                      <PointsDarkLogo style={{ marginLeft: '100px' }} />
+                    ) : (
+                      <PointsLogo style={{ marginLeft: '100px' }} />
+                    )}
                   </div>
                 </div>
               </div>

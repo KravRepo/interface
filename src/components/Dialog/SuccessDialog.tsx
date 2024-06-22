@@ -9,6 +9,7 @@ import { ReactComponent as SuccessDarkLogo } from '../../assets/imgs/darkModel/s
 import KRAVButton from '../KravUIKit/KravButton'
 import { useRootStore } from '../../store/root'
 import { css } from '@emotion/react'
+import { Trans } from '@lingui/macro'
 
 export const SuccessDialog = () => {
   const theme = useTheme()
@@ -39,7 +40,7 @@ export const SuccessDialog = () => {
                 font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
-              Сongratulations!{' '}
+              <Trans>Сongratulations!</Trans>{' '}
             </span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
@@ -55,12 +56,14 @@ export const SuccessDialog = () => {
           <div className="error-dialog-content">
             {successContent.action === TransactionAction.REMOVE_LIQUIDITY ? (
               <p style={{ textAlign: 'center' }}>
-                Withdraw request confirmed
+                <Trans> Withdraw request confirmed</Trans>
                 <br />
-                Please wait 24 hours to remove liquidity
+                <Trans>Please wait 24 hours to remove liquidity</Trans>
               </p>
             ) : (
-              <p>{successContent.action} successfully.</p>
+              <p>
+                <Trans>{successContent.action}</Trans> <Trans>successfully.</Trans>
+              </p>
             )}
             {theme.palette.mode === 'dark' ? <SuccessDarkLogo /> : <SuccessLogo />}
             <KRAVButton

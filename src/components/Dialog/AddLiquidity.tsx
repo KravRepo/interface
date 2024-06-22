@@ -15,6 +15,7 @@ import BigNumber from 'bignumber.js'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 import { DialogLayout } from './DialogLayout'
+import { t } from '@lingui/macro'
 
 export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
   const theme = useTheme()
@@ -43,7 +44,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
             border-bottom: ${theme.splitLine.primary};
           `}
         >
-          <span>Add Liquidity</span>
+          <span>{t`Add Liquidity`} </span>
           <CloseSharpIcon
             sx={{ cursor: 'pointer' }}
             onClick={() => {
@@ -62,7 +63,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
               lineHeight={'150%'}
               sx={{ marginLeft: '8px !important' }}
             >
-              Liquidity Remove Limit
+              {t`Liquidity Remove Limit`}
             </Typography>
           </Stack>
           <Typography
@@ -74,9 +75,9 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
           >
             <span style={{ fontWeight: 600 }}>Note: </span>
             <span>
-              When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the
+              {t`When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the
               balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity
-              environment. 25% of deposited liquidity may be removed at a time.
+              environment. 25% of deposited liquidity may be removed at a time.`}
             </span>
           </Typography>
         </Box>
@@ -101,9 +102,9 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                 margin-bottom: 20px;
               `}
             >
-              <span>Pay</span>
+              <span>{t`Pay`}</span>
               <span>
-                Available:{PoolWalletBalance.toFixed(4)} {liquidityInfo.symbol}
+                {t`Available`}:{PoolWalletBalance.toFixed(4)} {liquidityInfo.symbol}
               </span>
             </div>
             <div

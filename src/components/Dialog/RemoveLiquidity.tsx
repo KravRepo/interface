@@ -25,6 +25,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import { withDecimals } from '../../utils'
 import { PoolParams } from '../../store/FactorySlice'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
+import { t } from '@lingui/macro'
 
 const StyledBox = styled(Box)(() => ({
   borderBottom: '1px solid var(--ps-text-20)',
@@ -98,7 +99,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                 lineHeight={'150%'}
                 sx={{ marginLeft: '8px !important' }}
               >
-                Liquidity Remove Limit
+                {t`Liquidity Remove Limit`}
               </Typography>
             </Stack>
             <Typography
@@ -108,11 +109,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               lineHeight={'150%'}
               sx={{ marginTop: '16px !important' }}
             >
-              <span style={{ fontWeight: 600 }}>Note: </span>
+              <span style={{ fontWeight: 600 }}>{t`Note`}: </span>
               <span>
-                when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and
+                {t`when withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and
                 the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity
-                environment. 25% of deposited liquidity may be removed at a time.
+                environment. 25% of deposited liquidity may be removed at a time.`}
               </span>
             </Typography>
           </Box>
@@ -284,7 +285,7 @@ function ExistingRequest({
   const getRequestEc = useSingleContractMultipleData(
     kTokenContract,
     'reqWithdrawals',
-    Array.from(Array(3).keys()).map((index) => [account, updateEpoch.plus((+index+1).toString()).toString()])
+    Array.from(Array(3).keys()).map((index) => [account, updateEpoch.plus((+index + 1).toString()).toString()])
   )
 
   const requestEc = useMemo<{ epoch: number; amount: BigNumber }[]>(() => {
@@ -371,25 +372,25 @@ function ExistingRequest({
                   lineHeight: '100%',
                 }}
               >
-                Now Epoch
+                {t`Now Epoch`}
               </Typography>
               <Typography>{updateEpoch.toString()}</Typography>
             </Stack>
             <StyledBox />
             <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>Remaining</Typography>
+              <Typography>{t`Remaining`}</Typography>
               <Typography>
                 <span>{remainingTime}</span>
               </Typography>
             </Stack>
             <StyledBox />
             <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>Start</Typography>
+              <Typography>{t`Start`}</Typography>
               <Typography>{new Date(lastEpoch.toNumber() * 1000).toLocaleString()}</Typography>
             </Stack>
             <StyledBox />
             <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>End</Typography>
+              <Typography>{t`End`}</Typography>
               <Typography>{new Date((lastEpoch.toNumber() + epochDuration) * 1000).toLocaleString()}</Typography>
             </Stack>
             <StyledBox />
@@ -403,8 +404,8 @@ function ExistingRequest({
               fontSize: '12px',
             }}
           >
-            <span>Amount</span>
-            <span>Withdraw Status</span>
+            <span>{t`Amount`}</span>
+            <span>{t`Withdraw Status`}</span>
           </Typography>
           <Box>
             {requestEc
@@ -452,7 +453,7 @@ function ExistingRequest({
                             borderRadius: '100px',
                           }}
                         >
-                          Claim
+                          {t`Claim`}
                         </KravButtonHollow>
                       ) : (
                         <Typography
@@ -462,7 +463,7 @@ function ExistingRequest({
                             lineHeight: '140%',
                           }}
                         >
-                          Pending
+                          {t`Pending`}
                         </Typography>
                       )}
                     </Stack>

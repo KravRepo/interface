@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js'
 import { useMemo } from 'react'
 import moment from 'moment'
 import { leftTime } from '../../../utils/math'
+import { Trans } from '@lingui/macro'
 
 type KravRewardCardProps = {
   isTrade: boolean
@@ -99,14 +100,16 @@ export const KravRewardCard = ({
         `}
       >
         <p>
-          Rewards will be refreshed on{' '}
+          <Trans>Rewards will be refreshed on</Trans>{' '}
           {moment(nextEpoch * 1000)
             .utc()
             .format('MMM DD, YYYY HH:mm A')}{' '}
           &nbsp;UTC.{' '}
         </p>
         <p>
-          <span>Next distribution:</span>
+          <span>
+            <Trans>Next distribution</Trans>:
+          </span>
           <span>
             {nextDistribution.disHour} hours {nextDistribution.disMinut} minutes
           </span>

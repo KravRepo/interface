@@ -21,6 +21,7 @@ import erc20 from '../../abi/test_erc20.json'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import { useUpdateError } from '../../hook/hookV8/useUpdateError'
 import { useUpdateSuccessDialog } from '../../hook/hookV8/useUpdateSuccessDialog'
+import { Trans, t } from '@lingui/macro'
 
 export const ExchangeAction = () => {
   const { chainId, account, provider } = useWeb3React()
@@ -175,7 +176,7 @@ export const ExchangeAction = () => {
                 margin-bottom: 16px;
               `}
             >
-              Burn
+              <Trans>Burn</Trans>
             </p>
             <div
               css={css`
@@ -262,7 +263,9 @@ export const ExchangeAction = () => {
                       width: ${isMobile ? '32px' : '40px'};
                     `}
                   />
-                  <span>Coming Soon</span>
+                  <span>
+                    <Trans>Coming Soon</Trans>
+                  </span>
                 </div>
                 <p
                   css={css`
@@ -295,7 +298,9 @@ export const ExchangeAction = () => {
           {!showMint && (
             <>
               <p>
-                <span>Your staked :</span>
+                <span>
+                  <Trans>Your staked :</Trans>
+                </span>
                 <span>{formatNumber(userStakedAmount.toString(), 4, false)} KRAV</span>
               </p>
               <p
@@ -303,8 +308,10 @@ export const ExchangeAction = () => {
                   font-size: 14px;
                 `}
               >
-                <span>Amount</span>
-                <span>Available: {formatNumber(userOldKravBalance.toString(), 4, false)} KRAV</span>
+                <span>{t`Amount`}</span>
+                <span>
+                  {t`Available`}: {formatNumber(userOldKravBalance.toString(), 4, false)} KRAV
+                </span>
               </p>
               <div
                 css={css`
@@ -370,8 +377,12 @@ export const ExchangeAction = () => {
                   font-size: 12px;
                 `}
               >
-                <span>Exchange ratio :</span>
-                <span>1 KRAV → Coming Soon</span>
+                <span>
+                  <Trans>Exchange ratio :</Trans>
+                </span>
+                <span>
+                  <Trans>1 KRAV → Coming Soon</Trans>
+                </span>
               </p>
               <KRAVButton
                 disabled={
@@ -400,7 +411,7 @@ export const ExchangeAction = () => {
                   padding-top: 24px;
                 `}
               >
-                Amount that can be claimed
+                <Trans>Amount that can be claimed</Trans>
               </p>
               <p
                 css={css`
@@ -412,7 +423,9 @@ export const ExchangeAction = () => {
               >
                 Coming Soon
               </p>
-              <KRAVButton>Mint</KRAVButton>
+              <KRAVButton>
+                <Trans>Mint</Trans>
+              </KRAVButton>
             </div>
           )}
         </div>

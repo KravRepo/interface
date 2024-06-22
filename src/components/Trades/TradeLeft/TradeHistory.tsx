@@ -8,6 +8,7 @@ import BigNumber from 'bignumber.js'
 import { HistoryItem } from './HistoryItem'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { historyOverflow } from './style'
+import { t } from '@lingui/macro'
 
 export type Quanto = {
   id: number
@@ -106,17 +107,17 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
           border-top: ${theme.splitLine.primary};
         `}
       >
-        <span>Date</span>
-        <span>Pair</span>
-        <span>Type</span>
-        <span>Price</span>
-        <span>Leverage</span>
-        <span>Coll</span>
-        <span>PnL: -90 to +900</span>
+        <span>{t`Date`}</span>
+        <span>{t`Pair`}</span>
+        <span>{t`Type`}</span>
+        <span>{t`Price`}</span>
+        <span>{t`Leverage`}</span>
+        <span>{t`Coll`}</span>
+        <span>{t`PnL: -90 to +900`}</span>
         <span>%</span>
       </div>
-      {historyList.length === 0 && account && <div className="no-data">No trade history</div>}
-      {!account && <div className="no-data">Connect wallet</div>}
+      {historyList.length === 0 && account && <div className="no-data">{t`No trade history`}</div>}
+      {!account && <div className="no-data">{t`Connect wallet`}</div>}
       {historyList.length > 0 &&
         account &&
         historyList.map((history, index) => {

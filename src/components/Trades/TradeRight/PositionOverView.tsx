@@ -3,6 +3,7 @@ import { css } from '@emotion/react'
 import { bottomCard } from '../style'
 import { useRootStore } from '../../../store/root'
 import { useTheme } from '@mui/material'
+import { t } from '@lingui/macro'
 
 export const PositionOverView = () => {
   const theme = useTheme()
@@ -30,7 +31,7 @@ export const PositionOverView = () => {
         `}
       >
         <p className="card-details">
-          <span>Available Liquidity:&nbsp;</span>
+          <span>{t`Available Liquidity`}:&nbsp;</span>
           <span>
             {tradePool?.poolCurrentBalance?.toFixed(2)} {tradePool?.symbol}
           </span>

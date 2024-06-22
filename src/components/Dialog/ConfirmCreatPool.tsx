@@ -14,6 +14,7 @@ import BigNumber from 'bignumber.js'
 import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { addDecimals } from '../../utils/math'
 import { DialogLayout } from './DialogLayout'
+import { t } from '@lingui/macro'
 
 export const ConfirmCreatPool = ({
   isOpen,
@@ -68,7 +69,7 @@ export const ConfirmCreatPool = ({
               font-size: ${isMobile ? '18px' : '20px'};
             `}
           >
-            Confirm
+            {t`Confirm`}
           </span>
           <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
         </div>
@@ -83,7 +84,7 @@ export const ConfirmCreatPool = ({
               background: ${theme.background.second};
             `}
           >
-            <p>Target Market</p>
+            <p>{t`Target Market`}</p>
             <div css={align}>
               <BTCIcon height="40" width="40" />
               <div
@@ -137,14 +138,14 @@ export const ConfirmCreatPool = ({
               </span>
             </p> */}
             <p>
-              <span>Deposit Amount/Initial LP Provision</span>
+              <span>{t`Deposit Amount/Initial LP Provision`}</span>
               <span>
                 {LPProvision} {tokenSymbol}
               </span>
             </p>
           </div>
           <KRAVButton onClick={sendTransaction} sx={{ mt: '24px' }}>
-            Confirm
+            {t`Confirm`}
           </KRAVButton>
         </div>
       </div>

@@ -17,6 +17,7 @@ import { useContract } from '../../hook/hookV8/useContract'
 import erc_20 from '../../abi/erc20.json'
 import { VALIDITY_ADDRESS_LENGTH } from '../../constant/math'
 import { Step } from './Step'
+import { t } from '@lingui/macro'
 
 export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps) => {
   const theme = useTheme()
@@ -110,7 +111,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                   padding-left: 12px;
                 `}
               >
-                Go back
+                {t`Go back`}
               </span>
             </div>
             <div
@@ -118,7 +119,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 font-size: 20px;
               `}
             >
-              Liquidity Creation
+              {t`Liquidity Creation`}
             </div>
             <div />
           </div>
@@ -126,7 +127,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
             {isMobile && <Step />}
             <div className="table-left">
               <div className="input-params">
-                <div>Choose Target Market</div>
+                <div>{t`Choose Target Market`}</div>
                 <Select
                   sx={{
                     width: '320px',
@@ -160,7 +161,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 </Select>
               </div>
               <div className="input-params">
-                <div>Select Token Collateral</div>
+                <div>{t`Select Token Collateral`}</div>
                 <KRAVTextField
                   label="Enter Asset contract or select Asset"
                   // InputProps={{
@@ -170,11 +171,11 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                   onChange={(event) => setTokenAddress(event.target.value)}
                   sx={{ width: '100%' }}
                 >
-                  <span>My Asset</span>
+                  <span>{t`My Asset`}</span>
                 </KRAVTextField>
               </div>
               <div className="input-params">
-                <div>Initial LP Provision</div>
+                <div>{t`Initial LP Provision`}</div>
                 <KRAVTextField
                   value={LPProvision}
                   type="number"
@@ -194,7 +195,7 @@ export const CreateLiquidity = ({ setCreateLiquidityPool }: CreateLiquidityProps
                 disabled={tokenAddress.length !== VALIDITY_ADDRESS_LENGTH || !ticketSize || !LPProvision}
                 sx={{ position: 'absolute', bottom: 0 }}
               >
-                Deposit and create
+                {t`Deposit and create`}
               </KRAVButton>
             </div>
             <div

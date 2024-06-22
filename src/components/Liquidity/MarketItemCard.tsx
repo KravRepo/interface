@@ -10,6 +10,7 @@ import { MarketItemProps } from './type'
 import { useWeb3React } from '@web3-react/core'
 import { getBigNumberStr } from '../../utils'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
+import { t } from '@lingui/macro'
 
 export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
@@ -61,7 +62,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
                 margin-right: 8px;
               `}
             >
-              Utilization
+              {t`Utilization`}
             </span>
             <span
               css={css`
@@ -108,7 +109,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
       </div>
       <div className="card-content">
         <div className="data">
-          <p>Total Liquidity Supply</p>
+          <p>{t`Total Liquidity Supply`}</p>
           <p>{poolParams.poolTotalSupply?.toFormat(2, 3)}</p>
         </div>
         <div
@@ -117,7 +118,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
             margin-top: 10px;
           `}
         >
-          <p>Your Liquidity Supply</p>
+          <p>{t`Your Liquidity Supply`}</p>
           <p
             css={css`
               color: #2832f5;
@@ -156,7 +157,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
               setLiquidityInfo(poolParams)
             }}
           >
-            Add Liquidity
+            {t`Add Liquidity`}
           </KravButtonHollow>
         )}
         {/* {account && (
@@ -177,7 +178,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
               setWalletDialogVisibility(true)
             }}
           >
-            Connect Wallet
+            {t`Connect Wallet`}
           </KravButtonHollow>
         )}
       </div>
