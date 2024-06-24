@@ -56,7 +56,9 @@ export const SuccessDialog = () => {
             />
           </div>
           <div className="error-dialog-content">
-            {successContent.action === TransactionAction.REMOVE_LIQUIDITY ? (
+            {successContent.action === TransactionAction.NONE ? (
+              <></>
+            ) : successContent.action === TransactionAction.REMOVE_LIQUIDITY ? (
               <p style={{ textAlign: 'center' }}>
                 <Trans> Withdraw request confirmed</Trans>
                 <br />

@@ -235,8 +235,8 @@ msgstr "Utilization"
 msgid "Market Price"
 msgstr "Market Price"
 
-#~ msgid "Something went wrong..."
-#~ msgstr "Something went wrong..."
+msgid "Something went wrong..."
+msgstr "Something went wrong..."
 
 msgid "Rewards will be refreshed on"
 msgstr "Rewards will be refreshed on"
@@ -404,14 +404,8 @@ msgstr "WITHDRAW_BLOCK"
 msgid "Enter Asset contract or select Asset"
 msgstr "Enter Asset contract or select Asset"
 
-#~ msgid "{0}"
-#~ msgstr "{0}"
-
 msgid "Trade"
 msgstr "Trade"
-
-#~ msgid "BTC"
-#~ msgstr "BTC"
 
 msgid "Stake"
 msgstr "Stake"
@@ -425,8 +419,8 @@ msgstr "2. Fees"
 msgid "You have no Staked Krav"
 msgstr "You have no Staked Krav"
 
-#~ msgid "Total Staked"
-#~ msgstr "Total Staked"
+msgid "Total Staked"
+msgstr "Total Staked"
 
 msgid "Leverage"
 msgstr "Leverage"
@@ -725,6 +719,9 @@ msgstr "Lock Period"
 #~ msgid "Ok"
 #~ msgstr "Ok"
 
+msgid "My Staking"
+msgstr "My Staking"
+
 msgid "6 months"
 msgstr "6 months"
 
@@ -772,6 +769,9 @@ msgstr "Cancel"
 
 msgid "Learn more about Liquidity Pools"
 msgstr "Learn more about Liquidity Pools"
+
+msgid "There is a problem with"
+msgstr "There is a problem with"
 
 msgid "Funding Rate (L)"
 msgstr "Funding Rate (L)"
@@ -829,9 +829,6 @@ msgstr "Locking KRAV can get krav income and veKRAV rights and interests, which 
 
 msgid "Claim"
 msgstr "Claim"
-
-#~ msgid "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
-#~ msgstr "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
 
 msgid "Enter an amount"
 msgstr "Enter an amount"
@@ -1011,9 +1008,6 @@ msgstr "You have no liquidity"
 
 msgid "Ask Price"
 msgstr "Ask Price"
-
-#~ msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
-#~ msgstr "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
 
 msgid "Start"
 msgstr "Start"

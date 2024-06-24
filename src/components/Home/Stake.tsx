@@ -62,13 +62,13 @@ export const Stake = () => {
         setUserKravBalance={setUserKravBalance}
       />
       <div css={stake} onClick={() => setHasStake(!hasStake)}>
-        <div className="title">My Staking</div>
+        <div className="title">{t`My Staking`}</div>
         {userStake.isGreaterThan(0) && account && (
           <div>
             <div className="overview">
               <div>
                 <div>
-                  <span>Total Staked</span>
+                  <span>{t`Total Staked`}</span>
                   <span>{poolStake.toFixed(2)} KRAV</span>
                 </div>
                 {/*<span>≈ $246,556,893.30</span>*/}
@@ -81,7 +81,7 @@ export const Stake = () => {
                     await getUserReward()
                   }}
                 >
-                  Claim
+                  {t`Claim`}
                 </KRAVButton>
               </div>
             </div>

@@ -187,6 +187,9 @@ msgstr "활용"
 msgid "Market Price"
 msgstr "시장 가격"
 
+msgid "Something went wrong..."
+msgstr "문제가 발생했습니다..."
+
 msgid "Rewards will be refreshed on"
 msgstr "보상은 다음에 새로 고침됩니다"
 
@@ -345,6 +348,9 @@ msgstr "2. 수수료"
 
 msgid "You have no Staked Krav"
 msgstr "스테이크된 Krav가 없습니다"
+
+msgid "Total Staked"
+msgstr "총 스테이킹"
 
 msgid "Leverage"
 msgstr "레버리지"
@@ -568,6 +574,9 @@ msgstr "가격"
 msgid "Lock Period"
 msgstr "잠금 기간"
 
+msgid "My Staking"
+msgstr "내 스테이킹"
+
 msgid "6 months"
 msgstr "6 개월"
 
@@ -609,6 +618,9 @@ msgstr "취소"
 
 msgid "Learn more about Liquidity Pools"
 msgstr "유동성 풀에 대해 더 알아보기"
+
+msgid "There is a problem with"
+msgstr "문제가 발생했습니다"
 
 msgid "Funding Rate (L)"
 msgstr "자금 비율 (L)"
