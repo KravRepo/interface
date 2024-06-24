@@ -443,8 +443,8 @@ msgstr "Market"
 #~ msgid "24H Low"
 #~ msgstr "24H Low"
 
-#~ msgid "Your positions"
-#~ msgstr "Your positions"
+msgid "Your positions"
+msgstr "Your positions"
 
 msgid "My history"
 msgstr "My history"

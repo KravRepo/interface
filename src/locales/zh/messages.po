@@ -438,8 +438,8 @@ msgstr "现价"
 #~ msgid "The profit will be"
 #~ msgstr "利润将为"
 
-#~ msgid "Your positions"
-#~ msgstr "您的持仓"
+msgid "Your positions"
+msgstr "您的持仓"
 
 msgid "My history"
 msgstr "我的历史"

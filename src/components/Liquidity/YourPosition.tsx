@@ -47,7 +47,7 @@ export const YourPosition = ({
           }
         `}
       >
-        <span>Your positions</span>
+        <span>{t`Your positions`}</span>
         <span>{positionDatas.length > 0 ? ` (${positionDatas.length})` : ''}</span>
       </div>
       {isTable && (

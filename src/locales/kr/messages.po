@@ -364,6 +364,9 @@ msgstr "최대 포지션 한도에 도달했습니다"
 msgid "Market"
 msgstr "시장"
 
+msgid "Your positions"
+msgstr "당신의 포지션"
+
 msgid "My history"
 msgstr "내 기록"
 

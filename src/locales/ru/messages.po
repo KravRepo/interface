@@ -364,6 +364,9 @@ msgstr "Достигнут предел максимального количе�
 msgid "Market"
 msgstr "Рынок"
 
+msgid "Your positions"
+msgstr "Ваши позиции"
+
 msgid "My history"
 msgstr "Моя история"
 
