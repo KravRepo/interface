@@ -22,7 +22,7 @@ import { getAddChainParameters } from '../../connectors/chain'
 import { DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
 import { FaucetDialog } from '../Dialog/FaucetDialog'
 import { useFactory } from '../../hook/hookV8/useFactory'
-import { LocaleSwitch } from './LocaleSwitch'
+// import { LocaleSwitch } from './LocaleSwitch'
 
 export const Header = () => {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
@@ -183,7 +183,7 @@ export const Header = () => {
         {!isGreetingPath && (
           <>
             <div css={align}>
-              <LocaleSwitch />
+              {/* <LocaleSwitch /> */}
               <ButtonGroup
                 disableElevation
                 variant="contained"
