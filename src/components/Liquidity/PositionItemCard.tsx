@@ -67,7 +67,7 @@ export const PositionItemCard = ({
         const res = await fetch(PNL_API + `/${account}/${kTokenAddress}`)
         const r = await res.json()
         if (!r.data) throw Error('Get Pnl Error')
-        setPnl(Number(r.data.PNL) * 100)
+        setPnl(Number(r.data.PNL))
         setTokenAmount(eXDecimals(r.data.tokenAmount, 18))
       } catch (e) {
         console.error(e)
