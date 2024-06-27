@@ -62,9 +62,9 @@ export const YourPosition = ({
             {/*<div>PER TICKET PRICE</div>*/}
             <div>APR</div>
             <div>{t`UTILIZATION`}</div>
-            <div>{t`YOUR LIQUIDITY SUPPLY`}</div>
+            <div>{t`INITIAL SUPPLY`}</div>
             <div>{t`REMOVE LIMIT`}</div>
-            <div>{t`WITHDRAW_BLOCK`}</div>
+            {/* <div>{t`WITHDRAW_BLOCK`}</div> */}
           </div>
           {!account && <div className="no-data">{t`Connect to a wallet to view your positions.`}</div>}
           {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}

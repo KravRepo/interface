@@ -8,9 +8,9 @@ import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { MarketItemProps } from './type'
 import { useWeb3React } from '@web3-react/core'
-import { getBigNumberStr } from '../../utils'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
 import { t } from '@lingui/macro'
+import { usePnl } from '../../hook/hookV8/usePnl'
 
 export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
@@ -18,6 +18,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
+  const { tokenAmount } = usePnl(poolParams.vaultT)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const poolSupply = useMemo(() => {
     const supply =
@@ -118,13 +119,13 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
             margin-top: 10px;
           `}
         >
-          <p>{t`Your Liquidity Supply`}</p>
+          <p>{t`Your Total Liquidity`}</p>
           <p
             css={css`
               color: #2832f5;
             `}
           >
-            {getBigNumberStr(poolSupply, 2)}
+            {poolSupply.plus(tokenAmount).toFormat(4, 3)}
           </p>
         </div>
         {

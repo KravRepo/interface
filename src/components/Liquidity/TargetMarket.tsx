@@ -223,7 +223,7 @@ export const TargetMarket = ({
               </Stack>
             </Stack>
             <div>{t`YOUR LIQUIDITY SUPPLY`}</div>
-            <div>{t`LP REWARD`}</div>
+            <div>{t`YIELD EARNED`}</div>
           </div>
           {isLoadingFactory &&
             [...Array(3).keys()].map((i) => {
