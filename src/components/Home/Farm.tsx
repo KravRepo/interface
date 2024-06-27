@@ -83,7 +83,7 @@ export const Farm = () => {
               {/*<span>PER TICKET SIZE</span>*/}
               <span>{t`APR`}</span>
               <span>{t`UTILIZATION`}</span>
-              <span>{t`YOUR LIQUIDITY SUPPLY`}</span>
+              <span>{t`INITIAL SUPPLY`}</span>
               <span>{t`LP REWARD`}</span>
               {/* <span /> */}
             </div>

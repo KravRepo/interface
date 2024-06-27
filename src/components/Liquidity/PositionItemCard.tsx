@@ -4,7 +4,7 @@ import { Button, css, Tooltip, useMediaQuery, useTheme } from '@mui/material'
 import { getBigNumberStr } from '../../utils'
 import { PositionItemProps } from './type'
 import { useRootStore } from '../../store/root'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
@@ -14,9 +14,8 @@ import { align } from '../../globalStyle'
 // import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 // import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
-import { PNL_API } from '../../constant/chain'
-import { useWeb3React } from '@web3-react/core'
 import { t } from '@lingui/macro'
+import { usePnl } from '../../hook/hookV8/usePnl'
 
 export const PositionItemCard = ({
   position,
@@ -25,12 +24,10 @@ export const PositionItemCard = ({
   aprList,
   kTokenAddress,
 }: PositionItemProps) => {
-  const { account } = useWeb3React()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-  const [pnl, setPnl] = useState(0)
-  const [tokenAmount, setTokenAmount] = useState<BigNumber>(BigNumber('0'))
+  const { tokenAmount } = usePnl(kTokenAddress)
   // const [setLpReward] = useState(new BigNumber(0))
   // const claimLp = useHarvestLpReward(position.pool.vaultT)
   const poolSupply = useMemo(() => {
@@ -59,22 +56,6 @@ export const PositionItemCard = ({
     if (res) return res.apr
     else return new BigNumber(0)
   }, [aprList])
-
-  useEffect(() => {
-    if (!account || !kTokenAddress) return
-    const fetchPnl = async () => {
-      try {
-        const res = await fetch(PNL_API + `/${account}/${kTokenAddress}`)
-        const r = await res.json()
-        if (!r.data) throw Error('Get Pnl Error')
-        setPnl(Number(r.data.PNL) * 100)
-        setTokenAmount(eXDecimals(r.data.tokenAmount, 18))
-      } catch (e) {
-        console.error(e)
-      }
-    }
-    fetchPnl()
-  }, [account, kTokenAddress, pnl, setPnl])
 
   // useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
   const { openDaiLong, openDaiShort } = useGetMarketStats(
@@ -157,7 +138,7 @@ export const PositionItemCard = ({
       <div className="card-content">
         <div className="data">
           <p>{t`Total Liquidity Supply`}</p>
-          <p>{position.pool.poolTotalSupply?.toFixed(2)}</p>
+          <p>{position.pool.poolTotalSupply?.toFormat(2, 3)}</p>
         </div>
         <div
           className="data"
@@ -165,14 +146,14 @@ export const PositionItemCard = ({
             margin-top: 10px;
           `}
         >
-          <p>{t`Your Liquidity Supply`}</p>
+          <p>{t`Your Total Liquidity`}</p>
           <div>
             <span
               css={css`
                 color: #2832f5;
               `}
             >
-              {getBigNumberStr(poolSupply, 2)}
+              {poolSupply.plus(tokenAmount).toFormat(4, 3)}
             </span>
             <div
               css={css`
@@ -227,10 +208,13 @@ export const PositionItemCard = ({
           css={css`
             background: ${theme.background.second};
             margin-top: 10px;
+            > div {
+              flex-wrap: wrap;
+            }
           `}
           className="stake-info"
         >
-          <div>
+          {/* <div>
             <span
               css={css`
                 color: ${theme.text.second};
@@ -239,6 +223,20 @@ export const PositionItemCard = ({
               PnL
             </span>
             <span>{pnl.toFixed(2)}%</span>
+          </div> */}
+          <div>
+            <span
+              css={css`
+                color: ${theme.text.second};
+                whitespace: nowrap;
+              `}
+            >
+              {t`Initial Supply`}
+            </span>
+            <span>
+              {poolSupply.toFormat(2, 3)}
+              {position.pool.symbol}
+            </span>
           </div>
           <div>
             <span
@@ -259,7 +257,7 @@ export const PositionItemCard = ({
                 color: ${theme.text.second};
               `}
             >
-              {t`Your Pool Stake`}
+              {t`Pool Stake`}
             </span>
             <span>
               {(
@@ -276,15 +274,15 @@ export const PositionItemCard = ({
                 color: ${theme.text.second};
               `}
             >
-              {t`Your Withdraw Limit`}
+              {t`Withdrawal Limit`}
             </span>
             <Tooltip title={t`short withdraw notice...`}>
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
                 <span css={align}>
                   {lockAmount.isGreaterThan(0)
-                    ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFixed(2)
-                    : eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)}
+                    ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFormat(2, 3)
+                    : eXDecimals(position.daiDeposited, position.pool.decimals).toFormat(2, 3)}
                   {position.pool.symbol}
                 </span>
               </>

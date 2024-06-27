@@ -26,11 +26,11 @@ export const useAddLiquidity = (tokenAddress: string) => {
         if (tokenContract) {
           // console.log('tokenAddress', tokenAddress)
           // console.log('vaultAddress', vaultAddress)
-// const krav = await ethers.getContractAt(`KToken`, tokenAddress)
-// await (await krav.approve(vaultAddress, ethers.constants.MaxUint256)).wait()
-// const kToken = await ethers.getContractAt(`KToken`, vaultAddress)
-// await kToken.deposit(ethers.utils.parseEther(`1`), account)          
-        
+          // const krav = await ethers.getContractAt(`KToken`, tokenAddress)
+          // await (await krav.approve(vaultAddress, ethers.constants.MaxUint256)).wait()
+          // const kToken = await ethers.getContractAt(`KToken`, vaultAddress)
+          // await kToken.deposit(ethers.utils.parseEther(`1`), account)
+
           const contractA = new Contract(tokenAddress, KTokenABI, getProviderOrSigner(provider!, account))
           setTransactionState(TransactionState.CHECK_APPROVE)
           setTransactionDialogVisibility(true)
@@ -45,11 +45,11 @@ export const useAddLiquidity = (tokenAddress: string) => {
           setTransactionState(TransactionState.APPROVE)
           const approveTx = await contractA.approve(vaultAddress, MAX_UNIT_256)
           await approveTx.wait()
-          
+
           const contractB = new Contract(vaultAddress, KTokenABI, getProviderOrSigner(provider!, account))
           setTransactionState(TransactionState.INTERACTION)
-          const tx = await contractB.deposit(amount.toString(), account)
-      
+          const tx = await contractB.deposit(amount.toFixed(), account)
+
           setTransactionState(TransactionState.ADD_LIQUIDITY)
           await tx.wait()
           setTransactionDialogVisibility(false)

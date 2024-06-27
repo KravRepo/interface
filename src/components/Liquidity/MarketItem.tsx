@@ -4,20 +4,21 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { MarketItemProps } from './type'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { css } from '@emotion/react'
-import { getBigNumberStr } from '../../utils'
-import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
+// import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 import { useTheme } from '@mui/material'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { t } from '@lingui/macro'
+import { usePnl } from '../../hook/hookV8/usePnl'
 
 export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
   const theme = useTheme()
   const { account } = useWeb3React()
-  const [lpReward, setLpReward] = useState(new BigNumber(0))
+  // const [lpReward, setLpReward] = useState(new BigNumber(0))
+  const { tokenAmount } = usePnl(poolParams.vaultT)
 
   // TODO: Withdraw the balance when the dialog box is opened?
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
@@ -35,7 +36,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
     else return new BigNumber(0)
   }, [aprList])
 
-  useGetLpReward(poolParams.vaultT, poolParams.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
+  // useGetLpReward(poolParams.vaultT, poolParams.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
 
   return (
     <div className="liquidity-table">
@@ -65,15 +66,15 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
       <div>{isNaN(poolParams.utilization.toNumber()) ? 0 : poolParams.utilization.toFixed(2)}%</div>
       <div>
         <p>
-          {poolParams.poolTotalSupply?.toFixed(2)} {poolParams.symbol}
+          {poolParams.poolTotalSupply?.toFormat(2, 3)} {poolParams.symbol}
         </p>
         {/*<p className="small grey">({poolParams.poolTotalSupply?.div(poolParams.proportionBTC).toFixed(2)}&nbsp;BTC) </p>*/}
       </div>
       <div>
-        {getBigNumberStr(poolSupply, 2)} {poolParams.symbol}
+        {poolSupply.toFormat(2, 3)} {poolParams.symbol}
       </div>
       <div>
-        {getBigNumberStr(lpReward, 2)} {poolParams.symbol}
+        {tokenAmount.toFormat(2, 3)} {poolParams.symbol}
       </div>
       <div>
         {account && (

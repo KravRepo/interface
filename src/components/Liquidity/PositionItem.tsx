@@ -62,7 +62,7 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
       <div>{position.pool.utilization.toFixed(2)}%</div>
       <div>
         <p>
-          {eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)} {position.pool.symbol}
+          {eXDecimals(position.daiDeposited, position.pool.decimals).toFormat(2, 3)} {position.pool.symbol}
         </p>
         {/*<p className="small grey">*/}
         {/*  ({eXDecimals(position.daiDeposited, position.pool.decimals).div(position.pool.proportionBTC).toFixed(2)}*/}
@@ -73,8 +73,8 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
         <Tooltip title={t`short withdraw notice...`}>
           <span css={align}>
             {lockAmount.isGreaterThan(0)
-              ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFixed(2)
-              : eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)}
+              ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFormat(2, 3)
+              : eXDecimals(position.daiDeposited, position.pool.decimals).toFormat(2, 3)}
             {position.pool.symbol}
             <HelpOutlineOutlinedIcon sx={{ height: '12px', width: '12px', ml: '4px' }} />
           </span>
