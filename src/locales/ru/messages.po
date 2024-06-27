@@ -85,6 +85,9 @@ msgstr ""
 msgid "My Pool"
 msgstr ""
 
+msgid "YIELD EARNED"
+msgstr ""
+
 msgid "Token Collateral"
 msgstr ""
 
@@ -163,6 +166,9 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
+msgid "Initial Supply"
+msgstr ""
+
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr ""
 
@@ -175,8 +181,8 @@ msgstr ""
 msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
 msgstr ""
 
-msgid "Your Withdraw Limit"
-msgstr ""
+#~ msgid "Your Withdraw Limit"
+#~ msgstr ""
 
 msgid "Notice..."
 msgstr ""
@@ -223,8 +229,8 @@ msgstr ""
 msgid "OPEN"
 msgstr ""
 
-msgid "Your Pool Stake"
-msgstr ""
+#~ msgid "Your Pool Stake"
+#~ msgstr ""
 
 msgid "Go back"
 msgstr ""
@@ -271,8 +277,8 @@ msgstr ""
 msgid "My Asset"
 msgstr ""
 
-msgid "Your Liquidity Supply"
-msgstr ""
+#~ msgid "Your Liquidity Supply"
+#~ msgstr ""
 
 msgid "Claim locked Reward"
 msgstr ""
@@ -325,8 +331,8 @@ msgstr ""
 msgid "Earning Information"
 msgstr ""
 
-msgid "WITHDRAW_BLOCK"
-msgstr ""
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr ""
 
 msgid "Enter Asset contract or select Asset"
 msgstr ""
@@ -472,10 +478,16 @@ msgstr ""
 msgid "Unlock"
 msgstr ""
 
+msgid "INITIAL SUPPLY"
+msgstr ""
+
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr ""
 
 msgid "Coming Soon"
+msgstr ""
+
+msgid "Withdrawal Limit"
 msgstr ""
 
 msgid "successfully."
@@ -788,6 +800,12 @@ msgid "KRAV Staking"
 msgstr ""
 
 msgid "Liquidity Provider Rewards"
+msgstr ""
+
+msgid "Your Total Liquidity"
+msgstr ""
+
+msgid "Pool Stake"
 msgstr ""
 
 msgid "claim Krav reward"

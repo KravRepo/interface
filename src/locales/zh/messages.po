@@ -92,6 +92,9 @@ msgstr "我的资金池"
 #~ msgid "Your Referral stats"
 #~ msgstr "您的推荐统计"
 
+msgid "YIELD EARNED"
+msgstr ""
+
 msgid "Token Collateral"
 msgstr "代币抵押"
 
@@ -200,6 +203,9 @@ msgstr "主页"
 #~ msgid "krav has been staked successfully"
 #~ msgstr "krav 已成功质押"
 
+msgid "Initial Supply"
+msgstr ""
+
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "通过延长 KRAV 锁定期限来最大化您的奖励。通过增加锁定金额或期限来增加 veKRAV 积累。请记住，veKRAV 随时间缓慢衰减，最终等同于 KRAV。"
 
@@ -218,8 +224,8 @@ msgstr "延长您的 KRAV 锁定时间或增加更多 KRAV 以最大化您的 ve
 #~ msgid "When the price reaches"
 #~ msgstr "当价格达到"
 
-msgid "Your Withdraw Limit"
-msgstr "您的撤回限制"
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "您的撤回限制"
 
 #~ msgid "Total value"
 #~ msgstr "总价值"
@@ -275,8 +281,8 @@ msgstr "了解更多关于 Krav 质押的信息"
 msgid "OPEN"
 msgstr "开盘"
 
-msgid "Your Pool Stake"
-msgstr "您的池质押"
+#~ msgid "Your Pool Stake"
+#~ msgstr "您的池质押"
 
 #~ msgid "Next distribution:"
 #~ msgstr "下次分配："
@@ -333,8 +339,8 @@ msgstr "总交易量"
 msgid "My Asset"
 msgstr "我的资产"
 
-msgid "Your Liquidity Supply"
-msgstr "您的流动性供应"
+#~ msgid "Your Liquidity Supply"
+#~ msgstr "您的流动性供应"
 
 msgid "Claim locked Reward"
 msgstr "领取锁定奖励"
@@ -393,8 +399,8 @@ msgstr "最短锁定期一周"
 msgid "Earning Information"
 msgstr "收益信息"
 
-msgid "WITHDRAW_BLOCK"
-msgstr "提取块"
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr "提取块"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "输入资产合约或选择资产"
@@ -588,11 +594,17 @@ msgstr "+ 提供者流动性"
 msgid "Unlock"
 msgstr "解锁"
 
+msgid "INITIAL SUPPLY"
+msgstr ""
+
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "以 BTC 作为基础资产，不同的资产被用作永续期权交易的投资产品。您现在创建的池子选择的资产将被用作交易资产。"
 
 msgid "Coming Soon"
 msgstr "即将推出"
+
+msgid "Withdrawal Limit"
+msgstr ""
 
 msgid "successfully."
 msgstr "成功。"
@@ -956,6 +968,12 @@ msgstr "流动性提供者奖励"
 
 #~ msgid "FRIENDS INVITED"
 #~ msgstr "已邀请朋友数"
+
+msgid "Your Total Liquidity"
+msgstr ""
+
+msgid "Pool Stake"
+msgstr ""
 
 msgid "claim Krav reward"
 msgstr "领取 Krav 奖励"
