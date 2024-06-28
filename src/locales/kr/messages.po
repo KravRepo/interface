@@ -85,6 +85,9 @@ msgstr "잠금 해제 시간 증가"
 msgid "My Pool"
 msgstr "내 풀"
 
+msgid "YIELD EARNED"
+msgstr ""
+
 msgid "Token Collateral"
 msgstr "토큰 담보"
 
@@ -163,6 +166,9 @@ msgstr "거래하기 위해"
 msgid "Dashboard"
 msgstr "대시보드"
 
+msgid "Initial Supply"
+msgstr ""
+
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "KRAV 잠금 기간을 연장하여 보상을 극대화하세요. 잠금 금액이나 기간을 늘려 veKRAV 누적을 증가시키세요. 시간이 지나면서 veKRAV는 천천히 감소하여 결국 KRAV와 같아집니다."
 
@@ -175,8 +181,8 @@ msgstr "출금 상태"
 msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
 msgstr "KRAV 잠금 기간을 연장하거나 KRAV를 추가하여 veKRAV 보상을 극대화하세요"
 
-msgid "Your Withdraw Limit"
-msgstr "귀하의 출금 한도"
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "귀하의 출금 한도"
 
 msgid "Notice..."
 msgstr "청산은 담보 토큰의 가격에 따라 결정되지 않습니다 - 오직 BTC의 가격 움직임에 따라 결정됩니다. 거래 즐기세요!"
@@ -226,8 +232,8 @@ msgstr "KRAV 스테이킹에 대해 더 알아보기"
 msgid "OPEN"
 msgstr "열기"
 
-msgid "Your Pool Stake"
-msgstr "귀하의 풀 스테이크"
+#~ msgid "Your Pool Stake"
+#~ msgstr "귀하의 풀 스테이크"
 
 msgid "Go back"
 msgstr "뒤로 가기"
@@ -274,8 +280,8 @@ msgstr "총 거래량"
 msgid "My Asset"
 msgstr "내 자산"
 
-msgid "Your Liquidity Supply"
-msgstr "귀하의 유동성 공급"
+#~ msgid "Your Liquidity Supply"
+#~ msgstr "귀하의 유동성 공급"
 
 msgid "Claim locked Reward"
 msgstr "잠금 보상 청구"
@@ -328,8 +334,8 @@ msgstr "최소 잠금 기간은 1주일입니다"
 msgid "Earning Information"
 msgstr "수익 정보"
 
-msgid "WITHDRAW_BLOCK"
-msgstr "출금 차단"
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr "출금 차단"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "자산 계약을 입력하거나 자산을 선택하세요"
@@ -481,11 +487,17 @@ msgstr "+ 유동성 제공"
 msgid "Unlock"
 msgstr "잠금 해제"
 
+msgid "INITIAL SUPPLY"
+msgstr ""
+
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "기본 자산으로 BTC를 사용하여, 옵션 거래를 위한 여러 자산을 투자 상품으로 사용합니다. 현재 생성한 풀에서 선택한 자산이 거래 자산으로 사용됩니다."
 
 msgid "Coming Soon"
 msgstr "곧 출시"
+
+msgid "Withdrawal Limit"
+msgstr ""
 
 msgid "successfully."
 msgstr "성공적으로."
@@ -804,6 +816,12 @@ msgstr "KRAV 스테이킹"
 
 msgid "Liquidity Provider Rewards"
 msgstr "유동성 제공자 보상"
+
+msgid "Your Total Liquidity"
+msgstr ""
+
+msgid "Pool Stake"
+msgstr ""
 
 msgid "claim Krav reward"
 msgstr "Krav 보상 청구"

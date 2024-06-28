@@ -85,6 +85,9 @@ msgstr "Увеличить время разблокировки"
 msgid "My Pool"
 msgstr "Мой пул"
 
+msgid "YIELD EARNED"
+msgstr ""
+
 msgid "Token Collateral"
 msgstr "Залоговый токен"
 
@@ -163,6 +166,9 @@ msgstr "Для торговли"
 msgid "Dashboard"
 msgstr "Панель управления"
 
+msgid "Initial Supply"
+msgstr ""
+
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "Максимизируйте свои вознаграждения, продлевая срок блокировки KRAV. Усильте накопление veKRAV, увеличивая заблокированное количество или период. Помните, veKRAV медленно уменьшается со временем, в конечном итоге приравниваясь к KRAV."
 
@@ -175,8 +181,8 @@ msgstr "Статус вывода"
 msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
 msgstr "Продлите срок блокировки KRAV или добавьте больше KRAV, чтобы максимизировать свои вознаграждения veKRAV"
 
-msgid "Your Withdraw Limit"
-msgstr "Ваш лимит вывода"
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "Ваш лимит вывода"
 
 msgid "Notice..."
 msgstr "Ликвидации никогда не основаны на цене залогового токена - только на движениях цены BTC в USDT. Удачной торговли!"
@@ -224,10 +230,10 @@ msgid "Learn more about Staking Krav"
 msgstr "Узнайте больше о ставках Krav"
 
 msgid "OPEN"
-msgstr "ОТКРЫТЬ"
+msgstr "ОТКРЫТЬ<<<<<<< HEAD"
 
-msgid "Your Pool Stake"
-msgstr "Ваша ставка в пуле"
+#~ msgid "Your Pool Stake"
+#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
 
 msgid "Go back"
 msgstr "Назад"
@@ -272,10 +278,10 @@ msgid "Total Trading Volume"
 msgstr "Общий объем торговли"
 
 msgid "My Asset"
-msgstr "Мой актив"
+msgstr "Мой актив<<<<<<< HEAD"
 
-msgid "Your Liquidity Supply"
-msgstr "Ваше предложение ликвидности"
+#~ msgid "Your Liquidity Supply"
+#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
 
 msgid "Claim locked Reward"
 msgstr "Заявить заблокированное вознаграждение"
@@ -326,10 +332,10 @@ msgid "Min lock period one week"
 msgstr "Минимальный период блокировки - одна неделя"
 
 msgid "Earning Information"
-msgstr "Информация о заработке"
+msgstr "Информация о заработке<<<<<<< HEAD"
 
-msgid "WITHDRAW_BLOCK"
-msgstr "WITHDRAW_BLOCK"
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "Введите контракт актива или выберите актив"
@@ -481,11 +487,17 @@ msgstr "+ Поставщик ликвидности"
 msgid "Unlock"
 msgstr "Разблокировать"
 
+msgid "INITIAL SUPPLY"
+msgstr ""
+
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "С BTC в качестве базового актива, различные активы используются в качестве инвестиционных продуктов для вечных опционных сделок. Актив, выбранный пулом, который вы создали сейчас, будет использоваться в качестве транзакционного актива."
 
 msgid "Coming Soon"
 msgstr "Скоро будет"
+
+msgid "Withdrawal Limit"
+msgstr ""
 
 msgid "successfully."
 msgstr "успешно."
@@ -804,6 +816,12 @@ msgstr "Стейкинг KRAV"
 
 msgid "Liquidity Provider Rewards"
 msgstr "Вознаграждения поставщика ликвидности"
+
+msgid "Your Total Liquidity"
+msgstr ""
+
+msgid "Pool Stake"
+msgstr ""
 
 msgid "claim Krav reward"
 msgstr "Получить награду Krav"

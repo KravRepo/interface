@@ -94,6 +94,9 @@ msgstr "My Pool"
 #~ msgid "Your Referral stats"
 #~ msgstr "Your Referral stats"
 
+msgid "YIELD EARNED"
+msgstr "YIELD EARNED"
+
 msgid "Token Collateral"
 msgstr "Token Collateral"
 
@@ -202,6 +205,9 @@ msgstr "Dashboard"
 #~ msgid "krav has been staked successfully"
 #~ msgstr "krav has been staked successfully"
 
+msgid "Initial Supply"
+msgstr "Initial Supply"
+
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 
@@ -220,8 +226,8 @@ msgstr "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV 
 #~ msgid "When the price reaches"
 #~ msgstr "When the price reaches"
 
-msgid "Your Withdraw Limit"
-msgstr "Your Withdraw Limit"
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "Your Withdraw Limit"
 
 #~ msgid "Total value"
 #~ msgstr "Total value"
@@ -280,8 +286,8 @@ msgstr "Learn more about Staking Krav"
 msgid "OPEN"
 msgstr "OPEN"
 
-msgid "Your Pool Stake"
-msgstr "Your Pool Stake"
+#~ msgid "Your Pool Stake"
+#~ msgstr "Your Pool Stake"
 
 #~ msgid "Next distribution:"
 #~ msgstr "Next distribution:"
@@ -338,8 +344,8 @@ msgstr "Total Trading Volume"
 msgid "My Asset"
 msgstr "My Asset"
 
-msgid "Your Liquidity Supply"
-msgstr "Your Liquidity Supply"
+#~ msgid "Your Liquidity Supply"
+#~ msgstr "Your Liquidity Supply"
 
 msgid "Claim locked Reward"
 msgstr "Claim locked Reward"
@@ -398,8 +404,8 @@ msgstr "Min lock period one week"
 msgid "Earning Information"
 msgstr "Earning Information"
 
-msgid "WITHDRAW_BLOCK"
-msgstr "WITHDRAW_BLOCK"
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr "WITHDRAW_BLOCK"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "Enter Asset contract or select Asset"
@@ -608,11 +614,17 @@ msgstr "+ Provider liquidity"
 msgid "Unlock"
 msgstr "Unlock"
 
+msgid "INITIAL SUPPLY"
+msgstr "INITIAL SUPPLY"
+
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 
 msgid "Coming Soon"
 msgstr "Coming Soon"
+
+msgid "Withdrawal Limit"
+msgstr "Withdrawal Limit"
 
 msgid "successfully."
 msgstr "successfully."
@@ -984,6 +996,12 @@ msgstr "Liquidity Provider Rewards"
 
 #~ msgid "FRIENDS INVITED"
 #~ msgstr "FRIENDS INVITED"
+
+msgid "Your Total Liquidity"
+msgstr "Your Total Liquidity"
+
+msgid "Pool Stake"
+msgstr "Pool Stake"
 
 msgid "claim Krav reward"
 msgstr "claim Krav reward"
