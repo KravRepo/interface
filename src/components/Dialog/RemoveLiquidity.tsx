@@ -433,7 +433,7 @@ function ExistingRequest({
             </Stack>
             <StyledBox />
             <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>{t`Time until next epoch`}</Typography>
+              <Typography>Time until next epoch</Typography>
               <Typography>
                 <span>{countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}</span>
               </Typography>
