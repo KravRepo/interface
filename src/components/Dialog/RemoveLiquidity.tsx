@@ -26,6 +26,7 @@ import { withDecimals } from '../../utils'
 import { PoolParams } from '../../store/FactorySlice'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { Trans, t } from '@lingui/macro'
+import { useCountDown } from 'ahooks'
 
 const StyledBox = styled(Box)(() => ({
   borderBottom: '1px solid var(--ps-text-20)',
@@ -37,11 +38,15 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const { provider } = useWeb3React()
   const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
   const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0)
+  const [withdrawDate, setWithdrawDate] = useState<null | number>(null)
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const getUserPosition = useUserPosition()
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   const updateFactory = useFactory()
+
+  const [countdown, { days, hours, minutes, seconds }] = useCountDown({ targetDate: withdrawDate ?? 0 })
+
   const targetPool = useMemo(() => {
     return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
   }, [liquidityInfo, userPositionDatas])
@@ -113,6 +118,12 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               <span>{t`long withdraw notice...`}</span>
             </Typography>
           </Box>
+          {withdrawDate && (
+            <Box sx={{ width: '100%', background: '#2832f5', textAlign: 'center' }}>
+              Time until claiming available:{' '}
+              {countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}
+            </Box>
+          )}
           <div
             css={css`
               padding: 24px;
@@ -206,9 +217,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
             </div>
             <KRAVButton
               disabled={
+                !!withdrawDate ||
                 addDecimals(withdrawAmount.toString(), liquidityInfo.decimals).isGreaterThan(
                   addDecimals(maxWithdrawAmount.toString(), liquidityInfo.decimals)
-                ) || !new BigNumber(withdrawAmount).isGreaterThan(0)
+                ) ||
+                !new BigNumber(withdrawAmount).isGreaterThan(0)
               }
               onClick={async () => {
                 setIsOpen(false)
@@ -230,6 +243,8 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
             daiDeposited={targetPool?.daiDeposited}
             pool={targetPool?.pool}
             vaultAddress={liquidityInfo.vaultT}
+            setIsOpen={setIsOpen}
+            setWithdrawDate={setWithdrawDate}
           />
         </div>
       </>
@@ -242,11 +257,15 @@ function ExistingRequest({
   daiDeposited = new BigNumber(0),
   pool,
   vaultAddress,
+  setIsOpen,
+  setWithdrawDate,
 }: {
   kToken?: string
   daiDeposited?: BigNumber
   pool?: PoolParams
   vaultAddress: string
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setWithdrawDate: React.Dispatch<React.SetStateAction<number | null>>
 }) {
   const { account } = useWeb3React()
   const [showExistingRequest, setShowExistingRequest] = useState(false)
@@ -264,6 +283,11 @@ function ExistingRequest({
     else return new BigNumber(0)
   }, [getUpdateEpoch])
 
+  const lastEpoch = useMemo(() => {
+    if (getUpdateEpoch?.result?.[1]) return new BigNumber(getUpdateEpoch.result?.[1]._hex)
+    else return new BigNumber(0)
+  }, [getUpdateEpoch])
+
   const epochDuration = useMemo(() => {
     if (getEpochDuration?.result) {
       return new BigNumber(getEpochDuration.result[0]._hex).toNumber()
@@ -275,22 +299,17 @@ function ExistingRequest({
     else return new BigNumber(0)
   }, [getCurrentEpoch])
 
-  const lastEpoch = useMemo(() => {
-    if (getUpdateEpoch?.result?.[1]) return new BigNumber(getUpdateEpoch.result?.[1]._hex)
-    else return new BigNumber(0)
-  }, [getUpdateEpoch])
-
   const getRequestEc = useSingleContractMultipleData(
     kTokenContract,
     'reqWithdrawals',
-    Array.from(Array(3).keys()).map((index) => [account, updateEpoch.plus((+index + 1).toString()).toString()])
+    Array.from(Array(4).keys()).map((index) => [account, updateEpoch.plus(index).toString()])
   )
 
   const requestEc = useMemo<{ epoch: number; amount: BigNumber }[]>(() => {
     if (getRequestEc[0]?.result && updateEpoch && daiDeposited) {
       return getRequestEc.map((ec, index) => {
         return {
-          epoch: updateEpoch.plus(index).toNumber(),
+          epoch: updateEpoch.plus(index + 1).toNumber(),
           amount: new BigNumber(ec?.result?.[0]._hex),
         }
       })
@@ -315,16 +334,57 @@ function ExistingRequest({
     return requestEc.filter((req) => req.amount.isGreaterThan(0) && daiDeposited?.isGreaterThan(0)).length
   }, [requestEc, daiDeposited])
 
+  const waitPeriod = useMemo(() => {
+    let wait = -1
+    requestEc.forEach((period, index) => {
+      if (period.amount.isGreaterThan(0) && wait === -1) {
+        wait = index
+      }
+    })
+    return wait
+  }, [requestEc])
+
+  useEffect(() => {
+    const currentStart = lastEpoch.times(1000)
+
+    //TODO: currentEpoch is null
+    if (waitPeriod === 0) {
+      const t = currentStart.toNumber()
+
+      setWithdrawDate(t)
+    }
+
+    if (waitPeriod === 1) {
+      const t = currentStart.plus(epochDuration * 1000).toNumber()
+
+      setWithdrawDate(t)
+    }
+    if (waitPeriod === 2) {
+      const t = currentStart.plus(epochDuration * 2 * 1000).toNumber()
+
+      setWithdrawDate(t)
+    }
+    if (waitPeriod === 3) {
+      const t = currentStart.plus(epochDuration * 3 * 1000).toNumber()
+
+      setWithdrawDate(t)
+    }
+  }, [lastEpoch, waitPeriod, setWithdrawDate, epochDuration])
+
   const remainingTime = useMemo(() => {
     if (lastEpoch.isGreaterThan(0) && epochDuration > 0) {
       const now = new Date().getTime()
       const diff = (lastEpoch.plus(epochDuration).toNumber() * 1000 - now) / 1000
       const disD = Math.floor(diff / 86400).toString()
       const disHour = Math.floor(diff / 3600).toString()
-      const disM = Math.floor(diff / 60).toString()
+      const disM = Math.floor(diff / 6000).toString()
       return `${disD}d ${disHour}h ${disM}m`
     } else return '--d --h --m'
   }, [lastEpoch, epochDuration])
+
+  if (!existingRequestLength) {
+    return null
+  }
 
   return (
     <Box p={'20px'}>
@@ -338,7 +398,6 @@ function ExistingRequest({
           <Typography
             sx={{
               fontSize: '14px',
-
               lineHeight: '140%',
             }}
           >
@@ -348,7 +407,7 @@ function ExistingRequest({
         </Stack>
       </Box>
 
-      {showExistingRequest && (
+      {!!existingRequestLength && showExistingRequest && (
         <Box>
           <Box
             sx={{
@@ -376,7 +435,7 @@ function ExistingRequest({
             </Stack>
             <StyledBox />
             <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>{t`Remaining`}</Typography>
+              <Typography>{t`Time until next epoch`}</Typography>
               <Typography>
                 <span>{remainingTime}</span>
               </Typography>
@@ -441,7 +500,7 @@ function ExistingRequest({
                               pool?.decimals,
                               pool?.symbol
                             )
-                            // control.hide('RemoveLiquidity')
+                            setIsOpen(false)
                           }}
                           sx={{
                             padding: '6px 16px',
