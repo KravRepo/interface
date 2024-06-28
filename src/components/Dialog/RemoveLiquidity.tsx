@@ -269,6 +269,9 @@ function ExistingRequest({
 }) {
   const { account } = useWeb3React()
   const [showExistingRequest, setShowExistingRequest] = useState(false)
+  const [remainingTime, setRemainingTime] = useState(0)
+  const [countdown, { days, hours, minutes, seconds }] = useCountDown({ targetDate: remainingTime })
+
   const redeemLiquidity = useRedeemLiquidity(vaultAddress)
   const kTokenContract = useContract(kToken, KTokenABI)
 
@@ -371,16 +374,11 @@ function ExistingRequest({
     }
   }, [lastEpoch, waitPeriod, setWithdrawDate, epochDuration])
 
-  const remainingTime = useMemo(() => {
+  useEffect(() => {
     if (lastEpoch.isGreaterThan(0) && epochDuration > 0) {
-      const now = new Date().getTime()
-      const diff = (lastEpoch.plus(epochDuration).toNumber() * 1000 - now) / 1000
-      const disD = Math.floor(diff / 86400).toString()
-      const disHour = Math.floor(diff / 3600).toString()
-      const disM = Math.floor(diff / 6000).toString()
-      return `${disD}d ${disHour}h ${disM}m`
-    } else return '--d --h --m'
-  }, [lastEpoch, epochDuration])
+      setRemainingTime(lastEpoch.plus(epochDuration).toNumber() * 1000)
+    }
+  }, [epochDuration, lastEpoch])
 
   if (!existingRequestLength) {
     return null
@@ -437,7 +435,7 @@ function ExistingRequest({
             <Stack flexDirection={'row'} justifyContent={'space-between'}>
               <Typography>{t`Time until next epoch`}</Typography>
               <Typography>
-                <span>{remainingTime}</span>
+                <span>{countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}</span>
               </Typography>
             </Stack>
             <StyledBox />
