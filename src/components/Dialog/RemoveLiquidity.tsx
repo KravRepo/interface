@@ -45,8 +45,6 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   const updateFactory = useFactory()
 
-  const [countdown, { days, hours, minutes, seconds }] = useCountDown({ targetDate: withdrawDate ?? 0 })
-
   const targetPool = useMemo(() => {
     return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
   }, [liquidityInfo, userPositionDatas])
@@ -60,11 +58,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
       ).toNumber()
       setMaxWithdrawAmount(maxAmount || 0)
     }
-  }, [provider, liquidityInfo])
+  }, [liquidityInfo, targetPool])
 
   useEffect(() => {
     getPoolBalance()
-  }, [provider, liquidityInfo])
+  }, [provider, liquidityInfo, getPoolBalance])
 
   const handleMaxInput = () => {
     setWithdrawAmount(maxWithdrawAmount)
@@ -118,12 +116,6 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               <span>{t`long withdraw notice...`}</span>
             </Typography>
           </Box>
-          {withdrawDate && (
-            <Box sx={{ width: '100%', background: '#2832f5', textAlign: 'center' }}>
-              Time until claiming available:{' '}
-              {countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}
-            </Box>
-          )}
           <div
             css={css`
               padding: 24px;
@@ -312,12 +304,16 @@ function ExistingRequest({
     if (getRequestEc[0]?.result && updateEpoch && daiDeposited) {
       return getRequestEc.map((ec, index) => {
         return {
-          epoch: updateEpoch.plus(index + 1).toNumber(),
+          epoch: updateEpoch.plus(index).toNumber(),
           amount: new BigNumber(ec?.result?.[0]._hex),
         }
       })
     } else
       return [
+        {
+          epoch: 0,
+          amount: new BigNumber(0),
+        },
         {
           epoch: 0,
           amount: new BigNumber(0),
@@ -353,26 +349,25 @@ function ExistingRequest({
     //TODO: currentEpoch is null
     if (waitPeriod === 0) {
       const t = currentStart.toNumber()
-
       setWithdrawDate(t)
+      setRemainingTime(t)
     }
-
     if (waitPeriod === 1) {
       const t = currentStart.plus(epochDuration * 1000).toNumber()
-
       setWithdrawDate(t)
+      setRemainingTime(t)
     }
     if (waitPeriod === 2) {
       const t = currentStart.plus(epochDuration * 2 * 1000).toNumber()
-
       setWithdrawDate(t)
+      setRemainingTime(t)
     }
     if (waitPeriod === 3) {
       const t = currentStart.plus(epochDuration * 3 * 1000).toNumber()
-
       setWithdrawDate(t)
+      setRemainingTime(t)
     }
-  }, [lastEpoch, waitPeriod, setWithdrawDate, epochDuration])
+  }, [lastEpoch, waitPeriod, setRemainingTime, epochDuration, setWithdrawDate])
 
   useEffect(() => {
     if (lastEpoch.isGreaterThan(0) && epochDuration > 0) {
@@ -407,7 +402,7 @@ function ExistingRequest({
 
       {!!existingRequestLength && showExistingRequest && (
         <Box>
-          <Box
+          {/* <Box
             sx={{
               p: '16px',
               my: '20px',
@@ -449,7 +444,7 @@ function ExistingRequest({
               <Typography>{new Date((lastEpoch.toNumber() + epochDuration) * 1000).toLocaleString()}</Typography>
             </Stack>
             <StyledBox />
-          </Box>
+          </Box> */}
           <Typography
             component={'div'}
             sx={{
@@ -518,7 +513,10 @@ function ExistingRequest({
                             lineHeight: '140%',
                           }}
                         >
-                          {t`Pending`}
+                          {t`Pending`}{' '}
+                          <span>
+                            {countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}
+                          </span>
                         </Typography>
                       )}
                     </Stack>
