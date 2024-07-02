@@ -47,7 +47,7 @@ export const YourPosition = ({
           }
         `}
       >
-        <span>Your positions</span>
+        <span>{t`Your positions`}</span>
         <span>{positionDatas.length > 0 ? ` (${positionDatas.length})` : ''}</span>
       </div>
       {isTable && (
@@ -93,7 +93,7 @@ export const YourPosition = ({
             margin-top: 72px !important;
           `}
         >
-          {!account && <div className="no-data">Connect to a wallet to view your positions.</div>}
+          {!account && <div className="no-data">{t`Connect to a wallet to view your positions.`}</div>}
           {account && isLoadingUserPosition && positionDatas.length === 0 && <MarketSkeleton />}
           {account && !isLoadingUserPosition && positionDatas.length === 0 && (
             <div className="no-data">{t`No Position yet`}</div>

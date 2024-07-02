@@ -7,11 +7,14 @@ import { ReactComponent as ErrorIcon } from '../../assets/imgs/error_icon.svg'
 import { ReactComponent as ErrorLogo } from '../../assets/imgs/error_logo.svg'
 import { ReactComponent as ErrorDarkLogo } from '../../assets/imgs/darkModel/error_logo_dark.svg'
 import KRAVButton from '../KravUIKit/KravButton'
-import { TransactionAction } from '../../store/TransactionSlice'
+import { TransactionAction, TransactionActionMsg } from '../../store/TransactionSlice'
 import { css } from '@emotion/react'
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 export const ErrorDialog = () => {
   const theme = useTheme()
+  const { i18n } = useLingui()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const errorContent = useRootStore((store) => store.errorContent)
   const setErrorContent = useRootStore((store) => store.setErrorContent)
@@ -36,7 +39,7 @@ export const ErrorDialog = () => {
                 font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
-              Something went wrong...{' '}
+              {t`Something went wrong...`}{' '}
             </span>
             <CloseSharpIcon
               sx={{ cursor: 'pointer' }}
@@ -50,7 +53,9 @@ export const ErrorDialog = () => {
             />
           </div>
           <div className="error-dialog-content">
-            <p>There is a problem with {errorContent.action}.</p>
+            <p>
+              {t`There is a problem with`} {i18n._(TransactionActionMsg[errorContent.action])}.
+            </p>
             {errorContent?.reason && <p>{errorContent.reason}</p>}
             {theme.palette.mode === 'dark' ? <ErrorDarkLogo /> : <ErrorLogo />}
             <KRAVButton

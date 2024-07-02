@@ -239,8 +239,8 @@ msgstr "利用率"
 msgid "Market Price"
 msgstr "市场价格"
 
-#~ msgid "Something went wrong..."
-#~ msgstr "出现了问题…"
+msgid "Something went wrong..."
+msgstr "出现了问题…"
 
 msgid "Rewards will be refreshed on"
 msgstr "奖励将在以下时间刷新"
@@ -423,8 +423,8 @@ msgstr "2. 费用"
 msgid "You have no Staked Krav"
 msgstr "您没有锁定的Krav"
 
-#~ msgid "Total Staked"
-#~ msgstr "总质押"
+msgid "Total Staked"
+msgstr "总质押"
 
 msgid "Leverage"
 msgstr "杠杆"
@@ -444,8 +444,8 @@ msgstr "现价"
 #~ msgid "The profit will be"
 #~ msgstr "利润将为"
 
-#~ msgid "Your positions"
-#~ msgstr "您的持仓"
+msgid "Your positions"
+msgstr "您的持仓"
 
 msgid "My history"
 msgstr "我的历史"
@@ -711,6 +711,9 @@ msgstr "锁定期限"
 #~ msgid "Ok"
 #~ msgstr "确定"
 
+msgid "My Staking"
+msgstr "我的质押"
+
 msgid "6 months"
 msgstr "6个月"
 
@@ -755,6 +758,9 @@ msgstr "取消"
 
 msgid "Learn more about Liquidity Pools"
 msgstr "了解更多关于流动性池的信息"
+
+msgid "There is a problem with"
+msgstr "问题出在"
 
 msgid "Funding Rate (L)"
 msgstr "资金费率（做多）"

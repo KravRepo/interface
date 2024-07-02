@@ -125,7 +125,7 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
               color: #2832f5;
             `}
           >
-            {poolSupply.plus(tokenAmount).toFormat(4, 3)}
+            {poolSupply.plus(tokenAmount).toFormat(2, 3)}
           </p>
         </div>
         {

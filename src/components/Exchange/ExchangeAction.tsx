@@ -395,7 +395,7 @@ export const ExchangeAction = () => {
                   mt: '4px',
                 }}
               >
-                Stake
+                {t`Stake`}
               </KRAVButton>
             </>
           )}
