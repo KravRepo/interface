@@ -19,8 +19,8 @@ import { DialogLayout } from './DialogLayout'
 import { useSingleCallResult, useSingleContractMultipleData } from '../../hook/multicall'
 import { useContract } from '../../hook/hookV8/useContract'
 import { KTokenABI } from '../../abi/deployed/KTokenABI'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+// import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+// import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 // import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { withDecimals } from '../../utils'
 import { PoolParams } from '../../store/FactorySlice'
@@ -396,11 +396,11 @@ function ExistingRequest({
           >
             <Trans>Existing Request</Trans> ({existingRequestLength})
           </Typography>
-          {!showExistingRequest ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+          {/* {!showExistingRequest ? <ExpandMoreIcon /> : <ExpandLessIcon />} */}
         </Stack>
       </Box>
 
-      {!!existingRequestLength && showExistingRequest && (
+      {!!existingRequestLength && (
         <Box>
           {/* <Box
             sx={{
