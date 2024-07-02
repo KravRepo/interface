@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from '../constant/math'
+import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, OPEN_FEES } from '../constant/math'
 import { getBigNumberStr } from './index'
 import { OverviewData } from '../hook/hookV8/useGetTotalMarketOverview'
 
@@ -50,24 +50,57 @@ export const getReachPrice = (leverage: number, isBuy: boolean, percentProfit: n
   }
 }
 
-export const getTakeProfit = (
-  openPrice: BigNumber,
-  currentPrice: BigNumber,
-  isBuy: boolean,
-  leverage: number,
-  isSl: boolean
-) => {
-  const diff = isBuy ? currentPrice.minus(openPrice) : openPrice.minus(currentPrice)
-  const p = diff.times(100 * leverage).div(openPrice)
-  if (p.isGreaterThan(MAX_GAIN_P)) {
-    return new BigNumber(MAX_GAIN_P)
-  } else {
-    if (isSl) {
-      if (p.isLessThan(-100)) return new BigNumber(-100)
-      else return p
-    } else return p
-  }
-}
+// export const getTakeProfit = (
+//   openPrice: BigNumber,
+//   currentPrice: BigNumber,
+//   isBuy: boolean,
+//   leverage: number,
+//   isSl: boolean,
+//   trader: string,
+//   positionSizeDai: any,
+//   tradeIndex: number,
+//   pairContract: any
+// ): Promise<BigNumber> => {
+//   return (async () => {
+//     try {
+//       const result = await pairContract.getTradeFundingFee(
+//         trader,
+//         0,
+//         tradeIndex,
+//         isBuy,
+//         positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
+//         leverage
+//       )
+
+//       const diff = isBuy ? currentPrice.minus(openPrice) : openPrice.minus(currentPrice)
+//       const pFromTrade = diff.times(100 * leverage).div(openPrice)
+//       const pFromFunding = (result / 10 ** 18 / Number(positionSizeDai.toString())) * -100
+
+//       const tokenEarnedFromTrade = positionSizeDai.times(pFromTrade).div(100)
+//       const tokenEarnedFromFunding = positionSizeDai.times(pFromFunding).div(100)
+
+//       const totalEarned = tokenEarnedFromTrade.plus(tokenEarnedFromFunding)
+//       const p = totalEarned.div(positionSizeDai).times(100)
+
+//       if (p.isGreaterThan(MAX_GAIN_P)) {
+//         return new BigNumber(MAX_GAIN_P)
+//       } else {
+//         if (isSl) {
+//           if (p.isLessThan(-100)) {
+//             return new BigNumber(-100)
+//           } else {
+//             return p
+//           }
+//         } else {
+//           return p
+//         }
+//       }
+//     } catch (error) {
+//       console.error('Error fetching trade funding fee:', error)
+//       throw error // Re-throw the error to be caught by the caller
+//     }
+//   })()
+// }
 
 export const getBorrowFees = (fundingFeePerBlockP?: BigNumber) => {
   if (fundingFeePerBlockP) {

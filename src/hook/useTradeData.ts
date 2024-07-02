@@ -73,7 +73,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     //   openDaiPrecision = openDaiShort?.times(1e18)
     // }
     return [openPrice, tradePairIndex, isBuy, openInterest]
-  }, [openPrice, tradePairIndex, isBuy,positionSizeDai, leverage])
+  }, [openPrice, tradePairIndex, isBuy, positionSizeDai, leverage])
 
   useEffect(() => {
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
@@ -89,11 +89,11 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
         liquidationPriceArgs.every((arg) => arg !== undefined) &&
         positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0] !== '0'
       ) {
-       const liqPrice= parseFloat(
+        const liqPrice = parseFloat(
           getLiqPrice(eXDecimals(openPrice, 10), eXDecimals(positionSizeDai, 18), isBuy, leverage).toString()
-       ).toLocaleString('en-US', { maximumFractionDigits: 2 })
-        
-       setLiquidationPrice(liqPrice)
+        ).toLocaleString('en-US', { maximumFractionDigits: 2 })
+
+        setLiquidationPrice(liqPrice)
         // try {
         //   const result = await retryAsync(pairContract.getTradeLiquidationPrice, liquidationPriceArgs)
         //   setLiquidationPrice(
@@ -108,7 +108,17 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     }
 
     fetchLiquidationPrice()
-  }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage, isBuy, openPrice , tradePool.poolTotalSupply])
+  }, [
+    pairContract,
+    liquidationPriceArgs,
+    openDaiLong,
+    openDaiShort,
+    positionSizeDai,
+    leverage,
+    isBuy,
+    openPrice,
+    tradePool.poolTotalSupply,
+  ])
 
   useEffect(() => {
     // console.log('ktoken', tradePool.vaultT);
@@ -141,7 +151,38 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     }
 
     fetchPriceImpact()
-  }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, positionSizeDai, leverage])
+  }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, isBuy, positionSizeDai, leverage])
+
+  // useEffect(() => {
+  //   const fetchFundingFee = async () => {
+  //     if (pairContract) {
+  //       try {
+  //         console.log(
+  //           'account',
+  //           account,
+  //           'collateral',
+  //           positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
+  //           'leverage',
+  //           leverage
+  //         )
+  //         const result = await retryAsync(pairContract.getTradeFundingFee, [
+  //           account,
+  //           0,
+  //           0,
+  //           isBuy,
+  //           positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
+  //           leverage,
+  //         ])
+
+  //         console.log('result', (result / 10 ** 18).toString())
+  //       } catch (error) {
+  //         console.error('Error fetching price impact:', error)
+  //       }
+  //     }
+  //   }
+
+  //   fetchFundingFee()
+  // }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, isBuy, positionSizeDai, leverage])
 
   return useMemo(() => {
     // console.log(tradePool)

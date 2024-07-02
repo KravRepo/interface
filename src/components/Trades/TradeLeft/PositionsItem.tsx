@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { Tuple } from '../type'
 import BigNumber from 'bignumber.js'
-import { getLiqPrice, getTakeProfit } from '../../../utils/math'
+import { getLiqPrice } from '../../../utils/math'
+import { useGetTakeProfit } from '../../../hook/hookV8/useGetTakeProfit'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../../store/root'
 import { useCloseTradeMarket } from '../../../hook/hookV8/useCloseTradeMarket'
@@ -12,6 +13,8 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { useClaimPendingOrder } from '../../../hook/hookV8/useClaimPendingOrder'
 import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
+import { PairInfosABI } from '../../../abi/deployed/PairInfosABI'
+import { useContract } from '../../../hook/hookV8/useContract'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -30,13 +33,21 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
     pool ? pool.tradingT : tradePool.tradingT,
     pool ? pool.storageT : tradePool.storageT
   )
+
+  const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
+
   const claimPosition = useClaimPendingOrder(tradePool.tradingT)
-  const positionTp = useMemo(() => {
-    if (new BigNumber(openTrade.openPrice).isEqualTo(0)) return new BigNumber(0)
-    const tp = getTakeProfit(new BigNumber(openTrade.openPrice), BTCPrice, openTrade.buy, openTrade.leverage, false)
-    if (isNaN(tp.toNumber())) return new BigNumber(0)
-    else return tp
-  }, [BTCPrice, openTrade])
+  const { takeProfit } = useGetTakeProfit(
+    new BigNumber(openTrade.openPrice),
+    BTCPrice,
+    openTrade.buy,
+    openTrade.leverage,
+    openTrade.sl.toString() !== '0',
+    openTrade.trader,
+    openTrade.initialPosToken,
+    openTrade.index,
+    pairContract
+  )
 
   const tradePair = useMemo(() => {
     return pairConfig[tradePairIndex]
@@ -79,7 +90,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             <p
               css={css`
-                color: ${positionTp.isGreaterThan(0) ? theme.longButton.background : theme.shortButton.background};
+                color: ${takeProfit.isGreaterThan(0) ? theme.longButton.background : theme.shortButton.background};
                 text-decoration: underline;
               `}
             >
@@ -87,10 +98,10 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               {BTCPrice.isGreaterThan(0) && (
                 <>
                   <span>
-                    {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
+                    {new BigNumber(openTrade.initialPosToken).times(takeProfit).div(100).toFixed(2)}{' '}
                     {pool ? pool.symbol : tradePool.symbol}
                   </span>
-                  <span>({positionTp.toFixed(2)} %)</span>
+                  <span>({takeProfit.toFixed(2)}%)</span>
                 </>
               )}
             </p>
@@ -171,15 +182,15 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           <div>
             <p
               css={css`
-                color: ${positionTp.isGreaterThan(0) ? theme.longButton.background : theme.shortButton.background};
+                color: ${takeProfit.isGreaterThan(0) ? theme.longButton.background : theme.shortButton.background};
                 text-decoration: underline;
               `}
             >
               <span>
-                {new BigNumber(openTrade.initialPosToken).times(positionTp).div(100).toFixed(2)}{' '}
+                {new BigNumber(openTrade.initialPosToken).times(takeProfit).div(100).toFixed(2)}{' '}
                 {pool ? pool.symbol : tradePool.symbol}
               </span>
-              <span>({positionTp.toFixed(2)} %)</span>
+              <span>({takeProfit.toFixed(2)} %)</span>
             </p>
           </div>
           <div>

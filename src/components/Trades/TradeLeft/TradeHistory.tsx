@@ -80,6 +80,10 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         const historyRequest = await fetch(
           TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
         )
+        console.log(
+          'fetching',
+          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
+        )
         // console.log('historyRequest', historyRequest)
         const history = await historyRequest.json()
         if (history.code === 200) {

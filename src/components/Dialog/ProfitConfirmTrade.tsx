@@ -8,13 +8,16 @@ import { css } from '@emotion/react'
 import { useRootStore } from '../../store/root'
 import { getBigNumberStr } from '../../utils'
 import BigNumber from 'bignumber.js'
-import { getReachPrice, getTakeProfit } from '../../utils/math'
+import { getReachPrice } from '../../utils/math'
+import { useGetTakeProfit } from '../../hook/hookV8/useGetTakeProfit'
 import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
 import { useUpdateTradeMarket } from '../../hook/hookV8/useCloseTradeMarket'
 import { PoolParams } from '../../store/FactorySlice'
 import { Trans, msg, t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { PairInfosABI } from '../../abi/deployed/PairInfosABI'
+import { useContract } from '../../hook/hookV8/useContract'
 
 export type ConfirmTradeDialogProp = {
   isOpen: boolean
@@ -103,13 +106,33 @@ export const ProfitConfirmTrade = ({
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, tpPrice])
 
-  const slPercentage = useMemo(() => {
-    return getTakeProfit(new BigNumber(openTrade.openPrice), targetSl, openTrade.buy, openTrade.leverage, true)
-  }, [openTrade.buy, openTrade.leverage, targetSl])
+  const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
 
-  const tpPercentage = useMemo(() => {
-    return getTakeProfit(new BigNumber(openTrade.openPrice), targetTp, openTrade.buy, openTrade.leverage, false)
-  }, [openTrade.buy, openTrade.leverage, targetTp])
+  const slTakeProfit = useGetTakeProfit(
+    new BigNumber(openTrade.openPrice),
+    btcPrice,
+    openTrade.buy,
+    openTrade.leverage,
+    true,
+    openTrade.trader,
+    openTrade.positionSizeDai,
+    openTrade.index,
+    pairContract
+  )
+  const slPercentage = slTakeProfit.takeProfit
+
+  const tpTakeProfit = useGetTakeProfit(
+    new BigNumber(openTrade.openPrice),
+    btcPrice,
+    openTrade.buy,
+    openTrade.leverage,
+    false,
+    openTrade.trader,
+    openTrade.positionSizeDai,
+    openTrade.index,
+    pairContract
+  )
+  const tpPercentage = tpTakeProfit.takeProfit
 
   const handleTpSLSetting = (isSl: boolean, value: number) => {
     if (isSl) {
@@ -128,37 +151,91 @@ export const ProfitConfirmTrade = ({
     pool ? pool.storageT : tradePool.storageT
   )
 
-  const slLimit = useMemo(() => {
-    const percentage = getTakeProfit(
-      new BigNumber(openTrade.openPrice),
-      targetSl,
-      openTrade.buy,
-      openTrade.leverage,
-      true
-    )
-    if (new BigNumber(targetSl).isGreaterThanOrEqualTo(openTrade.openPrice) && openTrade.buy && !targetSl.isEqualTo(0))
-      return SlLimitState.SL_GT_OPEN_PRICE
-    if (new BigNumber(targetSl).isLessThanOrEqualTo(openTrade.openPrice) && !openTrade.buy && !targetSl.isEqualTo(0))
-      return SlLimitState.SL_LT_OPEN_PRICE
-    if (isNaN(targetSl.toNumber()) || targetSl.isLessThan(0)) return SlLimitState.INVALID
-    if (percentage.isLessThan(-75) && !targetSl.isEqualTo(0)) return SlLimitState.MAX_SL_LIMIT
-    return SlLimitState.UPDATE
-  }, [slPercentage, targetSl, slPrice, slUsePercentage, btcPrice, openTrade.buy, openTrade.leverage])
-
-  const tpLimit = useMemo(() => {
-    const percentage = getTakeProfit(
+  const useTpLimit = (
+    openTrade: any,
+    targetTp: any,
+    tpUsePercentage: any,
+    tpPrice: any,
+    tpPercentage: any,
+    btcPrice: any,
+    pairContract: any
+  ) => {
+    const { takeProfit: percentage } = useGetTakeProfit(
       new BigNumber(openTrade.openPrice),
       targetTp,
       openTrade.buy,
       openTrade.leverage,
-      false
+      false,
+      openTrade.trader,
+      openTrade.positionSizeDai,
+      openTrade.index,
+      pairContract
     )
-    if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
-    if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
-    if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
-    if (percentage.isGreaterThan(900)) return TpLimitState.MAX_TP_LIMIT
-    return TpLimitState.UPDATE
-  }, [tpUsePercentage, targetTp, tpPrice, tpPercentage, btcPrice, openTrade.buy, openTrade.leverage])
+
+    const tpLimit = useMemo(() => {
+      if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
+      if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
+      if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
+      if (percentage.isGreaterThan(900)) return TpLimitState.MAX_TP_LIMIT
+      return TpLimitState.UPDATE
+    }, [
+      tpUsePercentage,
+      targetTp,
+      tpPrice,
+      tpPercentage,
+      btcPrice,
+      openTrade.buy,
+      openTrade.leverage,
+      percentage,
+      openTrade.openPrice,
+    ])
+
+    return tpLimit
+  }
+  const tpLimit = useTpLimit(openTrade, targetTp, tpUsePercentage, tpPrice, tpPercentage, btcPrice, pairContract)
+
+  const useSlLimit = (
+    openTrade: any,
+    targetSl: any,
+    slUsePercentage: any,
+    slPrice: any,
+    slPercentage: any,
+    btcPrice: any,
+    pairContract: any
+  ) => {
+    const { takeProfit: percentage } = useGetTakeProfit(
+      new BigNumber(openTrade.openPrice),
+      targetSl,
+      openTrade.buy,
+      openTrade.leverage,
+      true,
+      openTrade.trader,
+      openTrade.positionSizeDai,
+      openTrade.index,
+      pairContract
+    )
+
+    const slLimit = useMemo(() => {
+      if (isNaN(targetSl.toNumber()) || targetSl.isLessThan(0)) return SlLimitState.INVALID
+      if (targetSl.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return SlLimitState.SL_LT_OPEN_PRICE
+      if (targetSl.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return SlLimitState.SL_GT_OPEN_PRICE
+      if (percentage.isGreaterThan(75)) return SlLimitState.MAX_SL_LIMIT
+      return SlLimitState.UPDATE
+    }, [
+      slUsePercentage,
+      targetSl,
+      slPrice,
+      slPercentage,
+      btcPrice,
+      openTrade.buy,
+      openTrade.leverage,
+      percentage,
+      openTrade.openPrice,
+    ])
+
+    return slLimit
+  }
+  const slLimit = useSlLimit(openTrade, targetSl, slUsePercentage, slPrice, slPercentage, btcPrice, pairContract)
 
   const tpButtonText = useMemo(() => {
     if (tpLimit === TpLimitState.MAX_TP_LIMIT) return TpButtonText.MAX_TP_LIMIT

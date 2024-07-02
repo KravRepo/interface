@@ -25,7 +25,7 @@ export const useGetUserOpenTrade = () => {
           const contract = new Contract(storageAddress, TradingStorageABI, provider)
           const userTotalTrade = await contract.openTradesCount(account, tradePairIndex)
           const trades = new BigNumber(userTotalTrade._hex).toNumber()
-        
+
           const task = []
           if (trades > 0) {
             for (let i = 0; i < trades; i++) {
