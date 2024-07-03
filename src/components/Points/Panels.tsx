@@ -6,6 +6,8 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { useRootStore } from '../../store/root'
 import { usePoints, usePointsList } from '../../hook/usePoints'
 import Table from '../Table'
+import PaginationView from '../Pagination'
+import { useState } from 'react'
 
 export default function PointsPanels() {
   const theme = useTheme()
@@ -71,11 +73,16 @@ export default function PointsPanels() {
 function Portfolio() {
   const { account } = useWeb3React()
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
-  const pointsList = usePointsList()
+  const [page, setPage] = useState(1)
+  const { pointsList, pageTotal } = usePointsList(page)
+  console.log({ pointsList })
   return (
     <Box>
       <Box>
-        {!pointsList || (pointsList.length === 0 && account && <div className="no-data">{t`No open position`}</div>)}
+        {!pointsList ||
+          (pointsList.length === 0 && account && (
+            <div className="no-data" style={{ textAlign: 'center' }}>{t`No record`}</div>
+          ))}
         {!account && (
           <div className="no-data">
             <KRAVButton
@@ -93,17 +100,28 @@ function Portfolio() {
         )}
 
         {pointsList && pointsList.length > 0 && account && (
-          <Table
-            header={[
-              t`EARNING EVENTS`,
-              t`DATE OPENED`,
-              t`MULTIPLIER`,
-              t`VOLUME (ETH)`,
-              t`CHAIN`,
-              t`POINTS EARNED`,
-              t`DATE CLOSED`,
-            ]}
-            rows={pointsList}
+          <>
+            <Table
+              header={[
+                t`EARNING EVENTS`,
+                t`DATE OPENED`,
+                t`MULTIPLIER`,
+                t`VOLUME (ETH)`,
+                t`CHAIN`,
+                t`POINTS EARNED`,
+                t`DATE CLOSED`,
+              ]}
+              rows={pointsList}
+            />
+          </>
+        )}
+        {account && pageTotal > 1 && (
+          <PaginationView
+            count={pageTotal}
+            page={page}
+            onChange={(_, p) => {
+              setPage(p)
+            }}
           />
         )}
       </Box>

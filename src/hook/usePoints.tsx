@@ -40,16 +40,22 @@ const getTypes = (str: string) => {
   }
 }
 
-export function usePointsList() {
+export const PAGE_SIZE = 20
+
+export function usePointsList(curPage: number) {
   const { account } = useWeb3React()
   const allPoolParams = useRootStore((state) => state.allPoolParams)
   const [pointsList, setPointsList] = useState<null | any[]>(null)
+  const [pageTotal, setPageTotal] = useState(0)
 
   useEffect(() => {
     if (!account) return
     const getPoints = async () => {
       try {
-        const request = await fetch(API_BASE + `/point/record/list?account=${account}&offset=${0}&limit=${10}`, {})
+        const request = await fetch(
+          API_BASE + `/point/record/list?account=${account}&offset=${(curPage - 1) * PAGE_SIZE}&limit=${20}`,
+          {}
+        )
         const points = await request.json()
         if (points.code == 200) {
           const list = points.data.map((data: PointListData) => {
@@ -88,13 +94,14 @@ export function usePointsList() {
             ]
           })
           setPointsList(list)
+          setPageTotal(Math.ceil(points.total / points.limit))
         }
       } catch (e) {}
     }
     getPoints()
-  }, [account, allPoolParams])
+  }, [account, allPoolParams, curPage])
 
-  return pointsList
+  return { pointsList, pageTotal }
 }
 
 export function usePoints() {
