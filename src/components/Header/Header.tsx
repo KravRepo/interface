@@ -177,6 +177,9 @@ export const Header = () => {
               <NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>
                 <Trans>Statistics</Trans>
               </NavLink>
+              <NavLink to={'/points'} css={[router, routerColor, isHomePath ? routerActive : '']}>
+                <Trans>Points</Trans>
+              </NavLink>
             </Box>
           )}
         </div>
