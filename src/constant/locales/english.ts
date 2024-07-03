@@ -246,7 +246,7 @@ export const ENGLISH = {
   'Learn more about Staking Krav': 'Learn more about Staking Krav',
   Pair: 'Pair',
   Coll: 'Coll',
-  'PnL: -90 to +900': 'PnL: -90 to +900',
+  PnL: 'PnL',
   'No trade history': 'No trade history',
   'Go back': 'Go back',
   'Liquidity Creation': 'Liquidity Creation',

@@ -74,7 +74,7 @@ export const TradeHistory = () => {
         <span>{t`Price`}</span>
         <span>{t`Leverage`}</span>
         <span>{t`Coll`}</span>
-        <span>{t`PnL: -90 to +900`}</span>
+        <span>{t`PnL`}</span>
         <span>%</span>
       </div>
       {allHistoryData.length === 0 && <div className="no-data">{t`No trade history`}</div>}

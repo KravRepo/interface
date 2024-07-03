@@ -907,8 +907,8 @@ msgstr "Deposit and create"
 msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
-msgid "PnL: -90 to +900"
-msgstr "PnL: -90 to +900"
+msgid "PnL"
+msgstr "PnL"
 
 msgid "Add"
 msgstr "Add"

@@ -745,7 +745,7 @@ msgstr "입금 및 생성"
 msgid "Step 1 Choose Target Market"
 msgstr "단계 1 대상 시장 선택"
 
-msgid "PnL: -90 to +900"
+msgid "PnL"
 msgstr "손익: -90에서 +900"
 
 msgid "Add"

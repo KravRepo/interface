@@ -888,7 +888,7 @@ msgstr "存款并创建"
 msgid "Step 1 Choose Target Market"
 msgstr "步骤1 选择目标市场"
 
-msgid "PnL: -90 to +900"
+msgid "PnL"
 msgstr "损益：-90 到 +900"
 
 msgid "Add"
