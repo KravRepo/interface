@@ -509,7 +509,6 @@ function ExistingRequest({
                         <Typography
                           sx={{
                             fontSize: '15px',
-
                             lineHeight: '140%',
                           }}
                         >
