@@ -746,7 +746,7 @@ msgid "Step 1 Choose Target Market"
 msgstr "Шаг 1: Выберите целевой рынок"
 
 msgid "PnL"
-msgstr "Прибыль/Убыток: от -90 до +900"
+msgstr "Прибыль/Убыток"
 
 msgid "Add"
 msgstr "Добавить"

@@ -889,7 +889,7 @@ msgid "Step 1 Choose Target Market"
 msgstr "步骤1 选择目标市场"
 
 msgid "PnL"
-msgstr "损益：-90 到 +900"
+msgstr "损益"
 
 msgid "Add"
 msgstr "添加"

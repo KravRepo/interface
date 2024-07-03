@@ -746,7 +746,7 @@ msgid "Step 1 Choose Target Market"
 msgstr "단계 1 대상 시장 선택"
 
 msgid "PnL"
-msgstr "손익: -90에서 +900"
+msgstr "손익"
 
 msgid "Add"
 msgstr "추가"
