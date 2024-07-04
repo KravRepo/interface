@@ -80,6 +80,10 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         const historyRequest = await fetch(
           TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
         )
+        console.log(
+          'fetching',
+          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
+        )
         // console.log('historyRequest', historyRequest)
         const history = await historyRequest.json()
         if (history.code === 200) {
@@ -113,7 +117,7 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         <span>{t`Price`}</span>
         <span>{t`Leverage`}</span>
         <span>{t`Coll`}</span>
-        <span>{t`PnL: -90 to +900`}</span>
+        <span>{t`PnL`}</span>
         <span>%</span>
       </div>
       {historyList.length === 0 && account && <div className="no-data">{t`No trade history`}</div>}

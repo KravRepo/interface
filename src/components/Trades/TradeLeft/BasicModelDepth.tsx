@@ -4,7 +4,10 @@ import React, { Dispatch, useEffect, useMemo, useRef, useState } from 'react'
 import { css, useTheme } from '@mui/material'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../../../store/root'
-import { getReachPrice, getTakeProfit } from '../../../utils/math'
+import { getReachPrice } from '../../../utils/math'
+import { useGetTakeProfit } from '../../../hook/hookV8/useGetTakeProfit'
+import { PairInfosABI } from '../../../abi/deployed/PairInfosABI'
+import { useContract } from '../../../hook/hookV8/useContract'
 
 type BasicModelDepthProps = {
   setPriceReaches: Dispatch<React.SetStateAction<BigNumber>>
@@ -30,15 +33,66 @@ export const BasicModelDepth = ({
   limitPrice,
 }: BasicModelDepthProps) => {
   const theme = useTheme()
+  const account = useRootStore((state) => state.account)
   const [depthCharts, setDepthCharts] = useState<null | echarts.ECharts>(null)
   const currentBTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
   const depthRef = useRef(null)
 
+  const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
+
   const BTCPrice = useMemo(() => {
     return tradeType === 0 ? currentBTCPrice : new BigNumber(limitPrice)
   }, [tradeType, limitPrice, currentBTCPrice])
-  //TODO: fix JPY charts
+
+  const [hoverPrice, setHoverPrice] = useState(BTCPrice)
+
+  const { takeProfit: takeProfitPercentage } = useGetTakeProfit(
+    BTCPrice,
+    hoverPrice,
+    isBuy,
+    leverage,
+    false,
+    account,
+    positionSize,
+    0,
+    pairContract
+  )
+
+  useEffect(() => {
+    if (takeProfitPercentage.isGreaterThan(0)) {
+      const takeProfitAmount = positionSize.times(takeProfitPercentage.div(100))
+      setPriceReaches(hoverPrice)
+      setTakeProfitPercentage(takeProfitPercentage)
+      setTakeProfit(takeProfitAmount)
+    } else {
+      setTakeProfit(new BigNumber(0))
+    }
+  }, [takeProfitPercentage, hoverPrice, positionSize, setPriceReaches, setTakeProfitPercentage, setTakeProfit])
+
+  const createTooltipFormatter = (isBuyDirection: boolean) => (params: any) => {
+    const price = isBuyDirection
+      ? new BigNumber(params[0].data)
+      : BTCPrice.plus(new BigNumber(params[0].data).times(-1))
+    setHoverPrice(price)
+
+    if (takeProfitPercentage.isGreaterThan(0)) {
+      const takeProfitAmount = positionSize.times(takeProfitPercentage.div(100))
+      return `
+        <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
+        <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
+        <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${price.toFixed(
+          2
+        )}</span></p>
+        <p style='margin: 0;font-size: 12px'>the profit will be <span style='color: #00C076'>${takeProfitAmount.toFixed(
+          2
+        )} ${tradePool.symbol}(+${takeProfitPercentage.toFixed(0)}%)</span></p>
+        </div>
+      `
+    }
+    return ''
+  }
+
   const depthOptions = useMemo(() => {
     return {
       // title: {
@@ -52,30 +106,7 @@ export const BasicModelDepth = ({
         textStyle: {
           color: 'rgba(255,255,255,0.9)',
         },
-        formatter: function (params: any) {
-          const takeProfit = params[0].data
-          if (takeProfit > 0) {
-            const takeProfitPre = getTakeProfit(BTCPrice, new BigNumber(params[0].data), isBuy, leverage, false)
-            const takeProfitAmount = positionSize.times(takeProfitPre.div(100))
-            setPriceReaches(new BigNumber(params[0].data))
-            setTakeProfitPercentage(new BigNumber(takeProfitPre))
-            setTakeProfit(takeProfitAmount)
-            return `
-              <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
-              <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
-              <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${new BigNumber(
-                params[0].data
-              ).toFixed(2)}</span></p>
-           <p style='margin: 0;font-size: 12px'>the profit will be <span style='color: #00C076'>${takeProfitAmount.toFixed(
-             2
-           )} ${tradePool.symbol}(+${takeProfitPre.toFixed(0)}%)</span></p>
-             </div>
-            `
-          } else {
-            setTakeProfit(new BigNumber(0))
-            return
-          }
-        },
+        formatter: createTooltipFormatter(true),
         trigger: 'axis',
       },
       legend: {
@@ -243,31 +274,7 @@ export const BasicModelDepth = ({
         textStyle: {
           color: 'rgba(255,255,255,0.9)',
         },
-        formatter: function (params: any) {
-          const diffBTCPrice = params[0].data
-          const reachesPrice = BTCPrice.plus(new BigNumber(diffBTCPrice).times(-1))
-          const takeProfitPre = Number(getTakeProfit(BTCPrice, reachesPrice, isBuy, leverage, false).toFixed(0))
-          setTakeProfitPercentage(new BigNumber(takeProfitPre))
-          if (takeProfitPre > 0) {
-            const takeProfitAmount = positionSize.times(takeProfitPre / 100)
-            setPriceReaches(reachesPrice)
-            setTakeProfit(takeProfitAmount)
-            return `
-              <div style='padding-left: 14px; font-weight: 500; color: ${theme.text.primary}'>
-              <p style='margin: 0;font-size: 16px'>${leverage} x ${isBuy ? 'Long' : 'Short'}</p>
-              <p style='margin: 0;font-size: 12px'>When the price reaches <span style='color: #FF6838'> ${reachesPrice.toFixed(
-                2
-              )}</span></p>
-              <p style='margin: 0;font-size: 12px'>the profit will be <span style='color: #00C076'>${takeProfitAmount.toFixed(
-                2
-              )} ${tradePool.symbol}(+${takeProfitPre}%)</span></p>
-              </div>
-            `
-          } else {
-            setTakeProfit(new BigNumber(0))
-            return
-          }
-        },
+        formatter: createTooltipFormatter(false),
         trigger: 'axis',
       },
       legend: {
