@@ -127,11 +127,17 @@ msgstr "Updated stop loss"
 #~ msgid "MAX"
 #~ msgstr "MAX"
 
+msgid "VOLUME (ETH)"
+msgstr "VOLUME (ETH)"
+
 #~ msgid "Rewards"
 #~ msgstr "Rewards"
 
 msgid "Pay"
 msgstr "Pay"
+
+msgid "DATE OPENED"
+msgstr "DATE OPENED"
 
 msgid "Fees Rewards"
 msgstr "Fees Rewards"
@@ -304,6 +310,9 @@ msgstr "Locking Period"
 msgid "Slippage"
 msgstr "Slippage"
 
+msgid "Points"
+msgstr "Points"
+
 msgid "Exchange"
 msgstr "Exchange"
 
@@ -404,6 +413,9 @@ msgstr "Min lock period one week"
 msgid "Earning Information"
 msgstr "Earning Information"
 
+msgid "MULTIPLIER"
+msgstr "MULTIPLIER"
+
 #~ msgid "WITHDRAW_BLOCK"
 #~ msgstr "WITHDRAW_BLOCK"
 
@@ -443,6 +455,9 @@ msgstr "Reached max positions limit"
 msgid "Market"
 msgstr "Market"
 
+msgid "POINTS EARNED"
+msgstr "POINTS EARNED"
+
 #~ msgid "The profit will be"
 #~ msgstr "The profit will be"
 
@@ -463,6 +478,9 @@ msgstr "Mint will start after"
 
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 msgstr "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
+
+msgid "CHAIN"
+msgstr "CHAIN"
 
 #~ msgid "Stake Krav"
 #~ msgstr "Stake Krav"
@@ -575,6 +593,9 @@ msgstr "Share of pool"
 #~ msgid "Telegram"
 #~ msgstr "Telegram"
 
+msgid "EARNING EVENTS"
+msgstr "EARNING EVENTS"
+
 #~ msgid "Select a token"
 #~ msgstr "Select a token"
 
@@ -610,6 +631,9 @@ msgstr "Claim reward"
 
 msgid "+ Provider liquidity"
 msgstr "+ Provider liquidity"
+
+msgid "No record"
+msgstr "No record"
 
 msgid "Unlock"
 msgstr "Unlock"
@@ -701,8 +725,8 @@ msgstr "Trades"
 msgid "Locked Krav"
 msgstr "Locked Krav"
 
-msgid "Remaining"
-msgstr "Remaining"
+#~ msgid "Remaining"
+#~ msgstr "Remaining"
 
 msgid "Stop loss great then open price"
 msgstr "Stop loss great then open price"
@@ -869,8 +893,8 @@ msgstr "Staking Krav"
 msgid "4 years"
 msgstr "4 years"
 
-msgid "Now Epoch"
-msgstr "Now Epoch"
+#~ msgid "Now Epoch"
+#~ msgstr "Now Epoch"
 
 msgid "Withdraw Krav"
 msgstr "Withdraw Krav"
@@ -1027,8 +1051,8 @@ msgstr "You have no liquidity"
 msgid "Ask Price"
 msgstr "Ask Price"
 
-msgid "Start"
-msgstr "Start"
+#~ msgid "Start"
+#~ msgstr "Start"
 
 msgid "My current trade boost"
 msgstr "My current trade boost"
@@ -1096,8 +1120,8 @@ msgstr "24h Volume"
 msgid "Create pool"
 msgstr "Create pool"
 
-msgid "End"
-msgstr "End"
+#~ msgid "End"
+#~ msgstr "End"
 
 #~ msgid "Open Interest(S)"
 #~ msgstr "Open Interest(S)"
@@ -1119,6 +1143,9 @@ msgstr "Engage the lock-in feature to secure your Krav earnings and obtain veKRA
 
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
+
+msgid "DATE CLOSED"
+msgstr "DATE CLOSED"
 
 msgid "Close"
 msgstr "Close"

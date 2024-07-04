@@ -103,8 +103,14 @@ msgstr "시장"
 msgid "Updated stop loss"
 msgstr "업데이트된 손절가"
 
+msgid "VOLUME (ETH)"
+msgstr ""
+
 msgid "Pay"
 msgstr "지불"
+
+msgid "DATE OPENED"
+msgstr ""
 
 msgid "Fees Rewards"
 msgstr "수수료 보상"
@@ -244,6 +250,9 @@ msgstr "잠금 기간"
 msgid "Slippage"
 msgstr "슬리피지"
 
+msgid "Points"
+msgstr ""
+
 msgid "Exchange"
 msgstr "거래소"
 
@@ -334,6 +343,9 @@ msgstr "최소 잠금 기간은 1주일입니다"
 msgid "Earning Information"
 msgstr "수익 정보"
 
+msgid "MULTIPLIER"
+msgstr ""
+
 #~ msgid "WITHDRAW_BLOCK"
 #~ msgstr "출금 차단"
 
@@ -370,6 +382,9 @@ msgstr "최대 포지션 한도에 도달했습니다"
 msgid "Market"
 msgstr "시장"
 
+msgid "POINTS EARNED"
+msgstr ""
+
 msgid "Your positions"
 msgstr "당신의 포지션"
 
@@ -381,6 +396,9 @@ msgstr "발행은 다음에 시작됩니다"
 
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 msgstr "언제든지 잠금을 연장하고 $CRV를 추가할 수 있지만, $CRV에는 다른 만료일이 없습니다."
+
+msgid "CHAIN"
+msgstr ""
 
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 msgstr "입금한 자산은 유동성 풀의 일부가 되며, 플랫폼에 거래마다 수수료를 받으며 모든 거래의 상대방으로 작동합니다."
@@ -457,6 +475,9 @@ msgstr "세부 정보 보기"
 msgid "Share of pool"
 msgstr "풀의 일부"
 
+msgid "EARNING EVENTS"
+msgstr ""
+
 msgid "Market order closed"
 msgstr "시장 주문 종료"
 
@@ -483,6 +504,9 @@ msgstr "보상 청구"
 
 msgid "+ Provider liquidity"
 msgstr "+ 유동성 제공"
+
+msgid "No record"
+msgstr ""
 
 msgid "Unlock"
 msgstr "잠금 해제"
@@ -565,8 +589,8 @@ msgstr "거래"
 msgid "Locked Krav"
 msgstr "잠금된 Krav"
 
-msgid "Remaining"
-msgstr "남은"
+#~ msgid "Remaining"
+#~ msgstr "남은"
 
 msgid "Stop loss great then open price"
 msgstr "손절가가 개장 가격보다 큼"
@@ -709,8 +733,8 @@ msgstr "Krav 스테이킹"
 msgid "4 years"
 msgstr "4년"
 
-msgid "Now Epoch"
-msgstr "현재 에포크"
+#~ msgid "Now Epoch"
+#~ msgstr "현재 에포크"
 
 msgid "Withdraw Krav"
 msgstr "Krav 인출"
@@ -847,8 +871,8 @@ msgstr "유동성이 없습니다"
 msgid "Ask Price"
 msgstr "매도 가격"
 
-msgid "Start"
-msgstr "시작"
+#~ msgid "Start"
+#~ msgstr "시작"
 
 msgid "My current trade boost"
 msgstr "내 현재 거래 부스트"
@@ -898,8 +922,8 @@ msgstr "24시간 거래량"
 msgid "Create pool"
 msgstr "풀 생성"
 
-msgid "End"
-msgstr "종료"
+#~ msgid "End"
+#~ msgstr "종료"
 
 msgid "Liquidate"
 msgstr "청산"
@@ -912,6 +936,9 @@ msgstr "Krav 수익을 안전하게 보호하고 veKRAV 혜택을 얻기 위해 
 
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav가 블록체인 거래와 상호작용 중입니다. 온체인 거래 정산을 기다려 주세요."
+
+msgid "DATE CLOSED"
+msgstr ""
 
 msgid "Close"
 msgstr "닫기"
