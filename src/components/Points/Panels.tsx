@@ -23,7 +23,7 @@ export default function PointsPanels() {
             <Typography>Liquidity Points</Typography>
             <Typography>
               <Typography fontSize={'50px'} component={'span'}>
-                {points?.pointLP}
+                {points?.pointLP}{' '}
               </Typography>
               CANDIES
             </Typography>
@@ -32,7 +32,7 @@ export default function PointsPanels() {
             <Typography>Trading Points</Typography>
             <Typography>
               <Typography fontSize={'50px'} component={'span'}>
-                {points?.pointTrade}
+                {points?.pointTrade}{' '}
               </Typography>
               ROLLIES
             </Typography>
@@ -75,23 +75,22 @@ function Portfolio() {
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const [page, setPage] = useState(1)
   const { pointsList, pageTotal } = usePointsList(page)
-  console.log({ pointsList })
+
   return (
     <Box>
       <Box>
-        {!pointsList ||
-          (pointsList.length === 0 && account && (
-            <div className="no-data" style={{ textAlign: 'center' }}>{t`No record`}</div>
-          ))}
+        {pointsList && pointsList.length === 0 && account && (
+          <div className="no-data" style={{ textAlign: 'center' }}>{t`No record`}</div>
+        )}
         {!account && (
-          <div className="no-data">
+          <Box width="100%" display={'flex'} justifyContent={'center'}>
             <KRAVButton
               onClick={() => setWalletDialogVisibility(true)}
-              sx={{ width: '113px', mt: '32px', mb: '25px', zIndex: 3 }}
+              sx={{ width: '113px', mt: '32px', mb: '25px', zIndex: 3, px: '10px' }}
             >
               {t`Connect Wallet`}
             </KRAVButton>
-          </div>
+          </Box>
         )}
         {account && pointsList === null && (
           <Box height="100px" textAlign={'center'} display={'flex'} alignItems={'center'} justifyContent={'center'}>

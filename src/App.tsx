@@ -41,7 +41,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './state'
 import { Provider as BlockNumberProvider } from './hook/useBlockNumber'
 import { locales } from './constant/locales'
-import Points from './pages/Points'
+// import Points from './pages/Points'
 
 i18n.load(locales)
 i18n.activate('en-US')
@@ -98,7 +98,7 @@ const FullApp = () => {
               <Route path={'/trade/:referral'} element={<Trade />} />
               <Route path={'/liquidity'} element={<Liquidity />} />
               <Route path={'/portfolio'} element={<Home />} />
-              <Route path={'/points'} element={<Points />} />
+              {/* <Route path={'/points'} element={<Points />} /> */}
               <Route path={'/portfolio/stake'} element={<HomeStake />} />
               {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
               {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}

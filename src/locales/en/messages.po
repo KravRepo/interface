@@ -906,7 +906,7 @@ msgid "Deposit Amount/Initial LP Provision"
 msgstr "Deposit Amount/Initial LP Provision"
 
 msgid "long withdraw notice..."
-msgstr "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
+msgstr "To ensure stable liquidity, there is a 2 epoch (min 48 hour) waiting period after requesting a withdrawal, followed by a 24 hour period to claim. 25% of initially deposited liquidity may be withdrawn at a time."
 
 msgid "Total Governance Reward Pool"
 msgstr "Total Governance Reward Pool"

@@ -298,7 +298,7 @@ export default function Table({
                   fontSize={fontSize}
                   row={row}
                   collapsible={collapsible}
-                  key={row[0].toString() + idx}
+                  key={idx}
                   variant={variant}
                   hiddenPart={hiddenParts && hiddenParts[idx]}
                 />

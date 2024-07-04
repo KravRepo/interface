@@ -62,10 +62,12 @@ export function usePointsList(curPage: number) {
             const pool = allPoolParams[data.quantoIndex]
             const chain = MAINNET_CHAINS[data.chainId as number]
             return [
-              <Box key={data.timestamp} display="flex" alignItems={'center'} gap="10px">
-                <img src={pool.logoSource} style={{ height: '20px', width: '20px', borderRadius: '50%' }}></img>
-                {getTypes(data.types)}$<span>{pool.symbol}</span>
-              </Box>,
+              pool ? (
+                <Box key={data.timestamp} display="flex" alignItems={'center'} gap="10px">
+                  <img src={pool.logoSource} style={{ height: '20px', width: '20px', borderRadius: '50%' }}></img>
+                  {getTypes(data.types)}$<span>{pool.symbol}</span>
+                </Box>
+              ) : null,
               new Date(data.timestamp * 1000).toLocaleString(),
               <span key={data.timestamp + data.multiplier}>x{data.multiplier}</span>,
               data.volumeInETH,
@@ -96,7 +98,10 @@ export function usePointsList(curPage: number) {
           setPointsList(list)
           setPageTotal(Math.ceil(points.total / points.limit))
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error(e)
+        setPointsList([])
+      }
     }
     getPoints()
   }, [account, allPoolParams, curPage])
