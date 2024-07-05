@@ -10,6 +10,7 @@ import { HistoryItem } from '../Trades/TradeLeft/HistoryItem'
 import { PoolParams } from '../../store/FactorySlice'
 import { historyOverflow } from '../Trades/TradeLeft/style'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { t } from '@lingui/macro'
 
 export type HistoryDataWithPool = {
   pool: PoolParams
@@ -27,7 +28,7 @@ export const TradeHistory = () => {
     try {
       const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
       const quantos = await quantosRequest.json()
-      
+
       const res: any[] = []
       quantos.data.map(async (quanto: Quanto) => {
         const historyRequest = await fetch(
@@ -67,16 +68,16 @@ export const TradeHistory = () => {
           color: #617168;
         `}
       >
-        <span>Date</span>
-        <span>Pair</span>
-        <span>Type</span>
-        <span>Price</span>
-        <span>Leverage</span>
-        <span>Coll</span>
-        <span>PnL</span>
+        <span>{t`Date`}</span>
+        <span>{t`Pair`}</span>
+        <span>{t`Type`}</span>
+        <span>{t`Price`}</span>
+        <span>{t`Leverage`}</span>
+        <span>{t`Coll`}</span>
+        <span>{t`PnL: -90 to +900`}</span>
         <span>%</span>
       </div>
-      {allHistoryData.length === 0 && <div className="no-data">No trade history</div>}
+      {allHistoryData.length === 0 && <div className="no-data">{t`No trade history`}</div>}
       {allHistoryData.length > 0 &&
         allHistoryData.map((history, index) => {
           return history.HistoryData.map((data) => {

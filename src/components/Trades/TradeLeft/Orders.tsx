@@ -7,6 +7,7 @@ import { useCancelOpenLimitOrder } from '../../../hook/hookV8/useCancelOpenLimit
 import { useMemo } from 'react'
 import { useTheme } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
+import { t } from '@lingui/macro'
 
 export const Orders = () => {
   const theme = useTheme()
@@ -34,16 +35,16 @@ export const Orders = () => {
           border-top: ${theme.splitLine.primary};
         `}
       >
-        <span>Type</span>
-        <span>Order</span>
-        <span>Ask Price</span>
-        <span>Market Price</span>
-        <span>Leverage</span>
-        <span>Collateral</span>
-        <div>Action</div>
+        <span>{t`Type`}</span>
+        <span>{t`Order`}</span>
+        <span>{t`Ask Price`}</span>
+        <span>{t`Market Price`}</span>
+        <span>{t`Leverage`}</span>
+        <span>{t`Collateral`}</span>
+        <div>{t`Action`}</div>
       </div>
-      {userOpenLimitList.length === 0 && account && <div className="no-data">No Orders</div>}
-      {!account && <div className="no-data">Connect wallet</div>}
+      {userOpenLimitList.length === 0 && account && <div className="no-data">{t`No Orders`}</div>}
+      {!account && <div className="no-data">{t`Connect Wallet`}</div>}
       {userOpenLimitList.length > 0 &&
         account &&
         userOpenLimitList.map((limit, index) => {
@@ -54,7 +55,7 @@ export const Orders = () => {
                   color: #009b72;
                 `}
               >
-                Limit
+                {t`Limit`}
               </div>
               <div>{getOrderContent(limit.buy, limit.minPrice, new BigNumber(limit.positionSize), limit.leverage)}</div>
               <div>${limit.minPrice.toFixed(tradePair.fixDecimals)}</div>
@@ -70,7 +71,7 @@ export const Orders = () => {
                 `}
                 onClick={() => cancelOpenLimitOrder(limit.index, limit.pairIndex)}
               >
-                Cancel
+                {t`Cancel`}
               </div>
             </div>
           )

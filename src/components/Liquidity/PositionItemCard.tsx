@@ -14,12 +14,20 @@ import { align } from '../../globalStyle'
 // import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 // import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
+import { t } from '@lingui/macro'
+import { usePnl } from '../../hook/hookV8/usePnl'
 
-export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity, aprList }: PositionItemProps) => {
+export const PositionItemCard = ({
+  position,
+  setAddLiquidity,
+  setRemoveLiquidity,
+  aprList,
+  kTokenAddress,
+}: PositionItemProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-
+  const { tokenAmount } = usePnl(kTokenAddress)
   // const [setLpReward] = useState(new BigNumber(0))
   // const claimLp = useHarvestLpReward(position.pool.vaultT)
   const poolSupply = useMemo(() => {
@@ -82,7 +90,7 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 margin-right: 8px;
               `}
             >
-              Utilization
+              {t`Utilization`}
             </span>
             <span
               css={css`
@@ -129,8 +137,8 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
       </div>
       <div className="card-content">
         <div className="data">
-          <p>Total Liquidity Supply</p>
-          <p>{position.pool.poolTotalSupply?.toFixed(2)}</p>
+          <p>{t`Total Liquidity Supply`}</p>
+          <p>{position.pool.poolTotalSupply?.toFormat(2, 3)}</p>
         </div>
         <div
           className="data"
@@ -138,14 +146,14 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             margin-top: 10px;
           `}
         >
-          <p>Your Liquidity Supply</p>
+          <p>{t`Your Total Liquidity`}</p>
           <div>
             <span
               css={css`
                 color: #2832f5;
               `}
             >
-              {getBigNumberStr(poolSupply, 2)}
+              {poolSupply.plus(tokenAmount).toFormat(2, 3)}
             </span>
             <div
               css={css`
@@ -195,19 +203,61 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
             </div>
           </div>
         </div>
+
         <div
           css={css`
             background: ${theme.background.second};
+            margin-top: 10px;
+            > div {
+              flex-wrap: wrap;
+            }
           `}
           className="stake-info"
         >
+          {/* <div>
+            <span
+              css={css`
+                color: ${theme.text.second};
+              `}
+            >
+              PnL
+            </span>
+            <span>{pnl.toFixed(2)}%</span>
+          </div> */}
+          <div>
+            <span
+              css={css`
+                color: ${theme.text.second};
+                whitespace: nowrap;
+              `}
+            >
+              {t`Initial Supply`}
+            </span>
+            <span>
+              {poolSupply.toFormat(2, 3)}
+              {position.pool.symbol}
+            </span>
+          </div>
           <div>
             <span
               css={css`
                 color: ${theme.text.second};
               `}
             >
-              Your Pool Stake
+              {t`Yield Earned`}
+            </span>
+            <span>
+              {tokenAmount.toFormat(4, 3)}
+              {position.pool.symbol}
+            </span>
+          </div>
+          <div>
+            <span
+              css={css`
+                color: ${theme.text.second};
+              `}
+            >
+              {t`Pool Stake`}
             </span>
             <span>
               {(
@@ -224,17 +274,15 @@ export const PositionItemCard = ({ position, setAddLiquidity, setRemoveLiquidity
                 color: ${theme.text.second};
               `}
             >
-              Your Withdraw Limit
+              {t`Withdrawal Limit`}
             </span>
-            <Tooltip
-              title={`When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process.`}
-            >
+            <Tooltip title={t`short withdraw notice...`}>
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
                 <span css={align}>
                   {lockAmount.isGreaterThan(0)
-                    ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFixed(2)
-                    : eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)}
+                    ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFormat(2, 3)
+                    : eXDecimals(position.daiDeposited, position.pool.decimals).toFormat(2, 3)}
                   {position.pool.symbol}
                 </span>
               </>

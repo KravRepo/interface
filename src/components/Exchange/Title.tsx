@@ -2,6 +2,7 @@
 import { css } from '@emotion/react'
 import { title } from './style'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { t } from '@lingui/macro'
 
 export const Title = () => {
   const theme = useTheme()
@@ -18,10 +19,10 @@ export const Title = () => {
         `,
       ]}
     >
-      <span>Token Exchange</span>
+      <span>{t`Token Exchange`}</span>
       <div>
-        <span>Exchange ratio :</span>
-        <span>1 KRAV → Coming Soon</span>
+        <span>{t`Exchange ratio :`}</span>
+        <span>{t`1 KRAV → Coming Soon`}</span>
       </div>
     </div>
   )

@@ -73,6 +73,9 @@ export const NavMenu = ({ isOpen, setIsOpen }: NavMenuProps) => {
         <NavLink onClick={setIsOpen} to={'/statistics'} css={[routerColor]}>
           <Trans>Statistics</Trans>
         </NavLink>
+        <NavLink onClick={setIsOpen} to={'/points'} css={[routerColor]}>
+          <Trans>Points</Trans>
+        </NavLink>
       </div>
       <div
         className="action"

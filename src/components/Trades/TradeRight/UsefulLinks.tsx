@@ -2,6 +2,7 @@
 import { Link, useTheme } from '@mui/material'
 import { bottomCard } from '../style'
 import { css } from '@emotion/react'
+import { Trans } from '@lingui/macro'
 
 export const UsefulLinks = () => {
   const theme = useTheme()
@@ -20,7 +21,7 @@ export const UsefulLinks = () => {
           border-bottom: ${theme.splitLine.primary};
         `}
       >
-        Useful Links
+        <Trans>Useful Links</Trans>
       </div>
       <div
         css={css`
@@ -29,7 +30,7 @@ export const UsefulLinks = () => {
       >
         <p className="card-details">
           <Link href="https://docs.krav.trade/" color={theme.text.primary} marginRight={'8px'}>
-            Trading guide
+            <Trans> Trading guide</Trans>
           </Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
             <path

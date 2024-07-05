@@ -4,6 +4,7 @@ import DialogContent from '@mui/material/DialogContent'
 import { useLocation } from 'react-router-dom'
 import { IconButton, css, useTheme } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { t } from '@lingui/macro'
 
 export default function TermsAndAgreementDialog() {
   const [open, setOpen] = React.useState(false)
@@ -51,8 +52,7 @@ export default function TermsAndAgreementDialog() {
               <CloseIcon sx={{ height: 14, width: 14 }} />
             </IconButton>
             <DialogContent sx={{ p: '14px 24px 14px 14px', fontSize: '12px' }}>
-              <b>Note:</b> Liquidations are never based on the collateral token&apos;s price - only BTC price movements
-              in USDT. Happy Trading!
+              <b>{t`Note`}:</b> {t`Notice...`}
             </DialogContent>
           </div>
         </div>

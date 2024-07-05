@@ -15,6 +15,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useInterval } from '../../hook/hookV8/useInterval'
 import { useGetUserFarmReward } from '../../hook/hookV8/useGetUserFarmReward'
 import { getBooster, getTradeBooster } from '../../utils/math'
+import { t } from '@lingui/macro'
 
 export const NewStake = () => {
   const theme = useTheme()
@@ -62,8 +63,7 @@ export const NewStake = () => {
             padding-bottom: 40px;
           `}
         >
-          Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield
-          potential by up to 2.5x
+          {t`Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x`}
         </p>
       </div>
       <div
@@ -122,7 +122,7 @@ export const NewStake = () => {
             }
           `}
         >
-          <KRAVTab>Total Governance Reward Pool </KRAVTab>
+          <KRAVTab>{t`Total Governance Reward Pool`} </KRAVTab>
           <p className="data gt">{formatNumber(overviewData?.govFeeTotal, 2, true)}</p>
         </div>
         <div
@@ -133,7 +133,7 @@ export const NewStake = () => {
             }
           `}
         >
-          <KRAVTab>Total Stake</KRAVTab>
+          <KRAVTab>{t`Total Stake`}</KRAVTab>
           <p className="data gt">{formatNumber(totalKravLock.toString(), 2, false)} KRAV</p>
         </div>
       </div>
@@ -198,7 +198,7 @@ export const NewStake = () => {
             }
           `}
         >
-          <KRAVTab>You veKRAV Supply</KRAVTab>
+          <KRAVTab>{t`Your veKRAV Supply`}</KRAVTab>
           <p className="data gt">{formatNumber(userVeKravAmount.toNumber(), 2, false)} veKRAV</p>
         </div>
         {/*<div*/}

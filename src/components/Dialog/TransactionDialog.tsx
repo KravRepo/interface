@@ -12,6 +12,7 @@ import { ReactComponent as PendingDarkIcon } from '../../assets/imgs/darkModel/p
 import { ReactComponent as ApproveDarkIcon } from '../../assets/imgs/darkModel/approve_icon_dark.svg'
 import { ReactComponent as InteractionDarkIcon } from '../../assets/imgs/darkModel/interaction_logo_dark.svg'
 import KRAVButton from '../KravUIKit/KravButton'
+import { Trans } from '@lingui/macro'
 
 export const TransactionDialog = () => {
   const theme = useTheme()
@@ -54,7 +55,7 @@ export const TransactionDialog = () => {
                   padding: 0;
                 `}
               >
-                Krav requests wallet approval
+                <Trans>Krav requests wallet approval</Trans>
               </span>
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
             </div>
@@ -69,7 +70,7 @@ export const TransactionDialog = () => {
                   font-size: 14px;
                 `}
               >
-                Please manually interact with your wallet. Please enable Krav to access your tokens.
+                <Trans>Please manually interact with your wallet. Please enable Krav to access your tokens.</Trans>
               </p>
               {theme.palette.mode === 'dark' ? (
                 <ApproveDarkIcon className="flash" />
@@ -77,7 +78,9 @@ export const TransactionDialog = () => {
                 <ApproveIcon className="flash" />
               )}
 
-              <KRAVButton disabled={true}>Awaiting...</KRAVButton>
+              <KRAVButton disabled={true}>
+                <Trans>Awaiting...</Trans>
+              </KRAVButton>
             </div>
           </div>
         </DialogContent>
@@ -104,7 +107,7 @@ export const TransactionDialog = () => {
                   padding: 0;
                 `}
               >
-                Krav requests wallet interaction
+                <Trans>Krav requests wallet interaction</Trans>
               </span>
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
             </div>
@@ -119,7 +122,7 @@ export const TransactionDialog = () => {
                   font-size: 14px;
                 `}
               >
-                Please open your wallet and confirm in the transaction activity to proceed your order.
+                <Trans>Please open your wallet and confirm in the transaction activity to proceed your order.</Trans>
               </p>
               {theme.palette.mode === 'dark' ? (
                 <InteractionDarkIcon className="flash" />
@@ -127,7 +130,9 @@ export const TransactionDialog = () => {
                 <InteractionIcon className="flash" />
               )}
 
-              <KRAVButton disabled={true}>Awaiting...</KRAVButton>
+              <KRAVButton disabled={true}>
+                <Trans>Awaiting...</Trans>
+              </KRAVButton>
             </div>
           </div>
         </DialogContent>
@@ -149,7 +154,9 @@ export const TransactionDialog = () => {
                 font-size: ${isMobile ? '18px' : '20px'};
               `}
             >
-              <span>Krav waiting for transaction settlement</span>
+              <span>
+                <Trans>Krav waiting for transaction settlement</Trans>
+              </span>
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setTransactionDialogVisibility(false)} />
             </div>
             <div
@@ -164,7 +171,10 @@ export const TransactionDialog = () => {
                   padding: 0 12px;
                 `}
               >
-                Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement.
+                <Trans>
+                  Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction
+                  settlement.
+                </Trans>
               </p>
               {theme.palette.mode === 'dark' ? (
                 <PendingDarkIcon className="flash" />
@@ -172,7 +182,9 @@ export const TransactionDialog = () => {
                 <PendingIcon className="flash" />
               )}
 
-              <KRAVButton disabled={true}>Awaiting...</KRAVButton>
+              <KRAVButton disabled={true}>
+                <Trans>Awaiting... </Trans>
+              </KRAVButton>
             </div>
           </div>
         </DialogContent>

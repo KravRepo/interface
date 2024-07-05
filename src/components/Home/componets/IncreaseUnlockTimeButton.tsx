@@ -6,6 +6,8 @@ import { useCallback, useMemo } from 'react'
 import { useAddLockAmount } from '../../../hook/hookV8/useAddLockAmount'
 import { getLockTime } from '../../../hook/hookV8/utils/utils'
 import { ONE_WEEK_TIMESTAMP } from '../../../constant/math'
+import { msg } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 type IncreaseUnlockTimeButtonProps = {
   lockAmount: BigNumber
@@ -14,10 +16,10 @@ type IncreaseUnlockTimeButtonProps = {
   userKravBalance: BigNumber
 }
 
-enum ButtonText {
-  'LOCK' = 'Lock & Mint',
-  'MIN_LOCK_TIME' = 'Min lock period one week',
-  'INSUFFICIENT_BALANCE' = 'Insufficient Balance',
+const ButtonText = {
+  LOCK: msg`Lock & Mint`,
+  MIN_LOCK_TIME: msg`Min lock period one week`,
+  INSUFFICIENT_BALANCE: msg`Insufficient Balance`,
 }
 
 export const IncreaseUnlockTimeButton = ({
@@ -28,6 +30,7 @@ export const IncreaseUnlockTimeButton = ({
 }: IncreaseUnlockTimeButtonProps) => {
   const addUnlockTime = useAddUnlockTime()
   const addLockAmount = useAddLockAmount()
+  const { i18n } = useLingui()
 
   const unlockAble = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
@@ -54,7 +57,7 @@ export const IncreaseUnlockTimeButton = ({
       onClick={() => updatePosition().then()}
       sx={{ mt: '20px' }}
     >
-      {buttonText}
+      {i18n._(buttonText)}
     </KRAVButton>
   )
 }

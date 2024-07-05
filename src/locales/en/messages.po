@@ -13,108 +13,1157 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+#~ msgid "Come"
+#~ msgstr "Come"
+
+msgid "Disconnect"
+msgstr "Disconnect"
+
+msgid "1 year"
+msgstr "1 year"
+
+msgid "Total Liquidity Provider"
+msgstr "Total Liquidity Provider"
+
+msgid "Come create one!"
+msgstr "Come create one!"
+
+msgid "Type"
+msgstr "Type"
+
+msgid ""
+msgstr "/+Z5u4"
+
+msgid "Target Market"
+msgstr "Target Market"
+
+msgid "Create Liquidity"
+msgstr "Create Liquidity"
+
+msgid "Stay tuned"
+msgstr "Stay tuned! This feature will be launched soon."
+
+msgid "Liq.price"
+msgstr "Liq.price"
+
+msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
+msgstr "When actually distributing income, calculate your ratio according to your trading volume after boost"
+
+msgid "Fees"
+msgstr "Fees"
+
+msgid "pair"
+msgstr "pair"
+
+msgid "Withdraw request confirmed"
+msgstr "Withdraw request confirmed"
+
+#~ msgid "Twitter"
+#~ msgstr "Twitter"
+
+msgid "Basic"
+msgstr "Basic"
+
+msgid "Positions"
+msgstr "Positions"
+
+msgid "POOL TOTAL STAKED"
+msgstr "POOL TOTAL STAKED"
+
+msgid "Orders"
+msgstr "Orders"
+
+msgid "Confirm Limit Order"
+msgstr "Confirm Limit Order"
+
+msgid "Please wait 24 hours to remove liquidity"
+msgstr "Please wait 24 hours to remove liquidity"
+
 msgid "Statistics"
 msgstr "Statistics"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+msgid "Earn Yield"
+msgstr "Earn Yield"
+
+msgid "Increase unlock time"
+msgstr "Increase unlock time"
+
+msgid "My Pool"
+msgstr "My Pool"
+
+#~ msgid "Your Referral stats"
+#~ msgstr "Your Referral stats"
+
+msgid "YIELD EARNED"
+msgstr "YIELD EARNED"
+
+msgid "Token Collateral"
+msgstr "Token Collateral"
+
+msgid "Krav requests wallet interaction"
+msgstr "Krav requests wallet interaction"
+
+#~ msgid "Remove Liquidity"
+#~ msgstr "Remove Liquidity"
+
+#~ msgid "please connect wallet"
+#~ msgstr "please connect wallet"
+
+msgid "Pro"
+msgstr "Pro"
+
+msgid "MARKET"
+msgstr "MARKET"
+
+#~ msgid "Invite friends"
+#~ msgstr "Invite friends"
+
+msgid "Updated stop loss"
+msgstr "Updated stop loss"
+
+#~ msgid "Take profit less then open price"
+#~ msgstr "Take profit less then open price"
+
+#~ msgid "MAX"
+#~ msgstr "MAX"
+
+msgid "VOLUME (ETH)"
+msgstr "VOLUME (ETH)"
+
+#~ msgid "Rewards"
+#~ msgstr "Rewards"
+
+msgid "Pay"
+msgstr "Pay"
+
+msgid "DATE OPENED"
+msgstr "DATE OPENED"
+
+msgid "Fees Rewards"
+msgstr "Fees Rewards"
+
+msgid "Mint"
+msgstr "Mint"
+
+msgid "Market Cap"
+msgstr "Market Cap"
+
+msgid "24h Trading Volume"
+msgstr "24h Trading Volume"
+
+#~ msgid "Referral Code"
+#~ msgstr "Referral Code"
+
+msgid "The maximum percentage cannot exceed 900%"
+msgstr "The maximum percentage cannot exceed 900%"
+
+#~ msgid "Contract Specifications"
+#~ msgstr "Contract Specifications"
+
+msgid "Collateral"
+msgstr "Collateral"
+
+msgid "YOUR STAKED"
+msgstr "YOUR STAKED"
+
+msgid "wallet"
+msgstr "wallet"
+
+msgid "Loading BTC data..."
+msgstr "Loading BTC data..."
+
+msgid "Exchange ratio"
+msgstr "Exchange ratio"
+
 msgid "Liquidity"
 msgstr "Liquidity"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-#~ msgid "Market Price"
-#~ msgstr "Market Price"
+msgid "Coming Summer 2024"
+msgstr "Coming Summer 2024"
 
-#: src/components/Header/Header.tsx
+msgid "APR"
+msgstr "APR"
+
+msgid "Liquidity being provided"
+msgstr "Liquidity being provided"
+
+msgid "Navigate to the 'dashboard' page to claim your fee earnings"
+msgstr "Navigate to the 'dashboard' page to claim your fee earnings"
+
+#~ msgid "one!"
+#~ msgstr "one!"
+
+msgid "Lock & Mint"
+msgstr "Lock & Mint"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Claim liquidity provider rewards"
+msgstr "Claim liquidity provider rewards"
+
+msgid "To trade"
+msgstr "To trade"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#~ msgid "krav has been staked successfully"
+#~ msgstr "krav has been staked successfully"
+
+msgid "Initial Supply"
+msgstr "Initial Supply"
+
+msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
+msgstr "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
+
+#~ msgid "Invite Chain"
+#~ msgstr "Invite Chain"
+
+msgid "REWARD"
+msgstr "REWARD"
+
+msgid "Withdraw Status"
+msgstr "Withdraw Status"
+
+msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
+msgstr "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
+
+#~ msgid "When the price reaches"
+#~ msgstr "When the price reaches"
+
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "Your Withdraw Limit"
+
+#~ msgid "Total value"
+#~ msgstr "Total value"
+
+msgid "Notice..."
+msgstr "Liquidations are never based on the collateral token's price - only BTC price movements in USDT. Happy Trading!"
+
+msgid "Utilization"
+msgstr "Utilization"
+
+msgid "Market Price"
+msgstr "Market Price"
+
+msgid "Something went wrong..."
+msgstr "Something went wrong..."
+
+msgid "Rewards will be refreshed on"
+msgstr "Rewards will be refreshed on"
+
+#~ msgid "Invite Rewards"
+#~ msgstr "Invite Rewards"
+
+msgid "VIEW MORE"
+msgstr "VIEW MORE"
+
 #~ msgid "DashBoard"
 #~ msgstr "DashBoard"
 
-#: src/components/Header/WalletButton.tsx
+msgid "Pair"
+msgstr "Pair"
+
+msgid "ASSET"
+msgstr "ASSET"
+
+msgid "KRAV Locking Amount"
+msgstr "KRAV Locking Amount"
+
+msgid "Initial LP Provision"
+msgstr "Initial LP Provision"
+
+msgid "Invite Friends Now!"
+msgstr "Invite Friends Now!"
+
+msgid "Invite your friends"
+msgstr "Invite your friends"
+
+msgid "Approve ..."
+msgstr "Approve ..."
+
+msgid "Faucet"
+msgstr "Faucet"
+
+msgid "Learn more about Staking Krav"
+msgstr "Learn more about Staking Krav"
+
+msgid "OPEN"
+msgstr "OPEN"
+
+#~ msgid "Your Pool Stake"
+#~ msgstr "Your Pool Stake"
+
+#~ msgid "Next distribution:"
+#~ msgstr "Next distribution:"
+
+#~ msgid "Share On Social Media"
+#~ msgstr "Share On Social Media"
+
+msgid "Go back"
+msgstr "Go back"
+
+msgid "Locking Period"
+msgstr "Locking Period"
+
+msgid "Slippage"
+msgstr "Slippage"
+
+msgid "Points"
+msgstr "Points"
+
+msgid "Exchange"
+msgstr "Exchange"
+
+msgid "Size"
+msgstr "Size"
+
+#. js-lingui-explicit-id
+#~ msgid "Collateral"
+#~ msgstr "Collateral"
+
 msgid "Connect Wallet"
 msgstr "Connect Wallet"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+msgid "1 KRAV → Coming Soon"
+msgstr "1 KRAV → Coming Soon"
+
+msgid "Current price"
+msgstr "Current price"
+
+msgid "Your locked reward has been claimed successfully"
+msgstr "Your locked reward has been claimed successfully"
+
+msgid "Current TP"
+msgstr "Current TP"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Redeem liquidity"
+msgstr "Redeem liquidity"
+
+msgid "TOTAL LIQUIDITY SUPPLY"
+msgstr "TOTAL LIQUIDITY SUPPLY"
+
+msgid "Total Trading Volume"
+msgstr "Total Trading Volume"
+
+msgid "My Asset"
+msgstr "My Asset"
+
+#~ msgid "Your Liquidity Supply"
+#~ msgstr "Your Liquidity Supply"
+
+msgid "Claim locked Reward"
+msgstr "Claim locked Reward"
+
+msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
+msgstr "Please open your wallet and confirm in the transaction activity to proceed your order."
+
+#~ msgid "TOKEN"
+#~ msgstr "TOKEN"
+
+msgid "None"
+msgstr "None"
+
+msgid "Next distribution"
+msgstr "Next distribution"
+
+msgid "Claim position"
+msgstr "Claim position"
+
+msgid "Please change network."
+msgstr "Please change network."
+
+msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
+msgstr "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
+
+msgid "Open Interest (L/S)"
+msgstr "Open Interest (L/S)"
+
+msgid "No open position"
+msgstr "No open position"
+
+msgid "Actual trading volume"
+msgstr "Actual trading volume"
+
+#~ msgid "There is a problem with "
+#~ msgstr "There is a problem with "
+
+msgid "Removed liquidity"
+msgstr "Removed liquidity"
+
+msgid "No Orders"
+msgstr "No Orders"
+
+msgid "Stop loss less then open price"
+msgstr "Stop loss less then open price"
+
+msgid "Confirm Long"
+msgstr "Confirm Long"
+
+msgid "Awaiting..."
+msgstr "Awaiting..."
+
+msgid "Min lock period one week"
+msgstr "Min lock period one week"
+
+msgid "Earning Information"
+msgstr "Earning Information"
+
+msgid "MULTIPLIER"
+msgstr "MULTIPLIER"
+
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr "WITHDRAW_BLOCK"
+
+msgid "Enter Asset contract or select Asset"
+msgstr "Enter Asset contract or select Asset"
+
 msgid "Trade"
 msgstr "Trade"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Stake"
+msgstr "Stake"
+
+msgid "Liquidity Remove Limit"
+msgstr "Liquidity Remove Limit"
+
+msgid "2. Fees"
+msgstr "2. Fees"
+
+msgid "You have no Staked Krav"
+msgstr "You have no Staked Krav"
+
+msgid "Total Staked"
+msgstr "Total Staked"
+
+msgid "Leverage"
+msgstr "Leverage"
+
+msgid "Note"
+msgstr "Note"
+
+msgid "Reached max positions limit"
+msgstr "Reached max positions limit"
+
+#~ msgid "V1"
+#~ msgstr "V1"
+
+msgid "Market"
+msgstr "Market"
+
+msgid "POINTS EARNED"
+msgstr "POINTS EARNED"
+
+#~ msgid "The profit will be"
+#~ msgstr "The profit will be"
+
 #~ msgid "24H Low"
 #~ msgstr "24H Low"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Your positions"
+msgstr "Your positions"
+
+msgid "My history"
+msgstr "My history"
+
+#~ msgid "tradeType"
+#~ msgstr "tradeType"
+
+msgid "Mint will start after"
+msgstr "Mint will start after"
+
+msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
+msgstr "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
+
+msgid "CHAIN"
+msgstr "CHAIN"
+
+#~ msgid "Stake Krav"
+#~ msgstr "Stake Krav"
+
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 msgstr "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+msgid "short withdraw notice..."
+msgstr "When withdrawing liquidity, you can only remove 25% of your provided liquidity at a time. Note that some withdrawal requests may take up to 48 hours to process."
+
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: src/components/Header/Header.tsx
+#~ msgid "AMOUNT"
+#~ msgstr "AMOUNT"
+
+msgid "Insufficient Balance"
+msgstr "Insufficient Balance"
+
+msgid "Burn"
+msgstr "Burn"
+
+msgid "Take Profit great then open price"
+msgstr "Take Profit great then open price"
+
+msgid "Allowed Slippage"
+msgstr "Allowed Slippage"
+
+msgid "Amount that can be claimed"
+msgstr "Amount that can be claimed"
+
 #~ msgid "Base"
 #~ msgstr "Base"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Borrowing(S)"
-msgstr "Borrowing(S)"
+#~ msgid "Hash"
+#~ msgstr "Hash"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Borrowing(L)"
-msgstr "Borrowing(L)"
+msgid "Add Liquidity"
+msgstr "Add Liquidity"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Total Stake"
+msgstr "Total Stake"
+
+#~ msgid "Trading Volume after boost"
+#~ msgstr "Trading Volume after boost"
+
+#~ msgid "Open Trade"
+#~ msgstr "Open Trade"
+
+msgid "Withdraw"
+msgstr "Withdraw"
+
+#~ msgid "Available Liquidity:"
+#~ msgstr "Available Liquidity:"
+
+msgid "Features"
+msgstr "Features"
+
+msgid "Earn"
+msgstr "Earn"
+
+msgid "Claim lp reward"
+msgstr "Claim lp reward"
+
+msgid "Trading guide"
+msgstr "Trading guide"
+
+#~ msgid "closing..."
+#~ msgstr "closing..."
+
+msgid "Learn more about Liquidity Pool"
+msgstr "Learn more about Liquidity Pool"
+
+msgid "Your 24h Trading Volume"
+msgstr "Your 24h Trading Volume"
+
+msgid "Liquidity Provider after boost"
+msgstr "Liquidity Provider after boost"
+
+msgid "Short"
+msgstr "Short"
+
+msgid "My current Liquidity Provider boost"
+msgstr "My current Liquidity Provider boost"
+
+msgid "Liquidity Creation"
+msgstr "Liquidity Creation"
+
+msgid "Liq. Price"
+msgstr "Liq. Price"
+
+#~ msgid "Borrowing(S)"
+#~ msgstr "Borrowing(S)"
+
+#~ msgid "No Fees Rewards"
+#~ msgstr "No Fees Rewards"
+
+#~ msgid "Borrowing(L)"
+#~ msgstr "Borrowing(L)"
+
+msgid "Net Exposure"
+msgstr "Net Exposure"
+
+msgid "View Details"
+msgstr "View Details"
+
+msgid "Share of pool"
+msgstr "Share of pool"
+
+#~ msgid "Telegram"
+#~ msgstr "Telegram"
+
+msgid "EARNING EVENTS"
+msgstr "EARNING EVENTS"
+
+#~ msgid "Select a token"
+#~ msgstr "Select a token"
+
 #~ msgid "Step 4 Initial LP Provision"
 #~ msgstr "Step 4 Initial LP Provision"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-#: src/components/Liquidity/CreateLiquidity.tsx
+#~ msgid "Select a pair"
+#~ msgstr "Select a pair"
+
+msgid "Market order closed"
+msgstr "Market order closed"
+
+msgid "WITH ANY ALTCOIN"
+msgstr "WITH ANY ALTCOIN"
+
+msgid "Documentation"
+msgstr "Documentation"
+
+msgid "Take Profit"
+msgstr "Take Profit"
+
+msgid "Mint to"
+msgstr "Mint to"
+
+msgid "Order"
+msgstr "Order"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Claim reward"
+msgstr "Claim reward"
+
+msgid "+ Provider liquidity"
+msgstr "+ Provider liquidity"
+
+msgid "No record"
+msgstr "No record"
+
+msgid "Unlock"
+msgstr "Unlock"
+
+msgid "INITIAL SUPPLY"
+msgstr "INITIAL SUPPLY"
+
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 msgstr "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
+msgid "Coming Soon"
+msgstr "Coming Soon"
+
+msgid "Withdrawal Limit"
+msgstr "Withdrawal Limit"
+
+msgid "successfully."
+msgstr "successfully."
+
+msgid "Total Liquidity Supply"
+msgstr "Total Liquidity Supply"
+
+msgid "Сongratulations!"
+msgstr "Сongratulations!"
+
+msgid "Limit order canceled"
+msgstr "Limit order canceled"
+
+msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
+msgstr "Please manually interact with your wallet. Please enable Krav to access your tokens."
+
+msgid "Staked Krav"
+msgstr "Staked Krav"
+
+msgid "Invalid number"
+msgstr "Invalid number"
+
+msgid "Actual Liquidity Provider"
+msgstr "Actual Liquidity Provider"
+
+msgid "Locked until"
+msgstr "Locked until"
+
+msgid "Added liquidity"
+msgstr "Added liquidity"
+
+msgid "Available Liquidity"
+msgstr "Available Liquidity"
+
+msgid "Faucet token"
+msgstr "Faucet token"
+
+msgid "Support"
+msgstr "Support"
+
+msgid "Your veKRAV Supply"
+msgstr "Your veKRAV Supply"
+
+msgid "update"
+msgstr "update"
+
+#~ msgid "Beta"
+#~ msgstr "Beta"
+
+#~ msgid "Copyright © 2023 KRAV. All rights reserved"
+#~ msgstr "Copyright © 2023 KRAV. All rights reserved"
+
+msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
+msgstr "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
+
+msgid "UTILIZATION"
+msgstr "UTILIZATION"
+
+msgid "Referrals"
+msgstr "Referrals"
+
+msgid "Confirm Short"
+msgstr "Confirm Short"
+
+#~ msgid "Spread"
+#~ msgstr "Spread"
+
+msgid "Approve"
+msgstr "Approve"
+
+msgid "Trades"
+msgstr "Trades"
+
+msgid "Locked Krav"
+msgstr "Locked Krav"
+
+#~ msgid "Remaining"
+#~ msgstr "Remaining"
+
+msgid "Stop loss great then open price"
+msgstr "Stop loss great then open price"
+
+#~ msgid "opening..."
+#~ msgstr "opening..."
+
+msgid "Increase locked Krav amount"
+msgstr "Increase locked Krav amount"
+
+msgid "My Boost"
+msgstr "My Boost"
+
+msgid "YOUR LIQUIDITY SUPPLY"
+msgstr "YOUR LIQUIDITY SUPPLY"
+
+msgid "Degen"
+msgstr "Degen"
+
+msgid "Price"
+msgstr "Price"
+
+msgid "Lock Period"
+msgstr "Lock Period"
+
+#~ msgid "Ok"
+#~ msgstr "Ok"
+
+msgid "My Staking"
+msgstr "My Staking"
+
+msgid "6 months"
+msgstr "6 months"
+
+#~ msgid "Take Proft"
+#~ msgstr "Take Proft"
+
 #~ msgid "24H High"
 #~ msgstr "24H High"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Unsupported network!"
+msgstr "Unsupported network!"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Claim referral reward"
+msgstr "Claim referral reward"
+
+msgid "Order limit"
+msgstr "Order limit"
+
+msgid "Light Mode"
+msgstr "Light Mode"
+
+msgid "Total assets"
+msgstr "Total assets"
+
+msgid "Mark price"
+msgstr "Mark price"
+
+msgid "Useful Links"
+msgstr "Useful Links"
+
+msgid "Available"
+msgstr "Available"
+
+msgid "Stake&Burn Amount"
+msgstr "Stake&Burn Amount"
+
+msgid "Current SL"
+msgstr "Current SL"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Learn more about Liquidity Pools"
+msgstr "Learn more about Liquidity Pools"
+
+msgid "There is a problem with"
+msgstr "There is a problem with"
+
+msgid "Funding Rate (L)"
+msgstr "Funding Rate (L)"
+
+msgid "Total Value"
+msgstr "Total Value"
+
+msgid "Coll"
+msgstr "Coll"
+
+msgid "Krav requests wallet approval"
+msgstr "Krav requests wallet approval"
+
+msgid "LP REWARD"
+msgstr "LP REWARD"
+
+#~ msgid "Your"
+#~ msgstr "Your"
+
+msgid "Expected earnings"
+msgstr "Expected earnings"
+
+msgid "Yield Earned"
+msgstr "Yield Earned"
+
+#~ msgid "Bitcoin"
+#~ msgstr "Bitcoin"
+
+msgid "Token Exchange"
+msgstr "Token Exchange"
+
+msgid "Collateral in"
+msgstr "Collateral in"
+
+#~ msgid "create"
+#~ msgstr "create"
+
+msgid "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
+msgstr "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
+
 msgid "Step 2 Select Token Collateral"
 msgstr "Step 2 Select Token Collateral"
 
-#: src/components/Header/SelectNetwork.tsx
+msgid "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
+msgstr "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
+
+msgid "To Vote"
+msgstr "To Vote"
+
+msgid "Amount"
+msgstr "Amount"
+
+msgid "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
+msgstr "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
+
+msgid "Claim"
+msgstr "Claim"
+
+msgid "Enter an amount"
+msgstr "Enter an amount"
+
 msgid "Select a network"
 msgstr "Select a network"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "No trade history"
+msgstr "No trade history"
+
+#~ msgid "Krav coin"
+#~ msgstr "Krav coin"
+
+msgid "PERPETUAL FUTURES"
+msgstr "PERPETUAL FUTURES"
+
+msgid "Take Profit less then open price"
+msgstr "Take Profit less then open price"
+
+msgid "REMOVE LIMIT"
+msgstr "REMOVE LIMIT"
+
+msgid "Staking Krav"
+msgstr "Staking Krav"
+
+msgid "4 years"
+msgstr "4 years"
+
+#~ msgid "Now Epoch"
+#~ msgstr "Now Epoch"
+
+msgid "Withdraw Krav"
+msgstr "Withdraw Krav"
+
+msgid "BTC/USDT(Update SL/TP)"
+msgstr "BTC/USDT(Update SL/TP)"
+
+msgid "Deposit Amount/Initial LP Provision"
+msgstr "Deposit Amount/Initial LP Provision"
+
+msgid "long withdraw notice..."
+msgstr "To ensure stable liquidity, there is a 2 epoch (min 48 hour) waiting period after requesting a withdrawal, followed by a 24 hour period to claim. 25% of initially deposited liquidity may be withdrawn at a time."
+
+msgid "Total Governance Reward Pool"
+msgstr "Total Governance Reward Pool"
+
+msgid "Boost"
+msgstr "Boost"
+
+msgid "Funding Rate (S)"
+msgstr "Funding Rate (S)"
+
 msgid "Step 3 Initial LP Provision"
 msgstr "Step 3 Initial LP Provision"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "A fraction of your profits..."
+msgstr ""
+"A fraction of your profits (if any) is taken when\n"
+" you close the trade"
+
+msgid "Deposit and create"
+msgstr "Deposit and create"
+
 msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Open Interest(L)"
-msgstr "Open Interest(L)"
+msgid "PnL: -90 to +900"
+msgstr "PnL: -90 to +900"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-#~ msgid "24h Change"
-#~ msgstr "24h Change"
+msgid "Add"
+msgstr "Add"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-#~ msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
-#~ msgstr "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
+msgid "Check approve"
+msgstr "Check approve"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Date"
+msgstr "Date"
+
+msgid "Krav waiting for transaction settlement"
+msgstr "Krav waiting for transaction settlement"
+
+msgid "Start Trading"
+msgstr "Start Trading"
+
+msgid "Developers"
+msgstr "Developers"
+
+msgid "Existing Request"
+msgstr "Existing Request"
+
+msgid "Loading pool data..."
+msgstr "Loading pool data..."
+
+msgid "My Rewards"
+msgstr "My Rewards"
+
+#~ msgid "EditOrder"
+#~ msgstr "Edit Order"
+
+#~ msgid "Open Interest(L)"
+#~ msgstr "Open Interest(L)"
+
+#~ msgid "Base Chain Network"
+#~ msgstr "Base Chain Network"
+
+msgid "StopLoss"
+msgstr "StopLoss"
+
+msgid "Dark Mode"
+msgstr "Dark Mode"
+
+msgid "No Position yet"
+msgstr "No Position yet"
+
+msgid "Long"
+msgstr "Long"
+
+msgid "Position"
+msgstr "Position"
+
+msgid "Liquidation Price"
+msgstr "Liquidation Price"
+
+#~ msgid "Attention"
+#~ msgstr "Attention"
+
+msgid "No Fees Reward"
+msgstr "No Fees Reward"
+
+msgid "My Liquidity Pools"
+msgstr "My Liquidity Pools"
+
+msgid "Updated take profit"
+msgstr "Updated take profit"
+
+msgid "Connect to a wallet to view your positions."
+msgstr "Connect to a wallet to view your positions."
+
+msgid "Select Token Collateral"
+msgstr "Select Token Collateral"
+
+msgid "Choose Target Market"
+msgstr "Choose Target Market"
+
+msgid "KRAV Staking"
+msgstr "KRAV Staking"
+
+msgid "Liquidity Provider Rewards"
+msgstr "Liquidity Provider Rewards"
+
+#~ msgid "Congratulations!"
+#~ msgstr "Congratulations!"
+
+#~ msgid "FRIENDS INVITED"
+#~ msgstr "FRIENDS INVITED"
+
+msgid "Your Total Liquidity"
+msgstr "Your Total Liquidity"
+
+msgid "Pool Stake"
+msgstr "Pool Stake"
+
+msgid "claim Krav reward"
+msgstr "claim Krav reward"
+
+msgid "Open trade"
+msgstr "Open trade"
+
+msgid "Entry Price"
+msgstr "Entry Price"
+
+msgid "Enter a mount"
+msgstr "Enter a mount"
+
+msgid "24h Change"
+msgstr "24h Change"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "You have no liquidity"
+msgstr "You have no liquidity"
+
+msgid "Ask Price"
+msgstr "Ask Price"
+
+#~ msgid "Start"
+#~ msgstr "Start"
+
+msgid "My current trade boost"
+msgstr "My current trade boost"
+
+msgid "Your staked :"
+msgstr "Your staked :"
+
 #~ msgid "Step 3 Set Ticket Size"
 #~ msgstr "Step 3 Set Ticket Size"
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-msgid "{buttonState}"
-msgstr "{buttonState}"
+#~ msgid "+ Provider Liquidity"
+#~ msgstr "+ Provider Liquidity"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Open Interest(S)"
-msgstr "Open Interest(S)"
+#~ msgid "Copy referral link"
+#~ msgstr "Copy referral link"
+
+msgid "Can not find the target asset you want to trade?"
+msgstr "Can not find the target asset you want to trade?"
+
+msgid "Locked amount"
+msgstr "Locked amount"
+
+msgid "My Order"
+msgstr "My Order"
+
+#~ msgid "Your Referral Link"
+#~ msgstr "Your Referral Link"
+
+msgid "KRAV - Terms of Service"
+msgstr "KRAV - Terms of Service"
+
+msgid "Min position size is 1500"
+msgstr "Min position size is 1500"
+
+#~ msgid "Referral"
+#~ msgstr "Referral"
+
+msgid "Entry price"
+msgstr "Entry price"
+
+msgid "No stake yet"
+msgstr "No stake yet"
+
+msgid "Daily Trading Rewards"
+msgstr "Daily Trading Rewards"
+
+msgid "2 years"
+msgstr "2 years"
+
+msgid "Token address check"
+msgstr "Token address check"
+
+msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
+msgstr "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
+
+msgid "1. Disclaimer"
+msgstr "1. Disclaimer"
+
+#~ msgid "COPY REFERRAL LINK"
+#~ msgstr "COPY REFERRAL LINK"
+
+msgid "24h Volume"
+msgstr "24h Volume"
+
+msgid "Create pool"
+msgstr "Create pool"
+
+#~ msgid "End"
+#~ msgstr "End"
+
+#~ msgid "Open Interest(S)"
+#~ msgstr "Open Interest(S)"
+
+msgid "Liquidate"
+msgstr "Liquidate"
+
+#~ msgid "Your have no Staked Krav"
+#~ msgstr "Your have no Staked Krav"
+
+msgid "Limit"
+msgstr "Limit"
+
+msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+msgstr "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+
+#~ msgid "Note:"
+#~ msgstr "Note:"
+
+msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
+msgstr "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
+
+msgid "DATE CLOSED"
+msgstr "DATE CLOSED"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Your Liquidity Provider"
+msgstr "Your Liquidity Provider"
+
+msgid "Claim trading rewards"
+msgstr "Claim trading rewards"
+
+msgid "Exchange ratio :"
+msgstr "Exchange ratio :"
+
+msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
+msgstr "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
+
+msgid "The maximum percentage cannot exceed 75%"
+msgstr "The maximum percentage cannot exceed 75%"
+
+#~ msgid "Success"
+#~ msgstr "Success"

@@ -1,120 +1,1141 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2023-05-26 15:02+0800\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: @lingui/cli\n"
-"Language: zh\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
+"Language: \n"
 "Language-Team: \n"
+"Content-Type: \n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+#~ msgid "Come"
+#~ msgstr "来"
+
+msgid "Disconnect"
+msgstr "断开"
+
+msgid "1 year"
+msgstr "1年"
+
+msgid "Total Liquidity Provider"
+msgstr "总流动性提供者"
+
+msgid "Come create one!"
+msgstr "来创造一个吧"
+
+msgid "Type"
+msgstr "类型"
+
+msgid ""
+msgstr ""
+
+msgid "Target Market"
+msgstr "目标市场"
+
+msgid "Create Liquidity"
+msgstr "创建流动性"
+
+msgid "Stay tuned"
+msgstr "敬请期待！此功能即将推出。"
+
+msgid "Liq.price"
+msgstr "清算价格"
+
+msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
+msgstr "实际分配收入时，根据您的交易量（经过加速后）计算您的比例"
+
+msgid "Fees"
+msgstr "费用"
+
+msgid "pair"
+msgstr "交易对"
+
+msgid "Withdraw request confirmed"
+msgstr "提现请求已确认"
+
+#~ msgid "Twitter"
+#~ msgstr "Twitter"
+
+msgid "Basic"
+msgstr "基础"
+
+msgid "Positions"
+msgstr "仓位"
+
+msgid "POOL TOTAL STAKED"
+msgstr "总质押"
+
+msgid "Orders"
+msgstr "订单"
+
+msgid "Confirm Limit Order"
+msgstr "确认限价订单"
+
+msgid "Please wait 24 hours to remove liquidity"
+msgstr "请等待24小时以移除流动性"
+
 msgid "Statistics"
+msgstr "统计"
+
+msgid "Earn Yield"
+msgstr "获取收益"
+
+msgid "Increase unlock time"
+msgstr "增加解锁时间"
+
+msgid "My Pool"
+msgstr "我的资金池"
+
+#~ msgid "Your Referral stats"
+#~ msgstr "您的推荐统计"
+
+msgid "YIELD EARNED"
 msgstr ""
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+msgid "Token Collateral"
+msgstr "代币抵押"
+
+msgid "Krav requests wallet interaction"
+msgstr "Krav 请求钱包交互"
+
+#~ msgid "Remove Liquidity"
+#~ msgstr "移除流动性"
+
+#~ msgid "please connect wallet"
+#~ msgstr "请连接钱包"
+
+msgid "Pro"
+msgstr "专业"
+
+msgid "MARKET"
+msgstr "现价"
+
+#~ msgid "Invite friends"
+#~ msgstr "邀请朋友"
+
+msgid "Updated stop loss"
+msgstr "更新止损"
+
+#~ msgid "Take profit less then open price"
+#~ msgstr "止盈小于开盘价"
+
+#~ msgid "MAX"
+#~ msgstr "最大"
+
+msgid "VOLUME (ETH)"
+msgstr ""
+
+#~ msgid "Rewards"
+#~ msgstr "奖励"
+
+msgid "Pay"
+msgstr "支付"
+
+msgid "DATE OPENED"
+msgstr ""
+
+msgid "Fees Rewards"
+msgstr "手续费奖励"
+
+msgid "Mint"
+msgstr "铸造"
+
+msgid "Market Cap"
+msgstr "市值"
+
+msgid "24h Trading Volume"
+msgstr "24小时交易量"
+
+#~ msgid "Referral Code"
+#~ msgstr "推荐代码"
+
+msgid "The maximum percentage cannot exceed 900%"
+msgstr "最大百分比不能超过900%"
+
+#~ msgid "Contract Specifications"
+#~ msgstr "合约规格"
+
+msgid "Collateral"
+msgstr "抵押品"
+
+msgid "YOUR STAKED"
+msgstr "您的质押"
+
+msgid "wallet"
+msgstr "钱包"
+
+msgid "Loading BTC data..."
+msgstr "加载中..."
+
+msgid "Exchange ratio"
+msgstr "兑换比率"
+
 msgid "Liquidity"
+msgstr "流动性"
+
+msgid "Coming Summer 2024"
+msgstr "2024年夏季推出"
+
+msgid "APR"
+msgstr "年化收益率"
+
+msgid "Liquidity being provided"
+msgstr "提供的流动性"
+
+msgid "Navigate to the 'dashboard' page to claim your fee earnings"
+msgstr "前往个人主页领取您的手续费收益"
+
+#~ msgid "one!"
+#~ msgstr "一个！"
+
+msgid "Lock & Mint"
+msgstr "锁定和铸造"
+
+msgid "Confirm"
+msgstr "确认"
+
+msgid "Claim liquidity provider rewards"
+msgstr "领取流动性提供奖励"
+
+msgid "To trade"
+msgstr "进行交易"
+
+msgid "Dashboard"
+msgstr "主页"
+
+#~ msgid "krav has been staked successfully"
+#~ msgstr "krav 已成功质押"
+
+msgid "Initial Supply"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-#~ msgid "Market Price"
-#~ msgstr ""
+msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
+msgstr "通过延长 KRAV 锁定期限来最大化您的奖励。通过增加锁定金额或期限来增加 veKRAV 积累。请记住，veKRAV 随时间缓慢衰减，最终等同于 KRAV。"
 
-#: src/components/Header/Header.tsx
-#~ msgid "DashBoard"
-#~ msgstr ""
+#~ msgid "Invite Chain"
+#~ msgstr "邀请链"
 
-#: src/components/Header/WalletButton.tsx
+msgid "REWARD"
+msgstr "奖励"
+
+msgid "Withdraw Status"
+msgstr "提现状态"
+
+msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
+msgstr "延长您的 KRAV 锁定时间或增加更多 KRAV 以最大化您的 veKRAV 奖励"
+
+#~ msgid "When the price reaches"
+#~ msgstr "当价格达到"
+
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "您的撤回限制"
+
+#~ msgid "Total value"
+#~ msgstr "总价值"
+
+msgid "Notice..."
+msgstr "清算永远不基于抵押物代币的价格 - 只基于比特币在USDT中的价格波动。祝您交易愉快！"
+
+msgid "Utilization"
+msgstr "利用率"
+
+msgid "Market Price"
+msgstr "市场价格"
+
+msgid "Something went wrong..."
+msgstr "出现了问题…"
+
+msgid "Rewards will be refreshed on"
+msgstr "奖励将在以下时间刷新"
+
+#~ msgid "Invite Rewards"
+#~ msgstr "邀请奖励"
+
+msgid "VIEW MORE"
+msgstr "查看更多"
+
+msgid "Pair"
+msgstr "交易对"
+
+msgid "ASSET"
+msgstr "资产"
+
+msgid "KRAV Locking Amount"
+msgstr "KRAV 锁定金额"
+
+msgid "Initial LP Provision"
+msgstr "初始 LP 配置"
+
+msgid "Invite Friends Now!"
+msgstr "现在就邀请朋友吧！"
+
+msgid "Invite your friends"
+msgstr "邀请您的朋友"
+
+msgid "Approve ..."
+msgstr "受权中 ..."
+
+msgid "Faucet"
+msgstr "水龙头"
+
+msgid "Learn more about Staking Krav"
+msgstr "了解更多关于 Krav 质押的信息"
+
+msgid "OPEN"
+msgstr "开盘"
+
+#~ msgid "Your Pool Stake"
+#~ msgstr "您的池质押"
+
+#~ msgid "Next distribution:"
+#~ msgstr "下次分配："
+
+#~ msgid "Share On Social Media"
+#~ msgstr "分享到社交媒体"
+
+msgid "Go back"
+msgstr "返回"
+
+msgid "Locking Period"
+msgstr "锁定期限"
+
+msgid "Slippage"
+msgstr "滑点"
+
+msgid "Points"
+msgstr ""
+
+msgid "Exchange"
+msgstr "交易所"
+
+msgid "Size"
+msgstr "大小"
+
+#. js-lingui-explicit-id
+#~ msgid "Collateral"
+#~ msgstr "抵押品"
+
 msgid "Connect Wallet"
+msgstr "连接钱包"
+
+msgid "1 KRAV → Coming Soon"
+msgstr "1 KRAV → 即将推出"
+
+msgid "Current price"
+msgstr "当前价格"
+
+msgid "Your locked reward has been claimed successfully"
+msgstr "您的锁定奖励已成功领取"
+
+msgid "Current TP"
+msgstr "当前止盈"
+
+msgid "Address"
+msgstr "地址"
+
+msgid "Redeem liquidity"
+msgstr "赎回流动性"
+
+msgid "TOTAL LIQUIDITY SUPPLY"
+msgstr "总流动性供应"
+
+msgid "Total Trading Volume"
+msgstr "总交易量"
+
+msgid "My Asset"
+msgstr "我的资产"
+
+#~ msgid "Your Liquidity Supply"
+#~ msgstr "您的流动性供应"
+
+msgid "Claim locked Reward"
+msgstr "领取锁定奖励"
+
+msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
+msgstr "请打开您的钱包，在交易活动中确认以继续您的订单。"
+
+#~ msgid "TOKEN"
+#~ msgstr "代币"
+
+msgid "None"
+msgstr "无"
+
+msgid "Next distribution"
+msgstr "下次分配"
+
+msgid "Claim position"
+msgstr "领取持仓"
+
+msgid "Please change network."
+msgstr "请更改网络。"
+
+msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
+msgstr "费用：KRAV Trade 从每笔交易的开盘和平仓中收取基点费用，每笔交易费用不超过0.07%。"
+
+msgid "Open Interest (L/S)"
+msgstr "未平仓合约(多/空)"
+
+msgid "No open position"
+msgstr "没有未平仓仓位"
+
+msgid "Actual trading volume"
+msgstr "实际交易量"
+
+#~ msgid "There is a problem with "
+#~ msgstr "存在问题："
+
+msgid "Removed liquidity"
+msgstr "移除流动性"
+
+msgid "No Orders"
+msgstr "没有订单"
+
+msgid "Stop loss less then open price"
+msgstr "止损小于开盘价"
+
+msgid "Confirm Long"
+msgstr "确认做多"
+
+msgid "Awaiting..."
+msgstr "等待中…"
+
+msgid "Min lock period one week"
+msgstr "最短锁定期一周"
+
+msgid "Earning Information"
+msgstr "收益信息"
+
+msgid "MULTIPLIER"
 msgstr ""
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr "提取块"
+
+msgid "Enter Asset contract or select Asset"
+msgstr "输入资产合约或选择资产"
+
 msgid "Trade"
+msgstr "交易"
+
+#~ msgid "BTC"
+#~ msgstr "比特币"
+
+msgid "Stake"
+msgstr "质押"
+
+msgid "Liquidity Remove Limit"
+msgstr "流动性移除限制"
+
+msgid "2. Fees"
+msgstr "2. 费用"
+
+msgid "You have no Staked Krav"
+msgstr "您没有锁定的Krav"
+
+msgid "Total Staked"
+msgstr "总质押"
+
+msgid "Leverage"
+msgstr "杠杆"
+
+msgid "Note"
+msgstr "提示"
+
+msgid "Reached max positions limit"
+msgstr "已达到最大持仓限制"
+
+#~ msgid "V1"
+#~ msgstr "V1"
+
+msgid "Market"
+msgstr "现价"
+
+msgid "POINTS EARNED"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-#~ msgid "24H Low"
-#~ msgstr ""
+#~ msgid "The profit will be"
+#~ msgstr "利润将为"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Your positions"
+msgstr "您的持仓"
+
+msgid "My history"
+msgstr "我的历史"
+
+msgid "Mint will start after"
+msgstr "铸造将在之后开始"
+
+msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
+msgstr "您可以随时延长锁定时间并添加 $CRV，但不能使用具有不同到期日期的 $CRV。"
+
+msgid "CHAIN"
+msgstr ""
+
+#~ msgid "Stake Krav"
+#~ msgstr "质押 Krav"
+
 msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
-msgstr ""
+msgstr "您存入的资产将成为流动性池的一部分，并从平台上每笔交易中收取费用，作为所有交易的对手方。"
 
-#: src/components/Header/Header.tsx
-#: src/components/Header/mobile/NavMenu.tsx
+msgid "short withdraw notice..."
+msgstr "当撤回流动性时，您每次只能移除提供的流动性的25%。请注意，某些撤回请求可能需要长达48小时来处理。"
+
 msgid "Portfolio"
+msgstr "投资组合"
+
+#~ msgid "AMOUNT"
+#~ msgstr "数量"
+
+msgid "Insufficient Balance"
+msgstr "余额不足"
+
+msgid "Burn"
+msgstr "销毁"
+
+msgid "Take Profit great then open price"
+msgstr "止盈大于开盘价"
+
+msgid "Allowed Slippage"
+msgstr "允许滑点"
+
+msgid "Amount that can be claimed"
+msgstr "可领取的数量"
+
+#~ msgid "Hash"
+#~ msgstr "哈希"
+
+msgid "Add Liquidity"
+msgstr "添加流动性"
+
+msgid "Total Stake"
+msgstr "总质押"
+
+#~ msgid "Trading Volume after boost"
+#~ msgstr "加速后的交易量"
+
+#~ msgid "Open Trade"
+#~ msgstr "开启交易"
+
+msgid "Withdraw"
+msgstr "提现"
+
+#~ msgid "Available Liquidity:"
+#~ msgstr "可用流动性："
+
+msgid "Features"
+msgstr "特性"
+
+msgid "Earn"
+msgstr "赚取"
+
+msgid "Claim lp reward"
+msgstr "领取 LP 奖励"
+
+msgid "Trading guide"
+msgstr "交易指南"
+
+#~ msgid "closing..."
+#~ msgstr "关闭中..."
+
+msgid "Learn more about Liquidity Pool"
+msgstr "了解更多关于流动性池的信息"
+
+msgid "Your 24h Trading Volume"
+msgstr "您的24小时交易量"
+
+msgid "Liquidity Provider after boost"
+msgstr "加速后的流动性提供者"
+
+msgid "Short"
+msgstr "做空"
+
+msgid "My current Liquidity Provider boost"
+msgstr "我当前的加速"
+
+msgid "Liquidity Creation"
+msgstr "流动性创建"
+
+msgid "Liq. Price"
+msgstr "清算价格"
+
+#~ msgid "No Fees Rewards"
+#~ msgstr "无手续费奖励"
+
+msgid "Net Exposure"
+msgstr "净敞口"
+
+msgid "View Details"
+msgstr "查看详情"
+
+msgid "Share of pool"
+msgstr "池子份额"
+
+#~ msgid "Telegram"
+#~ msgstr "Telegram"
+
+msgid "EARNING EVENTS"
 msgstr ""
 
-#: src/components/Header/Header.tsx
-#~ msgid "Base"
-#~ msgstr "Base"
+#~ msgid "Select a token"
+#~ msgstr "选择代币"
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Borrowing(S)"
+#~ msgid "Select a pair"
+#~ msgstr "选择交易对"
+
+msgid "Market order closed"
+msgstr "现价订单已关闭"
+
+msgid "WITH ANY ALTCOIN"
+msgstr "与任何另类币种"
+
+msgid "Documentation"
+msgstr "文档"
+
+msgid "Take Profit"
+msgstr "止盈"
+
+msgid "Mint to"
+msgstr "铸造到"
+
+msgid "Order"
+msgstr "订单"
+
+msgid "Pending"
+msgstr "待处理"
+
+msgid "Claim reward"
+msgstr "领取奖励"
+
+msgid "+ Provider liquidity"
+msgstr "+ 提供者流动性"
+
+msgid "No record"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Borrowing(L)"
+msgid "Unlock"
+msgstr "解锁"
+
+msgid "INITIAL SUPPLY"
 msgstr ""
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-#~ msgid "Step 4 Initial LP Provision"
-#~ msgstr ""
-
-#: src/components/Liquidity/CreateLiquidity.tsx
-#: src/components/Liquidity/CreateLiquidity.tsx
 msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
+msgstr "以 BTC 作为基础资产，不同的资产被用作永续期权交易的投资产品。您现在创建的池子选择的资产将被用作交易资产。"
+
+msgid "Coming Soon"
+msgstr "即将推出"
+
+msgid "Withdrawal Limit"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-#~ msgid "24H High"
-#~ msgstr ""
+msgid "successfully."
+msgstr "成功。"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "Total Liquidity Supply"
+msgstr "总流动性供应"
+
+msgid "Сongratulations!"
+msgstr "恭喜！"
+
+msgid "Limit order canceled"
+msgstr "限价订单已取消"
+
+msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
+msgstr "请手动与您的钱包进行交互。请启用 Krav 来访问您的代币。"
+
+msgid "Staked Krav"
+msgstr "已质押的Krav"
+
+msgid "Invalid number"
+msgstr "无效数字"
+
+msgid "Actual Liquidity Provider"
+msgstr "实际流动性提供者"
+
+msgid "Locked until"
+msgstr "锁定至"
+
+msgid "Added liquidity"
+msgstr "已添加流动性"
+
+msgid "Available Liquidity"
+msgstr "可用流动性"
+
+msgid "Faucet token"
+msgstr "水龙头代币"
+
+msgid "Support"
+msgstr "支持"
+
+msgid "Your veKRAV Supply"
+msgstr "您的 veKRAV 供应"
+
+msgid "update"
+msgstr "更新"
+
+#~ msgid "Beta"
+#~ msgstr "测试版"
+
+#~ msgid "Copyright © 2023 KRAV. All rights reserved"
+#~ msgstr "版权所有 © 2023 KRAV。保留所有权利"
+
+msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
+msgstr "立即邀请朋友！立即邀请朋友！立即邀请朋友！立即邀请朋友！"
+
+msgid "UTILIZATION"
+msgstr "利用率"
+
+msgid "Referrals"
+msgstr "推荐"
+
+msgid "Confirm Short"
+msgstr "确认做空"
+
+#~ msgid "Spread"
+#~ msgstr "差价"
+
+msgid "Approve"
+msgstr "授权"
+
+msgid "Trades"
+msgstr "交易"
+
+msgid "Locked Krav"
+msgstr "锁定Krav"
+
+#~ msgid "Remaining"
+#~ msgstr "剩余"
+
+msgid "Stop loss great then open price"
+msgstr "止损大于开盘价"
+
+#~ msgid "opening..."
+#~ msgstr "开放中..."
+
+msgid "Increase locked Krav amount"
+msgstr "增加锁定的 Krav 数量"
+
+msgid "My Boost"
+msgstr "我的加速"
+
+msgid "YOUR LIQUIDITY SUPPLY"
+msgstr "您的流动性供应"
+
+msgid "Degen"
+msgstr "投机"
+
+msgid "Price"
+msgstr "价格"
+
+msgid "Lock Period"
+msgstr "锁定期限"
+
+#~ msgid "Ok"
+#~ msgstr "确定"
+
+msgid "My Staking"
+msgstr "我的质押"
+
+msgid "6 months"
+msgstr "6个月"
+
+#~ msgid "Take Proft"
+#~ msgstr "获取利润"
+
+msgid "Unsupported network!"
+msgstr "不支持的网络！"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "Claim referral reward"
+msgstr "领取推荐奖励"
+
+msgid "Order limit"
+msgstr "订单限额"
+
+msgid "Light Mode"
+msgstr "浅色模式"
+
+msgid "Total assets"
+msgstr "总资产"
+
+msgid "Mark price"
+msgstr "市场价格"
+
+msgid "Useful Links"
+msgstr "有用链接"
+
+msgid "Available"
+msgstr "余额"
+
+msgid "Stake&Burn Amount"
+msgstr "质押与销毁数量"
+
+msgid "Current SL"
+msgstr "当前止损"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Learn more about Liquidity Pools"
+msgstr "了解更多关于流动性池的信息"
+
+msgid "There is a problem with"
+msgstr "问题出在"
+
+msgid "Funding Rate (L)"
+msgstr "资金费率（做多）"
+
+msgid "Total Value"
+msgstr "总价值"
+
+msgid "Coll"
+msgstr "抵押"
+
+msgid "Krav requests wallet approval"
+msgstr "Krav 请求钱包批准"
+
+msgid "LP REWARD"
+msgstr "LP 奖励"
+
+#~ msgid "Your"
+#~ msgstr "您的"
+
+msgid "Expected earnings"
+msgstr "预期收益"
+
+msgid "Yield Earned"
+msgstr "获益"
+
+#~ msgid "Bitcoin"
+#~ msgstr "比特币"
+
+msgid "Token Exchange"
+msgstr "代币交换"
+
+msgid "Collateral in"
+msgstr "抵押品"
+
+#~ msgid "create"
+#~ msgstr "创建"
+
+msgid "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
+msgstr "使用杠杆进行永续期货交易存在风险，包括清算价格。交易者在参与此类交易之前应理解这些风险。"
+
 msgid "Step 2 Select Token Collateral"
-msgstr ""
+msgstr "步骤2 选择代币抵押"
 
-#: src/components/Header/SelectNetwork.tsx
+msgid "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
+msgstr "您需要先质押KRAV代币，‘铸币’操作将在铸币开始时间正式启动。"
+
+msgid "To Vote"
+msgstr "投票"
+
+msgid "Amount"
+msgstr "数量"
+
+msgid "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
+msgstr "锁定 KRAV 可获得 krav 收入和 veKRAV 权益，最多可将您的收益提高 2.5 倍"
+
+msgid "Claim"
+msgstr "认领"
+
+#~ msgid "When withdrawing liquidity, a 48 hour time waiting period exist in between requesting a withdrawal and the balance being sent to your wallet. This waiting period exist in order to ensure a stable liquidity environment. 25% of deposited liquidity may be removed at a time."
+#~ msgstr "提取流动性时，请求提取和余额发送到您的钱包之间存在48小时等待期。此等待期旨在确保稳定的流动性环境。可一次移除存款流动性的25%。"
+
+#~ msgid "Krav waiting for transaction settlment"
+#~ msgstr "Krav 正在等待交易结算"
+
+msgid "Enter an amount"
+msgstr "输入数量"
+
 msgid "Select a network"
-msgstr ""
+msgstr "选择网路"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "No trade history"
+msgstr "无交易历史"
+
+#~ msgid "Krav coin"
+#~ msgstr "Krav 币"
+
+msgid "PERPETUAL FUTURES"
+msgstr "永续期货"
+
+msgid "Take Profit less then open price"
+msgstr "止盈价低于开仓价"
+
+msgid "REMOVE LIMIT"
+msgstr "移除限制"
+
+msgid "Staking Krav"
+msgstr "Krav 质押"
+
+msgid "4 years"
+msgstr "4年"
+
+#~ msgid "Now Epoch"
+#~ msgstr "当前时代"
+
+msgid "Withdraw Krav"
+msgstr "提取 Krav"
+
+msgid "BTC/USDT(Update SL/TP)"
+msgstr "BTC/USDT（更新止损/止盈）"
+
+msgid "Deposit Amount/Initial LP Provision"
+msgstr "存款金额/初始流动性提供"
+
+msgid "long withdraw notice..."
+msgstr "提取流动性时，请求提取和余额发送到您的钱包之间存在48小时等待期。此等待期旨在确保稳定的流动性环境。可一次移除存款流动性的25%。"
+
+msgid "Total Governance Reward Pool"
+msgstr "总治理奖励池"
+
+msgid "Boost"
+msgstr "加速"
+
+msgid "Funding Rate (S)"
+msgstr "资金费率（做空）"
+
 msgid "Step 3 Initial LP Provision"
-msgstr ""
+msgstr "步骤3 初始 LP 配置"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
+msgid "A fraction of your profits..."
+msgstr "如果有利润的话将在在您关闭交易时收取部分"
+
+msgid "Deposit and create"
+msgstr "存款并创建"
+
 msgid "Step 1 Choose Target Market"
+msgstr "步骤1 选择目标市场"
+
+msgid "PnL: -90 to +900"
+msgstr "损益：-90 到 +900"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Check approve"
+msgstr "检查授权"
+
+msgid "Date"
+msgstr "日期"
+
+msgid "Krav waiting for transaction settlement"
+msgstr "Krav等待交易结算"
+
+msgid "Start Trading"
+msgstr "开始交易"
+
+msgid "Developers"
+msgstr "开发者"
+
+msgid "Existing Request"
+msgstr "现有请求"
+
+msgid "Loading pool data..."
+msgstr "加载中..."
+
+msgid "My Rewards"
+msgstr "我的奖励"
+
+#~ msgid "EditOrder"
+#~ msgstr "编辑订单"
+
+#~ msgid "Base Chain Network"
+#~ msgstr "基础链网络"
+
+msgid "StopLoss"
+msgstr "止损"
+
+msgid "Dark Mode"
+msgstr "深色模式"
+
+msgid "No Position yet"
+msgstr "暂无持仓"
+
+msgid "Long"
+msgstr "做多"
+
+msgid "Position"
+msgstr "仓位"
+
+msgid "Liquidation Price"
+msgstr "清算价格"
+
+#~ msgid "Attention"
+#~ msgstr "注意"
+
+msgid "No Fees Reward"
+msgstr "免费奖励"
+
+msgid "My Liquidity Pools"
+msgstr "我的流动性池"
+
+msgid "Updated take profit"
+msgstr "更新止盈"
+
+msgid "Connect to a wallet to view your positions."
+msgstr "连接钱包以查看您的持仓。"
+
+msgid "Select Token Collateral"
+msgstr "选择代币抵押"
+
+msgid "Choose Target Market"
+msgstr "选择目标市场"
+
+msgid "KRAV Staking"
+msgstr "KRAV 质押"
+
+msgid "Liquidity Provider Rewards"
+msgstr "流动性提供者奖励"
+
+#~ msgid "Congratulations!"
+#~ msgstr "恭喜！"
+
+#~ msgid "FRIENDS INVITED"
+#~ msgstr "已邀请朋友数"
+
+msgid "Your Total Liquidity"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Open Interest(L)"
+msgid "Pool Stake"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-#~ msgid "24h Change"
-#~ msgstr ""
+msgid "claim Krav reward"
+msgstr "领取 Krav 奖励"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-#~ msgid "Select the token you want to use as the actual settlement, and the transaction settlement will use the token for transaction settlement according to the set conversion ratio with BTC/ETH."
-#~ msgstr ""
+msgid "Open trade"
+msgstr "开仓"
 
-#: src/components/Liquidity/CreateLiquidity.tsx
-#~ msgid "Step 3 Set Ticket Size"
-#~ msgstr ""
+msgid "Entry Price"
+msgstr "入场价格"
 
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-#: src/components/Trades/TradeRight/OrderParamsCard.tsx
-msgid "{buttonState}"
+msgid "Enter a mount"
+msgstr "输入数量"
+
+msgid "24h Change"
+msgstr "24小时变动"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "You have no liquidity"
+msgstr "您没有提供流动性"
+
+msgid "Ask Price"
+msgstr "卖出价格"
+
+#~ msgid "Start"
+#~ msgstr "开始"
+
+msgid "My current trade boost"
+msgstr "我的当前交易加速"
+
+msgid "Your staked :"
+msgstr "您质押了："
+
+#~ msgid "+ Provider Liquidity"
+#~ msgstr "+ 提供者流动性"
+
+#~ msgid "Copy referral link"
+#~ msgstr "复制推荐链接"
+
+msgid "Can not find the target asset you want to trade?"
+msgstr "找不到您想要交易的目标资产？"
+
+msgid "Locked amount"
+msgstr "锁定金额"
+
+msgid "My Order"
+msgstr "我的订单"
+
+#~ msgid "Your Referral Link"
+#~ msgstr "您的推荐链接"
+
+msgid "KRAV - Terms of Service"
+msgstr "KRAV - 服务条款"
+
+msgid "Min position size is 1500"
+msgstr "最小仓位大小为 1500"
+
+#~ msgid "Referral"
+#~ msgstr "推荐"
+
+msgid "Entry price"
+msgstr "入场价"
+
+msgid "No stake yet"
+msgstr "尚无质押"
+
+msgid "Daily Trading Rewards"
+msgstr "每日交易奖励"
+
+msgid "2 years"
+msgstr "2年"
+
+msgid "Token address check"
+msgstr "代币地址检查"
+
+msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
+msgstr "在 KRAV 上进行交易，每日获得交易奖励。计算和分配每天进行一次。"
+
+msgid "1. Disclaimer"
+msgstr "1. 免责声明"
+
+#~ msgid "COPY REFERRAL LINK"
+#~ msgstr "复制推荐链接"
+
+msgid "24h Volume"
+msgstr "24小时交易量"
+
+msgid "Create pool"
+msgstr "创建流动性池"
+
+#~ msgid "End"
+#~ msgstr "结束"
+
+msgid "Liquidate"
+msgstr "清算"
+
+#~ msgid "Your have no Staked Krav"
+#~ msgstr "您没有质押的 Krav"
+
+msgid "Limit"
+msgstr "限价"
+
+msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+msgstr "使用锁定功能保障您的 Krav 收益并获取 veKRAV 特权。最多可将您的收益潜力提高 2.5 倍"
+
+#~ msgid "Note:"
+#~ msgstr "注意："
+
+msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
+msgstr "Krav 正在进行区块链交易，请耐心等待链上交易结算。"
+
+msgid "DATE CLOSED"
 msgstr ""
 
-#: src/components/Trades/TradeLeft/PairInfo.tsx
-msgid "Open Interest(S)"
-msgstr ""
+msgid "Close"
+msgstr "关闭"
+
+msgid "Your Liquidity Provider"
+msgstr "您的流动性提供者"
+
+msgid "Claim trading rewards"
+msgstr "领取交易奖励"
+
+msgid "Exchange ratio :"
+msgstr "兑换比率："
+
+msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
+msgstr "通过模因、游戏金融和其他另类币种押注比特币"
+
+msgid "The maximum percentage cannot exceed 75%"
+msgstr "最大百分比不能超过75%"
+
+#~ msgid "Success"
+#~ msgstr "成功"

@@ -12,6 +12,7 @@ import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
 import { useNavigate } from 'react-router-dom'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
+import { Trans } from '@lingui/macro'
 
 type TradingRewardsProps = {
   lpRewardAmount: BigNumber
@@ -56,13 +57,15 @@ export const TradingRewards = ({
           margin-bottom: 40px;
         `}
       >
-        <p className="title gt">Daily Trading Rewards</p>
+        <p className="title gt">
+          <Trans>Daily Trading Rewards</Trans>
+        </p>
         <p
           css={css`
             margin-top: 12px;
           `}
         >
-          Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day.
+          <Trans>Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day.</Trans>
         </p>
       </div>
       <div
@@ -78,7 +81,9 @@ export const TradingRewards = ({
             margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
-          <KRAVTab>Total Trading Volume</KRAVTab>
+          <KRAVTab>
+            <Trans>Total Trading Volume</Trans>
+          </KRAVTab>
           <p className="data gt">{formatNumber(overviewData.tradingVolume, 2, true)}</p>
         </div>
         <div
@@ -90,7 +95,9 @@ export const TradingRewards = ({
             margin-bottom: ${isMobile ? '16px' : 'unset'};
           `}
         >
-          <KRAVTab>24h Trading Volume</KRAVTab>
+          <KRAVTab>
+            <Trans>24h Trading Volume</Trans>
+          </KRAVTab>
           <p className="data gt">{formatNumber(overviewData.tradingVolume24H, 2, true)}</p>
         </div>
         <div
@@ -109,7 +116,9 @@ export const TradingRewards = ({
             onMouseEnter={handlePopoverOpen}
             onMouseLeave={handlePopoverClose}
           >
-            <KRAVTab>Your 24h Trading Volume</KRAVTab>
+            <KRAVTab>
+              <Trans>Your 24h Trading Volume</Trans>
+            </KRAVTab>
             &nbsp;&nbsp;
             <AlertIcon />
           </Box>
@@ -155,7 +164,9 @@ export const TradingRewards = ({
                   justify-content: space-between;
                 `}
               >
-                <span>Actual trading volume</span>
+                <span>
+                  <Trans>Actual trading volume</Trans>
+                </span>
                 <span
                   css={css`
                     font-size: 16px;
@@ -211,7 +222,9 @@ export const TradingRewards = ({
             }
           >
             <div css={[align]}>
-              <KRAVTab>My Boost</KRAVTab>
+              <KRAVTab>
+                <Trans>My Boost</Trans>
+              </KRAVTab>
               &nbsp;&nbsp;
               <QuestionIcon />
             </div>
@@ -237,7 +250,9 @@ export const TradingRewards = ({
               onClick={() => navigate('/portfolio/stake')}
               sx={{ borderRadius: '100px', width: '96px', height: '30px', minHeight: '30px' }}
             >
-              <span>Boost&nbsp;</span>
+              <span>
+                <Trans>Boost</Trans>&nbsp;
+              </span>
               <BoostIcon
                 css={css`
                   min-width: 24px;

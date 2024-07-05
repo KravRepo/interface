@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { useInterval } from '../../hook/hookV8/useInterval'
+import { Trans, t } from '@lingui/macro'
 type DashboardFarmProps = {
   setUserPoolLength: React.Dispatch<React.SetStateAction<number>>
 }
@@ -79,9 +80,11 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
           }
         `}
       >
-        <div>My Liquidity Pools</div>
+        <div>
+          <Trans>My Liquidity Pools</Trans>
+        </div>
         <KRAVButton onClick={() => navigate('/liquidity')} sx={{ width: '160px' }}>
-          + Provider liquidity
+          <Trans>+ Provider liquidity</Trans>
         </KRAVButton>
       </div>
       {positionDatas.length > 0 && (
@@ -104,11 +107,11 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
               `}
               className="liquidity grey nowrap"
             >
-              <span>ASSET</span>
-              <span>APR</span>
-              <span>UTILIZATION</span>
-              <span>TOTAL LIQUIDITY SUPPLY</span>
-              <span>LP REWARD</span>
+              <span>{t`ASSET`}</span>
+              <span>{t`APR`}</span>
+              <span>{t`UTILIZATION`}</span>
+              <span>{t`TOTAL LIQUIDITY SUPPLY`}</span>
+              <span>{t`LP REWARD`}</span>
               <span />
             </div>
             {positionDatas.map((position) => {
@@ -131,15 +134,15 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
                 sx={{ width: '160px', mt: '32px', mb: '25px' }}
                 onClick={() => setWalletDialogVisibility(true)}
               >
-                Connect wallet
+                {t`Connect Wallet`}
               </KRAVButton>
             </>
           )}
           {account && (
             <>
-              <p>You have no liquidity</p>
+              <p>{t`You have no liquidity`}</p>
               <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px' }} onClick={() => navigate('/liquidity')}>
-                Add Liquidity
+                {t`Add Liquidity`}
               </KRAVButton>
               <p>
                 <span
@@ -152,7 +155,7 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
                     justify-content: center;
                   `}
                 >
-                  Learn more about Liquidity Pool&nbsp; <ArrowRight />
+                  {t`Learn more about Liquidity Pool`}&nbsp; <ArrowRight />
                 </span>
               </p>
             </>

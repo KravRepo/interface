@@ -16,6 +16,7 @@ import BigNumber from 'bignumber.js'
 import { eXDecimals } from '../../utils/math'
 import { getBigNumberStr } from '../../utils'
 import { StakeDialog } from '../Dialog/StakeDialog'
+import { t } from '@lingui/macro'
 
 export const Stake = () => {
   const { account } = useWeb3React()
@@ -61,13 +62,13 @@ export const Stake = () => {
         setUserKravBalance={setUserKravBalance}
       />
       <div css={stake} onClick={() => setHasStake(!hasStake)}>
-        <div className="title">My Staking</div>
+        <div className="title">{t`My Staking`}</div>
         {userStake.isGreaterThan(0) && account && (
           <div>
             <div className="overview">
               <div>
                 <div>
-                  <span>Total Staked</span>
+                  <span>{t`Total Staked`}</span>
                   <span>{poolStake.toFixed(2)} KRAV</span>
                 </div>
                 {/*<span>≈ $246,556,893.30</span>*/}
@@ -80,7 +81,7 @@ export const Stake = () => {
                     await getUserReward()
                   }}
                 >
-                  Claim
+                  {t`Claim`}
                 </KRAVButton>
               </div>
             </div>
@@ -91,11 +92,11 @@ export const Stake = () => {
                 `}
                 className="grid-layout grey"
               >
-                <span>ASSET</span>
-                <span>POOL TOTAL STAKED</span>
-                <span>YOUR STAKED</span>
-                <span>APR</span>
-                <span>REWARD</span>
+                <span>{t`ASSET`}</span>
+                <span>{t`POOL TOTAL STAKED`}</span>
+                <span>{t`YOUR STAKED`}</span>
+                <span>{t`APR`}</span>
+                <span>{t`REWARD`}</span>
               </div>
               <div className="grid-layout">
                 <div css={align}>
@@ -160,7 +161,7 @@ export const Stake = () => {
               background: url(${DashboardBg}), no-repeat, #f1f1f1;
             `}
           >
-            <p>You have no Staked Krav</p>
+            <p>{t`You have no Staked Krav`}</p>
             {account && (
               <KRAVButton
                 onClick={() => {
@@ -169,11 +170,11 @@ export const Stake = () => {
                 }}
                 sx={{ width: '113px', mt: '32px', mb: '25px', zIndex: 3 }}
               >
-                Staking Krav
+                {t`Staking Krav`}
               </KRAVButton>
             )}
             {!account && (
-              <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px', zIndex: 3 }}>Connect Wallet</KRAVButton>
+              <KRAVButton sx={{ width: '113px', mt: '32px', mb: '25px', zIndex: 3 }}>{t`Connect Wallet`}</KRAVButton>
             )}
             <p>
               <span
@@ -186,7 +187,7 @@ export const Stake = () => {
                   justify-content: center;
                 `}
               >
-                Learn more about Staking Krav&nbsp; <ArrowRight />
+                {t`Learn more about Staking Krav`}&nbsp; <ArrowRight />
               </span>
             </p>
           </div>

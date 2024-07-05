@@ -16,6 +16,7 @@ import { TradeMode } from '../../../store/TradeSlice'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { BASE_KRAV_TRADING_ADDRESS } from '../../../constant/chain'
 import CoinInfo from './CoinInfo'
+import { Trans } from '@lingui/macro'
 
 type PairInfoProps = {
   setIsOpenSelectToken: (isOpenSelectToken: boolean) => void
@@ -163,7 +164,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   setModeAnchorEl(null)
                 }}
               >
-                Degen
+                <Trans>Degen</Trans>
               </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -171,7 +172,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   setModeAnchorEl(null)
                 }}
               >
-                Pro
+                <Trans>Pro</Trans>
               </MenuItem>
               <MenuItem
                 onClick={() => {
@@ -179,7 +180,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
                   setModeAnchorEl(null)
                 }}
               >
-                Basic
+                <Trans>Basic</Trans>
               </MenuItem>
             </Menu>
           </>
@@ -227,7 +228,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               `}
               onClick={() => setTradeModel(TradeMode.BASIC)}
             >
-              Basic
+              <Trans>Basic</Trans>
             </div>
             <div
               css={css`
@@ -249,7 +250,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               `}
               onClick={() => setTradeModel(TradeMode.PRO)}
             >
-              Pro
+              <Trans>Pro</Trans>
             </div>
             <div
               css={css`
@@ -271,7 +272,7 @@ export const PairInfo = ({ setIsOpenSelectToken, setTradeModel, tradeModel }: Pa
               `}
               onClick={() => setTradeModel(TradeMode.DEGEN)}
             >
-              Degen
+              <Trans>Degen</Trans>
             </div>
           </div>
         )}

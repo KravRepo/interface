@@ -13,6 +13,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { css } from '@emotion/react'
 import { MarketItemCard } from './MarketItemCard'
 import { MarketItem } from './MarketItem'
+import { t } from '@lingui/macro'
 
 export const TargetMarket = ({
   setCreateLiquidityPool,
@@ -80,7 +81,7 @@ export const TargetMarket = ({
           }
         `}
       >
-        <span>Target Market</span>
+        <span>{t`Target Market`}</span>
         <span>{tableData.length > 0 ? ` (${tableData.length})` : ''}</span>
       </div>
       <div className="liquidity-search">
@@ -96,14 +97,14 @@ export const TargetMarket = ({
             }
           }}
         >
-          Create Liquidity
+          {t`Create Liquidity`}
         </KRAVButton>
         {/* )} */}
       </div>
       {isTable && (
         <div>
           <div className="liquidity-table grey nowrap">
-            <div>ASSET</div>
+            <div>{t`ASSET`}</div>
             <Stack direction={'row'} alignItems={'center'}>
               <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>
                 APR
@@ -162,10 +163,10 @@ export const TargetMarket = ({
                 />
               </Stack>
             </Stack>
-            <div>UTILIZATION</div>
+            <div>{t`UTILIZATION`}</div>
             <Stack direction={'row'} alignItems={'center'}>
               <Typography fontFamily={'Inter'} fontSize={14} sx={{ marginRight: '4px' }}>
-                TOTAL LIQUIDITY SUPPLY
+                {t`TOTAL LIQUIDITY SUPPLY`}
               </Typography>
               <Stack
                 onClick={() => {
@@ -221,8 +222,8 @@ export const TargetMarket = ({
                 />
               </Stack>
             </Stack>
-            <div>YOUR LIQUIDITY SUPPLY</div>
-            <div>LP REWARD</div>
+            <div>{t`YOUR LIQUIDITY SUPPLY`}</div>
+            <div>{t`YIELD EARNED`}</div>
           </div>
           {isLoadingFactory &&
             [...Array(3).keys()].map((i) => {

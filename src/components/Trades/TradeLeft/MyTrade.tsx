@@ -10,6 +10,7 @@ import { useGetUserOpenTrade } from '../../../hook/hookV8/useGetUserOpenTrade'
 // import { useGetUserOpenLimitOrders } from '../../../hook/hookV8/useGetUserOpenLimitOrders'
 import { useInterval } from '../../../hook/hookV8/useInterval'
 import { useWeb3React } from '@web3-react/core'
+import { t } from '@lingui/macro'
 
 export const MyTrade = () => {
   const theme = useTheme()
@@ -87,7 +88,7 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
-            label={`Positions ${userOpenTradeList.length > 0 ? '(' + userOpenTradeList.length + ')' : ''}`}
+            label={`${t`Positions`} ${userOpenTradeList.length > 0 ? '(' + userOpenTradeList.length + ')' : ''}`}
           />
           <Tab
             sx={{
@@ -100,7 +101,7 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
-            label={`Orders ${userOpenLimitList.length > 0 ? '(' + userOpenLimitList.length + ')' : ''}`}
+            label={`${t`Orders`} ${userOpenLimitList.length > 0 ? '(' + userOpenLimitList.length + ')' : ''}`}
           />
           <Tab
             sx={{
@@ -112,7 +113,7 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
-            label="Trades"
+            label={t`Trades`}
           />
         </Tabs>
       </div>

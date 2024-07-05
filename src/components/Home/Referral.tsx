@@ -23,6 +23,7 @@ import { useReferral } from '../../hook/hookV8/useReferral'
 import { getBigNumberStr } from '../../utils'
 import copy from 'copy-to-clipboard'
 import { CHAINS } from '../../connectors/chain'
+import { t } from '@lingui/macro'
 
 export const Referral = () => {
   const { account } = useWeb3React()
@@ -68,7 +69,7 @@ export const Referral = () => {
                 color: ${theme.text.primary};
               `}
             >
-              Invite Friends Now!
+              {t`Invite Friends Now!`}
             </span>
             <HandIcon
               css={css`
@@ -81,7 +82,7 @@ export const Referral = () => {
               color: ${theme.text.third};
             `}
           >
-            Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!
+            {t`Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!`}
           </p>
         </div>
         <div
@@ -206,7 +207,7 @@ export const Referral = () => {
               `}
               className="rotate-text"
             >
-              Invite your friends
+              {t`Invite your friends`}
             </div>
             <div className="referral-title-right">
               <p>COPY REFERRAL LINK</p>

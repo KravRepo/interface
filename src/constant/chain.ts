@@ -68,7 +68,7 @@ export const API_CONFIG_TEST: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: "https://mainnet.base.org",
+    rpcNode: 'https://mainnet.base.org',
   },
   [ChainId.BSC_TEST]: {
     rpcNode: 'https://bsc-testnet.publicnode.com',
@@ -95,22 +95,22 @@ export const API_CONFIG_PRODUCTION: { [chainId: number]: apiInfo } = {
     rpcNode: 'https://ethereum.publicnode.com',
   },
   [ChainId.BASE]: {
-    rpcNode: "https://mainnet.base.org",
+    rpcNode: 'https://mainnet.base.org',
   },
   [ChainId.BSC]: {
     rpcNode: 'https://bsc.publicnode.com',
   },
   [ChainId.OP]: {
-    rpcNode: "https://mainnet.optimism.io/",
+    rpcNode: 'https://mainnet.optimism.io/',
   },
   [ChainId.ARB]: {
-    rpcNode: "https://mainnet.optimism.io/",
+    rpcNode: 'https://mainnet.optimism.io/',
   },
   [ChainId.POLYGON]: {
-    rpcNode: "https://polygon-rpc.com",
+    rpcNode: 'https://polygon-rpc.com',
   },
   [ChainId.POLYGON_ZK_EVM]: {
-    rpcNode: "https://zkevm-rpc.com",
+    rpcNode: 'https://zkevm-rpc.com',
   },
 }
 
@@ -130,7 +130,7 @@ export const CONTRACT_CONFIG_TEST: { [chainId: number]: ContractInfo } = {
     nativeToken: 'ETH',
   },
   [ChainId.BASE]: {
-    factory: "0xDF76a808F1DEAa0F013460c078dc5A09544c7960",
+    factory: '0xDF76a808F1DEAa0F013460c078dc5A09544c7960',
     linkAddress: '0xC9EbC2469E403DD89eAcA78C6B0b216fc7501011',
     nodeAddress: ['0x2B0DaBAC8437672F2f8c3b4981F17F7F88173e56'],
     kravStake: '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0',
@@ -353,15 +353,19 @@ export const SUPPORT_CHAIN = IS_PRODUCTION ? SUPPORT_CHAIN_PRODUCTION : SUPPORT_
 
 export const TEST_RPC_NODE = process.env.TEST_RPC_NODE || 'https://base-goerli.publicnode.com'
 
-export const K_LINE_API = 'https://v1-api.krav.trade/krav/v1/klines?symbol=BTCUSDT&interval=1d'
+export const API_BASE = 'https://v1-api.krav.trade/krav/v1'
 
-export const QUANTO_API = 'https://v1-api.krav.trade/krav/v1/list/quanto'
+export const K_LINE_API = API_BASE + '/klines?symbol=BTCUSDT&interval=1d'
 
-export const TRADE_HISTORY_API = 'https://v1-api.krav.trade/krav/v1/list/market'
+export const QUANTO_API = API_BASE + '/list/quanto'
 
-export const DASHBOARD_OVERVIEW_API = 'https://v1-api.krav.trade/krav/v1/overview'
+export const PNL_API = API_BASE + '/pnl'
 
-export const BTC_PRICE_API = 'https://v1-api.krav.trade/krav/v1/price?symbol=BTCUSDT'
+export const TRADE_HISTORY_API = API_BASE + '/list/market'
+
+export const DASHBOARD_OVERVIEW_API = API_BASE + '/overview'
+
+export const BTC_PRICE_API = API_BASE + '/price?symbol=BTCUSDT'
 
 export const KRAV_STAKE = '0xe480d334e6BF7693b12982e9Bf116F3BEeD386a0'
 
@@ -369,20 +373,20 @@ export const KRAV_ADDRESS = '0x593C951BFF6519E56435367eD302688728963523'
 
 export const VE_KRAV = '0x8b81153Ad24869F54B32bf60B4303142E38A10b5'
 
-export const DashBoard_USER_OVERVIEW_API = 'https://v1-api.krav.trade/krav/v1/user/asset/amount?account='
+export const DashBoard_USER_OVERVIEW_API = API_BASE + '/user/asset/amount?account='
 
 export const BASE_KRAV_TRADING_ADDRESS = '0x8975Fdbad4884998AC36669d126471cE239D94b1'
 
 export const FEE_DISTRBUTOR = '0x345bCD94ac3aBe5C7d9a5Cbe4647dF6cF449d01d'
 
-export const LP_REWARD_API = 'https://v1-api.krav.trade/krav/v1/miner/'
+export const LP_REWARD_API = API_BASE + '/miner/'
 
 export const LP_REWARD_CONTRACT = '0x2e2dAb2d3f4dFb9F39ec6A11A0abb34fa7D27A19'
 
 export const TRADE_REWARD_CONTRACT = '0x291182b2F0108E666e79b8fBC7c7b67C502564d7'
 
-export const REWARD_API = 'https://v1-api.krav.trade/krav/v1/reward/list/'
+export const REWARD_API = API_BASE + '/reward/list/'
 
 export const BURN_ADDRESS = '0x000000000000000000000000000000000000dead'
 
-export const STAKE_HISTORY_API = 'https://v1-api.krav.trade/krav/v1/staked/list?staker='
+export const STAKE_HISTORY_API = API_BASE + '/staked/list?staker='

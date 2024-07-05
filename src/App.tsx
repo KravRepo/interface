@@ -3,8 +3,6 @@ import './App.css'
 import { Header } from './components/Header/Header'
 import { I18nProvider } from '@lingui/react'
 import { i18n } from '@lingui/core'
-import { messages as enMessages } from './locales/en/messages'
-import { messages as csMessages } from './locales/zh/messages'
 import { Trade } from './pages/Trade'
 import { AppTheme } from './theme/appTheme'
 import Web3Provider from './connectors/Web3Provider'
@@ -42,12 +40,11 @@ import { MulticallUpdater } from './state/multicall'
 import { Provider as ReduxProvider } from 'react-redux'
 import { store } from './state'
 import { Provider as BlockNumberProvider } from './hook/useBlockNumber'
+import { locales } from './constant/locales'
+// import Points from './pages/Points'
 
-i18n.load({
-  en: enMessages,
-  cs: csMessages,
-})
-i18n.activate('en')
+i18n.load(locales)
+i18n.activate('en-US')
 
 const FullApp = () => {
   const expectChainId = useRootStore((store) => store.expectChainId)
@@ -55,7 +52,7 @@ const FullApp = () => {
   const factoryLock = useRootStore((store) => store.factoryLock)
   const getUserPosition = useUserPosition()
   const factory = useFactory()
-  
+
   useChainIdListener()
   useInterval(factory, 60000)
   useInterval(async () => getUserPosition(), 15000)
@@ -101,6 +98,7 @@ const FullApp = () => {
               <Route path={'/trade/:referral'} element={<Trade />} />
               <Route path={'/liquidity'} element={<Liquidity />} />
               <Route path={'/portfolio'} element={<Home />} />
+              {/* <Route path={'/points'} element={<Points />} /> */}
               <Route path={'/portfolio/stake'} element={<HomeStake />} />
               {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
               {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}

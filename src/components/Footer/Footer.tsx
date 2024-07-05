@@ -9,9 +9,9 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { Copyright } from './Copyright'
+import { t } from '@lingui/macro'
 
 export const Footer = () => {
-  
   const { pathname } = useLocation()
   const isGreetingPath = useMemo(() => {
     return pathname === '/'
@@ -66,36 +66,36 @@ export const Footer = () => {
   const [showDev, setShowDev] = useState(false)
   const [showSup, setShowSup] = useState(false)
 
-  return (
-    !isGreetingPath ? <>
+  return !isGreetingPath ? (
+    <>
       {!isMobile && (
         <div css={footer}>
           <div className="footer-content">
             <Copyright />
             <div css={[doc, hover]}>
-              <p>Features</p>
+              <p>{t`Features`}</p>
               <NavLink to={'/trade'}>
-                <p>Trade</p>
+                <p>{t`Trade`}</p>
               </NavLink>
               <NavLink to={'/liquidity'}>
-                <p>Earn</p>
+                <p>{t`Earn`}</p>
               </NavLink>
               <NavLink to={'/portfolio/referral'}>
-                <p>Referrals</p>
+                <p>{t`Referrals`}</p>
               </NavLink>
               {/*<p>Buy</p>*/}
             </div>
             <div css={[doc, hover]}>
-              <p>Developers</p>
+              <p>{t`Developers`}</p>
               <Link underline="none" sx={{ color: theme.text.primary }} href="https://docs.krav.trade/">
-                <p>Documentation</p>
+                <p>{t`Documentation`}</p>
               </Link>
 
               {/*<p>Github</p>*/}
               {/*<p>Blog</p>*/}
             </div>
             <div css={[doc, hover]}>
-              <p>Support</p>
+              <p>{t`Support`}</p>
               <Link underline="none" sx={{ color: theme.text.primary }} href="https://t.me/kravtrade">
                 <p>Telegram</p>
               </Link>
@@ -124,7 +124,7 @@ export const Footer = () => {
             ]}
           >
             <p onClick={() => setShowFun(!showFun)}>
-              <span>Features</span>
+              <span>{t`Features`}</span>
               <KeyboardArrowDownIcon />
             </p>
             {showFun && (
@@ -139,13 +139,13 @@ export const Footer = () => {
                 `}
               >
                 <NavLink to={'/trade'}>
-                  <p className="link">Trade</p>
+                  <p className="link">{t`Trade`}</p>
                 </NavLink>
                 <NavLink to={'/liquidity'}>
-                  <p className="link">Earn</p>
+                  <p className="link">{t`Earn`}</p>
                 </NavLink>
                 <NavLink to={'/portfolio/referral'}>
-                  <p className="link">Referrals</p>
+                  <p className="link">{t`Referrals`}</p>
                 </NavLink>
               </div>
             )}
@@ -159,13 +159,13 @@ export const Footer = () => {
             ]}
           >
             <p css={css``} onClick={() => setShowDev(!showDev)}>
-              <span>Developers</span>
+              <span>{t`Developers`}</span>
               <KeyboardArrowDownIcon />
             </p>
             {showDev && (
               <>
                 <Link underline="none" sx={{ color: theme.text.primary }} href="https://docs.krav.trade/">
-                  <p className="link">Documentation</p>
+                  <p className="link">{t`Documentation`}</p>
                 </Link>
               </>
             )}
@@ -179,7 +179,7 @@ export const Footer = () => {
             ]}
           >
             <p onClick={() => setShowSup(!showSup)}>
-              <span>Support</span>
+              <span>{t`Support`}</span>
               <KeyboardArrowDownIcon />
             </p>
             {showSup && (
@@ -196,6 +196,6 @@ export const Footer = () => {
           <Copyright />
         </div>
       )}
-    </> : null
-  )
+    </>
+  ) : null
 }

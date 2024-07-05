@@ -11,6 +11,8 @@ import { Dispatch, SetStateAction, useMemo, useState } from 'react'
 import { useGetKravStake } from '../../hook/hookV8/useGetKravStake'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import { getBigNumberStr } from '../../utils'
+import { msg, t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 type StakeDialogProps = {
   isOpen: boolean
@@ -34,19 +36,20 @@ export const StakeDialog = ({
   setUserKravBalance,
 }: StakeDialogProps) => {
   const theme = useTheme()
+  const { i18n } = useLingui()
   const [amount, setAmount] = useState<string | number>('')
   const { getTotalStake, getUserStake, stakeKrav, withdrawKrav, getUserKRAVBalance } = useGetKravStake()
   const buttonStr = useMemo(() => {
     if (isStake) {
-      if (amount === '' || amount === 0) return 'Enter a mount'
-      else if (new BigNumber(amount).isGreaterThan(userKravBalance)) return 'Insufficient Balance'
-      else if (new BigNumber(amount).isLessThanOrEqualTo(0)) return 'Invalid number'
-      else return 'Stake'
+      if (amount === '' || amount === 0) return msg`Enter a mount`
+      else if (new BigNumber(amount).isGreaterThan(userKravBalance)) return msg`Insufficient Balance`
+      else if (new BigNumber(amount).isLessThanOrEqualTo(0)) return msg`Invalid number`
+      else return msg`Stake`
     } else {
-      if (amount === '' || amount === 0) return 'Enter a mount'
-      else if (new BigNumber(amount).isGreaterThan(useStakeAmount)) return 'Insufficient Balance'
-      else if (new BigNumber(amount).isLessThanOrEqualTo(0)) return 'Invalid number'
-      else return 'Withdraw'
+      if (amount === '' || amount === 0) return msg`Enter a mount`
+      else if (new BigNumber(amount).isGreaterThan(useStakeAmount)) return msg`Insufficient Balance`
+      else if (new BigNumber(amount).isLessThanOrEqualTo(0)) return msg`Invalid number`
+      else return msg`Withdraw`
     }
   }, [userKravBalance, useStakeAmount, isStake, amount])
 
@@ -91,8 +94,10 @@ export const StakeDialog = ({
                     margin-bottom: 20px;
                   `}
                 >
-                  <span>Pay</span>
-                  <span>Available:{useStakeAmount.toFixed(4)} KRAV</span>
+                  <span>{t`Pay`}</span>
+                  <span>
+                    {t`Available`}:{useStakeAmount.toFixed(4)} KRAV
+                  </span>
                 </div>
                 <div
                   css={css`
@@ -164,7 +169,7 @@ export const StakeDialog = ({
                 }}
                 sx={{ mt: '24px' }}
               >
-                {buttonStr}
+                {i18n.t(buttonStr)}
               </KRAVButton>
             </div>
           </div>
@@ -172,7 +177,7 @@ export const StakeDialog = ({
         {isStake && (
           <div css={dialogContent}>
             <div className="dialog-header ">
-              <span>Stake Krav</span>
+              <span>{t`Stake`} Krav</span>
               <CloseSharpIcon
                 sx={{ cursor: 'pointer' }}
                 onClick={() => {
@@ -197,8 +202,10 @@ export const StakeDialog = ({
                     margin-bottom: 20px;
                   `}
                 >
-                  <span>Amount</span>
-                  <span>Available: {getBigNumberStr(userKravBalance, 2)} KRAV</span>
+                  <span>{t`Amount`}</span>
+                  <span>
+                    {t`Available`}: {getBigNumberStr(userKravBalance, 2)} KRAV
+                  </span>
                 </div>
                 <div
                   css={css`
@@ -270,7 +277,7 @@ export const StakeDialog = ({
                 }}
                 sx={{ mt: '24px' }}
               >
-                {buttonStr}
+                {i18n.t(buttonStr)}
               </KRAVButton>
             </div>
           </div>

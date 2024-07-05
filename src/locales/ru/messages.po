@@ -1,0 +1,962 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2024-06-22 21:18+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ru\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+msgid "Disconnect"
+msgstr "Отключиться"
+
+msgid "1 year"
+msgstr "1 год"
+
+msgid "Total Liquidity Provider"
+msgstr "Общий объем поставщика ликвидности"
+
+msgid "Come create one!"
+msgstr "Приходите, создайте один!"
+
+msgid "Type"
+msgstr "Тип"
+
+msgid ""
+msgstr ""
+
+msgid "Target Market"
+msgstr "Целевой рынок"
+
+msgid "Create Liquidity"
+msgstr "Создать ликвидность"
+
+msgid "Stay tuned"
+msgstr "Следите за обновлениями! Эта функция будет запущена в ближайшее время."
+
+msgid "Liq.price"
+msgstr "Цена ликвидации"
+
+msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
+msgstr "При фактическом распределении дохода рассчитывайте свою долю в соответствии с объемом торговли после увеличения"
+
+msgid "Fees"
+msgstr "Комиссии"
+
+msgid "pair"
+msgstr "пара"
+
+msgid "Withdraw request confirmed"
+msgstr "Запрос на вывод подтвержден"
+
+msgid "Basic"
+msgstr "Базовый"
+
+msgid "Positions"
+msgstr "Позиции"
+
+msgid "POOL TOTAL STAKED"
+msgstr "ОБЩИЙ ОБЪЕМ СТАВКИ В ПУЛЕ"
+
+msgid "Orders"
+msgstr "Заказы"
+
+msgid "Confirm Limit Order"
+msgstr "Подтвердить лимитный ордер"
+
+msgid "Please wait 24 hours to remove liquidity"
+msgstr "Пожалуйста, подождите 24 часа для удаления ликвидности"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "Earn Yield"
+msgstr "Зарабатывать доход"
+
+msgid "Increase unlock time"
+msgstr "Увеличить время разблокировки"
+
+msgid "My Pool"
+msgstr "Мой пул"
+
+msgid "YIELD EARNED"
+msgstr ""
+
+msgid "Token Collateral"
+msgstr "Залоговый токен"
+
+msgid "Krav requests wallet interaction"
+msgstr "Krav запрашивает взаимодействие с кошельком"
+
+msgid "Pro"
+msgstr "Про"
+
+msgid "MARKET"
+msgstr "РЫНОК"
+
+msgid "Updated stop loss"
+msgstr "Обновленный стоп-лосс"
+
+msgid "VOLUME (ETH)"
+msgstr ""
+
+msgid "Pay"
+msgstr "Оплатить"
+
+msgid "DATE OPENED"
+msgstr ""
+
+msgid "Fees Rewards"
+msgstr "Вознаграждения за комиссии"
+
+msgid "Mint"
+msgstr "Выпуск"
+
+msgid "Market Cap"
+msgstr "Рыночная капитализация"
+
+msgid "24h Trading Volume"
+msgstr "24-часовой объем торговли"
+
+msgid "The maximum percentage cannot exceed 900%"
+msgstr "Максимальный процент не может превышать 900%"
+
+msgid "Collateral"
+msgstr "Залог"
+
+msgid "YOUR STAKED"
+msgstr "ВАШИ СТАВКИ"
+
+msgid "wallet"
+msgstr "кошелек"
+
+msgid "Loading BTC data..."
+msgstr "Загрузка данных BTC..."
+
+msgid "Exchange ratio"
+msgstr "Курс обмена"
+
+msgid "Liquidity"
+msgstr "Ликвидность"
+
+msgid "Coming Summer 2024"
+msgstr "Летом 2024 года"
+
+msgid "APR"
+msgstr "Годовая процентная ставка (APR)"
+
+msgid "Liquidity being provided"
+msgstr "Предоставляемая ликвидность"
+
+msgid "Navigate to the 'dashboard' page to claim your fee earnings"
+msgstr "Перейдите на страницу 'панели управления', чтобы получить заработанные комиссии"
+
+msgid "Lock & Mint"
+msgstr "Заблокировать и выпустить"
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "Claim liquidity provider rewards"
+msgstr "Заявить вознаграждения поставщика ликвидности"
+
+msgid "To trade"
+msgstr "Для торговли"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Initial Supply"
+msgstr ""
+
+msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
+msgstr "Максимизируйте свои вознаграждения, продлевая срок блокировки KRAV. Усильте накопление veKRAV, увеличивая заблокированное количество или период. Помните, veKRAV медленно уменьшается со временем, в конечном итоге приравниваясь к KRAV."
+
+msgid "REWARD"
+msgstr "НАГРАДА"
+
+msgid "Withdraw Status"
+msgstr "Статус вывода"
+
+msgid "Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards"
+msgstr "Продлите срок блокировки KRAV или добавьте больше KRAV, чтобы максимизировать свои вознаграждения veKRAV"
+
+#~ msgid "Your Withdraw Limit"
+#~ msgstr "Ваш лимит вывода"
+
+msgid "Notice..."
+msgstr "Ликвидации никогда не основаны на цене залогового токена - только на движениях цены BTC в USDT. Удачной торговли!"
+
+msgid "Utilization"
+msgstr "Использование"
+
+msgid "Market Price"
+msgstr "Рыночная цена"
+
+msgid "Something went wrong..."
+msgstr "Что-то пошло не так..."
+
+msgid "Rewards will be refreshed on"
+msgstr "Вознаграждения будут обновлены"
+
+msgid "VIEW MORE"
+msgstr "ПОСМОТРЕТЬ ЕЩЕ"
+
+msgid "Pair"
+msgstr "Пара"
+
+msgid "ASSET"
+msgstr "АКТИВ"
+
+msgid "KRAV Locking Amount"
+msgstr "Сумма блокировки KRAV"
+
+msgid "Initial LP Provision"
+msgstr "Первоначальное обеспечение LP"
+
+msgid "Invite Friends Now!"
+msgstr "Пригласите друзей сейчас!"
+
+msgid "Invite your friends"
+msgstr "Пригласите своих друзей"
+
+msgid "Approve ..."
+msgstr "Одобрить ..."
+
+msgid "Faucet"
+msgstr "Кран"
+
+msgid "Learn more about Staking Krav"
+msgstr "Узнайте больше о ставках Krav"
+
+msgid "OPEN"
+msgstr "ОТКРЫТЬ<<<<<<< HEAD"
+
+#~ msgid "Your Pool Stake"
+#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
+
+msgid "Go back"
+msgstr "Назад"
+
+msgid "Locking Period"
+msgstr "Период блокировки"
+
+msgid "Slippage"
+msgstr "Проскальзывание"
+
+msgid "Points"
+msgstr ""
+
+msgid "Exchange"
+msgstr "Обмен"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Connect Wallet"
+msgstr "Подключить кошелек"
+
+msgid "1 KRAV → Coming Soon"
+msgstr "1 KRAV → Скоро"
+
+msgid "Current price"
+msgstr "Текущая цена"
+
+msgid "Your locked reward has been claimed successfully"
+msgstr "Ваш заблокированный вознаграждение было успешно получено"
+
+msgid "Current TP"
+msgstr "Текущий TP"
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Redeem liquidity"
+msgstr "Выкупить ликвидность"
+
+msgid "TOTAL LIQUIDITY SUPPLY"
+msgstr "ОБЩЕЕ ПРЕДЛОЖЕНИЕ ЛИКВИДНОСТИ"
+
+msgid "Total Trading Volume"
+msgstr "Общий объем торговли"
+
+msgid "My Asset"
+msgstr "Мой актив<<<<<<< HEAD"
+
+#~ msgid "Your Liquidity Supply"
+#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
+
+msgid "Claim locked Reward"
+msgstr "Заявить заблокированное вознаграждение"
+
+msgid "Please open your wallet and confirm in the transaction activity to proceed your order."
+msgstr "Пожалуйста, откройте свой кошелек и подтвердите транзакцию для продолжения заказа."
+
+msgid "None"
+msgstr "Ничего"
+
+msgid "Next distribution"
+msgstr "Следующее распределение"
+
+msgid "Claim position"
+msgstr "Заявить позицию"
+
+msgid "Please change network."
+msgstr "Пожалуйста, смените сеть."
+
+msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
+msgstr "Комиссии: KRAV Trade взимает комиссию в базисных пунктах за каждую открытую и закрытую сделку, не превышая 0.07% за каждую."
+
+msgid "Open Interest (L/S)"
+msgstr "Открытый интерес (L/S)"
+
+msgid "No open position"
+msgstr "Нет открытых позиций"
+
+msgid "Actual trading volume"
+msgstr "Фактический объем торговли"
+
+msgid "Removed liquidity"
+msgstr "Удаленная ликвидность"
+
+msgid "No Orders"
+msgstr "Нет заказов"
+
+msgid "Stop loss less then open price"
+msgstr "Стоп-лосс меньше цены открытия"
+
+msgid "Confirm Long"
+msgstr "Подтвердить лонг"
+
+msgid "Awaiting..."
+msgstr "Ожидание..."
+
+msgid "Min lock period one week"
+msgstr "Минимальный период блокировки - одна неделя"
+
+msgid "Earning Information"
+msgstr "Информация о заработке<<<<<<< HEAD"
+
+msgid "MULTIPLIER"
+msgstr ""
+
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
+
+msgid "Enter Asset contract or select Asset"
+msgstr "Введите контракт актива или выберите актив"
+
+msgid "Trade"
+msgstr "Торговля"
+
+msgid "Stake"
+msgstr "Ставка"
+
+msgid "Liquidity Remove Limit"
+msgstr "Лимит на снятие ликвидности"
+
+msgid "2. Fees"
+msgstr "2. Комиссии"
+
+msgid "You have no Staked Krav"
+msgstr "У вас нет застейканных Krav"
+
+msgid "Total Staked"
+msgstr "Всего застейкано"
+
+msgid "Leverage"
+msgstr "Кредитное плечо"
+
+msgid "Note"
+msgstr "Примечание"
+
+msgid "Reached max positions limit"
+msgstr "Достигнут предел максимального количества позиций"
+
+msgid "Market"
+msgstr "Рынок"
+
+msgid "POINTS EARNED"
+msgstr ""
+
+msgid "Your positions"
+msgstr "Ваши позиции"
+
+msgid "My history"
+msgstr "Моя история"
+
+msgid "Mint will start after"
+msgstr "Минтинг начнется после"
+
+msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
+msgstr "Вы можете продлить блокировку и добавить к ней $CRV в любой момент, но не можете иметь $CRV с разными датами истечения."
+
+msgid "CHAIN"
+msgstr ""
+
+msgid "The assets you deposit will be part of the liquidity pool and receive fees from each trade placed on the platform in exchange for serving as the counterparty to all trades."
+msgstr "Активы, которые вы вносите, будут частью пула ликвидности и будут получать комиссию за каждую сделку, размещенную на платформе, в обмен на выполнение роли контрагента по всем сделкам."
+
+msgid "short withdraw notice..."
+msgstr "При выводе ликвидности вы можете удалить только 25% предоставленной ликвидности за раз. Обратите внимание, что обработка некоторых запросов на вывод может занять до 48 часов."
+
+msgid "Portfolio"
+msgstr "Портфель"
+
+msgid "Insufficient Balance"
+msgstr "Недостаточный баланс"
+
+msgid "Burn"
+msgstr "Сжечь"
+
+msgid "Take Profit great then open price"
+msgstr "Фиксация прибыли больше, чем цена открытия"
+
+msgid "Allowed Slippage"
+msgstr "Допустимое проскальзывание"
+
+msgid "Amount that can be claimed"
+msgstr "Сумма, доступная для вывода"
+
+msgid "Add Liquidity"
+msgstr "Добавить ликвидность"
+
+msgid "Total Stake"
+msgstr "Общая ставка"
+
+msgid "Withdraw"
+msgstr "Вывод"
+
+msgid "Features"
+msgstr "Особенности"
+
+msgid "Earn"
+msgstr "Заработок"
+
+msgid "Claim lp reward"
+msgstr "Получить награду LP"
+
+msgid "Trading guide"
+msgstr "Руководство по торговле"
+
+msgid "Learn more about Liquidity Pool"
+msgstr "Узнать больше о пуле ликвидности"
+
+msgid "Your 24h Trading Volume"
+msgstr "Ваш 24-часовой торговый объем"
+
+msgid "Liquidity Provider after boost"
+msgstr "Поставщик ликвидности после усиления"
+
+msgid "Short"
+msgstr "Шорт"
+
+msgid "My current Liquidity Provider boost"
+msgstr "Моё текущее усиление поставщика ликвидности"
+
+msgid "Liquidity Creation"
+msgstr "Создание ликвидности"
+
+msgid "Liq. Price"
+msgstr "Цена ликвидности"
+
+msgid "Net Exposure"
+msgstr "Чистое воздействие"
+
+msgid "View Details"
+msgstr "Просмотреть детали"
+
+msgid "Share of pool"
+msgstr "Доля пула"
+
+msgid "EARNING EVENTS"
+msgstr ""
+
+msgid "Market order closed"
+msgstr "Рыночный ордер закрыт"
+
+msgid "WITH ANY ALTCOIN"
+msgstr "С ЛЮБОЙ АЛЬТКОИНОМ"
+
+msgid "Documentation"
+msgstr "Документация"
+
+msgid "Take Profit"
+msgstr "Фиксация прибыли"
+
+msgid "Mint to"
+msgstr "Минтинг к"
+
+msgid "Order"
+msgstr "Ордер"
+
+msgid "Pending"
+msgstr "В ожидании"
+
+msgid "Claim reward"
+msgstr "Получить награду"
+
+msgid "+ Provider liquidity"
+msgstr "+ Поставщик ликвидности"
+
+msgid "No record"
+msgstr ""
+
+msgid "Unlock"
+msgstr "Разблокировать"
+
+msgid "INITIAL SUPPLY"
+msgstr ""
+
+msgid "With BTC as the underlying asset, different assets are used as investment products for perpetual option transactions. The asset selected by the pool you created now will be used as the transaction asset."
+msgstr "С BTC в качестве базового актива, различные активы используются в качестве инвестиционных продуктов для вечных опционных сделок. Актив, выбранный пулом, который вы создали сейчас, будет использоваться в качестве транзакционного актива."
+
+msgid "Coming Soon"
+msgstr "Скоро будет"
+
+msgid "Withdrawal Limit"
+msgstr ""
+
+msgid "successfully."
+msgstr "успешно."
+
+msgid "Total Liquidity Supply"
+msgstr "Общее предложение ликвидности"
+
+msgid "Сongratulations!"
+msgstr "Поздравляем!"
+
+msgid "Limit order canceled"
+msgstr "Лимитный ордер отменен"
+
+msgid "Please manually interact with your wallet. Please enable Krav to access your tokens."
+msgstr "Пожалуйста, взаимодействуйте с вашим кошельком вручную. Пожалуйста, включите Krav для доступа к вашим токенам."
+
+msgid "Staked Krav"
+msgstr "Застейканный Krav"
+
+msgid "Invalid number"
+msgstr "Неверное число"
+
+msgid "Actual Liquidity Provider"
+msgstr "Фактический поставщик ликвидности"
+
+msgid "Locked until"
+msgstr "Заблокировано до"
+
+msgid "Added liquidity"
+msgstr "Добавленная ликвидность"
+
+msgid "Available Liquidity"
+msgstr "Доступная ликвидность"
+
+msgid "Faucet token"
+msgstr "Фаусет токен"
+
+msgid "Support"
+msgstr "Поддержка"
+
+msgid "Your veKRAV Supply"
+msgstr "Ваше предложение veKRAV"
+
+msgid "update"
+msgstr "обновить"
+
+msgid "Invite Friends Now! Invite Friends Now! Invite Friends Now!Invite Friends Now!"
+msgstr "Приглашайте друзей сейчас! Приглашайте друзей сейчас! Приглашайте друзей сейчас! Приглашайте друзей сейчас!"
+
+msgid "UTILIZATION"
+msgstr "ИСПОЛЬЗОВАНИЕ"
+
+msgid "Referrals"
+msgstr "Рефералы"
+
+msgid "Confirm Short"
+msgstr "Подтвердить шорт"
+
+msgid "Approve"
+msgstr "Одобрить"
+
+msgid "Trades"
+msgstr "Сделки"
+
+msgid "Locked Krav"
+msgstr "Заблокированный Krav"
+
+#~ msgid "Remaining"
+#~ msgstr "Оставшийся"
+
+msgid "Stop loss great then open price"
+msgstr "Стоп-лосс больше, чем цена открытия"
+
+msgid "Increase locked Krav amount"
+msgstr "Увеличить сумму заблокированного Krav"
+
+msgid "My Boost"
+msgstr "Моё усиление"
+
+msgid "YOUR LIQUIDITY SUPPLY"
+msgstr "ВАШЕ ПРЕДЛОЖЕНИЕ ЛИКВИДНОСТИ"
+
+msgid "Degen"
+msgstr "Деген"
+
+msgid "Price"
+msgstr "Цена"
+
+msgid "Lock Period"
+msgstr "Период блокировки"
+
+msgid "My Staking"
+msgstr "Мой стейкинг"
+
+msgid "6 months"
+msgstr "6 месяцев"
+
+msgid "Unsupported network!"
+msgstr "Неподдерживаемая сеть!"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Claim referral reward"
+msgstr "Получить реферальную награду"
+
+msgid "Order limit"
+msgstr "Лимит ордера"
+
+msgid "Light Mode"
+msgstr "Светлый режим"
+
+msgid "Total assets"
+msgstr "Общие активы"
+
+msgid "Mark price"
+msgstr "Маркировочная цена"
+
+msgid "Useful Links"
+msgstr "Полезные ссылки"
+
+msgid "Available"
+msgstr "Доступно"
+
+msgid "Stake&Burn Amount"
+msgstr "Сумма ставки и сжигания"
+
+msgid "Current SL"
+msgstr "Текущий SL"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Learn more about Liquidity Pools"
+msgstr "Узнать больше о пулах ликвидности"
+
+msgid "There is a problem with"
+msgstr "Проблема существует"
+
+msgid "Funding Rate (L)"
+msgstr "Ставка финансирования (L)"
+
+msgid "Total Value"
+msgstr "Общая стоимость"
+
+msgid "Coll"
+msgstr "Залог"
+
+msgid "Krav requests wallet approval"
+msgstr "Krav запрашивает одобрение кошелька"
+
+msgid "LP REWARD"
+msgstr "НАГРАДА LP"
+
+msgid "Expected earnings"
+msgstr "Ожидаемая прибыль"
+
+msgid "Yield Earned"
+msgstr "Полученная доходность"
+
+msgid "Token Exchange"
+msgstr "Обмен токенов"
+
+msgid "Collateral in"
+msgstr "Залог в"
+
+msgid "Perpetual futures trading with leverage carries risks, including liquidation prices. Traders should understand these risks before engaging in such trades"
+msgstr "Торговля вечными фьючерсами с использованием кредитного плеча несет в себе риски, включая цены ликвидации. Трейдеры должны понимать эти риски перед началом таких сделок."
+
+msgid "Step 2 Select Token Collateral"
+msgstr "Шаг 2: Выберите токен залога"
+
+msgid "You need to stake KRAV Token first, and the \"mint\" operation will not be officially started until the mint start time."
+msgstr "Вам нужно сначала застейкать токен KRAV, и операция \"минтинга\" не начнется официально до времени начала минтинга."
+
+msgid "To Vote"
+msgstr "Голосовать"
+
+msgid "Amount"
+msgstr "Количество"
+
+msgid "Locking KRAV can get krav income and veKRAV rights and interests, which can Boost your yield up to 2.5x"
+msgstr "Блокировка KRAV может принести доход и права veKRAV, что может увеличить ваш доход до 2,5 раз"
+
+msgid "Claim"
+msgstr "Получить"
+
+msgid "Enter an amount"
+msgstr "Введите сумму"
+
+msgid "Select a network"
+msgstr "Выберите сеть"
+
+msgid "No trade history"
+msgstr "Нет истории сделок"
+
+msgid "PERPETUAL FUTURES"
+msgstr "БЕССРОЧНЫЕ ФЬЮЧЕРСЫ"
+
+msgid "Take Profit less then open price"
+msgstr "Забрать прибыль меньше цены открытия"
+
+msgid "REMOVE LIMIT"
+msgstr "УДАЛИТЬ ОГРАНИЧЕНИЕ"
+
+msgid "Staking Krav"
+msgstr "Стейкинг Krav"
+
+msgid "4 years"
+msgstr "4 года"
+
+#~ msgid "Now Epoch"
+#~ msgstr "Текущая эпоха"
+
+msgid "Withdraw Krav"
+msgstr "Вывести Krav"
+
+msgid "BTC/USDT(Update SL/TP)"
+msgstr "BTC/USDT (Обновить SL/TP)"
+
+msgid "Deposit Amount/Initial LP Provision"
+msgstr "Сумма депозита/Первоначальное обеспечение LP"
+
+msgid "long withdraw notice..."
+msgstr "При выводе ликвидности существует 48-часовой период ожидания между запросом на вывод и переводом баланса на ваш кошелек. Этот период ожидания необходим для обеспечения стабильной ликвидности. Может быть удалено 25% внесенной ликвидности за раз."
+
+msgid "Total Governance Reward Pool"
+msgstr "Общий пул вознаграждений за управление"
+
+msgid "Boost"
+msgstr "Усиление"
+
+msgid "Funding Rate (S)"
+msgstr "Ставка финансирования (S)"
+
+msgid "Step 3 Initial LP Provision"
+msgstr "Шаг 3: Первоначальное обеспечение LP"
+
+msgid "A fraction of your profits..."
+msgstr "Часть вашей прибыли (если есть) взимается при закрытии сделки"
+
+msgid "Deposit and create"
+msgstr "Внести депозит и создать"
+
+msgid "Step 1 Choose Target Market"
+msgstr "Шаг 1: Выберите целевой рынок"
+
+msgid "PnL: -90 to +900"
+msgstr "Прибыль/Убыток: от -90 до +900"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Check approve"
+msgstr "Проверить одобрение"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Krav waiting for transaction settlement"
+msgstr "Krav ждет завершения транзакции"
+
+msgid "Start Trading"
+msgstr "Начать торговлю"
+
+msgid "Developers"
+msgstr "Разработчики"
+
+msgid "Existing Request"
+msgstr "Существующий запрос"
+
+msgid "Loading pool data..."
+msgstr "Загрузка данных пула..."
+
+msgid "My Rewards"
+msgstr "Мои награды"
+
+msgid "StopLoss"
+msgstr "Стоп-лосс"
+
+msgid "Dark Mode"
+msgstr "Темный режим"
+
+msgid "No Position yet"
+msgstr "Позиция еще не открыта"
+
+msgid "Long"
+msgstr "Длинная"
+
+msgid "Position"
+msgstr "Позиция"
+
+msgid "Liquidation Price"
+msgstr "Цена ликвидации"
+
+msgid "No Fees Reward"
+msgstr "Без комиссий"
+
+msgid "My Liquidity Pools"
+msgstr "Мои пулы ликвидности"
+
+msgid "Updated take profit"
+msgstr "Обновленная цель по прибыли"
+
+msgid "Connect to a wallet to view your positions."
+msgstr "Подключитесь к кошельку, чтобы просмотреть ваши позиции."
+
+msgid "Select Token Collateral"
+msgstr "Выберите токен залога"
+
+msgid "Choose Target Market"
+msgstr "Выберите целевой рынок"
+
+msgid "KRAV Staking"
+msgstr "Стейкинг KRAV"
+
+msgid "Liquidity Provider Rewards"
+msgstr "Вознаграждения поставщика ликвидности"
+
+msgid "Your Total Liquidity"
+msgstr ""
+
+msgid "Pool Stake"
+msgstr ""
+
+msgid "claim Krav reward"
+msgstr "Получить награду Krav"
+
+msgid "Open trade"
+msgstr "Открыть сделку"
+
+msgid "Entry Price"
+msgstr "Цена входа"
+
+msgid "Enter a mount"
+msgstr "Введите сумму"
+
+msgid "24h Change"
+msgstr "Изменение за 24 часа"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "You have no liquidity"
+msgstr "У вас нет ликвидности"
+
+msgid "Ask Price"
+msgstr "Цена спроса"
+
+#~ msgid "Start"
+#~ msgstr "Начало"
+
+msgid "My current trade boost"
+msgstr "Мое текущее увеличение прибыли"
+
+msgid "Your staked :"
+msgstr "Ваш застейканный:"
+
+msgid "Can not find the target asset you want to trade?"
+msgstr "Не можете найти целевой актив, который хотите торговать?"
+
+msgid "Locked amount"
+msgstr "Заблокированная сумма"
+
+msgid "My Order"
+msgstr "Мой ордер"
+
+msgid "KRAV - Terms of Service"
+msgstr "KRAV - Условия обслуживания"
+
+msgid "Min position size is 1500"
+msgstr "Минимальный размер позиции 1500"
+
+msgid "Entry price"
+msgstr "Цена входа"
+
+msgid "No stake yet"
+msgstr "Еще нет стейка"
+
+msgid "Daily Trading Rewards"
+msgstr "Ежедневные торговые награды"
+
+msgid "2 years"
+msgstr "2 года"
+
+msgid "Token address check"
+msgstr "Проверка адреса токена"
+
+msgid "Trade on KRAV and reap daily trading rewards. Calculations and distributions occur once a day."
+msgstr "Торгуйте на KRAV и получайте ежедневные торговые награды. Расчеты и распределения производятся раз в день."
+
+msgid "1. Disclaimer"
+msgstr "1. Отказ от ответственности"
+
+msgid "24h Volume"
+msgstr "Объем за 24 часа"
+
+msgid "Create pool"
+msgstr "Создать пул"
+
+#~ msgid "End"
+#~ msgstr "Конец"
+
+msgid "Liquidate"
+msgstr "Ликвидировать"
+
+msgid "Limit"
+msgstr "Лимит"
+
+msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
+msgstr "Включите функцию блокировки, чтобы обеспечить свои доходы Krav и получить привилегии veKRAV. Увеличьте потенциал доходности до 2,5 раз"
+
+msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
+msgstr "Krav выполняет блокчейн-транзакцию, пожалуйста, подождите завершения транзакции на блокчейне."
+
+msgid "DATE CLOSED"
+msgstr ""
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Your Liquidity Provider"
+msgstr "Ваш поставщик ликвидности"
+
+msgid "Claim trading rewards"
+msgstr "Получить торговые награды"
+
+msgid "Exchange ratio :"
+msgstr "Курс обмена :"
+
+msgid "BET ON BTC WITH MEMES, GAMEFI, AND ANY OTHER ALTCOINS"
+msgstr "ДЕЛАЙТЕ СТАВКИ НА BTC С ПОМОЩЬЮ MEMES, GAMEFI И ЛЮБЫХ ДРУГИХ АЛЬТКОИНОВ"
+
+msgid "The maximum percentage cannot exceed 75%"
+msgstr "Максимальный процент не может превышать 75%"
+
+#~ msgid "Success"
+#~ msgstr "Успех"

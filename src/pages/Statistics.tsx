@@ -2,6 +2,7 @@
 import { comingSoon } from '../components/Home/style'
 import { ReactComponent as Coming } from '../assets/imgs/coming_soon.svg'
 import { css } from '@emotion/react'
+import { Trans } from '@lingui/macro'
 
 export const Statistics = () => {
   return (
@@ -12,7 +13,7 @@ export const Statistics = () => {
         `}
         className="title"
       >
-        Statistics
+        <Trans>Statistics</Trans>
       </p>
       <p
         css={css`
@@ -23,7 +24,7 @@ export const Statistics = () => {
           }
         `}
       >
-        Stay tuned! This feature will be launched soon.
+        <Trans>Stay tuned</Trans>
       </p>
       <div>
         <Coming className="coming" />

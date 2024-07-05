@@ -16,6 +16,8 @@ import moment from 'moment'
 import { getLockTime } from '../../../hook/hookV8/utils/utils'
 import { OverviewData } from '../../../hook/hookV8/useGetTotalMarketOverview'
 import { FOUR_YEAR_TIMESTAMP, ONE_DAY_TIMESTAMP } from '../../../constant/math'
+import { Trans, msg, t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 
 const marks = [
   {
@@ -46,10 +48,10 @@ type LockActionProp = {
   totalVeKravAmount: BigNumber
 }
 
-enum LockButtonText {
-  LOCK = 'Lock & Mint',
-  INSUFFICIENT_BALANCE = 'Insufficient Balance',
-  INVALID = 'Invalid number',
+const LockButtonText = {
+  LOCK: msg`Lock & Mint`,
+  INSUFFICIENT_BALANCE: msg`Insufficient Balance`,
+  INVALID: msg`Invalid number`,
 }
 
 export const LockAction = ({
@@ -62,6 +64,7 @@ export const LockAction = ({
   totalVeKravAmount,
 }: LockActionProp) => {
   const theme = useTheme()
+  const { i18n } = useLingui()
   const [showTip] = useState(false)
   const [lockTime, setLockTime] = useState(1)
   const [lockAmount, setLockAmount] = useState(new BigNumber(0))
@@ -103,15 +106,15 @@ export const LockAction = ({
   const lockPeriod = useMemo(() => {
     switch (lockTime) {
       case 1:
-        return '6 months'
+        return msg`6 months`
       case 2:
-        return '1 year'
+        return msg`1 year`
       case 3:
-        return '2 years'
+        return msg`2 years`
       case 4:
-        return '4 years'
+        return msg`4 years`
       default:
-        return '6 months'
+        return msg`6 months`
     }
   }, [lockTime])
 
@@ -147,8 +150,12 @@ export const LockAction = ({
           }
         `}
       >
-        <div className="title gt">KRAV Locking Amount</div>
-        <div>Available: {formatNumber(userKravBalance.toString(), 2, false)} KRAV</div>
+        <div className="title gt">
+          <Trans>KRAV Locking Amount</Trans>
+        </div>
+        <div>
+          {t`Available`}: {formatNumber(userKravBalance.toString(), 2, false)} KRAV
+        </div>
       </div>
       <div
         css={css`
@@ -242,7 +249,7 @@ export const LockAction = ({
                 padding-bottom: 15px;
               `}
             >
-              Locking Period
+              <Trans>Locking Period</Trans>
             </span>
             <span>1 year</span>
           </div>
@@ -308,7 +315,7 @@ export const LockAction = ({
               },
             }}
           />{' '}
-          Increase unlock time
+          <Trans>Increase unlock time</Trans>
         </div>
       )}
       {userLockPosition.amount.isGreaterThan(0) && increaseUnlockTime && (
@@ -328,9 +335,9 @@ export const LockAction = ({
                   padding-bottom: 15px;
                 `}
               >
-                Lock Period
+                <Trans>Lock Period</Trans>
               </span>
-              <span>{lockPeriod}</span>
+              <span>{i18n._(lockPeriod)}</span>
             </div>
             <Slider
               defaultValue={1}
@@ -384,10 +391,12 @@ export const LockAction = ({
           padding-bottom: 39px;
         `}
       >
-        Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards
+        <Trans>Extend your KRAV lock duration or add more KRAV to maximize your veKRAV rewards</Trans>
       </div>
       <div className="overview">
-        <span>Expected earnings</span>
+        <span>
+          <Trans>Expected earnings</Trans>
+        </span>
         <span>≈ {getBigNumberStr(expectedVeAmount, 2)} veKRAV</span>
       </div>
       {/*<div*/}
@@ -403,7 +412,9 @@ export const LockAction = ({
       {/*  <span>≈201 veKRAV (Share:25.25%)</span>*/}
       {/*</div>*/}
       <div className="overview">
-        <span>Locked until</span>
+        <span>
+          <Trans>Locked until</Trans>
+        </span>
         <span>
           {' '}
           {moment(newLockTime * 1000)
@@ -418,7 +429,7 @@ export const LockAction = ({
           onClick={() => creatLock(addDecimals(lockAmount, 18), lockTime)}
           sx={{ mt: '20px' }}
         >
-          {buttonText}
+          {i18n._(buttonText)}
         </KRAVButton>
       )}
       {!increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
@@ -427,7 +438,7 @@ export const LockAction = ({
           onClick={() => addLockAmount(addDecimals(lockAmount, 18))}
           sx={{ mt: '20px' }}
         >
-          {buttonText}
+          {i18n._(buttonText)}
         </KRAVButton>
       )}
       {increaseUnlockTime && userLockPosition.amount.isGreaterThan(0) && (
@@ -451,7 +462,10 @@ export const LockAction = ({
               top: 10px;
             `}
           >
-            You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates.
+            <Trans>
+              You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry
+              dates.
+            </Trans>
           </div>
         )}
       </div>

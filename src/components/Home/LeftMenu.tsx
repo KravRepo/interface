@@ -13,6 +13,7 @@ import { css } from '@emotion/react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTheme } from '@mui/material'
 import { useMemo } from 'react'
+import { t } from '@lingui/macro'
 
 export const LeftMenu = () => {
   const navigate = useNavigate()
@@ -46,7 +47,7 @@ export const LeftMenu = () => {
             line-height: 24px;
           `}
         >
-          Dashboard
+          {t`Dashboard`}
         </span>
       </KRAVMenuButton>
       <KRAVMenuButton
@@ -63,7 +64,7 @@ export const LeftMenu = () => {
             line-height: 24px;
           `}
         >
-          KRAV Staking
+          {t`KRAV Staking`}
         </span>
       </KRAVMenuButton>
       {/* <KRAVMenuButton

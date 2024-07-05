@@ -6,6 +6,16 @@ import { useMemo } from 'react'
 import { useRootStore } from '../../../store/root'
 import { TradeMode } from '../../../store/TradeSlice'
 import { useTradeData } from '../../../hook/useTradeData'
+import { msg } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
+
+const keyMsg = {
+  'Net Exposure': msg`Net Exposure`,
+  'Open Interest (L/S)': msg`Open Interest (L/S)`,
+  'Market Price': msg`Market Price`,
+  'Entry Price': msg`Entry Price`,
+  'Liquidation Price': msg`Liquidation Price`,
+}
 
 export default function TradeDetails({
   positionSizeDai,
@@ -21,6 +31,7 @@ export default function TradeDetails({
   isBuy: boolean
 }) {
   const theme = useTheme()
+  const { i18n } = useLingui()
 
   const { BTCPrice, tradeModel } = useRootStore((state) => ({
     BTCPrice: state.BTCPrice,
@@ -49,7 +60,12 @@ export default function TradeDetails({
             ),
           }),
       ['Entry Price']: <>{priceImpact}</>,
-      ['Liquidation Price']: <>{liquidationPrice}</>,
+      ['Liquidation Price']: (
+        <>
+          {liquidationPrice != '-' && '$'}
+          {liquidationPrice}
+        </>
+      ),
     }
   }, [positionSizeDai, leverage, openDaiLong, openDaiShort, priceImpact, BTCPrice])
 
@@ -81,7 +97,7 @@ export default function TradeDetails({
                 color: #757575;
               `}
             >
-              {key}
+              {i18n.t(keyMsg[key as keyof typeof keyMsg])}
             </div>
             <div>{data[key as keyof typeof data]}</div>
           </div>
