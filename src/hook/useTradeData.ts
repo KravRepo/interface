@@ -3,11 +3,7 @@ import { PairInfosABI } from '../abi/deployed/PairInfosABI'
 import { useContract } from './hookV8/useContract'
 import { useRootStore } from '../store/root'
 import BigNumber from 'bignumber.js'
-<<<<<<< HEAD
-import { addDecimals } from '../utils/math'
-=======
 import { addDecimals, eXDecimals, getLiqPrice } from '../utils/math'
->>>>>>> 77494a09b807696a62da89bdba82bf5a83cd7620
 import { useGetMarketStats } from './hookV8/useGetMarketStats'
 import { useWeb3React } from '@web3-react/core'
 // import { FEE_RATES } from '../constant/feeRate'
@@ -77,7 +73,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     //   openDaiPrecision = openDaiShort?.times(1e18)
     // }
     return [openPrice, tradePairIndex, isBuy, openInterest]
-  }, [openPrice, tradePairIndex, isBuy,positionSizeDai, leverage])
+  }, [openPrice, tradePairIndex, isBuy, positionSizeDai, leverage])
 
   useEffect(() => {
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
@@ -93,11 +89,11 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
         liquidationPriceArgs.every((arg) => arg !== undefined) &&
         positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0] !== '0'
       ) {
-       const liqPrice= parseFloat(
+        const liqPrice = parseFloat(
           getLiqPrice(eXDecimals(openPrice, 10), eXDecimals(positionSizeDai, 18), isBuy, leverage).toString()
-       ).toLocaleString('en-US', { maximumFractionDigits: 2 })
-        
-       setLiquidationPrice(liqPrice)
+        ).toLocaleString('en-US', { maximumFractionDigits: 2 })
+
+        setLiquidationPrice(liqPrice)
         // try {
         //   const result = await retryAsync(pairContract.getTradeLiquidationPrice, liquidationPriceArgs)
         //   setLiquidationPrice(
@@ -112,7 +108,17 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     }
 
     fetchLiquidationPrice()
-  }, [pairContract, liquidationPriceArgs, openDaiLong, openDaiShort, positionSizeDai, leverage, isBuy, openPrice , tradePool.poolTotalSupply])
+  }, [
+    pairContract,
+    liquidationPriceArgs,
+    openDaiLong,
+    openDaiShort,
+    positionSizeDai,
+    leverage,
+    isBuy,
+    openPrice,
+    tradePool.poolTotalSupply,
+  ])
 
   useEffect(() => {
     // console.log('ktoken', tradePool.vaultT);
