@@ -84,6 +84,7 @@ export const useFactory = () => {
         }
 
         const totalPools = await factory.quantosCount()
+
         const blockNumber = await provider.getBlockNumber()
         const poolsParams = []
         for (let i = 0; i < totalPools; i++) {

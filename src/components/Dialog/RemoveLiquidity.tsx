@@ -18,7 +18,7 @@ import { useFactory } from '../../hook/hookV8/useFactory'
 import { DialogLayout } from './DialogLayout'
 import { useSingleCallResult, useSingleContractMultipleData } from '../../hook/multicall'
 import { useContract } from '../../hook/hookV8/useContract'
-import { KTokenABI } from '../../abi/deployed/KTokenABI'
+import KTokenABI from '../../abi/k_token.json'
 // import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 // import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 // import KravButtonHollow from '../KravUIKit/KravButtonHollow'
@@ -38,7 +38,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const { provider } = useWeb3React()
   const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
   const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0)
-  const [withdrawDate, setWithdrawDate] = useState<null | number>(null)
+  const [allowRequest, setAllowRequest] = useState(true)
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const getUserPosition = useUserPosition()
@@ -209,7 +209,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
             </div>
             <KRAVButton
               disabled={
-                !!withdrawDate ||
+                !allowRequest ||
                 addDecimals(withdrawAmount.toString(), liquidityInfo.decimals).isGreaterThan(
                   addDecimals(maxWithdrawAmount.toString(), liquidityInfo.decimals)
                 ) ||
@@ -236,7 +236,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
             pool={targetPool?.pool}
             vaultAddress={liquidityInfo.vaultT}
             setIsOpen={setIsOpen}
-            setWithdrawDate={setWithdrawDate}
+            setAllowRequest={setAllowRequest}
           />
         </div>
       </>
@@ -244,28 +244,33 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   )
 }
 
+const claimableEpochLength = 7
 function ExistingRequest({
   kToken,
   daiDeposited = new BigNumber(0),
   pool,
   vaultAddress,
   setIsOpen,
-  setWithdrawDate,
+  setAllowRequest,
 }: {
   kToken?: string
   daiDeposited?: BigNumber
   pool?: PoolParams
   vaultAddress: string
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setWithdrawDate: React.Dispatch<React.SetStateAction<number | null>>
+  setAllowRequest: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const { account } = useWeb3React()
   const [showExistingRequest, setShowExistingRequest] = useState(false)
   const [remainingTime, setRemainingTime] = useState(0)
   const [countdown, { days, hours, minutes, seconds }] = useCountDown({ targetDate: remainingTime })
+  const [claimRemainingTime, setClaimRemainingTime] = useState(0)
+  const [claimCountdown, { days: cdays, hours: chours, minutes: cminutes, seconds: cseconds }] = useCountDown({
+    targetDate: claimRemainingTime,
+  })
 
   const redeemLiquidity = useRedeemLiquidity(vaultAddress)
-  const kTokenContract = useContract(kToken, KTokenABI)
+  const kTokenContract = useContract(kToken, KTokenABI.abi)
 
   const getUpdateEpoch = useSingleCallResult(kTokenContract, 'updateEpoch', [])
 
@@ -293,6 +298,29 @@ function ExistingRequest({
     if (getCurrentEpoch?.result?.[0]) return new BigNumber(getCurrentEpoch.result?.[0]._hex)
     else return new BigNumber(0)
   }, [getCurrentEpoch])
+
+  const args = useMemo(() => [account, currentEpoch.toFixed()], [account, currentEpoch])
+  const requestedSharesAt = useSingleCallResult(kTokenContract, 'requestedSharesAt', args)
+
+  const requestedSharesData = useMemo(() => {
+    if (requestedSharesAt?.result) {
+      const data = {
+        claimableEpoch: new BigNumber(requestedSharesAt.result?.claimableEpoch._hex),
+        claimable: new BigNumber(requestedSharesAt.result?.claimable._hex),
+        pending: new BigNumber(requestedSharesAt.result?.pending._hex),
+      }
+      if (data.claimable.gt('0') || data.pending.gt('0')) {
+        false
+      }
+      return data
+    } else {
+      return {
+        claimableEpoch: null,
+        claimable: null,
+        pending: null,
+      }
+    }
+  }, [requestedSharesAt.result])
 
   const getRequestEc = useSingleContractMultipleData(
     kTokenContract,
@@ -345,37 +373,39 @@ function ExistingRequest({
 
   useEffect(() => {
     const currentStart = lastEpoch.times(1000)
-
     //TODO: currentEpoch is null
     if (waitPeriod === 0) {
       const t = currentStart.toNumber()
-      setWithdrawDate(t)
       setRemainingTime(t)
     }
     if (waitPeriod === 1) {
       const t = currentStart.plus(epochDuration * 1000).toNumber()
-      setWithdrawDate(t)
       setRemainingTime(t)
     }
     if (waitPeriod === 2) {
       const t = currentStart.plus(epochDuration * 2 * 1000).toNumber()
-      setWithdrawDate(t)
       setRemainingTime(t)
     }
     if (waitPeriod === 3) {
       const t = currentStart.plus(epochDuration * 3 * 1000).toNumber()
-      setWithdrawDate(t)
       setRemainingTime(t)
     }
-  }, [lastEpoch, waitPeriod, setRemainingTime, epochDuration, setWithdrawDate])
+  }, [lastEpoch, waitPeriod, setRemainingTime, epochDuration])
 
   useEffect(() => {
     if (lastEpoch.isGreaterThan(0) && epochDuration > 0) {
-      setRemainingTime(lastEpoch.plus(epochDuration).toNumber() * 1000)
+      setRemainingTime(lastEpoch.plus(epochDuration * waitPeriod).toNumber() * 1000)
     }
-  }, [epochDuration, lastEpoch])
+    if (requestedSharesData.claimableEpoch && lastEpoch.isGreaterThan(0) && currentEpoch) {
+      const gap = requestedSharesData.claimableEpoch
+        .plus(claimableEpochLength - 1)
+        .minus(currentEpoch)
+        .toNumber()
+      setClaimRemainingTime((lastEpoch.toNumber() + epochDuration * gap) * 1000)
+    }
+  }, [currentEpoch, epochDuration, lastEpoch, requestedSharesData.claimableEpoch, waitPeriod])
 
-  if (!existingRequestLength) {
+  if (!existingRequestLength && requestedSharesData.claimable?.eq(0)) {
     return null
   }
 
@@ -394,57 +424,14 @@ function ExistingRequest({
               lineHeight: '140%',
             }}
           >
-            <Trans>Existing Request</Trans> ({existingRequestLength})
+            <Trans>Existing Request</Trans> (1)
           </Typography>
           {/* {!showExistingRequest ? <ExpandMoreIcon /> : <ExpandLessIcon />} */}
         </Stack>
       </Box>
 
-      {!!existingRequestLength && (
+      {(!!existingRequestLength || requestedSharesData.claimable?.gt(0)) && (
         <Box>
-          {/* <Box
-            sx={{
-              p: '16px',
-              my: '20px',
-              borderRadius: '12px',
-              background: 'var(--Neutral-2, #282828)',
-              '& .MuiStack-root': { margin: 0 },
-              '& .MuiTypography-root': {
-                fontSize: '12px',
-              },
-            }}
-          >
-            <Stack flexDirection={'row'} justifyContent={'space-between'} rowGap={'10px'}>
-              <Typography
-                sx={{
-                  color: 'var(--ps-neutral3)',
-                  fontWeight: '500',
-                  lineHeight: '100%',
-                }}
-              >
-                {t`Now Epoch`}
-              </Typography>
-              <Typography>{updateEpoch.toString()}</Typography>
-            </Stack>
-            <StyledBox />
-            <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>Time until next epoch</Typography>
-              <Typography>
-                <span>{countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}</span>
-              </Typography>
-            </Stack>
-            <StyledBox />
-            <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>{t`Start`}</Typography>
-              <Typography>{new Date(lastEpoch.toNumber() * 1000).toLocaleString()}</Typography>
-            </Stack>
-            <StyledBox />
-            <Stack flexDirection={'row'} justifyContent={'space-between'}>
-              <Typography>{t`End`}</Typography>
-              <Typography>{new Date((lastEpoch.toNumber() + epochDuration) * 1000).toLocaleString()}</Typography>
-            </Stack>
-            <StyledBox />
-          </Box> */}
           <Typography
             component={'div'}
             sx={{
@@ -457,73 +444,144 @@ function ExistingRequest({
             <span>{t`Amount`}</span>
             <span>{t`Withdraw Status`}</span>
           </Typography>
-          <Box>
-            {requestEc
-              .filter((item) => item.amount.isGreaterThan(0))
-              .map((ec, index) => {
-                return (
-                  <Box key={index}>
-                    <Stack
-                      my={12}
-                      alignItems={'center'}
-                      flexDirection={'row'}
-                      justifyContent={'space-between'}
-                      margin={0}
+          {requestedSharesData?.claimable?.gt(0) ? (
+            <Box>
+              <Stack my={12} alignItems={'center'} flexDirection={'row'} justifyContent={'space-between'} margin={0}>
+                <Typography
+                  sx={{
+                    fontSize: '15px',
+                    lineHeight: '140%',
+                  }}
+                >
+                  {requestedSharesData.claimable.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
+                    ? daiDeposited.toFormat(8)
+                    : withDecimals(requestedSharesData.claimable, pool?.decimals ?? 18, false).toFormat(8)}
+                  &nbsp;{pool?.symbol}
+                </Typography>
+                {
+                  <Box display={'flex'} alignItems={'center'} gap="10px">
+                    <Typography
+                      sx={{
+                        fontSize: '12px',
+                        lineHeight: '140%',
+                      }}
+                      component={'div'}
                     >
-                      <Typography
-                        sx={{
-                          fontSize: '15px',
-
-                          lineHeight: '140%',
-                        }}
+                      Claimable until
+                      <p>{claimCountdown > 0 ? `${cdays}d ${chours}h ${cminutes}m ${cseconds}s` : '00d 00h 00m 00s'}</p>
+                    </Typography>
+                    <KravButtonHollow
+                      onClick={async () => {
+                        await redeemLiquidity(
+                          requestedSharesData.claimable.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
+                            ? withDecimals(daiDeposited, pool?.decimals ?? 18).toString()
+                            : requestedSharesData.claimable.toString(),
+                          requestedSharesData.claimable,
+                          pool?.decimals,
+                          pool?.symbol
+                        )
+                        setIsOpen(false)
+                      }}
+                      sx={{
+                        padding: '6px 16px',
+                        backgroundColor: 'var(--ps-text-100)',
+                        width: 62,
+                        height: 29,
+                        borderRadius: '100px',
+                      }}
+                    >
+                      {t`Claim`}
+                    </KravButtonHollow>
+                  </Box>
+                }
+              </Stack>
+              <StyledBox />
+            </Box>
+          ) : (
+            <Box>
+              {requestEc
+                .filter((item) => item.amount.isGreaterThan(0))
+                .map((ec, index) => {
+                  return (
+                    <Box key={index}>
+                      <Stack
+                        my={12}
+                        alignItems={'center'}
+                        flexDirection={'row'}
+                        justifyContent={'space-between'}
+                        margin={0}
                       >
-                        {ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
-                          ? daiDeposited.toFormat(8)
-                          : withDecimals(ec.amount, pool?.decimals ?? 18, false).toFormat(8)}
-                        &nbsp;{pool?.symbol}
-                      </Typography>
-                      {ec.epoch === currentEpoch.toNumber() ? (
-                        <KravButtonHollow
-                          onClick={async () => {
-                            await redeemLiquidity(
-                              ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
-                                ? withDecimals(daiDeposited, pool?.decimals ?? 18).toString()
-                                : ec.amount.toString(),
-                              ec.amount,
-                              pool?.decimals,
-                              pool?.symbol
-                            )
-                            setIsOpen(false)
-                          }}
-                          sx={{
-                            padding: '6px 16px',
-                            backgroundColor: 'var(--ps-text-100)',
-                            width: 62,
-                            height: 29,
-                            borderRadius: '100px',
-                          }}
-                        >
-                          {t`Claim`}
-                        </KravButtonHollow>
-                      ) : (
                         <Typography
                           sx={{
                             fontSize: '15px',
+
                             lineHeight: '140%',
                           }}
                         >
-                          {t`Pending`}{' '}
-                          <span>
-                            {countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}
-                          </span>
+                          {ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
+                            ? daiDeposited.toFormat(8)
+                            : withDecimals(ec.amount, pool?.decimals ?? 18, false).toFormat(8)}
+                          &nbsp;{pool?.symbol}
                         </Typography>
-                      )}
-                    </Stack>
-                    <StyledBox />
-                  </Box>
-                )
-              })}
-          </Box>
+                        {requestedSharesData.claimableEpoch &&
+                        currentEpoch.lt(requestedSharesData.claimableEpoch?.plus(7)) ? (
+                          <>
+                            <KravButtonHollow
+                              onClick={async () => {
+                                await redeemLiquidity(
+                                  ec.amount.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
+                                    ? withDecimals(daiDeposited, pool?.decimals ?? 18).toString()
+                                    : ec.amount.toString(),
+                                  ec.amount,
+                                  pool?.decimals,
+                                  pool?.symbol
+                                )
+                                setIsOpen(false)
+                              }}
+                              sx={{
+                                padding: '6px 16px',
+                                backgroundColor: 'var(--ps-text-100)',
+                                width: 62,
+                                height: 29,
+                                borderRadius: '100px',
+                              }}
+                            >
+                              {t`Claim`}
+                            </KravButtonHollow>
+                            <Typography
+                              sx={{
+                                fontSize: '15px',
+                                lineHeight: '140%',
+                              }}
+                            >
+                              Claimable until
+                              <span>
+                                {claimCountdown > 0
+                                  ? `${cdays}d ${chours}h ${cminutes}m ${cseconds}s`
+                                  : '00d 00h 00m 00s'}
+                              </span>
+                            </Typography>
+                          </>
+                        ) : (
+                          <Typography
+                            sx={{
+                              fontSize: '15px',
+                              lineHeight: '140%',
+                            }}
+                          >
+                            {t`Pending`}{' '}
+                            <span>
+                              {countdown > 0 ? `${days}d ${hours}h ${minutes}m ${seconds}s` : '00d 00h 00m 00s'}
+                            </span>
+                          </Typography>
+                        )}
+                      </Stack>
+                      <StyledBox />
+                    </Box>
+                  )
+                })}
+            </Box>
+          )}
         </Box>
       )}
     </Box>
