@@ -12,9 +12,9 @@ export default function MarqueeTop() {
       display="flex"
       flexDirection={'column'}
       alignItems={'center'}
-      px={{ xs: '24px', md: '40px', lg: '120px' }}
-      py={{ xs: '28px', md: '3rem' }}
-      gap={{ xs: 42, sm: 62, md: 100 }}
+      py={{ xs: '28px', md: '2rem' }}
+      gap={{ xs: '42px', sm: '62px', md: '100px' }}
+      width="100%"
     >
       <Box
         sx={{

@@ -1,4 +1,10 @@
 import { AddEthereumChainParameter } from '@web3-react/types'
+import { ReactComponent as Base } from '../assets/imgs/chain_base.svg'
+import { ReactComponent as ARB } from '../assets/imgs/arbitrum.svg'
+import { ReactComponent as BSCLogo } from '../assets/imgs/bsc.svg'
+import { ReactComponent as OP } from '../assets/imgs/optimism.svg'
+import { ReactComponent as Polygon } from '../assets/imgs/polygon.svg'
+import { ReactComponent as ZKEVM } from '../assets/imgs/zkevm.svg'
 
 const ETH: AddEthereumChainParameter['nativeCurrency'] = {
   name: 'Ether',
@@ -28,6 +34,7 @@ interface BasicChainInformation {
   urls: string[]
   name: string
   blockExplorerUrls?: string[]
+  logo?: React.ReactNode
 }
 
 interface ExtendedChainInformation extends BasicChainInformation {
@@ -49,36 +56,42 @@ export const MAINNET_CHAINS: ChainConfig = {
     name: 'Optimism',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://optimistic.etherscan.io'],
+    logo: <OP />,
   },
   56: {
     urls: ['https://bsc.publicnode.com'],
     name: 'Binance',
     nativeCurrency: BSC,
     blockExplorerUrls: ['https://bscscan.com'],
+    logo: <BSCLogo />,
   },
   137: {
     urls: ['https://polygon-mainnet.public.blastapi.io'],
     name: 'Polygon Mainnet',
     nativeCurrency: MATIC,
     blockExplorerUrls: ['https://polygonscan.com'],
+    logo: <Polygon />,
   },
   1101: {
     urls: ['https://zkevm-rpc.com'],
     name: 'Polygon zkEVM',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://zkevm.polygonscan.com'],
+    logo: <ZKEVM />,
   },
   8453: {
     urls: ['https://developer-access-mainnet.base.org'],
     name: 'Base',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://basescan.org'],
+    logo: <Base />,
   },
   42161: {
     urls: ['https://arbitrum-one.publicnode.com'],
     name: 'Arbitrum One',
     nativeCurrency: ETH,
     blockExplorerUrls: ['https://arbiscan.io'],
+    logo: <ARB />,
   },
   42220: {
     urls: ['https://forno.celo.org'],

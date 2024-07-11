@@ -125,11 +125,17 @@ msgstr "更新止损"
 #~ msgid "MAX"
 #~ msgstr "最大"
 
+msgid "VOLUME (ETH)"
+msgstr ""
+
 #~ msgid "Rewards"
 #~ msgstr "奖励"
 
 msgid "Pay"
 msgstr "支付"
+
+msgid "DATE OPENED"
+msgstr ""
 
 msgid "Fees Rewards"
 msgstr "手续费奖励"
@@ -299,6 +305,9 @@ msgstr "锁定期限"
 msgid "Slippage"
 msgstr "滑点"
 
+msgid "Points"
+msgstr ""
+
 msgid "Exchange"
 msgstr "交易所"
 
@@ -399,6 +408,9 @@ msgstr "最短锁定期一周"
 msgid "Earning Information"
 msgstr "收益信息"
 
+msgid "MULTIPLIER"
+msgstr ""
+
 #~ msgid "WITHDRAW_BLOCK"
 #~ msgstr "提取块"
 
@@ -441,6 +453,9 @@ msgstr "已达到最大持仓限制"
 msgid "Market"
 msgstr "现价"
 
+msgid "POINTS EARNED"
+msgstr ""
+
 #~ msgid "The profit will be"
 #~ msgstr "利润将为"
 
@@ -455,6 +470,9 @@ msgstr "铸造将在之后开始"
 
 msgid "You can extend a lock and add $CRV to it at any point but you cannot have $CRV with different expiry dates."
 msgstr "您可以随时延长锁定时间并添加 $CRV，但不能使用具有不同到期日期的 $CRV。"
+
+msgid "CHAIN"
+msgstr ""
 
 #~ msgid "Stake Krav"
 #~ msgstr "质押 Krav"
@@ -558,6 +576,9 @@ msgstr "池子份额"
 #~ msgid "Telegram"
 #~ msgstr "Telegram"
 
+msgid "EARNING EVENTS"
+msgstr ""
+
 #~ msgid "Select a token"
 #~ msgstr "选择代币"
 
@@ -590,6 +611,9 @@ msgstr "领取奖励"
 
 msgid "+ Provider liquidity"
 msgstr "+ 提供者流动性"
+
+msgid "No record"
+msgstr ""
 
 msgid "Unlock"
 msgstr "解锁"
@@ -681,8 +705,8 @@ msgstr "交易"
 msgid "Locked Krav"
 msgstr "锁定Krav"
 
-msgid "Remaining"
-msgstr "剩余"
+#~ msgid "Remaining"
+#~ msgstr "剩余"
 
 msgid "Stop loss great then open price"
 msgstr "止损大于开盘价"
@@ -852,8 +876,8 @@ msgstr "Krav 质押"
 msgid "4 years"
 msgstr "4年"
 
-msgid "Now Epoch"
-msgstr "当前时代"
+#~ msgid "Now Epoch"
+#~ msgstr "当前时代"
 
 msgid "Withdraw Krav"
 msgstr "提取 Krav"
@@ -888,8 +912,8 @@ msgstr "存款并创建"
 msgid "Step 1 Choose Target Market"
 msgstr "步骤1 选择目标市场"
 
-msgid "PnL: -90 to +900"
-msgstr "损益：-90 到 +900"
+msgid "PnL"
+msgstr "损益"
 
 msgid "Add"
 msgstr "添加"
@@ -1005,8 +1029,8 @@ msgstr "您没有提供流动性"
 msgid "Ask Price"
 msgstr "卖出价格"
 
-msgid "Start"
-msgstr "开始"
+#~ msgid "Start"
+#~ msgstr "开始"
 
 msgid "My current trade boost"
 msgstr "我的当前交易加速"
@@ -1071,8 +1095,8 @@ msgstr "24小时交易量"
 msgid "Create pool"
 msgstr "创建流动性池"
 
-msgid "End"
-msgstr "结束"
+#~ msgid "End"
+#~ msgstr "结束"
 
 msgid "Liquidate"
 msgstr "清算"
@@ -1091,6 +1115,9 @@ msgstr "使用锁定功能保障您的 Krav 收益并获取 veKRAV 特权。最�
 
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav 正在进行区块链交易，请耐心等待链上交易结算。"
+
+msgid "DATE CLOSED"
+msgstr ""
 
 msgid "Close"
 msgstr "关闭"
