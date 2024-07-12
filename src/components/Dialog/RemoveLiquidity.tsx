@@ -113,7 +113,11 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               sx={{ marginTop: '16px !important' }}
             >
               <span style={{ fontWeight: 600 }}>{t`Note`}: </span>
-              <span>{t`long withdraw notice...`}</span>
+              <span>
+                To promote stable liquidity, there is a 2 epoch (48-72 hour) waiting period after requesting a
+                withdrawal, followed by a one week claim period to make the withdrawal. 25% of initially deposited
+                liquidity may be withdrawn at a time.
+              </span>
             </Typography>
           </Box>
           <div
