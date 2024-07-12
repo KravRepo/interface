@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { API_BASE } from '../constant/chain'
 import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../store/root'
-import { Box } from '@mui/material'
+import { Box, Skeleton } from '@mui/material'
 import { MAINNET_CHAINS } from '../connectors/chain'
 
-interface PointListData {
+export interface PointListData {
   account: string
   chainId: number
   closeTime: number
@@ -23,12 +23,29 @@ interface PointsData {
   account: string
   pointLP: string
   pointTrade: string
+  pools: { [key: number]: PointsPools }
 }
 
-const getTypes = (str: string) => {
+export interface PointsPoolsRaw {
+  chainId: number
+  point: string
+  quantoIndex: number
+  types: string
+}
+
+export interface PointsPools {
+  chainId: number
+  point: string
+  quantoIndex: number
+  LPAdd: string
+  TradeLong: string
+  TradeShort: string
+}
+
+export const getTypes = (str: string) => {
   switch (str) {
     case 'LPAdd':
-      return 'LP Add'
+      return 'LP Provide'
     case 'LPRemove':
       return 'LP Remove'
     case 'TradeLong':
@@ -65,9 +82,12 @@ export function usePointsList(curPage: number) {
               pool ? (
                 <Box key={data.timestamp} display="flex" alignItems={'center'} gap="10px">
                   <img src={pool.logoSource} style={{ height: '20px', width: '20px', borderRadius: '50%' }}></img>
-                  {getTypes(data.types)}$<span>{pool.symbol}</span>
+                  {getTypes(data.types)}
+                  <span>${pool.symbol}</span>
                 </Box>
-              ) : null,
+              ) : (
+                <Skeleton variant="rectangular" width={'100%'} height={'20px'} />
+              ),
               new Date(data.timestamp * 1000).toLocaleString(),
               <span key={data.timestamp + data.multiplier}>x{data.multiplier}</span>,
               data.volumeInETH,
@@ -121,7 +141,18 @@ export function usePoints() {
         const request = await fetch(API_BASE + `/point/${account}`, {})
         const points = await request.json()
         if (points.code == 200) {
-          setPoints(points.data)
+          const list = (points.data.pools as PointsPoolsRaw[])?.reduce((acc, i, idx) => {
+            console.log(idx, 'reduce')
+            if (acc[i.quantoIndex]) {
+              acc[i.quantoIndex][i.types] = i.point
+            } else {
+              acc[i.quantoIndex] = { ...i }
+              acc[i.quantoIndex][i.types] = i.point
+            }
+            return acc
+          }, {} as any)
+          console.log({ list, raw: points.data.pools })
+          setPoints({ ...points.data, pools: list })
         }
       } catch (e) {}
     }

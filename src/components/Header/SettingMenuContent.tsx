@@ -13,12 +13,12 @@ import { ReactComponent as OpenIcon } from '../../assets/imgs/open_browser.svg'
 import { getBigNumberStr } from '../../utils'
 import { ReactComponent as DisconnectDarkIcon2 } from '../../assets/imgs/darkModel/disconnect_icon_2_dark.svg'
 import { ReactComponent as DisconnectIcon2 } from '../../assets/imgs/disconnect_icon_2.svg'
-import { ReactComponent as ThemeIconLight } from '../../assets/imgs/model_icon.svg'
-import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/model_icon_dark.svg'
-import { KravModeSwitch } from '../KravUIKit/KravModeSwitch'
+// import { ReactComponent as ThemeIconLight } from '../../assets/imgs/model_icon.svg'
+// import { ReactComponent as ThemeIconDark } from '../../assets/imgs/darkModel/model_icon_dark.svg'
+// import { KravModeSwitch } from '../KravUIKit/KravModeSwitch'
 import BigNumber from 'bignumber.js'
 import { CONTRACT_CONFIG } from '../../constant/chain'
-import { Trans, t } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 
 export type SettingMenuContentProps = {
   toggleTheme: () => void
@@ -135,7 +135,7 @@ export const SettingMenuContent = ({
         {theme.palette.mode === 'dark' ? <DisconnectDarkIcon2 /> : <DisconnectIcon2 />}
         <Trans>Disconnect</Trans>
       </div>
-      <div
+      {/* <div
         className="action"
         css={css`
           justify-content: space-between;
@@ -152,7 +152,7 @@ export const SettingMenuContent = ({
           </span>
         </div>
         <KravModeSwitch checked={true} onClick={toggleTheme} />
-      </div>
+      </div> */}
     </div>
   )
 }

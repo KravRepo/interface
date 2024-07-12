@@ -4,10 +4,11 @@ import { t } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import KRAVButton from '../KravUIKit/KravButton'
 import { useRootStore } from '../../store/root'
-import { usePoints, usePointsList } from '../../hook/usePoints'
+import { PointsPools, getTypes, usePoints, usePointsList } from '../../hook/usePoints'
 import Table from '../Table'
 import PaginationView from '../Pagination'
 import { useState } from 'react'
+import { MAINNET_CHAINS } from '../../connectors/chain'
 
 export default function PointsPanels() {
   const theme = useTheme()
@@ -53,24 +54,30 @@ export default function PointsPanels() {
         <Typography>
           Earn Points for Trading and Liquidity Provision on KRAV! Maximize your rewards with exclusive multipliers for
           select tokens. <br />
-          Check{' '}
+          Check
           <Typography component="a" href="" sx={{ color: '#ffffff' }} target="_blank">
             Medium
-          </Typography>{' '}
+          </Typography>
           for more details
         </Typography>
       </Box>
-      <Box sx={{ background: theme.background.third, padding: '20px', borderRadius: '20px' }}>
+      <Box sx={{ background: theme.background.second, padding: '20px', borderRadius: '20px' }}>
         <Typography mb="20px" fontSize={'26px'} fontWeight={700}>
           Portfolio
         </Typography>
-        <Portfolio />
+        <Portfolio pools={points?.pools} />
+      </Box>
+      <Box sx={{ background: theme.background.third, padding: '20px', borderRadius: '20px' }}>
+        <Typography mb="20px" fontSize={'26px'} fontWeight={700}>
+          History
+        </Typography>
+        <History />
       </Box>
     </Stack>
   )
 }
 
-function Portfolio() {
+function History() {
   const { account } = useWeb3React()
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
   const [page, setPage] = useState(1)
@@ -124,6 +131,95 @@ function Portfolio() {
           />
         )}
       </Box>
+    </Box>
+  )
+}
+
+function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
+  const allPoolParams = useRootStore((state) => state.allPoolParams)
+  const theme = useTheme()
+
+  if (!pools) return <></>
+  return (
+    <Box display={'flex'} flexWrap={'wrap'} gap="10px">
+      {Object.keys(pools).map((key: string) => {
+        const pool = pools[+key as keyof typeof pools]
+        const chain = MAINNET_CHAINS[pool.chainId as number]
+        const poolParams = allPoolParams[pool.quantoIndex]
+        if (!poolParams) return null
+        return (
+          <Box
+            flexShrink={0}
+            key={pool.chainId + pool.quantoIndex}
+            sx={{ background: theme.background.third, padding: '20px', borderRadius: '10px' }}
+          >
+            <Box display="flex" alignItems={'center'} gap="10px" mb="10px">
+              <img
+                src={poolParams.logoSource}
+                style={{ height: '22px', width: '22px', borderRadius: '50%', border: '1px solid #666666' }}
+              ></img>
+              <Typography fontWeight={700}>
+                <span style={{ fontWeight: 700, fontSize: '20px' }}>{poolParams.symbol}</span>
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                '> p': { color: theme.text.second, width: '100%', display: 'flex', justifyContent: 'space-between' },
+                '& .points': {
+                  color: '#ffffff',
+                  marginLeft: '10px',
+                  textAlign: 'right',
+                  fontWeight: 700,
+                },
+              }}
+            >
+              {pool.LPAdd && (
+                <Typography>
+                  {getTypes('LPAdd')}:<span className="points">{pool.LPAdd}</span>
+                </Typography>
+              )}
+
+              {pool.TradeLong && (
+                <Typography>
+                  {getTypes('TradeLong')}:<span className="points">{pool.TradeLong}</span>
+                </Typography>
+              )}
+
+              {pool.TradeShort && (
+                <Typography>
+                  {getTypes('TradeShort')}:<span className="points">{pool.TradeShort}</span>
+                </Typography>
+              )}
+            </Box>
+            <Box
+              display={'flex'}
+              alignItems={'center'}
+              gap={'10px'}
+              width="100%"
+              justifyContent={'flex-end'}
+              mt={'10px'}
+              fontSize={'12px'}
+            >
+              <Box
+                height={'15px'}
+                width="15px"
+                sx={{
+                  borderRadius: '50%',
+                  overflow: 'hidden',
+
+                  '& svg': {
+                    height: '100%',
+                    width: '100%',
+                  },
+                }}
+              >
+                {chain.logo}
+              </Box>
+              {chain.name}
+            </Box>
+          </Box>
+        )
+      })}
     </Box>
   )
 }
