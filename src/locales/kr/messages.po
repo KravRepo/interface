@@ -70,7 +70,7 @@ msgstr "주문"
 msgid "Confirm Limit Order"
 msgstr "한도 주문 확인"
 
-msgid "Please wait 24 hours to remove liquidity"
+msgid "Please wait 48-72 hours to remove liquidity"
 msgstr "유동성을 제거하려면 24시간 기다려주세요"
 
 msgid "Statistics"

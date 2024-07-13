@@ -62,7 +62,7 @@ export const SuccessDialog = () => {
               <p style={{ textAlign: 'center' }}>
                 <Trans> Withdraw request confirmed</Trans>
                 <br />
-                <Trans>Please wait 24 hours to remove liquidity</Trans>
+                <Trans>Please wait 48-72 hours to remove liquidity</Trans>
               </p>
             ) : (
               <p>

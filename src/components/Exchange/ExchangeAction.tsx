@@ -53,7 +53,7 @@ export const ExchangeAction = () => {
     setStakeAmount(newValue)
   }
 
-  const tokenSwapContract = useTokenSwap(chainId || ChainId.BASE_TEST)
+  const tokenSwapContract = useTokenSwap(chainId || ChainId.BASE)
 
   const updateError = useUpdateError()
 

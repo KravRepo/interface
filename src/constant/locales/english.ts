@@ -77,7 +77,7 @@ export const ENGLISH = {
   'Stake Krav': 'Stake Krav',
   'Congratulations!': 'Congratulations!',
   'Withdraw request confirmed': 'Withdraw request confirmed',
-  'Please wait 24 hours to remove liquidity': 'Please wait 24 hours to remove liquidity',
+  'Please wait 48-72 hours to remove liquidity': 'Please wait 48-72 hours to remove liquidity',
   'successfully.': 'successfully.',
   Success: 'Success',
   'KRAV - Terms of Service': 'KRAV - Terms of Service',

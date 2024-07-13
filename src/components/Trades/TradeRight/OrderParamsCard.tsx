@@ -159,6 +159,7 @@ export const OrderParamsCard = ({
     )
   }, [tradePool, userPositionDatas])
 
+  console.log('tradePool', tradePool)
   const { account } = useWeb3React()
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
   const testTuple = useMemo(() => {
