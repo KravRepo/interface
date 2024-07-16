@@ -50,13 +50,13 @@ export const PositionItemCard = ({
     } else {
       return new BigNumber(0)
     }
-  }, [position])
+  }, [maxWithdrawAmount, position])
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, position?.pool?.tradingT])
 
   // useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
   const { openDaiLong, openDaiShort } = useGetMarketStats(

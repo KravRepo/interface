@@ -37,7 +37,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const theme = useTheme()
   const { provider } = useWeb3React()
   const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
-  const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(0)
+  const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(new BigNumber(0))
   const [allowRequest, setAllowRequest] = useState(true)
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
@@ -56,7 +56,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
       const maxAmount = eXDecimals(
         lockedAmount?.isGreaterThan(0) ? res : targetPool?.daiDeposited,
         targetPool?.pool?.decimals
-      ).toNumber()
+      )
       setMaxWithdrawAmount(maxAmount || 0)
     }
   }, [liquidityInfo, targetPool])
@@ -66,7 +66,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   }, [provider, liquidityInfo, getPoolBalance])
 
   const handleMaxInput = () => {
-    setWithdrawAmount(maxWithdrawAmount)
+    setWithdrawAmount(maxWithdrawAmount.toFixed())
   }
 
   return (
@@ -146,7 +146,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   <Trans>Pay</Trans>
                 </span>
                 <span>
-                  <Trans>Available</Trans>: {maxWithdrawAmount.toFixed(2)} {liquidityInfo.symbol}
+                  <Trans>Available</Trans>: {maxWithdrawAmount.toFixed(2, 3)} {liquidityInfo.symbol}
                 </span>
               </div>
               <div
