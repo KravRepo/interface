@@ -38,6 +38,7 @@ export const PositionItemCard = ({
   }, [position, userPositionDatas])
 
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
+
   const maxWithdrawAmount = useMemo(() => {
     return position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
   }, [position])

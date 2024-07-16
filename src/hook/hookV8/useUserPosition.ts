@@ -57,7 +57,7 @@ export const useUserPosition = () => {
         const userPositionDatas: UserData[] = []
         allPoolParams.forEach((pool, index) => {
           const positionDetails = {} as UserData
-          const tokenSupplyDecode = decodeCallResult(vaultInterface, 'totalSupply', tokenSupply[index])
+          const tokenSupplyDecode = decodeCallResult(vaultInterface, 'maxDeposit', tokenSupply[index])
           const userAllBalanceDecode = decodeCallResult(tokenInterface, 'balanceOf', userAllBalance[index])
           const userAllBackendDecode = decodeCallResult(vaultInterface, 'balanceOf', userAllBackend[index])
           positionDetails.walletBalance = eXDecimals(userAllBalanceDecode._hex, pool.decimals)

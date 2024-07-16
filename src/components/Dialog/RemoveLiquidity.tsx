@@ -48,6 +48,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const targetPool = useMemo(() => {
     return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
   }, [liquidityInfo, userPositionDatas])
+
   const getPoolBalance = useCallback(() => {
     if (Object.keys(liquidityInfo).length > 0 && targetPool) {
       const res = targetPool?.maxDaiDeposited?.times(liquidityInfo?.maxWithdrawP.div(100) ?? 0)
@@ -472,6 +473,7 @@ function ExistingRequest({
                       <p>{claimCountdown > 0 ? `${cdays}d ${chours}h ${cminutes}m ${cseconds}s` : '00d 00h 00m 00s'}</p>
                     </Typography>
                     <KravButtonHollow
+                      style={{ background: '#2832f5', border: 'none' }}
                       onClick={async () => {
                         await redeemLiquidity(
                           requestedSharesData.claimable.isGreaterThan(withDecimals(daiDeposited, pool?.decimals ?? 18))
