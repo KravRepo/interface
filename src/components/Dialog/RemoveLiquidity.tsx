@@ -401,10 +401,7 @@ function ExistingRequest({
       setRemainingTime(lastEpoch.plus(epochDuration * waitPeriod).toNumber() * 1000)
     }
     if (requestedSharesData.claimableEpoch && lastEpoch.isGreaterThan(0) && currentEpoch) {
-      const gap = requestedSharesData.claimableEpoch
-        .plus(claimableEpochLength - 1)
-        .minus(currentEpoch)
-        .toNumber()
+      const gap = requestedSharesData.claimableEpoch.plus(claimableEpochLength).minus(currentEpoch).toNumber()
       setClaimRemainingTime((lastEpoch.toNumber() + epochDuration * gap) * 1000)
     }
   }, [currentEpoch, epochDuration, lastEpoch, requestedSharesData.claimableEpoch, waitPeriod])
