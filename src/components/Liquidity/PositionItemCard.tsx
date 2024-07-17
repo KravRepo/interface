@@ -40,17 +40,18 @@ export const PositionItemCard = ({
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
 
   const maxWithdrawAmount = useMemo(() => {
-    return position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
-  }, [position])
+    const currentSupply = poolSupply.plus(tokenAmount)
+    const maxWithdraw = eXDecimals(
+      position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)),
+      position.pool.decimals
+    )
 
-  const lockAmount = useMemo(() => {
-    if (position) {
-      const lockedAmount = position.daiDeposited.minus(maxWithdrawAmount)
-      return eXDecimals(lockedAmount.isGreaterThan(0) ? lockedAmount : position.daiDeposited, position.pool.decimals)
+    if (maxWithdraw.isGreaterThan(currentSupply)) {
+      return currentSupply
     } else {
-      return new BigNumber(0)
+      return maxWithdraw ?? new BigNumber(0)
     }
-  }, [maxWithdrawAmount, position])
+  }, [poolSupply, position.maxDaiDeposited, position.pool.decimals, position.pool.maxWithdrawP, tokenAmount])
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
@@ -232,10 +233,10 @@ export const PositionItemCard = ({
                 whitespace: nowrap;
               `}
             >
-              {t`Initial Supply`}
+              {'Cumulative Supply'}
             </span>
             <span>
-              {poolSupply.toFormat(2, 3)}
+              {eXDecimals(position.maxDaiDeposited, position.pool.decimals).toFormat(2, 3)}
               {position.pool.symbol}
             </span>
           </div>
@@ -281,9 +282,7 @@ export const PositionItemCard = ({
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
                 <span css={align}>
-                  {lockAmount.isGreaterThan(0)
-                    ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFormat(2, 3)
-                    : eXDecimals(position.daiDeposited, position.pool.decimals).toFormat(2, 3)}
+                  {maxWithdrawAmount.toFormat(2, 3)}
                   {position.pool.symbol}
                 </span>
               </>
