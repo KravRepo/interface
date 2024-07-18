@@ -95,8 +95,9 @@ const FullApp = () => {
             <Routes>
               <Route path="/" element={<Greeting />} />
               <Route path={'/trade'} element={<Trade />} />
-              <Route path={'/trade/:referral'} element={<Trade />} />
+              <Route path={'/trade/:token'} element={<Trade />} />
               <Route path={'/liquidity'} element={<Liquidity />} />
+              <Route path={'/liquidity/:token'} element={<Liquidity />} />
               <Route path={'/portfolio'} element={<Home />} />
               {/* <Route path={'/points'} element={<Points />} /> */}
               <Route path={'/portfolio/stake'} element={<HomeStake />} />

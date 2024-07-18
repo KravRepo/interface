@@ -21,6 +21,7 @@ export const TargetMarket = ({
   setRemoveLiquidity,
   aprList,
   isTable,
+  selectedPool,
 }: TargetMarketProps) => {
   const theme = useTheme()
   const { allPoolParams, setWalletDialogVisibility } = useRootStore((store) => ({
@@ -42,8 +43,17 @@ export const TargetMarket = ({
         apr: aprList[index]?.apr.toFixed(2),
       }
     })
-    return res
-  }, [allPoolParams, aprList])
+    let selected = null
+    const reorder = res.filter((p) => {
+      if (p.symbol === selectedPool) {
+        selected = p
+        return false
+      }
+      return true
+    })
+    reorder.unshift(...(selected ? [selected] : []))
+    return reorder
+  }, [allPoolParams, aprList, selectedPool])
 
   const reorderClick = useCallback(
     (sort: 'asc' | 'desc', way: string) => {

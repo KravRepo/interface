@@ -161,11 +161,9 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   margin-bottom: 20px;
                 `}
               >
+                <span>Withdraw</span>
                 <span>
-                  <Trans>Pay</Trans>
-                </span>
-                <span>
-                  <Trans>Available</Trans>: {maxWithdrawAmount.toFixed(2, 3)} {liquidityInfo.symbol}
+                  <Trans>limit</Trans>: {maxWithdrawAmount.toFixed(2, 3)} {liquidityInfo.symbol}
                 </span>
               </div>
               <div
