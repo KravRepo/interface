@@ -8,7 +8,7 @@ import KRAVButton from '../KravUIKit/KravButton'
 import { RemoveLiquidityProps } from '../Liquidity/type'
 import { useRedeemLiquidity, useRemoveLiquidity } from '../../hook/hookV8/useRemoveLiquidity'
 import { useRootStore } from '../../store/root'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
@@ -27,6 +27,7 @@ import { PoolParams } from '../../store/FactorySlice'
 import KravButtonHollow from '../KravUIKit/KravButtonHollow'
 import { Trans, t } from '@lingui/macro'
 import { useCountDown } from 'ahooks'
+import { usePnl } from '../../hook/hookV8/usePnl'
 
 const StyledBox = styled(Box)(() => ({
   borderBottom: '1px solid var(--ps-text-20)',
@@ -35,35 +36,53 @@ const StyledBox = styled(Box)(() => ({
 
 export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => {
   const theme = useTheme()
-  const { provider } = useWeb3React()
   const [withdrawAmount, setWithdrawAmount] = useState<string | number>('')
-  const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(new BigNumber(0))
+  // const [maxWithdrawAmount, setMaxWithdrawAmount] = useState(new BigNumber(0))
   const [allowRequest, setAllowRequest] = useState(true)
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const getUserPosition = useUserPosition()
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   const updateFactory = useFactory()
+  const { tokenAmount } = usePnl(liquidityInfo.vaultT)
 
   const targetPool = useMemo(() => {
     return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)
   }, [liquidityInfo, userPositionDatas])
 
-  const getPoolBalance = useCallback(() => {
-    if (Object.keys(liquidityInfo).length > 0 && targetPool) {
-      const res = targetPool?.maxDaiDeposited?.times(liquidityInfo?.maxWithdrawP.div(100) ?? 0)
-      const lockedAmount = targetPool?.daiDeposited?.minus(res)
-      const maxAmount = eXDecimals(
-        lockedAmount?.isGreaterThan(0) ? res : targetPool?.daiDeposited,
-        targetPool?.pool?.decimals
-      )
-      setMaxWithdrawAmount(maxAmount || 0)
-    }
-  }, [liquidityInfo, targetPool])
+  const maxWithdrawAmount = useMemo(() => {
+    if (!targetPool) return new BigNumber(0)
+    const supply = targetPool?.daiDeposited ?? new BigNumber(0)
+    const poolSupply = eXDecimals(supply, targetPool.pool.decimals)
+    const position = targetPool
+    const currentSupply = poolSupply.plus(tokenAmount)
+    const maxWithdraw = eXDecimals(
+      position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)),
+      position.pool.decimals
+    )
 
-  useEffect(() => {
-    getPoolBalance()
-  }, [provider, liquidityInfo, getPoolBalance])
+    if (maxWithdraw.isGreaterThan(currentSupply)) {
+      return currentSupply
+    } else {
+      return maxWithdraw ?? new BigNumber(0)
+    }
+  }, [targetPool, tokenAmount])
+
+  // const getPoolBalance = useCallback(() => {
+  //   if (Object.keys(liquidityInfo).length > 0 && targetPool) {
+  //     const res = targetPool?.maxDaiDeposited?.times(liquidityInfo?.maxWithdrawP.div(100) ?? 0)
+  //     const lockedAmount = targetPool?.daiDeposited?.minus(res)
+  //     const maxAmount = eXDecimals(
+  //       lockedAmount?.isGreaterThan(0) ? res : targetPool?.daiDeposited,
+  //       targetPool?.pool?.decimals
+  //     )
+  //     setMaxWithdrawAmount(maxAmount || 0)
+  //   }
+  // }, [liquidityInfo, targetPool])
+
+  // useEffect(() => {
+  //   getPoolBalance()
+  // }, [provider, liquidityInfo, getPoolBalance])
 
   const handleMaxInput = () => {
     setWithdrawAmount(maxWithdrawAmount.toFixed())
@@ -376,6 +395,8 @@ function ExistingRequest({
     return wait
   }, [requestEc])
 
+  useEffect(() => {}, [])
+
   useEffect(() => {
     const currentStart = lastEpoch.times(1000)
     //TODO: currentEpoch is null
@@ -405,7 +426,21 @@ function ExistingRequest({
       const gap = requestedSharesData.claimableEpoch.plus(claimableEpochLength).minus(currentEpoch).toNumber()
       setClaimRemainingTime((lastEpoch.toNumber() + epochDuration * gap) * 1000)
     }
-  }, [currentEpoch, epochDuration, lastEpoch, requestedSharesData.claimableEpoch, waitPeriod])
+    if (
+      (requestedSharesData.claimableEpoch && requestedSharesData.claimableEpoch.gt(0)) ||
+      (requestedSharesData.pending && requestedSharesData.pending.gt(0))
+    ) {
+      setAllowRequest(false)
+    }
+  }, [
+    currentEpoch,
+    epochDuration,
+    lastEpoch,
+    requestedSharesData.claimableEpoch,
+    requestedSharesData.pending,
+    setAllowRequest,
+    waitPeriod,
+  ])
 
   if (!existingRequestLength && requestedSharesData.claimable?.eq(0)) {
     return null
