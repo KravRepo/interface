@@ -114,6 +114,7 @@ export const YourPosition = ({
             positionDatas.map((position, index) => {
               return (
                 <PositionItemCard
+                  selected={position.pool.symbol === selectedPool}
                   key={position.pool?.tradingT + index}
                   position={position}
                   setAddLiquidity={setAddLiquidity}

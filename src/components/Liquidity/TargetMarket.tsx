@@ -73,7 +73,7 @@ export const TargetMarket = ({
     },
     [tableData]
   )
-  /** */
+
   return (
     <div
       className="liquidity-content"
@@ -260,6 +260,7 @@ export const TargetMarket = ({
             tableData.map((pool, index) => {
               return (
                 <MarketItemCard
+                  selected={selectedPool === pool.symbol}
                   key={pool.tradingT + index}
                   setAddLiquidity={setAddLiquidity}
                   setRemoveLiquidity={setRemoveLiquidity}

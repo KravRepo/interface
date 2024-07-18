@@ -23,6 +23,7 @@ export const PositionItemCard = ({
   setRemoveLiquidity,
   aprList,
   kTokenAddress,
+  selected,
 }: PositionItemProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -75,6 +76,13 @@ export const PositionItemCard = ({
           border: ${theme.splitLine.primary};
         `,
       ]}
+      style={
+        selected
+          ? {
+              borderColor: '#2832F5',
+            }
+          : {}
+      }
     >
       <div
         className="card-title"

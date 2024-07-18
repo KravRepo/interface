@@ -19,7 +19,7 @@ export const DialogLayout = ({ isOpen, setIsOpen, children }: DialogLayoutProps)
             '.MuiDialog-paper': {
               width: '440px',
               borderRadius: '8px',
-              background: theme.background.primary,
+              background: theme.background.second,
             },
           }}
           open={isOpen}
