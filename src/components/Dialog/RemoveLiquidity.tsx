@@ -163,7 +163,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
               >
                 <span>Withdraw</span>
                 <span>
-                  <Trans>limit</Trans>: {maxWithdrawAmount.toFixed(2, 3)} {liquidityInfo.symbol}
+                  Limit: {maxWithdrawAmount.toFixed(2, 3)} {liquidityInfo.symbol}
                 </span>
               </div>
               <div
