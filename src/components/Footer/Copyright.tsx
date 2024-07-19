@@ -5,6 +5,7 @@ import { ReactComponent as KravLogo } from '../../assets/imgs/krav_logo.svg'
 import { Link, useMediaQuery, useTheme } from '@mui/material'
 import { ReactComponent as Twitter } from '../../assets/imgs/twitter.svg'
 import { ReactComponent as Medium } from '../../assets/imgs/medium.svg'
+import { ReactComponent as Discord } from '../../assets/imgs/discord.svg'
 import TelegramIcon from '@mui/icons-material/Telegram'
 
 export const Copyright = () => {
@@ -40,15 +41,17 @@ export const Copyright = () => {
       )}
 
       <div className="social">
-        {/*<Discord*/}
-        {/*  height="24"*/}
-        {/*  width="24"*/}
-        {/*  css={css`*/}
-        {/*    padding: 2px;*/}
-        {/*    margin-right: 16px;*/}
-        {/*  `}*/}
-        {/*/>*/}
-        <Link underline="none" sx={{ color: theme.text.primary }} href="https://twitter.com/kravtrade">
+        <Link underline="none" sx={{ color: theme.text.primary }} href=" https://discord.gg/bcKJuwz4fJ" target="_blank">
+          <Discord
+            height="24"
+            width="24"
+            css={css`
+              padding: 2px;
+              margin-right: 16px;
+            `}
+          />
+        </Link>
+        <Link underline="none" sx={{ color: theme.text.primary }} href="https://twitter.com/kravtrade" target="_blank">
           <Twitter
             height="24"
             width="24"
@@ -58,7 +61,7 @@ export const Copyright = () => {
             `}
           />
         </Link>
-        <Link underline="none" sx={{ color: theme.text.primary }} href="https://medium.com/kravtrade">
+        <Link underline="none" sx={{ color: theme.text.primary }} href="https://medium.com/kravtrade" target="_blank">
           <Medium
             className="medium"
             height="24"
@@ -68,7 +71,7 @@ export const Copyright = () => {
             `}
           />
         </Link>
-        <Link underline="none" sx={{ color: theme.text.primary }} href="https://t.me/kravtrade">
+        <Link underline="none" sx={{ color: theme.text.primary }} href="https://t.me/kravtrade" target="_blank">
           <TelegramIcon
             className="medium"
             height="24"

@@ -11,6 +11,7 @@ export type YourPositionProps = {
   isLoadingUserPosition: boolean
   aprList: AprList[]
   isTable: boolean
+  selectedPool?: string
 }
 
 export type TargetMarketProps = {
@@ -19,6 +20,7 @@ export type TargetMarketProps = {
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   aprList: AprList[]
   isTable: boolean
+  selectedPool?: string
 }
 
 export type ConfirmCreatPoolProps = {
@@ -55,6 +57,7 @@ export type PositionItemProps = {
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   aprList: AprList[]
   kTokenAddress?: string
+  selected?: boolean
 }
 
 export type MarketItemProps = {
@@ -62,4 +65,5 @@ export type MarketItemProps = {
   setRemoveLiquidity: Dispatch<SetStateAction<boolean>>
   poolParams: PoolParams
   aprList: AprList[]
+  selected?: boolean
 }

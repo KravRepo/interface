@@ -12,7 +12,13 @@ import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
 import { t } from '@lingui/macro'
 import { usePnl } from '../../hook/hookV8/usePnl'
 
-export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams, aprList }: MarketItemProps) => {
+export const MarketItemCard = ({
+  setAddLiquidity,
+  setRemoveLiquidity,
+  poolParams,
+  aprList,
+  selected,
+}: MarketItemProps) => {
   const theme = useTheme()
   const { account } = useWeb3React()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -46,6 +52,13 @@ export const MarketItemCard = ({ setAddLiquidity, setRemoveLiquidity, poolParams
           border: ${theme.splitLine.primary};
         `,
       ]}
+      style={
+        selected
+          ? {
+              boxShadow: '0 0 10px 5px #2832F5',
+            }
+          : {}
+      }
     >
       <div
         className="card-title"

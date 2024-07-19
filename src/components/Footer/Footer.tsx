@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { doc, mobileTabs } from './style'
 // import { ReactComponent as Github } from 'assets/imgs/github.svg'
-// import { ReactComponent as Discord } from 'assets/imgs/discord.svg'
 import { css } from '@emotion/react'
 import { Link, useMediaQuery, useTheme } from '@mui/material'
 
@@ -102,7 +101,9 @@ export const Footer = () => {
               <Link underline="none" sx={{ color: theme.text.primary }} href="https://twitter.com/kravtrade">
                 <p>Twitter</p>
               </Link>
-              {/*<p>Discord</p>*/}
+              <Link underline="none" sx={{ color: theme.text.primary }} href="https://t.me/kravtrade">
+                <p>Discord</p>
+              </Link>
             </div>
           </div>
         </div>

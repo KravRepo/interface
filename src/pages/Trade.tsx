@@ -5,9 +5,9 @@ import { TradeRight } from '../components/Trades/TradeRight'
 import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import { useRootStore } from '../store/root'
-import { useLocation } from 'react-router-dom'
-import { VALIDITY_ADDRESS_LENGTH } from '../constant/math'
-import { decodeReferral } from '../utils'
+import { useNavigate, useParams } from 'react-router-dom'
+// import { VALIDITY_ADDRESS_LENGTH } from '../constant/math'
+// import { decodeReferral } from '../utils'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { MyTrade } from '../components/Trades/TradeLeft/MyTrade'
 import TradeTop from '../components/Trades/TradeTop'
@@ -20,20 +20,37 @@ export const Trade = () => {
   const [slPrice, setSlPrice] = useState<string | BigNumber>('')
   const [tradeType, setTradeType] = useState(0)
   const BTCPrice = useRootStore((state) => state.BTCPrice)
+  const pools = useRootStore((state) => state.allPoolParams)
+  const setTradePool = useRootStore((state) => state.setTradePool)
+  const tradePool = useRootStore((state) => state.tradePool)
   const [limitPrice, setLimitPrice] = useState<string | BigNumber>(BTCPrice)
-  const { pathname } = useLocation()
+  const { token: tokenSymbol } = useParams()
   const theme = useTheme()
+  const navigate = useNavigate()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
+  // useEffect(() => {
+  //   const referralBase64Str = pathname.split('/').length > 2 ? pathname.split('/')[2] : null
+  //   if (referralBase64Str) {
+  //     const referral = decodeReferral(referralBase64Str)
+  //     // TODO Check is a account address
+  //     if (referral.length === VALIDITY_ADDRESS_LENGTH) {
+  //       localStorage.setItem('krav-referral', referralBase64Str)
+  //     }
+  //   }
+  // }, [pathname])
+
   useEffect(() => {
-    const referralBase64Str = pathname.split('/').length > 2 ? pathname.split('/')[2] : null
-    if (referralBase64Str) {
-      const referral = decodeReferral(referralBase64Str)
-      // TODO Check is a account address
-      if (referral.length === VALIDITY_ADDRESS_LENGTH) {
-        localStorage.setItem('krav-referral', referralBase64Str)
+    if (tokenSymbol) {
+      const pool = pools.find((p) => p.symbol.toLocaleLowerCase() === tokenSymbol.toLocaleLowerCase())
+      if (pool) {
+        setTradePool(pool)
       }
     }
-  }, [pathname])
+  }, [pools, setTradePool, tokenSymbol])
+
+  useEffect(() => {
+    navigate('/trade/' + tradePool.symbol)
+  }, [navigate, tradePool])
 
   return (
     <div

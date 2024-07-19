@@ -33,7 +33,6 @@ export const useGetLpReward = (
     }
   }, [balance?.result, pnlPerToken?.result])
 
-  // console.log(2222122, { pnlPerToken, balance })
   // return useCallback(
   //   async (setLpReward: Dispatch<React.SetStateAction<BigNumber>>) => {
   //     try {
