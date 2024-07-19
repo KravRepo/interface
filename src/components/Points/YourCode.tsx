@@ -14,16 +14,25 @@ export default function YourCode({ referralData }: { referralData: referralInitD
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
+          justifyContent: 'space-between',
         }}
       >
-        <Typography fontWeight={700} fontSize={'20px'}>
-          My Referral Code:{' '}
-        </Typography>
-        <Typography fontSize={'30px'} component={'span'}>
-          {' '}
-          {referralData?.code}
-        </Typography>
-        <Copy toCopy={referralData?.code} />
+        <Stack>
+          <Typography>Earn 12% when your friends earn, and 5% when their friends earn! </Typography>
+          <Box display={'flex'} gap="10px" alignItems={'center'} width={'100%'}>
+            <Typography fontWeight={700} fontSize={'20px'}>
+              My Referral Code:{' '}
+            </Typography>
+            <Typography fontSize={'30px'} component={'span'}>
+              {' '}
+              {referralData?.code}
+            </Typography>
+            <Copy toCopy={referralData?.code} />
+          </Box>{' '}
+        </Stack>
+        {/* <Typography textAlign={'right'} whiteSpace={'nowrap'}>
+          &quot;Turn your friends into revenue&quot; - CZ
+        </Typography> */}
       </Box>
     </Stack>
   )
