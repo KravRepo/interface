@@ -28,7 +28,6 @@ export default function Gate({
   return (
     <DialogLayout isOpen={isOpen} setIsOpen={() => {}} blurBackdrop>
       <>
-        (
         <div
           css={[
             dialogContent,
@@ -109,7 +108,6 @@ export default function Gate({
             <MarqueeTop />
           </div>
         </div>
-        )
       </>
     </DialogLayout>
   )
