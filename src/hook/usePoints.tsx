@@ -142,7 +142,6 @@ export function usePoints() {
         const points = await request.json()
         if (points.code == 200) {
           const list = (points.data.pools as PointsPoolsRaw[])?.reduce((acc, i, idx) => {
-            console.log(idx, 'reduce')
             if (acc[i.quantoIndex]) {
               acc[i.quantoIndex][i.types] = i.point
             } else {
@@ -151,7 +150,6 @@ export function usePoints() {
             }
             return acc
           }, {} as any)
-          console.log({ list, raw: points.data.pools })
           setPoints({ ...points.data, pools: list })
         }
       } catch (e) {}

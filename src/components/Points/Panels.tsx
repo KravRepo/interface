@@ -54,10 +54,10 @@ export default function PointsPanels() {
         <Typography>
           Earn Points for Trading and Liquidity Provision on KRAV! Maximize your rewards with exclusive multipliers for
           select tokens. <br />
-          Check
+          Check{' '}
           <Typography component="a" href="" sx={{ color: '#ffffff' }} target="_blank">
             Medium
-          </Typography>
+          </Typography>{' '}
           for more details
         </Typography>
       </Box>

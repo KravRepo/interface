@@ -6,9 +6,10 @@ type DialogLayoutProps = {
   isOpen: boolean
   setIsOpen: (isOpenSelectToken: boolean) => void
   children: JSX.Element
+  blurBackdrop?: boolean
 }
 
-export const DialogLayout = ({ isOpen, setIsOpen, children }: DialogLayoutProps) => {
+export const DialogLayout = ({ isOpen, setIsOpen, children, blurBackdrop }: DialogLayoutProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   return (
@@ -19,8 +20,18 @@ export const DialogLayout = ({ isOpen, setIsOpen, children }: DialogLayoutProps)
             '.MuiDialog-paper': {
               width: '440px',
               borderRadius: '8px',
-              background: theme.background.primary,
+              background: theme.background.second,
             },
+            ...(blurBackdrop
+              ? {
+                  top: '68px',
+                  '.MuiModal-backdrop': {
+                    backdropFilter: ' blur(10px)',
+                    mt: '68px',
+                    background: theme.background.primary + '50',
+                  },
+                }
+              : {}),
           }}
           open={isOpen}
         >
