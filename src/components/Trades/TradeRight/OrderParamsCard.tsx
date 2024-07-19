@@ -490,7 +490,7 @@ export const OrderParamsCard = ({
                     <TextField
                       variant="standard"
                       type="number"
-                      value={positionSizeDai.toFormat(inputDAIDecimals)}
+                      value={positionSizeDai.toFixed(inputDAIDecimals)}
                       onChange={handlePositionDAIInput}
                       InputProps={{
                         disableUnderline: true,
