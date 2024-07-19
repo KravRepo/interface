@@ -163,7 +163,8 @@ export const PositionItemCard = ({
                 color: #2832f5;
               `}
             >
-              {poolSupply.plus(tokenAmount).toFormat(2, 3)}
+              {/* {poolSupply.plus(tokenAmount).toFormat(2, 3)} */}
+              {poolSupply.toFormat(2, 3)}
             </span>
             <div
               css={css`
