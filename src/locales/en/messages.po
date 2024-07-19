@@ -76,8 +76,8 @@ msgstr "Orders"
 msgid "Confirm Limit Order"
 msgstr "Confirm Limit Order"
 
-msgid "Please wait 24 hours to remove liquidity"
-msgstr "Please wait 24 hours to remove liquidity"
+msgid "Please wait 48-72 hours to remove liquidity"
+msgstr "Please wait 48-72 hours to remove liquidity"
 
 msgid "Statistics"
 msgstr "Statistics"

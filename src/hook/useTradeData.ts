@@ -121,7 +121,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   ])
 
   useEffect(() => {
-    // console.log('ktoken', tradePool.vaultT);
+    // console.log('ktoken', tradePool.vaultT)
     // console.log('trading', tradePool.tradingT);
     // console.log('storage', tradePool.storageT);
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')

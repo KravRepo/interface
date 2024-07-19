@@ -74,7 +74,7 @@ msgstr "订单"
 msgid "Confirm Limit Order"
 msgstr "确认限价订单"
 
-msgid "Please wait 24 hours to remove liquidity"
+msgid "Please wait 48-72 hours to remove liquidity"
 msgstr "请等待24小时以移除流动性"
 
 msgid "Statistics"
