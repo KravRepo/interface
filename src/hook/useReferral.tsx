@@ -34,7 +34,8 @@ export const useReferral = () => {
   const verifyReferral = useCallback(
     async (inviteCode: string) => {
       if (!provider) return
-      const message = 'Welcome to Krav RAVE Points'
+      const message = "Welcome to K-PointsWelcome to Krav's K-Points Program! Trade or LP and start earning today!"
+
       try {
         setErrorStr('')
         const sign = await provider.getSigner().signMessage(message)

@@ -90,7 +90,7 @@ const StyledTableHead = styled(TableHead)(({ theme }) => ({
   },
 }))
 
-const StyledTableRow = styled(TableRow, { shouldForwardProp: () => true })<{
+const StyledTableRow = styled(TableRow, { shouldForwardProp: (p) => p !== 'highlight' })<{
   variant: 'outlined' | 'grey'
   fontSize?: string
 }>(({ variant, theme, fontSize }) => ({

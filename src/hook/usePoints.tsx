@@ -40,6 +40,7 @@ export interface PointsPools {
   LPAdd: string
   TradeLong: string
   TradeShort: string
+  Invite?: string
 }
 
 export const getTypes = (str: string) => {
@@ -52,12 +53,14 @@ export const getTypes = (str: string) => {
       return 'Long'
     case 'TradeShort':
       return 'Short'
+    case 'Invite':
+      return 'Referral'
     default:
       return ''
   }
 }
 
-export const PAGE_SIZE = 20
+export const PAGE_SIZE = 10
 
 export function usePointsList(curPage: number) {
   const { account } = useWeb3React()
@@ -70,7 +73,7 @@ export function usePointsList(curPage: number) {
     const getPoints = async () => {
       try {
         const request = await fetch(
-          API_BASE + `/point/record/list?account=${account}&offset=${(curPage - 1) * PAGE_SIZE}&limit=${20}`,
+          API_BASE + `/point/record/list?account=${account}&offset=${(curPage - 1) * PAGE_SIZE}&limit=${PAGE_SIZE}`,
           {}
         )
         const points = await request.json()
