@@ -14,7 +14,7 @@ import {
 import { useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import useBreakpoint from '../../hook/useBreakpoints'
+import useBreakpoint from '../../../hook/useBreakpoints'
 
 // import { visuallyHidden } from '@mui/utils'
 
@@ -225,7 +225,7 @@ export default function Table({
                     >
                       {headerString}
                     </Typography>
-                    <Typography component="div">{data[index] ?? null}</Typography>
+                    <Typography component="div">{data[index + 1] ?? null}</Typography>
                     {collapsible && index + 1 === header.length && (
                       <IconButton
                         aria-label="expand row"
@@ -332,20 +332,28 @@ function Row({
         fontSize={fontSize}
         variant={variant}
         sx={
-          isOpen
-            ? {
-                // borderBottomLeftRadius: 0,
-                // borderBottomRightRadius: 0,
-                // '& .MuiTableCell-root': {
-                //   '&:first-of-type': { borderBottomLeftRadius: 0 },
-                //   '&:last-child': { borderBottomRightRadius: 0 },
-                // },
-              }
-            : undefined
+          // isOpen
+          //   ? {
+          //       // borderBottomLeftRadius: 0,
+          //       // borderBottomRightRadius: 0,
+          //       // '& .MuiTableCell-root': {
+          //       //   '&:first-of-type': { borderBottomLeftRadius: 0 },
+          //       //   '&:last-child': { borderBottomRightRadius: 0 },
+          //       // },
+          //     }
+          //   : undefined,{}
+          row[0] === 'Invite' ? { background: '#2832F5' } : {}
         }
       >
-        {row.map((data, idx) => (
-          <TableCell key={idx}>{data}</TableCell>
+        {row.slice(1).map((data, idx) => (
+          <TableCell
+            key={idx}
+            sx={{
+              color: row[0] === 'LPRemove' && idx === 6 ? 'red' : '',
+            }}
+          >
+            {data}
+          </TableCell>
         ))}
         {collapsible && (
           <TableCell>

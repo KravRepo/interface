@@ -4,6 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../store/root'
 import { Box, Skeleton } from '@mui/material'
 import { MAINNET_CHAINS } from '../connectors/chain'
+import { ReactComponent as Parachute } from '../assets/points/parashute.svg'
 
 export interface PointListData {
   account: string
@@ -15,8 +16,9 @@ export interface PointListData {
   point: string
   quantoIndex: number
   timestamp: number
-  types: 'LPAdd' | 'LPRemove' | 'TradeLong' | 'TradeShort'
+  types: 'LPAdd' | 'LPRemove' | 'TradeLong' | 'TradeShort' | 'Invite'
   volumeInETH: string
+  leverageMultiplier: number
 }
 
 interface PointsData {
@@ -62,6 +64,8 @@ export const getTypes = (str: string) => {
 
 export const PAGE_SIZE = 10
 
+export const PARTNER_SYMBOL_LIST: string[] = ['0x04D5ddf5f3a8939889F11E97f8c4BB48317F1938']
+
 export function usePointsList(curPage: number) {
   const { account } = useWeb3React()
   const allPoolParams = useRootStore((state) => state.allPoolParams)
@@ -77,11 +81,15 @@ export function usePointsList(curPage: number) {
           {}
         )
         const points = await request.json()
+
         if (points.code == 200) {
           const list = points.data.map((data: PointListData) => {
             const pool = allPoolParams[data.quantoIndex]
             const chain = MAINNET_CHAINS[data.chainId as number]
+            // const isPartner = PARTNER_SYMBOL_LIST.includes(pool.tokenT)
+            const isLiquidated = !!data.closeTime
             return [
+              data.types,
               pool ? (
                 <Box key={data.timestamp} display="flex" alignItems={'center'} gap="10px">
                   <img src={pool.logoSource} style={{ height: '20px', width: '20px', borderRadius: '50%' }}></img>
@@ -92,7 +100,27 @@ export function usePointsList(curPage: number) {
                 <Skeleton variant="rectangular" width={'100%'} height={'20px'} />
               ),
               new Date(data.timestamp * 1000).toLocaleString(),
-              <span key={data.timestamp + data.multiplier}>x{data.multiplier}</span>,
+              <div key={data.timestamp + data.multiplier}>
+                <>
+                  <span
+                    style={{
+                      color: isLiquidated ? '#E4AF53' : '#ffffff',
+                    }}
+                  >
+                    x{data.multiplier}
+                  </span>
+                  {isLiquidated && <Parachute style={{ height: '18px', width: '18px' }} />}
+                </>
+              </div>,
+              <div key={data.timestamp + data.leverageMultiplier}>
+                {data.leverageMultiplier ? (
+                  <>
+                    <span>x{data.leverageMultiplier}</span>
+                  </>
+                ) : (
+                  '-'
+                )}
+              </div>,
               data.volumeInETH,
               chain ? (
                 <Box display={'flex'} alignItems={'center'} gap={'10px'}>
@@ -115,7 +143,7 @@ export function usePointsList(curPage: number) {
                 </Box>
               ) : null,
               data.point,
-              data.closeTime ? new Date(data.closeTime * 1000).toLocaleString() : null,
+              isLiquidated ? new Date(data.closeTime * 1000).toLocaleString() : null,
             ]
           })
           setPointsList(list)

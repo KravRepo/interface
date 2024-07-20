@@ -57,7 +57,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
     const position = targetPool
     const currentSupply = poolSupply.plus(tokenAmount)
     const maxWithdraw = eXDecimals(
-      position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)),
+      position?.maxDaiDeposited?.times(position.pool.maxWithdrawP.div(100)),
       position.pool.decimals
     )
 

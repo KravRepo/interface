@@ -1,11 +1,11 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, Tooltip, Typography, useTheme } from '@mui/material'
 import { ReactComponent as AlertIcon } from '../../assets/imgs/alert.svg'
 import { t } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import KRAVButton from '../KravUIKit/KravButton'
 import { useRootStore } from '../../store/root'
 import { PointsPools, usePoints, usePointsList } from '../../hook/usePoints'
-import Table from '../Table'
+import Table from './Table'
 import PaginationView from '../Pagination'
 import { useMemo, useState } from 'react'
 import { MAINNET_CHAINS } from '../../connectors/chain'
@@ -67,7 +67,7 @@ export default function PointsPanels() {
         </Typography>
         <Portfolio pools={points?.pools} />
       </Box>
-      <Box sx={{ background: theme.background.third, padding: '20px', borderRadius: '20px' }}>
+      <Box sx={{ background: theme.background.second, padding: '20px', borderRadius: '20px' }}>
         <Typography mb="20px" fontSize={'26px'} fontWeight={700}>
           History
         </Typography>
@@ -85,10 +85,14 @@ function History() {
   const theme = useTheme()
   return (
     <Box>
-      <Box sx={{ background: theme.background.second }} borderRadius={'10px'}>
-        <Typography padding="24px">
-          <b>Note:</b> Candies are distributed every 24 hours if a user is in the pool for the entire epoch. Rollies are
-          earned immediately upon opening a trade
+      <Box sx={{ background: theme.background.third }} borderRadius={'10px'}>
+        <Typography padding="15px 20px 20px" mb="24px">
+          <b>Note:</b> <br />
+          Candies are distributed every 24 hours if a user is in the pool for the entire epoch. Rollies are earned
+          immediately upon opening a trade.
+          <br /> <span> Events in blue are earned from referrals.</span>
+          <br />
+          <span> Golden parachutes indicate a liquidation bonus on the trading multiplier.</span>
         </Typography>
       </Box>
       <Box>
@@ -117,7 +121,8 @@ function History() {
               header={[
                 t`EARNING EVENTS`,
                 t`DATE OPENED`,
-                t`MULTIPLIER`,
+                `TOKEN BOOST`,
+                'TRADING BOOST',
                 t`VOLUME (ETH)`,
                 t`CHAIN`,
                 t`POINTS EARNED`,
@@ -187,8 +192,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
                 '> p': { color: theme.text.second, width: '100%', display: 'flex', justifyContent: 'space-between' },
                 '& .points': {
                   color: '#ffffff',
-                  marginLeft: '10px',
-                  textAlign: 'right',
+                  textAlign: 'left',
                   fontWeight: 700,
                 },
               }}
@@ -201,10 +205,28 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
               )}
 
               {pool.TradeLong && pool.TradeShort && (
-                <Typography>
-                  <span className="points">{+pool.TradeLong + +pool.TradeShort} </span>
-                  <span style={{ marginLeft: '10px' }}>ROLLIES</span>
-                </Typography>
+                <Tooltip
+                  key={key}
+                  title={`${+pool.TradeLong > 0 ? 'Long:' + pool.TradeLong : ''} ${
+                    +pool.TradeShort > 0 ? 'Short:' + pool.TradeShort : ''
+                  }`}
+                  sx={{
+                    cursor: 'default',
+                  }}
+                  slotProps={{
+                    tooltip: {
+                      sx: {
+                        cursor: 'default',
+                        backgroundColor: theme.background.third,
+                      },
+                    },
+                  }}
+                >
+                  <Typography>
+                    <span className="points">{+pool.TradeLong + +pool.TradeShort} </span>
+                    <span style={{ marginLeft: '10px' }}>ROLLIES</span>
+                  </Typography>
+                </Tooltip>
               )}
             </Box>
             <Box
@@ -237,7 +259,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
         )
       })}
       {referralPoints > 0 && (
-        <Box flexShrink={0} sx={{ background: theme.background.third, padding: '20px', borderRadius: '10px' }}>
+        <Box flexShrink={0} sx={{ background: '#2832F5', padding: '20px', borderRadius: '10px' }}>
           <Box display="flex" alignItems={'center'} gap="10px" mb="10px">
             <Typography fontWeight={700}>
               <span style={{ fontWeight: 700, fontSize: '20px' }}>Referral Points</span>
