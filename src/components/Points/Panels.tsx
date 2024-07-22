@@ -88,11 +88,12 @@ function History() {
       <Box sx={{ background: theme.background.third }} borderRadius={'10px'}>
         <Typography padding="15px 20px 20px" mb="24px">
           <b>Note:</b> <br />
-          Candies are distributed every 24 hours if a user is in the pool for the entire epoch. Rollies are earned
-          immediately upon opening a trade.
+          Candies are distributed every 24 hours if a user is in the pool for the entire epoch.
+          <br />
+          Rollies are earned immediately upon opening a trade.
           <br /> <span> Events in blue are earned from referrals.</span>
           <br />
-          <span> Golden parachutes indicate a liquidation bonus on the trading multiplier.</span>
+          <span>Golden parachutes indicate a liquidation bonus on the trading multiplier.</span>
         </Typography>
       </Box>
       <Box>
@@ -120,13 +121,12 @@ function History() {
             <Table
               header={[
                 t`EARNING EVENTS`,
-                t`DATE OPENED`,
+                `DATE RECORDED`,
                 `TOKEN BOOST`,
                 'TRADING BOOST',
                 t`VOLUME (ETH)`,
                 t`CHAIN`,
                 t`POINTS EARNED`,
-                t`DATE CLOSED`,
               ]}
               rows={pointsList}
             />
@@ -166,11 +166,16 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
     <Box display={'flex'} flexWrap={'wrap'} gap="10px">
       {Object.keys(pools).map((key: string) => {
         const pool = pools[+key as keyof typeof pools]
-        if (+pool.LPAdd + +pool.TradeLong + +pool.TradeShort == 0) {
+        const tradeL = +(pool.TradeLong !== undefined ? pool.TradeLong : '0')
+        const tradeS = +(pool.TradeShort !== undefined ? pool.TradeShort : '0')
+        const LPAdd = +(pool.LPAdd !== undefined ? pool.LPAdd : '0')
+
+        if (tradeL + tradeS + LPAdd == 0) {
           return null
         }
         const chain = MAINNET_CHAINS[pool.chainId as number]
         const poolParams = allPoolParams[pool.quantoIndex]
+        console.log(pool, poolParams.symbol)
         if (!poolParams) return null
         return (
           <Box
@@ -197,19 +202,17 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
                 },
               }}
             >
-              {pool.LPAdd && (
+              {!!LPAdd && (
                 <Typography>
-                  <span className="points">{pool.LPAdd} </span>
+                  <span className="points">{LPAdd}</span>
                   <span style={{ marginLeft: '10px' }}>CANDIES</span>
                 </Typography>
               )}
 
-              {pool.TradeLong && pool.TradeShort && (
+              {(!!tradeL || !!tradeS) && (
                 <Tooltip
                   key={key}
-                  title={`${+pool.TradeLong > 0 ? 'Long:' + pool.TradeLong : ''} ${
-                    +pool.TradeShort > 0 ? 'Short:' + pool.TradeShort : ''
-                  }`}
+                  title={`${tradeL > 0 ? 'Long:' + tradeL : ''} ${tradeS > 0 ? 'Short:' + tradeS : ''}`}
                   sx={{
                     cursor: 'default',
                   }}
@@ -223,7 +226,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
                   }}
                 >
                   <Typography>
-                    <span className="points">{+pool.TradeLong + +pool.TradeShort} </span>
+                    <span className="points">{tradeL + tradeS} </span>
                     <span style={{ marginLeft: '10px' }}>ROLLIES</span>
                   </Typography>
                 </Tooltip>
@@ -278,7 +281,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
           >
             <Typography>
               <span className="points">{referralPoints} </span>
-              <span style={{ marginLeft: '10px' }}>CANDIES</span>
+              <span style={{ marginLeft: '10px' }}>ROLLIES</span>
             </Typography>
           </Box>
         </Box>
