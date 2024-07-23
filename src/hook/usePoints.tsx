@@ -16,7 +16,7 @@ export interface PointListData {
   point: string
   quantoIndex: number
   timestamp: number
-  types: 'LPAdd' | 'LPRemove' | 'TradeLong' | 'TradeShort' | 'Invite'
+  types: 'LPAdd' | 'LPRemove' | 'TradeLong' | 'TradeShort' | 'Invite' | 'InviteTrade' | 'InviteLP'
   volumeInETH: string
   leverageMultiplier: number
 }
@@ -39,10 +39,12 @@ export interface PointsPools {
   chainId: number
   point: string
   quantoIndex: number
-  LPAdd: string
-  TradeLong: string
-  TradeShort: string
+  LPAdd?: string
+  TradeLong?: string
+  TradeShort?: string
   Invite?: string
+  InviteTrade?: string
+  InviteLP?: string
 }
 
 export const getTypes = (str: string) => {
@@ -57,6 +59,10 @@ export const getTypes = (str: string) => {
       return 'Short'
     case 'Invite':
       return 'Referral'
+    case 'InviteTrade':
+      return 'Trade'
+    case 'InviteLP':
+      return 'LP Provide'
     default:
       return ''
   }

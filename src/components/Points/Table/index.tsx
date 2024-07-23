@@ -342,7 +342,7 @@ function Row({
           //       // },
           //     }
           //   : undefined,{}
-          row[0] === 'Invite' ? { background: '#2832F5' } : {}
+          typeof row[0] === 'string' && row[0].includes('Invite') ? { background: '#2832F5' } : {}
         }
       >
         {row.slice(1).map((data, idx) => (

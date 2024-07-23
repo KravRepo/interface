@@ -151,13 +151,20 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
   const theme = useTheme()
 
   const referralPoints = useMemo(() => {
-    if (!pools) return 0
-    const points = Object.keys(pools).reduce((acc, key) => {
-      const p = pools[+key as keyof typeof pools]
-      const invitePoints = p.Invite ? +p.Invite : 0
-      acc += invitePoints
-      return acc
-    }, 0)
+    if (!pools) return { trade: 0, lp: 0 }
+    const points = Object.keys(pools).reduce(
+      (acc, key) => {
+        const p = pools[+key as keyof typeof pools]
+        const invitePoints = p.Invite ? +p.Invite : 0
+        const LPPoints = p.InviteLP ? +p.InviteLP : 0
+        const TradePoints = p.InviteTrade ? +p.InviteTrade : 0
+        acc.lp += invitePoints
+        acc.lp += LPPoints
+        acc.trade += TradePoints
+        return acc
+      },
+      { trade: 0, lp: 0 }
+    )
     return points
   }, [pools])
 
@@ -204,7 +211,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
             >
               {!!LPAdd && (
                 <Typography>
-                  <span className="points">{LPAdd}</span>
+                  <span className="points">{LPAdd.toLocaleString('en-US', { maximumFractionDigits: 6 })}</span>
                   <span style={{ marginLeft: '10px' }}>CANDIES</span>
                 </Typography>
               )}
@@ -226,7 +233,9 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
                   }}
                 >
                   <Typography>
-                    <span className="points">{tradeL + tradeS} </span>
+                    <span className="points">
+                      {(tradeL + tradeS).toLocaleString('en-US', { maximumFractionDigits: 6 })}{' '}
+                    </span>
                     <span style={{ marginLeft: '10px' }}>ROLLIES</span>
                   </Typography>
                 </Tooltip>
@@ -261,7 +270,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
           </Box>
         )
       })}
-      {referralPoints > 0 && (
+      {(referralPoints.trade > 0 || referralPoints.lp > 0) && (
         <Box flexShrink={0} sx={{ background: '#2832F5', padding: '20px', borderRadius: '10px' }}>
           <Box display="flex" alignItems={'center'} gap="10px" mb="10px">
             <Typography fontWeight={700}>
@@ -280,7 +289,13 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
             }}
           >
             <Typography>
-              <span className="points">{referralPoints} </span>
+              <span className="points">{referralPoints.lp.toLocaleString('en-US', { maximumFractionDigits: 6 })} </span>
+              <span style={{ marginLeft: '10px' }}>CANDIES</span>
+            </Typography>
+            <Typography>
+              <span className="points">
+                {referralPoints.trade.toLocaleString('en-US', { maximumFractionDigits: 6 })}{' '}
+              </span>
               <span style={{ marginLeft: '10px' }}>ROLLIES</span>
             </Typography>
           </Box>
