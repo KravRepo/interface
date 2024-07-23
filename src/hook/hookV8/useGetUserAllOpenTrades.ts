@@ -109,7 +109,7 @@ export const useGetUserAllOpenTrades = () => {
         setUserAllOpenTradeList(allOpenTrades)
       }
     } catch (e) {}
-  }, [allPoolParams, account, provider, config])
+  }, [allPoolParams, account, provider, config, setUserAllOpenTradeList, pairConfig])
 
   return { getUserAllOpenTrades: getUserAllOpenTrades }
 }

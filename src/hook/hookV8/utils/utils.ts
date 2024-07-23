@@ -22,7 +22,7 @@ export const forMatterOpenTrades = (
   }
   const userOpenTrades: Tuple[] = []
 
-  for (let i = 0; i < trades; i++) {
+  for (let i = 0; i < res.length; i++) {
     userOpenTrades.push({
       buy: res[i].buy,
       index: new BigNumber(res[i].index._hex).toNumber(),

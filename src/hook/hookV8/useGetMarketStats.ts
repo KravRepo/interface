@@ -13,6 +13,7 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
   const allPoolParams = useRootStore((store) => store.allPoolParams)
 
   useEffect(() => {
+    if (!address || !pairInfoAddress) return
     ;(async () => {
       try {
         if (allPoolParams.length > 0 && provider && typeof paiIndex !== 'undefined') {
@@ -29,7 +30,6 @@ export const useGetMarketStats = (address: string, decimals: number, pairInfoAdd
           setOpenDaiLong(long)
           const short = new BigNumber(shortRes._hex).div(Number(`1e${decimals}`))
           setOpenDaiShort(short)
-          
         }
       } catch (e) {
         setOpenDaiLong(undefined)

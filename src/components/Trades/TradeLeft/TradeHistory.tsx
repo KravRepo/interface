@@ -70,31 +70,32 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
 
   const getTradeHistory = useCallback(async () => {
     try {
-      const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
-      // console.log('quantosRequest', quantosRequest)
+      const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=${allPoolParams.length}`)
       const quantos = await quantosRequest.json()
-      // console.log('quantos', quantos)
-      if (quantos.code == 200) {
-        const target = quantos.data.find((quanto: Quanto) => quanto?.tradingT === tradePool?.tradingT)
-        // console.log('target', target)
-        const historyRequest = await fetch(
-          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
-        )
-        console.log(
-          'fetching',
-          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
-        )
-        // console.log('historyRequest', historyRequest)
-        const history = await historyRequest.json()
-        if (history.code === 200) {
-          const data: HistoryData[] = history.data
-          setHistoryList(data.filter((item: HistoryData) => new BigNumber(item.tradeInitialPosToken).isGreaterThan(0)))
-        }
+
+      if (quantos.code === 200) {
+        let allHistoryData: HistoryData[] = []
+
+        const historyPromises = quantos.data.map(async (quanto: Quanto) => {
+          const historyRequest = await fetch(
+            TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${quanto.indexId}&offset=0&limit=100`
+          )
+          const history = await historyRequest.json()
+          if (history.code === 200) {
+            const data: HistoryData[] = history.data
+            return data.filter((item: HistoryData) => new BigNumber(item.tradeInitialPosToken).isGreaterThan(0))
+          }
+          return []
+        })
+
+        const results = await Promise.all(historyPromises)
+        allHistoryData = results.flat()
+        setHistoryList(allHistoryData)
       }
     } catch (e) {
       console.error('get user trade history failed!', e)
     }
-  }, [tradePool, allPoolParams, account, chainId])
+  }, [allPoolParams, account, chainId])
 
   useEffect(() => {
     if (tradePool && account) {
