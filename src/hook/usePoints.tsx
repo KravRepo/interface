@@ -77,10 +77,7 @@ export function usePointsList(curPage: number) {
     const getPoints = async () => {
       try {
         const request = await fetch(
-          API_BASE +
-            `/point/record/list?account=${'0x7A4018187538D9745Ce4f6F9F62f487f2b3577c6'}&offset=${
-              (curPage - 1) * PAGE_SIZE
-            }&limit=${PAGE_SIZE}`,
+          API_BASE + `/point/record/list?account=${account}&offset=${(curPage - 1) * PAGE_SIZE}&limit=${PAGE_SIZE}`,
           {}
         )
         const points = await request.json()
@@ -124,7 +121,7 @@ export function usePointsList(curPage: number) {
                   '-'
                 )}
               </div>,
-              data.volumeInETH + ` ${data.types.includes('LP') ? 'C' : 'R'}`,
+              data.volumeInETH,
               chain ? (
                 <Box display={'flex'} alignItems={'center'} gap={'10px'}>
                   <Box
@@ -145,7 +142,7 @@ export function usePointsList(curPage: number) {
                   {chain.name}
                 </Box>
               ) : null,
-              data.point,
+              data.point + ` ${data.types.includes('LP') ? 'C' : 'R'}`,
             ]
           })
           setPointsList(list)

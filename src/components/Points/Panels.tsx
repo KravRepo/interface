@@ -175,7 +175,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
         }
         const chain = MAINNET_CHAINS[pool.chainId as number]
         const poolParams = allPoolParams[pool.quantoIndex]
-        console.log(pool, poolParams.symbol)
+
         if (!poolParams) return null
         return (
           <Box
