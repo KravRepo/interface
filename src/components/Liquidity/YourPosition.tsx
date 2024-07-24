@@ -16,6 +16,7 @@ export const YourPosition = ({
   isLoadingUserPosition,
   aprList,
   isTable,
+  selectedPool,
 }: YourPositionProps) => {
   const { account } = useWeb3React()
   const theme = useTheme()
@@ -23,12 +24,22 @@ export const YourPosition = ({
 
   const positionDatas = useMemo(() => {
     let flag = false
+    let selectedPosition = null
     userPositionDatas.find((positionData) => {
       if (positionData?.hasPosition) flag = true
     })
-    if (flag) return userPositionDatas.filter((position) => position.hasPosition)
-    else return []
-  }, [userPositionDatas])
+    if (flag) {
+      const arr = userPositionDatas.filter((position) => {
+        if (position.hasPosition && position.pool.symbol === selectedPool) {
+          selectedPosition = position
+          return false
+        }
+        return position.hasPosition
+      })
+      arr.unshift(...(selectedPosition ? [selectedPosition] : []))
+      return arr
+    } else return []
+  }, [selectedPool, userPositionDatas])
 
   return (
     <div
@@ -103,6 +114,7 @@ export const YourPosition = ({
             positionDatas.map((position, index) => {
               return (
                 <PositionItemCard
+                  selected={position.pool.symbol === selectedPool}
                   key={position.pool?.tradingT + index}
                   position={position}
                   setAddLiquidity={setAddLiquidity}

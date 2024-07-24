@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { marketCard } from './style'
-import { Button, css, Tooltip, useMediaQuery, useTheme } from '@mui/material'
+import { Button, css, useMediaQuery, useTheme } from '@mui/material'
 import { getBigNumberStr } from '../../utils'
 import { PositionItemProps } from './type'
 import { useRootStore } from '../../store/root'
@@ -10,7 +10,7 @@ import { eXDecimals } from '../../utils/math'
 import { ReactComponent as AddIcon } from '../../assets/imgs/addIcon.svg'
 import { WITHDRAW_BLOCK_DIFF } from '../../constant/math'
 import { ReactComponent as SubIcon } from '../../assets/imgs/subIcon.svg'
-import { align } from '../../globalStyle'
+// import { align } from '../../globalStyle'
 // import { useGetLpReward } from '../../hook/hookV8/useGetLpReward'
 // import { useHarvestLpReward } from '../../hook/hookV8/useHarvestLpReward'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
@@ -23,6 +23,7 @@ export const PositionItemCard = ({
   setRemoveLiquidity,
   aprList,
   kTokenAddress,
+  selected,
 }: PositionItemProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -38,24 +39,26 @@ export const PositionItemCard = ({
   }, [position, userPositionDatas])
 
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
-  const maxWithdrawAmount = useMemo(() => {
-    return position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)).toNumber() ?? new BigNumber(0)
-  }, [position])
 
-  const lockAmount = useMemo(() => {
-    if (position) {
-      const lockedAmount = position.daiDeposited.minus(maxWithdrawAmount)
-      return eXDecimals(lockedAmount.isGreaterThan(0) ? lockedAmount : position.daiDeposited, position.pool.decimals)
-    } else {
-      return new BigNumber(0)
-    }
-  }, [position])
+  // const maxWithdrawAmount = useMemo(() => {
+  //   const currentSupply = poolSupply.plus(tokenAmount)
+  //   const maxWithdraw = eXDecimals(
+  //     position.maxDaiDeposited.times(position.pool.maxWithdrawP.div(100)),
+  //     position.pool.decimals
+  //   )
+
+  //   if (maxWithdraw.isGreaterThan(currentSupply)) {
+  //     return currentSupply
+  //   } else {
+  //     return maxWithdraw ?? new BigNumber(0)
+  //   }
+  // }, [poolSupply, position.maxDaiDeposited, position.pool.decimals, position.pool.maxWithdrawP, tokenAmount])
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, position?.pool?.tradingT])
 
   // useGetLpReward(position.pool.vaultT, position.pool.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
   const { openDaiLong, openDaiShort } = useGetMarketStats(
@@ -73,6 +76,13 @@ export const PositionItemCard = ({
           border: ${theme.splitLine.primary};
         `,
       ]}
+      style={
+        selected
+          ? {
+              borderColor: '#2832F5',
+            }
+          : {}
+      }
     >
       <div
         className="card-title"
@@ -153,7 +163,8 @@ export const PositionItemCard = ({
                 color: #2832f5;
               `}
             >
-              {poolSupply.plus(tokenAmount).toFormat(2, 3)}
+              {/* {poolSupply.plus(tokenAmount).toFormat(2, 3)} */}
+              {poolSupply.toFormat(2, 3)}
             </span>
             <div
               css={css`
@@ -224,20 +235,20 @@ export const PositionItemCard = ({
             </span>
             <span>{pnl.toFixed(2)}%</span>
           </div> */}
-          <div>
+          {/* <div>
             <span
               css={css`
                 color: ${theme.text.second};
                 whitespace: nowrap;
               `}
             >
-              {t`Initial Supply`}
+              {'Cumulative Supply'}
             </span>
             <span>
-              {poolSupply.toFormat(2, 3)}
+              {eXDecimals(position.maxDaiDeposited, position.pool.decimals).toFormat(2, 3)}
               {position.pool.symbol}
             </span>
-          </div>
+          </div> */}
           <div>
             <span
               css={css`
@@ -268,7 +279,7 @@ export const PositionItemCard = ({
               %
             </span>
           </div>
-          <div>
+          {/* <div>
             <span
               css={css`
                 color: ${theme.text.second};
@@ -280,14 +291,12 @@ export const PositionItemCard = ({
               <>
                 <img src={position.pool.logoSource} height="24" width="24" style={{ borderRadius: '50%' }} />
                 <span css={align}>
-                  {lockAmount.isGreaterThan(0)
-                    ? eXDecimals(new BigNumber(maxWithdrawAmount), position.pool.decimals).toFormat(2, 3)
-                    : eXDecimals(position.daiDeposited, position.pool.decimals).toFormat(2, 3)}
+                  {maxWithdrawAmount.toFormat(2, 3)}
                   {position.pool.symbol}
                 </span>
               </>
             </Tooltip>
-          </div>
+          </div> */}
         </div>
         {apr.isGreaterThan(0) && (
           <div className="action">

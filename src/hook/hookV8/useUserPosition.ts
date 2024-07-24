@@ -2,7 +2,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
 import { useCallback } from 'react'
 import { Contract } from 'ethers'
-import { KTokenABI } from '../../abi/deployed/KTokenABI'
+import KTokenABI from '../../abi/k_token.json'
 import { PoolParams } from '../../store/FactorySlice'
 import BigNumber from 'bignumber.js'
 import test_erc20 from '../../abi/test_erc20.json'
@@ -21,6 +21,7 @@ export type UserData = {
   // debtMatic: BigNumber
   walletBalance: BigNumber
   hasPosition: boolean
+  shareToAssetsPrice: BigNumber
 }
 
 export const useUserPosition = () => {
@@ -38,35 +39,42 @@ export const useUserPosition = () => {
           multicall2.abi,
           provider
         )
+
         const task: any[] = []
         const balanceTask: any[] = []
         const supplyTask: any[] = []
+        const priceTask: any[] = []
         const tokenInterface = new Interface(test_erc20.abi)
-        const vaultInterface = new Interface(KTokenABI)
+        const vaultInterface = new Interface(KTokenABI.abi)
         allPoolParams.forEach((pool) => {
           task.push(creatCall(pool.vaultT, vaultInterface, 'balanceOf', [account]))
-          supplyTask.push(creatCall(pool.vaultT, tokenInterface, 'balanceOf', [account]))
+          supplyTask.push(creatCall(pool.vaultT, vaultInterface, 'maxDepositedShares', [account]))
+          priceTask.push(creatCall(pool.vaultT, vaultInterface, 'shareToAssetsPrice', []))
           balanceTask.push(creatCall(pool.tokenT, tokenInterface, 'balanceOf', [account]))
         })
         const res = await multicall.callStatic.aggregate([...task, ...balanceTask])
         const supplyRes = await multicall.callStatic.aggregate(supplyTask)
+        const priceRes = await multicall.callStatic.aggregate(priceTask)
         const userAllBackend = res.returnData.slice(0, allPoolParams.length)
         const userAllBalance = res.returnData.slice(allPoolParams.length, res.returnData.length)
-        // console.log(res, supplyRes)
         const tokenSupply = supplyRes.returnData.slice(0, allPoolParams.length)
         const userPositionDatas: UserData[] = []
         allPoolParams.forEach((pool, index) => {
           const positionDetails = {} as UserData
-          const tokenSupplyDecode = decodeCallResult(vaultInterface, 'totalSupply', tokenSupply[index])
+          const tokenSupplyDecode = decodeCallResult(vaultInterface, 'maxDepositedShares', tokenSupply[index])
+          const priceDecode = decodeCallResult(vaultInterface, 'shareToAssetsPrice', priceRes.returnData[index])
           const userAllBalanceDecode = decodeCallResult(tokenInterface, 'balanceOf', userAllBalance[index])
           const userAllBackendDecode = decodeCallResult(vaultInterface, 'balanceOf', userAllBackend[index])
           positionDetails.walletBalance = eXDecimals(userAllBalanceDecode._hex, pool.decimals)
           positionDetails.pool = pool
           if (new BigNumber(userAllBackendDecode._hex).isGreaterThan(0)) {
             positionDetails.hasPosition = true
-            positionDetails.daiDeposited = new BigNumber(userAllBackendDecode._hex)
-            positionDetails.maxDaiDeposited = new BigNumber(tokenSupplyDecode._hex)
-            positionDetails.withdrawBlock = new BigNumber(1)
+            const shareToAssetsPrice = eXDecimals(priceDecode._hex, pool.decimals)
+            positionDetails.shareToAssetsPrice = new BigNumber(priceDecode._hex)
+            positionDetails.daiDeposited = new BigNumber(userAllBackendDecode._hex).times(shareToAssetsPrice)
+            ;(positionDetails.maxDaiDeposited = new BigNumber(tokenSupplyDecode._hex)).times(shareToAssetsPrice),
+              (positionDetails.withdrawBlock = new BigNumber(1))
+
             // positionDetails.withdrawBlock = new BigNumber(userAllBackendDecode.withdrawBlock._hex)
             // positionDetails.debtDai = new BigNumber(userAllBackendDecode.debtDai._hex)
             // positionDetails.debtMatic = new BigNumber(userAllBackendDecode.debtMatic._hex)
@@ -78,5 +86,5 @@ export const useUserPosition = () => {
     } catch (e) {
       console.log('get user position failed!', e)
     }
-  }, [allPoolParams, account, provider, chainId])
+  }, [allPoolParams, account, provider, chainId, setUserPositionDatas])
 }

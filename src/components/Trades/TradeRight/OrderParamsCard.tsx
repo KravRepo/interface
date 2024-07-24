@@ -116,9 +116,9 @@ export const OrderParamsCard = ({
   const { provider } = useWeb3React()
   const { i18n } = useLingui()
   // const [slSetting, setSlSetting] = useState(0)
-  const [slUsePercentage, setUseSlPercentage] = useState(true)
+  // const [slUsePercentage, setUseSlPercentage] = useState(true)
   // const [tpSetting, setTpSetting] = useState(0)
-  const [tpUsePercentage, setTpUsePercentage] = useState(true)
+  // const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
   const { orderLimit, getOrderLimit } = useGetOrderLimit()
   const {
@@ -159,7 +159,6 @@ export const OrderParamsCard = ({
     )
   }, [tradePool, userPositionDatas])
 
-  // console.log('tradePool', tradePool)
   const { account } = useWeb3React()
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
   const testTuple = useMemo(() => {
@@ -177,20 +176,7 @@ export const OrderParamsCard = ({
       buy: isBuy,
       positionSizeDai: addDecimals(positionSizeDai, tradePool.decimals).toString(),
     }
-  }, [
-    account,
-    tradeType,
-    BTCPrice,
-    limitPrice,
-    leverage,
-    positionSizeDai,
-    // slSetting,
-    slUsePercentage,
-    // tpSetting,
-    tpPrice,
-    tpUsePercentage,
-    tradePairIndex,
-  ])
+  }, [account, tradePairIndex, tradeType, BTCPrice, limitPrice, leverage, isBuy, positionSizeDai, tradePool.decimals])
 
   const { liquidationPrice, priceImpact } = useTradeData({
     tradeType,
@@ -316,9 +302,9 @@ export const OrderParamsCard = ({
   useEffect(() => {
     setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
     setPositionSizeDai(new BigNumber(0))
-    setUseSlPercentage(false)
+    // setUseSlPercentage(false)
     setSlPrice(new BigNumber(0))
-    setTpUsePercentage(false)
+    // setTpUsePercentage(false)
     setTpPrice(new BigNumber(0))
   }, [tradeModel])
 

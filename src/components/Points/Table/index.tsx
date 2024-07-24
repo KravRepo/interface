@@ -14,7 +14,7 @@ import {
 import { useState } from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import useBreakpoint from '../../hook/useBreakpoints'
+import useBreakpoint from '../../../hook/useBreakpoints'
 
 // import { visuallyHidden } from '@mui/utils'
 
@@ -69,7 +69,7 @@ const StyledTableHead = styled(TableHead)(({ theme }) => ({
   overflow: 'hidden',
   '& .MuiTableCell-root': {
     fontSize: '12px',
-    whiteSpace: 'pre',
+    whiteSpace: 'wrap',
     lineHeight: '12px',
     padding: '12px 20px 12px 0',
     color: theme.palette.text.secondary,
@@ -90,7 +90,7 @@ const StyledTableHead = styled(TableHead)(({ theme }) => ({
   },
 }))
 
-const StyledTableRow = styled(TableRow, { shouldForwardProp: () => true })<{
+const StyledTableRow = styled(TableRow, { shouldForwardProp: (p) => p !== 'highlight' })<{
   variant: 'outlined' | 'grey'
   fontSize?: string
 }>(({ variant, theme, fontSize }) => ({
@@ -225,7 +225,7 @@ export default function Table({
                     >
                       {headerString}
                     </Typography>
-                    <Typography component="div">{data[index] ?? null}</Typography>
+                    <Typography component="div">{data[index + 1] ?? null}</Typography>
                     {collapsible && index + 1 === header.length && (
                       <IconButton
                         aria-label="expand row"
@@ -332,20 +332,28 @@ function Row({
         fontSize={fontSize}
         variant={variant}
         sx={
-          isOpen
-            ? {
-                // borderBottomLeftRadius: 0,
-                // borderBottomRightRadius: 0,
-                // '& .MuiTableCell-root': {
-                //   '&:first-of-type': { borderBottomLeftRadius: 0 },
-                //   '&:last-child': { borderBottomRightRadius: 0 },
-                // },
-              }
-            : undefined
+          // isOpen
+          //   ? {
+          //       // borderBottomLeftRadius: 0,
+          //       // borderBottomRightRadius: 0,
+          //       // '& .MuiTableCell-root': {
+          //       //   '&:first-of-type': { borderBottomLeftRadius: 0 },
+          //       //   '&:last-child': { borderBottomRightRadius: 0 },
+          //       // },
+          //     }
+          //   : undefined,{}
+          typeof row[0] === 'string' && row[0].includes('Invite') ? { background: '#2832F5' } : {}
         }
       >
-        {row.map((data, idx) => (
-          <TableCell key={idx}>{data}</TableCell>
+        {row.slice(1).map((data, idx) => (
+          <TableCell
+            key={idx}
+            sx={{
+              color: row[0] === 'LPRemove' && idx === 6 ? 'red' : '',
+            }}
+          >
+            {data}
+          </TableCell>
         ))}
         {collapsible && (
           <TableCell>
