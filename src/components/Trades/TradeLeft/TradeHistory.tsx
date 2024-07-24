@@ -88,7 +88,11 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         const history = await historyRequest.json()
         if (history.code === 200) {
           const data: HistoryData[] = history.data
-          setHistoryList(data.filter((item: HistoryData) => new BigNumber(item.tradeInitialPosToken).isGreaterThan(0)))
+          setHistoryList(
+            data.filter(
+              (item: HistoryData) => new BigNumber(item.tradeInitialPosToken).isGreaterThan(0) && !item.marketOpen
+            )
+          )
         }
       }
     } catch (e) {

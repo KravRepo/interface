@@ -2,7 +2,7 @@
 import { css, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Positions } from './Positions'
-import { Orders } from './Orders'
+// import { Orders } from './Orders'
 import { HistoryData, TradeHistory } from './TradeHistory'
 import { myTrade } from './style'
 import { useRootStore } from '../../../store/root'
@@ -19,7 +19,7 @@ export const MyTrade = () => {
   const { provider, account, chainId } = useWeb3React()
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
-  const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
+  // const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
   const tradePool = useRootStore((store) => store.tradePool)
   const tradePairIndex = useRootStore((store) => store.tradePairIndex)
   const expectChainId = useRootStore((store) => store.expectChainId)
@@ -88,9 +88,9 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
-            label={`${t`Positions`} ${userOpenTradeList.length > 0 ? '(' + userOpenTradeList.length + ')' : ''}`}
+            label={`${t`Open Positions`} ${userOpenTradeList.length > 0 ? '(' + userOpenTradeList.length + ')' : ''}`}
           />
-          <Tab
+          {/* <Tab
             sx={{
               minWidth: 0,
               mr: '16px',
@@ -102,7 +102,7 @@ export const MyTrade = () => {
               },
             }}
             label={`${t`Orders`} ${userOpenLimitList.length > 0 ? '(' + userOpenLimitList.length + ')' : ''}`}
-          />
+          /> */}
           <Tab
             sx={{
               minWidth: 0,
@@ -113,14 +113,14 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
-            label={t`Trades`}
+            label={t`Trade History`}
           />
         </Tabs>
       </div>
       <>
         {infoType === 0 && <Positions />}
-        {infoType === 1 && <Orders />}
-        {infoType === 2 && <TradeHistory historyList={historyList} setHistoryList={setHistoryList} />}
+        {/* {infoType === 1 && <Orders />} */}
+        {infoType === 1 && <TradeHistory historyList={historyList} setHistoryList={setHistoryList} />}
       </>
     </div>
   )
