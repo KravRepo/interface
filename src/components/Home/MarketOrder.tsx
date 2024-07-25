@@ -20,7 +20,7 @@ export const MarketOrder = () => {
         <span>{t`Collateral`}</span>
         <span>{t`Entry price`}</span>
         {/*<span>Mark price</span>*/}
-        <span>{t`Liq.price`}</span>
+        <span>{`Liquidation Price`}</span>
         <span>{t`Close`}</span>
       </div>
       {useAllOpenTrades.length === 0 && <div className="no-data">{t`No open position`}</div>}

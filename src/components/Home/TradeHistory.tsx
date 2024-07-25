@@ -37,8 +37,11 @@ export const TradeHistory = () => {
         const history = await historyRequest.json()
         if (history.code === 200) {
           const data: HistoryData[] = history.data
-          const filterData = data.filter((item: HistoryData) =>
-            new BigNumber(item.tradeInitialPosToken).isGreaterThan(0)
+          const filterData = data.filter(
+            (item: HistoryData) =>
+              new BigNumber(item.tradeInitialPosToken).isGreaterThan(0) &&
+              item.tradeTrader.toLowerCase() === account?.toLowerCase() &&
+              !item.marketOpen
           )
           if (data.length > 0) {
             res.push({
@@ -68,12 +71,14 @@ export const TradeHistory = () => {
           color: #617168;
         `}
       >
-        <span>{t`Date`}</span>
+        <span>{`Date Closed`}</span>
+        <span>{`Time Closed`}</span>
         <span>{t`Pair`}</span>
         <span>{t`Type`}</span>
-        <span>{t`Price`}</span>
+        <span>{`Entry Price`}</span>
+        <span>{`Exit Price`}</span>
         <span>{t`Leverage`}</span>
-        <span>{t`Coll`}</span>
+        <span>{`Collateral`}</span>
         <span>{t`PnL`}</span>
         <span>%</span>
       </div>

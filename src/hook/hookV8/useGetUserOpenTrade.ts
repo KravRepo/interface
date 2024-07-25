@@ -11,8 +11,8 @@ import { ChainId } from '../../constant/chain'
 const ARB_TIME_OUT = 100
 const DEFAULT_TIME_OUT = 30
 const TIME_OUT_CONFIG = [ChainId.ARB_TEST]
-const account = '0x7A4018187538D9745Ce4f6F9F62f487f2b3577c6'
 export const useGetUserOpenTrade = () => {
+  const { account } = useWeb3React()
   const { provider, chainId } = useWeb3React()
   const [userOpenTrades, setUserOpenTrades] = useState([] as Tuple[])
   const setUserOpenTradeList = useRootStore((store) => store.setUserOpenTradeList)

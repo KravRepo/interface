@@ -88,7 +88,14 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         const history = await historyRequest.json()
         if (history.code === 200) {
           const data: HistoryData[] = history.data
-          setHistoryList(data.filter((item: HistoryData) => new BigNumber(item.tradeInitialPosToken).isGreaterThan(0)))
+          setHistoryList(
+            data.filter(
+              (item: HistoryData) =>
+                new BigNumber(item.tradeInitialPosToken).isGreaterThan(0) &&
+                item.tradeTrader.toLowerCase() === account?.toLowerCase() &&
+                !item.marketOpen
+            )
+          )
         }
       }
     } catch (e) {
@@ -111,12 +118,14 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
           border-top: ${theme.splitLine.primary};
         `}
       >
-        <span>{t`Date`}</span>
+        <span>{`Date Closed`}</span>
+        <span>{`Time Closed`}</span>
         <span>{t`Pair`}</span>
         <span>{t`Type`}</span>
-        <span>{t`Price`}</span>
+        <span>{`Entry Price`}</span>
+        <span>{`Exit Price`}</span>
         <span>{t`Leverage`}</span>
-        <span>{t`Coll`}</span>
+        <span>{`Collateral`}</span>
         <span>{'PnL'}</span>
         <span>%</span>
       </div>

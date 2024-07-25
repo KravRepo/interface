@@ -8,9 +8,12 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import { t } from '@lingui/macro'
 
 export const Positions = () => {
-  const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const setWalletDialogVisibility = useRootStore((state) => state.setWalletDialogVisibility)
   const { account } = useWeb3React()
+  // const userOpenTradeList = useRootStore((state) =>
+  //   state.userOpenTradeList.filter((trade) => trade.trader.toLowerCase() === account?.toLowerCase())
+  // )
+  const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const theme = useTheme()
   return (
     <div>
@@ -27,7 +30,7 @@ export const Positions = () => {
         <span>{t`Collateral`}</span>
         <span>{t`Entry price`}</span>
         <span>{t`Mark price`}</span>
-        <span>{t`Liq.price`}</span>
+        <span>{t`Liquidation Price`}</span>
         {/* <span>Take profit</span> */}
         <span>{t`Close`}</span>
       </div>
