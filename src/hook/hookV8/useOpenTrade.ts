@@ -35,7 +35,6 @@ export const useOpenTrade = ({
   const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
   const setOpenTradeCard = useRootStore((state) => state.setOpenTradeCard)
   return useCallback(async () => {
-
     try {
       // setTransactionState(TransactionState.APPROVE)
       // const approveTX = await tokenContract.approve(storageAddress, MAX_UNIT_256)
@@ -51,19 +50,19 @@ export const useOpenTrade = ({
         // gasLimit = await getGasLimit(contract, 'openTrade', params)
         // gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
         // convert all number params to numbers
-        console.log('slippage sent to contract', params[1]);
+        console.log('slippage sent to contract', params[1])
         console.log({
-            trader: params[0].trader,
-            sl: params[0].sl,
-            tp: params[0].tp,
-            pairIndex: params[0].pairIndex,
-            openPrice: params[0].openPrice,
-            leverage: params[0].leverage,
-            initialPosToken: params[0].initialPosToken,
-            index: params[0].index,
-            buy: params[0].buy,
-            positionSizeDai: params[0].positionSizeDai,
-          })
+          trader: params[0].trader,
+          sl: params[0].sl,
+          tp: params[0].tp,
+          pairIndex: params[0].pairIndex,
+          openPrice: params[0].openPrice,
+          leverage: params[0].leverage,
+          initialPosToken: params[0].initialPosToken,
+          index: params[0].index,
+          buy: params[0].buy,
+          positionSizeDai: params[0].positionSizeDai,
+        })
         tx = await contract.openTrade(
           {
             trader: params[0].trader,

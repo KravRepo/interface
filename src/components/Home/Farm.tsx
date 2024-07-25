@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { farm } from './style'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
@@ -7,7 +7,6 @@ import { FarmItem } from './FarmItem'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
 import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { ReactComponent as ArrowRight } from '../../assets/imgs/arrowRight.svg'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
@@ -17,8 +16,8 @@ import { t } from '@lingui/macro'
 
 export const Farm = () => {
   const theme = useTheme()
-  const userBackend = useUserPosition()
-  const { account, provider } = useWeb3React()
+  // const userBackend = useUserPosition()
+  const { account } = useWeb3React()
   const navigate = useNavigate()
   const { aprList } = useGetApr()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
@@ -36,18 +35,18 @@ export const Farm = () => {
     } else return []
   }, [userPositionDatas])
 
-  const allPoolParams = useRootStore((store) => store.allPoolParams)
-  useEffect(() => {
-    let backInterval: NodeJS.Timer
-    if (allPoolParams.length > 0 && account && provider) {
-      backInterval = setInterval(() => {
-        userBackend().then()
-      }, 10000)
-    }
-    return () => {
-      if (backInterval) clearInterval(backInterval as any)
-    }
-  }, [account, allPoolParams, provider])
+  // const allPoolParams = useRootStore((store) => store.allPoolParams)
+  // useEffect(() => {
+  //   let backInterval: NodeJS.Timer
+  //   if (allPoolParams.length > 0 && account && provider) {
+  //     backInterval = setInterval(() => {
+  //       userBackend().then()
+  //     }, 10000)
+  //   }
+  //   return () => {
+  //     if (backInterval) clearInterval(backInterval as any)
+  //   }
+  // }, [account, allPoolParams, provider])
 
   return (
     <div css={farm}>

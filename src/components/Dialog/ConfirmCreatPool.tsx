@@ -11,7 +11,6 @@ import { useCreatePool } from '../../hook/hookV8/useCreatePool'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { useCallback, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { addDecimals } from '../../utils/math'
 import { DialogLayout } from './DialogLayout'
 import { Trans, t } from '@lingui/macro'
@@ -33,19 +32,30 @@ export const ConfirmCreatPool = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const creatPool = useCreatePool()
   const updateFactory = useFactory()
-  const getUserPosition = useUserPosition()
 
   const sendTransaction = useCallback(async () => {
     setIsOpen(false)
     try {
       await creatPool(tokenAddress, ticketSize, addDecimals(new BigNumber(LPProvision), tokenDecimals))
-      await Promise.all([updateFactory(), getUserPosition()])
+      await Promise.all([updateFactory()])
       setLPProvision('')
       setTicketSize('')
       setTokenAddress('')
       setCreateLiquidityPool(false)
     } catch (e) {}
-  }, [creatPool, updateFactory, tokenAddress, LPProvision, tokenDecimals])
+  }, [
+    setIsOpen,
+    creatPool,
+    tokenAddress,
+    ticketSize,
+    LPProvision,
+    tokenDecimals,
+    updateFactory,
+    setLPProvision,
+    setTicketSize,
+    setTokenAddress,
+    setCreateLiquidityPool,
+  ])
 
   const tokenLogoSource = useMemo(() => {
     try {

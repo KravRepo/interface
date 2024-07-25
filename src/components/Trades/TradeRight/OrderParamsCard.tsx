@@ -22,7 +22,6 @@ import KravLongButton from '../../KravUIKit/KravLongButton'
 import KravShortButton from '../../KravUIKit/KravShortButton'
 import { TradeMode } from '../../../store/TradeSlice'
 import { ReactComponent as AlertIcon } from '../../../assets/imgs/alert.svg'
-import { useInterval } from '../../../hook/hookV8/useInterval'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { useTradeData } from '../../../hook/useTradeData'
 import NoticePopup from '../../Dialog/NoticePopup'
@@ -113,14 +112,13 @@ export const OrderParamsCard = ({
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
   const [inputDAIDecimals, setInputDAIDecimals] = useState(1)
   const [tabIndex, setTabIndex] = useState(0)
-  const { provider } = useWeb3React()
   const { i18n } = useLingui()
   // const [slSetting, setSlSetting] = useState(0)
   // const [slUsePercentage, setUseSlPercentage] = useState(true)
   // const [tpSetting, setTpSetting] = useState(0)
   // const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
-  const { orderLimit, getOrderLimit } = useGetOrderLimit()
+  const { orderLimit } = useGetOrderLimit()
   const {
     BTCPrice,
     transactionState,
@@ -322,13 +320,13 @@ export const OrderParamsCard = ({
     }
   }, [])
 
-  useInterval(getOrderLimit, 15000)
+  // useInterval(getOrderLimit, 15000)
 
-  useEffect(() => {
-    if (tradePool.pairStorageT && tradePool.poolCurrentBalance && provider) {
-      getOrderLimit().then()
-    }
-  }, [tradePool, provider, tradePairIndex])
+  // useEffect(() => {
+  //   if (tradePool.pairStorageT && tradePool.poolCurrentBalance && provider) {
+  //     getOrderLimit().then()
+  //   }
+  // }, [tradePool, provider, tradePairIndex])
 
   return (
     <>

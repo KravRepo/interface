@@ -10,7 +10,6 @@ import { useRootStore } from '../../store/root'
 import { useMemo, useState } from 'react'
 import { useAddLiquidity } from '../../hook/hookV8/useAddLiquidity'
 import { addDecimals } from '../../utils/math'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import BigNumber from 'bignumber.js'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
@@ -23,7 +22,6 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const addLiquidity = useAddLiquidity(liquidityInfo.tokenT)
   const getFactory = useFactory()
-  const getUserPosition = useUserPosition()
   const [amount, setAmount] = useState<string | number>('')
   const PoolWalletBalance = useMemo(() => {
     return (
@@ -185,7 +183,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                 liquidityInfo.symbol,
                 liquidityInfo.decimals
               )
-              await Promise.all([getFactory(), getUserPosition()])
+              await Promise.all([getFactory()])
             }}
             sx={{ mt: '24px' }}
           >

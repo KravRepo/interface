@@ -7,13 +7,11 @@ import { FarmItem } from './FarmItem'
 import DashboardBg from '../../assets/imgs/dashboard_bg.png'
 import DashboardDarkBg from '../../assets/imgs/darkModel/dashboard_bg_dark.png'
 import { ReactComponent as ArrowRight } from '../../assets/imgs/arrowRight.svg'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { useRootStore } from '../../store/root'
 import { useWeb3React } from '@web3-react/core'
 import { useNavigate } from 'react-router-dom'
 import { useGetApr } from '../../hook/hookV8/useGetApr'
 import { useMediaQuery, useTheme } from '@mui/material'
-import { useInterval } from '../../hook/hookV8/useInterval'
 import { Trans, t } from '@lingui/macro'
 type DashboardFarmProps = {
   setUserPoolLength: React.Dispatch<React.SetStateAction<number>>
@@ -22,8 +20,7 @@ type DashboardFarmProps = {
 export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
-  const userBackend = useUserPosition()
-  const { account, provider } = useWeb3React()
+  const { account } = useWeb3React()
   const navigate = useNavigate()
   const { aprList } = useGetApr()
 
@@ -39,19 +36,19 @@ export const DashboardFarm = ({ setUserPoolLength }: DashboardFarmProps) => {
     } else return []
   }, [userPositionDatas])
 
-  const allPoolParams = useRootStore((store) => store.allPoolParams)
+  // const allPoolParams = useRootStore((store) => store.allPoolParams)
 
-  useInterval(userBackend, 60000)
+  // useInterval(userBackend, 60000)
 
-  useEffect(() => {
-    if (allPoolParams.length > 0 && account && provider) {
-      userBackend().then()
-    }
-  }, [account, allPoolParams, provider])
+  // useEffect(() => {
+  //   if (allPoolParams.length > 0 && account && provider) {
+  //     userBackend().then()
+  //   }
+  // }, [account, allPoolParams, provider])
 
   useEffect(() => {
     setUserPoolLength(positionDatas.length)
-  }, [positionDatas])
+  }, [positionDatas, setUserPoolLength])
 
   return (
     <div

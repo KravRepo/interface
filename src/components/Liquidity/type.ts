@@ -3,7 +3,7 @@ import { PoolParams } from '../../store/FactorySlice'
 import { UserData } from '../../hook/hookV8/useUserPosition'
 import { AprList } from '../../hook/hookV8/useGetApr'
 
-export type DepositDAIParams = {}
+export type DepositDAIParams = object
 
 export type YourPositionProps = {
   setAddLiquidity: Dispatch<SetStateAction<boolean>>

@@ -12,7 +12,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { addDecimals, eXDecimals } from '../../utils/math'
 import BigNumber from 'bignumber.js'
-import { useUserPosition } from '../../hook/hookV8/useUserPosition'
 import { ReactComponent as WarningIcon } from '../../assets/imgs/warningIcon.svg'
 import { useFactory } from '../../hook/hookV8/useFactory'
 import { DialogLayout } from './DialogLayout'
@@ -41,7 +40,6 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const [allowRequest, setAllowRequest] = useState(true)
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-  const getUserPosition = useUserPosition()
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   const updateFactory = useFactory()
   const { tokenAmount } = usePnl(liquidityInfo.vaultT)
@@ -244,7 +242,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   liquidityInfo.symbol,
                   liquidityInfo.decimals
                 )
-                await Promise.all([updateFactory(), getUserPosition()])
+                await Promise.all([updateFactory()])
                 setWithdrawAmount('')
               }}
               sx={{ mt: '24px' }}

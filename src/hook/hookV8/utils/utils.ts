@@ -23,9 +23,10 @@ export const forMatterOpenTrades = (
   const userOpenTrades: Tuple[] = []
 
   for (let i = 0; i < res.length; i++) {
+    if (!res[i]?.leverage) break
     userOpenTrades.push({
       buy: res[i].buy,
-      index: new BigNumber(res[i].index._hex).toNumber(),
+      index: new BigNumber(res[i]?.index._hex ?? '0').toNumber(),
       initialPosToken: isPendingOrder
         ? eXDecimals(res[i].positionSizeDai._hex, 18)
         : eXDecimals(res[i].initialPosToken._hex, 18),

@@ -11,11 +11,15 @@ export function useGetTakeProfit(
   trader: string,
   positionSizeDai: any,
   tradeIndex: number,
+  pairIndex: number,
   pairContract: any
 ) {
   const [takeProfit, setTakeProfit] = useState(0)
 
   useEffect(() => {
+    if (!pairContract || !openPrice || !leverage || positionSizeDai || !trader) {
+      return
+    }
     const fetchFundingFee = async (
       openPrice: BigNumber,
       currentPrice: BigNumber,
@@ -27,11 +31,11 @@ export function useGetTakeProfit(
       tradeIndex: number,
       pairContract: any
     ) => {
-      if (pairContract) {
+      if (pairContract && openPrice && leverage && positionSizeDai) {
         try {
           const result = await pairContract.getTradeFundingFee(
             trader,
-            0,
+            pairIndex,
             tradeIndex,
             isBuy,
             positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
@@ -68,7 +72,7 @@ export function useGetTakeProfit(
     }
 
     fetchFundingFee(openPrice, currentPrice, isBuy, leverage, isSl, trader, positionSizeDai, tradeIndex, pairContract)
-  }, [pairContract, openPrice, currentPrice, isBuy, leverage, isSl, trader, positionSizeDai, tradeIndex])
+  }, [pairContract, openPrice, currentPrice, isBuy, leverage, isSl, trader, positionSizeDai, tradeIndex, pairIndex])
 
   return useMemo(() => {
     return {

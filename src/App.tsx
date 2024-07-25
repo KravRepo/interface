@@ -48,31 +48,30 @@ i18n.activate('en-US')
 
 const FullApp = () => {
   const expectChainId = useRootStore((store) => store.expectChainId)
-  const allPoolParams = useRootStore((store) => store.allPoolParams)
+  // const allPoolParams = useRootStore((store) => store.allPoolParams)
   const factoryLock = useRootStore((store) => store.factoryLock)
-  const getUserPosition = useUserPosition()
+  useUserPosition()
   const factory = useFactory()
-
   useChainIdListener()
   useInterval(factory, 60000)
-  useInterval(async () => getUserPosition(), 15000)
+  // useInterval(async () => getUserPosition(), 15000)
   useBTCPrice()
   const theme = useTheme()
 
   useEffect(() => {
     const localChainId = localStorage.getItem('krav-chain-id')
     factory(localChainId ? Number(localChainId) : DEFAULT_CHAIN).then()
-  }, [])
+  }, [factory])
 
   useEffect(() => {
     if (!factoryLock) {
       factory().then()
     }
-  }, [expectChainId, factoryLock])
+  }, [expectChainId, factory, factoryLock])
 
-  useEffect(() => {
-    if (allPoolParams) getUserPosition().then()
-  }, [allPoolParams])
+  // useEffect(() => {
+  //   if (allPoolParams) getUserPosition().then()
+  // }, [allPoolParams])
 
   return (
     <Router>

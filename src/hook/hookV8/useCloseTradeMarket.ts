@@ -59,7 +59,18 @@ export const useCloseTradeMarket = (tradingAddress: string, storageAddress: stri
         updateError(TransactionAction.CANCEL_MARKET_ORDER)
       }
     },
-    [contract, tradingAddress, storageAddress, tradePairIndex, chainId]
+    [
+      tradePairIndex,
+      setTransactionState,
+      setTransactionDialogVisibility,
+      chainId,
+      getUserOpenTrade,
+      storageAddress,
+      updateSuccessDialog,
+      setSuccessSnackbarInfo,
+      contract,
+      updateError,
+    ]
   )
 }
 

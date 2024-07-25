@@ -8,37 +8,35 @@ import { RemoveLiquidity } from '../components/Dialog/RemoveLiquidity'
 import { AddLiquidity } from '../components/Dialog/AddLiquidity'
 import { useRootStore } from '../store/root'
 import { useUserPosition } from '../hook/hookV8/useUserPosition'
-import { useWeb3React } from '@web3-react/core'
 import { css } from '@emotion/react'
 import { useGetApr } from '../hook/hookV8/useGetApr'
-import { useInterval } from '../hook/hookV8/useInterval'
 import { ReactComponent as CardIcon } from '../assets/imgs/card_mode_icon.svg'
 import { ReactComponent as TableIcon } from '../assets/imgs/table_mode_icon.svg'
 import { useTheme } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
 export const Liquidity = () => {
-  const { account, provider, chainId } = useWeb3React()
+  // const { account, provider, chainId } = useWeb3React()
   const theme = useTheme()
   const [createLiquidityPool, setCreateLiquidityPool] = useState(false)
   const [selectedPool, setSelectedPool] = useState('')
   const [addLiquidity, setAddLiquidity] = useState(false)
   const [removeLiquidity, setRemoveLiquidity] = useState(false)
-  const [isLoadingUserPosition, setIsLoadingUserPosition] = useState(true)
+  // const [isLoadingUserPosition, setIsLoadingUserPosition] = useState(false)
   const [isTable, setIsTable] = useState(false)
-  const userBackend = useUserPosition()
+  const { isLoading: isLoadingUserPosition } = useUserPosition()
   const { aprList } = useGetApr()
   const { token: tokenSymbol } = useParams()
   const pools = useRootStore((state) => state.allPoolParams)
 
-  const allPoolParams = useRootStore((store) => store.allPoolParams)
-  useInterval(userBackend, 15000)
+  // const allPoolParams = useRootStore((store) => store.allPoolParams)
+  // useInterval(userBackend, 15000)
 
-  useEffect(() => {
-    if (allPoolParams.length >= 0 && account && provider) {
-      userBackend().then(() => setIsLoadingUserPosition(false))
-    }
-  }, [account, allPoolParams, provider, chainId])
+  // useEffect(() => {
+  //   if (allPoolParams.length >= 0 && account && provider) {
+  //     userBackend().then(() => setIsLoadingUserPosition(false))
+  //   }
+  // }, [account, allPoolParams, provider, chainId])
 
   useEffect(() => {
     if (tokenSymbol) {

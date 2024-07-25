@@ -296,6 +296,6 @@ export const useFactory = () => {
         return [] as PoolParams[]
       }
     },
-    [expectChainId, isLoadingFactory]
+    [expectChainId, isLoadingFactory, setAllPoolParams, setFactoryLock, setIsLoadingFactory, setTradePool]
   )
 }

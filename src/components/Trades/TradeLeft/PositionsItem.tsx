@@ -37,6 +37,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
   const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
 
   const claimPosition = useClaimPendingOrder(tradePool.tradingT)
+
   const { takeProfit } = useGetTakeProfit(
     new BigNumber(openTrade.openPrice),
     BTCPrice,
@@ -46,6 +47,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
     openTrade.trader,
     openTrade.initialPosToken,
     openTrade.index,
+    openTrade.pairIndex,
     pairContract
   )
 

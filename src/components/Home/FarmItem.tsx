@@ -27,7 +27,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, position?.pool?.tradingT])
 
   return (
     <div className="liquidity">
@@ -67,7 +67,7 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
         {/*</p>*/}
       </div>
       <div>
-        {!lpReward.isLessThanOrEqualTo(0) ? getBigNumberStr(lpReward, 2) : "0.00"} {position.pool.symbol}
+        {!lpReward.isLessThanOrEqualTo(0) ? getBigNumberStr(lpReward, 2) : '0.00'} {position.pool.symbol}
       </div>
       {/* <div
         css={css`

@@ -37,6 +37,7 @@ export const BasicModelDepth = ({
   const [depthCharts, setDepthCharts] = useState<null | echarts.ECharts>(null)
   const currentBTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
+  const tradePairIndex = useRootStore((state) => state.tradePairIndex)
   const depthRef = useRef(null)
 
   const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
@@ -56,6 +57,7 @@ export const BasicModelDepth = ({
     account,
     positionSize,
     0,
+    tradePairIndex,
     pairContract
   )
 

@@ -96,7 +96,7 @@ export const ProfitConfirmTrade = ({
         ? new BigNumber(0)
         : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(slPrice)
-  }, [slUsePercentage, openTrade.leverage, openTrade.buy, slSetting, slPrice])
+  }, [slUsePercentage, slSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, slPrice])
 
   const targetTp = useMemo(() => {
     return tpUsePercentage
@@ -104,7 +104,7 @@ export const ProfitConfirmTrade = ({
         ? new BigNumber(0)
         : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(tpPrice)
-  }, [tpUsePercentage, openTrade.leverage, openTrade.buy, tpSetting, tpPrice])
+  }, [tpUsePercentage, tpSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, tpPrice])
 
   const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
 
@@ -117,6 +117,7 @@ export const ProfitConfirmTrade = ({
     openTrade.trader,
     openTrade.positionSizeDai,
     openTrade.index,
+    openTrade.pairIndex,
     pairContract
   )
   const slPercentage = slTakeProfit.takeProfit
@@ -130,6 +131,7 @@ export const ProfitConfirmTrade = ({
     openTrade.trader,
     openTrade.positionSizeDai,
     openTrade.index,
+    openTrade.pairIndex,
     pairContract
   )
   const tpPercentage = tpTakeProfit.takeProfit
@@ -169,6 +171,7 @@ export const ProfitConfirmTrade = ({
       openTrade.trader,
       openTrade.positionSizeDai,
       openTrade.index,
+      openTrade.pairIndex,
       pairContract
     )
 
@@ -178,17 +181,7 @@ export const ProfitConfirmTrade = ({
       if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
       if (percentage.isGreaterThan(900)) return TpLimitState.MAX_TP_LIMIT
       return TpLimitState.UPDATE
-    }, [
-      tpUsePercentage,
-      targetTp,
-      tpPrice,
-      tpPercentage,
-      btcPrice,
-      openTrade.buy,
-      openTrade.leverage,
-      percentage,
-      openTrade.openPrice,
-    ])
+    }, [targetTp, openTrade.buy, percentage, openTrade.openPrice])
 
     return tpLimit
   }
@@ -212,6 +205,7 @@ export const ProfitConfirmTrade = ({
       openTrade.trader,
       openTrade.positionSizeDai,
       openTrade.index,
+      openTrade.pairIndex,
       pairContract
     )
 
