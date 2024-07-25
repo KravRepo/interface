@@ -54,7 +54,6 @@ export const useGetKravStake = () => {
     async (amount: BigNumber) => {
       if (account && kravContract && provider && stakeContractWithProvider) {
         try {
-          console.log('amount', amount.toString())
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
           const allowance = await kravContract.allowance(account, KRAV_STAKE)

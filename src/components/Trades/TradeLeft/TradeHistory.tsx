@@ -72,36 +72,55 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
     try {
       const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=${allPoolParams.length}`)
       const quantos = await quantosRequest.json()
-
-      if (quantos.code === 200) {
-        let allHistoryData: HistoryData[] = []
-
-        const historyPromises = quantos.data.map(async (quanto: Quanto) => {
-          const historyRequest = await fetch(
-            TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${quanto.indexId}&offset=0&limit=100`
+      // console.log('quantos', quantos)
+      if (quantos.code == 200) {
+        const target = quantos.data.find((quanto: Quanto) => quanto?.tradingT === tradePool?.tradingT)
+        // console.log('target', target)
+        const historyRequest = await fetch(
+          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
+        )
+        console.log(
+          'fetching',
+          TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${target.indexId}&offset=0&limit=100`
+        )
+        // console.log('historyRequest', historyRequest)
+        const history = await historyRequest.json()
+        if (history.code === 200) {
+          let data: HistoryData[] = history.data
+          data = data.filter(
+            (item: HistoryData, index: number, self: HistoryData[]) =>
+              index ===
+              self.findIndex(
+                (t) =>
+                  t.tradePairIndex === item.tradePairIndex &&
+                  t.limitOrderType === item.limitOrderType &&
+                  t.tradeOpenPrice === item.tradeOpenPrice &&
+                  t.price === item.price &&
+                  t.tradeInitialPosToken === item.tradeInitialPosToken &&
+                  t.tradeLeverage === item.tradeLeverage &&
+                  t.percentProfit === item.percentProfit
+              )
           )
-          const history = await historyRequest.json()
-          if (history.code === 200) {
-            const data: HistoryData[] = history.data
-            return data.filter((item: HistoryData) => new BigNumber(item.tradeInitialPosToken).isGreaterThan(0))
-          }
-          return []
-        })
-
-        const results = await Promise.all(historyPromises)
-        allHistoryData = results.flat()
-        setHistoryList(allHistoryData)
+          setHistoryList(
+            data.filter(
+              (item: HistoryData) =>
+                new BigNumber(item.tradeInitialPosToken).isGreaterThan(0) &&
+                item.tradeTrader.toLowerCase() === account?.toLowerCase() &&
+                !item.marketOpen
+            )
+          )
+        }
       }
     } catch (e) {
       console.error('get user trade history failed!', e)
     }
-  }, [allPoolParams, account, chainId])
+  }, [chainId, allPoolParams.length, account, tradePool?.tradingT, setHistoryList])
 
   useEffect(() => {
     if (tradePool && account) {
       getTradeHistory().then()
     }
-  }, [tradePool, account, chainId])
+  }, [tradePool, account, chainId, getTradeHistory])
 
   return (
     <div css={isMobile ? historyOverflow : ''}>
@@ -112,12 +131,14 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
           border-top: ${theme.splitLine.primary};
         `}
       >
-        <span>{t`Date`}</span>
+        <span>{`Date Closed`}</span>
+        <span>{`Time Closed`}</span>
         <span>{t`Pair`}</span>
         <span>{t`Type`}</span>
-        <span>{t`Price`}</span>
+        <span>{`Entry Price`}</span>
+        <span>{`Exit Price`}</span>
         <span>{t`Leverage`}</span>
-        <span>{t`Coll`}</span>
+        <span>{`Collateral`}</span>
         <span>{'PnL'}</span>
         <span>%</span>
       </div>

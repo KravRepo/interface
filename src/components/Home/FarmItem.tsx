@@ -11,6 +11,7 @@ import { getBigNumberStr } from '../../utils'
 import { AprList } from '../../hook/hookV8/useGetApr'
 import { eXDecimals } from '../../utils/math'
 import { useTheme } from '@mui/material'
+import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
 
 type FarmItemProps = {
   position: UserData
@@ -28,6 +29,13 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
     if (res) return res.apr
     else return new BigNumber(0)
   }, [aprList, position?.pool?.tradingT])
+
+  const { openDaiLong, openDaiShort } = useGetMarketStats(
+    position.pool.storageT,
+    position.pool.decimals,
+    position.pool.pairInfoT,
+    0
+  )
 
   return (
     <div className="liquidity">
@@ -56,7 +64,32 @@ export const FarmItem = ({ position, aprList }: FarmItemProps) => {
       {/*  </p>*/}
       {/*</div>*/}
       <div>{apr.toFixed(2)}%</div>
-      <div>{position.pool.utilization.toFixed(2)}%</div>
+      <div>
+        {' '}
+        {!openDaiLong ||
+        !openDaiShort ||
+        isNaN(
+          (openDaiLong as any)
+            .plus(openDaiShort as any)
+            .div(position.pool.poolTotalSupply ?? '1')
+            .times(100)
+            .toFixed(2) as any
+        ) ||
+        !isFinite(
+          (openDaiLong as any)
+            .plus(openDaiShort as any)
+            .div(position.pool.poolTotalSupply ?? '1')
+            .times(100)
+            .toFixed(2) as any
+        )
+          ? 0.0
+          : ((openDaiLong as any)
+              .plus(openDaiShort as any)
+              .div(position.pool.poolTotalSupply ?? '1')
+              .times(100)
+              .toFixed(2) as any)}
+        %
+      </div>
       <div>
         <p>
           {eXDecimals(position.daiDeposited, position.pool.decimals).toFixed(2)} {position.pool.symbol}

@@ -35,10 +35,28 @@ export const TradeHistory = () => {
           TRADE_HISTORY_API + `?chainId=${chainId}&trader=${account}&indexId=${quanto.indexId}&offset=0&limit=100`
         )
         const history = await historyRequest.json()
+        // remove duplicates from history. only check equivalence between pair, type, entry price, exit price, leverage, collateral, pnl, and %
         if (history.code === 200) {
-          const data: HistoryData[] = history.data
-          const filterData = data.filter((item: HistoryData) =>
-            new BigNumber(item.tradeInitialPosToken).isGreaterThan(0)
+          let data: HistoryData[] = history.data
+          data = data.filter(
+            (item: HistoryData, index: number, self: HistoryData[]) =>
+              index ===
+              self.findIndex(
+                (t) =>
+                  t.tradePairIndex === item.tradePairIndex &&
+                  t.limitOrderType === item.limitOrderType &&
+                  t.tradeOpenPrice === item.tradeOpenPrice &&
+                  t.price === item.price &&
+                  t.tradeInitialPosToken === item.tradeInitialPosToken &&
+                  t.tradeLeverage === item.tradeLeverage &&
+                  t.percentProfit === item.percentProfit
+              )
+          )
+          const filterData = data.filter(
+            (item: HistoryData) =>
+              new BigNumber(item.tradeInitialPosToken).isGreaterThan(0) &&
+              item.tradeTrader.toLowerCase() === account?.toLowerCase() &&
+              !item.marketOpen
           )
           if (data.length > 0) {
             res.push({
@@ -68,19 +86,23 @@ export const TradeHistory = () => {
           color: #617168;
         `}
       >
-        <span>{t`Date`}</span>
+        <span>{`Date Closed`}</span>
+        <span>{`Time Closed`}</span>
         <span>{t`Pair`}</span>
         <span>{t`Type`}</span>
-        <span>{t`Price`}</span>
+        <span>{`Entry Price`}</span>
+        <span>{`Exit Price`}</span>
         <span>{t`Leverage`}</span>
-        <span>{t`Coll`}</span>
-        <span>{t`PnL`}</span>
+        <span>{`Collateral`}</span>
+        <span>{`PnL`}</span>
         <span>%</span>
       </div>
       {allHistoryData.length === 0 && <div className="no-data">{t`No trade history`}</div>}
       {allHistoryData.length > 0 &&
         allHistoryData.map((history, index) => {
-          return history.HistoryData.map((data) => {
+          return history.HistoryData.sort(
+            (a, b) => new Date(b.createTime).getMilliseconds() - new Date(a.createTime).getMilliseconds()
+          ).map((data) => {
             return <HistoryItem key={data.id} history={data} pool={history.pool} />
           })
         })}

@@ -13,7 +13,7 @@ export const myTrade = css`
     display: grid;
     padding: 12px 24px;
     margin: 0 12px;
-    grid-template-columns: 120px minmax(200px, 1fr) 1fr 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 120px minmax(140px, 1fr) 1fr 1fr 1fr 1.5fr 0.5fr;
     @media screen and (max-width: 1200px) {
       min-width: 1200px;
     }
@@ -39,7 +39,7 @@ export const myTrade = css`
     align-items: center;
     display: grid;
     padding: 12px 24px 0px;
-    grid-template-columns: 140px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 100px 100px minmax(140px, 1fr) 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
     font-size: 12px;
     @media screen and (max-width: 1200px) {
       min-width: 1200px;

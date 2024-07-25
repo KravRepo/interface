@@ -5,7 +5,7 @@ import React, { useMemo, useState } from 'react'
 import { MarketOrder } from './MarketOrder'
 import { TradeHistory } from './TradeHistory'
 import { useNavigate } from 'react-router-dom'
-import { LimitOrder } from './LimitOrder'
+// import { LimitOrder } from './LimitOrder'
 import { useRootStore } from '../../store/root'
 import { t } from '@lingui/macro'
 
@@ -18,7 +18,7 @@ export const MyOrder = () => {
     setInfoType(newValue)
   }
   const useAllOpenTrades = useRootStore((state) => state.userAllOpenTradeList)
-  const userAllOpenLimitList = useRootStore((state) => state.userAllOpenLimitList)
+  // const userAllOpenLimitList = useRootStore((state) => state.userAllOpenLimitList)
   const useAllOpenTradesCount = useMemo(() => {
     let count = 0
     useAllOpenTrades.forEach((trades) => {
@@ -27,13 +27,13 @@ export const MyOrder = () => {
     return count
   }, [useAllOpenTrades])
 
-  const userAllOpenLimitCount = useMemo(() => {
-    let count = 0
-    userAllOpenLimitList.forEach((trades) => {
-      count += trades.tuple.length
-    })
-    return count
-  }, [userAllOpenLimitList])
+  // const userAllOpenLimitCount = useMemo(() => {
+  //   let count = 0
+  //   userAllOpenLimitList.forEach((trades) => {
+  //     count += trades.tuple.length
+  //   })
+  //   return count
+  // }, [userAllOpenLimitList])
   return (
     <div className="my-order">
       <p
@@ -82,9 +82,9 @@ export const MyOrder = () => {
                 mr: '16px',
                 color: '#757575',
               }}
-              label={`${t`Positions`} ${useAllOpenTradesCount > 0 ? '(' + useAllOpenTradesCount + ')' : ''}`}
+              label={`${`Open Trades`} ${useAllOpenTradesCount > 0 ? '(' + useAllOpenTradesCount + ')' : ''}`}
             />
-            <Tab
+            {/* <Tab
               sx={{
                 minWidth: 0,
                 mr: '16px',
@@ -93,7 +93,7 @@ export const MyOrder = () => {
                 color: '#757575',
               }}
               label={`${t`Orders`} ${userAllOpenLimitCount > 0 ? '(' + userAllOpenLimitCount + ')' : ''}`}
-            />
+            /> */}
             <Tab
               sx={{
                 minWidth: 0,
@@ -101,13 +101,13 @@ export const MyOrder = () => {
                 padding: '12px 0',
                 color: '#757575',
               }}
-              label={t`Trades`}
+              label={`Trade History`}
             />
           </Tabs>
         </div>
         {infoType === 0 && <MarketOrder />}
-        {infoType === 1 && <LimitOrder />}
-        {infoType === 2 && <TradeHistory />}
+        {/* {infoType === 1 && <LimitOrder />} */}
+        {infoType === 1 && <TradeHistory />}
       </div>
     </div>
   )
