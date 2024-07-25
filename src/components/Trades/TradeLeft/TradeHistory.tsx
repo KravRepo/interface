@@ -87,7 +87,21 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
         // console.log('historyRequest', historyRequest)
         const history = await historyRequest.json()
         if (history.code === 200) {
-          const data: HistoryData[] = history.data
+          let data: HistoryData[] = history.data
+          data = data.filter(
+            (item: HistoryData, index: number, self: HistoryData[]) =>
+              index ===
+              self.findIndex(
+                (t) =>
+                  t.tradePairIndex === item.tradePairIndex &&
+                  t.limitOrderType === item.limitOrderType &&
+                  t.tradeOpenPrice === item.tradeOpenPrice &&
+                  t.price === item.price &&
+                  t.tradeInitialPosToken === item.tradeInitialPosToken &&
+                  t.tradeLeverage === item.tradeLeverage &&
+                  t.percentProfit === item.percentProfit
+              )
+          )
           setHistoryList(
             data.filter(
               (item: HistoryData) =>

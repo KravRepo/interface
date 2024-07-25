@@ -70,8 +70,9 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
 
   return (
     <div className="history-layout">
-      <div>{new Date(history.createTime).toLocaleString().split(', ')[0]}</div>
-      <div>{new Date(history.createTime).toLocaleString().split(', ')[1]}</div>
+      <div>{new Date(history.createTime).toLocaleDateString()}</div>
+      <div>{new Date(history.createTime).toLocaleTimeString()}</div>
+
       <div css={align}>
         <BTCIcon height="20" width="20" />
         <span
