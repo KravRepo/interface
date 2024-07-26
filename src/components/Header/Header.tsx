@@ -107,7 +107,7 @@ export const Header = () => {
 
   useEffect(() => {
     getUserBalance().then()
-  }, [account, provider])
+  }, [account, getUserBalance, provider])
 
   useInterval(getUserBalance, 15000)
 
@@ -174,9 +174,9 @@ export const Header = () => {
               <NavLink to={'/statistics'} css={[router, routerColor, pathname === '/statistics' ? routerActive : '']}>
                 <Trans>Statistics</Trans>
               </NavLink>
-              <NavLink to={'/points'} css={[router, routerColor, pathname === '/points' ? routerActive : '']}>
+              {/* <NavLink to={'/points'} css={[router, routerColor, pathname === '/points' ? routerActive : '']}>
                 <Trans>Points</Trans>
-              </NavLink>
+              </NavLink> */}
             </Box>
           )}
         </div>
