@@ -88,7 +88,11 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
+<<<<<<< HEAD
             label={`${`Open Trades`} ${userOpenTradeList.length > 0 ? '(' + userOpenTradeList.length + ')' : ''}`}
+=======
+            label={`${t`Open Positions`} ${userOpenTradeList.length > 0 ? '(' + userOpenTradeList.length + ')' : ''}`}
+>>>>>>> 8c5dc3d7cfd1f6b35bdbd1444079766c230e53a9
           />
           {/* <Tab
             sx={{
@@ -113,7 +117,11 @@ export const MyTrade = () => {
                 color: '#757575',
               },
             }}
+<<<<<<< HEAD
             label={`Trade History`}
+=======
+            label={t`Trade History`}
+>>>>>>> 8c5dc3d7cfd1f6b35bdbd1444079766c230e53a9
           />
         </Tabs>
       </div>
