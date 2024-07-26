@@ -3,6 +3,7 @@ import { Dialog, DialogContent, useTheme } from '@mui/material'
 import { useCallback } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import MetamaskIcon from '../../assets/imgs/wallet/metamask.svg'
+import WalletConnectIcon from '../../assets/imgs/wallet/walletconnect.png'
 import { dialogContent } from './sytle'
 import { useWeb3React } from '@web3-react/core'
 import { getAddChainParameters } from '../../connectors/chain'
@@ -80,6 +81,27 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
             >
               <img src={MetamaskIcon} height="25" width="25" alt="" />
               <span>MetaMask</span>
+            </div>
+            <div
+              css={css`
+                border: ${theme.splitLine.primary};
+              `}
+              onClick={async () => {
+                await activeConnection('wallet-connect')
+                setWalletDialogVisibility(false)
+                // await initUserToken()
+                // setInterval(async () => {
+                //   await Promise.all([
+                //     getBalance(),
+                //     getUserOpenTrade(tradePool.storageT, true),
+                //     getUserOpenLimitOrders(tradePool.storageT, true),
+                //     getUserPositionData(),
+                //   ])
+                // }, 90000)
+              }}
+            >
+              <img src={WalletConnectIcon} height="25" alt="" />
+              <span>Wallet Connect</span>
             </div>
           </div>
         </div>

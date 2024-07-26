@@ -88,11 +88,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
           color: ${history.tradeBuy && tradeType !== 'Liquidate' ? '#009B72' : '#DB4C40'};
         `}
       >
-<<<<<<< HEAD
-        {i18n.t(tradeTypeMsg[tradeType])} ({history.tradeBuy ? 'L' : 'S'})
-=======
         {i18n.t(tradeTypeMsg[tradeType])} {history.tradeBuy ? '(L)' : '(S)'}
->>>>>>> 8c5dc3d7cfd1f6b35bdbd1444079766c230e53a9
       </div>
       <div>${eXDecimals(history.tradeOpenPrice, 10).toFixed(2)}</div>
       <div>${eXDecimals(history.price, 10).toFixed(2)}</div>
