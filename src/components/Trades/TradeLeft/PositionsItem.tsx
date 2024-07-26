@@ -23,6 +23,7 @@ type PositionsItemProps = {
 }
 
 export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) => {
+  const [isOpen, setIsOpen] = useState(false)
   const theme = useTheme()
   const BTCPrice = useRootStore((state) => state.BTCPrice)
   const tradePool = useRootStore((state) => state.tradePool)
@@ -38,8 +39,10 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
 
   const claimPosition = useClaimPendingOrder(tradePool.tradingT)
 
+  const openPrice = useMemo(() => new BigNumber(openTrade.openPrice), [openTrade.openPrice])
+
   const { takeProfit } = useGetTakeProfit(
-    new BigNumber(openTrade.openPrice),
+    openPrice,
     BTCPrice,
     openTrade.buy,
     openTrade.leverage,
@@ -63,8 +66,6 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
       openTrade.leverage
     )
   }, [openTrade])
-
-  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>

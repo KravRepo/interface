@@ -14,9 +14,9 @@ export const useNumReferral = (setNumReferral: Dispatch<SetStateAction<number>>)
         setNumReferral(new BigNumber(res._hex).toNumber())
       } catch (e) {}
     }
-  }, [account, factory])
+  }, [account, factory, setNumReferral])
 
   useEffect(() => {
     getNumReferral().then()
-  }, [account, factory])
+  }, [account, factory, getNumReferral])
 }

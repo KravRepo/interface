@@ -22,7 +22,7 @@ export const useChainIdListener = () => {
         setPairConfig(isBase ? EXCHANGE_CONFIG : BASE_PAIR_CONFIG)
       }
       if (SUPPORT_CHAIN.includes(chainId)) localStorage.setItem('krav-chain-id', chainId.toString())
-      if (allPoolParams.length !== 0) reset()
+      // if (allPoolParams.length !== 0) reset()
     }
-  }, [chainId, account])
+  }, [chainId, account, setExpectChainId, allPoolParams.length, reset, setPairConfig])
 }

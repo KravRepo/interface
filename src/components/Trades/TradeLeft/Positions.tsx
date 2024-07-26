@@ -15,6 +15,7 @@ export const Positions = () => {
   // )
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   const theme = useTheme()
+
   return (
     <div>
       <div

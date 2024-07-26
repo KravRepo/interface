@@ -1,0 +1,26 @@
+import BigNumber from 'bignumber.js'
+
+export const nullTradePool = {
+  tokenT: '',
+  storageT: '',
+  pairInfoT: '',
+  pairStorageT: '',
+  apr: new BigNumber(0),
+  tradingT: '',
+  callbackT: '',
+  rewardT: '',
+  vaultT: '',
+  priceAggregatorT: '',
+  symbol: '',
+  proportionBTC: 1,
+  decimals: 18,
+  blockNumber: 0,
+  logoSource: require('../assets/imgs/tokens/default_token.svg').default,
+  utilization: new BigNumber(0),
+  maxWithdrawP: new BigNumber(0),
+  accDaiPerDai: new BigNumber(0),
+  minPositionLev: new BigNumber(0),
+  fundingFeePerBlockP: new BigNumber(0),
+  poolTotalSupply: new BigNumber(0),
+  poolCurrentBalance: new BigNumber(0),
+}

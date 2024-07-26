@@ -8,7 +8,6 @@ import { AppTheme } from './theme/appTheme'
 import Web3Provider from './connectors/Web3Provider'
 import { Footer } from './components/Footer/Footer'
 import { Liquidity } from './pages/Liquidity'
-import { useEffect } from 'react'
 import { useFactory } from './hook/hookV8/useFactory'
 import { useBTCPrice } from './hook/hookV8/useBTCPrice'
 import { ErrorDialog } from './components/Dialog/ErrorDialog'
@@ -28,11 +27,8 @@ import { Statistics } from './pages/Statistics'
 // import ReportImg from './assets/imgs/report.png'
 // import ReportDark from './assets/imgs/darkModel/report_dark.png'
 import { useTheme } from '@mui/material'
-import { useInterval } from './hook/hookV8/useInterval'
-import { useRootStore } from './store/root'
 import { useUserPosition } from './hook/hookV8/useUserPosition'
 import { useChainIdListener } from './hook/hookV8/useChainIdListener'
-import { DEFAULT_CHAIN } from './constant/chain'
 import { Exchange } from './pages/Exchange'
 import TermsAndAgreementDialog from './components/Dialog/TermsAndAgreementDialog'
 import MuiThemeProvider from './theme/muiTheme'
@@ -47,27 +43,26 @@ i18n.load(locales)
 i18n.activate('en-US')
 
 const FullApp = () => {
-  const expectChainId = useRootStore((store) => store.expectChainId)
+  // const expectChainId = useRootStore((store) => store.expectChainId)
   // const allPoolParams = useRootStore((store) => store.allPoolParams)
-  const factoryLock = useRootStore((store) => store.factoryLock)
   useUserPosition()
-  const factory = useFactory()
+  useFactory()
   useChainIdListener()
-  useInterval(factory, 60000)
+  // useInterval(factory, 60000)
   // useInterval(async () => getUserPosition(), 15000)
   useBTCPrice()
   const theme = useTheme()
 
-  useEffect(() => {
-    const localChainId = localStorage.getItem('krav-chain-id')
-    factory(localChainId ? Number(localChainId) : DEFAULT_CHAIN).then()
-  }, [factory])
+  // useEffect(() => {
+  //   const localChainId = localStorage.getItem('krav-chain-id')
+  //   factory(localChainId ? Number(localChainId) : DEFAULT_CHAIN).then()
+  // }, [factory])
 
-  useEffect(() => {
-    if (!factoryLock) {
-      factory().then()
-    }
-  }, [expectChainId, factory, factoryLock])
+  // useEffect(() => {
+  //   if (!factoryLock) {
+  //     factory().then()
+  //   }
+  // }, [expectChainId, factory, factoryLock])
 
   // useEffect(() => {
   //   if (allPoolParams) getUserPosition().then()
