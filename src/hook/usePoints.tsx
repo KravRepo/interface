@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { API_BASE } from '../constant/chain'
 import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../store/root'
-import { Box, Skeleton } from '@mui/material'
+import { Box, Skeleton, Tooltip, useTheme } from '@mui/material'
 import { MAINNET_CHAINS } from '../connectors/chain'
 import { ReactComponent as Parachute } from '../assets/points/parashute.svg'
 
@@ -73,6 +73,7 @@ export const PAGE_SIZE = 10
 export const PARTNER_SYMBOL_LIST: string[] = ['0x04D5ddf5f3a8939889F11E97f8c4BB48317F1938']
 
 export function usePointsList(curPage: number) {
+  const theme = useTheme()
   const { account } = useWeb3React()
   const allPoolParams = useRootStore((state) => state.allPoolParams)
   const [pointsList, setPointsList] = useState<null | any[]>(null)
@@ -94,6 +95,7 @@ export function usePointsList(curPage: number) {
             const chain = MAINNET_CHAINS[data.chainId as number]
             // const isPartner = PARTNER_SYMBOL_LIST.includes(pool.tokenT)
             const isLiquidated = !!data.closeTime
+            const isReferred = data.types.includes('Invite')
             return [
               data.types,
               pool ? (
@@ -106,23 +108,41 @@ export function usePointsList(curPage: number) {
                 <Skeleton variant="rectangular" width={'100%'} height={'20px'} />
               ),
               new Date(data.timestamp * 1000).toLocaleString(),
-              <div key={data.timestamp + data.multiplier}>
-                <>
-                  <span
-                    style={{
-                      color: isLiquidated ? '#E4AF53' : '#ffffff',
-                    }}
-                  >
-                    x{data.multiplier}
-                  </span>
-                  {isLiquidated && <Parachute style={{ height: '18px', width: '18px' }} />}
-                </>
-              </div>,
+              isReferred ? (
+                '-'
+              ) : (
+                <div key={data.timestamp + data.multiplier}>
+                  <>
+                    <span>x{isLiquidated ? data.multiplier / 2 : data.multiplier}</span>
+                  </>
+                </div>
+              ),
               <div key={data.timestamp + data.leverageMultiplier}>
                 {data.leverageMultiplier ? (
-                  <>
-                    <span>x{data.leverageMultiplier}</span>
-                  </>
+                  <Tooltip
+                    title={`Leverage multiplier:${data.leverageMultiplier}${
+                      isLiquidated ? '; Liquidation bonus x2' : ''
+                    }`}
+                    slotProps={{
+                      tooltip: {
+                        sx: {
+                          cursor: 'default',
+                          backgroundColor: theme.background.third,
+                        },
+                      },
+                    }}
+                  >
+                    <div style={{ cursor: 'pointer' }}>
+                      <span
+                        style={{
+                          color: isLiquidated ? '#E4AF53' : '#ffffff',
+                        }}
+                      >
+                        x{isLiquidated ? data.leverageMultiplier * 2 : data.leverageMultiplier}
+                      </span>
+                      {isLiquidated && <Parachute style={{ height: '18px', width: '18px' }} />}
+                    </div>
+                  </Tooltip>
                 ) : (
                   '-'
                 )}
@@ -160,7 +180,7 @@ export function usePointsList(curPage: number) {
       }
     }
     getPoints()
-  }, [account, allPoolParams, curPage])
+  }, [account, allPoolParams, curPage, theme.background.third])
 
   return { pointsList, pageTotal }
 }
