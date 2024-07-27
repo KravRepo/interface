@@ -70,7 +70,8 @@ export const TradeHistory = ({ historyList, setHistoryList }: TradeHistoryProps)
 
   const getTradeHistory = useCallback(async () => {
     try {
-      const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=${allPoolParams.length}`)
+      const quantosRequest = await fetch(QUANTO_API + `?chainId=${chainId}&offset=0&limit=` + allPoolParams.length)
+      // console.log('quantosRequest', quantosRequest)
       const quantos = await quantosRequest.json()
       // console.log('quantos', quantos)
       if (quantos.code == 200) {

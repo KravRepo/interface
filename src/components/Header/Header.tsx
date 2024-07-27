@@ -21,7 +21,6 @@ import { useInterval } from '../../hook/hookV8/useInterval'
 import { getAddChainParameters } from '../../connectors/chain'
 import { DEFAULT_CHAIN, SUPPORT_CHAIN } from '../../constant/chain'
 import { FaucetDialog } from '../Dialog/FaucetDialog'
-import { useFactory } from '../../hook/hookV8/useFactory'
 // import { LocaleSwitch } from './LocaleSwitch'
 
 export const Header = () => {
@@ -32,12 +31,10 @@ export const Header = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false)
   const [openFa, setOpenFa] = useState(false)
   const [autoConnect, setAutoConnect] = useState(true)
-  const factory = useFactory()
 
   const disconnectWallet = useRootStore((store) => store.disconnectWallet)
   const setDisconnectWallet = useRootStore((store) => store.setDisconnectWallet)
   const expectChainId = useRootStore((store) => store.expectChainId)
-  const isLoadingFactory = useRootStore((store) => store.isLoadingFactory)
 
   const { pathname } = useLocation()
   const theme = useTheme()
@@ -94,11 +91,11 @@ export const Header = () => {
             setAutoConnect(false)
           } catch (e) {}
         } finally {
-          if (!isLoadingFactory) factory().then(() => {})
+          // if (!isLoadingFactory) factory().then(() => {})
         }
       }
     }, 200)
-  }, [account, chainId, disconnectWallet])
+  }, [account, autoConnect, chainId, connector, disconnectWallet, expectChainId, setDisconnectWallet])
 
   const getUserBalance = useCallback(async () => {
     if (account && provider) {

@@ -41,7 +41,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
-  const updateFactory = useFactory()
+  useFactory()
   const { tokenAmount } = usePnl(liquidityInfo.vaultT)
 
   const targetPool = useMemo(() => {
@@ -242,7 +242,6 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
                   liquidityInfo.symbol,
                   liquidityInfo.decimals
                 )
-                await Promise.all([updateFactory()])
                 setWithdrawAmount('')
               }}
               sx={{ mt: '24px' }}

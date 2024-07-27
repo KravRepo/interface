@@ -21,7 +21,7 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
   const liquidityInfo = useRootStore((store) => store.liquidityInfo)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const addLiquidity = useAddLiquidity(liquidityInfo.tokenT)
-  const getFactory = useFactory()
+  useFactory()
   const [amount, setAmount] = useState<string | number>('')
   const PoolWalletBalance = useMemo(() => {
     return (
@@ -183,7 +183,6 @@ export const AddLiquidity = ({ isOpen, setIsOpen }: AddLiquidityProps) => {
                 liquidityInfo.symbol,
                 liquidityInfo.decimals
               )
-              await Promise.all([getFactory()])
             }}
             sx={{ mt: '24px' }}
           >

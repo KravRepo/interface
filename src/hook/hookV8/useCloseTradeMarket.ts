@@ -122,6 +122,15 @@ export const useUpdateTradeMarket = (tradingAddress: string, storageAddress: str
         updateError(isSL ? TransactionAction.UPDATE_SL_ORDER : TransactionAction.UPDATE_TP_ORDER)
       }
     },
-    [contract, tradingAddress, storageAddress, tradePairIndex]
+    [
+      tradePairIndex,
+      setTransactionState,
+      setTransactionDialogVisibility,
+      chainId,
+      updateSuccessDialog,
+      setSuccessSnackbarInfo,
+      contract,
+      updateError,
+    ]
   )
 }

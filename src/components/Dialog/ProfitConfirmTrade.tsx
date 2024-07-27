@@ -2,7 +2,7 @@
 import { Dialog, DialogContent, Input, useTheme } from '@mui/material'
 import { dialogContent } from './sytle'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
-import { Dispatch, SetStateAction, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react'
 import KRAVButton from '../KravUIKit/KravButton'
 import { css } from '@emotion/react'
 import { useRootStore } from '../../store/root'
@@ -108,8 +108,12 @@ export const ProfitConfirmTrade = ({
 
   const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
 
+  const openPrice = useMemo(() => {
+    return new BigNumber(openTrade.openPrice)
+  }, [openTrade.openPrice])
+
   const slTakeProfit = useGetTakeProfit(
-    new BigNumber(openTrade.openPrice),
+    openPrice,
     btcPrice,
     openTrade.buy,
     openTrade.leverage,
@@ -123,7 +127,7 @@ export const ProfitConfirmTrade = ({
   const slPercentage = slTakeProfit.takeProfit
 
   const tpTakeProfit = useGetTakeProfit(
-    new BigNumber(openTrade.openPrice),
+    openPrice,
     btcPrice,
     openTrade.buy,
     openTrade.leverage,
@@ -153,82 +157,8 @@ export const ProfitConfirmTrade = ({
     pool ? pool.storageT : tradePool.storageT
   )
 
-  const useTpLimit = (
-    openTrade: any,
-    targetTp: any,
-    tpUsePercentage: any,
-    tpPrice: any,
-    tpPercentage: any,
-    btcPrice: any,
-    pairContract: any
-  ) => {
-    const { takeProfit: percentage } = useGetTakeProfit(
-      new BigNumber(openTrade.openPrice),
-      targetTp,
-      openTrade.buy,
-      openTrade.leverage,
-      false,
-      openTrade.trader,
-      openTrade.positionSizeDai,
-      openTrade.index,
-      openTrade.pairIndex,
-      pairContract
-    )
-
-    const tpLimit = useMemo(() => {
-      if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
-      if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
-      if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
-      if (percentage.isGreaterThan(900)) return TpLimitState.MAX_TP_LIMIT
-      return TpLimitState.UPDATE
-    }, [targetTp, openTrade.buy, percentage, openTrade.openPrice])
-
-    return tpLimit
-  }
   const tpLimit = useTpLimit(openTrade, targetTp, tpUsePercentage, tpPrice, tpPercentage, btcPrice, pairContract)
 
-  const useSlLimit = (
-    openTrade: any,
-    targetSl: any,
-    slUsePercentage: any,
-    slPrice: any,
-    slPercentage: any,
-    btcPrice: any,
-    pairContract: any
-  ) => {
-    const { takeProfit: percentage } = useGetTakeProfit(
-      new BigNumber(openTrade.openPrice),
-      targetSl,
-      openTrade.buy,
-      openTrade.leverage,
-      true,
-      openTrade.trader,
-      openTrade.positionSizeDai,
-      openTrade.index,
-      openTrade.pairIndex,
-      pairContract
-    )
-
-    const slLimit = useMemo(() => {
-      if (isNaN(targetSl.toNumber()) || targetSl.isLessThan(0)) return SlLimitState.INVALID
-      if (targetSl.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return SlLimitState.SL_LT_OPEN_PRICE
-      if (targetSl.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return SlLimitState.SL_GT_OPEN_PRICE
-      if (percentage.isGreaterThan(75)) return SlLimitState.MAX_SL_LIMIT
-      return SlLimitState.UPDATE
-    }, [
-      slUsePercentage,
-      targetSl,
-      slPrice,
-      slPercentage,
-      btcPrice,
-      openTrade.buy,
-      openTrade.leverage,
-      percentage,
-      openTrade.openPrice,
-    ])
-
-    return slLimit
-  }
   const slLimit = useSlLimit(openTrade, targetSl, slUsePercentage, slPrice, slPercentage, btcPrice, pairContract)
 
   const tpButtonText = useMemo(() => {
@@ -246,6 +176,18 @@ export const ProfitConfirmTrade = ({
     if (slLimit === SlLimitState.INVALID) return SlButtonText.INVALID
     return SlButtonText.UPDATE
   }, [slLimit])
+
+  const tpAction = useCallback(async () => {
+    setIsOpen(false)
+    await closeTradeMarket(false, targetTp, openTrade.index)
+  }, [closeTradeMarket, openTrade.index, setIsOpen, targetTp])
+
+  const slAction = useCallback(async () => {
+    setIsOpen(false)
+    await closeTradeMarket(true, targetSl, openTrade.index)
+  }, [closeTradeMarket, openTrade.index, setIsOpen, targetSl])
+
+  const onCloseAction = useCallback(() => setIsOpen(false), [setIsOpen])
 
   return (
     <Dialog
@@ -270,7 +212,7 @@ export const ProfitConfirmTrade = ({
             <span>
               <Trans>BTC/USDT(Update SL/TP)</Trans>
             </span>
-            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => setIsOpen(false)} />
+            <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={onCloseAction} />
           </div>
           <div
             css={css`
@@ -414,14 +356,7 @@ export const ProfitConfirmTrade = ({
                       }}
                     />
                   </div>
-                  <KRAVButton
-                    disabled={slLimit !== SlLimitState.UPDATE}
-                    onClick={async () => {
-                      setIsOpen(false)
-                      await closeTradeMarket(true, targetSl, openTrade.index)
-                    }}
-                    sx={{ marginTop: '20px' }}
-                  >
+                  <KRAVButton disabled={slLimit !== SlLimitState.UPDATE} onClick={slAction} sx={{ marginTop: '20px' }}>
                     {i18n.t(slButtonText)}
                   </KRAVButton>
                 </div>
@@ -554,14 +489,7 @@ export const ProfitConfirmTrade = ({
                       }}
                     />
                   </div>
-                  <KRAVButton
-                    disabled={tpLimit !== TpLimitState.UPDATE}
-                    onClick={async () => {
-                      setIsOpen(false)
-                      await closeTradeMarket(false, targetTp, openTrade.index)
-                    }}
-                    sx={{ marginTop: '20px' }}
-                  >
+                  <KRAVButton disabled={tpLimit !== TpLimitState.UPDATE} onClick={tpAction} sx={{ marginTop: '20px' }}>
                     {i18n._(tpButtonText)}
                   </KRAVButton>
                 </div>
@@ -596,4 +524,72 @@ export const ProfitConfirmTrade = ({
       </DialogContent>
     </Dialog>
   )
+}
+
+const useTpLimit = (
+  openTrade: any,
+  targetTp: any,
+  tpUsePercentage: any,
+  tpPrice: any,
+  tpPercentage: any,
+  btcPrice: any,
+  pairContract: any
+) => {
+  const openPrice = useMemo(() => new BigNumber(openTrade.openPrice), [openTrade.openPrice])
+  const { takeProfit: percentage } = useGetTakeProfit(
+    openPrice,
+    targetTp,
+    openTrade.buy,
+    openTrade.leverage,
+    false,
+    openTrade.trader,
+    openTrade.positionSizeDai,
+    openTrade.index,
+    openTrade.pairIndex,
+    pairContract
+  )
+
+  const tpLimit = useMemo(() => {
+    if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
+    if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
+    if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
+    if (percentage.isGreaterThan(900)) return TpLimitState.MAX_TP_LIMIT
+    return TpLimitState.UPDATE
+  }, [targetTp, openTrade.buy, percentage, openTrade.openPrice])
+
+  return tpLimit
+}
+
+const useSlLimit = (
+  openTrade: any,
+  targetSl: any,
+  slUsePercentage: any,
+  slPrice: any,
+  slPercentage: any,
+  btcPrice: any,
+  pairContract: any
+) => {
+  const openPrice = useMemo(() => new BigNumber(openTrade.openPrice), [openTrade.openPrice])
+  const { takeProfit: percentage } = useGetTakeProfit(
+    openPrice,
+    targetSl,
+    openTrade.buy,
+    openTrade.leverage,
+    true,
+    openTrade.trader,
+    openTrade.positionSizeDai,
+    openTrade.index,
+    openTrade.pairIndex,
+    pairContract
+  )
+
+  const slLimit = useMemo(() => {
+    if (isNaN(targetSl.toNumber()) || targetSl.isLessThan(0)) return SlLimitState.INVALID
+    if (targetSl.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return SlLimitState.SL_LT_OPEN_PRICE
+    if (targetSl.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return SlLimitState.SL_GT_OPEN_PRICE
+    if (percentage.isGreaterThan(75)) return SlLimitState.MAX_SL_LIMIT
+    return SlLimitState.UPDATE
+  }, [targetSl, openTrade.buy, percentage, openTrade.openPrice])
+
+  return slLimit
 }

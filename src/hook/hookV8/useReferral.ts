@@ -61,7 +61,18 @@ export const useReferral = () => {
         updateError(TransactionAction.CLAIM_REFERRAL_REWARD)
       }
     }
-  }, [account, provider, factory, allPoolParams, chainId])
+  }, [
+    factory,
+    account,
+    provider,
+    allPoolParams,
+    chainId,
+    setTransactionState,
+    setTransactionDialogVisibility,
+    updateSuccessDialog,
+    setSuccessSnackbarInfo,
+    updateError,
+  ])
 
   const getRewardsReferral = useCallback(async () => {
     if (factory && account && provider && allPoolParams.length > 0 && chainId) {

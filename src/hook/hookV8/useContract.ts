@@ -68,13 +68,14 @@ export const useTokenSwap = (chainId: number) => {
 
 export const useFactoryContract = (provider: JsonRpcProvider) => {
   const expectChainId = useRootStore((store) => store.expectChainId)
+  console.log(expectChainId)
   return useMemo(() => {
     return new Contract(
       CONTRACT_CONFIG[expectChainId && SUPPORT_CHAIN.includes(expectChainId) ? expectChainId : DEFAULT_CHAIN].factory,
       KravFactoryABI,
       provider as any
     )
-  }, [expectChainId])
+  }, [expectChainId, provider])
 }
 
 export const useFactoryWithProvider = (provider: any) => {

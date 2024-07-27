@@ -148,7 +148,7 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
     return {
       ['Price']: {
         content: isBTC
-          ? '$' + BTCPrice.toFormat(2, 3)
+          ? '$' + BTCPrice?.toFormat(2, 3) ?? '-'
           : priceData
           ? '$' + priceData.price?.toLocaleString('en-US', { maximumFractionDigits: 2 })
           : '-',

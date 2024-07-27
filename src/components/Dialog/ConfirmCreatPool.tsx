@@ -31,13 +31,12 @@ export const ConfirmCreatPool = ({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const creatPool = useCreatePool()
-  const updateFactory = useFactory()
+  useFactory()
 
   const sendTransaction = useCallback(async () => {
     setIsOpen(false)
     try {
       await creatPool(tokenAddress, ticketSize, addDecimals(new BigNumber(LPProvision), tokenDecimals))
-      await Promise.all([updateFactory()])
       setLPProvision('')
       setTicketSize('')
       setTokenAddress('')
@@ -50,7 +49,6 @@ export const ConfirmCreatPool = ({
     ticketSize,
     LPProvision,
     tokenDecimals,
-    updateFactory,
     setLPProvision,
     setTicketSize,
     setTokenAddress,
