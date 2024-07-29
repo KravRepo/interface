@@ -19,7 +19,7 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const allPoolParams = useRootStore((state) => state.allPoolParams)
   return (
-    <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen}>
+    <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen} zIndex={1201}>
       <div css={dialogContent}>
         <div
           className="select-token-header"

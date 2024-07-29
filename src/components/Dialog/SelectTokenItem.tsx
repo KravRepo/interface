@@ -7,6 +7,7 @@ import { PoolParams } from '../../store/FactorySlice'
 import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
 import { useTheme } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 type SelectTokenItemProps = {
   pool: PoolParams
@@ -18,14 +19,19 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
   const setTradePool = useRootStore((state) => state.setTradePool)
   const tradePool = useRootStore((state) => state.tradePool)
   const userPositionDatas = useRootStore((state) => state.userPositionDatas)
+  const navigate = useNavigate()
   const PoolWalletBalance = useMemo(() => {
     return userPositionDatas.find((item) => item.pool?.tradingT === pool?.tradingT)?.walletBalance ?? new BigNumber(0)
   }, [userPositionDatas, pool])
 
-  const handleSelectPool = useCallback((pool: PoolParams) => {
-    setTradePool(pool)
-    setIsOpen(false)
-  }, [])
+  const handleSelectPool = useCallback(
+    (pool: PoolParams) => {
+      navigate('/trade/' + pool.symbol)
+      setTradePool(pool)
+      setIsOpen(false)
+    },
+    [navigate, setIsOpen, setTradePool]
+  )
 
   return (
     <div

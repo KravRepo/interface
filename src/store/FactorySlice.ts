@@ -6,6 +6,7 @@ import { DEFAULT_CHAIN } from '../constant/chain'
 import { EXCHANGE_CONFIG, ExchangeConfig } from '../constant/exchange'
 
 export type PoolParams = {
+  quantoIndex?: number
   tokenT: string
   storageT: string
   pairInfoT: string

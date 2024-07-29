@@ -153,7 +153,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     }
 
     fetchPriceImpact()
-  }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, isBuy, positionSizeDai, leverage])
+  }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, isBuy, positionSizeDai, leverage, tradePool.poolTotalSupply])
 
   // useEffect(() => {
   //   const fetchFundingFee = async () => {

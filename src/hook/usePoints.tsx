@@ -70,7 +70,7 @@ export const getTypes = (str: string) => {
 
 export const PAGE_SIZE = 10
 
-export const PARTNER_SYMBOL_LIST: string[] = ['0x04D5ddf5f3a8939889F11E97f8c4BB48317F1938']
+export const PARTNER_TOKEN_LIST: string[] = ['0x04D5ddf5f3a8939889F11E97f8c4BB48317F1938']
 
 export function usePointsList(curPage: number) {
   const { account } = useWeb3React()

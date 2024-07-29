@@ -1,4 +1,4 @@
-import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN } from '../../constant/chain'
+import { CONTRACT_CONFIG, DEFAULT_CHAIN } from '../../constant/chain'
 import { useContract } from './useContract'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useRootStore } from '../../store/root'
@@ -283,6 +283,7 @@ export const useFactory = () => {
 
         //TODO check pairs tokenT is ERC20
         const formatted = {
+          quantoIndex: idx,
           tokenT: item.tokenT,
           storageT: item.storageT,
           pairInfoT: item.pairInfoT,
@@ -315,7 +316,7 @@ export const useFactory = () => {
           ),
         }
         try {
-          formatted.logoSource = require(`../../assets/imgs/tokens/${item.symbol}.svg`)
+          formatted.logoSource = require(`../../assets/imgs/tokens/${tokenTasks?.[idx]?.result?.[0]}.svg`)
         } catch (e) {
           formatted.logoSource = require('../../assets/imgs/tokens/default_token.svg').default
         }
@@ -328,9 +329,9 @@ export const useFactory = () => {
       if (forMatter.length === 0) {
         setTradePool(nullTradePool)
       } else {
-        const target = forMatter.find((pool) => pool.tradingT === CONTRACT_CONFIG[ChainId.BASE].kravTrading)
-        if (target) setTradePool(target)
-        else setTradePool(forMatter[0])
+        // const target = forMatter.find((pool) => pool.tradingT === CONTRACT_CONFIG[ChainId.BASE].kravTrading)
+        // if (target) setTradePool(target)
+        // else setTradePool(forMatter[0])
       }
     } catch (e) {
       console.log('get Factory Error', e)
