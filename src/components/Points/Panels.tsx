@@ -55,7 +55,12 @@ export default function PointsPanels() {
           Earn Points for Trading and Liquidity Provision on KRAV! Maximize your rewards with exclusive multipliers for
           select tokens. <br />
           Check{' '}
-          <Typography component="a" href="" sx={{ color: '#ffffff' }} target="_blank">
+          <Typography
+            component="a"
+            href="https://medium.com/krav-trade/incentivizing-the-future-of-crypto-trading-kravs-k-points-program-explained-0730c14d900c"
+            sx={{ color: '#ffffff' }}
+            target="_blank"
+          >
             Medium
           </Typography>{' '}
           for more details

@@ -99,7 +99,7 @@ export function usePointsList(curPage: number) {
             return [
               data.types,
               pool ? (
-                <Box key={data.timestamp} display="flex" alignItems={'center'} gap="10px">
+                <Box key={'pool'} display="flex" alignItems={'center'} gap="10px">
                   <img src={pool.logoSource} style={{ height: '20px', width: '20px', borderRadius: '50%' }}></img>
                   {getTypes(data.types)}
                   <span>${pool.symbol}</span>
@@ -107,17 +107,17 @@ export function usePointsList(curPage: number) {
               ) : (
                 <Skeleton variant="rectangular" width={'100%'} height={'20px'} />
               ),
-              new Date(data.timestamp * 1000).toLocaleString(),
+              new Date(data.openTime * 1000).toLocaleString(),
               isReferred ? (
                 '-'
               ) : (
-                <div key={data.timestamp + data.multiplier}>
+                <div key={data.openTime + data.multiplier}>
                   <>
                     <span>x{isLiquidated ? data.multiplier / 2 : data.multiplier}</span>
                   </>
                 </div>
               ),
-              <div key={data.timestamp + data.leverageMultiplier}>
+              <div key={'leverage'}>
                 {data.leverageMultiplier ? (
                   <Tooltip
                     title={`Leverage multiplier:${data.leverageMultiplier}${
