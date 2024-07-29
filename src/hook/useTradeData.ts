@@ -6,20 +6,21 @@ import BigNumber from 'bignumber.js'
 import { addDecimals, eXDecimals, getLiqPrice } from '../utils/math'
 import { useGetMarketStats } from './hookV8/useGetMarketStats'
 import { useWeb3React } from '@web3-react/core'
+import { useSingleCallResult } from './multicall'
 // import { FEE_RATES } from '../constant/feeRate'
 // import { EXPONENTS } from '../constant/exponents'
 
-const MAX_RETRIES = 10
+// const MAX_RETRIES = 10
 
-async function retryAsync(fn: any, args: any, retries = MAX_RETRIES) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      return await fn(...args)
-    } catch (error) {
-      if (i === retries - 1) throw error
-    }
-  }
-}
+// async function retryAsync(fn: any, args: any, retries = MAX_RETRIES) {
+//   for (let i = 0; i < retries; i++) {
+//     try {
+//       return await fn(...args)
+//     } catch (error) {
+//       if (i === retries - 1) throw error
+//     }
+//   }
+// }
 
 export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, leverage }: any) {
   const { BTCPrice, tradePool, tradePairIndex } = useRootStore((state) => ({
@@ -72,7 +73,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     // } else {
     //   openDaiPrecision = openDaiShort?.times(1e18)
     // }
-    return [openPrice, tradePairIndex, isBuy, openInterest]
+    return [openPrice, tradePairIndex, isBuy.toString(), openInterest]
   }, [openPrice, tradePairIndex, isBuy, positionSizeDai, leverage])
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       setLiquidationPrice('Insufficient Liquidity')
       return
     }
-    const fetchLiquidationPrice = async () => {
+    const fetchLiquidationPrice = () => {
       if (
         pairContract &&
         liquidationPriceArgs.every((arg) => arg !== undefined) &&
@@ -120,12 +121,9 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     tradePool.poolTotalSupply,
   ])
 
-  useEffect(() => {
-    // console.log('ktoken', tradePool.vaultT)
-    // console.log('trading', tradePool.tradingT)
-    // console.log('trading storage', tradePool.storageT)
-    // console.log('pairs storage', tradePool.pairStorageT)
+  const priceImpactRes = useSingleCallResult(pairContract, 'getTradePriceImpact', priceImpactArgs)
 
+  useEffect(() => {
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
     const netExposure = positionSizeDai.times(leverage).toString()
 
@@ -134,26 +132,46 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       return
     }
 
-    const fetchPriceImpact = async () => {
-      if (pairContract && priceImpactArgs.every((arg: any) => arg !== undefined)) {
-        try {
-          const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
+    if (!priceImpactRes.result) return
 
-          setPriceImpact(
-            '$' +
-              (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })
-          )
-        } catch (error) {
-          console.error('Error fetching price impact:', error)
-        }
-      }
-    }
+    setPriceImpact(
+      '$' +
+        (priceImpactRes.result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })
+    )
 
-    fetchPriceImpact()
-  }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, isBuy, positionSizeDai, leverage, tradePool.poolTotalSupply])
+    // const fetchPriceImpact = async () => {
+    //   if (pairContract && priceImpactArgs.every((arg: any) => arg !== undefined)) {
+    //     try {
+    //       const result = await retryAsync(pairContract.getTradePriceImpact, priceImpactArgs)
+
+    //       setPriceImpact(
+    //         '$' +
+    //           (result.priceAfterImpact / 10 ** 10).toLocaleString('en-US', {
+    //             minimumFractionDigits: 2,
+    //             maximumFractionDigits: 2,
+    //           })
+    //       )
+    //     } catch (error) {
+    //       console.error('Error fetching price impact:', error)
+    //     }
+    //   }
+    // }
+
+    // fetchPriceImpact()
+  }, [
+    pairContract,
+    priceImpactArgs,
+    openDaiLong,
+    openDaiShort,
+    isBuy,
+    positionSizeDai,
+    leverage,
+    tradePool.poolTotalSupply,
+    priceImpactRes.result,
+  ])
 
   // useEffect(() => {
   //   const fetchFundingFee = async () => {
@@ -187,7 +205,6 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
   // }, [pairContract, priceImpactArgs, openDaiLong, openDaiShort, isBuy, positionSizeDai, leverage])
 
   return useMemo(() => {
-    // console.log(tradePool)
     return {
       fundingFee: tradePool.fundingFeePerBlockP ? tradePool.fundingFeePerBlockP.toFixed() : '-',
       liquidationPrice,
