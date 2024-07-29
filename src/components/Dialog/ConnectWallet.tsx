@@ -100,8 +100,8 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
                 // }, 90000)
               }}
             >
-              <img src={WalletConnectIcon} height="25" alt="" />
-              <span>Wallet Connect</span>
+              <img src={WalletConnectIcon} height="25" width="25" alt="" style={{ marginRight: '10px' }} />
+              <w3m-button label="WalletConnect" />
             </div>
           </div>
         </div>
