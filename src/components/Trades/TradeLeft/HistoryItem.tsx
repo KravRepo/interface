@@ -45,7 +45,7 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
             pool ? pool.decimals : tradePool.decimals
           )
     } else return new BigNumber(0)
-  }, [history])
+  }, [history, pool, tradePool.decimals])
 
   const tradeSymbol = useMemo(() => {
     return pairConfig[history.tradePairIndex].titleSymbol
@@ -70,8 +70,8 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
 
   return (
     <div className="history-layout">
-      <div>{new Date(history.createTime).toLocaleDateString()}</div>
-      <div>{new Date(history.createTime).toLocaleTimeString()}</div>
+      <div>{new Date(history.createTime + ' UTC+0').toLocaleDateString()}</div>
+      <div>{new Date(history.createTime + ' UTC+0').toLocaleTimeString()}</div>
 
       <div css={align}>
         <BTCIcon height="20" width="20" />
@@ -95,14 +95,14 @@ export const HistoryItem = ({ history, pool }: HistoryItemProps) => {
       <div>{history.tradeLeverage}x</div>
       <div>
         {eXDecimals(history.positionSizeDai, pool ? pool.decimals : tradePool.decimals || 18).toFixed(2)}{' '}
-        {tradePool.symbol}
+        {pool?.symbol || '-'}
       </div>
       <div
         css={css`
           color: ${pnlValue.isGreaterThan(0) ? '#009B72' : '#DB4C40'};
         `}
       >
-        {pnlValue.isEqualTo(0) ? '-' : pnlValue.toFixed(2)} {tradePool.symbol}
+        {pnlValue.isEqualTo(0) ? '-' : pnlValue.toFixed(2)} {pool?.symbol ?? '-'}
       </div>
       <div
         css={css`

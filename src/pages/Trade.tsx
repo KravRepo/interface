@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { MyTrade } from '../components/Trades/TradeLeft/MyTrade'
 import TradeTop from '../components/Trades/TradeTop'
+import { ChainId, CONTRACT_CONFIG } from '../constant/chain'
 
 export const Trade = () => {
   const [leverage, setLeverage] = useState(2)
@@ -45,11 +46,20 @@ export const Trade = () => {
       if (pool) {
         setTradePool(pool)
       }
+    } else {
+      const pool = pools.find(
+        (p) => p.tokenT.toLocaleLowerCase() === CONTRACT_CONFIG[ChainId.BASE].kravAddress.toLocaleLowerCase()
+      )
+      if (pool) {
+        setTradePool(pool)
+      }
     }
-  }, [pools, setTradePool, tokenSymbol])
+  }, [pools, setTradePool, tokenSymbol, tradePool])
 
   useEffect(() => {
-    navigate('/trade/' + tradePool.symbol)
+    if (!!tradePool.symbol) {
+      navigate('/trade/' + tradePool.symbol)
+    }
   }, [navigate, tradePool])
 
   return (

@@ -7,9 +7,10 @@ type DialogLayoutProps = {
   setIsOpen: (isOpenSelectToken: boolean) => void
   children: JSX.Element
   blurBackdrop?: boolean
+  zIndex?: number
 }
 
-export const DialogLayout = ({ isOpen, setIsOpen, children, blurBackdrop }: DialogLayoutProps) => {
+export const DialogLayout = ({ isOpen, setIsOpen, children, blurBackdrop, zIndex }: DialogLayoutProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   return (
@@ -41,6 +42,7 @@ export const DialogLayout = ({ isOpen, setIsOpen, children, blurBackdrop }: Dial
       {isMobile && (
         <SwipeableDrawer
           sx={{
+            ...(zIndex ? { zIndex } : {}),
             '& .MuiPaper-root': {
               borderRadius: '8px 8px 0px 0px',
             },
