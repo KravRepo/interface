@@ -107,7 +107,20 @@ export function usePointsList(curPage: number) {
               ) : (
                 <Skeleton variant="rectangular" width={'100%'} height={'20px'} />
               ),
-              new Date(data.openTime * 1000).toLocaleString(),
+              <Tooltip
+                key="openTime"
+                title={`${new Date(data.openTime * 1000).toTimeString()}`}
+                slotProps={{
+                  tooltip: {
+                    sx: {
+                      cursor: 'default',
+                      backgroundColor: theme.background.third,
+                    },
+                  },
+                }}
+              >
+                <p style={{ cursor: 'default' }}>{new Date(data.openTime * 1000).toLocaleString()}</p>
+              </Tooltip>,
               isReferred ? (
                 '-'
               ) : (
