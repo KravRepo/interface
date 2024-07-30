@@ -8,7 +8,7 @@ import { MAX_UNIT_256 } from '../../constant/math'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
 import { useUpdateError } from './useUpdateError'
 
-BigNumber.config({ EXPONENTIAL_AT: 1e9 })
+BigNumber.config({ EXPONENTIAL_AT: [-20, 40], ROUNDING_MODE: BigNumber.ROUND_DOWN })
 
 export const useApprove = (tokenAddress: string, tradingAddress: string, storageAddress: string) => {
   const contract = useContract(tokenAddress, test_erc20.abi)!
