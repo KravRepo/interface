@@ -37,10 +37,10 @@ export const useAddLockAmount = () => {
           }
           setTransactionState(TransactionState.INTERACTION)
           setTransactionDialogVisibility(true)
-          const params = [lockAmount.toString()] as any
+          const params = [lockAmount.toFixed()] as any
 
           let gasLimit = await getGasLimit(veContract, 'increase_amount', params)
-          gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+          gasLimit = new BigNumber(gasLimit.toFixed()).times(1.1)
 
           const tx = await veContract.increase_amount(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.INCREASE_AMOUNT)

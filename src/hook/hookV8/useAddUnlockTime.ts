@@ -31,7 +31,7 @@ export const useAddUnlockTime = () => {
           const params = [nowTimestamp + forMatterTime] as any
 
           let gasLimit = await getGasLimit(veContract, 'increase_unlock_time', params)
-          gasLimit = new BigNumber(gasLimit.toString()).times(1.1)
+          gasLimit = new BigNumber(gasLimit.toFixed()).times(1.1)
 
           const tx = await veContract.increase_unlock_time(...params, { gasLimit: gasLimit.toFixed(0) })
           setTransactionState(TransactionState.INCREASE_UNLOCK_TIME)

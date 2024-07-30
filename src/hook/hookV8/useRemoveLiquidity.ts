@@ -30,7 +30,7 @@ export const useRemoveLiquidity = (vaultAddress: string) => {
         )
         setTransactionState(TransactionState.INTERACTION)
         setTransactionDialogVisibility(true)
-        const tx = await trading_vault_contract[isBase ? 'withdrawDai' : 'withdraw'](amount.toString())
+        const tx = await trading_vault_contract[isBase ? 'withdrawDai' : 'withdraw'](amount.toFixed())
         setTransactionState(TransactionState.REMOVE_LIQUIDITY)
         await tx.wait()
         setTransactionState(TransactionState.START)
