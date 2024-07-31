@@ -236,10 +236,10 @@ msgid "Learn more about Staking Krav"
 msgstr "Узнайте больше о ставках Krav"
 
 msgid "OPEN"
-msgstr "ОТКРЫТЬ<<<<<<< HEAD"
+msgstr "ОТКРЫТЬ"
 
-#~ msgid "Your Pool Stake"
-#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
+msgid "Your Pool Stake"
+msgstr "Your Pool Stake"
 
 msgid "Go back"
 msgstr "Назад"
@@ -287,10 +287,10 @@ msgid "Total Trading Volume"
 msgstr "Общий объем торговли"
 
 msgid "My Asset"
-msgstr "Мой актив<<<<<<< HEAD"
+msgstr "Мой"
 
-#~ msgid "Your Liquidity Supply"
-#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
+msgid "Your Liquidity Supply"
+msgstr "Your Liquidity Supply"
 
 msgid "Claim locked Reward"
 msgstr "Заявить заблокированное вознаграждение"
@@ -341,13 +341,13 @@ msgid "Min lock period one week"
 msgstr "Минимальный период блокировки - одна неделя"
 
 msgid "Earning Information"
-msgstr "Информация о заработке<<<<<<< HEAD"
+msgstr "Информация о заработке"
 
 msgid "MULTIPLIER"
 msgstr ""
 
-#~ msgid "WITHDRAW_BLOCK"
-#~ msgstr ">>>>>>> 78c50f430864d5897bd74737e3c68ebb8859a7d2"
+msgid "WITHDRAW_BLOCK"
+msgstr "WITHDRAW BLOCK"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "Введите контракт актива или выберите актив"
