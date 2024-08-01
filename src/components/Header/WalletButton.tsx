@@ -14,7 +14,6 @@ import { useRootStore } from '../../store/root'
 import BigNumber from 'bignumber.js'
 import copy from 'copy-to-clipboard'
 import InvertColorsOutlinedIcon from '@mui/icons-material/InvertColorsOutlined'
-import { ChainId } from '../../constant/chain'
 
 type WalletButtonProps = {
   account: string | undefined
@@ -72,21 +71,22 @@ export const WalletButton = ({
       await connector.resetState()
       setDisconnectWallet(true)
     }
-  }, [connector])
+  }, [connector, setDisconnectWallet])
 
   const showFaucet = useMemo(() => {
     if (chainId) {
-      if (
-        [
-          ChainId.MUMBAI_TEST,
-          ChainId.ARB_TEST,
-          ChainId.BSC_TEST,
-          ChainId.OP_GOERLI,
-          ChainId.POLYGON_ZKEVM_TEST,
-        ].includes(chainId)
-      )
-        return true
-      else return false
+      return false
+      // if (
+      //   [
+      //     // ChainId.MUMBAI_TEST,
+      //     // ChainId.ARB_TEST,
+      //     // ChainId.BSC_TEST,
+      //     // ChainId.OP_GOERLI,
+      //     // ChainId.POLYGON_ZKEVM_TEST,
+      //   ].includes(chainId as)
+      // )
+      //   return true
+      // else return false
     } else return false
   }, [chainId])
 

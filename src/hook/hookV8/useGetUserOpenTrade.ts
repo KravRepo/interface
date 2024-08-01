@@ -5,14 +5,13 @@ import { useWeb3React } from '@web3-react/core'
 import { forMatterOpenTrades, isBeingMarketClosed } from './utils/utils'
 import { TradingStorageABI } from '../../abi/deployed/TradingStorageABI'
 import { Tuple } from '../../components/Trades/type'
-import { ChainId } from '../../constant/chain'
 import { useContract } from './useContract'
 import { useSingleCallResult, useSingleContractMultipleData } from '../multicall'
 import useBlockNumber from '../useBlockNumber'
 
 const ARB_TIME_OUT = 100
 const DEFAULT_TIME_OUT = 30
-const TIME_OUT_CONFIG = [ChainId.ARB_TEST]
+const TIME_OUT_CONFIG = [421613]
 
 export const useGetUserOpenTrade = (count?: number) => {
   const { chainId, account } = useWeb3React()

@@ -8,7 +8,6 @@ import { TransactionAction, TransactionState } from '../../store/TransactionSlic
 import { useRootStore } from '../../store/root'
 import { useUpdateError } from './useUpdateError'
 import { useUpdateSuccessDialog } from './useUpdateSuccessDialog'
-import { ChainId } from '../../constant/chain'
 
 export const useFaucet = () => {
   const { account, provider, chainId } = useWeb3React()
@@ -19,14 +18,14 @@ export const useFaucet = () => {
   const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
   const testTokenAddress = useMemo(() => {
     switch (chainId) {
-      case ChainId.BSC_TEST:
-        return '0xe92C6f77C00B31B808641f498BB42f6951a47297'
-      case ChainId.ARB_TEST:
-        return '0x0A9475f047DFc96E23343F01eeBbce56497f7520'
-      case ChainId.MUMBAI_TEST:
-        return '0x17a26d994800Faf302CE033B4d49B2FD12bE669b'
-      case ChainId.POLYGON_ZKEVM_TEST:
-        return '0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'
+      // case ChainId.BSC_TEST:
+      //   return '0xe92C6f77C00B31B808641f498BB42f6951a47297'
+      // case ChainId.ARB_TEST:
+      //   return '0x0A9475f047DFc96E23343F01eeBbce56497f7520'
+      // case ChainId.MUMBAI_TEST:
+      //   return '0x17a26d994800Faf302CE033B4d49B2FD12bE669b'
+      // case ChainId.POLYGON_ZKEVM_TEST:
+      //   return '0x9daCd4B76b748674a46f8554c8b56bb10A95ef04'
       default:
         return '0x0A9475f047DFc96E23343F01eeBbce56497f7520'
     }

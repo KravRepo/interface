@@ -3,11 +3,11 @@ import { headerBtn } from './sytle'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import { ReactComponent as Base } from '../../assets/imgs/chain_base.svg'
-import { ReactComponent as ARB } from '../../assets/imgs/arbitrum.svg'
-import { ReactComponent as BSC } from '../../assets/imgs/bsc.svg'
-import { ReactComponent as OP } from '../../assets/imgs/optimism.svg'
-import { ReactComponent as Polygon } from '../../assets/imgs/polygon.svg'
-import { ReactComponent as ZKEVM } from '../../assets/imgs/zkevm.svg'
+// import { ReactComponent as ARB } from '../../assets/imgs/arbitrum.svg'
+// import { ReactComponent as BSC } from '../../assets/imgs/bsc.svg'
+// import { ReactComponent as OP } from '../../assets/imgs/optimism.svg'
+// import { ReactComponent as Polygon } from '../../assets/imgs/polygon.svg'
+// import { ReactComponent as ZKEVM } from '../../assets/imgs/zkevm.svg'
 import { Button, Menu, MenuItem, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { align } from '../../globalStyle'
@@ -24,16 +24,16 @@ const MainnetLogo = ({ targetChain }: { targetChain?: number }) => {
   switch (targetChain ? targetChain : chainId) {
     case ChainId.MAINNET:
       return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.BSC:
-      return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.OP:
-      return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.POLYGON:
-      return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.ARB:
-      return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.POLYGON_ZK_EVM:
-      return <ZKEVM height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.BSC:
+    //   return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.OP:
+    //   return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.POLYGON:
+    //   return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.ARB:
+    //   return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.POLYGON_ZK_EVM:
+    //   return <ZKEVM height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     default:
       return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
   }
@@ -44,16 +44,16 @@ const TestNetworkLogo = ({ targetChain }: { targetChain?: number }) => {
   switch (targetChain ? targetChain : chainId) {
     case ChainId.MAINNET:
       return <EthIcon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.BSC_TEST:
-      return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.OP_GOERLI:
-      return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.MUMBAI_TEST:
-      return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.ARB_TEST:
-      return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
-    case ChainId.POLYGON_ZKEVM_TEST:
-      return <ZKEVM height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.BSC_TEST:
+    //   return <BSC height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.OP_GOERLI:
+    //   return <OP height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.MUMBAI_TEST:
+    //   return <Polygon height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.ARB_TEST:
+    //   return <ARB height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
+    // case ChainId.POLYGON_ZKEVM_TEST:
+    //   return <ZKEVM height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
     default:
       return <Base height="24" width="24" style={{ borderRadius: '50%', minWidth: '24px' }} />
   }

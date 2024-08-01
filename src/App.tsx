@@ -39,6 +39,8 @@ import { Provider as BlockNumberProvider } from './hook/useBlockNumber'
 import { locales } from './constant/locales'
 import Points from './pages/Points'
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react'
+import { Provider as Web3Provider2 } from './hook/web3'
+import { ChainId } from './constant/chain'
 
 // 1. Your WalletConnect Cloud project ID
 const projectId = 'ceb65bbcfecec61b5932c3256bf1665a'
@@ -121,28 +123,30 @@ const FullApp = () => {
       >
         <div className="fullApp">
           <I18nProvider i18n={i18n}>
-            <MulticallUpdater />
-            <TermsAndAgreementDialog />
-            <ErrorDialog />
-            <SuccessDialog />
-            <SuccessSnackbar />
-            <TransactionDialog />
-            <Header />
-            <Routes>
-              <Route path="/" element={<Greeting />} />
-              <Route path={'/trade'} element={<Trade />} />
-              <Route path={'/trade/:token'} element={<Trade />} />
-              <Route path={'/liquidity'} element={<Liquidity />} />
-              <Route path={'/liquidity/:token'} element={<Liquidity />} />
-              <Route path={'/portfolio'} element={<Home />} />
-              <Route path={'/points'} element={<Points />} />
-              <Route path={'/portfolio/stake'} element={<HomeStake />} />
-              {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
-              {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}
-              <Route path={'/statistics'} element={<Statistics />} />
-              <Route path={'/exchange'} element={<Exchange />} />
-            </Routes>
-            <Footer />
+            <Web3Provider2 defaultChainId={ChainId.BASE}>
+              <MulticallUpdater />
+              <TermsAndAgreementDialog />
+              <ErrorDialog />
+              <SuccessDialog />
+              <SuccessSnackbar />
+              <TransactionDialog />
+              <Header />
+              <Routes>
+                <Route path="/" element={<Greeting />} />
+                <Route path={'/trade'} element={<Trade />} />
+                <Route path={'/trade/:token'} element={<Trade />} />
+                <Route path={'/liquidity'} element={<Liquidity />} />
+                <Route path={'/liquidity/:token'} element={<Liquidity />} />
+                <Route path={'/portfolio'} element={<Home />} />
+                <Route path={'/points'} element={<Points />} />
+                <Route path={'/portfolio/stake'} element={<HomeStake />} />
+                {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
+                {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}
+                <Route path={'/statistics'} element={<Statistics />} />
+                <Route path={'/exchange'} element={<Exchange />} />
+              </Routes>
+              <Footer />
+            </Web3Provider2>
           </I18nProvider>
         </div>
         {/* <img
