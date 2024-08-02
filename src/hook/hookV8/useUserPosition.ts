@@ -90,14 +90,14 @@ export const useUserPosition = () => {
       // const priceDecode = decodeCallResult(vaultInterface, 'shareToAssetsPrice', priceRes.returnData[index])
       // const userAllBalanceDecode = decodeCallResult(tokenInterface, 'balanceOf', userAllBalance[index])
       // const userAllBackendDecode = decodeCallResult(vaultInterface, 'balanceOf', userAllBackend[index])
-      positionDetails.walletBalance = eXDecimals(tokenBalanceOf[index].result?.[0]?._hex ?? '0', pool.decimals)
+      positionDetails.walletBalance = eXDecimals(tokenBalanceOf[index]?.result?.[0]?._hex ?? '0', pool.decimals)
       positionDetails.pool = pool
-      if (new BigNumber(vaultBalanceOf[index].result?.[0]?._hex ?? '0').isGreaterThan(0)) {
+      if (new BigNumber(vaultBalanceOf[index]?.result?.[0]?._hex ?? '0').isGreaterThan(0)) {
         positionDetails.hasPosition = true
-        const shareToAssetsPrice = eXDecimals(shareToAssetsPrices[index].result?.[0]?._hex ?? '0', pool.decimals)
+        const shareToAssetsPrice = eXDecimals(shareToAssetsPrices[index]?.result?.[0]?._hex ?? '0', pool.decimals)
 
-        positionDetails.shareToAssetsPrice = new BigNumber(shareToAssetsPrices[index].result?.[0]?._hex ?? '0')
-        positionDetails.daiDeposited = new BigNumber(vaultBalanceOf[index].result?.[0]?._hex).times(shareToAssetsPrice)
+        positionDetails.shareToAssetsPrice = new BigNumber(shareToAssetsPrices[index]?.result?.[0]?._hex ?? '0')
+        positionDetails.daiDeposited = new BigNumber(vaultBalanceOf[index]?.result?.[0]?._hex).times(shareToAssetsPrice)
         ;(positionDetails.maxDaiDeposited = new BigNumber(maxDepositedShares?.[index]?.result?.[0]?._hex ?? '0')).times(
           shareToAssetsPrice
         ),

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Connector } from '@web3-react/types'
-import { injectedConnection } from '../../connectors'
+import { /*injectedConnection,*/ walletConnectConnection } from '../../connectors'
 
 async function connect(connector: Connector) {
   try {
@@ -16,6 +16,6 @@ async function connect(connector: Connector) {
 
 export default function useEagerlyConnect() {
   useEffect(() => {
-    connect(injectedConnection.connector)
+    connect(walletConnectConnection.connector)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 }

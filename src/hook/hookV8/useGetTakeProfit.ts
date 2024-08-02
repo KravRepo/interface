@@ -35,14 +35,21 @@ export function useGetTakeProfit(
 
     const result = tradeFundingFee.result as any
 
+    if (isBuy) {
+      console.log('tradingFundingFee', result.toString())
+      console.log('tradingFundingFee', (result / 10 ** 18).toString())
+      console.log('result', (result / 10 ** 18 / Number(positionSizeDai.toString())).toString())
+    }
+
     const diff = isBuy ? currentPrice.minus(openPrice) : openPrice.minus(currentPrice)
     const pFromTrade = diff.times(100 * leverage).div(openPrice)
-    const pFromFunding = (result / 10 ** 18 / Number(positionSizeDai.toString())) * -100
+    // const pFromFunding = (result / 10 ** 18 / Number(positionSizeDai.toString())) * -100
 
     const tokenEarnedFromTrade = positionSizeDai.times(pFromTrade).div(100)
-    const tokenEarnedFromFunding = positionSizeDai.times(pFromFunding).div(100)
+    // const tokenEarnedFromFunding = positionSizeDai.times(pFromFunding).div(100)
 
-    const totalEarned = tokenEarnedFromTrade.plus(tokenEarnedFromFunding)
+    // const totalEarned = tokenEarnedFromTrade.plus(tokenEarnedFromFunding)
+    const totalEarned = tokenEarnedFromTrade
     const p = totalEarned.div(positionSizeDai).times(100)
 
     if (p.isGreaterThan(MAX_GAIN_P)) {
