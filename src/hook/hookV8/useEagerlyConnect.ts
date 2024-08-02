@@ -5,7 +5,6 @@ import { /*injectedConnection,*/ walletConnectConnection } from '../../connector
 async function connect(connector: Connector) {
   try {
     if (connector.connectEagerly) {
-      console.log(111, connector)
       await connector.connectEagerly()
     } else {
       await connector.activate()

@@ -35,6 +35,5 @@ export function Provider({ connectors, children }: PropsWithChildren<{ connector
 
 export default function useConnectors() {
   const connectors = useContext(ConnectorsContext)
-  console.log(connectors, 'useConnectors used without initializing the context')
   return connectors
 }

@@ -74,7 +74,6 @@ function getChainConnections(
 export function toJsonRpcConnectionMap(connectionMap?: JsonRpcConnectionMap): Record<ChainId, JsonRpcProvider> {
   function getJsonRpcProvider(chainId: ChainId): JsonRpcProvider {
     const [connection] = getChainConnections(connectionMap, chainId)
-    console.log(77, connection)
     return JsonRpcProvider.isProvider(connection) ? connection : new StaticJsonRpcProvider(connection, Number(chainId))
   }
   return toJsonRpcMap(getJsonRpcProvider)
