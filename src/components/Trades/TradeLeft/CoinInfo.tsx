@@ -104,6 +104,11 @@ export default function CoinInfo({ isBTC, pool }: { isBTC?: boolean; pool?: Pool
 
   useEffect(() => {
     if (!isBTC && pool) {
+      if (!pool.tokenT) {
+        setIsPoolLoading(false)
+        setPoolPriceData(null)
+        return
+      }
       const fetchPoolData = async () => {
         setIsPoolLoading(true)
         try {

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dialog, DialogContent, useTheme } from '@mui/material'
+import { CircularProgress, Dialog, DialogContent, useTheme } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import MetamaskIcon from '../../assets/imgs/wallet/metamask.svg'
@@ -30,6 +30,7 @@ export type ConnectWalletDialogProp = {
 
 export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVisibility }: ConnectWalletDialogProp) => {
   const theme = useTheme()
+  const [loading, setLoading] = useState(false)
   // const updateError = useUpdateError()
 
   const connectors = useConnectors()
@@ -107,9 +108,12 @@ export const ConnectWalletDialog = ({ walletDialogVisibility, setWalletDialogVis
               walletName="WalletConnect"
               logoSrc={WalletConnectIcon}
               walletConnectQR={connectors?.walletConnectQR}
-              onClick={() => {
+              loading={loading}
+              onClick={async () => {
                 if (connectors?.walletConnect) {
-                  onActivate(connectors?.walletConnect)
+                  setLoading(true)
+                  await onActivate(connectors?.walletConnect)
+                  setLoading(false)
                   setWalletDialogVisibility(false)
                 }
               }}
@@ -126,9 +130,9 @@ function WalletConnectButton({
   logoSrc,
   walletConnectQR: walletConnect,
   onClick,
+  loading,
 }: any & { walletConnectQR: WalletConnectQR }) {
   const [svg, setSvg] = useState(walletConnect.svg)
-
   const theme = useTheme()
 
   useEffect(() => {
@@ -166,6 +170,7 @@ function WalletConnectButton({
               `}
             />
             <p>{walletName}</p>
+            {loading && <CircularProgress color="primary" size="26px" />}
           </div>
         </div>
       </div>

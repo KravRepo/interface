@@ -5,7 +5,6 @@ import { I18nProvider } from '@lingui/react'
 import { i18n } from '@lingui/core'
 import { Trade } from './pages/Trade'
 import { AppTheme } from './theme/appTheme'
-import Web3Provider from './connectors/Web3Provider'
 import { Footer } from './components/Footer/Footer'
 import { Liquidity } from './pages/Liquidity'
 import { useFactory } from './hook/hookV8/useFactory'
@@ -38,50 +37,8 @@ import { store } from './state'
 import { Provider as BlockNumberProvider } from './hook/useBlockNumber'
 import { locales } from './constant/locales'
 import Points from './pages/Points'
-import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react'
 import { Provider as Web3Provider2 } from './hook/web3'
 import { ChainId } from './constant/chain'
-
-// 1. Your WalletConnect Cloud project ID
-const projectId = 'ceb65bbcfecec61b5932c3256bf1665a'
-
-// 2. Set chains
-const baseMainnet = {
-  chainId: 8453,
-  name: 'Base',
-  currency: 'ETH',
-  explorerUrl: 'https://basescan.io',
-  rpcUrl: 'https://base-mainnet.g.alchemy.com/v2/sfdgrg3feigj0IAvvrgZkQ8qLOn-4Dxh',
-}
-
-// 3. Create a metadata object
-const metadata = {
-  name: 'krav-app',
-  description: 'krav trade',
-  url: 'https://app.krav.trade', // origin must match your domain & subdomain
-  icons: ['https://avatars.githubusercontent.com/u/37784886'],
-}
-
-// 4. Create Ethers config
-const ethersConfig = defaultConfig({
-  /*Required*/
-  metadata,
-
-  /*Optional*/
-  enableEIP6963: true, // true by default
-  enableInjected: true, // true by default
-  enableCoinbase: true, // true by default
-  rpcUrl: '', // used for the Coinbase SDK
-  defaultChainId: 8453, // used for the Coinbase SDK
-})
-
-// 5. Create a Web3Modal instance
-createWeb3Modal({
-  ethersConfig,
-  chains: [baseMainnet],
-  projectId,
-  enableAnalytics: true, // Optional - defaults to your Cloud configuration
-})
 
 i18n.load(locales)
 i18n.activate('en-US')
@@ -123,30 +80,28 @@ const FullApp = () => {
       >
         <div className="fullApp">
           <I18nProvider i18n={i18n}>
-            <Web3Provider2 defaultChainId={ChainId.BASE}>
-              <MulticallUpdater />
-              <TermsAndAgreementDialog />
-              <ErrorDialog />
-              <SuccessDialog />
-              <SuccessSnackbar />
-              <TransactionDialog />
-              <Header />
-              <Routes>
-                <Route path="/" element={<Greeting />} />
-                <Route path={'/trade'} element={<Trade />} />
-                <Route path={'/trade/:token'} element={<Trade />} />
-                <Route path={'/liquidity'} element={<Liquidity />} />
-                <Route path={'/liquidity/:token'} element={<Liquidity />} />
-                <Route path={'/portfolio'} element={<Home />} />
-                <Route path={'/points'} element={<Points />} />
-                <Route path={'/portfolio/stake'} element={<HomeStake />} />
-                {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
-                {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}
-                <Route path={'/statistics'} element={<Statistics />} />
-                <Route path={'/exchange'} element={<Exchange />} />
-              </Routes>
-              <Footer />
-            </Web3Provider2>
+            <MulticallUpdater />
+            <TermsAndAgreementDialog />
+            <ErrorDialog />
+            <SuccessDialog />
+            <SuccessSnackbar />
+            <TransactionDialog />
+            <Header />
+            <Routes>
+              <Route path="/" element={<Greeting />} />
+              <Route path={'/trade'} element={<Trade />} />
+              <Route path={'/trade/:token'} element={<Trade />} />
+              <Route path={'/liquidity'} element={<Liquidity />} />
+              <Route path={'/liquidity/:token'} element={<Liquidity />} />
+              <Route path={'/portfolio'} element={<Home />} />
+              <Route path={'/points'} element={<Points />} />
+              <Route path={'/portfolio/stake'} element={<HomeStake />} />
+              {/* <Route path={'/portfolio/farm'} element={<HomeFarm />} /> */}
+              {/* <Route path={'/portfolio/referral'} element={<HomeReferral />} /> */}
+              <Route path={'/statistics'} element={<Statistics />} />
+              <Route path={'/exchange'} element={<Exchange />} />
+            </Routes>
+            <Footer />
           </I18nProvider>
         </div>
         {/* <img
@@ -166,11 +121,11 @@ function App() {
     <ReduxProvider store={store}>
       <MuiThemeProvider>
         <AppTheme>
-          <Web3Provider>
+          <Web3Provider2 defaultChainId={ChainId.BASE}>
             <BlockNumberProvider>
               <FullApp />
             </BlockNumberProvider>
-          </Web3Provider>
+          </Web3Provider2>
         </AppTheme>
       </MuiThemeProvider>
     </ReduxProvider>

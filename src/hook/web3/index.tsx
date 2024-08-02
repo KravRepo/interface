@@ -171,7 +171,7 @@ function useWeb3ReactConnectors({ defaultChainId, provider, jsonRpcUrlMap }: Pro
       optionalMethods: ['eth_signTypedData', 'eth_signTypedData_v4', 'eth_sign'],
       qrModalOptions: {
         themeVariables: {
-          '--wcm-z-index': '999',
+          '--wcm-z-index': '1301',
         },
       },
     }),
