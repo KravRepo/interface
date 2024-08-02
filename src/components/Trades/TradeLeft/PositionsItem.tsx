@@ -130,7 +130,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               maximumFractionDigits: tradePair.fixDecimals,
             })}
           </div>
-          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
+          <div>
             {openTrade.sl.toString() === '0'
               ? `$${Number(liqPrice).toLocaleString('en-US', {
                   minimumFractionDigits: tradePair.fixDecimals,
