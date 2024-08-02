@@ -26,7 +26,7 @@ export const Positions = () => {
         `}
       >
         <span>{t`Position`}</span>
-        <span>{`PnL`}</span>
+        <span>{`PnL (FF not shown)`}</span>
         {/* <span>Size</span> */}
         <span>{t`Collateral`}</span>
         <span>{t`Entry price`}</span>
