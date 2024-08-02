@@ -253,6 +253,12 @@ export const OrderParamsCard = ({
     const nDecimals = event.target.value.split('.')[1]?.length || 0
     setInputDAIDecimals(nDecimals)
 
+    // make sure it's not nan or undefined
+    if (isNaN(parseFloat(event.target.value))) {
+      setPositionSizeDai(new BigNumber(0))
+      setOpenBTCSize(new BigNumber(0))
+      return
+    }
     const newValue = new BigNumber(event.target.value)
     setPositionSizeDai(newValue)
     const outputAmount = getLongOrShortUSD(
