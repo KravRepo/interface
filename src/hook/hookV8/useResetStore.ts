@@ -26,5 +26,6 @@ export const useResetStore = () => {
     setUserAllOpenLimitList([] as UseAllLimitOrders[])
     setUserAllOpenTradeList([] as UseAllOpenTrades[])
     setIsLoadingFactory(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

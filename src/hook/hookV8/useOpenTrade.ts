@@ -4,7 +4,7 @@ import { OpenTradeParams } from '../../components/Trades/type'
 import { useCallback } from 'react'
 // import { getGasLimit } from '../../utils'
 import { useTradingV6Contract } from './useContract'
-import { useGetUserOpenLimitOrders } from './useGetUserOpenLimitOrders'
+// import { useGetUserOpenLimitOrders } from './useGetUserOpenLimitOrders'
 import { useGetUserOpenTrade } from './useGetUserOpenTrade'
 import { useRootStore } from '../../store/root'
 import { TransactionAction, TransactionState } from '../../store/TransactionSlice'
@@ -27,7 +27,7 @@ export const useOpenTrade = ({
   // const tokenContract = useTokenContract(tokenAddress)!
   const { chainId } = useWeb3React()
   const { getUserOpenTrade } = useGetUserOpenTrade()
-  const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
+  // const { getUserOpenLimitOrders } = useGetUserOpenLimitOrders()
   const updateError = useUpdateError()
   const updateSuccessDialog = useUpdateSuccessDialog()
   const setTransactionState = useRootStore((store) => store.setTransactionState)
@@ -112,7 +112,7 @@ export const useOpenTrade = ({
       if (tradeType === 0) {
         await getUserOpenTrade(storageAddress, true)
       } else {
-        await getUserOpenLimitOrders(storageAddress, true)
+        // await getUserOpenLimitOrders(storageAddress, true)
       }
       updateSuccessDialog(TransactionAction.OPEN_TRADE)
       setSuccessSnackbarInfo({
@@ -125,5 +125,19 @@ export const useOpenTrade = ({
       updateError(TransactionAction.OPEN_TRADE)
       console.log('Open Trade failed!', e)
     }
-  }, [contract, tuple, tradeType, slippageP, spreadReductionId, tradingAddress, storageAddress, chainId])
+  }, [
+    setTransactionState,
+    setTransactionDialogVisibility,
+    tuple,
+    slippageP,
+    chainId,
+    tradeType,
+    updateSuccessDialog,
+    setSuccessSnackbarInfo,
+    setOpenTradeCard,
+    contract,
+    getUserOpenTrade,
+    storageAddress,
+    updateError,
+  ])
 }

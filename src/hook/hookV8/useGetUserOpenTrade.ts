@@ -41,10 +41,8 @@ export const useGetUserOpenTrade = (count?: number) => {
     if (!userPendingOrderIds.result) return []
     else {
       const ids: any[] = []
-      userPendingOrderIds.result.forEach((orderId: any) => {
-        if (orderId.length > 0) {
-          ids.push([orderId.toString()])
-        }
+      userPendingOrderIds.result[0].forEach((orderId: any) => {
+        ids.push([orderId.toString()])
       })
       return ids
     }
