@@ -27,6 +27,11 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
   const handleSelectPool = useCallback(
     (pool: PoolParams) => {
       navigate('/trade/' + pool.symbol)
+      if (pool.symbol === 'ROOST') {
+        pool.logoSource = 'https://random-stuff-mine.s3.amazonaws.com/roost.png'
+      }
+
+      // console.log('pool', pool)
       setTradePool(pool)
       setIsOpen(false)
     },
