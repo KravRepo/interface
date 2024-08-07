@@ -6,10 +6,11 @@ import { css } from '@emotion/react'
 import { HistoryItem } from '../Trades/TradeLeft/HistoryItem'
 import { PoolParams } from '../../store/FactorySlice'
 import { historyOverflow } from '../Trades/TradeLeft/style'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { Box, MenuItem, Select, SelectChangeEvent, useMediaQuery, useTheme } from '@mui/material'
 import { t } from '@lingui/macro'
 import PaginationView from '../Pagination'
 import { useTradeHistory } from '../../hook/hookV8/useGetTradeHistory'
+import { useRootStore } from '../../store/root'
 
 export type HistoryDataWithPool = {
   pool: PoolParams
@@ -20,11 +21,12 @@ export const TradeHistory = () => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   // const [allHistoryData, setAllHistoryData] = useState<HistoryDataWithPool[]>([])
-  // const allPoolParams = useRootStore((state) => state.allPoolParams)
+  const allPoolParams = useRootStore((state) => state.allPoolParams)
   const { account } = useWeb3React()
   const [page, setPage] = useState(1)
+  const [quantoIndex, setQuantoIndex] = useState(0)
 
-  const { totalPage, allHistoryList } = useTradeHistory(page, true)
+  const { totalPage, historyList } = useTradeHistory(page, true, quantoIndex)
 
   // const getTradeHistory = useCallback(async () => {
   //   try {
@@ -80,8 +82,33 @@ export const TradeHistory = () => {
   //   }
   // }, [allPoolParams, account, chainId, getTradeHistory])
 
+  const handleChange = (event: SelectChangeEvent<number>) => {
+    const {
+      target: { value },
+    } = event
+    const newVal = typeof value === 'number' ? value : isNaN(+value) ? 0 : +value
+    setQuantoIndex((prev) => {
+      if (newVal != prev) {
+        setPage(1)
+      }
+      return newVal
+    })
+  }
+
   return (
     <div css={isMobile ? historyOverflow : ''}>
+      {allPoolParams && (
+        <Select value={quantoIndex} onChange={handleChange} sx={{ height: '36px', margin: '10px 20px 0' }}>
+          {allPoolParams.map((pool) => (
+            <MenuItem key={pool.quantoIndex} value={pool.quantoIndex}>
+              <Box display={'flex'} alignItems={'center'} gap="10px">
+                <img src={pool.logoSource} style={{ height: '16px', width: '16px', borderRadius: '50%' }} />{' '}
+                {pool.symbol}
+              </Box>
+            </MenuItem>
+          ))}
+        </Select>
+      )}
       <div
         className="history-layout"
         css={css`
@@ -99,14 +126,15 @@ export const TradeHistory = () => {
         <span>{`PnL`}</span>
         <span>%</span>
       </div>
-      {allHistoryList.length === 0 && <div className="no-data">{t`No trade history`}</div>}
-      {allHistoryList.length > 0 &&
-        allHistoryList.map((history, index) => {
-          return history.HistoryData.sort(
-            (a, b) => new Date(b.createTime).getMilliseconds() - new Date(a.createTime).getMilliseconds()
-          ).map((data) => {
-            return <HistoryItem key={data.id} history={data} pool={history.pool} />
-          })
+      {historyList.length === 0 && <div className="no-data">{t`No trade history`}</div>}
+      {historyList.length > 0 &&
+        historyList.map((history, index) => {
+          return <HistoryItem key={history.id} history={history} pool={allPoolParams[quantoIndex]} />
+          // historyList
+          //   .sort((a, b) => new Date(b.createTime).getMilliseconds() - new Date(a.createTime).getMilliseconds())
+          //   .map((data) => {
+          //     return <HistoryItem key={data.id} history={data} pool={allPoolParams[quantoIndex]} />
+          //   })
         })}
       <div style={{ padding: '20px' }}>
         {account && totalPage > 1 && (

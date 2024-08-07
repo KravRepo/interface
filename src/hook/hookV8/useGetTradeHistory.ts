@@ -13,7 +13,7 @@ export type HistoryDataWithPool = {
   HistoryData: HistoryData[]
 }
 
-export function useTradeHistory(page = 1, isAllPool = false) {
+export function useTradeHistory(page = 1, isAllPool = false, poolIndex?: number) {
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
   const [allHistoryList, setAllHistoryList] = useState<HistoryDataWithPool[]>([])
   const [totalPage, setTotalPage] = useState(0)
@@ -22,11 +22,12 @@ export function useTradeHistory(page = 1, isAllPool = false) {
   const tradePool = useRootStore((state) => state.tradePool)
 
   const getTradeHistory = useCallback(async () => {
-    if (isAllPool === false) {
+    if (isAllPool === false || typeof poolIndex === 'number') {
+      const quantoIndex = typeof poolIndex === 'number' ? poolIndex : tradePool.quantoIndex
       try {
         const historyRequest = await fetch(
           TRADE_HISTORY_API +
-            `?chainId=${chainId}&marketOpen=${0}&trader=${account}&indexId=${tradePool.quantoIndex}&offset=${
+            `?chainId=${chainId}&marketOpen=${0}&trader=${account}&indexId=${quantoIndex}&offset=${
               PER_PAGE * (page - 1)
             }&limit=${PER_PAGE}`
         )
@@ -88,7 +89,7 @@ export function useTradeHistory(page = 1, isAllPool = false) {
           const data: HistoryData[] = history.data
           if (total < history.total) {
             total = history.total
-            setTotalPage(total / PER_PAGE_ALL)
+            setTotalPage(Math.ceil(total / PER_PAGE_ALL))
           }
 
           if (data.length > 0) {
@@ -147,7 +148,7 @@ export function useTradeHistory(page = 1, isAllPool = false) {
     } catch (e) {
       console.error('get user all trade history failed!', e)
     }
-  }, [isAllPool, tradePool.quantoIndex, chainId, account, page, allPoolParams])
+  }, [isAllPool, poolIndex, chainId, account, tradePool.quantoIndex, page, allPoolParams])
 
   useEffect(() => {
     if (((typeof tradePool.quantoIndex === 'number' && !isAllPool) || isAllPool) && account) {
