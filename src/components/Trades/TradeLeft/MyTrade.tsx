@@ -20,7 +20,7 @@ export const MyTrade = () => {
   const [historyList, setHistoryList] = useState<HistoryData[]>([])
   const userOpenTradeList = useRootStore((state) => state.userOpenTradeList)
   // const userOpenLimitList = useRootStore((state) => state.userOpenLimitList)
-  // const tradePool = useRootStore((store) => store.tradePool)
+
   // const tradePairIndex = useRootStore((store) => store.tradePairIndex)
   // const expectChainId = useRootStore((store) => store.expectChainId)
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

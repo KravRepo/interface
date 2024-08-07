@@ -31,7 +31,18 @@ export const useGetUserOpenTrade = (count?: number) => {
     return tasksArgs
   }, [account, tradePairIndex])
 
+  // const args2 = useMemo(() => {
+  //   const tasksArgs = []
+  //   for (let i = 0; i < 3; i++) {
+  //     tasksArgs.push([account, tradePairIndex])
+  //   }
+  //   return tasksArgs
+  // }, [account, tradePairIndex])
+
   const data = useSingleContractMultipleData(StorageContract, 'openTrades', args)
+
+  // const data2 = useSingleContractMultipleData(StorageContract, 'pendingMarketOpenCount', args2)
+  // console.log({ data, data2 })
 
   const pendingOerderIdArg = useMemo(() => [account], [account])
 
@@ -54,30 +65,6 @@ export const useGetUserOpenTrade = (count?: number) => {
     pendingOrderIds
   )
 
-  const userPendingMarketOrder = useMemo(() => {
-    const Order = [] as any[]
-    userPendingOrderDetailsRaw.forEach((call, index) => {
-      if (!call.result || !blockNumber || !chainId || !account) return
-      const details = call.result as any
-      if (new BigNumber(details.trade.pairIndex._hex).toNumber() === tradePairIndex) {
-        const inPending = new BigNumber(blockNumber).isGreaterThan(
-          new BigNumber(details.block._hex).plus(TIME_OUT_CONFIG.includes(chainId) ? ARB_TIME_OUT : DEFAULT_TIME_OUT)
-        )
-        const res = forMatterOpenTrades(
-          [details],
-          1,
-          account,
-          true,
-          new BigNumber(pendingOrderIds[index]._hex),
-          !inPending
-        )
-        Order.push(res[0])
-      }
-    })
-
-    return Order.filter((order) => order?.leverage > 0)
-  }, [account, blockNumber, chainId, pendingOrderIds, tradePairIndex, userPendingOrderDetailsRaw])
-
   const openTrades = useMemo(() => {
     if (!account) return []
     const trades = data
@@ -94,9 +81,46 @@ export const useGetUserOpenTrade = (count?: number) => {
     return trades
   }, [account, data])
 
+  const userPendingMarketOrder = useMemo(() => {
+    const Order = [] as any[]
+    userPendingOrderDetailsRaw.forEach((call, index) => {
+      if (!call.result || !blockNumber || !chainId || !account) return
+      const detailRaw = call.result as any
+      if (new BigNumber(detailRaw.trade.pairIndex._hex).toNumber() === tradePairIndex) {
+        const details: any = {}
+        details.index = detailRaw.trade.index
+        details.buy = detailRaw.trade.buy
+        details.initialPosToken = detailRaw.trade.initialPosToken
+        details.leverage = detailRaw.trade.leverage
+        details.openPrice = detailRaw.trade.openPrice
+        details.pairIndex = detailRaw.trade.pairIndex
+        details.positionSizeDai = detailRaw.trade.positionSizeDai
+        details.sl = detailRaw.trade.sl
+        details.tp = detailRaw.trade.tp
+        details.trader = detailRaw.trade.trader
+        details.block = detailRaw.block
+
+        const inPending = new BigNumber(blockNumber).isGreaterThan(
+          new BigNumber(details.block._hex).plus(TIME_OUT_CONFIG.includes(chainId) ? ARB_TIME_OUT : DEFAULT_TIME_OUT)
+        )
+        const res = forMatterOpenTrades(
+          [details],
+          1,
+          account,
+          true,
+          new BigNumber(pendingOrderIds[index]._hex),
+          !inPending
+        )
+        Order.push(res[0])
+      }
+    })
+
+    return Order
+  }, [account, blockNumber, chainId, pendingOrderIds, tradePairIndex, userPendingOrderDetailsRaw])
+
   useEffect(() => {
     isBeingMarketClosed(openTrades ?? [], userPendingMarketOrder)
-    setUserOpenTradeList((openTrades ?? []).concat(userPendingMarketOrder))
+    setUserOpenTradeList((openTrades ?? []).concat(...userPendingMarketOrder))
     setUserOpenTrades(openTrades ?? [])
   }, [openTrades, setUserOpenTradeList, userPendingMarketOrder])
 

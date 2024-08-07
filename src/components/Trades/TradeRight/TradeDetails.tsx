@@ -62,12 +62,12 @@ export default function TradeDetails({
       ['Entry Price']: <>{priceImpact}</>,
       ['Liquidation Price']: (
         <>
-          {liquidationPrice != '-' && '$'}
+          {liquidationPrice != '-' ? '$' : ''}
           {liquidationPrice}
         </>
       ),
     }
-  }, [positionSizeDai, leverage, openDaiLong, openDaiShort, priceImpact, BTCPrice])
+  }, [positionSizeDai, leverage, openDaiLong, openDaiShort, tradeModel, BTCPrice, priceImpact, liquidationPrice])
 
   if (tradeModel === TradeMode.BASIC) return null
   return (

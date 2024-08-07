@@ -50,7 +50,7 @@ export const forMatterOpenTrades = (
 export const isBeingMarketClosed = (marketOrders: Tuple[], pendingMarketOrders: Tuple[]) => {
   marketOrders.forEach((order) => {
     pendingMarketOrders.forEach((pendingOrder) => {
-      if (pendingOrder.index === order.index && pendingOrder.leverage === 0) order.beingMarketClosed = true
+      if (pendingOrder?.index === order?.index && pendingOrder?.leverage === 0) order.beingMarketClosed = true
     })
   })
 }

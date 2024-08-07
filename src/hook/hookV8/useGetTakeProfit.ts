@@ -23,23 +23,23 @@ export function useGetTakeProfit(
       pairIndex,
       tradeIndex,
       isBuy === true ? 'true' : 'false',
-      positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
+      leverage ? positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0] : '0',
       leverage,
     ]
   }, [isBuy, leverage, pairIndex, positionSizeDai, tradeIndex, trader])
 
-  const tradeFundingFee = useSingleCallResult(pairContract, 'getTradeFundingFee', args)
+  const tradeFundingFee = useSingleCallResult(leverage ? pairContract : null, 'getTradeFundingFee', args)
 
   useEffect(() => {
     if (!tradeFundingFee.result) return
 
-    const result = tradeFundingFee.result as any
+    // const result = tradeFundingFee.result as any
 
-    if (isBuy) {
-      console.log('tradingFundingFee', result.toString())
-      console.log('tradingFundingFee', (result / 10 ** 18).toString())
-      console.log('result', (result / 10 ** 18 / Number(positionSizeDai.toString())).toString())
-    }
+    // if (isBuy) {
+    //   console.log('tradingFundingFee', result.toString())
+    //   console.log('tradingFundingFee', (result / 10 ** 18).toString())
+    //   console.log('result', (result / 10 ** 18 / Number(positionSizeDai.toString())).toString())
+    // }
 
     const diff = isBuy ? currentPrice.minus(openPrice) : openPrice.minus(currentPrice)
     const pFromTrade = diff.times(100 * leverage).div(openPrice)

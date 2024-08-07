@@ -39,7 +39,10 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
 
   const claimPosition = useClaimPendingOrder(tradePool.tradingT)
 
-  const openPrice = useMemo(() => new BigNumber(openTrade.openPrice), [openTrade.openPrice])
+  const openPrice = useMemo(
+    () => (openTrade?.openPrice ? new BigNumber(openTrade.openPrice) : new BigNumber(0)),
+    [openTrade?.openPrice]
+  )
 
   const { takeProfit } = useGetTakeProfit(
     openPrice,
@@ -201,10 +204,12 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
           </div>
           <div>
             $
-            {Number(openTrade.openPrice).toLocaleString('en-US', {
-              minimumFractionDigits: tradePair.fixDecimals,
-              maximumFractionDigits: tradePair.fixDecimals,
-            })}
+            {openTrade?.openPrice
+              ? Number(openTrade.openPrice).toLocaleString('en-US', {
+                  minimumFractionDigits: tradePair.fixDecimals,
+                  maximumFractionDigits: tradePair.fixDecimals,
+                })
+              : '-'}
           </div>
           <div
             css={css`

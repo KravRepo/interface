@@ -81,7 +81,8 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     const netExposure = positionSizeDai.times(leverage).toString()
 
     if (netExposure >= totalLiquidity) {
-      setLiquidationPrice('Insufficient Liquidity')
+      setLiquidationPrice('-')
+      // setLiquidationPrice('Insufficient Liquidity')
       return
     }
     const fetchLiquidationPrice = () => {
