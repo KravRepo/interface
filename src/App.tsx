@@ -86,6 +86,11 @@ const FullApp = () => {
             <SuccessDialog />
             <SuccessSnackbar />
             <TransactionDialog />
+            <div style={{ padding: '20px', background: '#2832F5' }}>
+              From 2am to 5am pst KRAV will be undergoing maintenance as we work on backend upgrades. This will impact
+              app userability, so please do not interact with the app during this time, and if you would like, close
+              your trades beforehand.
+            </div>
             <Header />
             <Routes>
               <Route path="/" element={<Greeting />} />
