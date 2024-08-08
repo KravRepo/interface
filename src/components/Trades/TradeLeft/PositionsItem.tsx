@@ -15,6 +15,7 @@ import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
 import { PairInfosABI } from '../../../abi/deployed/PairInfosABI'
 import { useContract } from '../../../hook/hookV8/useContract'
+// import { BASE_ONE_HOUR_BLOCK } from '../../../constant/math'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -104,7 +105,17 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               {BTCPrice.isGreaterThan(0) && (
                 <>
                   <span>
-                    {new BigNumber(openTrade.initialPosToken).times(takeProfit).div(100).toFixed(2)}{' '}
+                    {new BigNumber(openTrade.initialPosToken)
+                      .times(takeProfit)
+                      .div(100)
+                      .minus(
+                        new BigNumber(8)
+                          .div(new BigNumber(10000))
+                          .times(new BigNumber(openTrade.leverage))
+                          .times(new BigNumber(openTrade.initialPosToken))
+                      )
+                      // .minus(eXDecimals(tradePool.fundingFeePerBlockP, 10).div(100).times(BASE_ONE_HOUR_BLOCK))
+                      .toFixed(2)}{' '}
                     {pool ? pool.symbol : tradePool.symbol}
                   </span>
                   <span>({takeProfit.toFixed(2)}%)</span>
