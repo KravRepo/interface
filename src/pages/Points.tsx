@@ -10,7 +10,7 @@ import YourCode from '../components/Points/YourCode'
 export default function Points() {
   const [isReferred, setIsReferred] = useState(false)
 
-  const { verifyReferral, errorStr, referralData, ready } = useReferral()
+  const { verifyReferral, errorStr, referralData, ready, checkReferalValid, valid } = useReferral()
   useEffect(() => {
     if (!!referralData?.inviter) {
       setIsReferred(true)
@@ -21,7 +21,13 @@ export default function Points() {
 
   return (
     <Box sx={{ maxWidth: '1200px', margin: 'auto', padding: '20px 20px 100px' }}>
-      <Gate isOpen={ready && !isReferred} verifyReferral={verifyReferral} errorStr={errorStr} />
+      <Gate
+        valid={valid}
+        isOpen={ready && !isReferred}
+        verifyReferral={verifyReferral}
+        errorStr={errorStr}
+        checkReferalValid={checkReferalValid}
+      />
       <MarqueeTop />
       {referralData?.code && <YourCode referralData={referralData} />}
       <PointsPanels />

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { API_BASE } from '../constant/chain'
 import { useWeb3React } from '@web3-react/core'
+import { useDebounceFn } from 'ahooks'
 
 export interface referralInitData {
   account: string
@@ -14,6 +15,7 @@ export const useReferral = () => {
   const [initData, setInitData] = useState<null | referralInitData>(null)
   const [errorStr, setErrorStr] = useState('')
   const [ready, setRready] = useState(false)
+  const [valid, setValid] = useState<null | boolean>(null)
 
   const init = useCallback(async () => {
     try {
@@ -73,9 +75,31 @@ export const useReferral = () => {
     [account, init, provider]
   )
 
+  const checkReferralValidRaw = useCallback(async (inviteCode: string) => {
+    if (inviteCode === '') {
+      setValid(null)
+    }
+    try {
+      const data = await fetch(API_BASE + `/user/invite/check?code=${inviteCode}`)
+
+      const res = await data.json()
+      if (res.code === 200) {
+        setValid(res.data.isOk)
+        return
+      } else {
+        setValid(null)
+        throw Error('Cannot check referral code validity')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }, [])
+
+  const { run: checkReferalValid } = useDebounceFn(checkReferralValidRaw, { wait: 600 })
+
   useEffect(() => {
     init()
   }, [init])
 
-  return { referralData: initData, verifyReferral, errorStr, ready }
+  return { referralData: initData, verifyReferral, errorStr, ready, checkReferalValid, valid }
 }

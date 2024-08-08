@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { DialogLayout } from '../Dialog/DialogLayout'
 import { dialogContent } from '../Dialog/sytle'
 import { css } from '@emotion/react'
@@ -12,11 +12,15 @@ export default function Gate({
   setIsOpen,
   verifyReferral,
   errorStr,
+  checkReferalValid,
+  valid,
 }: {
   isOpen: boolean
   setIsOpen?: Dispatch<SetStateAction<boolean>>
   verifyReferral: (inviteCode: string) => Promise<void>
   errorStr: string
+  checkReferalValid: (code: string) => void
+  valid: boolean | null
 }) {
   const theme = useTheme()
   const [code, setCode] = useState('')
@@ -24,6 +28,14 @@ export default function Gate({
   const verify = useCallback(() => {
     verifyReferral(code)
   }, [code, verifyReferral])
+
+  const checkValid = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      checkReferalValid(e.target.value)
+      setCode(e.target.value)
+    },
+    [checkReferalValid]
+  )
 
   return (
     <DialogLayout isOpen={isOpen} setIsOpen={() => {}} blurBackdrop>
@@ -77,7 +89,7 @@ export default function Gate({
             <TextField
               variant="standard"
               value={code}
-              onChange={(e) => setCode(e.target.value)}
+              onChange={checkValid}
               InputProps={{
                 disableUnderline: true,
               }}
@@ -99,6 +111,7 @@ export default function Gate({
               Verify
             </KRAVButton>
           </div>
+          {valid === false && <Typography color="error"> Code invalid</Typography>}
           {errorStr && <Typography color="error"> {errorStr}</Typography>}
           <div
             css={css`

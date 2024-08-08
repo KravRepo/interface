@@ -814,18 +814,24 @@ export const OrderParamsCard = ({
                   </>
                 )}
 
-                {tradeModel === TradeMode.DEGEN && (
-                  <div css={[align]}>
-                    <p
-                      css={css`
-                        color: ${theme.text.primary};
-                        padding-bottom: 8px;
-                      `}
-                    >
-                      <AlertIcon style={{ margin: '0 3px -3px 0' }} /> {t`A fraction of your profits...`}
-                    </p>
-                  </div>
-                )}
+                {/* {tradeModel === TradeMode.DEGEN && ( */}
+                <div css={[align]}>
+                  <p
+                    css={css`
+                      color: ${theme.text.primary};
+                      padding-bottom: 8px;
+                      font-size: 12px;
+                      background-color: ${theme.background.third};
+                      padding: 10px;
+                      margin-top: 10px;
+                      border-radius: 5px;
+                    `}
+                  >
+                    <AlertIcon style={{ margin: '0 3px -3px 0' }} /> KRAV institutes a 0.08% Open and Close Fee on total
+                    position size. These Fees are distributed to LPs.
+                  </p>
+                </div>
+                {/* )} */}
                 {/*<p*/}
                 {/*  css={[*/}
                 {/*    align,*/}
