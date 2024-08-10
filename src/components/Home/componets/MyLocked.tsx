@@ -4,16 +4,23 @@ import KRAVButton from '../../KravUIKit/KravButton'
 import KravButtonHollow from '../../KravUIKit/KravButtonHollow'
 import { css, Link, Tooltip, useTheme } from '@mui/material'
 import { UserLockPosition } from '../../../hook/hookV8/useGetUserKravLock'
-import { formatNumber, getBigNumberStr } from '../../../utils'
+import { formatNumber, getBigNumberStr, getGasLimit } from '../../../utils'
 import moment from 'moment'
 import { FeesRewardList } from '../../../hook/hookV8/useGetClaimableTokensFee'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useClaimFeesReward } from '../../../hook/hookV8/useClaimFeesReward'
 import BigNumber from 'bignumber.js'
 import { align } from '../../../globalStyle'
 import { ReactComponent as QuestionIcon } from '../../../assets/imgs/question.svg'
 import { ReactComponent as BoostIcon } from '../../../assets/imgs/boost_icon.svg'
 import { Trans, t } from '@lingui/macro'
+import { useContract } from '../../../hook/hookV8/useContract'
+import voting from '../../../abi/voting_escrow.json'
+import { useConfig } from '../../../hook/hookV8/useConfig'
+import { useUpdateSuccessDialog } from '../../../hook/hookV8/useUpdateSuccessDialog'
+import { useRootStore } from '../../../store/root'
+import { useUpdateError } from '../../../hook/hookV8/useUpdateError'
+import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 
 type MyLockedProp = {
   userLockPosition: UserLockPosition
@@ -24,7 +31,9 @@ type MyLockedProp = {
 
 export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, tradeBooster }: MyLockedProp) => {
   const theme = useTheme()
+  const config = useConfig()
   const claimFeesReward = useClaimFeesReward()
+
   const unlockButtonEnable = useMemo(() => {
     const nowTimestamp = Number((new Date().getTime() / 1000).toFixed(0))
     if (!userLockPosition) return false
@@ -33,6 +42,14 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
     return true
   }, [userLockPosition])
 
+  const updateError = useUpdateError()
+  const updateSuccessDialog = useUpdateSuccessDialog()
+  const setTransactionState = useRootStore((store) => store.setTransactionState)
+  const setTransactionDialogVisibility = useRootStore((store) => store.setTransactionDialogVisibility)
+  const setSuccessSnackbarInfo = useRootStore((state) => state.setSuccessSnackbarInfo)
+
+  const veContract = useContract(config?.veKrav, voting.abi)
+
   const claimButtonEnable = useMemo(() => {
     let enable = false
     userFeesRewardList.forEach((list) => {
@@ -40,6 +57,43 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
     })
     return enable
   }, [userFeesRewardList])
+
+  const handleUnlock = useCallback(async () => {
+    if (!veContract || !config) return
+    try {
+      setTransactionState(TransactionState.INTERACTION)
+      setTransactionDialogVisibility(true)
+      const gasLimit = await getGasLimit(veContract, 'withdraw')
+      const tx = await veContract.withdraw({ gasLimit: gasLimit.toFixed(0) })
+      setTransactionState(TransactionState.UNLOCK)
+      await tx.wait()
+      setTransactionState(TransactionState.START)
+      updateSuccessDialog(TransactionAction.UNLOCK)
+      setSuccessSnackbarInfo({
+        snackbarVisibility: true,
+        title: 'Unlock',
+        content: `Your ${formatNumber(
+          userLockPosition.amount.toNumber(),
+          2,
+          false
+        )} Krav has been unlocked successfully`,
+      })
+    } catch (e) {
+      setTransactionDialogVisibility(false)
+      setTransactionState(TransactionState.START)
+      updateError(TransactionAction.UNLOCK)
+      console.error('unlock failed!', e)
+    }
+  }, [
+    config,
+    setSuccessSnackbarInfo,
+    setTransactionDialogVisibility,
+    setTransactionState,
+    updateError,
+    updateSuccessDialog,
+    userLockPosition.amount,
+    veContract,
+  ])
 
   return (
     <div>
@@ -118,7 +172,7 @@ export const MyLocked = ({ userLockPosition, userFeesRewardList, LpBooster, trad
         </Tooltip>
         <div>{getBigNumberStr(LpBooster, 4)}</div>
       </div>
-      <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }}>
+      <KRAVButton disabled={!unlockButtonEnable} sx={{ mb: '32px' }} onClick={handleUnlock}>
         <Trans>Unlock</Trans>
       </KRAVButton>
       <div className="title gt">

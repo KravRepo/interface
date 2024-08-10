@@ -76,6 +76,16 @@ export const useCreatLock = () => {
         }
       }
     },
-    [provider, veContract, config, kravTokenContract]
+    [
+      provider,
+      veContract,
+      kravTokenContract,
+      config,
+      setTransactionState,
+      setTransactionDialogVisibility,
+      updateSuccessDialog,
+      setSuccessSnackbarInfo,
+      updateError,
+    ]
   )
 }
