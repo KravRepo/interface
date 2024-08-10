@@ -40,6 +40,7 @@ export interface PointsPools {
   point: string
   quantoIndex: number
   LPAdd?: string
+  LPRemove?: string
   TradeLong?: string
   TradeShort?: string
   Invite?: string
