@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Tuple } from '../type'
 import BigNumber from 'bignumber.js'
-import { getLiqPrice } from '../../../utils/math'
+import { addDecimals, eXDecimals, getLiqPrice } from '../../../utils/math'
 import { useGetTakeProfit } from '../../../hook/hookV8/useGetTakeProfit'
 import CloseSharpIcon from '@mui/icons-material/CloseSharp'
 import { useRootStore } from '../../../store/root'
@@ -15,6 +15,7 @@ import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
 import { PairInfosABI } from '../../../abi/deployed/PairInfosABI'
 import { useContract } from '../../../hook/hookV8/useContract'
+import { useSingleCallResult } from '../../../hook/multicall'
 // import { BASE_ONE_HOUR_BLOCK } from '../../../constant/math'
 
 type PositionsItemProps = {
@@ -57,6 +58,33 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
     openTrade.pairIndex,
     pairContract
   )
+
+  const args = useMemo(() => {
+    return [
+      openTrade.trader,
+      openTrade.pairIndex,
+      openTrade.index,
+      openTrade.buy === true ? 'true' : 'false',
+      addDecimals(new BigNumber(openTrade.initialPosToken), tradePool.decimals).toFixed(),
+      openTrade.leverage,
+    ]
+  }, [
+    openTrade.buy,
+    openTrade.index,
+    openTrade.initialPosToken,
+    openTrade.leverage,
+    openTrade.pairIndex,
+    openTrade.trader,
+    tradePool.decimals,
+  ])
+
+  const tradeFundingFee = useSingleCallResult(openTrade.leverage ? pairContract : null, 'getTradeFundingFee', args)
+
+  const fundingFee = useMemo(() => {
+    return tradeFundingFee?.result?.[0]
+      ? eXDecimals(new BigNumber(tradeFundingFee.result[0]._hex), tradePool.decimals ?? 18).toFixed(2, 3)
+      : '-'
+  }, [tradeFundingFee.result, tradePool.decimals])
 
   const tradePair = useMemo(() => {
     return pairConfig[tradePairIndex]
@@ -108,17 +136,12 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
                     {new BigNumber(openTrade.initialPosToken)
                       .times(takeProfit)
                       .div(100)
-                      .minus(
-                        new BigNumber(8)
-                          .div(new BigNumber(10000))
-                          .times(new BigNumber(openTrade.leverage))
-                          .times(new BigNumber(openTrade.initialPosToken))
-                      )
                       // .minus(eXDecimals(tradePool.fundingFeePerBlockP, 10).div(100).times(BASE_ONE_HOUR_BLOCK))
                       .toFixed(2)}{' '}
                     {pool ? pool.symbol : tradePool.symbol}
                   </span>
                   <span>({takeProfit.toFixed(2)}%)</span>
+                  <b>(FF:{fundingFee})</b>
                 </>
               )}
             </p>

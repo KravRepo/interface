@@ -47,9 +47,13 @@ export function useGetTakeProfit(
 
     const tokenEarnedFromTrade = positionSizeDai.times(pFromTrade).div(100)
     // const tokenEarnedFromFunding = positionSizeDai.times(pFromFunding).div(100)
+    const openingFee = new BigNumber(8)
+      .div(new BigNumber(10000))
+      .times(new BigNumber(leverage))
+      .times(new BigNumber(positionSizeDai))
 
     // const totalEarned = tokenEarnedFromTrade.plus(tokenEarnedFromFunding)
-    const totalEarned = tokenEarnedFromTrade
+    const totalEarned = tokenEarnedFromTrade.minus(openingFee)
     const p = totalEarned.div(positionSizeDai).times(100)
 
     if (p.isGreaterThan(MAX_GAIN_P)) {
