@@ -24,7 +24,7 @@ export const MarketItemCard = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
-  const { tokenAmount } = usePnl(poolParams.vaultT)
+  const { tokenAmount } = usePnl(poolParams.vaultT, poolParams.decimals)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const poolSupply = useMemo(() => {
     const supply =
@@ -43,7 +43,8 @@ export const MarketItemCard = ({
     const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, poolParams?.tradingT])
+
   return (
     <div
       css={[

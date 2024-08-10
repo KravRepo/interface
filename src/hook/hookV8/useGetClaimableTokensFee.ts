@@ -28,7 +28,7 @@ export const useGetClaimableTokensFee = () => {
         const feesRewardList: FeesRewardList[] = validTokens.map((item, index) => {
           const targetPool = allPoolParams.find((pool) => pool.tokenT === item)!
           return {
-            amount: eXDecimals(new BigNumber(list[index]._hex), 18),
+            amount: eXDecimals(new BigNumber(list[index]._hex), targetPool.decimals ?? 18),
             pool: targetPool,
           }
         })

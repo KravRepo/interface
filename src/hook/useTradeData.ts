@@ -52,21 +52,24 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     const decimalPlaces = decimalPart ? decimalPart.length : 0
     const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces)
     const openPriceAfterImpact = new BigNumber(bigNumberStr).toString()
-
+    const precision = new BigNumber(tradePool?.decimals || 18).times(10)
     const args = {
       trader: account,
       pairIndex: tradePairIndex,
       index: 0,
       openPrice: openPriceAfterImpact,
       long: isBuy,
-      collateral: positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0],
+      collateral: positionSizeDai?.div(leverage).times(precision).toFixed(),
       leverage,
     }
     return [...Object.values(args)]
-  }, [account, tradePairIndex, priceImpact, isBuy, leverage, positionSizeDai])
+  }, [priceImpact, tradePool?.decimals, account, tradePairIndex, isBuy, positionSizeDai, leverage])
 
   const priceImpactArgs = useMemo(() => {
-    const openInterest = positionSizeDai.times(1e18).times(leverage).toString()
+    const openInterest = positionSizeDai
+      .times(new BigNumber(tradePool?.decimals || 18).times(10))
+      .times(leverage)
+      .toString()
     // let openDaiPrecision
     // if (isBuy) {
     //   openDaiPrecision = openDaiLong?.times(1e18)
@@ -74,7 +77,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     //   openDaiPrecision = openDaiShort?.times(1e18)
     // }
     return [openPrice, tradePairIndex, isBuy.toString(), openInterest]
-  }, [openPrice, tradePairIndex, isBuy, positionSizeDai, leverage])
+  }, [positionSizeDai, tradePool?.decimals, leverage, openPrice, tradePairIndex, isBuy])
 
   useEffect(() => {
     const totalLiquidity = parseFloat(tradePool.poolTotalSupply?.toString() || '')
@@ -89,10 +92,19 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
       if (
         pairContract &&
         liquidationPriceArgs.every((arg) => arg !== undefined) &&
-        positionSizeDai?.div(leverage).times(1e18).toString().split('.')[0] !== '0'
+        positionSizeDai
+          ?.div(leverage)
+          .times(new BigNumber(tradePool?.decimals || 18).times(10))
+          .toString()
+          .split('.')[0] !== '0'
       ) {
         const liqPrice = parseFloat(
-          getLiqPrice(eXDecimals(openPrice, 10), eXDecimals(positionSizeDai, 18), isBuy, leverage).toString()
+          getLiqPrice(
+            eXDecimals(openPrice, 10),
+            eXDecimals(positionSizeDai, tradePool?.decimals || 18),
+            isBuy,
+            leverage
+          ).toString()
         ).toLocaleString('en-US', { maximumFractionDigits: 2 })
 
         setLiquidationPrice(liqPrice)
@@ -120,6 +132,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     isBuy,
     openPrice,
     tradePool.poolTotalSupply,
+    tradePool?.decimals,
   ])
 
   const priceImpactRes = useSingleCallResult(pairContract, 'getTradePriceImpact', priceImpactArgs)

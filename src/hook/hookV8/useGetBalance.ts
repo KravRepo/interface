@@ -14,8 +14,9 @@ export const useGetBalance = () => {
     try {
       if (!account) return new BigNumber(0)
       else {
+        const decimals = await test_erc20_contract.decimals()
         const balance = await test_erc20_contract.balanceOf(account)
-        return new BigNumber(balance._hex).div(new BigNumber(10).pow(18))
+        return new BigNumber(balance._hex).div(new BigNumber(10).pow(decimals))
       }
     } catch (e) {
       console.error('get balance failed', e)
@@ -51,5 +52,5 @@ export const useGetUserAllBalance = () => {
     } catch (e) {
       console.log('get user all balance failed!', e)
     }
-  }, [account, provider])
+  }, [account, allPoolParams, provider, setUserPositionDatas, userPositionDatas])
 }

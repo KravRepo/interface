@@ -186,5 +186,5 @@ export const useGetUserAllLimitOrders = () => {
         setUserAllOpenLimitList(useAllLimits)
       }
     } catch (e) {}
-  }, [allPoolParams, account, provider, config])
+  }, [allPoolParams, account, provider, config, setUserAllOpenLimitList, pairConfig])
 }

@@ -15,7 +15,8 @@ export const forMatterOpenTrades = (
   account: string,
   isPendingOrder: boolean,
   orderId?: BigNumber,
-  isInPending?: boolean
+  isInPending?: boolean,
+  decimals?: number
 ) => {
   if (!isPendingOrder) {
     res = res.filter((item) => new BigNumber(item.leverage._hex).isGreaterThan(0))
@@ -28,8 +29,8 @@ export const forMatterOpenTrades = (
       buy: res[i].buy,
       index: new BigNumber(res[i]?.index._hex ?? '0').toNumber(),
       initialPosToken: isPendingOrder
-        ? eXDecimals(res[i].positionSizeDai._hex, 18)
-        : eXDecimals(res[i].initialPosToken._hex, 18),
+        ? eXDecimals(res[i].positionSizeDai._hex, decimals ?? 18)
+        : eXDecimals(res[i].initialPosToken._hex, decimals ?? 18),
       trader: account,
       sl: eXDecimals(res[i].sl._hex, 10),
       tp: eXDecimals(res[i].tp._hex, 10),
@@ -37,7 +38,7 @@ export const forMatterOpenTrades = (
       //TODO open price decimals is 10?
       openPrice: eXDecimals(res[i].openPrice._hex, 10),
       leverage: new BigNumber(res[i].leverage._hex).toNumber(),
-      positionSizeDai: eXDecimals(res[i].positionSizeDai._hex, 18),
+      positionSizeDai: eXDecimals(res[i].positionSizeDai._hex, decimals ?? 18),
       beingMarketClosed: false,
       isPendingOrder: isPendingOrder,
       orderId: orderId,

@@ -69,7 +69,9 @@ export const useGetUserOpenTrade = (count?: number) => {
     if (!account) return []
     const trades = data
       .map((r) => {
-        return r.result ? forMatterOpenTrades([r.result] as any[], 1, account, false) : undefined
+        return r.result
+          ? forMatterOpenTrades([r.result] as any[], 1, account, false, undefined, undefined, tradePool.decimals)
+          : undefined
       })
       .reduce((acc, i) => {
         if (!!i && i.length > 0) {
@@ -79,7 +81,7 @@ export const useGetUserOpenTrade = (count?: number) => {
       }, [])
 
     return trades
-  }, [account, data])
+  }, [account, data, tradePool.decimals])
 
   const userPendingMarketOrder = useMemo(() => {
     const Order = [] as any[]
@@ -109,14 +111,15 @@ export const useGetUserOpenTrade = (count?: number) => {
           account,
           true,
           new BigNumber(pendingOrderIds[index]._hex),
-          !inPending
+          !inPending,
+          tradePool.decimals
         )
         Order.push(res[0])
       }
     })
 
     return Order
-  }, [account, blockNumber, chainId, pendingOrderIds, tradePairIndex, userPendingOrderDetailsRaw])
+  }, [account, blockNumber, chainId, pendingOrderIds, tradePairIndex, tradePool.decimals, userPendingOrderDetailsRaw])
 
   useEffect(() => {
     isBeingMarketClosed(openTrades ?? [], userPendingMarketOrder)

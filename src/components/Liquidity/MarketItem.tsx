@@ -18,7 +18,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
   const theme = useTheme()
   const { account } = useWeb3React()
   // const [lpReward, setLpReward] = useState(new BigNumber(0))
-  const { tokenAmount } = usePnl(poolParams.vaultT)
+  const { tokenAmount } = usePnl(poolParams.vaultT, poolParams.decimals)
 
   // TODO: Withdraw the balance when the dialog box is opened?
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
@@ -34,7 +34,7 @@ export const MarketItem = ({ setAddLiquidity, setRemoveLiquidity, poolParams, ap
     const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, poolParams?.tradingT])
 
   // useGetLpReward(poolParams.vaultT, poolParams.decimals, poolSupply.isGreaterThan(0) ? setLpReward : undefined)
 

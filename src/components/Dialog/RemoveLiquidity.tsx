@@ -42,7 +42,7 @@ export const RemoveLiquidity = ({ isOpen, setIsOpen }: RemoveLiquidityProps) => 
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const removeLiquidity = useRemoveLiquidity(liquidityInfo.vaultT)
   useFactory()
-  const { tokenAmount } = usePnl(liquidityInfo.vaultT)
+  const { tokenAmount } = usePnl(liquidityInfo.vaultT, liquidityInfo.decimals)
 
   const targetPool = useMemo(() => {
     return userPositionDatas.find((item) => item.pool?.tradingT === liquidityInfo.tradingT)

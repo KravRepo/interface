@@ -92,7 +92,15 @@ export const useGetUserAllOpenTrades = () => {
                     }
                   }
                   const res = await Promise.all(task)
-                  const openTrades = forMatterOpenTrades(res, trades, account, false)
+                  const openTrades = forMatterOpenTrades(
+                    res,
+                    trades,
+                    account,
+                    false,
+                    undefined,
+                    undefined,
+                    allPoolParams[index].decimals
+                  )
                   if (openTrades.length > 0) {
                     allOpenTrades.push({
                       pool: allPoolParams[index],
