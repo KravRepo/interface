@@ -10,7 +10,6 @@ import { MarketItemProps } from './type'
 import { useWeb3React } from '@web3-react/core'
 import { useGetMarketStats } from '../../hook/hookV8/useGetMarketStats'
 import { t } from '@lingui/macro'
-import { usePnl } from '../../hook/hookV8/usePnl'
 
 export const MarketItemCard = ({
   setAddLiquidity,
@@ -24,7 +23,6 @@ export const MarketItemCard = ({
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const setLiquidityInfo = useRootStore((store) => store.setLiquidityInfo)
   const setWalletDialogVisibility = useRootStore((store) => store.setWalletDialogVisibility)
-  const { tokenAmount } = usePnl(poolParams.vaultT)
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
   const poolSupply = useMemo(() => {
     const supply =
@@ -43,7 +41,8 @@ export const MarketItemCard = ({
     const res = aprList.find((list) => list?.tradingT === poolParams?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, poolParams?.tradingT])
+
   return (
     <div
       css={[
@@ -138,7 +137,7 @@ export const MarketItemCard = ({
               color: #2832f5;
             `}
           >
-            {poolSupply.plus(tokenAmount).toFormat(2, 3)}
+            {poolSupply.toFormat(2, 3)}
           </p>
         </div>
         {
