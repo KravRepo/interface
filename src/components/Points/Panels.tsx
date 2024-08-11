@@ -163,6 +163,7 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
         const invitePoints = p.Invite ? +p.Invite : 0
         const LPPoints = p.InviteLP ? +p.InviteLP : 0
         const TradePoints = p.InviteTrade ? +p.InviteTrade : 0
+
         acc.lp += invitePoints
         acc.lp += LPPoints
         acc.trade += TradePoints
@@ -180,7 +181,8 @@ function Portfolio({ pools }: { pools?: { [key: number]: PointsPools } }) {
         const pool = pools[+key as keyof typeof pools]
         const tradeL = +(pool.TradeLong !== undefined ? pool.TradeLong : '0')
         const tradeS = +(pool.TradeShort !== undefined ? pool.TradeShort : '0')
-        const LPAdd = +(pool.LPAdd !== undefined ? pool.LPAdd : '0')
+        const LPRemove = +(pool.LPRemove !== undefined ? pool.LPRemove : '0')
+        const LPAdd = +(pool.LPAdd !== undefined ? pool.LPAdd : '0') + LPRemove
 
         if (tradeL + tradeS + LPAdd == 0) {
           return null

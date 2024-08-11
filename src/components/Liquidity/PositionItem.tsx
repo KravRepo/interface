@@ -26,13 +26,13 @@ export const PositionItem = ({ position, setAddLiquidity, setRemoveLiquidity, ap
     } else {
       return new BigNumber(0)
     }
-  }, [position])
+  }, [maxWithdrawAmount, position])
 
   const apr = useMemo(() => {
     const res = aprList.find((list) => list?.tradingT === position?.pool?.tradingT)
     if (res) return res.apr
     else return new BigNumber(0)
-  }, [aprList])
+  }, [aprList, position?.pool?.tradingT])
 
   return (
     <div className="liquidity-table">
