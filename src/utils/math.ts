@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, OPEN_FEES } from '../constant/math'
+import { BASE_ONE_HOUR_BLOCK, LIQ_THRESHOLD_P, MAX_GAIN_P, OPEN_FEES } from '../constant/math'
 import { getBigNumberStr } from './index'
 import { OverviewData } from '../hook/hookV8/useGetTotalMarketOverview'
 
@@ -101,6 +101,25 @@ export const getReachPrice = (leverage: number, isBuy: boolean, percentProfit: n
 //     }
 //   })()
 // }
+
+export const getTakeProfit = (
+  openPrice: BigNumber,
+  currentPrice: BigNumber,
+  isBuy: boolean,
+  leverage: number,
+  isSl: boolean
+) => {
+  const diff = isBuy ? currentPrice.minus(openPrice) : openPrice.minus(currentPrice)
+  const p = diff.times(100 * leverage).div(openPrice)
+  if (p.isGreaterThan(MAX_GAIN_P)) {
+    return new BigNumber(MAX_GAIN_P)
+  } else {
+    if (isSl) {
+      if (p.isLessThan(-100)) return new BigNumber(-100)
+      else return p
+    } else return p
+  }
+}
 
 export const getBorrowFees = (fundingFeePerBlockP?: BigNumber) => {
   if (fundingFeePerBlockP) {

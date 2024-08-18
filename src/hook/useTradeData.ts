@@ -52,7 +52,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
     const decimalPlaces = decimalPart ? decimalPart.length : 0
     const bigNumberStr = fullNumberStr + '0'.repeat(10 - decimalPlaces)
     const openPriceAfterImpact = new BigNumber(bigNumberStr).toString()
-    const precision = new BigNumber(tradePool?.decimals || 18).times(10)
+    const precision = new BigNumber(10).pow(tradePool?.decimals || 18)
     const args = {
       trader: account,
       pairIndex: tradePairIndex,
@@ -67,7 +67,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
 
   const priceImpactArgs = useMemo(() => {
     const openInterest = positionSizeDai
-      .times(new BigNumber(tradePool?.decimals || 18).times(10))
+      .times(new BigNumber(10).pow(tradePool?.decimals || 18))
       .times(leverage)
       .toString()
     // let openDaiPrecision
@@ -94,7 +94,7 @@ export function useTradeData({ tradeType, limitPrice, isBuy, positionSizeDai, le
         liquidationPriceArgs.every((arg) => arg !== undefined) &&
         positionSizeDai
           ?.div(leverage)
-          .times(new BigNumber(tradePool?.decimals || 18).times(10))
+          .times(new BigNumber(10).pow(tradePool?.decimals || 18))
           .toString()
           .split('.')[0] !== '0'
       ) {
