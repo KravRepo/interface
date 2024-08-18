@@ -311,11 +311,11 @@ export const OrderParamsCard = ({
     if (isSl) {
       setSlSetting(value)
       setUseSlPercentage(true)
-      setSlPrice('')
+      setSlPrice('0')
     } else {
       setTpSetting(value)
       setTpUsePercentage(true)
-      setTpPrice('')
+      setTpPrice('0')
     }
   }
 
@@ -1143,7 +1143,7 @@ export const OrderParamsCard = ({
                             startAdornment={
                               <span
                                 style={{
-                                  color: slUsePercentage ? '#757575' : '#fff',
+                                  color: tpUsePercentage ? '#757575' : '#fff',
                                 }}
                               >
                                 $
@@ -1172,7 +1172,7 @@ export const OrderParamsCard = ({
                                 padding: 0,
                               },
                               '& .MuiInputBase-input': {
-                                color: '#fff!important',
+                                color: tpUsePercentage ? '#757575' : '#fff',
                                 padding: '0px 0px 0px 4px',
                                 margin: '4px 4px 5px 0',
                               },
