@@ -149,13 +149,13 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
                   maximumFractionDigits: tradePair.fixDecimals,
                 })}`}
           </div>
-          {/* <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
+          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             $
             {Number(openTrade.tp).toLocaleString('en-US', {
               minimumFractionDigits: tradePair.fixDecimals,
               maximumFractionDigits: tradePair.fixDecimals,
             })}
-          </div> */}
+          </div>
           <div>
             {openTrade.beingMarketClosed && (
               <div>
