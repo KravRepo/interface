@@ -32,7 +32,7 @@ export const Positions = () => {
         <span>{t`Entry price`}</span>
         <span>{t`Mark price`}</span>
         <span>{t`Liquidation Price`}</span>
-        {/* <span>Take profit</span> */}
+        <span>Take profit</span>
         <span>{t`Close`}</span>
       </div>
       {userOpenTradeList.length === 0 && account && <div className="no-data">{t`No open position`}</div>}
