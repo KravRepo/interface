@@ -27,6 +27,10 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
     if (allPoolParams[i].symbol === 'weETH') {
       allPoolParams[i].logoSource = 'https://krav-assets.s3.amazonaws.com/WebP+to+PNG+conversion.png'
     }
+
+    if (allPoolParams[i].symbol === 'MIGGLES') {
+      allPoolParams[i].logoSource = 'https://krav-assets.s3.amazonaws.com/miggles.png'
+    }
   }
 
   return (

@@ -50,6 +50,10 @@ export const MarketItemCard = ({
   if (poolParams.symbol === 'weETH') {
     poolParams.logoSource = 'https://krav-assets.s3.amazonaws.com/WebP+to+PNG+conversion.png'
   }
+
+  if (poolParams.symbol === 'MIGGLES') {
+    poolParams.logoSource = 'https://krav-assets.s3.amazonaws.com/miggles.png'
+  }
   return (
     <div
       css={[
