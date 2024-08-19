@@ -18,6 +18,17 @@ export const SelectToken = ({ isOpen, setIsOpen }: SelectTokenProps) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const allPoolParams = useRootStore((state) => state.allPoolParams)
+
+  for (let i = 0; i < allPoolParams.length; i++) {
+    if (allPoolParams[i].symbol === 'ROOST') {
+      allPoolParams[i].logoSource = 'https://random-stuff-mine.s3.amazonaws.com/roost.png'
+    }
+
+    if (allPoolParams[i].symbol === 'weETH') {
+      allPoolParams[i].logoSource = 'https://krav-assets.s3.amazonaws.com/WebP+to+PNG+conversion.png'
+    }
+  }
+
   return (
     <DialogLayout isOpen={isOpen} setIsOpen={setIsOpen} zIndex={1201}>
       <div css={dialogContent}>

@@ -43,6 +43,13 @@ export const MarketItemCard = ({
     else return new BigNumber(0)
   }, [aprList, poolParams?.tradingT])
 
+  if (poolParams.symbol === 'ROOST') {
+    poolParams.logoSource = 'https://random-stuff-mine.s3.amazonaws.com/roost.png'
+  }
+
+  if (poolParams.symbol === 'weETH') {
+    poolParams.logoSource = 'https://krav-assets.s3.amazonaws.com/WebP+to+PNG+conversion.png'
+  }
   return (
     <div
       css={[

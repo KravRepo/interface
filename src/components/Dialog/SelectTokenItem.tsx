@@ -31,7 +31,9 @@ export const SelectTokenItem = ({ pool, setIsOpen }: SelectTokenItemProps) => {
         pool.logoSource = 'https://random-stuff-mine.s3.amazonaws.com/roost.png'
       }
 
-      // console.log('pool', pool)
+      if (pool.symbol === 'weETH') {
+        pool.logoSource = 'https://krav-assets.s3.amazonaws.com/WebP+to+PNG+conversion.png'
+      }
       setTradePool(pool)
       setIsOpen(false)
     },
