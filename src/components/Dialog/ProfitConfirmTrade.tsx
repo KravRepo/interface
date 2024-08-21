@@ -91,18 +91,30 @@ export const ProfitConfirmTrade = ({
   }, [openTrade, pairConfig])
 
   const targetSl = useMemo(() => {
+    const feePercentage = 2 * openTrade.leverage * 0.08
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice))
+        : getReachPrice(
+            openTrade.leverage - feePercentage,
+            openTrade.buy,
+            slSetting,
+            new BigNumber(openTrade.openPrice)
+          )
       : new BigNumber(slPrice)
   }, [slUsePercentage, slSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, slPrice])
 
   const targetTp = useMemo(() => {
+    const feePercentage = 2 * openTrade.leverage * 0.08
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice))
+        : getReachPrice(
+            openTrade.leverage + feePercentage,
+            openTrade.buy,
+            tpSetting,
+            new BigNumber(openTrade.openPrice)
+          )
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, tpSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, tpPrice])
 
@@ -518,6 +530,10 @@ export const ProfitConfirmTrade = ({
             `}
           >
             <div className="confirm-content-info">
+              <p>
+                <span>{t`Entry price`}</span>
+                <span>${openTrade.openPrice.toString()}</span>
+              </p>
               <p>
                 <span>{t`Current price`}</span>
                 <span>${btcPrice.toFixed(tradePair.fixDecimals)}</span>
