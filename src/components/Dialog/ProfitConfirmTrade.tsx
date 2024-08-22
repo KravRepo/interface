@@ -96,9 +96,9 @@ export const ProfitConfirmTrade = ({
       ? slSetting === 0
         ? new BigNumber(0)
         : getReachPrice(
-            openTrade.leverage - feePercentage,
+            openTrade.leverage,
             openTrade.buy,
-            slSetting,
+            slSetting - feePercentage,
             new BigNumber(openTrade.openPrice)
           )
       : new BigNumber(slPrice)
@@ -106,13 +106,14 @@ export const ProfitConfirmTrade = ({
 
   const targetTp = useMemo(() => {
     const feePercentage = 2 * openTrade.leverage * 0.08
+    console.log(feePercentage)
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
         : getReachPrice(
-            openTrade.leverage + feePercentage,
+            openTrade.leverage,
             openTrade.buy,
-            tpSetting,
+            tpSetting + feePercentage,
             new BigNumber(openTrade.openPrice)
           )
       : new BigNumber(tpPrice)
