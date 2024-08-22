@@ -41,7 +41,17 @@ export const ActionsCardLayout = ({ isOpen, setIsOpen, children }: ActionsCardLa
     <>
       {!isMobile && <>{children}</>}
       {isMobile && setIsOpen && isOpen && (
-        <Drawer anchor={'bottom'} open={isOpen} onClose={() => setIsOpen(false)}>
+        <Drawer
+          anchor={'bottom'}
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          sx={{
+            background: 'red',
+            '& .MuiPaper-root': {
+              maxHeight: '90vh!important',
+            },
+          }}
+        >
           {children}
         </Drawer>
       )}

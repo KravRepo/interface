@@ -8,7 +8,7 @@ import { css } from '@emotion/react'
 import { useRootStore } from '../../store/root'
 import { getBigNumberStr } from '../../utils'
 import BigNumber from 'bignumber.js'
-import { getReachPrice, getTakeProfit } from '../../utils/math'
+import { getReachPriceWithFees, getTakeProfit } from '../../utils/math'
 import { useGetTakeProfit } from '../../hook/hookV8/useGetTakeProfit'
 import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
@@ -34,6 +34,8 @@ enum SlLimitState {
   'SL_LT_OPEN_PRICE',
   'MAX_SL_LIMIT',
   'INVALID',
+  'SL_GT_MARKET_PRICE',
+  'SL_LT_MARKET_PRICE',
 }
 
 enum TpLimitState {
@@ -42,22 +44,28 @@ enum TpLimitState {
   'TP_LT_OPEN_PRICE',
   'MAX_TP_LIMIT',
   'INVALID',
+  'TP_GT_MARKET_PRICE',
+  'TP_LT_MARKET_PRICE',
 }
 
 const TpButtonText = {
   UPDATE: msg`update`,
-  TP_GT_OPEN_PRICE: msg`Take profit greatr then open price`,
+  TP_GT_OPEN_PRICE: msg`Take profit greater then open price`,
   TP_LT_OPEN_PRICE: msg`Take profit less then open price`,
   MAX_TP_LIMIT: msg`The maximum percentage cannot exceed 900%`,
   INVALID: msg`Invalid number`,
+  TP_GT_MARKET_PRICE: msg`Take profit greater then market price`,
+  TP_LT_MARKET_PRICE: msg`Take profit less then market price`,
 }
 
 const SlButtonText = {
   UPDATE: msg`update`,
-  SL_GT_OPEN_PRICE: msg`Stop loss greatr then open price`,
+  SL_GT_OPEN_PRICE: msg`Stop loss greater then open price`,
   SL_LT_OPEN_PRICE: msg`Stop loss less then open price`,
   MAX_SL_LIMIT: msg`The maximum percentage cannot exceed 75%`,
   INVALID: msg`Invalid number`,
+  SL_GT_MARKET_PRICE: msg`Stop loss greater then market price`,
+  SL_LT_MARKET_PRICE: msg`Stop loss less then market price`,
 }
 
 export const ProfitConfirmTrade = ({
@@ -91,30 +99,18 @@ export const ProfitConfirmTrade = ({
   }, [openTrade, pairConfig])
 
   const targetSl = useMemo(() => {
-    const feePercentage = 2 * openTrade.leverage * 0.08
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(
-            openTrade.leverage,
-            openTrade.buy,
-            slSetting - feePercentage,
-            new BigNumber(openTrade.openPrice)
-          )
+        : getReachPriceWithFees(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice), true)
       : new BigNumber(slPrice)
   }, [slUsePercentage, slSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, slPrice])
 
   const targetTp = useMemo(() => {
-    const feePercentage = 2 * openTrade.leverage * 0.08
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(
-            openTrade.leverage,
-            openTrade.buy,
-            tpSetting + feePercentage,
-            new BigNumber(openTrade.openPrice)
-          )
+        : getReachPriceWithFees(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice), false)
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, tpSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, tpPrice])
 
@@ -170,26 +166,42 @@ export const ProfitConfirmTrade = ({
   )
 
   const slLimit = useMemo(() => {
+    if (targetSl.gt(btcPrice) && openTrade.buy) {
+      return SlLimitState.SL_GT_MARKET_PRICE
+    }
+    if (targetSl.lt(btcPrice) && !openTrade.buy) {
+      return SlLimitState.SL_LT_MARKET_PRICE
+    }
     const percentage = getTakeProfit(btcPrice, targetSl, openTrade.buy, openTrade.leverage, true)
     if (new BigNumber(targetSl).isGreaterThanOrEqualTo(openTrade.openPrice) && openTrade.buy && !targetSl.isEqualTo(0))
       return SlLimitState.SL_GT_OPEN_PRICE
     if (new BigNumber(targetSl).isLessThanOrEqualTo(openTrade.openPrice) && !openTrade.buy && !targetSl.isEqualTo(0))
       return SlLimitState.SL_LT_OPEN_PRICE
     if (isNaN(targetSl.toNumber()) || targetSl.isLessThan(0)) return SlLimitState.INVALID
-    if (percentage.isLessThan(-75) && !targetSl.isEqualTo(0)) return SlLimitState.MAX_SL_LIMIT
+    const feePercentage = 2 * openTrade.leverage * 0.08 * -1
+    if (percentage.isLessThan(-75 + feePercentage) && !targetSl.isEqualTo(0)) return SlLimitState.MAX_SL_LIMIT
     return SlLimitState.UPDATE
   }, [btcPrice, targetSl, openTrade.buy, openTrade.leverage, openTrade.openPrice])
 
   const tpLimit = useMemo(() => {
     const percentage = getTakeProfit(btcPrice, targetTp, openTrade.buy, openTrade.leverage, false)
+    if (targetTp.gt(btcPrice) && !openTrade.buy) {
+      return TpLimitState.TP_GT_MARKET_PRICE
+    }
+    if (targetTp.lt(btcPrice) && openTrade.buy) {
+      return TpLimitState.TP_LT_MARKET_PRICE
+    }
     if (isNaN(targetTp.toNumber()) || targetTp.isLessThan(0)) return TpLimitState.INVALID
     if (targetTp.isLessThanOrEqualTo(openTrade.openPrice) && openTrade.buy) return TpLimitState.TP_LT_OPEN_PRICE
     if (targetTp.isGreaterThanOrEqualTo(openTrade.openPrice) && !openTrade.buy) return TpLimitState.TP_GT_OPEN_PRICE
-    if (percentage.isGreaterThan(900)) return TpLimitState.MAX_TP_LIMIT
+    const feePercentage = 2 * openTrade.leverage * 0.08 * 1
+    if (percentage.isGreaterThan(900 + feePercentage)) return TpLimitState.MAX_TP_LIMIT
     return TpLimitState.UPDATE
   }, [btcPrice, targetTp, openTrade.buy, openTrade.leverage, openTrade.openPrice])
 
   const tpButtonText = useMemo(() => {
+    if (tpLimit === TpLimitState.TP_GT_MARKET_PRICE) return TpButtonText.TP_GT_MARKET_PRICE
+    if (tpLimit === TpLimitState.TP_LT_MARKET_PRICE) return TpButtonText.TP_LT_MARKET_PRICE
     if (tpLimit === TpLimitState.MAX_TP_LIMIT) return TpButtonText.MAX_TP_LIMIT
     if (tpLimit === TpLimitState.TP_LT_OPEN_PRICE) return TpButtonText.TP_LT_OPEN_PRICE
     if (tpLimit === TpLimitState.TP_GT_OPEN_PRICE) return TpButtonText.TP_GT_OPEN_PRICE
@@ -198,6 +210,8 @@ export const ProfitConfirmTrade = ({
   }, [tpLimit])
 
   const slButtonText = useMemo(() => {
+    if (slLimit === SlLimitState.SL_GT_MARKET_PRICE) return SlButtonText.SL_GT_MARKET_PRICE
+    if (slLimit === SlLimitState.SL_LT_MARKET_PRICE) return SlButtonText.SL_LT_MARKET_PRICE
     if (slLimit === SlLimitState.MAX_SL_LIMIT) return SlButtonText.MAX_SL_LIMIT
     if (slLimit === SlLimitState.SL_LT_OPEN_PRICE) return SlButtonText.SL_LT_OPEN_PRICE
     if (slLimit === SlLimitState.SL_GT_OPEN_PRICE) return SlButtonText.SL_GT_OPEN_PRICE
@@ -362,7 +376,11 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={slPrice}
                       onChange={(event) => {
-                        setSlPrice(Number(event.target.value))
+                        const num = +event.target.value
+                        if (!isNaN(num)) {
+                          setSlSetting(num)
+                          setSlPrice(new BigNumber(event.target.value))
+                        }
                       }}
                       onClick={() => setUseSlPercentage(false)}
                       sx={{
@@ -495,7 +513,11 @@ export const ProfitConfirmTrade = ({
                       disableUnderline={true}
                       value={tpPrice}
                       onChange={(event) => {
-                        setTpPrice(Number(event.target.value))
+                        const num = +event.target.value
+                        if (!isNaN(num)) {
+                          setTpSetting(num)
+                          setTpPrice(new BigNumber(event.target.value))
+                        }
                       }}
                       onClick={() => setTpUsePercentage(false)}
                       sx={{
@@ -532,7 +554,9 @@ export const ProfitConfirmTrade = ({
             <div className="confirm-content-info">
               <p>
                 <span>{t`Entry price`}</span>
-                <span>${openTrade.openPrice.toString()}</span>
+                <span>
+                  ${typeof openTrade.openPrice === 'string' ? openTrade.openPrice : openTrade.openPrice.toFixed(2, 3)}
+                </span>
               </p>
               <p>
                 <span>{t`Current price`}</span>

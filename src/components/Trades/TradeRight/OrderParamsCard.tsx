@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { Input, Slider, TextField, useTheme } from '@mui/material'
+import { Input, Slider, TextField, Typography, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans, msg, t } from '@lingui/macro'
 import { align } from '../../../globalStyle'
 import { attention, input, orderParamsTab, activeTab, normalTab } from './style'
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
 import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { addDecimals, getFees, getLongOrShortUSD, getReachPrice, getTakeProfit } from '../../../utils/math'
+import { addDecimals, getFees, getLongOrShortUSD, getReachPriceWithFees, getTakeProfit } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
@@ -53,6 +53,8 @@ enum ButtonText {
   INSUFFICIENT_BALANCE = 'INSUFFICIENT_BALANCE',
   REACHED_LIMIT = 'REACHED_LIMIT',
   MIN_SIZE = 'MIN_SIZE',
+  TP_INVALID = 'TP_INVALID',
+  SL_INVALID = 'SL_INVALID',
 }
 
 const ButtonTextMsg = {
@@ -65,6 +67,8 @@ const ButtonTextMsg = {
   INSUFFICIENT_BALANCE: msg`Insufficient Balance`,
   REACHED_LIMIT: msg`Reached max positions limit`,
   MIN_SIZE: msg`Min position size is 1500`,
+  TP_INVALID: msg`TP invalid`,
+  SL_INVALID: msg`SL invalid`,
 }
 
 const sliderLimit = {
@@ -120,6 +124,7 @@ export const OrderParamsCard = ({
   const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
   const { orderLimit } = useGetOrderLimit()
+  const slInput = useRef(null)
   const {
     BTCPrice,
     transactionState,
@@ -162,7 +167,13 @@ export const OrderParamsCard = ({
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+        : getReachPriceWithFees(
+            leverage,
+            isBuy,
+            slSetting,
+            tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
+            true
+          )
       : new BigNumber(slPrice)
   }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
 
@@ -170,7 +181,13 @@ export const OrderParamsCard = ({
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+        : getReachPriceWithFees(
+            leverage,
+            isBuy,
+            tpSetting,
+            tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
+            false
+          )
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
 
@@ -183,6 +200,7 @@ export const OrderParamsCard = ({
   }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
 
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
+
   const testTuple = useMemo(() => {
     return {
       trader: account!,
@@ -331,6 +349,41 @@ export const OrderParamsCard = ({
   //   setOpenBTCSize(outputAmount)
   // }
 
+  const isSlValid = useMemo(() => {
+    const value = slSetting
+    if (value === 0) return true
+    const max = BTCPrice.toNumber()
+    const min = getReachPriceWithFees(
+      leverage,
+      isBuy,
+      -90,
+      tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
+      true
+    ).toNumber()
+    if (value > max || value < min) {
+      return false
+    }
+    return true
+  }, [BTCPrice, isBuy, leverage, limitPrice, slSetting, tradeType])
+
+  const isTpValid = useMemo(() => {
+    const value = tpSetting
+    if (value === 0) return true
+    const min = BTCPrice.toNumber()
+    const max = getReachPriceWithFees(
+      leverage,
+      isBuy,
+      900,
+      tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
+      false
+    ).toNumber()
+
+    if (value > max || value < min) {
+      return false
+    }
+    return true
+  }, [BTCPrice, isBuy, leverage, limitPrice, tpSetting, tradeType])
+
   useEffect(() => {
     if (!account) setButtonState(ButtonText.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
@@ -339,6 +392,8 @@ export const OrderParamsCard = ({
     else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
       setButtonState(ButtonText.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
+    else if (!isSlValid && !slUsePercentage) setButtonState(ButtonText.SL_INVALID)
+    else if (!isTpValid && !tpUsePercentage) setButtonState(ButtonText.TP_INVALID)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
   }, [
@@ -351,6 +406,10 @@ export const OrderParamsCard = ({
     positionSizeDai,
     tradePool,
     PoolWalletBalance,
+    isSlValid,
+    isTpValid,
+    slUsePercentage,
+    tpUsePercentage,
   ])
 
   useEffect(() => {
@@ -966,13 +1025,30 @@ export const OrderParamsCard = ({
                           None
                         </span>
                         <span
-                          css={slSetting === -10 && slUsePercentage ? activeTab : normalTab}
-                          onClick={() => handleTpSLSetting(true, -10)}
+                          css={[
+                            slSetting === -10 && slUsePercentage ? activeTab : normalTab,
+                            css`
+                              opacity: ${leverage > 51 ? 0.3 : 1};
+                              cursor: ${leverage > 51 ? 'not-allowed!important' : 'pointer'};
+                            `,
+                          ]}
+                          onClick={() => {
+                            if (leverage > 51) {
+                              return
+                            }
+                            handleTpSLSetting(true, -10)
+                          }}
                         >
                           -10%
                         </span>
                         <span
-                          css={slSetting === -25 && slUsePercentage ? activeTab : normalTab}
+                          css={[
+                            slSetting === -25 && slUsePercentage ? activeTab : normalTab,
+                            css`
+                              opacity: ${leverage > 120 ? 0.3 : 1};
+                              cursor: ${leverage > 120 ? 'not-allowed!important' : 'pointer'};
+                            `,
+                          ]}
                           onClick={() => handleTpSLSetting(true, -25)}
                         >
                           -25%
@@ -989,7 +1065,37 @@ export const OrderParamsCard = ({
                         >
                           -75%
                         </span>
-                        <span style={{ gridColumn: 'span 3' }}>
+                        <span
+                          style={{
+                            gridColumn: 'span 3',
+                            position: 'relative',
+                          }}
+                          ref={slInput}
+                        >
+                          {!isSlValid && !slUsePercentage && (
+                            <Typography
+                              sx={{
+                                p: 1,
+                                position: 'absolute',
+                                top: '90%',
+                                fontSize: '11px',
+                                background: theme.background.fourth,
+                                borderRadius: '5px',
+                              }}
+                              component={'span'}
+                            >
+                              SL range should be -90% ($
+                              {getReachPriceWithFees(
+                                leverage,
+                                isBuy,
+                                -90,
+                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
+                                true
+                              ).toFixed(2, 3)}
+                              ) to 0% (${BTCPrice.toFixed(2, 3)})
+                            </Typography>
+                          )}
+
                           <Input
                             startAdornment={
                               <span
@@ -1008,7 +1114,7 @@ export const OrderParamsCard = ({
                               const num = +event.target.value
                               if (!isNaN(num)) {
                                 setSlSetting(num)
-                                setSlPrice(new BigNumber(event.target.value))
+                                setSlPrice(new BigNumber(num))
                               }
                             }}
                             onClick={() => setUseSlPercentage(false)}
@@ -1139,6 +1245,29 @@ export const OrderParamsCard = ({
                           900%
                         </span>
                         <span style={{ gridColumn: 'span 3' }}>
+                          {!isTpValid && !tpUsePercentage && (
+                            <Typography
+                              sx={{
+                                p: 1,
+                                position: 'absolute',
+                                top: '90%',
+                                fontSize: '11px',
+                                background: theme.background.fourth,
+                                borderRadius: '5px',
+                              }}
+                              component={'span'}
+                            >
+                              TP range should be 0% (${BTCPrice.toFixed(2, 3)}) to 900% ($
+                              {getReachPriceWithFees(
+                                leverage,
+                                isBuy,
+                                900,
+                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
+                                false
+                              ).toFixed(2, 3)}
+                              )
+                            </Typography>
+                          )}
                           <Input
                             startAdornment={
                               <span
@@ -1252,7 +1381,9 @@ export const OrderParamsCard = ({
                     buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                     buttonState === ButtonText.REACHED_LIMIT ||
                     buttonState === ButtonText.MIN_SIZE ||
-                    buttonState === ButtonText.ENTER_AMOUNT
+                    buttonState === ButtonText.ENTER_AMOUNT ||
+                    buttonState === ButtonText.SL_INVALID ||
+                    buttonState === ButtonText.TP_INVALID
                   }
                   onClick={async () => {
                     if (buttonState === ButtonText.CONNECT_WALLET) {
@@ -1271,7 +1402,9 @@ export const OrderParamsCard = ({
                     buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                     buttonState === ButtonText.REACHED_LIMIT ||
                     buttonState === ButtonText.MIN_SIZE ||
-                    buttonState === ButtonText.ENTER_AMOUNT
+                    buttonState === ButtonText.ENTER_AMOUNT ||
+                    buttonState === ButtonText.SL_INVALID ||
+                    buttonState === ButtonText.TP_INVALID
                   }
                   onClick={async () => {
                     if (buttonState === ButtonText.CONNECT_WALLET) {
