@@ -106,7 +106,6 @@ export const ProfitConfirmTrade = ({
 
   const targetTp = useMemo(() => {
     const feePercentage = 2 * openTrade.leverage * 0.08
-    console.log(feePercentage)
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
