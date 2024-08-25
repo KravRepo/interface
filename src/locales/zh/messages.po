@@ -41,8 +41,8 @@ msgstr "创建流动性"
 msgid "Stay tuned"
 msgstr "敬请期待！此功能即将推出。"
 
-msgid "Liq.price"
-msgstr "清算价格"
+#~ msgid "Liq.price"
+#~ msgstr "清算价格"
 
 msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
 msgstr "实际分配收入时，根据您的交易量（经过加速后）计算您的比例"
@@ -62,20 +62,17 @@ msgstr "提现请求已确认"
 msgid "Basic"
 msgstr "基础"
 
-msgid "Positions"
-msgstr "仓位"
+#~ msgid "Positions"
+#~ msgstr "仓位"
 
 msgid "POOL TOTAL STAKED"
 msgstr "总质押"
 
-msgid "Orders"
-msgstr "订单"
+#~ msgid "Orders"
+#~ msgstr "订单"
 
 msgid "Confirm Limit Order"
 msgstr "确认限价订单"
-
-msgid "Please wait 48-72 hours to remove liquidity"
-msgstr "请等待24小时以移除流动性"
 
 msgid "Statistics"
 msgstr "统计"
@@ -119,8 +116,11 @@ msgstr "现价"
 msgid "Updated stop loss"
 msgstr "更新止损"
 
-#~ msgid "Take profit less then open price"
-#~ msgstr "止盈小于开盘价"
+msgid "Take profit less then open price"
+msgstr "止盈小于开盘价"
+
+msgid "Stop loss less then market price"
+msgstr ""
 
 #~ msgid "MAX"
 #~ msgstr "最大"
@@ -134,8 +134,8 @@ msgstr ""
 msgid "Pay"
 msgstr "支付"
 
-msgid "DATE OPENED"
-msgstr ""
+#~ msgid "DATE OPENED"
+#~ msgstr ""
 
 msgid "Fees Rewards"
 msgstr "手续费奖励"
@@ -154,6 +154,9 @@ msgstr "24小时交易量"
 
 msgid "The maximum percentage cannot exceed 900%"
 msgstr "最大百分比不能超过900%"
+
+msgid "Stop loss greater then market price"
+msgstr ""
 
 #~ msgid "Contract Specifications"
 #~ msgstr "合约规格"
@@ -209,8 +212,8 @@ msgstr "主页"
 #~ msgid "krav has been staked successfully"
 #~ msgstr "krav 已成功质押"
 
-msgid "Initial Supply"
-msgstr ""
+#~ msgid "Initial Supply"
+#~ msgstr ""
 
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "通过延长 KRAV 锁定期限来最大化您的奖励。通过增加锁定金额或期限来增加 veKRAV 积累。请记住，veKRAV 随时间缓慢衰减，最终等同于 KRAV。"
@@ -324,6 +327,9 @@ msgstr "连接钱包"
 msgid "1 KRAV → Coming Soon"
 msgstr "1 KRAV → 即将推出"
 
+msgid "Take profit greater then market price"
+msgstr ""
+
 msgid "Current price"
 msgstr "当前价格"
 
@@ -375,8 +381,14 @@ msgstr "请更改网络。"
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr "费用：KRAV Trade 从每笔交易的开盘和平仓中收取基点费用，每笔交易费用不超过0.07%。"
 
+msgid "+ Provide Liquidity"
+msgstr ""
+
 msgid "Open Interest (L/S)"
 msgstr "未平仓合约(多/空)"
+
+msgid "Take profit greater then open price"
+msgstr ""
 
 msgid "No open position"
 msgstr "没有未平仓仓位"
@@ -408,14 +420,17 @@ msgstr "最短锁定期一周"
 msgid "Earning Information"
 msgstr "收益信息"
 
-msgid "MULTIPLIER"
-msgstr ""
+#~ msgid "MULTIPLIER"
+#~ msgstr ""
 
 #~ msgid "WITHDRAW_BLOCK"
 #~ msgstr "提取块"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "输入资产合约或选择资产"
+
+msgid "TP invalid"
+msgstr ""
 
 msgid "Trade"
 msgstr "交易"
@@ -495,8 +510,8 @@ msgstr "余额不足"
 msgid "Burn"
 msgstr "销毁"
 
-msgid "Take Profit great then open price"
-msgstr "止盈大于开盘价"
+#~ msgid "Take Profit great then open price"
+#~ msgstr "止盈大于开盘价"
 
 msgid "Allowed Slippage"
 msgstr "允许滑点"
@@ -515,6 +530,9 @@ msgstr "总质押"
 
 #~ msgid "Trading Volume after boost"
 #~ msgstr "加速后的交易量"
+
+#~ msgid "PnL"
+#~ msgstr "损益"
 
 #~ msgid "Open Trade"
 #~ msgstr "开启交易"
@@ -606,11 +624,14 @@ msgstr "订单"
 msgid "Pending"
 msgstr "待处理"
 
+msgid "SL invalid"
+msgstr ""
+
 msgid "Claim reward"
 msgstr "领取奖励"
 
-msgid "+ Provider liquidity"
-msgstr "+ 提供者流动性"
+#~ msgid "+ Provider liquidity"
+#~ msgstr "+ 提供者流动性"
 
 msgid "No record"
 msgstr ""
@@ -627,8 +648,8 @@ msgstr "以 BTC 作为基础资产，不同的资产被用作永续期权交易�
 msgid "Coming Soon"
 msgstr "即将推出"
 
-msgid "Withdrawal Limit"
-msgstr ""
+#~ msgid "Withdrawal Limit"
+#~ msgstr ""
 
 msgid "successfully."
 msgstr "成功。"
@@ -699,8 +720,8 @@ msgstr "确认做空"
 msgid "Approve"
 msgstr "授权"
 
-msgid "Trades"
-msgstr "交易"
+#~ msgid "Trades"
+#~ msgstr "交易"
 
 msgid "Locked Krav"
 msgstr "锁定Krav"
@@ -708,8 +729,8 @@ msgstr "锁定Krav"
 #~ msgid "Remaining"
 #~ msgstr "剩余"
 
-msgid "Stop loss great then open price"
-msgstr "止损大于开盘价"
+#~ msgid "Stop loss great then open price"
+#~ msgstr "止损大于开盘价"
 
 #~ msgid "opening..."
 #~ msgstr "开放中..."
@@ -756,8 +777,8 @@ msgstr "领取推荐奖励"
 msgid "Order limit"
 msgstr "订单限额"
 
-msgid "Light Mode"
-msgstr "浅色模式"
+#~ msgid "Light Mode"
+#~ msgstr "浅色模式"
 
 msgid "Total assets"
 msgstr "总资产"
@@ -792,8 +813,8 @@ msgstr "资金费率（做多）"
 msgid "Total Value"
 msgstr "总价值"
 
-msgid "Coll"
-msgstr "抵押"
+#~ msgid "Coll"
+#~ msgstr "抵押"
 
 msgid "Krav requests wallet approval"
 msgstr "Krav 请求钱包批准"
@@ -864,8 +885,8 @@ msgstr "无交易历史"
 msgid "PERPETUAL FUTURES"
 msgstr "永续期货"
 
-msgid "Take Profit less then open price"
-msgstr "止盈价低于开仓价"
+#~ msgid "Take Profit less then open price"
+#~ msgstr "止盈价低于开仓价"
 
 msgid "REMOVE LIMIT"
 msgstr "移除限制"
@@ -888,8 +909,8 @@ msgstr "BTC/USDT（更新止损/止盈）"
 msgid "Deposit Amount/Initial LP Provision"
 msgstr "存款金额/初始流动性提供"
 
-msgid "long withdraw notice..."
-msgstr "提取流动性时，请求提取和余额发送到您的钱包之间存在48小时等待期。此等待期旨在确保稳定的流动性环境。可一次移除存款流动性的25%。"
+#~ msgid "long withdraw notice..."
+#~ msgstr "提取流动性时，请求提取和余额发送到您的钱包之间存在48小时等待期。此等待期旨在确保稳定的流动性环境。可一次移除存款流动性的25%。"
 
 msgid "Total Governance Reward Pool"
 msgstr "总治理奖励池"
@@ -903,8 +924,8 @@ msgstr "资金费率（做空）"
 msgid "Step 3 Initial LP Provision"
 msgstr "步骤3 初始 LP 配置"
 
-msgid "A fraction of your profits..."
-msgstr "如果有利润的话将在在您关闭交易时收取部分"
+#~ msgid "A fraction of your profits..."
+#~ msgstr "如果有利润的话将在在您关闭交易时收取部分"
 
 msgid "Deposit and create"
 msgstr "存款并创建"
@@ -912,14 +933,17 @@ msgstr "存款并创建"
 msgid "Step 1 Choose Target Market"
 msgstr "步骤1 选择目标市场"
 
-msgid "PnL"
-msgstr "损益"
+msgid "Take profit less then market price"
+msgstr ""
 
 msgid "Add"
 msgstr "添加"
 
 msgid "Check approve"
 msgstr "检查授权"
+
+msgid "Stop loss greater then open price"
+msgstr ""
 
 msgid "Date"
 msgstr "日期"
@@ -951,8 +975,8 @@ msgstr "我的奖励"
 msgid "StopLoss"
 msgstr "止损"
 
-msgid "Dark Mode"
-msgstr "深色模式"
+#~ msgid "Dark Mode"
+#~ msgstr "深色模式"
 
 msgid "No Position yet"
 msgstr "暂无持仓"
@@ -1107,6 +1131,9 @@ msgstr "清算"
 msgid "Limit"
 msgstr "限价"
 
+msgid "Please wait 48-72 hours to remove liquidity"
+msgstr "请等待24小时以移除流动性"
+
 msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
 msgstr "使用锁定功能保障您的 Krav 收益并获取 veKRAV 特权。最多可将您的收益潜力提高 2.5 倍"
 
@@ -1116,8 +1143,8 @@ msgstr "使用锁定功能保障您的 Krav 收益并获取 veKRAV 特权。最�
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav 正在进行区块链交易，请耐心等待链上交易结算。"
 
-msgid "DATE CLOSED"
-msgstr ""
+#~ msgid "DATE CLOSED"
+#~ msgstr ""
 
 msgid "Close"
 msgstr "关闭"

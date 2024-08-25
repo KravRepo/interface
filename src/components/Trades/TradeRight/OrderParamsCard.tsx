@@ -1049,7 +1049,12 @@ export const OrderParamsCard = ({
                               cursor: ${leverage > 120 ? 'not-allowed!important' : 'pointer'};
                             `,
                           ]}
-                          onClick={() => handleTpSLSetting(true, -25)}
+                          onClick={() => {
+                            if (leverage > 120) {
+                              return
+                            }
+                            handleTpSLSetting(true, -25)
+                          }}
                         >
                           -25%
                         </span>
@@ -1244,7 +1249,7 @@ export const OrderParamsCard = ({
                         >
                           900%
                         </span>
-                        <span style={{ gridColumn: 'span 3' }}>
+                        <span style={{ gridColumn: 'span 3', position: 'relative' }}>
                           {!isTpValid && !tpUsePercentage && (
                             <Typography
                               sx={{
