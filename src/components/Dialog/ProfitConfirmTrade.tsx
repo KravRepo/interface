@@ -8,7 +8,7 @@ import { css } from '@emotion/react'
 import { useRootStore } from '../../store/root'
 import { getBigNumberStr } from '../../utils'
 import BigNumber from 'bignumber.js'
-import { getReachPriceWithFees, getTakeProfit } from '../../utils/math'
+import { getReachPrice, getTakeProfit } from '../../utils/math'
 import { useGetTakeProfit } from '../../hook/hookV8/useGetTakeProfit'
 import { normalTab } from '../Trades/TradeRight/style'
 import { Tuple } from '../Trades/type'
@@ -102,7 +102,7 @@ export const ProfitConfirmTrade = ({
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPriceWithFees(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice), true)
+        : getReachPrice(openTrade.leverage, openTrade.buy, slSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(slPrice)
   }, [slUsePercentage, slSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, slPrice])
 
@@ -110,7 +110,7 @@ export const ProfitConfirmTrade = ({
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPriceWithFees(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice), false)
+        : getReachPrice(openTrade.leverage, openTrade.buy, tpSetting, new BigNumber(openTrade.openPrice))
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, tpSetting, openTrade.leverage, openTrade.buy, openTrade.openPrice, tpPrice])
 

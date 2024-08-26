@@ -40,29 +40,13 @@ export const getFees = (positionDAI: BigNumber, leverage: number) => {
   return positionDAI.times(leverage).times(OPEN_FEES).times(2)
 }
 
-export const getReachPriceWithFees = (
-  leverage: number,
-  isBuy: boolean,
-  percentProfit: number,
-  openPrice: BigNumber,
-  isSl: boolean
-) => {
-  const feePercentage = 2 * leverage * 0.08 * (isSl ? -1 : 1)
-  if (isBuy) {
-    const index = openPrice.times(percentProfit + feePercentage).div(100 * leverage)
-    return index.plus(openPrice)
-  } else {
-    const index = openPrice.times(percentProfit + feePercentage).div(100 * leverage)
-    return openPrice.minus(index)
-  }
-}
-
 export const getReachPrice = (leverage: number, isBuy: boolean, percentProfit: number, openPrice: BigNumber) => {
+  const feePercentage = 2 * leverage * 0.08
   if (isBuy) {
-    const index = openPrice.times(percentProfit).div(100 * leverage)
+    const index = openPrice.times(percentProfit + feePercentage).div(100 * leverage)
     return index.plus(openPrice)
   } else {
-    const index = openPrice.times(percentProfit).div(100 * leverage)
+    const index = openPrice.times(percentProfit + feePercentage).div(100 * leverage)
     return openPrice.minus(index)
   }
 }

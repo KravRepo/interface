@@ -11,7 +11,7 @@ import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
 import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { addDecimals, getFees, getLongOrShortUSD, getReachPriceWithFees, getTakeProfit } from '../../../utils/math'
+import { addDecimals, getFees, getLongOrShortUSD, getReachPrice, getTakeProfit } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
@@ -167,13 +167,7 @@ export const OrderParamsCard = ({
     return slUsePercentage
       ? slSetting === 0
         ? new BigNumber(0)
-        : getReachPriceWithFees(
-            leverage,
-            isBuy,
-            slSetting,
-            tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
-            true
-          )
+        : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
       : new BigNumber(slPrice)
   }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
 
@@ -181,13 +175,7 @@ export const OrderParamsCard = ({
     return tpUsePercentage
       ? tpSetting === 0
         ? new BigNumber(0)
-        : getReachPriceWithFees(
-            leverage,
-            isBuy,
-            tpSetting,
-            tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
-            false
-          )
+        : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
       : new BigNumber(tpPrice)
   }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
 
@@ -353,13 +341,7 @@ export const OrderParamsCard = ({
     const value = slSetting
     if (value === 0) return true
     const max = BTCPrice.toNumber()
-    const min = getReachPriceWithFees(
-      leverage,
-      isBuy,
-      -90,
-      tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
-      true
-    ).toNumber()
+    const min = getReachPrice(leverage, isBuy, -90, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
     if (value > max || value < min) {
       return false
     }
@@ -370,13 +352,7 @@ export const OrderParamsCard = ({
     const value = tpSetting
     if (value === 0) return true
     const min = BTCPrice.toNumber()
-    const max = getReachPriceWithFees(
-      leverage,
-      isBuy,
-      900,
-      tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
-      false
-    ).toNumber()
+    const max = getReachPrice(leverage, isBuy, 900, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
 
     if (value > max || value < min) {
       return false
@@ -1090,12 +1066,11 @@ export const OrderParamsCard = ({
                               component={'span'}
                             >
                               SL range should be -90% ($
-                              {getReachPriceWithFees(
+                              {getReachPrice(
                                 leverage,
                                 isBuy,
                                 -90,
-                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
-                                true
+                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)
                               ).toFixed(2, 3)}
                               ) to 0% (${BTCPrice.toFixed(2, 3)})
                             </Typography>
@@ -1263,12 +1238,11 @@ export const OrderParamsCard = ({
                               component={'span'}
                             >
                               TP range should be 0% (${BTCPrice.toFixed(2, 3)}) to 900% ($
-                              {getReachPriceWithFees(
+                              {getReachPrice(
                                 leverage,
                                 isBuy,
                                 900,
-                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice),
-                                false
+                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)
                               ).toFixed(2, 3)}
                               )
                             </Typography>
