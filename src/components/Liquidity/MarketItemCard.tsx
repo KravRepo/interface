@@ -141,6 +141,7 @@ export const MarketItemCard = ({
           className="data"
           css={css`
             margin-top: 10px;
+            word-break: break-all;
           `}
         >
           <p>{t`Your Total Liquidity`}</p>

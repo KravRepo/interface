@@ -94,7 +94,11 @@ export const useUserPosition = () => {
       positionDetails.pool = pool
       if (new BigNumber(vaultBalanceOf[index]?.result?.[0]?._hex ?? '0').isGreaterThan(0)) {
         positionDetails.hasPosition = true
-        const shareToAssetsPrice = eXDecimals(shareToAssetsPrices[index]?.result?.[0]?._hex ?? '0', pool.decimals)
+        const shareToAssetsPrice = eXDecimals(
+          shareToAssetsPrices[index]?.result?.[0]?._hex ?? '0',
+          //unluck token price has inconsistent decimals
+          pool.tokenT === '0x3933012dcf9BEb0D63778725345e04dCC0C69C7e' ? 18 : pool.decimals
+        )
 
         positionDetails.shareToAssetsPrice = new BigNumber(shareToAssetsPrices[index]?.result?.[0]?._hex ?? '0')
         positionDetails.daiDeposited = new BigNumber(vaultBalanceOf[index]?.result?.[0]?._hex).times(shareToAssetsPrice)
