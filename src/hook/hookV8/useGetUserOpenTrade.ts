@@ -31,22 +31,19 @@ export const useGetUserOpenTrade = (count?: number) => {
     return tasksArgs
   }, [account, tradePairIndex])
 
-  // const args2 = useMemo(() => {
-  //   const tasksArgs = []
-  //   for (let i = 0; i < 3; i++) {
-  //     tasksArgs.push([account, tradePairIndex])
-  //   }
-  //   return tasksArgs
-  // }, [account, tradePairIndex])
-
   const data = useSingleContractMultipleData(StorageContract, 'openTrades', args)
-
-  // const data2 = useSingleContractMultipleData(StorageContract, 'pendingMarketOpenCount', args2)
-  // console.log({ data, data2 })
 
   const pendingOerderIdArg = useMemo(() => [account], [account])
 
   const userPendingOrderIds = useSingleCallResult(StorageContract, 'getPendingOrderIds', pendingOerderIdArg)
+
+  // const tradeCountArgs = useMemo(() => {
+  //   return [account, tradePairIndex]
+  // }, [tradePairIndex])
+
+  // const pendingMarketOpenCount = useSingleCallResult(StorageContract, 'pendingMarketOpenCount', tradeCountArgs)
+
+  // const openTradesCount = useSingleCallResult(StorageContract, 'openTradesCount', tradeCountArgs)
 
   const pendingOrderIds = useMemo(() => {
     if (!userPendingOrderIds.result) return []
@@ -122,10 +119,11 @@ export const useGetUserOpenTrade = (count?: number) => {
   }, [account, blockNumber, chainId, pendingOrderIds, tradePairIndex, tradePool.decimals, userPendingOrderDetailsRaw])
 
   useEffect(() => {
-    isBeingMarketClosed(openTrades ?? [], userPendingMarketOrder)
-    setUserOpenTradeList((openTrades ?? []).concat(...userPendingMarketOrder))
+    isBeingMarketClosed(openTrades ?? [], userPendingMarketOrder, blockNumber)
+    const pendingOrders = userPendingMarketOrder.filter((order) => order.leverage > 0)
+    setUserOpenTradeList((openTrades ?? []).concat(...pendingOrders))
     setUserOpenTrades(openTrades ?? [])
-  }, [openTrades, setUserOpenTradeList, userPendingMarketOrder])
+  }, [blockNumber, openTrades, setUserOpenTradeList, userPendingMarketOrder])
 
   const getUserOpenTrade = useCallback(async (storageAddress: string, setStore: boolean) => {
     // try {

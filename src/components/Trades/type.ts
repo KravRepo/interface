@@ -5,6 +5,7 @@ export type Tuple = TupleWithTrade & {
   beingMarketClosed: boolean
   orderId?: BigNumber
   isInPending?: boolean
+  block?: BigNumber
 }
 
 export type TupleWithTrade = {

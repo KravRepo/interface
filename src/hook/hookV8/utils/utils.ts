@@ -43,15 +43,20 @@ export const forMatterOpenTrades = (
       isPendingOrder: isPendingOrder,
       orderId: orderId,
       isInPending: isInPending,
+      block: res[i].block ? new BigNumber(res[i].block._hex) : undefined,
     })
   }
   return userOpenTrades
 }
 
-export const isBeingMarketClosed = (marketOrders: Tuple[], pendingMarketOrders: Tuple[]) => {
+export const isBeingMarketClosed = (marketOrders: Tuple[], pendingMarketOrders: Tuple[], blockNumber?: number) => {
   marketOrders.forEach((order) => {
     pendingMarketOrders.forEach((pendingOrder) => {
-      if (pendingOrder?.index === order?.index && pendingOrder?.leverage === 0) order.beingMarketClosed = true
+      const inPending =
+        pendingOrder.block && blockNumber ? new BigNumber(blockNumber).lt(pendingOrder.block.plus(30)) : true
+
+      if (pendingOrder?.index === order?.index && pendingOrder?.leverage === 0 && inPending)
+        order.beingMarketClosed = true
     })
   })
 }

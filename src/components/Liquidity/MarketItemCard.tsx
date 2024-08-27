@@ -56,6 +56,7 @@ export const MarketItemCard = ({
   }
   return (
     <div
+      data-address={poolParams.tokenT}
       css={[
         marketCard,
         css`
