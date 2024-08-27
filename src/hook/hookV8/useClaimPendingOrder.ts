@@ -17,7 +17,6 @@ export const useClaimPendingOrder = (tradingAddress: string) => {
   return useCallback(
     async (orderId: BigNumber, isClosePosition: boolean) => {
       try {
-        console.log(orderId)
         const params = [orderId.toNumber()] as any
         let gasLimit = await getGasLimit(
           contract,
