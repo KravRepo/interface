@@ -1,4 +1,4 @@
-import { useWeb3React } from '@web3-react/core'
+// import { useWeb3React } from '@web3-react/core'
 import { useRootStore } from '../../store/root'
 import { useEffect, useMemo, useState } from 'react'
 // import { Contract } from 'ethers'
@@ -27,9 +27,9 @@ export type UserData = {
   hasPosition: boolean
   shareToAssetsPrice: BigNumber
 }
-
+const account = '0x7A4018187538D9745Ce4f6F9F62f487f2b3577c6'
 export const useUserPosition = () => {
-  const { account } = useWeb3React()
+  // const { account } = useWeb3React()
   const allPoolParams = useRootStore((store) => store.allPoolParams)
   const setUserPositionDatas = useRootStore((store) => store.setUserPositionDatas)
 

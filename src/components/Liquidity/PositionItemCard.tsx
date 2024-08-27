@@ -68,6 +68,18 @@ export const PositionItemCard = ({
     0
   )
 
+  if (position.pool.symbol === 'ROOST') {
+    position.pool.logoSource = 'https://random-stuff-mine.s3.amazonaws.com/roost.png'
+  }
+
+  if (position.pool.symbol === 'weETH') {
+    position.pool.logoSource = 'https://krav-assets.s3.amazonaws.com/WebP+to+PNG+conversion.png'
+  }
+
+  if (position.pool.symbol === 'MIGGLES') {
+    position.pool.logoSource = 'https://krav-assets.s3.amazonaws.com/miggles.png'
+  }
+
   return (
     <div
       css={[
