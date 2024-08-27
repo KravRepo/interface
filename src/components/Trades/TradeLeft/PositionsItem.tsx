@@ -34,7 +34,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
     pool ? pool.tradingT : tradePool.tradingT,
     pool ? pool.storageT : tradePool.storageT
   )
-
+  console.log(openTrade)
   const pairContract = useContract(tradePool?.pairInfoT ?? null, PairInfosABI)
 
   const claimPosition = useClaimPendingOrder(tradePool.tradingT)

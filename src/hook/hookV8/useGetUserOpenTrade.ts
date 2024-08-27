@@ -108,7 +108,7 @@ export const useGetUserOpenTrade = (count?: number) => {
           1,
           account,
           true,
-          new BigNumber(pendingOrderIds[index]._hex),
+          new BigNumber(pendingOrderIds[index][0]),
           !inPending
         )
         Order.push(res[0])

@@ -17,6 +17,7 @@ export const useClaimPendingOrder = (tradingAddress: string) => {
   return useCallback(
     async (orderId: BigNumber, isClosePosition: boolean) => {
       try {
+        console.log(orderId)
         const params = [orderId.toNumber()] as any
         let gasLimit = await getGasLimit(
           contract,
@@ -43,6 +44,7 @@ export const useClaimPendingOrder = (tradingAddress: string) => {
           content: `Claim position successfully`,
         })
       } catch (e) {
+        console.error(e)
         updateError(TransactionAction.CLAIM_ORDER)
       }
     },
