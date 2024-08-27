@@ -46,6 +46,13 @@ export const useClaimPendingOrder = (tradingAddress: string) => {
         updateError(TransactionAction.CLAIM_ORDER)
       }
     },
-    [tradingAddress]
+    [
+      contract,
+      setSuccessSnackbarInfo,
+      setTransactionDialogVisibility,
+      setTransactionState,
+      updateError,
+      updateSuccessDialog,
+    ]
   )
 }
