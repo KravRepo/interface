@@ -49,15 +49,20 @@ export const forMatterOpenTrades = (
 }
 
 export const isBeingMarketClosed = (marketOrders: Tuple[], pendingMarketOrders: Tuple[], blockNumber?: number) => {
+  const trades: Tuple[] = []
   marketOrders.forEach((order) => {
+    const t = { ...order }
     pendingMarketOrders.forEach((pendingOrder) => {
-      const inPending =
-        pendingOrder.block && blockNumber ? new BigNumber(blockNumber).lt(pendingOrder.block.plus(30)) : true
-
-      if (pendingOrder?.index === order?.index && pendingOrder?.leverage === 0 && inPending)
-        order.beingMarketClosed = true
+      if (pendingOrder?.index === order?.index && pendingOrder?.leverage === 0) {
+        t.beingMarketClosed = true
+        t.orderId = pendingOrder.orderId
+        t.isInPending =
+          pendingOrder.block && blockNumber ? new BigNumber(blockNumber).gt(pendingOrder.block.plus(30)) : false
+      }
     })
+    trades.push(t)
   })
+  return trades
 }
 
 export const getLockTime = (lockTime: number) => {

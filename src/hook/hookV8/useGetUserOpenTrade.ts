@@ -39,7 +39,7 @@ export const useGetUserOpenTrade = (count?: number) => {
 
   // const tradeCountArgs = useMemo(() => {
   //   return [account, tradePairIndex]
-  // }, [tradePairIndex])
+  // }, [account, tradePairIndex])
 
   // const pendingMarketOpenCount = useSingleCallResult(StorageContract, 'pendingMarketOpenCount', tradeCountArgs)
 
@@ -115,11 +115,13 @@ export const useGetUserOpenTrade = (count?: number) => {
     return Order
   }, [account, blockNumber, chainId, pendingOrderIds, tradePairIndex, userPendingOrderDetailsRaw])
 
+  // console.log({ data, pendingMarketOpenCount, openTradesCount, openTrades, userPendingMarketOrder })
+
   useEffect(() => {
-    isBeingMarketClosed(openTrades ?? [], userPendingMarketOrder, blockNumber)
+    const trades = isBeingMarketClosed(openTrades ?? [], userPendingMarketOrder, blockNumber)
     const pendingOrders = userPendingMarketOrder.filter((order) => order.leverage > 0)
-    setUserOpenTradeList((openTrades ?? []).concat(...pendingOrders))
-    setUserOpenTrades(openTrades ?? [])
+    setUserOpenTradeList((trades ?? []).concat(...pendingOrders))
+    setUserOpenTrades(trades ?? [])
   }, [blockNumber, openTrades, setUserOpenTradeList, userPendingMarketOrder])
 
   const getUserOpenTrade = useCallback(async (storageAddress: string, setStore: boolean) => {

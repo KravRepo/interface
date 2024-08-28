@@ -44,6 +44,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
     [openTrade?.openPrice]
   )
 
+  console.log(openTrade)
   const { takeProfit } = useGetTakeProfit(
     openPrice,
     BTCPrice,
@@ -152,7 +153,7 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
             })}
           </div> */}
           <div>
-            {openTrade.beingMarketClosed && (
+            {openTrade.beingMarketClosed && !openTrade?.isInPending && (
               <div>
                 <div
                   css={css`
@@ -166,6 +167,11 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
             )}
             {!openTrade.beingMarketClosed && (
               <CloseSharpIcon sx={{ cursor: 'pointer' }} onClick={() => closeTradeMarket(openTrade.index)} />
+            )}
+            {openTrade.beingMarketClosed && openTrade?.isInPending && (
+              <div>
+                <KRAVButton onClick={() => claimPosition(openTrade.orderId!, true)}>Claim</KRAVButton>
+              </div>
             )}
           </div>
         </div>
