@@ -44,7 +44,6 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
     [openTrade?.openPrice]
   )
 
-  console.log(openTrade)
   const { takeProfit } = useGetTakeProfit(
     openPrice,
     BTCPrice,
