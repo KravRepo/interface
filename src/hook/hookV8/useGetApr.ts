@@ -36,7 +36,7 @@ export const useGetApr = () => {
             const APR = pool.accDaiPerDai
               .div(timeDiff)
               .times(ONE_YEAR_TIMESTAMP)
-              .div(new BigNumber(10).pow(18))
+              .div(new BigNumber(10).pow(pool.decimals ?? 18))
               .times(100)
             allPoolApr.push({
               tradingT: pool.tradingT,
@@ -51,6 +51,6 @@ export const useGetApr = () => {
 
   useEffect(() => {
     getApr().then()
-  }, [allPoolParams, chainId])
+  }, [allPoolParams, chainId, getApr])
   return { aprList: aprList }
 }

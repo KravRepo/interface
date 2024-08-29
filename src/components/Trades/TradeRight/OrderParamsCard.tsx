@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { Slider, TextField, useTheme } from '@mui/material'
+import { Input, Slider, TextField, Typography, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans, msg, t } from '@lingui/macro'
 import { align } from '../../../globalStyle'
-import { attention, input, orderParamsTab } from './style'
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import { attention, input, orderParamsTab, activeTab, normalTab } from './style'
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
 import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
+import { addDecimals, getFees, getLongOrShortUSD, getReachPrice, getTakeProfit } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
@@ -53,6 +53,8 @@ enum ButtonText {
   INSUFFICIENT_BALANCE = 'INSUFFICIENT_BALANCE',
   REACHED_LIMIT = 'REACHED_LIMIT',
   MIN_SIZE = 'MIN_SIZE',
+  TP_INVALID = 'TP_INVALID',
+  SL_INVALID = 'SL_INVALID',
 }
 
 const ButtonTextMsg = {
@@ -65,6 +67,8 @@ const ButtonTextMsg = {
   INSUFFICIENT_BALANCE: msg`Insufficient Balance`,
   REACHED_LIMIT: msg`Reached max positions limit`,
   MIN_SIZE: msg`Min position size is 1500`,
+  TP_INVALID: msg`TP invalid`,
+  SL_INVALID: msg`SL invalid`,
 }
 
 const sliderLimit = {
@@ -108,17 +112,19 @@ export const OrderParamsCard = ({
   setTradeType,
 }: OrderParamsCardProps) => {
   const theme = useTheme()
+  const { account } = useWeb3React()
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false)
   const [openBTCSize, setOpenBTCSize] = useState(new BigNumber(0))
   const [inputDAIDecimals, setInputDAIDecimals] = useState(1)
   const [tabIndex, setTabIndex] = useState(0)
   const { i18n } = useLingui()
-  // const [slSetting, setSlSetting] = useState(0)
-  // const [slUsePercentage, setUseSlPercentage] = useState(true)
-  // const [tpSetting, setTpSetting] = useState(0)
-  // const [tpUsePercentage, setTpUsePercentage] = useState(true)
+  const [slSetting, setSlSetting] = useState(0)
+  const [slUsePercentage, setUseSlPercentage] = useState(true)
+  const [tpSetting, setTpSetting] = useState(0)
+  const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
   const { orderLimit } = useGetOrderLimit()
+  const slInput = useRef(null)
   const {
     BTCPrice,
     transactionState,
@@ -157,15 +163,39 @@ export const OrderParamsCard = ({
     )
   }, [tradePool, userPositionDatas])
 
-  const { account } = useWeb3React()
+  const targetSl = useMemo(() => {
+    return slUsePercentage
+      ? slSetting === 0
+        ? new BigNumber(0)
+        : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+      : new BigNumber(slPrice)
+  }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
+
+  const targetTp = useMemo(() => {
+    return tpUsePercentage
+      ? tpSetting === 0
+        ? new BigNumber(0)
+        : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+      : new BigNumber(tpPrice)
+  }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
+
+  const slPercentage = useMemo(() => {
+    return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetSl, isBuy, leverage, true)
+  }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetSl])
+
+  const tpPercentage = useMemo(() => {
+    return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetTp, isBuy, leverage, false)
+  }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
+
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
+
   const testTuple = useMemo(() => {
     return {
       trader: account!,
-      // sl: addDecimals(targetSl, 10).toFixed(0),
-      // tp: addDecimals(targetTp, 10).toFixed(0),
-      sl: '0',
-      tp: '0',
+      sl: addDecimals(targetSl, 10).toFixed(0),
+      tp: addDecimals(targetTp, 10).toFixed(0),
+      // sl: '0',
+      // tp: '0',
       pairIndex: tradePairIndex,
       openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toFixed(0, 1),
       leverage: leverage,
@@ -174,7 +204,19 @@ export const OrderParamsCard = ({
       buy: isBuy,
       positionSizeDai: addDecimals(positionSizeDai, tradePool.decimals).toString(),
     }
-  }, [account, tradePairIndex, tradeType, BTCPrice, limitPrice, leverage, isBuy, positionSizeDai, tradePool.decimals])
+  }, [
+    account,
+    targetSl,
+    targetTp,
+    tradePairIndex,
+    tradeType,
+    BTCPrice,
+    limitPrice,
+    leverage,
+    isBuy,
+    positionSizeDai,
+    tradePool.decimals,
+  ])
 
   const { liquidationPrice, priceImpact } = useTradeData({
     tradeType,
@@ -271,6 +313,18 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
+  const handleTpSLSetting = (isSl: boolean, value: number) => {
+    if (isSl) {
+      setSlSetting(value)
+      setUseSlPercentage(true)
+      setSlPrice('0')
+    } else {
+      setTpSetting(value)
+      setTpUsePercentage(true)
+      setTpPrice('0')
+    }
+  }
+
   // const handleMaxInput = () => {
   //   setPositionSizeDai(PoolWalletBalance)
   //   const outputAmount = getLongOrShortUSD(
@@ -283,6 +337,29 @@ export const OrderParamsCard = ({
   //   setOpenBTCSize(outputAmount)
   // }
 
+  const isSlValid = useMemo(() => {
+    const value = slSetting
+    if (value === 0) return true
+    const max = BTCPrice.toNumber()
+    const min = getReachPrice(leverage, isBuy, -90, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
+    if (value > max || value < min) {
+      return false
+    }
+    return true
+  }, [BTCPrice, isBuy, leverage, limitPrice, slSetting, tradeType])
+
+  const isTpValid = useMemo(() => {
+    const value = tpSetting
+    if (value === 0) return true
+    const min = BTCPrice.toNumber()
+    const max = getReachPrice(leverage, isBuy, 900, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
+
+    if (value > max || value < min) {
+      return false
+    }
+    return true
+  }, [BTCPrice, isBuy, leverage, limitPrice, tpSetting, tradeType])
+
   useEffect(() => {
     if (!account) setButtonState(ButtonText.CONNECT_WALLET)
     else if (userOpenLimitList.length + userOpenTradeList.length === POSITION_LIMITS)
@@ -291,9 +368,25 @@ export const OrderParamsCard = ({
     else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
       setButtonState(ButtonText.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
+    else if (!isSlValid && !slUsePercentage) setButtonState(ButtonText.SL_INVALID)
+    else if (!isTpValid && !tpUsePercentage) setButtonState(ButtonText.TP_INVALID)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
-  }, [account, isBuy, isLoadingFactory, userOpenLimitList, userOpenTradeList, leverage, positionSizeDai, tradePool])
+  }, [
+    account,
+    isBuy,
+    isLoadingFactory,
+    userOpenLimitList,
+    userOpenTradeList,
+    leverage,
+    positionSizeDai,
+    tradePool,
+    PoolWalletBalance,
+    isSlValid,
+    isTpValid,
+    slUsePercentage,
+    tpUsePercentage,
+  ])
 
   useEffect(() => {
     if (transactionState === TransactionState.CHECK_APPROVE) setButtonState(ButtonText.CHECK_APPROVE)
@@ -301,7 +394,7 @@ export const OrderParamsCard = ({
     if (transactionState === TransactionState.APPROVE_SUCCESS) {
       isBuy ? setButtonState(ButtonText.LONG) : setButtonState(ButtonText.SHORT)
     }
-  }, [transactionState])
+  }, [isBuy, transactionState])
 
   useEffect(() => {
     setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
@@ -310,13 +403,13 @@ export const OrderParamsCard = ({
     setSlPrice(new BigNumber(0))
     // setTpUsePercentage(false)
     setTpPrice(new BigNumber(0))
-  }, [tradeModel])
+  }, [setLeverage, setPositionSizeDai, setSlPrice, setTpPrice, tradeModel])
 
   useEffect(() => {
     setPositionSizeDai(new BigNumber(0))
     setOpenBTCSize(new BigNumber(0))
     setLeverage(tradeModel === TradeMode.DEGEN ? 51 : 2)
-  }, [isBuy])
+  }, [isBuy, setLeverage, setPositionSizeDai, tradeModel])
 
   useEffect(() => {
     const firstOpenTrade = localStorage?.getItem('krav-first-open-trade')
@@ -814,6 +907,391 @@ export const OrderParamsCard = ({
                   </>
                 )}
 
+                {(tradeModel === TradeMode.PRO || tradeModel === TradeMode.DEGEN) && (
+                  <div
+                    css={css`
+                      margin-bottom: 16px;
+                      border-radius: 5px;
+                      padding: 10px;
+                      color: #ffffff;
+                    `}
+                  >
+                    <div>
+                      {(slSetting !== 0 || !slUsePercentage) && (
+                        <div
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 8px 0;
+                          `}
+                        >
+                          <div>
+                            StopLoss{' '}
+                            <span
+                              css={css`
+                                color: #db4c40;
+                              `}
+                            >
+                              (
+                              {slUsePercentage
+                                ? '$' + getBigNumberStr(targetSl, 2)
+                                : getBigNumberStr(slPercentage, 2) + '%'}
+                              )
+                            </span>
+                          </div>
+                          <span>
+                            {isNaN(slPercentage.times(positionSizeDai.div(100)).toNumber())
+                              ? '--'
+                              : getBigNumberStr(slPercentage.times(positionSizeDai.div(100)), 2)}
+                            {tradePool.symbol}
+                          </span>
+                        </div>
+                      )}
+                      {slSetting === 0 && slUsePercentage && (
+                        <div
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 8px 0;
+                          `}
+                        >
+                          <div>
+                            StopLoss{' '}
+                            <span
+                              css={css`
+                                color: #db4c40;
+                              `}
+                            >
+                              (None)
+                            </span>
+                          </div>
+                          <span
+                            css={css`
+                              color: #db4c40;
+                            `}
+                          >
+                            None
+                          </span>
+                        </div>
+                      )}
+                      <div
+                        css={css`
+                          display: grid;
+                          grid-template-columns: 1fr 1fr 1fr 1fr;
+                          gap: 10px;
+                          align-items: center;
+                          justify-content: space-between;
+
+                          > span {
+                            font-size: 12px;
+                            cursor: pointer;
+                            padding: 5px;
+                            background: ${theme.background.third};
+                            border-radius: 5px;
+                            text-align: center;
+                          }
+                        `}
+                      >
+                        <span
+                          css={slSetting === 0 && slUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(true, 0)}
+                        >
+                          None
+                        </span>
+                        <span
+                          css={[
+                            slSetting === -10 && slUsePercentage ? activeTab : normalTab,
+                            css`
+                              opacity: ${leverage > 51 ? 0.3 : 1};
+                              cursor: ${leverage > 51 ? 'not-allowed!important' : 'pointer'};
+                            `,
+                          ]}
+                          onClick={() => {
+                            if (leverage > 51) {
+                              return
+                            }
+                            handleTpSLSetting(true, -10)
+                          }}
+                        >
+                          -10%
+                        </span>
+                        <span
+                          css={[
+                            slSetting === -25 && slUsePercentage ? activeTab : normalTab,
+                            css`
+                              opacity: ${leverage > 120 ? 0.3 : 1};
+                              cursor: ${leverage > 120 ? 'not-allowed!important' : 'pointer'};
+                            `,
+                          ]}
+                          onClick={() => {
+                            if (leverage > 120) {
+                              return
+                            }
+                            handleTpSLSetting(true, -25)
+                          }}
+                        >
+                          -25%
+                        </span>
+                        <span
+                          css={slSetting === -50 && slUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(true, -50)}
+                        >
+                          -50%
+                        </span>
+                        <span
+                          css={slSetting === -75 && slUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(true, -75)}
+                        >
+                          -75%
+                        </span>
+                        <span
+                          style={{
+                            gridColumn: 'span 3',
+                            position: 'relative',
+                          }}
+                          ref={slInput}
+                        >
+                          {!isSlValid && !slUsePercentage && (
+                            <Typography
+                              sx={{
+                                p: 1,
+                                position: 'absolute',
+                                top: '90%',
+                                fontSize: '11px',
+                                background: theme.background.fourth,
+                                borderRadius: '5px',
+                              }}
+                              component={'span'}
+                            >
+                              SL range should be -90% ($
+                              {getReachPrice(
+                                leverage,
+                                isBuy,
+                                -90,
+                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)
+                              ).toFixed(2, 3)}
+                              ) to 0% (${BTCPrice.toFixed(2, 3)})
+                            </Typography>
+                          )}
+
+                          <Input
+                            startAdornment={
+                              <span
+                                style={{
+                                  color: slUsePercentage ? '#757575' : '#fff',
+                                }}
+                              >
+                                $
+                              </span>
+                            }
+                            type="number"
+                            placeholder=" Price"
+                            disableUnderline={true}
+                            value={slPrice}
+                            onChange={(event) => {
+                              const num = +event.target.value
+                              if (!isNaN(num)) {
+                                setSlSetting(num)
+                                setSlPrice(new BigNumber(num))
+                              }
+                            }}
+                            onClick={() => setUseSlPercentage(false)}
+                            sx={{
+                              height: '18px',
+                              fontSize: '14px',
+                              minHeight: '18px',
+                              width: '100%',
+                              '& .MuiOutlinedInput-root': {
+                                height: '18px',
+                                minHeight: '18px',
+                                padding: 0,
+                              },
+                              '& .MuiInputBase-input': {
+                                padding: '0px 0px 0px 4px',
+                                margin: '4px 4px 5px 0',
+                                color: slUsePercentage ? '#757575' : '#fff',
+                              },
+                            }}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      {(tpSetting !== 0 || !tpUsePercentage) && (
+                        <div
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 16px 0 8px;
+                          `}
+                        >
+                          <div>
+                            Take Profit{' '}
+                            <span
+                              css={css`
+                                color: #009b72;
+                              `}
+                            >
+                              (
+                              {tpUsePercentage
+                                ? '$' + getBigNumberStr(targetTp, 2)
+                                : getBigNumberStr(tpPercentage, 2) + '%'}
+                              )
+                            </span>
+                          </div>
+                          {isNaN(tpPercentage.times(positionSizeDai.div(100)).toNumber())
+                            ? '--'
+                            : getBigNumberStr(tpPercentage.times(positionSizeDai.div(100)), 2)}
+                          {tradePool.symbol}
+                        </div>
+                      )}
+                      {tpSetting === 0 && tpUsePercentage && (
+                        <div
+                          css={css`
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 16px 0 8px;
+                          `}
+                        >
+                          <div>
+                            Take Profit{' '}
+                            <span
+                              css={css`
+                                color: #009b72;
+                              `}
+                            >
+                              (None)
+                            </span>
+                          </div>
+                          <span
+                            css={css`
+                              color: #009b72;
+                            `}
+                          >
+                            None
+                          </span>
+                        </div>
+                      )}
+                      <div
+                        css={css`
+                          display: grid;
+                          grid-template-columns: 1fr 1fr 1fr 1fr;
+                          gap: 10px;
+                          align-items: center;
+                          justify-content: space-between;
+
+                          > span {
+                            font-size: 12px;
+                            cursor: pointer;
+                            padding: 5px;
+                            background: ${theme.background.third};
+                            border-radius: 5px;
+                            text-align: center;
+                          }
+                        `}
+                      >
+                        <span
+                          css={tpSetting === 25 && tpUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(false, 25)}
+                        >
+                          25%
+                        </span>
+                        <span
+                          css={tpSetting === 50 && tpUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(false, 50)}
+                        >
+                          50%
+                        </span>
+                        <span
+                          css={tpSetting === 100 && tpUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(false, 100)}
+                        >
+                          100%
+                        </span>
+                        <span
+                          css={tpSetting === 300 && tpUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(false, 300)}
+                        >
+                          300%
+                        </span>
+                        <span
+                          css={tpSetting === 900 && tpUsePercentage ? activeTab : normalTab}
+                          onClick={() => handleTpSLSetting(false, 900)}
+                        >
+                          900%
+                        </span>
+                        <span style={{ gridColumn: 'span 3', position: 'relative' }}>
+                          {!isTpValid && !tpUsePercentage && (
+                            <Typography
+                              sx={{
+                                p: 1,
+                                position: 'absolute',
+                                top: '90%',
+                                fontSize: '11px',
+                                background: theme.background.fourth,
+                                borderRadius: '5px',
+                              }}
+                              component={'span'}
+                            >
+                              TP range should be 0% (${BTCPrice.toFixed(2, 3)}) to 900% ($
+                              {getReachPrice(
+                                leverage,
+                                isBuy,
+                                900,
+                                tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)
+                              ).toFixed(2, 3)}
+                              )
+                            </Typography>
+                          )}
+                          <Input
+                            startAdornment={
+                              <span
+                                style={{
+                                  color: tpUsePercentage ? '#757575' : '#fff',
+                                }}
+                              >
+                                $
+                              </span>
+                            }
+                            type="number"
+                            placeholder=" Price"
+                            disableUnderline={true}
+                            value={tpPrice}
+                            onChange={(event) => {
+                              const num = +event.target.value
+                              if (!isNaN(num)) {
+                                setTpSetting(num)
+                                setTpPrice(new BigNumber(event.target.value))
+                              }
+                            }}
+                            onClick={() => setTpUsePercentage(false)}
+                            sx={{
+                              height: '18px',
+                              fontSize: '14px',
+                              minHeight: '18px',
+                              width: '100%',
+                              '& .MuiOutlinedInput-root': {
+                                height: '18px',
+                                minHeight: '18px',
+                                padding: 0,
+                              },
+                              '& .MuiInputBase-input': {
+                                color: tpUsePercentage ? '#757575' : '#fff',
+                                padding: '0px 0px 0px 4px',
+                                margin: '4px 4px 5px 0',
+                              },
+                            }}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* {tradeModel === TradeMode.DEGEN && ( */}
                 <div css={[align]}>
                   <p
@@ -882,7 +1360,9 @@ export const OrderParamsCard = ({
                     buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                     buttonState === ButtonText.REACHED_LIMIT ||
                     buttonState === ButtonText.MIN_SIZE ||
-                    buttonState === ButtonText.ENTER_AMOUNT
+                    buttonState === ButtonText.ENTER_AMOUNT ||
+                    buttonState === ButtonText.SL_INVALID ||
+                    buttonState === ButtonText.TP_INVALID
                   }
                   onClick={async () => {
                     if (buttonState === ButtonText.CONNECT_WALLET) {
@@ -901,7 +1381,9 @@ export const OrderParamsCard = ({
                     buttonState === ButtonText.INSUFFICIENT_BALANCE ||
                     buttonState === ButtonText.REACHED_LIMIT ||
                     buttonState === ButtonText.MIN_SIZE ||
-                    buttonState === ButtonText.ENTER_AMOUNT
+                    buttonState === ButtonText.ENTER_AMOUNT ||
+                    buttonState === ButtonText.SL_INVALID ||
+                    buttonState === ButtonText.TP_INVALID
                   }
                   onClick={async () => {
                     if (buttonState === ButtonText.CONNECT_WALLET) {

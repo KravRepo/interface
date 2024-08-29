@@ -61,6 +61,17 @@ export const useAddLockAmount = () => {
         }
       }
     },
-    [provider, veContract, kravTokenContract, account, config]
+    [
+      provider,
+      veContract,
+      kravTokenContract,
+      account,
+      config,
+      setTransactionState,
+      setTransactionDialogVisibility,
+      updateSuccessDialog,
+      setSuccessSnackbarInfo,
+      updateError,
+    ]
   )
 }

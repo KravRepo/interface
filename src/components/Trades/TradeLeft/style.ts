@@ -13,7 +13,7 @@ export const myTrade = css`
     display: grid;
     padding: 12px 24px;
     margin: 0 12px;
-    grid-template-columns: 120px minmax(140px, 1fr) 1fr 1fr 1fr 1.5fr 0.5fr;
+    grid-template-columns: 120px minmax(140px, 1fr) 1fr 1fr 1fr 1.5fr 1fr 0.5fr;
     @media screen and (max-width: 1200px) {
       min-width: 1200px;
     }

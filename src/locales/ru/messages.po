@@ -40,8 +40,8 @@ msgstr "Создать ликвидность"
 msgid "Stay tuned"
 msgstr "Следите за обновлениями! Эта функция будет запущена в ближайшее время."
 
-msgid "Liq.price"
-msgstr "Цена ликвидации"
+#~ msgid "Liq.price"
+#~ msgstr "Цена ликвидации"
 
 msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
 msgstr "При фактическом распределении дохода рассчитывайте свою долю в соответствии с объемом торговли после увеличения"
@@ -58,20 +58,17 @@ msgstr "Запрос на вывод подтвержден"
 msgid "Basic"
 msgstr "Базовый"
 
-msgid "Positions"
-msgstr "Позиции"
+#~ msgid "Positions"
+#~ msgstr "Позиции"
 
 msgid "POOL TOTAL STAKED"
 msgstr "ОБЩИЙ ОБЪЕМ СТАВКИ В ПУЛЕ"
 
-msgid "Orders"
-msgstr "Заказы"
+#~ msgid "Orders"
+#~ msgstr "Заказы"
 
 msgid "Confirm Limit Order"
 msgstr "Подтвердить лимитный ордер"
-
-msgid "Please wait 48-72 hours to remove liquidity"
-msgstr "Пожалуйста, подождите 24 часа для удаления ликвидности"
 
 msgid "Statistics"
 msgstr "Статистика"
@@ -103,14 +100,20 @@ msgstr "РЫНОК"
 msgid "Updated stop loss"
 msgstr "Обновленный стоп-лосс"
 
+msgid "Take profit less then open price"
+msgstr ""
+
+msgid "Stop loss less then market price"
+msgstr ""
+
 msgid "VOLUME (ETH)"
 msgstr ""
 
 msgid "Pay"
 msgstr "Оплатить"
 
-msgid "DATE OPENED"
-msgstr ""
+#~ msgid "DATE OPENED"
+#~ msgstr ""
 
 msgid "Fees Rewards"
 msgstr "Вознаграждения за комиссии"
@@ -126,6 +129,9 @@ msgstr "24-часовой объем торговли"
 
 msgid "The maximum percentage cannot exceed 900%"
 msgstr "Максимальный процент не может превышать 900%"
+
+msgid "Stop loss greater then market price"
+msgstr ""
 
 msgid "Collateral"
 msgstr "Залог"
@@ -172,8 +178,8 @@ msgstr "Для торговли"
 msgid "Dashboard"
 msgstr "Панель управления"
 
-msgid "Initial Supply"
-msgstr ""
+#~ msgid "Initial Supply"
+#~ msgstr ""
 
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "Максимизируйте свои вознаграждения, продлевая срок блокировки KRAV. Усильте накопление veKRAV, увеличивая заблокированное количество или период. Помните, veKRAV медленно уменьшается со временем, в конечном итоге приравниваясь к KRAV."
@@ -238,8 +244,8 @@ msgstr "Узнайте больше о ставках Krav"
 msgid "OPEN"
 msgstr "ОТКРЫТЬ"
 
-msgid "Your Pool Stake"
-msgstr "Your Pool Stake"
+#~ msgid "Your Pool Stake"
+#~ msgstr "Your Pool Stake"
 
 msgid "Go back"
 msgstr "Назад"
@@ -265,6 +271,9 @@ msgstr "Подключить кошелек"
 msgid "1 KRAV → Coming Soon"
 msgstr "1 KRAV → Скоро"
 
+msgid "Take profit greater then market price"
+msgstr ""
+
 msgid "Current price"
 msgstr "Текущая цена"
 
@@ -289,8 +298,8 @@ msgstr "Общий объем торговли"
 msgid "My Asset"
 msgstr "Мой"
 
-msgid "Your Liquidity Supply"
-msgstr "Your Liquidity Supply"
+#~ msgid "Your Liquidity Supply"
+#~ msgstr "Your Liquidity Supply"
 
 msgid "Claim locked Reward"
 msgstr "Заявить заблокированное вознаграждение"
@@ -313,8 +322,14 @@ msgstr "Пожалуйста, смените сеть."
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr "Комиссии: KRAV Trade взимает комиссию в базисных пунктах за каждую открытую и закрытую сделку, не превышая 0.07% за каждую."
 
+msgid "+ Provide Liquidity"
+msgstr ""
+
 msgid "Open Interest (L/S)"
 msgstr "Открытый интерес (L/S)"
+
+msgid "Take profit greater then open price"
+msgstr ""
 
 msgid "No open position"
 msgstr "Нет открытых позиций"
@@ -343,14 +358,17 @@ msgstr "Минимальный период блокировки - одна не
 msgid "Earning Information"
 msgstr "Информация о заработке"
 
-msgid "MULTIPLIER"
-msgstr ""
+#~ msgid "MULTIPLIER"
+#~ msgstr ""
 
-msgid "WITHDRAW_BLOCK"
-msgstr "WITHDRAW BLOCK"
+#~ msgid "WITHDRAW_BLOCK"
+#~ msgstr "WITHDRAW BLOCK"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "Введите контракт актива или выберите актив"
+
+msgid "TP invalid"
+msgstr ""
 
 msgid "Trade"
 msgstr "Торговля"
@@ -415,8 +433,8 @@ msgstr "Недостаточный баланс"
 msgid "Burn"
 msgstr "Сжечь"
 
-msgid "Take Profit great then open price"
-msgstr "Фиксация прибыли больше, чем цена открытия"
+#~ msgid "Take Profit great then open price"
+#~ msgstr "Фиксация прибыли больше, чем цена открытия"
 
 msgid "Allowed Slippage"
 msgstr "Допустимое проскальзывание"
@@ -429,6 +447,9 @@ msgstr "Добавить ликвидность"
 
 msgid "Total Stake"
 msgstr "Общая ставка"
+
+#~ msgid "PnL"
+#~ msgstr "Прибыль/Убыток"
 
 msgid "Withdraw"
 msgstr "Вывод"
@@ -499,11 +520,14 @@ msgstr "Ордер"
 msgid "Pending"
 msgstr "В ожидании"
 
+msgid "SL invalid"
+msgstr ""
+
 msgid "Claim reward"
 msgstr "Получить награду"
 
-msgid "+ Provider liquidity"
-msgstr "+ Поставщик ликвидности"
+#~ msgid "+ Provider liquidity"
+#~ msgstr "+ Поставщик ликвидности"
 
 msgid "No record"
 msgstr ""
@@ -520,8 +544,8 @@ msgstr "С BTC в качестве базового актива, различн
 msgid "Coming Soon"
 msgstr "Скоро будет"
 
-msgid "Withdrawal Limit"
-msgstr ""
+#~ msgid "Withdrawal Limit"
+#~ msgstr ""
 
 msgid "successfully."
 msgstr "успешно."
@@ -583,8 +607,8 @@ msgstr "Подтвердить шорт"
 msgid "Approve"
 msgstr "Одобрить"
 
-msgid "Trades"
-msgstr "Сделки"
+#~ msgid "Trades"
+#~ msgstr "Сделки"
 
 msgid "Locked Krav"
 msgstr "Заблокированный Krav"
@@ -592,8 +616,8 @@ msgstr "Заблокированный Krav"
 #~ msgid "Remaining"
 #~ msgstr "Оставшийся"
 
-msgid "Stop loss great then open price"
-msgstr "Стоп-лосс больше, чем цена открытия"
+#~ msgid "Stop loss great then open price"
+#~ msgstr "Стоп-лосс больше, чем цена открытия"
 
 msgid "Increase locked Krav amount"
 msgstr "Увеличить сумму заблокированного Krav"
@@ -631,8 +655,8 @@ msgstr "Получить реферальную награду"
 msgid "Order limit"
 msgstr "Лимит ордера"
 
-msgid "Light Mode"
-msgstr "Светлый режим"
+#~ msgid "Light Mode"
+#~ msgstr "Светлый режим"
 
 msgid "Total assets"
 msgstr "Общие активы"
@@ -667,8 +691,8 @@ msgstr "Ставка финансирования (L)"
 msgid "Total Value"
 msgstr "Общая стоимость"
 
-msgid "Coll"
-msgstr "Залог"
+#~ msgid "Coll"
+#~ msgstr "Залог"
 
 msgid "Krav requests wallet approval"
 msgstr "Krav запрашивает одобрение кошелька"
@@ -721,8 +745,8 @@ msgstr "Нет истории сделок"
 msgid "PERPETUAL FUTURES"
 msgstr "БЕССРОЧНЫЕ ФЬЮЧЕРСЫ"
 
-msgid "Take Profit less then open price"
-msgstr "Забрать прибыль меньше цены открытия"
+#~ msgid "Take Profit less then open price"
+#~ msgstr "Забрать прибыль меньше цены открытия"
 
 msgid "REMOVE LIMIT"
 msgstr "УДАЛИТЬ ОГРАНИЧЕНИЕ"
@@ -745,8 +769,8 @@ msgstr "BTC/USDT (Обновить SL/TP)"
 msgid "Deposit Amount/Initial LP Provision"
 msgstr "Сумма депозита/Первоначальное обеспечение LP"
 
-msgid "long withdraw notice..."
-msgstr "При выводе ликвидности существует 48-часовой период ожидания между запросом на вывод и переводом баланса на ваш кошелек. Этот период ожидания необходим для обеспечения стабильной ликвидности. Может быть удалено 25% внесенной ликвидности за раз."
+#~ msgid "long withdraw notice..."
+#~ msgstr "При выводе ликвидности существует 48-часовой период ожидания между запросом на вывод и переводом баланса на ваш кошелек. Этот период ожидания необходим для обеспечения стабильной ликвидности. Может быть удалено 25% внесенной ликвидности за раз."
 
 msgid "Total Governance Reward Pool"
 msgstr "Общий пул вознаграждений за управление"
@@ -760,8 +784,8 @@ msgstr "Ставка финансирования (S)"
 msgid "Step 3 Initial LP Provision"
 msgstr "Шаг 3: Первоначальное обеспечение LP"
 
-msgid "A fraction of your profits..."
-msgstr "Часть вашей прибыли (если есть) взимается при закрытии сделки"
+#~ msgid "A fraction of your profits..."
+#~ msgstr "Часть вашей прибыли (если есть) взимается при закрытии сделки"
 
 msgid "Deposit and create"
 msgstr "Внести депозит и создать"
@@ -769,14 +793,17 @@ msgstr "Внести депозит и создать"
 msgid "Step 1 Choose Target Market"
 msgstr "Шаг 1: Выберите целевой рынок"
 
-msgid "PnL"
-msgstr "Прибыль/Убыток"
+msgid "Take profit less then market price"
+msgstr ""
 
 msgid "Add"
 msgstr "Добавить"
 
 msgid "Check approve"
 msgstr "Проверить одобрение"
+
+msgid "Stop loss greater then open price"
+msgstr ""
 
 msgid "Date"
 msgstr "Дата"
@@ -802,8 +829,8 @@ msgstr "Мои награды"
 msgid "StopLoss"
 msgstr "Стоп-лосс"
 
-msgid "Dark Mode"
-msgstr "Темный режим"
+#~ msgid "Dark Mode"
+#~ msgstr "Темный режим"
 
 msgid "No Position yet"
 msgstr "Позиция еще не открыта"
@@ -931,14 +958,17 @@ msgstr "Ликвидировать"
 msgid "Limit"
 msgstr "Лимит"
 
+msgid "Please wait 48-72 hours to remove liquidity"
+msgstr "Пожалуйста, подождите 24 часа для удаления ликвидности"
+
 msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
 msgstr "Включите функцию блокировки, чтобы обеспечить свои доходы Krav и получить привилегии veKRAV. Увеличьте потенциал доходности до 2,5 раз"
 
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav выполняет блокчейн-транзакцию, пожалуйста, подождите завершения транзакции на блокчейне."
 
-msgid "DATE CLOSED"
-msgstr ""
+#~ msgid "DATE CLOSED"
+#~ msgstr ""
 
 msgid "Close"
 msgstr "Закрыть"

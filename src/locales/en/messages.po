@@ -43,8 +43,8 @@ msgstr "Create Liquidity"
 msgid "Stay tuned"
 msgstr "Stay tuned! This feature will be launched soon."
 
-msgid "Liq.price"
-msgstr "Liq.price"
+#~ msgid "Liq.price"
+#~ msgstr "Liq.price"
 
 msgid "When actually distributing income, calculate your ratio according to your trading volume after boost"
 msgstr "When actually distributing income, calculate your ratio according to your trading volume after boost"
@@ -64,20 +64,17 @@ msgstr "Withdraw request confirmed"
 msgid "Basic"
 msgstr "Basic"
 
-msgid "Positions"
-msgstr "Positions"
+#~ msgid "Positions"
+#~ msgstr "Positions"
 
 msgid "POOL TOTAL STAKED"
 msgstr "POOL TOTAL STAKED"
 
-msgid "Orders"
-msgstr "Orders"
+#~ msgid "Orders"
+#~ msgstr "Orders"
 
 msgid "Confirm Limit Order"
 msgstr "Confirm Limit Order"
-
-msgid "Please wait 48-72 hours to remove liquidity"
-msgstr "Please wait 48-72 hours to remove liquidity"
 
 msgid "Statistics"
 msgstr "Statistics"
@@ -121,8 +118,11 @@ msgstr "MARKET"
 msgid "Updated stop loss"
 msgstr "Updated stop loss"
 
-#~ msgid "Take profit less then open price"
-#~ msgstr "Take profit less then open price"
+msgid "Take profit less then open price"
+msgstr "Take profit less then open price"
+
+msgid "Stop loss less then market price"
+msgstr "Stop loss less then market price"
 
 #~ msgid "MAX"
 #~ msgstr "MAX"
@@ -136,8 +136,8 @@ msgstr "VOLUME (ETH)"
 msgid "Pay"
 msgstr "Pay"
 
-msgid "DATE OPENED"
-msgstr "DATE OPENED"
+#~ msgid "DATE OPENED"
+#~ msgstr "DATE OPENED"
 
 msgid "Fees Rewards"
 msgstr "Fees Rewards"
@@ -156,6 +156,9 @@ msgstr "24h Trading Volume"
 
 msgid "The maximum percentage cannot exceed 900%"
 msgstr "The maximum percentage cannot exceed 900%"
+
+msgid "Stop loss greater then market price"
+msgstr "Stop loss greater then market price"
 
 #~ msgid "Contract Specifications"
 #~ msgstr "Contract Specifications"
@@ -211,8 +214,8 @@ msgstr "Dashboard"
 #~ msgid "krav has been staked successfully"
 #~ msgstr "krav has been staked successfully"
 
-msgid "Initial Supply"
-msgstr "Initial Supply"
+#~ msgid "Initial Supply"
+#~ msgstr "Initial Supply"
 
 msgid "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
 msgstr "Maximize your rewards by extending your KRAV lock duration. Amplify veKRAV accumulation by increasing the locked amount or period. Keep in mind, veKRAV decays slowly over time, eventually equating to KRAV."
@@ -329,6 +332,9 @@ msgstr "Connect Wallet"
 msgid "1 KRAV → Coming Soon"
 msgstr "1 KRAV → Coming Soon"
 
+msgid "Take profit greater then market price"
+msgstr "Take profit greater then market price"
+
 msgid "Current price"
 msgstr "Current price"
 
@@ -380,8 +386,14 @@ msgstr "Please change network."
 msgid "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 msgstr "Fees: KRAV Trade takes basis point fees from each trade open and close, never exceeding 0.07% for each."
 
+msgid "+ Provide Liquidity"
+msgstr "+ Provide Liquidity"
+
 msgid "Open Interest (L/S)"
 msgstr "Open Interest (L/S)"
+
+msgid "Take profit greater then open price"
+msgstr "Take profit greater then open price"
 
 msgid "No open position"
 msgstr "No open position"
@@ -413,14 +425,17 @@ msgstr "Min lock period one week"
 msgid "Earning Information"
 msgstr "Earning Information"
 
-msgid "MULTIPLIER"
-msgstr "MULTIPLIER"
+#~ msgid "MULTIPLIER"
+#~ msgstr "MULTIPLIER"
 
 #~ msgid "WITHDRAW_BLOCK"
 #~ msgstr "WITHDRAW_BLOCK"
 
 msgid "Enter Asset contract or select Asset"
 msgstr "Enter Asset contract or select Asset"
+
+msgid "TP invalid"
+msgstr "TP invalid"
 
 msgid "Trade"
 msgstr "Trade"
@@ -503,8 +518,8 @@ msgstr "Insufficient Balance"
 msgid "Burn"
 msgstr "Burn"
 
-msgid "Take Profit great then open price"
-msgstr "Take Profit great then open price"
+#~ msgid "Take Profit great then open price"
+#~ msgstr "Take Profit great then open price"
 
 msgid "Allowed Slippage"
 msgstr "Allowed Slippage"
@@ -526,6 +541,9 @@ msgstr "Total Stake"
 
 #~ msgid "Trading Volume after boost"
 #~ msgstr "Trading Volume after boost"
+
+#~ msgid "PnL"
+#~ msgstr "PnL"
 
 #~ msgid "Open Trade"
 #~ msgstr "Open Trade"
@@ -626,11 +644,14 @@ msgstr "Order"
 msgid "Pending"
 msgstr "Pending"
 
+msgid "SL invalid"
+msgstr "SL invalid"
+
 msgid "Claim reward"
 msgstr "Claim reward"
 
-msgid "+ Provider liquidity"
-msgstr "+ Provider liquidity"
+#~ msgid "+ Provider liquidity"
+#~ msgstr "+ Provider liquidity"
 
 msgid "No record"
 msgstr "No record"
@@ -647,8 +668,8 @@ msgstr "With BTC as the underlying asset, different assets are used as investmen
 msgid "Coming Soon"
 msgstr "Coming Soon"
 
-msgid "Withdrawal Limit"
-msgstr "Withdrawal Limit"
+#~ msgid "Withdrawal Limit"
+#~ msgstr "Withdrawal Limit"
 
 msgid "successfully."
 msgstr "successfully."
@@ -719,8 +740,8 @@ msgstr "Confirm Short"
 msgid "Approve"
 msgstr "Approve"
 
-msgid "Trades"
-msgstr "Trades"
+#~ msgid "Trades"
+#~ msgstr "Trades"
 
 msgid "Locked Krav"
 msgstr "Locked Krav"
@@ -728,8 +749,8 @@ msgstr "Locked Krav"
 #~ msgid "Remaining"
 #~ msgstr "Remaining"
 
-msgid "Stop loss great then open price"
-msgstr "Stop loss great then open price"
+#~ msgid "Stop loss great then open price"
+#~ msgstr "Stop loss great then open price"
 
 #~ msgid "opening..."
 #~ msgstr "opening..."
@@ -779,8 +800,8 @@ msgstr "Claim referral reward"
 msgid "Order limit"
 msgstr "Order limit"
 
-msgid "Light Mode"
-msgstr "Light Mode"
+#~ msgid "Light Mode"
+#~ msgstr "Light Mode"
 
 msgid "Total assets"
 msgstr "Total assets"
@@ -815,8 +836,8 @@ msgstr "Funding Rate (L)"
 msgid "Total Value"
 msgstr "Total Value"
 
-msgid "Coll"
-msgstr "Coll"
+#~ msgid "Coll"
+#~ msgstr "Coll"
 
 msgid "Krav requests wallet approval"
 msgstr "Krav requests wallet approval"
@@ -881,8 +902,8 @@ msgstr "No trade history"
 msgid "PERPETUAL FUTURES"
 msgstr "PERPETUAL FUTURES"
 
-msgid "Take Profit less then open price"
-msgstr "Take Profit less then open price"
+#~ msgid "Take Profit less then open price"
+#~ msgstr "Take Profit less then open price"
 
 msgid "REMOVE LIMIT"
 msgstr "REMOVE LIMIT"
@@ -905,8 +926,8 @@ msgstr "BTC/USDT(Update SL/TP)"
 msgid "Deposit Amount/Initial LP Provision"
 msgstr "Deposit Amount/Initial LP Provision"
 
-msgid "long withdraw notice..."
-msgstr "To ensure stable liquidity, there is a 2 epoch (min 48 hour) waiting period after requesting a withdrawal, followed by a 24 hour period to claim. 25% of initially deposited liquidity may be withdrawn at a time."
+#~ msgid "long withdraw notice..."
+#~ msgstr "To ensure stable liquidity, there is a 2 epoch (min 48 hour) waiting period after requesting a withdrawal, followed by a 24 hour period to claim. 25% of initially deposited liquidity may be withdrawn at a time."
 
 msgid "Total Governance Reward Pool"
 msgstr "Total Governance Reward Pool"
@@ -920,10 +941,10 @@ msgstr "Funding Rate (S)"
 msgid "Step 3 Initial LP Provision"
 msgstr "Step 3 Initial LP Provision"
 
-msgid "A fraction of your profits..."
-msgstr ""
-"A fraction of your profits (if any) is taken when\n"
-" you close the trade"
+#~ msgid "A fraction of your profits..."
+#~ msgstr ""
+#~ "A fraction of your profits (if any) is taken when\n"
+#~ " you close the trade"
 
 msgid "Deposit and create"
 msgstr "Deposit and create"
@@ -931,14 +952,17 @@ msgstr "Deposit and create"
 msgid "Step 1 Choose Target Market"
 msgstr "Step 1 Choose Target Market"
 
-msgid "PnL"
-msgstr "PnL"
+msgid "Take profit less then market price"
+msgstr "Take profit less then market price"
 
 msgid "Add"
 msgstr "Add"
 
 msgid "Check approve"
 msgstr "Check approve"
+
+msgid "Stop loss greater then open price"
+msgstr "Stop loss greater then open price"
 
 msgid "Date"
 msgstr "Date"
@@ -973,8 +997,8 @@ msgstr "My Rewards"
 msgid "StopLoss"
 msgstr "StopLoss"
 
-msgid "Dark Mode"
-msgstr "Dark Mode"
+#~ msgid "Dark Mode"
+#~ msgstr "Dark Mode"
 
 msgid "No Position yet"
 msgstr "No Position yet"
@@ -1135,6 +1159,9 @@ msgstr "Liquidate"
 msgid "Limit"
 msgstr "Limit"
 
+msgid "Please wait 48-72 hours to remove liquidity"
+msgstr "Please wait 48-72 hours to remove liquidity"
+
 msgid "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
 msgstr "Engage the lock-in feature to secure your Krav earnings and obtain veKRAV privileges. Enhance your yield potential by up to 2.5x"
 
@@ -1144,8 +1171,8 @@ msgstr "Engage the lock-in feature to secure your Krav earnings and obtain veKRA
 msgid "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 msgstr "Krav is engaging with blockchain transaction, please wait patiently for on-chain transaction settlement."
 
-msgid "DATE CLOSED"
-msgstr "DATE CLOSED"
+#~ msgid "DATE CLOSED"
+#~ msgstr "DATE CLOSED"
 
 msgid "Close"
 msgstr "Close"

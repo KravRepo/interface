@@ -28,7 +28,7 @@ export const PositionItemCard = ({
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
   const userPositionDatas = useRootStore((store) => store.userPositionDatas)
-  const { tokenAmount } = usePnl(kTokenAddress)
+  const { tokenAmount } = usePnl(kTokenAddress, position.pool.decimals)
   // const [setLpReward] = useState(new BigNumber(0))
   // const claimLp = useHarvestLpReward(position.pool.vaultT)
   const poolSupply = useMemo(() => {
@@ -166,6 +166,7 @@ export const PositionItemCard = ({
           className="data"
           css={css`
             margin-top: 10px;
+            word-break: break-all;
           `}
         >
           <p>{t`Your Total Liquidity`}</p>

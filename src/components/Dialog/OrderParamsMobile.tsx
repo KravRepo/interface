@@ -51,6 +51,7 @@ export const OrderParamsMobile = ({
     return () => {
       setIsOpen()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -65,72 +66,83 @@ export const OrderParamsMobile = ({
         },
       }}
     >
-      <Box sx={{ padding: '16px 24px 32px' }}>
+      <Box sx={{ padding: '16px 24px 32px', position: 'relative', maxHeight: '90vh' }}>
         <Box
           sx={{
             width: '96px',
             borderRadius: '8px',
             height: '4px',
             background: theme.background.third,
-            margin: '0 auto 32px',
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
           }}
         />
         <Box
           sx={{
-            padding: '4px',
-            background: theme.palette.mode === 'dark' ? theme.background.second : '#F7F7F7',
-            borderRadius: '4px',
+            maxHeight: 'calc(90vh - 60px)',
+            overflow: 'auto',
+            borderRadius: '8px',
           }}
         >
-          <Tabs
-            value={orderType}
-            onChange={handleChange}
+          <Box
             sx={{
-              color: '#000000',
-              minHeight: '30px',
-              '& .MuiTabs-indicator': { display: 'none' },
-              '& .Mui-selected': { color: '#fff !important' },
+              padding: '4px',
+              background: theme.palette.mode === 'dark' ? theme.background.second : '#F7F7F7',
+              borderRadius: '4px',
             }}
           >
-            <Tab
+            <Tabs
+              value={orderType}
+              onChange={handleChange}
               sx={{
-                width: '50%',
-                borderRadius: '4px',
+                color: '#000000',
                 minHeight: '30px',
-                maxWidth: '50%',
-                padding: 0,
-                background: orderType === 0 ? '#009B72 !important' : '',
+                '& .MuiTabs-indicator': { display: 'none' },
+                '& .Mui-selected': { color: '#fff !important' },
               }}
-              label="Long"
-            />
-            <Tab
-              sx={{
-                width: '50%',
-                borderRadius: '4px',
-                minHeight: '30px',
-                maxWidth: '50%',
-                padding: 0,
-                background: orderType === 1 ? '#DB4C40 !important' : '',
-              }}
-              label="Short"
-            />
-          </Tabs>
+            >
+              <Tab
+                sx={{
+                  width: '50%',
+                  borderRadius: '4px',
+                  minHeight: '30px',
+                  maxWidth: '50%',
+                  padding: 0,
+                  background: orderType === 0 ? '#009B72 !important' : '',
+                }}
+                label="Long"
+              />
+              <Tab
+                sx={{
+                  width: '50%',
+                  borderRadius: '4px',
+                  minHeight: '30px',
+                  maxWidth: '50%',
+                  padding: 0,
+                  background: orderType === 1 ? '#DB4C40 !important' : '',
+                }}
+                label="Short"
+              />
+            </Tabs>
+          </Box>
+          <OrderParamsCard
+            leverage={leverage}
+            positionSizeDai={positionSizeDai}
+            setLeverage={setLeverage}
+            setPositionSizeDai={setPositionSizeDai}
+            setSlPrice={setSlPrice}
+            setTpPrice={setTpPrice}
+            slPrice={slPrice}
+            tpPrice={tpPrice}
+            isBuy={isBuy}
+            limitPrice={limitPrice}
+            setLimitPrice={setLimitPrice}
+            tradeType={tradeType}
+            setTradeType={setTradeType}
+          />
         </Box>
-        <OrderParamsCard
-          leverage={leverage}
-          positionSizeDai={positionSizeDai}
-          setLeverage={setLeverage}
-          setPositionSizeDai={setPositionSizeDai}
-          setSlPrice={setSlPrice}
-          setTpPrice={setTpPrice}
-          slPrice={slPrice}
-          tpPrice={tpPrice}
-          isBuy={isBuy}
-          limitPrice={limitPrice}
-          setLimitPrice={setLimitPrice}
-          tradeType={tradeType}
-          setTradeType={setTradeType}
-        />
       </Box>
     </SwipeableDrawer>
   )

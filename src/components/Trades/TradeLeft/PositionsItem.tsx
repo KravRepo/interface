@@ -15,6 +15,7 @@ import { ProfitConfirmTrade } from '../../Dialog/ProfitConfirmTrade'
 import { useTheme } from '@mui/material'
 import { PairInfosABI } from '../../../abi/deployed/PairInfosABI'
 import { useContract } from '../../../hook/hookV8/useContract'
+// import { BASE_ONE_HOUR_BLOCK } from '../../../constant/math'
 
 type PositionsItemProps = {
   openTrade: Tuple
@@ -104,7 +105,11 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
               {BTCPrice.isGreaterThan(0) && (
                 <>
                   <span>
-                    {new BigNumber(openTrade.initialPosToken).times(takeProfit).div(100).toFixed(2)}{' '}
+                    {new BigNumber(openTrade.initialPosToken)
+                      .times(takeProfit)
+                      .div(100)
+                      // .minus(eXDecimals(tradePool.fundingFeePerBlockP, 10).div(100).times(BASE_ONE_HOUR_BLOCK))
+                      .toFixed(2)}{' '}
                     {pool ? pool.symbol : tradePool.symbol}
                   </span>
                   <span>({takeProfit.toFixed(2)}%)</span>
@@ -144,13 +149,13 @@ export const PositionsItem = ({ openTrade, index, pool }: PositionsItemProps) =>
                   maximumFractionDigits: tradePair.fixDecimals,
                 })}`}
           </div>
-          {/* <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
+          <div style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setIsOpen(true)}>
             $
             {Number(openTrade.tp).toLocaleString('en-US', {
               minimumFractionDigits: tradePair.fixDecimals,
               maximumFractionDigits: tradePair.fixDecimals,
             })}
-          </div> */}
+          </div>
           <div>
             {openTrade.beingMarketClosed && !openTrade?.isInPending && (
               <div>
