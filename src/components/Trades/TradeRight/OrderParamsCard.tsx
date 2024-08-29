@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { Input, Slider, TextField, Typography, useTheme } from '@mui/material'
+import { Slider, TextField, useTheme } from '@mui/material'
 import { css } from '@emotion/react'
 import { Trans, msg, t } from '@lingui/macro'
 import { align } from '../../../globalStyle'
-import { attention, input, orderParamsTab, activeTab, normalTab } from './style'
-import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { attention, input, orderParamsTab } from './style'
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import BigNumber from 'bignumber.js'
 import KRAVButton from '../../KravUIKit/KravButton'
 import { ConfirmTrade } from '../../../components/Dialog/ConfirmTrade'
 import { useApprove } from '../../../hook/hookV8/useApprove'
 import { useRootStore } from '../../../store/root'
 import { useWeb3React } from '@web3-react/core'
-import { addDecimals, getFees, getLongOrShortUSD, getReachPrice, getTakeProfit } from '../../../utils/math'
+import { addDecimals, getFees, getLongOrShortUSD } from '../../../utils/math'
 import { ReactComponent as AttentionIcon } from '../../../assets/imgs/attention.svg'
 import { TransactionAction, TransactionState } from '../../../store/TransactionSlice'
 import { useMaxPositionCheck } from '../../../hook/hookV8/useMaxPositionCheck'
@@ -118,13 +118,13 @@ export const OrderParamsCard = ({
   const [inputDAIDecimals, setInputDAIDecimals] = useState(1)
   const [tabIndex, setTabIndex] = useState(0)
   const { i18n } = useLingui()
-  const [slSetting, setSlSetting] = useState(0)
-  const [slUsePercentage, setUseSlPercentage] = useState(true)
-  const [tpSetting, setTpSetting] = useState(0)
-  const [tpUsePercentage, setTpUsePercentage] = useState(true)
+  // const [slSetting, setSlSetting] = useState(0)
+  // const [slUsePercentage, setUseSlPercentage] = useState(true)
+  // const [tpSetting, setTpSetting] = useState(0)
+  // const [tpUsePercentage, setTpUsePercentage] = useState(true)
   const [showConfirmTip, setShowConfirmTip] = useState(false)
   const { orderLimit } = useGetOrderLimit()
-  const slInput = useRef(null)
+
   const {
     BTCPrice,
     transactionState,
@@ -163,39 +163,39 @@ export const OrderParamsCard = ({
     )
   }, [tradePool, userPositionDatas])
 
-  const targetSl = useMemo(() => {
-    return slUsePercentage
-      ? slSetting === 0
-        ? new BigNumber(0)
-        : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
-      : new BigNumber(slPrice)
-  }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
+  // const targetSl = useMemo(() => {
+  //   return slUsePercentage
+  //     ? slSetting === 0
+  //       ? new BigNumber(0)
+  //       : getReachPrice(leverage, isBuy, slSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+  //     : new BigNumber(slPrice)
+  // }, [slUsePercentage, leverage, isBuy, slSetting, tradeType, BTCPrice, slPrice, limitPrice])
 
-  const targetTp = useMemo(() => {
-    return tpUsePercentage
-      ? tpSetting === 0
-        ? new BigNumber(0)
-        : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
-      : new BigNumber(tpPrice)
-  }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
+  // const targetTp = useMemo(() => {
+  //   return tpUsePercentage
+  //     ? tpSetting === 0
+  //       ? new BigNumber(0)
+  //       : getReachPrice(leverage, isBuy, tpSetting, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice))
+  //     : new BigNumber(tpPrice)
+  // }, [tpUsePercentage, leverage, isBuy, tpSetting, tradeType, BTCPrice, limitPrice, tpPrice])
 
-  const slPercentage = useMemo(() => {
-    return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetSl, isBuy, leverage, true)
-  }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetSl])
+  // const slPercentage = useMemo(() => {
+  //   return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetSl, isBuy, leverage, true)
+  // }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetSl])
 
-  const tpPercentage = useMemo(() => {
-    return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetTp, isBuy, leverage, false)
-  }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
+  // const tpPercentage = useMemo(() => {
+  //   return getTakeProfit(tradeType === 0 ? BTCPrice : new BigNumber(limitPrice), targetTp, isBuy, leverage, false)
+  // }, [tradeType, BTCPrice, limitPrice, isBuy, leverage, targetTp])
 
   const [buttonState, setButtonState] = useState<ButtonText>(ButtonText.CONNECT_WALLET)
 
   const testTuple = useMemo(() => {
     return {
       trader: account!,
-      sl: addDecimals(targetSl, 10).toFixed(0),
-      tp: addDecimals(targetTp, 10).toFixed(0),
-      // sl: '0',
-      // tp: '0',
+      // sl: addDecimals(targetSl, 10).toFixed(0),
+      // tp: addDecimals(targetTp, 10).toFixed(0),
+      sl: '0',
+      tp: '0',
       pairIndex: tradePairIndex,
       openPrice: addDecimals(tradeType === 0 ? BTCPrice : limitPrice, 10).toFixed(0, 1),
       leverage: leverage,
@@ -204,19 +204,7 @@ export const OrderParamsCard = ({
       buy: isBuy,
       positionSizeDai: addDecimals(positionSizeDai, tradePool.decimals).toString(),
     }
-  }, [
-    account,
-    targetSl,
-    targetTp,
-    tradePairIndex,
-    tradeType,
-    BTCPrice,
-    limitPrice,
-    leverage,
-    isBuy,
-    positionSizeDai,
-    tradePool.decimals,
-  ])
+  }, [account, tradePairIndex, tradeType, BTCPrice, limitPrice, leverage, isBuy, positionSizeDai, tradePool.decimals])
 
   const { liquidationPrice, priceImpact } = useTradeData({
     tradeType,
@@ -313,17 +301,17 @@ export const OrderParamsCard = ({
     setOpenBTCSize(outputAmount)
   }
 
-  const handleTpSLSetting = (isSl: boolean, value: number) => {
-    if (isSl) {
-      setSlSetting(value)
-      setUseSlPercentage(true)
-      setSlPrice('0')
-    } else {
-      setTpSetting(value)
-      setTpUsePercentage(true)
-      setTpPrice('0')
-    }
-  }
+  // const handleTpSLSetting = (isSl: boolean, value: number) => {
+  //   if (isSl) {
+  //     setSlSetting(value)
+  //     setUseSlPercentage(true)
+  //     setSlPrice('0')
+  //   } else {
+  //     setTpSetting(value)
+  //     setTpUsePercentage(true)
+  //     setTpPrice('0')
+  //   }
+  // }
 
   // const handleMaxInput = () => {
   //   setPositionSizeDai(PoolWalletBalance)
@@ -337,28 +325,28 @@ export const OrderParamsCard = ({
   //   setOpenBTCSize(outputAmount)
   // }
 
-  const isSlValid = useMemo(() => {
-    const value = slSetting
-    if (value === 0) return true
-    const max = BTCPrice.toNumber()
-    const min = getReachPrice(leverage, isBuy, -90, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
-    if (value > max || value < min) {
-      return false
-    }
-    return true
-  }, [BTCPrice, isBuy, leverage, limitPrice, slSetting, tradeType])
+  // const isSlValid = useMemo(() => {
+  //   const value = slSetting
+  //   if (value === 0) return true
+  //   const max = BTCPrice.toNumber()
+  //   const min = getReachPrice(leverage, isBuy, -90, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
+  //   if (value > max || value < min) {
+  //     return false
+  //   }
+  //   return true
+  // }, [BTCPrice, isBuy, leverage, limitPrice, slSetting, tradeType])
 
-  const isTpValid = useMemo(() => {
-    const value = tpSetting
-    if (value === 0) return true
-    const min = BTCPrice.toNumber()
-    const max = getReachPrice(leverage, isBuy, 900, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
+  // const isTpValid = useMemo(() => {
+  //   const value = tpSetting
+  //   if (value === 0) return true
+  //   const min = BTCPrice.toNumber()
+  //   const max = getReachPrice(leverage, isBuy, 900, tradeType === 0 ? BTCPrice : new BigNumber(limitPrice)).toNumber()
 
-    if (value > max || value < min) {
-      return false
-    }
-    return true
-  }, [BTCPrice, isBuy, leverage, limitPrice, tpSetting, tradeType])
+  //   if (value > max || value < min) {
+  //     return false
+  //   }
+  //   return true
+  // }, [BTCPrice, isBuy, leverage, limitPrice, tpSetting, tradeType])
 
   useEffect(() => {
     if (!account) setButtonState(ButtonText.CONNECT_WALLET)
@@ -368,8 +356,8 @@ export const OrderParamsCard = ({
     else if (!positionSizeDai.isEqualTo(0) && positionSizeDai.times(leverage).isLessThan(tradePool.minPositionLev))
       setButtonState(ButtonText.MIN_SIZE)
     else if (!positionSizeDai.isGreaterThan(0)) setButtonState(ButtonText.ENTER_AMOUNT)
-    else if (!isSlValid && !slUsePercentage) setButtonState(ButtonText.SL_INVALID)
-    else if (!isTpValid && !tpUsePercentage) setButtonState(ButtonText.TP_INVALID)
+    // else if (!isSlValid && !slUsePercentage) setButtonState(ButtonText.SL_INVALID)
+    // else if (!isTpValid && !tpUsePercentage) setButtonState(ButtonText.TP_INVALID)
     else if (isBuy) setButtonState(ButtonText.LONG)
     else if (!isBuy) setButtonState(ButtonText.SHORT)
   }, [
@@ -382,10 +370,6 @@ export const OrderParamsCard = ({
     positionSizeDai,
     tradePool,
     PoolWalletBalance,
-    isSlValid,
-    isTpValid,
-    slUsePercentage,
-    tpUsePercentage,
   ])
 
   useEffect(() => {
@@ -907,7 +891,7 @@ export const OrderParamsCard = ({
                   </>
                 )}
 
-                {(tradeModel === TradeMode.PRO || tradeModel === TradeMode.DEGEN) && (
+                {/* {(tradeModel === TradeMode.PRO || tradeModel === TradeMode.DEGEN) && (
                   <div
                     css={css`
                       margin-bottom: 16px;
@@ -1290,7 +1274,7 @@ export const OrderParamsCard = ({
                       </div>
                     </div>
                   </div>
-                )}
+                )} */}
 
                 {/* {tradeModel === TradeMode.DEGEN && ( */}
                 <div css={[align]}>
