@@ -168,7 +168,6 @@ export const getTradeBooster = (
     const booster = new BigNumber(workingTradeBalance)
       .div(overviewData.workingTraderVolume.plus(workingTradeBalance))
       .div(volumeAmount.times(0.4).div(overviewData.workingTraderVolume.plus(volumeAmount.times(0.4))))
-    // console.log('booster', booster.toFixed(4))
     return booster
   } else return new BigNumber(0)
 }

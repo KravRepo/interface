@@ -43,16 +43,6 @@ export interface ProviderProps {
   provider?: Eip1193Provider | JsonRpcProvider | null
 }
 
-export function TestableProvider({ provider, children }: PropsWithChildren<{ provider: JsonRpcProvider }>) {
-  const connector = useMemo(() => initializeWeb3ReactConnector(JsonRpcConnector, { provider }), [provider])
-  useEffect(() => {
-    connector[0].activate()
-  }, [connector])
-
-  const connectors = useMemo(() => [connector], [connector])
-  return <Web3ReactProvider connectors={connectors}>{children}</Web3ReactProvider>
-}
-
 export function Provider({
   defaultChainId: chainId = ChainId.MAINNET,
   jsonRpcUrlMap,

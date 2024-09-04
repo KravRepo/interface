@@ -11,7 +11,7 @@ import { PairsStorageABI } from '../../abi/deployed/PairsStorageABI'
 import { KravFactoryABI } from '../../abi/deployed/KravFactoryABI'
 import token_swap from '../../abi/TokenSwap.json'
 import multicall2 from '../../abi/uni_multicall.json'
-import type { JsonRpcProvider } from '@ethersproject/providers'
+import { JsonRpcProvider } from '@ethersproject/providers'
 import { Interface } from 'ethers/lib/utils'
 import { ChainId, CONTRACT_CONFIG, DEFAULT_CHAIN, MULTICALL_ADDRESS, SUPPORT_CHAIN } from '../../constant/chain'
 import { useRootStore } from '../../store/root'
@@ -110,15 +110,27 @@ export const decodeCallResult = (contractInterface: Interface, func: string, ret
 }
 
 export function useInterfaceMulticall() {
-  // const { chainId, provider } = useWeb3React()
-  // return useMemo(() => {
-  //   const address =
-  //     chainId && SUPPORT_CHAIN.includes(chainId)
-  //       ? CONTRACT_CONFIG[chainId].multicall2
-  //       : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall2
-  //   if (!address) return null
-  //   const multicall = new Contract(address, multicall2.abi, provider)
-  //   return multicall
-  // }, [])
-  return useContract(MULTICALL_ADDRESS, multicall2.abi)
+  const { chainId } = useWeb3React()
+  return useMemo(() => {
+    if (!chainId) return null
+    const address = MULTICALL_ADDRESS[chainId]
+
+    const provider = new JsonRpcProvider(process.env.REACT_APP_ALCHEMY_RPC_URL)
+
+    if (!address) return null
+    try {
+      return getContract(address, multicall2.abi, provider, undefined)
+    } catch (error) {
+      console.error('Failed to get contract', error)
+      return null
+    }
+    // const address =
+    //   chainId && SUPPORT_CHAIN.includes(chainId)
+    //     ? CONTRACT_CONFIG[chainId].multicall2
+    //     : CONTRACT_CONFIG[DEFAULT_CHAIN].multicall2
+    // if (!address) return null
+    // const multicall = new Contract(address, multicall2.abi, provider)
+    // return multicall
+  }, [chainId])
+  // return useContract(MULTICALL_ADDRESS, multicall2.abi)
 }
