@@ -251,6 +251,12 @@ export const useFactory = () => {
     args.minPositionTask.args
   )
 
+  const shareToAssetsPrices = useMultipleContractSingleData(
+    args.vaultBalanceTask.addresses,
+    vaultInterface,
+    'shareToAssetsPrice'
+  )
+
   // console.log({
   //   args,
   //   tokenTasks,
@@ -281,6 +287,12 @@ export const useFactory = () => {
           .absoluteValue()
           .div(totalSupply)
 
+        const shareToAssetsPrice = eXDecimals(
+          shareToAssetsPrices[idx]?.result?.[0]?._hex ?? '0',
+          18
+          //kToken decimals is 18
+        )
+
         //TODO check pairs tokenT is ERC20
         const formatted = {
           quantoIndex: idx,
@@ -309,7 +321,8 @@ export const useFactory = () => {
           poolTotalSupply: eXDecimals(
             new BigNumber(vaultSupplyTasks?.[idx]?.result?.[0]._hex) ?? new BigNumber(0),
             decimals
-          ),
+            //kToken precision 18
+          ).times(shareToAssetsPrice),
           poolCurrentBalance: eXDecimals(
             new BigNumber(vaultBalanceTasks?.[idx]?.result?.[0]._hex) ?? new BigNumber(0),
             decimals
