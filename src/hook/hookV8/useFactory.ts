@@ -363,6 +363,7 @@ export const useFactory = () => {
     quantos,
     setAllPoolParams,
     setTradePool,
+    shareToAssetsPrices,
     tokenTasks,
     totalPools.result,
     vaultBalanceTasks,
