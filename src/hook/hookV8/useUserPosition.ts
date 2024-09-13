@@ -99,12 +99,15 @@ export const useUserPosition = () => {
           18
           //kToken decimals is 18
         )
+        const maxShares = new BigNumber(maxDepositedShares?.[index]?.result?.[0]?._hex ?? '0')
+
+        const shareBalance = new BigNumber(vaultBalanceOf?.[index]?.result?.[0]?._hex ?? '0')
+
+        const share = shareBalance.gt(maxShares) ? shareBalance : maxShares
 
         positionDetails.shareToAssetsPrice = new BigNumber(shareToAssetsPrices[index]?.result?.[0]?._hex ?? '0')
-        positionDetails.daiDeposited = new BigNumber(vaultBalanceOf[index]?.result?.[0]?._hex).times(shareToAssetsPrice)
-        ;(positionDetails.maxDaiDeposited = new BigNumber(maxDepositedShares?.[index]?.result?.[0]?._hex ?? '0')).times(
-          shareToAssetsPrice
-        ),
+        positionDetails.daiDeposited = shareBalance.times(shareToAssetsPrice)
+        ;(positionDetails.maxDaiDeposited = share.times(shareToAssetsPrice)),
           (positionDetails.withdrawBlock = new BigNumber(1))
 
         // positionDetails.withdrawBlock = new BigNumber(userAllBackendDecode.withdrawBlock._hex)
