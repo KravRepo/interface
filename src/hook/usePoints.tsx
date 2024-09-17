@@ -19,6 +19,7 @@ export interface PointListData {
   types: 'LPAdd' | 'LPRemove' | 'TradeLong' | 'TradeShort' | 'Invite' | 'InviteTrade' | 'InviteLP'
   volumeInETH: string
   leverageMultiplier: number
+  isLiquidated: boolean
 }
 
 interface PointsData {
@@ -95,7 +96,8 @@ export function usePointsList(curPage: number) {
             const pool = allPoolParams[data.quantoIndex]
             const chain = MAINNET_CHAINS[data.chainId as number]
             // const isPartner = PARTNER_SYMBOL_LIST.includes(pool.tokenT)
-            const isLiquidated = !!data.closeTime
+            const isLiquidated = !!data.isLiquidated
+
             const isReferred = data.types.includes('Invite')
             return [
               data.types,
